@@ -1,0 +1,36 @@
+﻿<Window x:Name="windowCastSpell" x:Class="Sulimn_WPF.CastSpellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sulimn_WPF"
+        mc:Ignorable="d"
+        Title="Cast Spell" Height="345" Width="566" Closing="windowCastSpell_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="135" />
+            <ColumnDefinition Width="135" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="215" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="45" />
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <DataTemplate x:Key="spellNameTemplate">
+                <TextBlock Text="{Binding Path=Name}" />
+            </DataTemplate>
+        </Grid.Resources>
+        <ListBox x:Name="lstSpells" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="250" Margin="5" Height="200" ItemsSource="{Binding}" ItemTemplate="{StaticResource spellNameTemplate}" SelectionChanged="lstSpells_SelectionChanged"  ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        <TextBlock x:Name="lblMagic" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <Button x:Name="btnCastSpell" Grid.Column="0" Grid.Row="2" Content="_Cast Spell" Height="30" Margin="5" Click="btnCastSpell_Click" IsEnabled="False" />
+        <Button x:Name="btnBack" Grid.Column="1" Grid.Row="2" Content="_Back" Height="30" Margin="5" Click="btnBack_Click" />
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Width="275" Margin="5">
+            <TextBlock x:Name="lblDescription" Width="260" Height="110" Margin="5" TextWrapping="Wrap" Text="{Binding Path=Description, Mode=TwoWay}" />
+            <TextBlock x:Name="lblMagicCost" Text="{Binding Path=MagicCostToString, Mode=OneWay}" Margin="5" />
+            <TextBlock x:Name="lblSpellType" Text="{Binding Path=Type, Mode=TwoWay}" Margin="5" />
+            <TextBlock x:Name="lblSpellDamage" Text="{Binding Path=TypeAmount, Mode=OneWay}" Margin="5" />
+        </StackPanel>
+    </Grid>
+</Window>
