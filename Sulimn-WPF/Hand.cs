@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    class Hand : INotifyPropertyChanged
+    internal class Hand : INotifyPropertyChanged
     {
-        List<Card> _cardList = new List<Card>();
+        private List<Card> _cardList = new List<Card>();
 
         #region Properties
+
         public List<Card> CardList
         {
             get { return _cardList; }
@@ -22,16 +23,19 @@ namespace Sulimn_WPF
         {
             get { return "Total: " + TotalValue(); }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Data-Binding
+
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         protected void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-        #endregion
+
+        #endregion Data-Binding
 
         internal int TotalValue()
         {
@@ -42,15 +46,16 @@ namespace Sulimn_WPF
         }
 
         #region Constructors
+
         internal Hand()
         {
-
         }
 
         internal Hand(List<Card> cardList)
         {
             CardList = cardList;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

@@ -7,23 +7,26 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    class Enemy : Character, INotifyPropertyChanged
+    internal class Enemy : Character, INotifyPropertyChanged
     {
-        string _name, _type;
-        int _level, _experience, _strength, _vitality, _dexterity, _wisdom, _gold, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
-        Weapon _weapon;
-        Armor _head, _body, _legs, _feet;
-        
+        private string _name, _type;
+        private int _level, _experience, _strength, _vitality, _dexterity, _wisdom, _gold, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
+        private Weapon _weapon;
+        private Armor _head, _body, _legs, _feet;
+
         #region Data-Binding
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-        #endregion
+
+        #endregion Data-Binding
 
         #region Properties
+
         public sealed override string Name
         {
             get { return _name; }
@@ -166,9 +169,11 @@ namespace Sulimn_WPF
             get { return _feet; }
             set { _feet = value; OnPropertyChanged("Feet"); }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Health Manipulation
+
         /// <summary>
         /// The Enemy takes Damage.
         /// </summary>
@@ -181,7 +186,7 @@ namespace Sulimn_WPF
                 return "The " + Name + " takes " + damage + " damage and has been slain!";
             return "The " + Name + " takes " + damage + " damage.";
         }
-        
+
         /// <summary>
         /// Heals the Enemy for a specified amount.
         /// </summary>
@@ -197,16 +202,18 @@ namespace Sulimn_WPF
             }
             return "The " + _name + " regains " + healAmount + " health.";
         }
-        #endregion
+
+        #endregion Health Manipulation
 
         public override string ToString()
         {
             return Name;
         }
+
         #region Constructors
+
         internal Enemy()
         {
-
         }
 
         internal Enemy(string enemyName, string enemyType, int enemyLvl, int enemyExp, int enemyStr, int enemyVit, int enemyDex, int enemyWis, int enemyGold, int enemyCurrHealth, int enemyMaxHealth, Weapon enemyCurrWeapon, Armor enemyHead, Armor enemyBody, Armor enemyLegs, Armor enemyFeet)
@@ -248,6 +255,7 @@ namespace Sulimn_WPF
             Feet = otherEnemy.Feet;
             Weapon = otherEnemy.Weapon;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

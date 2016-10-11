@@ -7,21 +7,24 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    class Weapon : Item, IEquatable<Weapon>, INotifyPropertyChanged
+    internal class Weapon : Item, IEquatable<Weapon>, INotifyPropertyChanged
     {
-        string _weaponType;
-        int _damage;
+        private string _weaponType;
+        private int _damage;
 
         #region Data-Binding
+
         public sealed override event PropertyChangedEventHandler PropertyChanged;
 
         protected sealed override void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-        #endregion
+
+        #endregion Data-Binding
 
         #region Properties
+
         public sealed override string Name
         {
             get { return _name; }
@@ -51,7 +54,7 @@ namespace Sulimn_WPF
             get { return _damage; }
             set { _damage = value; OnPropertyChanged("DamageToString"); OnPropertyChanged("DamageToStringWithText"); }
         }
-        
+
         public string DamageToString
         {
             get { return Damage.ToString("N0"); }
@@ -79,9 +82,11 @@ namespace Sulimn_WPF
             get { return _canSell; }
             set { _canSell = value; OnPropertyChanged("CanSell"); }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Override Operators
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -129,10 +134,14 @@ namespace Sulimn_WPF
         {
             return Name;
         }
-        #endregion
+
+        #endregion Override Operators
 
         #region Constructors
-        internal Weapon() { }
+
+        internal Weapon()
+        {
+        }
 
         internal Weapon(string weaponName, string weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell)
         {
@@ -169,6 +178,7 @@ namespace Sulimn_WPF
             Value = otherItem.Value;
             CanSell = otherItem.CanSell;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

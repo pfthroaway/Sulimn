@@ -36,16 +36,16 @@ namespace Sulimn_WPF
 
         private void btnBank_Click(object sender, RoutedEventArgs e)
         {
-            //frmBank BankWindow = new frmBank();
-            //BankWindow.RefToCityWindow = this;
-            //BankWindow.LoadBank();
-            //BankWindow.Show();
-            //this.Visibility = Visibility.Hidden;
+            BankWindow bankWindow = new BankWindow();
+            bankWindow.RefToCityWindow = this;
+            bankWindow.LoadBank();
+            bankWindow.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void btnChapel_Click(object sender, RoutedEventArgs e)
         {
-            if (Decimal.Divide(GameState.currentHero.CurrentHealth, GameState.currentHero.MaximumHealth) <= Convert.ToDecimal(0.25))
+            if (Decimal.Divide(GameState.currentHero.CurrentHealth, GameState.currentHero.MaximumHealth) <= 0.25M)
             {
                 AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + nl + "\"Let me assist you. You look like you've been through a tough battle.\"" + nl + "The priest gives you a potion which heals you to full health!" + nl + "You thank the priest and return to the streets.");
                 GameState.currentHero.CurrentHealth = GameState.currentHero.MaximumHealth;

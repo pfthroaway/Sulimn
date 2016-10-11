@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    class Card : INotifyPropertyChanged, IEquatable<Card>
+    internal class Card : INotifyPropertyChanged, IEquatable<Card>
     {
-        string _name;
-        string _suit;
-        int _value;
+        private string _name;
+        private string _suit;
+        private int _value;
 
         #region Properties
+
         public string Name
         {
             get { return _name; }
@@ -36,18 +37,22 @@ namespace Sulimn_WPF
         {
             get { return Name + " of " + Suit; }
         }
-        #endregion
-        
+
+        #endregion Properties
+
         #region Data-Binding
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-        #endregion
+
+        #endregion Data-Binding
 
         #region Override Operators
+
         public sealed override bool Equals(object obj)
         {
             if (obj == null)
@@ -95,12 +100,13 @@ namespace Sulimn_WPF
         {
             return Name + " of " + Suit;
         }
-        #endregion
+
+        #endregion Override Operators
 
         #region Constructors
+
         internal Card()
         {
-
         }
 
         internal Card(string name, string suit, int value)
@@ -116,6 +122,7 @@ namespace Sulimn_WPF
             Suit = otherCard.Suit;
             Value = otherCard.Value;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

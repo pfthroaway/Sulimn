@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    class Food : Item, IEquatable<Food>
+    internal class Food : Item, IEquatable<Food>
     {
-        string _foodType;
-        int _amount;
+        private string _foodType;
+        private int _amount;
 
         #region Properties
+
         public sealed override string Name
         {
             get { return _name; }
@@ -55,9 +56,11 @@ namespace Sulimn_WPF
             get { return _canSell; }
             set { _canSell = value; }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Override Operators
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -105,10 +108,14 @@ namespace Sulimn_WPF
         {
             return Name;
         }
-        #endregion
+
+        #endregion Override Operators
 
         #region Constructors
-        internal Food() { }
+
+        internal Food()
+        {
+        }
 
         internal Food(string foodName, string foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell)
         {
@@ -121,6 +128,7 @@ namespace Sulimn_WPF
             Amount = foodAmount;
             CanSell = foodCanSell;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

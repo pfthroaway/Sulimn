@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    abstract class Item : INotifyPropertyChanged
+    internal abstract class Item : INotifyPropertyChanged
     {
         protected string _name, _type, _description;
         protected int _weight, _value;
         protected bool _canSell;
 
         #region Data-Binding
+
         public virtual event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-        #endregion
+
+        #endregion Data-Binding
 
         #region Properties
+
         abstract public string Name { get; set; }
 
         abstract public string Type { get; set; }
@@ -34,10 +37,14 @@ namespace Sulimn_WPF
         abstract public int Value { get; set; }
 
         abstract public bool CanSell { get; set; }
-        #endregion
-        
+
+        #endregion Properties
+
         #region Constructors
-        internal Item() { }
+
+        internal Item()
+        {
+        }
 
         internal Item(string iName, string iType, string iDescription, int iWeight, int iValue, bool iCanSell)
         {
@@ -53,9 +60,9 @@ namespace Sulimn_WPF
         {
             _name = wpn.Name;
             _type = "Weapon";
-            _description =wpn.Description;
-            _weight =wpn.Weight;
-            _value =wpn.Value;
+            _description = wpn.Description;
+            _weight = wpn.Weight;
+            _value = wpn.Value;
             _canSell = wpn.CanSell;
         }
 
@@ -68,7 +75,7 @@ namespace Sulimn_WPF
             _value = armr.Value;
             _canSell = armr.CanSell;
         }
-        
+
         internal Item(Potion potn)
         {
             _name = potn.Name;
@@ -78,6 +85,7 @@ namespace Sulimn_WPF
             _value = potn.Value;
             _canSell = potn.CanSell;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

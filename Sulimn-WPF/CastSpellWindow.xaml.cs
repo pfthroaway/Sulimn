@@ -151,7 +151,7 @@ namespace Sulimn_WPF
             InitializeComponent();
         }
 
-        private void windowCastSpell_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowCastSpell_Closing(object sender, CancelEventArgs e)
         {
             switch (PreviousWindow)
             {

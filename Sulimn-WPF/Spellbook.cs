@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sulimn_WPF
 {
-    class Spellbook
+    internal class Spellbook
     {
-        List<Spell> _spells = new List<Spell>();
+        private List<Spell> _spells = new List<Spell>();
 
         internal List<Spell> Spells
         {
@@ -32,15 +32,16 @@ namespace Sulimn_WPF
         }
 
         #region Constructors
+
         public Spellbook()
         {
-
         }
 
         public Spellbook(List<Spell> spellList)
         {
             Spells = spellList;
         }
-        #endregion
+
+        #endregion Constructors
     }
 }

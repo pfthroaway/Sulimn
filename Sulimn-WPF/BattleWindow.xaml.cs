@@ -452,14 +452,14 @@ namespace Sulimn_WPF
 
         #endregion Button-Click Methods
 
-        #region Form-Manipulation Methods
+        #region Window-Manipulation Methods
 
         public BattleWindow()
         {
             InitializeComponent();
         }
 
-        private void windowBattle_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowBattle_Closing(object sender, CancelEventArgs e)
         {
             GameState.SaveHero();
             if (battleEnded)
@@ -474,6 +474,6 @@ namespace Sulimn_WPF
                 e.Cancel = true;
         }
 
-        #endregion Form-Manipulation Methods
+        #endregion Window-Manipulation Methods
     }
 }

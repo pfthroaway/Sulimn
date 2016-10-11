@@ -9,12 +9,13 @@ namespace Sulimn_WPF
     /// <summary>
     /// Base class of living entities in Sulimn.
     /// </summary>
-    abstract class Character
+    internal abstract class Character
     {
         #region Properties
+
         abstract public string Name { get; set; }
         abstract public int Level { get; set; }
-        abstract public int Experience { get; set; }                
+        abstract public int Experience { get; set; }
         abstract public int Strength { get; set; }
         abstract public int Vitality { get; set; }
         abstract public int Dexterity { get; set; }
@@ -28,11 +29,12 @@ namespace Sulimn_WPF
         abstract public Armor Head { get; set; }
         abstract public Armor Body { get; set; }
         abstract public Armor Legs { get; set; }
-        abstract public Armor Feet { get; set; }    
-        #endregion
+        abstract public Armor Feet { get; set; }
+
+        #endregion Properties
 
         abstract internal string TakeDamage(int damage);
 
-        abstract internal string Heal(int healAmount);        
+        abstract internal string Heal(int healAmount);
     }
 }

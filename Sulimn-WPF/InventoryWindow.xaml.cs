@@ -61,6 +61,7 @@ namespace Sulimn_WPF
         /// </summary>
         internal void DisplayAllInfo()
         {
+            lstInventory.Items.Refresh();
             CheckUnequipButtons();
             DisplayInventoryList();
         }
@@ -109,8 +110,8 @@ namespace Sulimn_WPF
 
             //if (GameState.currentHero.Inventory.Items.Count > 0)
             //{
-            //    foreach (Item itm in GameState.currentHero.Inventory.Items)
-            //        lstInventory.Items.Add(itm.Name);
+            //  foreach (Item itm in GameState.currentHero.Inventory.Items)
+            //    lstInventory.Items.Add(itm.Name);
             //}
         }
 
@@ -235,9 +236,13 @@ namespace Sulimn_WPF
                     Weapon selectedWeapon = (Weapon)(GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex]);
                     GameState.currentHero.Inventory.RemoveItem(selectedWeapon);
                     if (GameState.currentHero.Weapon.Name != "Fists")
+                    {
                         GameState.currentHero.Inventory.AddItem(GameState.currentHero.Weapon);
-
+                        lstInventory.ItemsSource = GameState.currentHero.Inventory;
+                    }
                     GameState.currentHero.Weapon = selectedWeapon;
+                    lblEquippedWeapon.DataContext = GameState.currentHero.Weapon;
+                    lblEquippedWeaponDamage.DataContext = GameState.currentHero.Weapon;
                     break;
 
                 case "Armor":
@@ -251,6 +256,8 @@ namespace Sulimn_WPF
                                 GameState.currentHero.Inventory.AddItem(GameState.currentHero.Head);
 
                             GameState.currentHero.Head = selectedArmor;
+                            lblEquippedHead.DataContext = GameState.currentHero.Head;
+                            lblEquippedHeadDefense.DataContext = GameState.currentHero.Head;
                             break;
 
                         case "Body":
@@ -258,6 +265,8 @@ namespace Sulimn_WPF
                                 GameState.currentHero.Inventory.AddItem(GameState.currentHero.Body);
 
                             GameState.currentHero.Body = selectedArmor;
+                            lblEquippedBody.DataContext = GameState.currentHero.Body;
+                            lblEquippedBodyDefense.DataContext = GameState.currentHero.Body;
                             break;
 
                         case "Legs":
@@ -265,6 +274,8 @@ namespace Sulimn_WPF
                                 GameState.currentHero.Inventory.AddItem(GameState.currentHero.Legs);
 
                             GameState.currentHero.Legs = selectedArmor;
+                            lblEquippedLegs.DataContext = GameState.currentHero.Legs;
+                            lblEquippedLegsDefense.DataContext = GameState.currentHero.Legs;
                             break;
 
                         case "Feet":
@@ -272,6 +283,8 @@ namespace Sulimn_WPF
                                 GameState.currentHero.Inventory.AddItem(GameState.currentHero.Feet);
 
                             GameState.currentHero.Feet = selectedArmor;
+                            lblEquippedFeet.DataContext = GameState.currentHero.Feet;
+                            lblEquippedFeetDefense.DataContext = GameState.currentHero.Feet;
                             break;
 
                         default:
@@ -401,7 +414,7 @@ namespace Sulimn_WPF
             BindLabels();
         }
 
-        private void windowInventory_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowInventory_Closing(object sender, CancelEventArgs e)
         {
             GameState.SaveHero();
             RefToCharacterWindow.Show();
