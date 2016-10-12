@@ -21,10 +21,10 @@
             <TextBox x:Name="txtExplore" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         </Border>
         <Button x:Name="btnFields" Grid.Column="0" Grid.Row="1" Width="100" Height="30" Content="_Fields" Click="btnFields_Click" />
-        <Button x:Name="btnForest" Grid.Column="1" Grid.Row="1" Width="100" Height="30" Content="F_orest" Click="btnFields_Click" />
-        <Button x:Name="btnCathedral" Grid.Column="2" Grid.Row="1" Width="100" Height="30" Content="_Cathedral" Click="btnCathedral_Click" />
-        <Button x:Name="btnMines" Grid.Column="0" Grid.Row="2" Width="100" Height="30" Content="_Mines" Click="btnMines_Click" />
-        <Button x:Name="btnCatacombs" Grid.Column="1" Grid.Row="2" Width="100" Height="30" Content="C_atacombs" Click="btnCatacombs_Click" />
+        <Button x:Name="btnForest" Grid.Column="1" Grid.Row="1" Width="100" Height="30" Content="F_orest" Click="btnFields_Click" IsEnabled="False" />
+        <Button x:Name="btnCathedral" Grid.Column="2" Grid.Row="1" Width="100" Height="30" Content="_Cathedral" Click="btnCathedral_Click" IsEnabled="False" />
+        <Button x:Name="btnMines" Grid.Column="0" Grid.Row="2" Width="100" Height="30" Content="_Mines" Click="btnMines_Click" IsEnabled="False" />
+        <Button x:Name="btnCatacombs" Grid.Column="1" Grid.Row="2" Width="100" Height="30" Content="C_atacombs" Click="btnCatacombs_Click" IsEnabled="False" />
         <Button x:Name="btnBack" Grid.Column="2" Grid.Row="2" Width="100" Height="30" Content="_Back" Click="btnBack_Click" />
     </Grid>
 </Window>

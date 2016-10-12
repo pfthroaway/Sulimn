@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sulimn_WPF
 {
@@ -371,7 +360,7 @@ namespace Sulimn_WPF
                     AddTextTT("The enemy misses.");
 
                 // Then Hero's turn
-                if (GameState.currentHero.CurrentHealth > 0)
+                if (GameState.currentHero.CurrentHealth > 0 && !battleEnded)
                 {
                     int playerHits = Functions.GenerateRandomNumber(10, 90);
                     if (playerHits <= chanceHeroHits)

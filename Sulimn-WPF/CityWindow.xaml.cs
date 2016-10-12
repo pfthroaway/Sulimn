@@ -83,18 +83,18 @@ namespace Sulimn_WPF
 
         private void btnMarket_Click(object sender, RoutedEventArgs e)
         {
-            //frmMarket MarketWindow = new frmMarket();
-            //MarketWindow.RefToCityWindow = this;
-            //MarketWindow.Show();
-            //this.Visibility = Visibility.Hidden;
+            MarketWindow marketWindow = new MarketWindow();
+            marketWindow.RefToCityWindow = this;
+            marketWindow.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void btnTavern_Click(object sender, RoutedEventArgs e)
         {
-            //frmTavern tavernWindow = new frmTavern();
-            //tavernWindow.RefToCityWindow = this;
-            //tavernWindow.Show();
-            //this.Visibility = Visibility.Hidden;
+            TavernWindow tavernWindow = new TavernWindow();
+            tavernWindow.RefToCityWindow = this;
+            tavernWindow.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         #endregion Button-Click Methods

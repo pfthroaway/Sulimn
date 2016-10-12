@@ -64,6 +64,9 @@
     <Compile Include="BattleWindow.xaml.cs">
       <DependentUpon>BattleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BlackjackWindow.xaml.cs">
+      <DependentUpon>BlackjackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CastSpellWindow.xaml.cs">
       <DependentUpon>CastSpellWindow.xaml</DependentUpon>
     </Compile>
@@ -83,11 +86,20 @@
     <Compile Include="InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MarketWindow.xaml.cs">
+      <DependentUpon>MarketWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewHeroWindow.xaml.cs">
       <DependentUpon>NewHeroWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShopWindow.xaml.cs">
+      <DependentUpon>ShopWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Spell.cs" />
     <Compile Include="Spellbook.cs" />
+    <Compile Include="TavernWindow.xaml.cs">
+      <DependentUpon>TavernWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Weapon.cs" />
     <Page Include="BankDialogWindow.xaml">
       <SubType>Designer</SubType>
@@ -98,6 +110,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BattleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BlackjackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,7 +165,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MarketWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewHeroWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShopWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TavernWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

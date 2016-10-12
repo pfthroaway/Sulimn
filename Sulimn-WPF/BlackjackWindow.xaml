@@ -1,0 +1,51 @@
+﻿<Window x:Name="windowBlackjack" x:Class="Sulimn_WPF.BlackjackWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sulimn_WPF"
+        mc:Ignorable="d"
+        Title="Blackjack" Height="364" Width="697" FontFamily="Segoe UI Semibold" FontSize="17" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackjack_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="185" />
+            <RowDefinition Height="140" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <StackPanel Width="170">
+                <TextBlock Text="Your Cards" TextAlignment="Center" Margin="5" />
+                <ListBox x:Name="lstPlayer" Margin="5" Height="99" />
+                <TextBlock x:Name="lblPlayerTotal" TextAlignment="Center" Margin="5" />
+            </StackPanel>
+            <TextBox x:Name="txtBlackjack" Width="326" Margin="5" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+            <StackPanel Width="170">
+                <TextBlock Text="Dealer's Cards" TextAlignment="Center" Margin="5" />
+                <ListBox x:Name="lstDealer" Margin="5" Height="99" />
+                <TextBlock x:Name="lblDealerTotal" TextAlignment="Center" Margin="5" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+            <StackPanel VerticalAlignment="Center" Width="135">
+                <Button x:Name="btnHit" Content="_Hit" Height="30" Click="btnHit_Click" IsEnabled="False" Margin="5" />
+                <Button x:Name="btnStay" Content="_Stay" Height="30" Click="btnStay_Click" IsEnabled="False" Margin="5" />
+                <Button x:Name="btnConvertAce" Content="_Convert Ace" Click="btnConvertAce_Click" Height="30" IsEnabled="False" Margin="5" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBox x:Name="lblStatistics" Width="160" HorizontalAlignment="Center" Margin="5" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Bet:" TextAlignment="Center" Margin="5" />
+                <TextBox x:Name="txtBet" TextAlignment="Center" Margin="5" PreviewKeyDown="txtBet_PreviewKeyDown" TextChanged="txtBet_TextChanged" />
+                <TextBlock Grid.Row="1" Width="105" x:Name="lblGold" TextAlignment="Center" Margin="5" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center">
+
+                <Button x:Name="btnNewHand" Width="125" Height="30" Content="_New Hand" Click="btnNewHand_Click" Margin="5" IsEnabled="False" />
+                <Button x:Name="btnExit" Width="125" Height="30" Content="_Exit" Click="btnExit_Click" Margin="5" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
