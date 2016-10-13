@@ -160,6 +160,7 @@ namespace Sulimn_WPF
         public BankDialogWindow()
         {
             InitializeComponent();
+            txtBank.Focus();
         }
 
         private void txtBank_TextChanged(object sender, TextChangedEventArgs e)
@@ -168,6 +169,7 @@ namespace Sulimn_WPF
 
         private void windowBankDialog_Closing(object sender, CancelEventArgs e)
         {
+            RefToBankWindow.Show();
         }
 
         #endregion Window-Manipulation Methods

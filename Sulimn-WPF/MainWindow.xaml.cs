@@ -161,6 +161,7 @@ namespace Sulimn_WPF
         public MainWindow()
         {
             InitializeComponent();
+            txtHeroName.Focus();
         }
 
         private async void windowMain_Loaded(object sender, RoutedEventArgs e)

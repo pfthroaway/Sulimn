@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sulimn_WPF"
         mc:Ignorable="d"
-        Title="Tavern" Height="289" Width="502" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowTavern_Closing">
+        Title="Tavern" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowTavern_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -14,11 +14,11 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="210" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="txtTavern" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="5" />
-        <Button x:Name="btnBlackjack" Grid.Column="0" Grid.Row="1" Width="125" Content="_Blackjack" Click="btnBlackjack_Click" Margin="5" />
-        <Button x:Name="btnDrink" Grid.Column="1" Grid.Row="1" Width="125" Content="Buy _Drink" Click="btnFood_Click" Margin="5" />
-        <Button x:Name="btnExit" Grid.Column="2" Grid.Row="1" Width="125" Content="_Exit" Click="btnExit_Click" Margin="5" />
+        <TextBox x:Name="txtTavern" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="420" Text="You enter a local tavern. Several patrons are in the tavern, enjoying a drink. There is a bar at the north end of the room, and an open doorway beside it leads to a backroom gambling venue." Margin="10,10,10,0" TextWrapping="Wrap" />
+        <Button x:Name="btnBlackjack" Grid.Column="0" Grid.Row="1" Width="125" Content="_Blackjack" Click="btnBlackjack_Click" Margin="10" />
+        <Button x:Name="btnDrink" Grid.Column="1" Grid.Row="1" Width="125" Content="Buy _Drink" Click="btnFood_Click" Margin="10" />
+        <Button x:Name="btnExit" Grid.Column="2" Grid.Row="1" Width="125" Content="_Exit" Click="btnExit_Click" Margin="10" />
     </Grid>
 </Window>

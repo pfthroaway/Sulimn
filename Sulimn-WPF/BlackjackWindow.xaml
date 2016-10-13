@@ -5,34 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sulimn_WPF"
         mc:Ignorable="d"
-        Title="Blackjack" Height="364" Width="697" FontFamily="Segoe UI Semibold" FontSize="17" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackjack_Closing">
+        Title="Blackjack" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackjack_Closing">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="185" />
-            <RowDefinition Height="140" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
-            <StackPanel Width="170">
+            <StackPanel Width="185">
                 <TextBlock Text="Your Cards" TextAlignment="Center" Margin="5" />
-                <ListBox x:Name="lstPlayer" Margin="5" Height="99" />
+                <ListBox x:Name="lstPlayer" Margin="5" Height="149" />
                 <TextBlock x:Name="lblPlayerTotal" TextAlignment="Center" Margin="5" />
             </StackPanel>
-            <TextBox x:Name="txtBlackjack" Width="326" Margin="5" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" />
-            <StackPanel Width="170">
+            <TextBox x:Name="txtBlackjack" Width="326" Height="215" Margin="5" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" />
+            <StackPanel Width="185">
                 <TextBlock Text="Dealer's Cards" TextAlignment="Center" Margin="5" />
-                <ListBox x:Name="lstDealer" Margin="5" Height="99" />
+                <ListBox x:Name="lstDealer" Margin="5" Height="149" />
                 <TextBlock x:Name="lblDealerTotal" TextAlignment="Center" Margin="5" />
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
-            <StackPanel VerticalAlignment="Center" Width="135">
+            <StackPanel VerticalAlignment="Center" Width="135" Margin="27,0,0,0">
                 <Button x:Name="btnHit" Content="_Hit" Height="30" Click="btnHit_Click" IsEnabled="False" Margin="5" />
                 <Button x:Name="btnStay" Content="_Stay" Height="30" Click="btnStay_Click" IsEnabled="False" Margin="5" />
                 <Button x:Name="btnConvertAce" Content="_Convert Ace" Click="btnConvertAce_Click" Height="30" IsEnabled="False" Margin="5" />
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBox x:Name="lblStatistics" Width="160" HorizontalAlignment="Center" Margin="5" />
+            <TextBox x:Name="lblStatistics" Width="160" HorizontalAlignment="Center" Margin="10" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">

@@ -5,10 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
-    Title="Bank" Height="242" Width="372" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowBankDialog_Closing">
+    Title="Bank" SizeToContent="WidthAndHeight"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowBankDialog_Closing">
     <StackPanel Margin="5">
-        <TextBlock x:Name="lblDialog" Height="100" Margin="5" TextWrapping="Wrap" />
-        <TextBox x:Name="txtBank" Width="125" Height="30" Margin="5" TextChanged="txtBank_TextChanged" TextAlignment="Center" />
+        <TextBlock x:Name="lblDialog" Height="100" Margin="5" TextWrapping="Wrap" Width="345" />
+        <TextBox x:Name="txtBank" Width="125" Height="30" Margin="5" TextChanged="txtBank_TextChanged" TextAlignment="Center" BorderBrush="Black" />
         <StackPanel Margin="5" Orientation="Horizontal">
             <Button x:Name="btnAction" Width="125" Height="30" Margin="5" Click="btnAction_Click" IsDefault="True" />
             <Button x:Name="btnCancel" Width="125" Height="30" Margin="80,5,5,5" Content="_Cancel"  IsCancel="True" Click="btnCancel_Click" />

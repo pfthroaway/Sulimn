@@ -615,6 +615,9 @@ namespace Sulimn_WPF
             InitializeComponent();
             CreateDeck(6);
             cardList.Shuffle();
+            DisplayStatistics();
+            txtBlackjack.Text = "You approach a table where Blackjack is being played.You take a seat." + nl + nl + "\"Care to place a bet?\" asks the dealer.";
+            txtBet.Focus();
         }
 
         private void windowBlackjack_Closing(object sender, System.ComponentModel.CancelEventArgs e)
