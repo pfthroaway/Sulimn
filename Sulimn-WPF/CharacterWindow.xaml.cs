@@ -18,7 +18,7 @@ namespace Sulimn_WPF
 
         internal void BindLabels()
         {
-            DataContext = GameState.currentHero;
+            DataContext = GameState.CurrentHero;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,8 +33,8 @@ namespace Sulimn_WPF
         internal void CastSpell(Spell spell)
         {
             if (spell.Type == "Healing")
-                GameState.currentHero.Heal(spell.Amount);
-            GameState.currentHero.CurrentMagic -= spell.MagicCost;
+                GameState.CurrentHero.Heal(spell.Amount);
+            GameState.CurrentHero.CurrentMagic -= spell.MagicCost;
             //FUTURE SPELL TYPES
         }
 
@@ -43,7 +43,7 @@ namespace Sulimn_WPF
         /// </summary>
         internal void SetupChar()
         {
-            copyOfHero = new Hero(GameState.currentHero);
+            copyOfHero = new Hero(GameState.CurrentHero);
             CheckSkillPoints();
         }
 
@@ -97,7 +97,7 @@ namespace Sulimn_WPF
         /// </summary>
         internal void CheckSkillPoints()
         {
-            if (GameState.currentHero.SkillPoints > 0)
+            if (GameState.CurrentHero.SkillPoints > 0)
                 EnablePlus();
             else
                 DisablePlus();
@@ -134,80 +134,80 @@ namespace Sulimn_WPF
 
         private void btnStrengthMinus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints++;
-            GameState.currentHero.Strength--;
+            GameState.CurrentHero.SkillPoints++;
+            GameState.CurrentHero.Strength--;
 
-            if (GameState.currentHero.Strength == copyOfHero.Strength)
+            if (GameState.CurrentHero.Strength == copyOfHero.Strength)
                 btnStrengthMinus.IsEnabled = false;
             CheckSkillPoints();
         }
 
         private void btnStrengthPlus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints--;
-            GameState.currentHero.Strength++;
+            GameState.CurrentHero.SkillPoints--;
+            GameState.CurrentHero.Strength++;
             btnStrengthMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
         private void btnVitalityMinus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints++;
-            GameState.currentHero.Vitality--;
-            GameState.currentHero.CurrentHealth -= 5;
-            GameState.currentHero.MaximumHealth -= 5;
+            GameState.CurrentHero.SkillPoints++;
+            GameState.CurrentHero.Vitality--;
+            GameState.CurrentHero.CurrentHealth -= 5;
+            GameState.CurrentHero.MaximumHealth -= 5;
 
-            if (GameState.currentHero.Vitality == copyOfHero.Vitality)
+            if (GameState.CurrentHero.Vitality == copyOfHero.Vitality)
                 btnVitalityMinus.IsEnabled = false;
             CheckSkillPoints();
         }
 
         private void btnVitalityPlus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints--;
-            GameState.currentHero.Vitality++;
-            GameState.currentHero.CurrentHealth += 5;
-            GameState.currentHero.MaximumHealth += 5;
+            GameState.CurrentHero.SkillPoints--;
+            GameState.CurrentHero.Vitality++;
+            GameState.CurrentHero.CurrentHealth += 5;
+            GameState.CurrentHero.MaximumHealth += 5;
             btnVitalityMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
         private void btnDexterityMinus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints++;
-            GameState.currentHero.Dexterity--;
+            GameState.CurrentHero.SkillPoints++;
+            GameState.CurrentHero.Dexterity--;
 
-            if (GameState.currentHero.Dexterity == copyOfHero.Dexterity)
+            if (GameState.CurrentHero.Dexterity == copyOfHero.Dexterity)
                 btnDexterityMinus.IsEnabled = false;
             CheckSkillPoints();
         }
 
         private void btnDexterityPlus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints--;
-            GameState.currentHero.Dexterity++;
+            GameState.CurrentHero.SkillPoints--;
+            GameState.CurrentHero.Dexterity++;
             btnDexterityMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
         private void btnWisdomMinus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints++;
-            GameState.currentHero.Wisdom--;
-            GameState.currentHero.CurrentMagic -= 5;
-            GameState.currentHero.MaximumMagic -= 5;
+            GameState.CurrentHero.SkillPoints++;
+            GameState.CurrentHero.Wisdom--;
+            GameState.CurrentHero.CurrentMagic -= 5;
+            GameState.CurrentHero.MaximumMagic -= 5;
 
-            if (GameState.currentHero.Wisdom == copyOfHero.Wisdom)
+            if (GameState.CurrentHero.Wisdom == copyOfHero.Wisdom)
                 btnWisdomMinus.IsEnabled = false;
             CheckSkillPoints();
         }
 
         private void btnWisdomPlus_Click(object sender, RoutedEventArgs e)
         {
-            GameState.currentHero.SkillPoints--;
-            GameState.currentHero.Wisdom++;
-            GameState.currentHero.CurrentMagic += 5;
-            GameState.currentHero.MaximumMagic += 5;
+            GameState.CurrentHero.SkillPoints--;
+            GameState.CurrentHero.Wisdom++;
+            GameState.CurrentHero.CurrentMagic += 5;
+            GameState.CurrentHero.MaximumMagic += 5;
             btnWisdomMinus.IsEnabled = true;
             CheckSkillPoints();
         }

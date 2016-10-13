@@ -390,7 +390,7 @@ namespace Sulimn_WPF
         private void LoseBlackjack(int betAmount)
         {
             AddTextTT("You lose " + betAmount + ".");
-            GameState.currentHero.Gold -= betAmount;
+            GameState.CurrentHero.Gold -= betAmount;
             TotalLosses += 1;
             TotalBetLosses += betAmount;
             EndHand();
@@ -402,7 +402,7 @@ namespace Sulimn_WPF
         /// <param name="betAmount">Amount the Player bet</param>
         private void WinBlackjack(int betAmount)
         {
-            GameState.currentHero.Gold += betAmount;
+            GameState.CurrentHero.Gold += betAmount;
             AddTextTT("You win " + betAmount + "!");
             TotalWins += 1;
             TotalBetWinnings += betAmount;
@@ -506,7 +506,7 @@ namespace Sulimn_WPF
         private void DisplayStatistics()
         {
             lblStatistics.Text = "Wins: " + TotalWins.ToString("N0") + nl + "Losses: " + TotalLosses.ToString("N0") + nl + "Draws: " + TotalDraws.ToString("N0") + nl + "Money Won: " + TotalBetWinnings.ToString("N0") + nl + "Money Lost: " + TotalBetLosses.ToString("N0");
-            lblGold.Text = "Gold: " + GameState.currentHero.Gold.ToString("N0");
+            lblGold.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
         }
 
         #endregion Display Manipulation
@@ -571,9 +571,9 @@ namespace Sulimn_WPF
 
         private void btnNewHand_Click(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(txtBet.Text) > 0 && Convert.ToInt32(txtBet.Text) <= GameState.currentHero.Gold)
+            if (Convert.ToInt32(txtBet.Text) > 0 && Convert.ToInt32(txtBet.Text) <= GameState.CurrentHero.Gold)
                 NewHand();
-            else if (Convert.ToInt32(txtBet.Text) > GameState.currentHero.Gold)
+            else if (Convert.ToInt32(txtBet.Text) > GameState.CurrentHero.Gold)
                 MessageBox.Show("You can't bet more gold than you have!", "Sulimn", MessageBoxButton.OK);
             else
                 MessageBox.Show("Please enter a valid bet.", "Sulimn", MessageBoxButton.OK);
@@ -616,7 +616,7 @@ namespace Sulimn_WPF
             CreateDeck(6);
             cardList.Shuffle();
             DisplayStatistics();
-            txtBlackjack.Text = "You approach a table where Blackjack is being played.You take a seat." + nl + nl + "\"Care to place a bet?\" asks the dealer.";
+            txtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat." + nl + nl + "\"Care to place a bet?\" asks the dealer.";
             txtBet.Focus();
         }
 

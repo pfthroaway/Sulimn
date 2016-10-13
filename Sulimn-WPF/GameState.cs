@@ -12,9 +12,10 @@ namespace Sulimn_WPF
     {
         private const string _DBPROVIDERANDSOURCE = "Provider=Microsoft.ACE.oledb.12.0;Data Source = Sulimn.accdb";
 
-        internal static Hero currentHero = new Hero();
-        internal static Enemy currentEnemy = new Enemy();
-        internal static Hero maximumStatsHero = new Hero();
+        internal static string AdminPassword = "";
+        internal static Hero CurrentHero = new Hero();
+        internal static Enemy CurrentEnemy = new Enemy();
+        internal static Hero MaximumStatsHero = new Hero();
         internal static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
         internal static List<Spell> AllSpells = new List<Spell>();
@@ -47,6 +48,14 @@ namespace Sulimn_WPF
                             AllItems.Add(newArmor);
                         }
                     }
+
+                    sql = "SELECT * FROM Admin";
+                    ds = new DataSet();
+                    da = new OleDbDataAdapter(sql, con);
+                    da.Fill(ds, table);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                        AdminPassword = ds.Tables[0].Rows[0]["AdminPassword"].ToString();
 
                     sql = "SELECT * FROM Food";
                     ds = new DataSet();
@@ -147,18 +156,18 @@ namespace Sulimn_WPF
 
                         if (ds.Tables[0].Rows.Count > 0)
                         {
-                            maximumStatsHero.Level = Convert.ToInt32(ds.Tables[0].Rows[0]["Level"]);
-                            maximumStatsHero.Experience = Convert.ToInt32(ds.Tables[0].Rows[0]["Experience"]);
-                            maximumStatsHero.SkillPoints = Convert.ToInt32(ds.Tables[0].Rows[0]["SkillPoints"]);
-                            maximumStatsHero.Strength = Convert.ToInt32(ds.Tables[0].Rows[0]["Strength"]);
-                            maximumStatsHero.Vitality = Convert.ToInt32(ds.Tables[0].Rows[0]["Vitality"]);
-                            maximumStatsHero.Dexterity = Convert.ToInt32(ds.Tables[0].Rows[0]["Dexterity"]);
-                            maximumStatsHero.Wisdom = Convert.ToInt32(ds.Tables[0].Rows[0]["Wisdom"]);
-                            maximumStatsHero.Gold = Convert.ToInt32(ds.Tables[0].Rows[0]["Gold"]);
-                            maximumStatsHero.CurrentHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrentHealth"]);
-                            maximumStatsHero.MaximumHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["MaximumHealth"]);
-                            maximumStatsHero.CurrentMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrentMagic"]);
-                            maximumStatsHero.MaximumMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["MaximumMagic"]);
+                            MaximumStatsHero.Level = Convert.ToInt32(ds.Tables[0].Rows[0]["Level"]);
+                            MaximumStatsHero.Experience = Convert.ToInt32(ds.Tables[0].Rows[0]["Experience"]);
+                            MaximumStatsHero.SkillPoints = Convert.ToInt32(ds.Tables[0].Rows[0]["SkillPoints"]);
+                            MaximumStatsHero.Strength = Convert.ToInt32(ds.Tables[0].Rows[0]["Strength"]);
+                            MaximumStatsHero.Vitality = Convert.ToInt32(ds.Tables[0].Rows[0]["Vitality"]);
+                            MaximumStatsHero.Dexterity = Convert.ToInt32(ds.Tables[0].Rows[0]["Dexterity"]);
+                            MaximumStatsHero.Wisdom = Convert.ToInt32(ds.Tables[0].Rows[0]["Wisdom"]);
+                            MaximumStatsHero.Gold = Convert.ToInt32(ds.Tables[0].Rows[0]["Gold"]);
+                            MaximumStatsHero.CurrentHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrentHealth"]);
+                            MaximumStatsHero.MaximumHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["MaximumHealth"]);
+                            MaximumStatsHero.CurrentMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrentMagic"]);
+                            MaximumStatsHero.MaximumMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["MaximumMagic"]);
                         }
                     }
 
@@ -186,26 +195,26 @@ namespace Sulimn_WPF
 
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@level", currentHero.Level);
-            cmd.Parameters.AddWithValue("@exp", currentHero.Experience.ToString());
-            cmd.Parameters.AddWithValue("@skillPts", currentHero.SkillPoints.ToString());
-            cmd.Parameters.AddWithValue("@str", currentHero.Strength.ToString());
-            cmd.Parameters.AddWithValue("@vit", currentHero.Vitality.ToString());
-            cmd.Parameters.AddWithValue("@dex", currentHero.Dexterity.ToString());
-            cmd.Parameters.AddWithValue("@wis", currentHero.Wisdom.ToString());
-            cmd.Parameters.AddWithValue("@gold", currentHero.Gold.ToString());
-            cmd.Parameters.AddWithValue("@currHealth", currentHero.CurrentHealth.ToString());
-            cmd.Parameters.AddWithValue("@maxHealth", currentHero.MaximumHealth.ToString());
-            cmd.Parameters.AddWithValue("@currMagic", currentHero.CurrentMagic.ToString());
-            cmd.Parameters.AddWithValue("@maxMagic", currentHero.MaximumMagic.ToString());
-            cmd.Parameters.AddWithValue("@spells", currentHero.Spellbook.ToString());
-            cmd.Parameters.AddWithValue("@weapon", currentHero.Weapon.Name);
-            cmd.Parameters.AddWithValue("@head", currentHero.Head.Name);
-            cmd.Parameters.AddWithValue("@body", currentHero.Body.Name);
-            cmd.Parameters.AddWithValue("@legs", currentHero.Legs.Name);
-            cmd.Parameters.AddWithValue("@feet", currentHero.Feet.Name);
-            cmd.Parameters.AddWithValue("@inv", currentHero.Inventory.ToString());
-            cmd.Parameters.AddWithValue("@name", currentHero.Name);
+            cmd.Parameters.AddWithValue("@level", CurrentHero.Level);
+            cmd.Parameters.AddWithValue("@exp", CurrentHero.Experience.ToString());
+            cmd.Parameters.AddWithValue("@skillPts", CurrentHero.SkillPoints.ToString());
+            cmd.Parameters.AddWithValue("@str", CurrentHero.Strength.ToString());
+            cmd.Parameters.AddWithValue("@vit", CurrentHero.Vitality.ToString());
+            cmd.Parameters.AddWithValue("@dex", CurrentHero.Dexterity.ToString());
+            cmd.Parameters.AddWithValue("@wis", CurrentHero.Wisdom.ToString());
+            cmd.Parameters.AddWithValue("@gold", CurrentHero.Gold.ToString());
+            cmd.Parameters.AddWithValue("@currHealth", CurrentHero.CurrentHealth.ToString());
+            cmd.Parameters.AddWithValue("@maxHealth", CurrentHero.MaximumHealth.ToString());
+            cmd.Parameters.AddWithValue("@currMagic", CurrentHero.CurrentMagic.ToString());
+            cmd.Parameters.AddWithValue("@maxMagic", CurrentHero.MaximumMagic.ToString());
+            cmd.Parameters.AddWithValue("@spells", CurrentHero.Spellbook.ToString());
+            cmd.Parameters.AddWithValue("@weapon", CurrentHero.Weapon.Name);
+            cmd.Parameters.AddWithValue("@head", CurrentHero.Head.Name);
+            cmd.Parameters.AddWithValue("@body", CurrentHero.Body.Name);
+            cmd.Parameters.AddWithValue("@legs", CurrentHero.Legs.Name);
+            cmd.Parameters.AddWithValue("@feet", CurrentHero.Feet.Name);
+            cmd.Parameters.AddWithValue("@inv", CurrentHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@name", CurrentHero.Name);
 
             await Task.Factory.StartNew(() =>
             {
@@ -240,7 +249,7 @@ namespace Sulimn_WPF
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@gold", goldInBank);
             cmd.Parameters.AddWithValue("@loanTaken", loanTaken);
-            cmd.Parameters.AddWithValue("@name", currentHero.Name);
+            cmd.Parameters.AddWithValue("@name", CurrentHero.Name);
 
             await Task.Factory.StartNew(() =>
             {

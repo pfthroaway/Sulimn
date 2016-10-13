@@ -20,18 +20,18 @@ namespace Sulimn_WPF
         /// </summary>
         private void BindLabels()
         {
-            lblEquippedWeapon.DataContext = GameState.currentHero.Weapon;
-            lblEquippedWeaponDamage.DataContext = GameState.currentHero.Weapon;
-            lblEquippedHead.DataContext = GameState.currentHero.Head;
-            lblEquippedHeadDefense.DataContext = GameState.currentHero.Head;
-            lblEquippedBody.DataContext = GameState.currentHero.Body;
-            lblEquippedBodyDefense.DataContext = GameState.currentHero.Body;
-            lblEquippedLegs.DataContext = GameState.currentHero.Legs;
-            lblEquippedLegsDefense.DataContext = GameState.currentHero.Legs;
-            lblEquippedFeet.DataContext = GameState.currentHero.Feet;
-            lblEquippedFeetDefense.DataContext = GameState.currentHero.Feet;
-            DataContext = GameState.currentHero;
-            lstInventory.ItemsSource = GameState.currentHero.Inventory;
+            lblEquippedWeapon.DataContext = GameState.CurrentHero.Weapon;
+            lblEquippedWeaponDamage.DataContext = GameState.CurrentHero.Weapon;
+            lblEquippedHead.DataContext = GameState.CurrentHero.Head;
+            lblEquippedHeadDefense.DataContext = GameState.CurrentHero.Head;
+            lblEquippedBody.DataContext = GameState.CurrentHero.Body;
+            lblEquippedBodyDefense.DataContext = GameState.CurrentHero.Body;
+            lblEquippedLegs.DataContext = GameState.CurrentHero.Legs;
+            lblEquippedLegsDefense.DataContext = GameState.CurrentHero.Legs;
+            lblEquippedFeet.DataContext = GameState.CurrentHero.Feet;
+            lblEquippedFeetDefense.DataContext = GameState.CurrentHero.Feet;
+            DataContext = GameState.CurrentHero;
+            lstInventory.ItemsSource = GameState.CurrentHero.Inventory;
         }
 
         protected virtual void OnPropertyChanged(string property)
@@ -71,27 +71,27 @@ namespace Sulimn_WPF
         /// </summary>
         private void CheckUnequipButtons()
         {
-            if (GameState.currentHero.Weapon.Name == "Fists")
+            if (GameState.CurrentHero.Weapon.Name == "Fists")
                 btnUnequipWeapon.IsEnabled = false;
             else
                 btnUnequipWeapon.IsEnabled = true;
 
-            if (GameState.currentHero.Head.Name == "Cloth Helmet")
+            if (GameState.CurrentHero.Head.Name == "Cloth Helmet")
                 btnUnequipHead.IsEnabled = false;
             else
                 btnUnequipHead.IsEnabled = true;
 
-            if (GameState.currentHero.Body.Name == "Cloth Shirt")
+            if (GameState.CurrentHero.Body.Name == "Cloth Shirt")
                 btnUnequipBody.IsEnabled = false;
             else
                 btnUnequipBody.IsEnabled = true;
 
-            if (GameState.currentHero.Legs.Name == "Cloth Pants")
+            if (GameState.CurrentHero.Legs.Name == "Cloth Pants")
                 btnUnequipLegs.IsEnabled = false;
             else
                 btnUnequipLegs.IsEnabled = true;
 
-            if (GameState.currentHero.Feet.Name == "Cloth Shoes")
+            if (GameState.CurrentHero.Feet.Name == "Cloth Shoes")
                 btnUnequipFeet.IsEnabled = false;
             else
                 btnUnequipFeet.IsEnabled = true;
@@ -122,7 +122,7 @@ namespace Sulimn_WPF
         {
             if (lstInventory.SelectedIndex >= 0)
             {
-                Item selectedItem = GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex];
+                Item selectedItem = GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex];
 
                 switch (selectedItem.Type)
                 {
@@ -222,7 +222,7 @@ namespace Sulimn_WPF
 
             if (dropItem == MessageBoxResult.Yes)
             {
-                GameState.currentHero.Inventory.RemoveItemAt(lstInventory.SelectedIndex);
+                GameState.CurrentHero.Inventory.RemoveItemAt(lstInventory.SelectedIndex);
             }
 
             DisplayInventoryList();
@@ -230,61 +230,61 @@ namespace Sulimn_WPF
 
         private void btnEquip_Click(object sender, RoutedEventArgs e)
         {
-            switch (GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex].Type)
+            switch (GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex].Type)
             {
                 case "Weapon":
-                    Weapon selectedWeapon = (Weapon)(GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex]);
-                    GameState.currentHero.Inventory.RemoveItem(selectedWeapon);
-                    if (GameState.currentHero.Weapon.Name != "Fists")
+                    Weapon selectedWeapon = (Weapon)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]);
+                    GameState.CurrentHero.Inventory.RemoveItem(selectedWeapon);
+                    if (GameState.CurrentHero.Weapon.Name != "Fists")
                     {
-                        GameState.currentHero.Inventory.AddItem(GameState.currentHero.Weapon);
-                        lstInventory.ItemsSource = GameState.currentHero.Inventory;
+                        GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Weapon);
+                        lstInventory.ItemsSource = GameState.CurrentHero.Inventory;
                     }
-                    GameState.currentHero.Weapon = selectedWeapon;
-                    lblEquippedWeapon.DataContext = GameState.currentHero.Weapon;
-                    lblEquippedWeaponDamage.DataContext = GameState.currentHero.Weapon;
+                    GameState.CurrentHero.Weapon = selectedWeapon;
+                    lblEquippedWeapon.DataContext = GameState.CurrentHero.Weapon;
+                    lblEquippedWeaponDamage.DataContext = GameState.CurrentHero.Weapon;
                     break;
 
                 case "Armor":
-                    Armor selectedArmor = (Armor)(GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex]);
-                    GameState.currentHero.Inventory.RemoveItem(selectedArmor);
+                    Armor selectedArmor = (Armor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]);
+                    GameState.CurrentHero.Inventory.RemoveItem(selectedArmor);
 
                     switch (selectedArmor.ArmorType)
                     {
                         case "Head":
-                            if (GameState.currentHero.Head.Name != "Cloth Helmet")
-                                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Head);
+                            if (GameState.CurrentHero.Head.Name != "Cloth Helmet")
+                                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Head);
 
-                            GameState.currentHero.Head = selectedArmor;
-                            lblEquippedHead.DataContext = GameState.currentHero.Head;
-                            lblEquippedHeadDefense.DataContext = GameState.currentHero.Head;
+                            GameState.CurrentHero.Head = selectedArmor;
+                            lblEquippedHead.DataContext = GameState.CurrentHero.Head;
+                            lblEquippedHeadDefense.DataContext = GameState.CurrentHero.Head;
                             break;
 
                         case "Body":
-                            if (GameState.currentHero.Body.Name != "Cloth Shirt")
-                                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Body);
+                            if (GameState.CurrentHero.Body.Name != "Cloth Shirt")
+                                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Body);
 
-                            GameState.currentHero.Body = selectedArmor;
-                            lblEquippedBody.DataContext = GameState.currentHero.Body;
-                            lblEquippedBodyDefense.DataContext = GameState.currentHero.Body;
+                            GameState.CurrentHero.Body = selectedArmor;
+                            lblEquippedBody.DataContext = GameState.CurrentHero.Body;
+                            lblEquippedBodyDefense.DataContext = GameState.CurrentHero.Body;
                             break;
 
                         case "Legs":
-                            if (GameState.currentHero.Legs.Name != "Cloth Pants")
-                                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Legs);
+                            if (GameState.CurrentHero.Legs.Name != "Cloth Pants")
+                                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Legs);
 
-                            GameState.currentHero.Legs = selectedArmor;
-                            lblEquippedLegs.DataContext = GameState.currentHero.Legs;
-                            lblEquippedLegsDefense.DataContext = GameState.currentHero.Legs;
+                            GameState.CurrentHero.Legs = selectedArmor;
+                            lblEquippedLegs.DataContext = GameState.CurrentHero.Legs;
+                            lblEquippedLegsDefense.DataContext = GameState.CurrentHero.Legs;
                             break;
 
                         case "Feet":
-                            if (GameState.currentHero.Feet.Name != "Cloth Shoes")
-                                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Feet);
+                            if (GameState.CurrentHero.Feet.Name != "Cloth Shoes")
+                                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Feet);
 
-                            GameState.currentHero.Feet = selectedArmor;
-                            lblEquippedFeet.DataContext = GameState.currentHero.Feet;
-                            lblEquippedFeetDefense.DataContext = GameState.currentHero.Feet;
+                            GameState.CurrentHero.Feet = selectedArmor;
+                            lblEquippedFeet.DataContext = GameState.CurrentHero.Feet;
+                            lblEquippedFeetDefense.DataContext = GameState.CurrentHero.Feet;
                             break;
 
                         default:
@@ -294,7 +294,7 @@ namespace Sulimn_WPF
                     break;
 
                 default:
-                    MessageBox.Show("Somehow you managed to screw up and find an item type named '" + GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex].Type + "'.", "Sulimn", MessageBoxButton.OK);
+                    MessageBox.Show("Somehow you managed to screw up and find an item type named '" + GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex].Type + "'.", "Sulimn", MessageBoxButton.OK);
                     break;
             }
             //FUTURE MORE ITEM TYPES
@@ -307,20 +307,20 @@ namespace Sulimn_WPF
 
         private void btnConsume_Click(object sender, RoutedEventArgs e)
         {
-            switch (GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex].Type)
+            switch (GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex].Type)
             {
                 case "Potion":
-                    Potion selectedPotion = (Potion)GameState.AllItems.Find(x => x.Name == GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex].Name);
-                    GameState.currentHero.Inventory.RemoveItem(selectedPotion);
+                    Potion selectedPotion = (Potion)GameState.AllItems.Find(x => x.Name == GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex].Name);
+                    GameState.CurrentHero.Inventory.RemoveItem(selectedPotion);
 
                     switch (selectedPotion.PotionType)
                     {
                         case "Healing":
-                            GameState.currentHero.Heal(selectedPotion.Amount);
+                            GameState.CurrentHero.Heal(selectedPotion.Amount);
                             break;
 
                         case "Magic":
-                            GameState.currentHero.RestoreMagic(selectedPotion.Amount);
+                            GameState.CurrentHero.RestoreMagic(selectedPotion.Amount);
                             break;
 
                         case "Curing":
@@ -333,17 +333,17 @@ namespace Sulimn_WPF
                     break;
 
                 case "Food":
-                    Food selectedFood = (Food)GameState.AllItems.Find(x => x.Name == GameState.currentHero.Inventory.Items[lstInventory.SelectedIndex].Name);
-                    GameState.currentHero.Inventory.RemoveItem(selectedFood);
+                    Food selectedFood = (Food)GameState.AllItems.Find(x => x.Name == GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex].Name);
+                    GameState.CurrentHero.Inventory.RemoveItem(selectedFood);
 
                     switch (selectedFood.FoodType)
                     {
                         case "Food":
-                            GameState.currentHero.Heal(selectedFood.Amount);
+                            GameState.CurrentHero.Heal(selectedFood.Amount);
                             break;
 
                         case "Drink":
-                            GameState.currentHero.RestoreMagic(selectedFood.Amount);
+                            GameState.CurrentHero.RestoreMagic(selectedFood.Amount);
                             break;
                     }
                     break;
@@ -358,41 +358,41 @@ namespace Sulimn_WPF
 
         private void btnUnequipBody_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.Body.Name != "Cloth Shirt")
-                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Body);
-            GameState.currentHero.Body = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Shirt");
+            if (GameState.CurrentHero.Body.Name != "Cloth Shirt")
+                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Body);
+            GameState.CurrentHero.Body = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Shirt");
             DisplayAllInfo();
         }
 
         private void btnUnequipHead_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.Head.Name != "Cloth Helmet")
-                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Head);
-            GameState.currentHero.Head = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Helmet");
+            if (GameState.CurrentHero.Head.Name != "Cloth Helmet")
+                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Head);
+            GameState.CurrentHero.Head = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Helmet");
             DisplayAllInfo();
         }
 
         private void btnUnequipFeet_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.Feet.Name != "Cloth Shoes")
-                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Feet);
-            GameState.currentHero.Feet = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Shoes");
+            if (GameState.CurrentHero.Feet.Name != "Cloth Shoes")
+                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Feet);
+            GameState.CurrentHero.Feet = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Shoes");
             DisplayAllInfo();
         }
 
         private void btnUnequipLegs_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.Legs.Name != "Cloth Pants")
-                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Legs);
-            GameState.currentHero.Legs = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Pants");
+            if (GameState.CurrentHero.Legs.Name != "Cloth Pants")
+                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Legs);
+            GameState.CurrentHero.Legs = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Pants");
             DisplayAllInfo();
         }
 
         private void btnUnequipWeapon_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.Weapon.Name != "Fists")
-                GameState.currentHero.Inventory.AddItem(GameState.currentHero.Weapon);
-            GameState.currentHero.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == "Fists");
+            if (GameState.CurrentHero.Weapon.Name != "Fists")
+                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Weapon);
+            GameState.CurrentHero.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == "Fists");
             DisplayAllInfo();
         }
 

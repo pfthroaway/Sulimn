@@ -41,13 +41,13 @@ namespace Sulimn_WPF
         {
             btnBack.IsEnabled = true;
             btnFields.IsEnabled = true;
-            if (GameState.currentHero.Level >= 5)
+            if (GameState.CurrentHero.Level >= 5)
                 btnForest.IsEnabled = true;
-            if (GameState.currentHero.Level >= 10)
+            if (GameState.CurrentHero.Level >= 10)
                 btnCathedral.IsEnabled = true;
-            if (GameState.currentHero.Level >= 15)
+            if (GameState.CurrentHero.Level >= 15)
                 btnMines.IsEnabled = true;
-            if (GameState.currentHero.Level >= 20)
+            if (GameState.CurrentHero.Level >= 20)
                 btnCatacombs.IsEnabled = true;
         }
 
@@ -73,7 +73,7 @@ namespace Sulimn_WPF
         private void EventFindGold(int minGold, int maxGold)
         {
             int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
-            GameState.currentHero.Gold += foundGold;
+            GameState.CurrentHero.Gold += foundGold;
             AddTextTT("You find " + foundGold.ToString("N0") + " gold!");
             GameState.SaveHero();
             CheckButtons();
@@ -88,7 +88,7 @@ namespace Sulimn_WPF
             availableItems = GameState.AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.CanSell == true).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
-            GameState.currentHero.Inventory.AddItem(availableItems[item]);
+            GameState.CurrentHero.Inventory.AddItem(availableItems[item]);
 
             AddTextTT("You find a " + availableItems[item].Name + "!");
             GameState.SaveHero();
@@ -105,7 +105,7 @@ namespace Sulimn_WPF
             List<Enemy> availableEnemies = new List<Enemy>();
             availableEnemies = GameState.AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
-            GameState.currentEnemy = new Enemy(availableEnemies[enemyNum]);
+            GameState.CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             BattleWindow battleWindow = new BattleWindow();
             battleWindow.RefToExploreWindow = this;
             battleWindow.PrepareBattle("Explore");
@@ -123,9 +123,9 @@ namespace Sulimn_WPF
             List<Enemy> availableEnemies = new List<Enemy>();
             availableEnemies = GameState.AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
-            GameState.currentEnemy = new Enemy(availableEnemies[enemyNum]);
-            if (GameState.currentEnemy.Gold > 0)
-                GameState.currentEnemy.Gold = Functions.GenerateRandomNumber(GameState.currentEnemy.Gold / 2, GameState.currentEnemy.Gold);
+            GameState.CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
+            if (GameState.CurrentEnemy.Gold > 0)
+                GameState.CurrentEnemy.Gold = Functions.GenerateRandomNumber(GameState.CurrentEnemy.Gold / 2, GameState.CurrentEnemy.Gold);
             BattleWindow battleWindow = new BattleWindow();
             battleWindow.RefToExploreWindow = this;
             battleWindow.PrepareBattle("Explore");
@@ -144,7 +144,7 @@ namespace Sulimn_WPF
 
         private void btnCatacombs_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
@@ -170,7 +170,7 @@ namespace Sulimn_WPF
 
         private void btnCathedral_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
@@ -196,7 +196,7 @@ namespace Sulimn_WPF
 
         private void btnFields_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
@@ -222,7 +222,7 @@ namespace Sulimn_WPF
 
         private void btnForest_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
@@ -248,7 +248,7 @@ namespace Sulimn_WPF
 
         private void btnMines_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.currentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)

@@ -64,7 +64,7 @@ namespace Sulimn_WPF
         internal void BindLabels()
         {
             DataContext = this;
-            lblGoldOnHand.DataContext = GameState.currentHero;
+            lblGoldOnHand.DataContext = GameState.CurrentHero;
         }
 
         protected void OnPropertyChanged(string property)
@@ -93,7 +93,7 @@ namespace Sulimn_WPF
         /// </summary>
         internal void CheckButtons()
         {
-            if (GameState.currentHero.Gold > 0)
+            if (GameState.CurrentHero.Gold > 0)
                 btnDeposit.IsEnabled = true;
             else
                 btnDeposit.IsEnabled = false;
@@ -133,7 +133,7 @@ namespace Sulimn_WPF
         /// </summary>
         internal async void LoadBank()
         {
-            string sql = "SELECT * FROM Bank WHERE [CharacterName]='" + GameState.currentHero.Name + "'";
+            string sql = "SELECT * FROM Bank WHERE [CharacterName]='" + GameState.CurrentHero.Name + "'";
             string table = "Bank";
             DataSet ds = await Functions.FillDataSet(sql, table);
 
@@ -147,7 +147,7 @@ namespace Sulimn_WPF
                 MessageBox.Show("No such user exists in the bank.", "Sulimn", MessageBoxButton.OK);
             }
 
-            LoanAvailable = GameState.currentHero.Level * 250 - LoanTaken;
+            LoanAvailable = GameState.CurrentHero.Level * 250 - LoanTaken;
 
             txtBank.Text = "You enter the Bank. A teller beckons to you and you approach him. You tell him your name, and he rummages through a few papers. He finds one, and pulls it out." + nl + nl + "You have " + GoldInBank.ToString("N0") + " gold available to withdraw. You also have an open credit line of " + LoanAvailable.ToString("N0") + " gold.";
             BindLabels();
@@ -165,7 +165,7 @@ namespace Sulimn_WPF
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(GameState.currentHero.Gold, "Deposit");
+            DisplayBankDialog(GameState.CurrentHero.Gold, "Deposit");
         }
 
         private void btnRepayLoan_Click(object sender, RoutedEventArgs e)

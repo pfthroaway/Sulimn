@@ -28,7 +28,7 @@ namespace Sulimn_WPF
         {
             lstSpells.DataContext = availableSpells;
             DataContext = selectedSpell;
-            lblMagic.DataContext = GameState.currentHero;
+            lblMagic.DataContext = GameState.CurrentHero;
         }
 
         protected void OnPropertyChanged(string property)
@@ -88,11 +88,11 @@ namespace Sulimn_WPF
             switch (PreviousWindow)
             {
                 case "Battle":
-                    availableSpells = new BindingList<Spell>(GameState.currentHero.Spellbook.Spells);
+                    availableSpells = new BindingList<Spell>(GameState.CurrentHero.Spellbook.Spells);
                     break;
 
                 case "Character":
-                    availableSpells = new BindingList<Spell>(GameState.currentHero.Spellbook.Spells.Where(spl => spl.Type == "Healing").ToList());
+                    availableSpells = new BindingList<Spell>(GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == "Healing").ToList());
                     break;
             }
         }
@@ -127,9 +127,9 @@ namespace Sulimn_WPF
         {
             if (lstSpells.SelectedIndex >= 0)
             {
-                selectedSpell = GameState.currentHero.Spellbook.Spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
+                selectedSpell = GameState.CurrentHero.Spellbook.Spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
 
-                if (selectedSpell.MagicCost <= GameState.currentHero.CurrentMagic)
+                if (selectedSpell.MagicCost <= GameState.CurrentHero.CurrentMagic)
                 {
                     btnCastSpell.IsEnabled = true;
                 }

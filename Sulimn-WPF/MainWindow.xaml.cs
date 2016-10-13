@@ -53,22 +53,22 @@ namespace Sulimn_WPF
         private void AssignHero(DataSet ds)
         {
             string spells, weapon, head, body, legs, feet, inventory;
-            GameState.currentHero = new Hero();
+            GameState.CurrentHero = new Hero();
 
-            GameState.currentHero.Name = ds.Tables[0].Rows[0]["CharacterName"].ToString();
-            GameState.currentHero.ClassName = ds.Tables[0].Rows[0]["Class"].ToString();
-            GameState.currentHero.Level = Convert.ToInt32(ds.Tables[0].Rows[0]["Level"]);
-            GameState.currentHero.Experience = Convert.ToInt32(ds.Tables[0].Rows[0]["Experience"]);
-            GameState.currentHero.SkillPoints = Convert.ToInt32(ds.Tables[0].Rows[0]["SkillPoints"]);
-            GameState.currentHero.Strength = Convert.ToInt32(ds.Tables[0].Rows[0]["Strength"]);
-            GameState.currentHero.Vitality = Convert.ToInt32(ds.Tables[0].Rows[0]["Vitality"]);
-            GameState.currentHero.Dexterity = Convert.ToInt32(ds.Tables[0].Rows[0]["Dexterity"]);
-            GameState.currentHero.Wisdom = Convert.ToInt32(ds.Tables[0].Rows[0]["Wisdom"]);
-            GameState.currentHero.Gold = Convert.ToInt32(ds.Tables[0].Rows[0]["Gold"]);
-            GameState.currentHero.CurrentHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrHealth"]);
-            GameState.currentHero.MaximumHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["MaxHealth"]);
-            GameState.currentHero.CurrentMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrMagic"]);
-            GameState.currentHero.MaximumMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["MaxMagic"]);
+            GameState.CurrentHero.Name = ds.Tables[0].Rows[0]["CharacterName"].ToString();
+            GameState.CurrentHero.ClassName = ds.Tables[0].Rows[0]["Class"].ToString();
+            GameState.CurrentHero.Level = Convert.ToInt32(ds.Tables[0].Rows[0]["Level"]);
+            GameState.CurrentHero.Experience = Convert.ToInt32(ds.Tables[0].Rows[0]["Experience"]);
+            GameState.CurrentHero.SkillPoints = Convert.ToInt32(ds.Tables[0].Rows[0]["SkillPoints"]);
+            GameState.CurrentHero.Strength = Convert.ToInt32(ds.Tables[0].Rows[0]["Strength"]);
+            GameState.CurrentHero.Vitality = Convert.ToInt32(ds.Tables[0].Rows[0]["Vitality"]);
+            GameState.CurrentHero.Dexterity = Convert.ToInt32(ds.Tables[0].Rows[0]["Dexterity"]);
+            GameState.CurrentHero.Wisdom = Convert.ToInt32(ds.Tables[0].Rows[0]["Wisdom"]);
+            GameState.CurrentHero.Gold = Convert.ToInt32(ds.Tables[0].Rows[0]["Gold"]);
+            GameState.CurrentHero.CurrentHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrHealth"]);
+            GameState.CurrentHero.MaximumHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["MaxHealth"]);
+            GameState.CurrentHero.CurrentMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrMagic"]);
+            GameState.CurrentHero.MaximumMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["MaxMagic"]);
             spells = ds.Tables[0].Rows[0]["KnownSpells"].ToString();
             weapon = ds.Tables[0].Rows[0]["Weapon"].ToString();
             head = ds.Tables[0].Rows[0]["Head"].ToString();
@@ -79,22 +79,22 @@ namespace Sulimn_WPF
 
             if (spells.Length > 0)
             {
-                GameState.currentHero.Spellbook = SetSpellbook(spells);
+                GameState.CurrentHero.Spellbook = SetSpellbook(spells);
             }
 
-            GameState.currentHero.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == weapon);
+            GameState.CurrentHero.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == weapon);
 
             if (inventory.Length > 0)
             {
-                GameState.currentHero.Inventory = SetInventory(inventory);
+                GameState.CurrentHero.Inventory = SetInventory(inventory);
             }
 
-            GameState.currentHero.Head = (Armor)GameState.AllItems.Find(x => x.Name == head);
-            GameState.currentHero.Body = (Armor)GameState.AllItems.Find(x => x.Name == body);
-            GameState.currentHero.Legs = (Armor)GameState.AllItems.Find(x => x.Name == legs);
-            GameState.currentHero.Feet = (Armor)GameState.AllItems.Find(x => x.Name == feet);
+            GameState.CurrentHero.Head = (Armor)GameState.AllItems.Find(x => x.Name == head);
+            GameState.CurrentHero.Body = (Armor)GameState.AllItems.Find(x => x.Name == body);
+            GameState.CurrentHero.Legs = (Armor)GameState.AllItems.Find(x => x.Name == legs);
+            GameState.CurrentHero.Feet = (Armor)GameState.AllItems.Find(x => x.Name == feet);
 
-            Login(GameState.currentHero);
+            Login(GameState.CurrentHero);
         }
 
         #endregion Hero Management
@@ -152,12 +152,16 @@ namespace Sulimn_WPF
             CheckLogin();
         }
 
+        private void mnuAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminPasswordWindow adminPasswordWindow = new AdminPasswordWindow();
+            adminPasswordWindow.Show();
+            adminPasswordWindow.RefToMainWindow = this;
+            this.Visibility = Visibility.Hidden;
+        }
+
         #endregion Button-Click Methods
 
-        //private async void frmMain_Load(object sender, EventArgs e)
-        //{
-        //
-        //}
         public MainWindow()
         {
             InitializeComponent();

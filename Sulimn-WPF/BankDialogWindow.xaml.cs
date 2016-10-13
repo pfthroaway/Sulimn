@@ -39,7 +39,7 @@ namespace Sulimn_WPF
                     break;
 
                 case "Repay Loan":
-                    lblDialog.Text = "How much of your loan would you like to repay? You currently owe " + _maximum.ToString("N0") + " gold. You have " + GameState.currentHero.Gold.ToString("N0") + " with you.";
+                    lblDialog.Text = "How much of your loan would you like to repay? You currently owe " + _maximum.ToString("N0") + " gold. You have " + GameState.CurrentHero.Gold.ToString("N0") + " with you.";
                     btnAction.Content = "_Repay";
                     break;
 
@@ -58,7 +58,7 @@ namespace Sulimn_WPF
         private void Deposit()
         {
             RefToBankWindow.GoldInBank += textAmount;
-            GameState.currentHero.Gold -= textAmount;
+            GameState.CurrentHero.Gold -= textAmount;
             CloseWindow("You deposit " + textAmount.ToString("N0") + " gold.");
         }
 
@@ -69,7 +69,7 @@ namespace Sulimn_WPF
         {
             RefToBankWindow.LoanTaken -= textAmount;
             RefToBankWindow.LoanAvailable += textAmount;
-            GameState.currentHero.Gold -= textAmount;
+            GameState.CurrentHero.Gold -= textAmount;
             CloseWindow("You repay " + textAmount.ToString("N0") + " gold on your loan.");
         }
 
@@ -80,7 +80,7 @@ namespace Sulimn_WPF
         {
             RefToBankWindow.LoanTaken += textAmount + (textAmount / 10);
             RefToBankWindow.LoanAvailable -= (textAmount + (textAmount / 10));
-            GameState.currentHero.Gold += textAmount;
+            GameState.CurrentHero.Gold += textAmount;
             CloseWindow("You take out a loan for " + textAmount.ToString("N0") + " gold.");
         }
 
@@ -90,7 +90,7 @@ namespace Sulimn_WPF
         private void Withdrawal()
         {
             RefToBankWindow.GoldInBank -= textAmount;
-            GameState.currentHero.Gold += textAmount;
+            GameState.CurrentHero.Gold += textAmount;
             CloseWindow("You withdraw " + textAmount.ToString("N0") + " gold from your account.");
         }
 
@@ -107,10 +107,10 @@ namespace Sulimn_WPF
                 switch (_type)
                 {
                     case "Deposit":
-                        if (textAmount <= GameState.currentHero.Gold)
+                        if (textAmount <= GameState.CurrentHero.Gold)
                             Deposit();
                         else
-                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.currentHero.Gold + " gold.");
+                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
                         break;
 
                     case "Withdrawal":
@@ -118,12 +118,12 @@ namespace Sulimn_WPF
                         break;
 
                     case "Repay Loan":
-                        if (textAmount <= GameState.currentHero.Gold)
+                        if (textAmount <= GameState.CurrentHero.Gold)
                         {
                             RepayLoan();
                         }
                         else
-                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.currentHero.Gold + " gold.");
+                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
                         break;
 
                     case "Take Out Loan":
@@ -132,7 +132,7 @@ namespace Sulimn_WPF
                 }
             }
             else
-                MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.currentHero.Gold + " gold.");
+                MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

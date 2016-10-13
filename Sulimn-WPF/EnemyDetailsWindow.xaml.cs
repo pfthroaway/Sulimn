@@ -19,17 +19,17 @@ namespace Sulimn_WPF
         /// </summary>
         private void BindLabels()
         {
-            DataContext = GameState.currentEnemy;
-            lblEquippedWeapon.DataContext = GameState.currentEnemy.Weapon;
-            lblEquippedWeaponDamage.DataContext = GameState.currentEnemy.Weapon;
-            lblEquippedHead.DataContext = GameState.currentEnemy.Head;
-            lblEquippedHeadDefense.DataContext = GameState.currentEnemy.Head;
-            lblEquippedBody.DataContext = GameState.currentEnemy.Body;
-            lblEquippedBodyDefense.DataContext = GameState.currentEnemy.Body;
-            lblEquippedLegs.DataContext = GameState.currentEnemy.Legs;
-            lblEquippedLegsDefense.DataContext = GameState.currentEnemy.Legs;
-            lblEquippedFeet.DataContext = GameState.currentEnemy.Feet;
-            lblEquippedFeetDefense.DataContext = GameState.currentEnemy.Feet;
+            DataContext = GameState.CurrentEnemy;
+            lblEquippedWeapon.DataContext = GameState.CurrentEnemy.Weapon;
+            lblEquippedWeaponDamage.DataContext = GameState.CurrentEnemy.Weapon;
+            lblEquippedHead.DataContext = GameState.CurrentEnemy.Head;
+            lblEquippedHeadDefense.DataContext = GameState.CurrentEnemy.Head;
+            lblEquippedBody.DataContext = GameState.CurrentEnemy.Body;
+            lblEquippedBodyDefense.DataContext = GameState.CurrentEnemy.Body;
+            lblEquippedLegs.DataContext = GameState.CurrentEnemy.Legs;
+            lblEquippedLegsDefense.DataContext = GameState.CurrentEnemy.Legs;
+            lblEquippedFeet.DataContext = GameState.CurrentEnemy.Feet;
+            lblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Feet;
         }
 
         protected void OnPropertyChanged(string property)
