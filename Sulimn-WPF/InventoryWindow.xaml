@@ -12,12 +12,6 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <Grid.Resources>
             <DataTemplate x:Key="itemNameTemplate">
                 <TextBlock Text="{Binding Path=Name}" />
@@ -70,11 +64,11 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="6" Margin="5" Height="590" Header="Inventory">
-            <ListBox x:Name="lstInventory" Width="265" Height="550" Margin="5" ItemsSource="{Binding}" ItemTemplate="{StaticResource itemNameTemplate}" SelectionChanged="lstInventory_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="6" Margin="10" Height="590" Header="Inventory">
+            <ListBox x:Name="lstInventory" Width="265" Height="550" ItemsSource="{Binding}" ItemTemplate="{StaticResource itemNameTemplate}" SelectionChanged="lstInventory_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         </GroupBox>
-        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5">
-            <GroupBox Header="Selected Item">
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="10">
+            <GroupBox Header="Selected Item" Margin="5">
                 <StackPanel>
                     <TextBlock x:Name="lblSelectedName" Margin="5" />
                     <TextBlock x:Name="lblSelectedType" Margin="5" />
@@ -84,20 +78,20 @@
                     <TextBlock x:Name="lblSellable" Margin="5" />
                 </StackPanel>
             </GroupBox>
-        </StackPanel>
-        <TextBlock Grid.Column="2" Grid.Row="1" x:Name="lblHealth" Text="{Binding Path=HealthToStringWithText}" Margin="5" />
+            <TextBlock Grid.Column="2" Grid.Row="1" x:Name="lblHealth" Text="{Binding Path=HealthToStringWithText}" Margin="5" />
 
-        <TextBlock Grid.Column="2" Grid.Row="2" x:Name="lblMagic" Text="{Binding Path=MagicToStringWithText}" Margin="5" />
-        <StackPanel Grid.Column="2" Grid.Row="3" Margin="5">
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Button x:Name="btnEquip" Width="125" Height="30" Content="_Equip" Margin="5" Click="btnEquip_Click" IsEnabled="False" />
+            <TextBlock Grid.Column="2" Grid.Row="2" x:Name="lblMagic" Text="{Binding Path=MagicToStringWithText}" Margin="5" />
+            <StackPanel Grid.Column="2" Grid.Row="3" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Button x:Name="btnEquip" Width="125" Height="30" Content="_Equip" Margin="5" Click="btnEquip_Click" IsEnabled="False" />
 
-                <Button x:Name="btnConsume" Width="125" Height="30" Content="_Consume" Margin="5" Click="btnConsume_Click" IsEnabled="False" />
-            </StackPanel>
-            <StackPanel Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Margin="5" Orientation="Horizontal">
-                <Button x:Name="btnDrop" Width="125" Height="30" Content="_Drop" Margin="5" Click="btnDrop_Click" IsEnabled="False" />
+                    <Button x:Name="btnConsume" Width="125" Height="30" Content="_Consume" Margin="5" Click="btnConsume_Click" IsEnabled="False" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Margin="5" Orientation="Horizontal">
+                    <Button x:Name="btnDrop" Width="125" Height="30" Content="_Drop" Margin="5" Click="btnDrop_Click" IsEnabled="False" />
 
-                <Button x:Name="btnBack" Width="125" Height="30" Content="_Back" Margin="5" Click="btnBack_Click" IsCancel="True" />
+                    <Button x:Name="btnBack" Width="125" Height="30" Content="_Back" Margin="5" Click="btnBack_Click" IsCancel="True" />
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

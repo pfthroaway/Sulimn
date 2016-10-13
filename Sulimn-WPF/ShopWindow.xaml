@@ -5,26 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sulimn_WPF"
         mc:Ignorable="d"
-        Title="Shop" Height="681" Width="762" Closing="windowShop_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17">
+        Title="Shop" SizeToContent="WidthAndHeight" Closing="windowShop_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="417" />
-
-            <RowDefinition Height="185" />
-
-            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" x:Name="tabControl" HorizontalAlignment="Left" Width="736" Margin="10,10,0,0" VerticalAlignment="Top" Height="398">
+        <TabControl Grid.Row="0" x:Name="tabControl" HorizontalAlignment="Left" Width="736" Margin="10" VerticalAlignment="Top">
             <TabItem Header="Purchase">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="287" />
+                        <ColumnDefinition Width="297" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <ListBox x:Name="lstPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277"  Margin="5,5,0,5" SelectionChanged="lstPurchase_SelectionChanged" />
+                        <ListBox x:Name="lstPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277"  Margin="10" SelectionChanged="lstPurchase_SelectionChanged" />
                         <TextBlock x:Name="lblGoldPurchase" Text="" TextAlignment="Center" Margin="5" />
-                        <Button x:Name="btnPurchase" VerticalAlignment="Bottom" Height="30" Width="125" Content="_Purchase" Margin="5" Click="btnPurchase_Click" />
+                        <Button x:Name="btnPurchase" Height="30" Width="125" Content="_Purchase" Margin="10" Click="btnPurchase_Click" />
                     </StackPanel>
                     <GroupBox Grid.Column="1" Header="Selected Item">
                         <StackPanel>
@@ -41,13 +39,13 @@
             <TabItem Header="Sell">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="287" />
+                        <ColumnDefinition Width="297" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <ListBox x:Name="lstSell" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277"  Margin="5,5,0,5" SelectionChanged="lstSell_SelectionChanged" />
+                        <ListBox x:Name="lstSell" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277"  Margin="10" SelectionChanged="lstSell_SelectionChanged" />
                         <TextBlock x:Name="lblGoldSell" Text="" TextAlignment="Center" Margin="5" />
-                        <Button x:Name="btnSell" VerticalAlignment="Bottom" Height="30" Width="125" Content="_Sell" Margin="5" Click="btnSell_Click" />
+                        <Button x:Name="btnSell" Height="30" Width="125" Content="_Sell" Margin="10" Click="btnSell_Click" />
                     </StackPanel>
                     <GroupBox Grid.Column="1" Header="Selected Item">
                         <StackPanel>
@@ -62,7 +60,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TextBox x:Name="txtShop" Grid.Row="1" Margin="5" TextWrapping="Wrap" />
-        <Button Grid.Row="2" Width="125" Content="_Back" Click="btnBack_Click" Margin="5" />
+        <TextBox x:Name="txtShop" Grid.Row="1" Margin="10" TextWrapping="Wrap" />
+        <Button Grid.Row="2" Width="125" Content="_Back" Click="btnBack_Click" Margin="10" />
     </Grid>
 </Window>
