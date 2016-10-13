@@ -34,6 +34,7 @@ namespace Sulimn_WPF
         {
             if (spell.Type == "Healing")
                 GameState.currentHero.Heal(spell.Amount);
+            GameState.currentHero.CurrentMagic -= spell.MagicCost;
             //FUTURE SPELL TYPES
         }
 

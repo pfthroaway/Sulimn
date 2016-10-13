@@ -5,17 +5,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
-    Title="Inventory" Height="645" Width="1037" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowInventory_Closing">
+    Title="Inventory" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowInventory_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="285" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.Resources>
@@ -23,7 +23,7 @@
                 <TextBlock Text="{Binding Path=Name}" />
             </DataTemplate>
         </Grid.Resources>
-        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Margin="5">
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Margin="10">
             <GroupBox HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="270" Header="Weapon">
                 <StackPanel>
                     <TextBlock x:Name="lblEquippedWeapon" Width="250" Margin="5" Height="30" Text="{Binding Path=Name, Mode=TwoWay}" />
@@ -85,7 +85,7 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <TextBlock Grid.Column="2" Grid.Row="1" x:Name="lblHealth" Text="{Binding Path=HealthToStringWithText}" Height="30" Margin="5" />
+        <TextBlock Grid.Column="2" Grid.Row="1" x:Name="lblHealth" Text="{Binding Path=HealthToStringWithText}" Margin="5" />
 
         <TextBlock Grid.Column="2" Grid.Row="2" x:Name="lblMagic" Text="{Binding Path=MagicToStringWithText}" Margin="5" />
         <StackPanel Grid.Column="2" Grid.Row="3" Margin="5">

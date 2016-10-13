@@ -17,7 +17,7 @@
                 <ListBox x:Name="lstPlayer" Margin="5" Height="149" />
                 <TextBlock x:Name="lblPlayerTotal" TextAlignment="Center" Margin="5" />
             </StackPanel>
-            <TextBox x:Name="txtBlackjack" Width="326" Height="215" Margin="5" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" />
+            <TextBox x:Name="txtBlackjack" Width="326" Height="215" Margin="5" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" TextWrapping="Wrap" />
             <StackPanel Width="185">
                 <TextBlock Text="Dealer's Cards" TextAlignment="Center" Margin="5" />
                 <ListBox x:Name="lstDealer" Margin="5" Height="149" />

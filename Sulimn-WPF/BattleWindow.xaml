@@ -45,7 +45,7 @@
         <Button x:Name="btnCharacter" Grid.Column="0" Grid.Row="4" Margin="10" Height="30" Width="125" Content="C_haracter" Click="btnCharDetails_Click" />
         <Button x:Name="btnEnemyDetails" Grid.Column="2" Grid.Row="4" Margin="10" Height="30" Width="125" Content="_Details" Click="btnEnemyDetails_Click" />
 
-        <TextBox x:Name="txtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="500" Height="190" Margin="10" TextWrapping="Wrap" BorderBrush="Black" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
+        <TextBox x:Name="txtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="500" Height="190" Margin="10" TextWrapping="Wrap" BorderBrush="Black" Padding="5" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
 
         <Button x:Name="btnAttack" Grid.Column="0" Grid.Row="6" Content="_Attack" Height="30" Width="125" Margin="10" Click="btnAttack_Click" />
         <Button x:Name="btnCastSpell" Grid.Column="1" Grid.Row="6" Content="_Cast Spell" Height="30" Width="125" Margin="10" Click="btnCastSpell_Click" />
