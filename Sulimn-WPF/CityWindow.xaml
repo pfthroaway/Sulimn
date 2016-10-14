@@ -8,15 +8,15 @@
     Title="City of Sulimn" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowCity_Closing" FontFamily="Segoe UI Semibold" FontSize="17">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="370" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBox x:Name="txtCity" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="350" Padding="5" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" IsReadOnly="True" Width="560" />

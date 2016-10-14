@@ -11,7 +11,7 @@ namespace Sulimn_WPF
     public partial class BankDialogWindow : Window
     {
         private int _maximum = 0;
-        private int textAmount = 0;
+        private int _textAmount = 0;
         private string _type = "";
 
         internal BankWindow RefToBankWindow { get; set; }
@@ -44,7 +44,7 @@ namespace Sulimn_WPF
                     break;
 
                 case "Take Out Loan":
-                    lblDialog.Text = "How much gold would you like to take out on loan? Your credit deems you worthy of receiving up to " + maximum.ToString("N0") + " gold. Remember, we have a 10% loan fee.";
+                    lblDialog.Text = "How much gold would you like to take out on loan? Your credit deems you worthy of receiving up to " + maximum.ToString("N0") + " gold. Remember, we have a 5% loan fee.";
                     btnAction.Content = "_Borrow";
                     break;
             }
@@ -57,9 +57,9 @@ namespace Sulimn_WPF
         /// </summary>
         private void Deposit()
         {
-            RefToBankWindow.GoldInBank += textAmount;
-            GameState.CurrentHero.Gold -= textAmount;
-            CloseWindow("You deposit " + textAmount.ToString("N0") + " gold.");
+            RefToBankWindow.GoldInBank += _textAmount;
+            GameState.CurrentHero.Gold -= _textAmount;
+            CloseWindow("You deposit " + _textAmount.ToString("N0") + " gold.");
         }
 
         /// <summary>
@@ -67,10 +67,10 @@ namespace Sulimn_WPF
         /// </summary>
         private void RepayLoan()
         {
-            RefToBankWindow.LoanTaken -= textAmount;
-            RefToBankWindow.LoanAvailable += textAmount;
-            GameState.CurrentHero.Gold -= textAmount;
-            CloseWindow("You repay " + textAmount.ToString("N0") + " gold on your loan.");
+            RefToBankWindow.LoanTaken -= _textAmount;
+            RefToBankWindow.LoanAvailable += _textAmount;
+            GameState.CurrentHero.Gold -= _textAmount;
+            CloseWindow("You repay " + _textAmount.ToString("N0") + " gold on your loan.");
         }
 
         /// <summary>
@@ -78,10 +78,10 @@ namespace Sulimn_WPF
         /// </summary>
         private void TakeOutLoan()
         {
-            RefToBankWindow.LoanTaken += textAmount + (textAmount / 10);
-            RefToBankWindow.LoanAvailable -= (textAmount + (textAmount / 10));
-            GameState.CurrentHero.Gold += textAmount;
-            CloseWindow("You take out a loan for " + textAmount.ToString("N0") + " gold.");
+            RefToBankWindow.LoanTaken += _textAmount + (_textAmount / 20);
+            RefToBankWindow.LoanAvailable -= (_textAmount + (_textAmount / 20));
+            GameState.CurrentHero.Gold += _textAmount;
+            CloseWindow("You take out a loan for " + _textAmount.ToString("N0") + " gold.");
         }
 
         /// <summary>
@@ -89,9 +89,9 @@ namespace Sulimn_WPF
         /// </summary>
         private void Withdrawal()
         {
-            RefToBankWindow.GoldInBank -= textAmount;
-            GameState.CurrentHero.Gold += textAmount;
-            CloseWindow("You withdraw " + textAmount.ToString("N0") + " gold from your account.");
+            RefToBankWindow.GoldInBank -= _textAmount;
+            GameState.CurrentHero.Gold += _textAmount;
+            CloseWindow("You withdraw " + _textAmount.ToString("N0") + " gold from your account.");
         }
 
         #endregion Transaction Methods
@@ -100,14 +100,14 @@ namespace Sulimn_WPF
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
         {
-            textAmount = Convert.ToInt32(txtBank.Text);
+            _textAmount = Convert.ToInt32(txtBank.Text);
 
-            if (textAmount <= _maximum)
+            if (_textAmount <= _maximum)
             {
                 switch (_type)
                 {
                     case "Deposit":
-                        if (textAmount <= GameState.CurrentHero.Gold)
+                        if (_textAmount <= GameState.CurrentHero.Gold)
                             Deposit();
                         else
                             MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
@@ -118,7 +118,7 @@ namespace Sulimn_WPF
                         break;
 
                     case "Repay Loan":
-                        if (textAmount <= GameState.CurrentHero.Gold)
+                        if (_textAmount <= GameState.CurrentHero.Gold)
                         {
                             RepayLoan();
                         }

@@ -8,13 +8,13 @@
         Title="Manage Users" SizeToContent="WidthAndHeight" Closing="windowManageUsers_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
         <StackPanel>
-            <ListBox x:Name="lstUsers" Grid.Column="0" Height="350" Width="125" Margin="10" SelectionChanged="lstUsers_SelectionChanged" />
+            <ListBox x:Name="lstUsers" Grid.Column="0" Height="350" Width="175" Margin="10" SelectionChanged="lstUsers_SelectionChanged" />
             <Button x:Name="btnNewUser" Width="125" Height="30" Content="_New User" Margin="10" Click="btnNewUser_Click" />
             <Button x:Name="btnDeleteUser" Width="125" Height="30" Content="_Delete User" Margin="10" Click="btnDeleteUser_Click" />
             <Button x:Name="btnSaveUser" Width="125" Height="30" Content="_Save User" Margin="10" Click="btnSaveUser_Click" />
@@ -23,28 +23,28 @@
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" Text="Hero Name:" Margin="10" />
             <TextBox x:Name="txtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="150" Margin="10" />

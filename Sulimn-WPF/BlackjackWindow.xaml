@@ -8,8 +8,8 @@
         Title="Blackjack" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackjack_Closing">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
             <StackPanel Width="185">
