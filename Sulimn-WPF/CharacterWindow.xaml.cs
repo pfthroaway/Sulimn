@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn_WPF
@@ -101,6 +102,29 @@ namespace Sulimn_WPF
                 EnablePlus();
             else
                 DisablePlus();
+
+            if (GameState.CurrentHero.SkillPoints != copyOfHero.SkillPoints)
+                btnReset.IsEnabled = true;
+            else
+                btnReset.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Resets the current Hero to the copy created when the Window loaded.
+        /// </summary>
+        private void Reset()
+        {
+            GameState.CurrentHero.Strength = copyOfHero.Strength;
+            GameState.CurrentHero.Vitality = copyOfHero.Vitality;
+            GameState.CurrentHero.Dexterity = copyOfHero.Dexterity;
+            GameState.CurrentHero.Wisdom = copyOfHero.Wisdom;
+            GameState.CurrentHero.SkillPoints = copyOfHero.SkillPoints;
+            GameState.CurrentHero.CurrentHealth = copyOfHero.CurrentHealth;
+            GameState.CurrentHero.MaximumHealth = copyOfHero.MaximumHealth;
+            GameState.CurrentHero.CurrentMagic = copyOfHero.CurrentMagic;
+            GameState.CurrentHero.MaximumMagic = copyOfHero.MaximumMagic;
+            DisableMinus();
+            CheckSkillPoints();
         }
 
         #region Button-Click Methods
@@ -126,6 +150,11 @@ namespace Sulimn_WPF
             inventoryWindow.RefToCharacterWindow = this;
             inventoryWindow.Show();
             this.Visibility = Visibility.Hidden;
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            Reset();
         }
 
         #endregion Button-Click Methods
@@ -216,6 +245,9 @@ namespace Sulimn_WPF
 
         #region Window-Generated Methods
 
+        /// <summary>
+        /// Closes the Window.
+        /// </summary>
         private void CloseWindow()
         {
             this.Close();
@@ -225,8 +257,6 @@ namespace Sulimn_WPF
         {
             InitializeComponent();
         }
-
-        #endregion Window-Generated Methods
 
         private void windowCharacter_Closing(object sender, CancelEventArgs e)
         {
@@ -243,5 +273,7 @@ namespace Sulimn_WPF
                     break;
             }
         }
+
+        #endregion Window-Generated Methods
     }
 }

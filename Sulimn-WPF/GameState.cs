@@ -43,7 +43,7 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Armor newArmor = new Armor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), ds.Tables[0].Rows[i]["ArmorType"].ToString(), ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Convert.ToInt32(ds.Tables[0].Rows[i]["ArmorDefense"]), Convert.ToInt32(ds.Tables[0].Rows[i]["ArmorWeight"]), Convert.ToInt32(ds.Tables[0].Rows[i]["ArmorValue"]), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
+                            Armor newArmor = new Armor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), ds.Tables[0].Rows[i]["ArmorType"].ToString(), ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"].ToString()), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
 
                             AllItems.Add(newArmor);
                         }
@@ -66,7 +66,7 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Food newFood = new Food(ds.Tables[0].Rows[i]["FoodName"].ToString(), ds.Tables[0].Rows[i]["FoodType"].ToString(), ds.Tables[0].Rows[i]["FoodDescription"].ToString(), Convert.ToInt32(ds.Tables[0].Rows[i]["FoodAmount"]), Convert.ToInt32(ds.Tables[0].Rows[i]["FoodWeight"]), Convert.ToInt32(ds.Tables[0].Rows[i]["FoodValue"]), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
+                            Food newFood = new Food(ds.Tables[0].Rows[i]["FoodName"].ToString(), ds.Tables[0].Rows[i]["FoodType"].ToString(), ds.Tables[0].Rows[i]["FoodDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"].ToString()), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
 
                             AllItems.Add(newFood);
                         }
@@ -81,7 +81,7 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Potion newPotion = new Potion(ds.Tables[0].Rows[i]["PotionName"].ToString(), ds.Tables[0].Rows[i]["PotionType"].ToString(), ds.Tables[0].Rows[i]["PotionDescription"].ToString(), Convert.ToInt32(ds.Tables[0].Rows[i]["PotionAmount"]), Convert.ToInt32(ds.Tables[0].Rows[i]["PotionValue"]), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
+                            Potion newPotion = new Potion(ds.Tables[0].Rows[i]["PotionName"].ToString(), ds.Tables[0].Rows[i]["PotionType"].ToString(), ds.Tables[0].Rows[i]["PotionDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"].ToString()), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
 
                             AllItems.Add(newPotion);
                         }
@@ -96,7 +96,7 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Spell newSpell = new Spell(ds.Tables[0].Rows[i]["SpellName"].ToString(), ds.Tables[0].Rows[i]["SpellType"].ToString(), ds.Tables[0].Rows[i]["SpellDescription"].ToString(), ds.Tables[0].Rows[i]["ReqClass"].ToString(), Convert.ToInt32(ds.Tables[0].Rows[i]["ReqLevel"]), Convert.ToInt32(ds.Tables[0].Rows[i]["MagicCost"]), Convert.ToInt32(ds.Tables[0].Rows[i]["SpellAmount"]));
+                            Spell newSpell = new Spell(ds.Tables[0].Rows[i]["SpellName"].ToString(), ds.Tables[0].Rows[i]["SpellType"].ToString(), ds.Tables[0].Rows[i]["SpellDescription"].ToString(), ds.Tables[0].Rows[i]["ReqClass"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ReqLevel"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"].ToString()));
 
                             AllSpells.Add(newSpell);
                         }
@@ -111,7 +111,7 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Weapon newWeapon = new Weapon(ds.Tables[0].Rows[i]["WeaponName"].ToString(), ds.Tables[0].Rows[i]["WeaponType"].ToString(), ds.Tables[0].Rows[i]["WeaponDescription"].ToString(), Convert.ToInt32(ds.Tables[0].Rows[i]["WeaponDamage"]), Convert.ToInt32(ds.Tables[0].Rows[i]["WeaponWeight"]), Convert.ToInt32(ds.Tables[0].Rows[i]["WeaponValue"]), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
+                            Weapon newWeapon = new Weapon(ds.Tables[0].Rows[i]["WeaponName"].ToString(), ds.Tables[0].Rows[i]["WeaponType"].ToString(), ds.Tables[0].Rows[i]["WeaponDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"].ToString()), Convert.ToBoolean(ds.Tables[0].Rows[i]["CanSell"]));
 
                             AllItems.Add(newWeapon);
                         }
@@ -142,9 +142,9 @@ namespace Sulimn_WPF
                             if (ds.Tables[0].Rows[i]["EnemyFeet"].ToString() != "")
                                 feet = (Armor)AllItems.Find(x => x.Name == (ds.Tables[0].Rows[i]["EnemyFeet"].ToString()));
 
-                            int gold = Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyGold"]);
+                            int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyGold"].ToString());
 
-                            Enemy newEnemy = new Enemy(ds.Tables[0].Rows[i]["EnemyName"].ToString(), ds.Tables[0].Rows[i]["EnemyType"].ToString(), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyLevel"]), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyExp"]), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyStrength"]), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyVitality"]), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyDexterity"]), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyWisdom"]), gold, Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyCurrHealth"]), Convert.ToInt32(ds.Tables[0].Rows[i]["EnemyMaxHealth"]), currWeapon, head, body, legs, feet);
+                            Enemy newEnemy = new Enemy(ds.Tables[0].Rows[i]["EnemyName"].ToString(), ds.Tables[0].Rows[i]["EnemyType"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyLevel"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyExp"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyStrength"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyVitality"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyDexterity"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyWisdom"].ToString()), gold, Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyCurrHealth"].ToString()), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyMaxHealth"].ToString()), currWeapon, head, body, legs, feet);
 
                             AllEnemies.Add(newEnemy);
                         }
@@ -156,18 +156,18 @@ namespace Sulimn_WPF
 
                         if (ds.Tables[0].Rows.Count > 0)
                         {
-                            MaximumStatsHero.Level = Convert.ToInt32(ds.Tables[0].Rows[0]["Level"]);
-                            MaximumStatsHero.Experience = Convert.ToInt32(ds.Tables[0].Rows[0]["Experience"]);
-                            MaximumStatsHero.SkillPoints = Convert.ToInt32(ds.Tables[0].Rows[0]["SkillPoints"]);
-                            MaximumStatsHero.Strength = Convert.ToInt32(ds.Tables[0].Rows[0]["Strength"]);
-                            MaximumStatsHero.Vitality = Convert.ToInt32(ds.Tables[0].Rows[0]["Vitality"]);
-                            MaximumStatsHero.Dexterity = Convert.ToInt32(ds.Tables[0].Rows[0]["Dexterity"]);
-                            MaximumStatsHero.Wisdom = Convert.ToInt32(ds.Tables[0].Rows[0]["Wisdom"]);
-                            MaximumStatsHero.Gold = Convert.ToInt32(ds.Tables[0].Rows[0]["Gold"]);
-                            MaximumStatsHero.CurrentHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrentHealth"]);
-                            MaximumStatsHero.MaximumHealth = Convert.ToInt32(ds.Tables[0].Rows[0]["MaximumHealth"]);
-                            MaximumStatsHero.CurrentMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["CurrentMagic"]);
-                            MaximumStatsHero.MaximumMagic = Convert.ToInt32(ds.Tables[0].Rows[0]["MaximumMagic"]);
+                            MaximumStatsHero.Level = Int32Helper.Parse(ds.Tables[0].Rows[0]["Level"].ToString());
+                            MaximumStatsHero.Experience = Int32Helper.Parse(ds.Tables[0].Rows[0]["Experience"].ToString());
+                            MaximumStatsHero.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[0]["SkillPoints"].ToString());
+                            MaximumStatsHero.Strength = Int32Helper.Parse(ds.Tables[0].Rows[0]["Strength"].ToString());
+                            MaximumStatsHero.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[0]["Vitality"].ToString());
+                            MaximumStatsHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[0]["Dexterity"].ToString());
+                            MaximumStatsHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"].ToString());
+                            MaximumStatsHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"].ToString());
+                            MaximumStatsHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentHealth"].ToString());
+                            MaximumStatsHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaximumHealth"].ToString());
+                            MaximumStatsHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentMagic"].ToString());
+                            MaximumStatsHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaximumMagic"].ToString());
                         }
                     }
 

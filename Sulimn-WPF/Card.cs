@@ -101,10 +101,19 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Card.
+        /// </summary>
         internal Card()
         {
         }
 
+        /// <summary>
+        /// Initializes an instance of Card by setting Properties.
+        /// </summary>
+        /// <param name="name">Name of Card</param>
+        /// <param name="suit">Suit of Card</param>
+        /// <param name="value">Value of Card</param>
         internal Card(string name, string suit, int value)
         {
             Name = name;
@@ -112,6 +121,10 @@ namespace Sulimn_WPF
             Value = value;
         }
 
+        /// <summary>
+        /// Replaces this instance of Card with another instance.
+        /// </summary>
+        /// <param name="otherCard">Instance to replace this instance</param>
         internal Card(Card otherCard)
         {
             Name = otherCard.Name;

@@ -32,19 +32,17 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBox x:Name="lblStatistics" Width="160" HorizontalAlignment="Center" Margin="10" />
+            <TextBox x:Name="lblStatistics" Width="160" HorizontalAlignment="Center" Margin="10" IsReadOnly="True" TextWrapping="Wrap" />
         </StackPanel>
-
-        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
-            <StackPanel VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="10">
+            <StackPanel VerticalAlignment="Center" Margin="5">
                 <TextBlock Text="Bet:" TextAlignment="Center" Margin="5" />
-                <TextBox x:Name="txtBet" TextAlignment="Center" Margin="5" PreviewKeyDown="txtBet_PreviewKeyDown" TextChanged="txtBet_TextChanged" />
+                <TextBox x:Name="txtBet" TextAlignment="Center" Margin="5" Width="105" PreviewKeyDown="txtBet_PreviewKeyDown" TextChanged="txtBet_TextChanged" MaxLength="6" />
                 <TextBlock Grid.Row="1" Width="105" x:Name="lblGold" TextAlignment="Center" Margin="5" />
             </StackPanel>
             <StackPanel VerticalAlignment="Center">
-
                 <Button x:Name="btnNewHand" Width="125" Height="30" Content="_New Hand" Click="btnNewHand_Click" Margin="5" IsEnabled="False" />
-                <Button x:Name="btnExit" Width="125" Height="30" Content="_Exit" Click="btnExit_Click" Margin="5" />
+                <Button x:Name="btnExit" Width="125" Height="30" Content="_Exit" Click="btnExit_Click" Margin="5" IsCancel="True" />
             </StackPanel>
         </StackPanel>
     </Grid>

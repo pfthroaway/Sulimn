@@ -482,7 +482,7 @@ namespace Sulimn_WPF
                 MessageBox.Show(ex.Message, "Error Converting Decimal", MessageBoxButton.OK);
             }
 
-            GameState.CurrentHero.Gold += Convert.ToInt32(itemHalfValue);
+            GameState.CurrentHero.Gold += Int32Helper.Parse(itemHalfValue);
             GameState.CurrentHero.Inventory.RemoveItem(itmSell);
             return "You have sold your " + itmSell.Name + " for " + itemHalfValue.ToString("N0") + " gold.";
         }

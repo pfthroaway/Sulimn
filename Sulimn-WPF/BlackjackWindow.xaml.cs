@@ -275,7 +275,7 @@ namespace Sulimn_WPF
             handOver = false;
             txtBet.IsEnabled = false;
             btnNewHand.IsEnabled = false;
-            bet = Convert.ToInt32(txtBet.Text);
+            bet = Int32Helper.Parse(txtBet.Text);
             if (index >= (cardList.Count * 0.8))
             {
                 index = 0;
@@ -470,7 +470,7 @@ namespace Sulimn_WPF
                 {
                     AddTextTT("You have a natural blackjack!");
                     if (dealerHand.TotalValue() != 21)
-                        WinBlackjack(Convert.ToInt32(bet * 1.5));
+                        WinBlackjack(Int32Helper.Parse(bet * 1.5));
                     else
                     {
                         AddTextTT("You and the dealer both have natural blackjacks.");
@@ -571,9 +571,9 @@ namespace Sulimn_WPF
 
         private void btnNewHand_Click(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToInt32(txtBet.Text) > 0 && Convert.ToInt32(txtBet.Text) <= GameState.CurrentHero.Gold)
+            if (Int32Helper.Parse(txtBet.Text) > 0 && Int32Helper.Parse(txtBet.Text) <= GameState.CurrentHero.Gold)
                 NewHand();
-            else if (Convert.ToInt32(txtBet.Text) > GameState.CurrentHero.Gold)
+            else if (Int32Helper.Parse(txtBet.Text) > GameState.CurrentHero.Gold)
                 MessageBox.Show("You can't bet more gold than you have!", "Sulimn", MessageBoxButton.OK);
             else
                 MessageBox.Show("Please enter a valid bet.", "Sulimn", MessageBoxButton.OK);

@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
-    Title="Explore Sulimn" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" Margin="5" Closing="windowExplore_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    Title="Explore Sulimn" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" Margin="5" Closing="windowExplore_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="S.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -25,6 +25,6 @@
         <Button x:Name="btnCathedral" Grid.Column="2" Grid.Row="1" Width="125" Height="30" Content="_Cathedral" Click="btnCathedral_Click" IsEnabled="False" Margin="10" />
         <Button x:Name="btnMines" Grid.Column="0" Grid.Row="2" Width="125" Height="30" Content="_Mines" Click="btnMines_Click" IsEnabled="False" Margin="10" />
         <Button x:Name="btnCatacombs" Grid.Column="1" Grid.Row="2" Width="125" Height="30" Content="C_atacombs" Click="btnCatacombs_Click" IsEnabled="False" Margin="10" />
-        <Button x:Name="btnBack" Grid.Column="2" Grid.Row="2" Width="125" Height="30" Content="_Back" Click="btnBack_Click" Margin="10" />
+        <Button x:Name="btnBack" Grid.Column="2" Grid.Row="2" Width="125" Height="30" Content="_Back" Click="btnBack_Click" Margin="10" IsCancel="True" />
     </Grid>
 </Window>

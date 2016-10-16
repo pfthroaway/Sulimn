@@ -60,7 +60,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TextBox x:Name="txtShop" Grid.Row="1" Margin="10" Height="176" Width="736" TextWrapping="Wrap" Padding="5" />
-        <Button Grid.Row="2" Width="125" Content="_Back" Click="btnBack_Click" Margin="10" />
+        <TextBox x:Name="txtShop" Grid.Row="1" Margin="10" Height="176" Width="736" IsReadOnly="True" TextWrapping="Wrap" Padding="5" />
+        <Button Grid.Row="2" Width="125" Content="_Back" Click="btnBack_Click" Margin="10" IsCancel="True" />
     </Grid>
 </Window>

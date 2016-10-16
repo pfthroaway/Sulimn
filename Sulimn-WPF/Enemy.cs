@@ -207,10 +207,32 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Enemy.
+        /// </summary>
         internal Enemy()
         {
         }
 
+        /// <summary>
+        /// Initializes an instance of Enemy by setting Properties.
+        /// </summary>
+        /// <param name="enemyName">Name of Enemy</param>
+        /// <param name="enemyType">Type of Enemy</param>
+        /// <param name="enemyLvl">Level of Enemy</param>
+        /// <param name="enemyExp">Experience of Enemy</param>
+        /// <param name="enemyStr">Strength of Enemy</param>
+        /// <param name="enemyVit">Vitality of Enemy</param>
+        /// <param name="enemyDex">Dexterity of Enemy</param>
+        /// <param name="enemyWis">Wisdom of Enemy</param>
+        /// <param name="enemyGold">Gold possessed by Enemy</param>
+        /// <param name="enemyCurrHealth">Current health of Enemy</param>
+        /// <param name="enemyMaxHealth">Maximum health of Enemy</param>
+        /// <param name="enemyCurrWeapon">Weapon wielded by Enemy.</param>
+        /// <param name="enemyHead">Head Armor worn by Enemy</param>
+        /// <param name="enemyBody">Body Armor worn by Enemy</param>
+        /// <param name="enemyLegs">Leg Armor worn by Enemy</param>
+        /// <param name="enemyFeet">Feet Armor worn by Enemy</param>
         internal Enemy(string enemyName, string enemyType, int enemyLvl, int enemyExp, int enemyStr, int enemyVit, int enemyDex, int enemyWis, int enemyGold, int enemyCurrHealth, int enemyMaxHealth, Weapon enemyCurrWeapon, Armor enemyHead, Armor enemyBody, Armor enemyLegs, Armor enemyFeet)
         {
             Name = enemyName;
@@ -231,6 +253,10 @@ namespace Sulimn_WPF
             Weapon = enemyCurrWeapon;
         }
 
+        /// <summary>
+        /// Replaces this instnace of Enemy with another instance.
+        /// </summary>
+        /// <param name="otherEnemy">Instance of Enemy that replaces this one</param>
         internal Enemy(Enemy otherEnemy)
         {
             Name = otherEnemy.Name;

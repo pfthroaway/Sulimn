@@ -47,7 +47,7 @@ namespace Sulimn_WPF
         {
             if (Decimal.Divide(GameState.CurrentHero.CurrentHealth, GameState.CurrentHero.MaximumHealth) <= 0.25M)
             {
-                AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + nl + "\"Let me assist you. You look like you've been through a tough battle.\"" + nl + "The priest gives you a potion which heals you to full health!" + nl + "You thank the priest and return to the streets.");
+                AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + nl + "\"Let me heal your wounds. You look like you've been through a tough battle.\"" + nl + "The priest gives you a potion which heals you to full health!" + nl + "You thank the priest and return to the streets.");
                 GameState.CurrentHero.CurrentHealth = GameState.CurrentHero.MaximumHealth;
                 GameState.SaveHero();
             }

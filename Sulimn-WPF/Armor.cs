@@ -135,10 +135,23 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Armor.
+        /// </summary>
         internal Armor()
         {
         }
 
+        /// <summary>
+        /// Initializes an instance of Armor by setting Properties.
+        /// </summary>
+        /// <param name="armorName">Name of Armor</param>
+        /// <param name="armorType">Type of Armor</param>
+        /// <param name="armorDescription">Description of armor</param>
+        /// <param name="armorDefense">Defense of Armor</param>
+        /// <param name="armorWeight">Weight of Armor</param>
+        /// <param name="armorValue">Value of Armor</param>
+        /// <param name="armorCanSell">Can Sell Armor?</param>
         internal Armor(string armorName, string armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell)
         {
             Name = armorName;
@@ -151,6 +164,10 @@ namespace Sulimn_WPF
             CanSell = armorCanSell;
         }
 
+        /// <summary>
+        /// Replaces this instance of Armor with another instance.
+        /// </summary>
+        /// <param name="otherArmor">Instance of Armor to replace this one</param>
         internal Armor(Armor otherArmor)
         {
             Name = otherArmor.Name;

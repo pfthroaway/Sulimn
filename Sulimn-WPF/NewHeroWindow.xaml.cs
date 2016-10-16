@@ -46,11 +46,11 @@ namespace Sulimn_WPF
 
                 newClass.Name = ds.Tables[0].Rows[i]["ClassName"].ToString();
                 newClass.Description = ds.Tables[0].Rows[i]["ClassDescription"].ToString();
-                newClass.SkillPoints = Convert.ToInt32(ds.Tables[0].Rows[i]["SkillPoints"].ToString());
-                newClass.Strength = Convert.ToInt32(ds.Tables[0].Rows[i]["Strength"].ToString());
-                newClass.Vitality = Convert.ToInt32(ds.Tables[0].Rows[i]["Vitality"].ToString());
-                newClass.Dexterity = Convert.ToInt32(ds.Tables[0].Rows[i]["Dexterity"].ToString());
-                newClass.Wisdom = Convert.ToInt32(ds.Tables[0].Rows[i]["Wisdom"].ToString());
+                newClass.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"].ToString());
+                newClass.Strength = Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"].ToString());
+                newClass.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"].ToString());
+                newClass.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"].ToString());
+                newClass.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"].ToString());
 
                 classes.Add(newClass);
             }

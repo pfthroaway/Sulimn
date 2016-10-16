@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sulimn_WPF"
         mc:Ignorable="d"
-        Title="Admin" SizeToContent="WidthAndHeight" Closing="windowAdmin_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17">
+        Title="Admin" SizeToContent="WidthAndHeight" Closing="windowAdmin_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <StackPanel>
         <Button x:Name="btnManageUsers" Width="125" Height="30" Content="Manage _Users" Margin="10" Click="btnManageUsers_Click" />
         <Button x:Name="btnBack" Width="125" Height="30" Content="_Back" Margin="10" Click="btnBack_Click" IsCancel="True" />

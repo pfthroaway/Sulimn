@@ -204,7 +204,10 @@ namespace Sulimn_WPF
         /// </summary>
         private void HeroAttack()
         {
-            HeroAttack(GameState.CurrentHero.Strength, GameState.CurrentHero.Weapon.Damage);
+            if (GameState.CurrentHero.Weapon.WeaponType == "Melee")
+                HeroAttack(GameState.CurrentHero.Strength, GameState.CurrentHero.Weapon.Damage);
+            else if (GameState.CurrentHero.Weapon.WeaponType == "Ranged")
+                HeroAttack(GameState.CurrentHero.Dexterity, GameState.CurrentHero.Weapon.Damage);
         }
 
         /// <summary>
@@ -214,7 +217,7 @@ namespace Sulimn_WPF
         /// <param name="damage">Damage</param>
         private void HeroAttack(int statModifier, int damage)
         {
-            int maxHeroDamage = Convert.ToInt32(statModifier * 0.2 + damage);
+            int maxHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
             int maxEnemyAbsorb = GameState.CurrentEnemy.Head.Defense + GameState.CurrentEnemy.Body.Defense + GameState.CurrentEnemy.Legs.Defense + GameState.CurrentEnemy.Feet.Defense;
 
             int actualDamage = Functions.GenerateRandomNumber(1, maxHeroDamage);
@@ -253,7 +256,7 @@ namespace Sulimn_WPF
         /// </summary>
         private void EnemyAttack()
         {
-            int maxDamage = Convert.ToInt32(GameState.CurrentEnemy.Strength * 0.1 + GameState.CurrentEnemy.Weapon.Damage);
+            int maxDamage = Int32Helper.Parse(GameState.CurrentEnemy.Strength * 0.2 + GameState.CurrentEnemy.Weapon.Damage);
             int HeroDefense = GameState.CurrentHero.Head.Defense + GameState.CurrentHero.Body.Defense + GameState.CurrentHero.Legs.Defense + GameState.CurrentHero.Feet.Defense;
             int actualDamage = Functions.GenerateRandomNumber(1, maxDamage);
             int maxShieldAbsorb = Functions.GenerateRandomNumber(0, HeroShield);

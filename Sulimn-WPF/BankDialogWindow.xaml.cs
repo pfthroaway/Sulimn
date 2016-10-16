@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sulimn_WPF
 {
@@ -100,9 +101,9 @@ namespace Sulimn_WPF
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
         {
-            _textAmount = Convert.ToInt32(txtBank.Text);
+            int.TryParse(txtBank.Text, out _textAmount);
 
-            if (_textAmount <= _maximum)
+            if (_textAmount <= _maximum && _textAmount > 0)
             {
                 switch (_type)
                 {
@@ -132,7 +133,7 @@ namespace Sulimn_WPF
                 }
             }
             else
-                MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
+                MessageBox.Show("Please enter a positive value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -163,8 +164,18 @@ namespace Sulimn_WPF
             txtBank.Focus();
         }
 
-        private void txtBank_TextChanged(object sender, TextChangedEventArgs e)
+        private void txtBet_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            Key k = e.Key;
+
+            bool controlKeyIsDown = Keyboard.IsKeyDown(Key.Back);
+
+            if (controlKeyIsDown || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+                e.Handled = false;
+            else
+            {
+                e.Handled = true;
+            }
         }
 
         private void windowBankDialog_Closing(object sender, CancelEventArgs e)

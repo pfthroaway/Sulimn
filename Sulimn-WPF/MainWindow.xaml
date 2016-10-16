@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
-    x:Name="windowMain" Title="Sulimn" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="windowMain_Loaded" FontFamily="Segoe UI Semibold" FontSize="17">
+    x:Name="windowMain" Title="Sulimn" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="windowMain_Loaded" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">

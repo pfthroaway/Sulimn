@@ -311,10 +311,37 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Hero.
+        /// </summary>
         internal Hero()
         {
         }
 
+        /// <summary>
+        /// Initializes an instance of Hero by setting Properties.
+        /// </summary>
+        /// <param name="heroName">Name of Hero</param>
+        /// <param name="heroClassName">Class of Hero</param>
+        /// <param name="heroLevel">Level of Hero</param>
+        /// <param name="heroExperience">Experience of Hero</param>
+        /// <param name="heroSkillPts">Skill Points of Hero</param>
+        /// <param name="heroStrength">Strength of Hero</param>
+        /// <param name="heroVitality">Vitality of Hero</param>
+        /// <param name="heroDexterity">Dexterity of Hero</param>
+        /// <param name="heroWisdom">Wisdom of Hero</param>
+        /// <param name="heroGold">Gold possessed by Hero</param>
+        /// <param name="heroCurrentHealth">Current health of Hero</param>
+        /// <param name="heroMaximumHealth">Maximum health of Hero</param>
+        /// <param name="heroCurrentMagic">Current magic of Hero</param>
+        /// <param name="heroMaximumMagic">Maximum magic of Hero</param>
+        /// <param name="heroHead">Head Armor worn by Hero</param>
+        /// <param name="heroBody">Body Armor worn by Hero</param>
+        /// <param name="heroLegs">Leg Armor worn by Hero</param>
+        /// <param name="heroFeet">Feet Armor worn by Hero</param>
+        /// <param name="heroWeapon">Weapon wielded by Hero</param>
+        /// <param name="heroSpellbook">Spellbook of Hero</param>
+        /// <param name="heroInventory">Inventory of Hero</param>
         internal Hero(string heroName, string heroClassName, int heroLevel, int heroExperience, int heroSkillPts, int heroStrength, int heroVitality, int heroDexterity, int heroWisdom, int heroGold, int heroCurrentHealth, int heroMaximumHealth, int heroCurrentMagic, int heroMaximumMagic, Armor heroHead, Armor heroBody, Armor heroLegs, Armor heroFeet, Weapon heroWeapon, Spellbook heroSpellbook, Inventory heroInventory)
         {
             Name = heroName;
@@ -339,12 +366,17 @@ namespace Sulimn_WPF
             Inventory = heroInventory;
         }
 
+        /// <summary>
+        /// Replaces this instance of Hero with another instance
+        /// </summary>
+        /// <param name="otherHero">Instance of Hero to replace this one</param>
         internal Hero(Hero otherHero)
         {
             Name = otherHero.Name;
             ClassName = otherHero.ClassName;
             Level = otherHero.Level;
             Experience = otherHero.Experience;
+            SkillPoints = otherHero.SkillPoints;
             Strength = otherHero.Strength;
             Vitality = otherHero.Vitality;
             Dexterity = otherHero.Dexterity;
