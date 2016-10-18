@@ -33,13 +33,13 @@
             </DataTemplate>
         </Grid.Resources>
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Hero Name:</TextBlock>
-        <TextBox x:Name="txtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Margin="5" TextChanged="TxtName_Changed"></TextBox>
-        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">Select a Class:</TextBlock>
+        <TextBox x:Name="txtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Margin="5" TextChanged="TxtName_Changed" MaxLength="20" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select a Class" />
         <ListBox x:Name="lstClasses" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="140" Margin="5" SelectionChanged="lstClasses_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource classNameTemplate}" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5">
             <TextBlock Text="{Binding Path=Description, Mode=TwoWay}" TextWrapping="Wrap" Margin="5" />
         </Border>
-        <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" >Strength</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Strength" />
         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button x:Name="btnStrengthMinus" MinWidth="30" Margin="5" Click="btnStrengthMinus_Click" IsEnabled="False" >-</Button>
             <TextBlock MinWidth="60" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Strength, Mode=TwoWay}" />

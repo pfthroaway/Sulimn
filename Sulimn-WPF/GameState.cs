@@ -127,20 +127,20 @@ namespace Sulimn_WPF
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
                             Weapon currWeapon = new Weapon();
-                            if (ds.Tables[0].Rows[i]["EnemyWeapon"].ToString() != "")
-                                currWeapon = (Weapon)AllItems.Find(x => x.Name == (ds.Tables[0].Rows[i]["EnemyWeapon"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyWeapon"].ToString()))
+                                currWeapon = (Weapon)AllItems.Find(wpn => wpn.Name == (ds.Tables[0].Rows[i]["EnemyWeapon"].ToString()));
                             Armor head = new Armor();
-                            if (ds.Tables[0].Rows[i]["EnemyHead"].ToString() != "")
-                                head = (Armor)AllItems.Find(x => x.Name == (ds.Tables[0].Rows[i]["EnemyHead"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyHead"].ToString()))
+                                head = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyHead"].ToString()));
                             Armor body = new Armor();
-                            if (ds.Tables[0].Rows[i]["EnemyBody"].ToString() != "")
-                                body = (Armor)AllItems.Find(x => x.Name == (ds.Tables[0].Rows[i]["EnemyBody"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyBody"].ToString()))
+                                body = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyBody"].ToString()));
                             Armor legs = new Armor();
-                            if (ds.Tables[0].Rows[i]["EnemyLegs"].ToString() != "")
-                                legs = (Armor)AllItems.Find(x => x.Name == (ds.Tables[0].Rows[i]["EnemyLegs"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyLegs"].ToString()))
+                                legs = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyLegs"].ToString()));
                             Armor feet = new Armor();
-                            if (ds.Tables[0].Rows[i]["EnemyFeet"].ToString() != "")
-                                feet = (Armor)AllItems.Find(x => x.Name == (ds.Tables[0].Rows[i]["EnemyFeet"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyFeet"].ToString()))
+                                feet = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyFeet"].ToString()));
 
                             int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyGold"].ToString());
 

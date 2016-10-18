@@ -111,7 +111,7 @@ namespace Sulimn_WPF
                         if (_textAmount <= GameState.CurrentHero.Gold)
                             Deposit();
                         else
-                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
+                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.GoldToString + " gold.");
                         break;
 
                     case "Withdrawal":
@@ -124,7 +124,7 @@ namespace Sulimn_WPF
                             RepayLoan();
                         }
                         else
-                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
+                            MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.GoldToString + " gold.");
                         break;
 
                     case "Take Out Loan":
@@ -133,7 +133,7 @@ namespace Sulimn_WPF
                 }
             }
             else
-                MessageBox.Show("Please enter a positive value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Gold + " gold.");
+                MessageBox.Show("Please enter a positive value less than or equal to your current gold. You currently have " + GameState.CurrentHero.GoldToString + " gold.");
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

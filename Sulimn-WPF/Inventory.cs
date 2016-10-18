@@ -53,7 +53,7 @@ namespace Sulimn_WPF
             for (int i = 0; i < Items.Count; i++)
                 arrInventoryNames[i] = Items[i].Name;
 
-            return String.Join(",", arrInventoryNames);
+            return string.Join(",", arrInventoryNames);
         }
 
         public IEnumerator<Item> GetEnumerator()

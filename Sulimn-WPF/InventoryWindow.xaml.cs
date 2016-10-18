@@ -414,6 +414,11 @@ namespace Sulimn_WPF
             BindLabels();
         }
 
+        private void lstInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DisplaySelectedInfo();
+        }
+
         private void windowInventory_Closing(object sender, CancelEventArgs e)
         {
             GameState.SaveHero();
@@ -421,10 +426,5 @@ namespace Sulimn_WPF
         }
 
         #endregion Window-Manipulation Methods
-
-        private void lstInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DisplaySelectedInfo();
-        }
     }
 }

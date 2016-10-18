@@ -68,6 +68,8 @@ namespace Sulimn_WPF
             txtBattle.ScrollToEnd();
         }
 
+        #region Battle Management
+
         /// <summary>
         /// Sets up the battle engine.
         /// </summary>
@@ -92,6 +94,8 @@ namespace Sulimn_WPF
             battleEnded = true;
             btnReturn.IsEnabled = true;
         }
+
+        #endregion Battle Management
 
         #region Battle Logic
 
@@ -213,7 +217,7 @@ namespace Sulimn_WPF
         /// <summary>
         /// The Hero attacks the Enemy.
         /// </summary>
-        /// <param name="statModifier">Stat to be given 10% bonus to damage</param>
+        /// <param name="statModifier">Stat to be given 20% bonus to damage</param>
         /// <param name="damage">Damage</param>
         private void HeroAttack(int statModifier, int damage)
         {
