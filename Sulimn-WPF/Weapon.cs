@@ -79,6 +79,12 @@ namespace Sulimn_WPF
             set { _canSell = value; OnPropertyChanged("CanSell"); }
         }
 
+        public sealed override bool IsSold
+        {
+            get { return _isSold; }
+            set { _isSold = value; OnPropertyChanged("IsSold"); }
+        }
+
         #endregion Properties
 
         #region Override Operators
@@ -94,7 +100,7 @@ namespace Sulimn_WPF
             if ((System.Object)wpn == null)
                 return false;
 
-            return (this.Name == wpn.Name) && (this.Type == wpn.Type) && (this.WeaponType == wpn.WeaponType) && (this.Description == wpn.Description) && (this.Damage == wpn.Damage) && (this.Weight == wpn.Weight) && (this.Value == wpn.Value) && (this.CanSell == wpn.CanSell);
+            return (this.Name == wpn.Name) && (this.Type == wpn.Type) && (this.WeaponType == wpn.WeaponType) && (this.Description == wpn.Description) && (this.Damage == wpn.Damage) && (this.Weight == wpn.Weight) && (this.Value == wpn.Value) && (this.CanSell == wpn.CanSell) && (this.IsSold == wpn.IsSold);
         }
 
         public bool Equals(Weapon otherWeapon)
@@ -102,7 +108,7 @@ namespace Sulimn_WPF
             if ((object)otherWeapon == null)
                 return false;
 
-            return (this.Name == otherWeapon.Name) && (this.Type == otherWeapon.Type) && (this.WeaponType == otherWeapon.WeaponType) && (this.Description == otherWeapon.Description) && (this.Damage == otherWeapon.Damage) && (this.Weight == otherWeapon.Weight) && (this.Value == otherWeapon.Value) && (this.CanSell == otherWeapon.CanSell);
+            return (this.Name == otherWeapon.Name) && (this.Type == otherWeapon.Type) && (this.WeaponType == otherWeapon.WeaponType) && (this.Description == otherWeapon.Description) && (this.Damage == otherWeapon.Damage) && (this.Weight == otherWeapon.Weight) && (this.Value == otherWeapon.Value) && (this.CanSell == otherWeapon.CanSell) && (this.IsSold == otherWeapon.IsSold);
         }
 
         public static bool operator ==(Weapon left, Weapon right)
@@ -113,7 +119,7 @@ namespace Sulimn_WPF
             if (((object)left == null) || ((object)right == null))
                 return false;
 
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.WeaponType == right.WeaponType) && (left.Description == right.Description) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell);
+            return (left.Name == right.Name) && (left.Type == right.Type) && (left.WeaponType == right.WeaponType) && (left.Description == right.Description) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public static bool operator !=(Weapon left, Weapon right)
@@ -139,7 +145,7 @@ namespace Sulimn_WPF
         {
         }
 
-        internal Weapon(string weaponName, string weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell)
+        internal Weapon(string weaponName, string weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell, bool weaponIsSold)
         {
             Name = weaponName;
             Type = "Weapon";
@@ -149,6 +155,7 @@ namespace Sulimn_WPF
             Weight = weaponWeight;
             Value = weaponValue;
             CanSell = weaponCanSell;
+            IsSold = weaponIsSold;
         }
 
         internal Weapon(Weapon otherWeapon)
@@ -161,6 +168,7 @@ namespace Sulimn_WPF
             Weight = otherWeapon.Weight;
             Value = otherWeapon.Value;
             CanSell = otherWeapon.CanSell;
+            IsSold = otherWeapon.IsSold;
         }
 
         internal Weapon(Item otherItem, string weaponType, int weaponDamage)
@@ -173,6 +181,7 @@ namespace Sulimn_WPF
             Weight = otherItem.Weight;
             Value = otherItem.Value;
             CanSell = otherItem.CanSell;
+            IsSold = otherItem.IsSold;
         }
 
         #endregion Constructors

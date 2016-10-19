@@ -53,6 +53,12 @@ namespace Sulimn_WPF
             set { _canSell = value; }
         }
 
+        public sealed override bool IsSold
+        {
+            get { return _isSold; }
+            set { _isSold = value; OnPropertyChanged("IsSold"); }
+        }
+
         #endregion Properties
 
         #region Override Operators
@@ -68,7 +74,7 @@ namespace Sulimn_WPF
             if ((object)food == null)
                 return false;
 
-            return (this.Name == food.Name) && (this.Type == food.Type) && (this.Description == food.Description) && (this.Amount == food.Amount) && (this.Weight == food.Weight) && (this.Value == food.Value) && (this.CanSell == food.CanSell);
+            return (this.Name == food.Name) && (this.Type == food.Type) && (this.Description == food.Description) && (this.Amount == food.Amount) && (this.Weight == food.Weight) && (this.Value == food.Value) && (this.CanSell == food.CanSell) && (this.IsSold == food.IsSold);
         }
 
         public bool Equals(Food otherFood)
@@ -76,7 +82,7 @@ namespace Sulimn_WPF
             if ((object)otherFood == null)
                 return false;
 
-            return (this.Name == otherFood.Name) && (this.Type == otherFood.Type) && (this.Description == otherFood.Description) && (this.Amount == otherFood.Amount) && (this.Weight == otherFood.Weight) && (this.Value == otherFood.Value) && (this.CanSell == otherFood.CanSell);
+            return (this.Name == otherFood.Name) && (this.Type == otherFood.Type) && (this.Description == otherFood.Description) && (this.Amount == otherFood.Amount) && (this.Weight == otherFood.Weight) && (this.Value == otherFood.Value) && (this.CanSell == otherFood.CanSell) && (this.IsSold == otherFood.IsSold);
         }
 
         public static bool operator ==(Food left, Food right)
@@ -87,7 +93,7 @@ namespace Sulimn_WPF
             if (((object)left == null) || ((object)right == null))
                 return false;
 
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell);
+            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public static bool operator !=(Food left, Food right)
@@ -113,7 +119,7 @@ namespace Sulimn_WPF
         {
         }
 
-        internal Food(string foodName, string foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell)
+        internal Food(string foodName, string foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell, bool foodIsSold)
         {
             Name = foodName;
             Type = "Food";
@@ -123,6 +129,7 @@ namespace Sulimn_WPF
             Value = foodValue;
             Amount = foodAmount;
             CanSell = foodCanSell;
+            IsSold = foodIsSold;
         }
 
         #endregion Constructors

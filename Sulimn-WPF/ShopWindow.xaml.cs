@@ -128,7 +128,7 @@ namespace Sulimn_WPF
             {
                 case "Weapon":
                     purchaseWeapons.Clear();
-                    purchaseWeapons.AddRange(GameState.GetItemsOfType<Weapon>().Where(x => x.CanSell == true && x.Type == "Weapon"));
+                    purchaseWeapons.AddRange(GameState.GetItemsOfType<Weapon>().Where(x => x.IsSold == true && x.Type == "Weapon"));
                     purchaseWeapons = purchaseWeapons.OrderBy(x => x.Value).ToList();
                     foreach (Weapon wpn in purchaseWeapons)
                         lstPurchase.Items.Add(wpn.Name);
@@ -136,7 +136,7 @@ namespace Sulimn_WPF
 
                 case "Armor":
                     purchaseArmor.Clear();
-                    purchaseArmor.AddRange(GameState.GetItemsOfType<Armor>().Where(x => x.CanSell == true));
+                    purchaseArmor.AddRange(GameState.GetItemsOfType<Armor>().Where(x => x.IsSold == true));
                     purchaseArmor = purchaseArmor.OrderBy(x => x.Value).ToList();
                     foreach (Armor armr in purchaseArmor)
                         lstPurchase.Items.Add(armr.Name);
@@ -144,7 +144,7 @@ namespace Sulimn_WPF
 
                 case "General":
                     purchasePotions.Clear();
-                    purchasePotions.AddRange(GameState.GetItemsOfType<Potion>().Where(x => x.CanSell == true));
+                    purchasePotions.AddRange(GameState.GetItemsOfType<Potion>().Where(x => x.IsSold == true));
                     purchasePotions = purchasePotions.OrderBy(x => x.Value).ToList();
                     foreach (Potion potn in purchasePotions)
                         lstPurchase.Items.Add(potn.Name);
@@ -152,7 +152,7 @@ namespace Sulimn_WPF
 
                 case "Food":
                     purchaseFood.Clear();
-                    purchaseFood.AddRange(GameState.GetItemsOfType<Food>().Where(x => x.CanSell == true));
+                    purchaseFood.AddRange(GameState.GetItemsOfType<Food>().Where(x => x.IsSold == true));
                     purchaseFood = purchaseFood.OrderBy(x => x.Value).ToList();
                     foreach (Food food in purchaseFood)
                         lstPurchase.Items.Add(food.Name);

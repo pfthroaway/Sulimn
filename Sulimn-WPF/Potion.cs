@@ -53,6 +53,12 @@ namespace Sulimn_WPF
             set { _canSell = value; }
         }
 
+        public sealed override bool IsSold
+        {
+            get { return _isSold; }
+            set { _isSold = value; OnPropertyChanged("IsSold"); }
+        }
+
         #endregion Properties
 
         #region Override Operators
@@ -68,7 +74,7 @@ namespace Sulimn_WPF
             if ((object)potn == null)
                 return false;
 
-            return (this.Name == potn.Name) && (this.Type == potn.Type) && (this.Description == potn.Description) && (this.Amount == potn.Amount) && (this.Weight == potn.Weight) && (this.Value == potn.Value) && (this.CanSell == potn.CanSell);
+            return (this.Name == potn.Name) && (this.Type == potn.Type) && (this.Description == potn.Description) && (this.Amount == potn.Amount) && (this.Weight == potn.Weight) && (this.Value == potn.Value) && (this.CanSell == potn.CanSell) && (this.IsSold == potn.IsSold);
         }
 
         public bool Equals(Potion otherPotion)
@@ -76,7 +82,7 @@ namespace Sulimn_WPF
             if ((object)otherPotion == null)
                 return false;
 
-            return (this.Name == otherPotion.Name) && (this.Type == otherPotion.Type) && (this.Description == otherPotion.Description) && (this.Amount == otherPotion.Amount) && (this.Weight == otherPotion.Weight) && (this.Value == otherPotion.Value) && (this.CanSell == otherPotion.CanSell);
+            return (this.Name == otherPotion.Name) && (this.Type == otherPotion.Type) && (this.Description == otherPotion.Description) && (this.Amount == otherPotion.Amount) && (this.Weight == otherPotion.Weight) && (this.Value == otherPotion.Value) && (this.CanSell == otherPotion.CanSell) && (this.IsSold == otherPotion.IsSold);
         }
 
         public static bool operator ==(Potion left, Potion right)
@@ -87,7 +93,7 @@ namespace Sulimn_WPF
             if (((object)left == null) || ((object)right == null))
                 return false;
 
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell);
+            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public static bool operator !=(Potion left, Potion right)
@@ -113,7 +119,7 @@ namespace Sulimn_WPF
         {
         }
 
-        internal Potion(string potionName, string potionType, string potionDescription, int potionAmount, int potionValue, bool potionCanSell)
+        internal Potion(string potionName, string potionType, string potionDescription, int potionAmount, int potionValue, bool potionCanSell, bool potionIsSold)
         {
             Name = potionName;
             Type = "Potion";
@@ -123,6 +129,7 @@ namespace Sulimn_WPF
             Value = potionValue;
             Amount = potionAmount;
             CanSell = potionCanSell;
+            IsSold = potionIsSold;
         }
 
         #endregion Constructors

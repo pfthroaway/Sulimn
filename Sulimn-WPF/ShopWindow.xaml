@@ -16,7 +16,7 @@
             <TabItem Header="Purchase">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="297" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
@@ -40,7 +40,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="297" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
                         <ListBox x:Name="lstSell" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277"  Margin="10" SelectionChanged="lstSell_SelectionChanged" />

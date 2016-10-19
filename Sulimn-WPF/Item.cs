@@ -6,7 +6,7 @@ namespace Sulimn_WPF
     {
         protected string _name, _type, _description;
         protected int _weight, _value;
-        protected bool _canSell;
+        protected bool _canSell, _isSold;
 
         #region Data-Binding
 
@@ -33,54 +33,8 @@ namespace Sulimn_WPF
 
         abstract public bool CanSell { get; set; }
 
+        abstract public bool IsSold { get; set; }
+
         #endregion Properties
-
-        #region Constructors
-
-        internal Item()
-        {
-        }
-
-        internal Item(string iName, string iType, string iDescription, int iWeight, int iValue, bool iCanSell)
-        {
-            _name = iName;
-            _type = iType;
-            _description = iDescription;
-            _weight = iWeight;
-            _value = iValue;
-            _canSell = iCanSell;
-        }
-
-        internal Item(Weapon wpn)
-        {
-            _name = wpn.Name;
-            _type = "Weapon";
-            _description = wpn.Description;
-            _weight = wpn.Weight;
-            _value = wpn.Value;
-            _canSell = wpn.CanSell;
-        }
-
-        internal Item(Armor armr)
-        {
-            _name = armr.Name;
-            _type = "Armor";
-            _description = armr.Description;
-            _weight = armr.Weight;
-            _value = armr.Value;
-            _canSell = armr.CanSell;
-        }
-
-        internal Item(Potion potn)
-        {
-            _name = potn.Name;
-            _type = "Potion";
-            _description = potn.Description;
-            _weight = potn.Weight;
-            _value = potn.Value;
-            _canSell = potn.CanSell;
-        }
-
-        #endregion Constructors
     }
 }

@@ -21,6 +21,8 @@ namespace Sulimn_WPF
 
         internal FieldsWindow RefToFieldsWindow { get; set; }
 
+        internal ForestWindow RefToForestWindow { get; set; }
+
         public int HeroShield
         {
             get { return _heroShield; }
@@ -471,6 +473,10 @@ namespace Sulimn_WPF
 
                     case "Fields":
                         RefToFieldsWindow.Show();
+                        break;
+
+                    case "Forest":
+                        RefToForestWindow.Show();
                         break;
                 }
             }

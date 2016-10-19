@@ -75,7 +75,6 @@ namespace Sulimn_WPF
         private void btnExplore_Click(object sender, RoutedEventArgs e)
         {
             ExploreWindow exploreWindow = new ExploreWindow();
-            exploreWindow.LoadExplore();
             exploreWindow.RefToCityWindow = this;
             this.Visibility = Visibility.Hidden;
             exploreWindow.Show();

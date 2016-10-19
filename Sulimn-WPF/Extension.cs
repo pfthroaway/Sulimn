@@ -53,6 +53,30 @@ namespace Sulimn_WPF
 
             return temp;
         }
+
+        internal static int Parse(object obj)
+        {
+            int temp = 0;
+            int.TryParse(obj.ToString(), out temp);
+            return temp;
+        }
+    }
+
+    internal static class BoolHelper
+    {
+        internal static bool Parse(string text)
+        {
+            bool temp = false;
+            bool.TryParse(text, out temp);
+            return temp;
+        }
+
+        internal static bool Parse(object obj)
+        {
+            bool temp = false;
+            bool.TryParse(obj.ToString(), out temp);
+            return temp;
+        }
     }
 
     internal static class DoubleHelper

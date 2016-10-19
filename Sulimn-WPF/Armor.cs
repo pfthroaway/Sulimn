@@ -79,6 +79,12 @@ namespace Sulimn_WPF
             set { _canSell = value; OnPropertyChanged("CanSell"); }
         }
 
+        public sealed override bool IsSold
+        {
+            get { return _isSold; }
+            set { _isSold = value; OnPropertyChanged("IsSold"); }
+        }
+
         #endregion Properties
 
         #region Override Operators
@@ -94,7 +100,7 @@ namespace Sulimn_WPF
             if ((System.Object)armr == null)
                 return false;
 
-            return (this.Name == armr.Name) && (this.Type == armr.Type) && (this.ArmorType == armr.ArmorType) && (this.Description == armr.Description) && (this.Defense == armr.Defense) && (this.Weight == armr.Weight) && (this.Value == armr.Value) && (this.CanSell == armr.CanSell);
+            return (this.Name == armr.Name) && (this.Type == armr.Type) && (this.ArmorType == armr.ArmorType) && (this.Description == armr.Description) && (this.Defense == armr.Defense) && (this.Weight == armr.Weight) && (this.Value == armr.Value) && (this.CanSell == armr.CanSell) && (this.IsSold == armr.IsSold);
         }
 
         public bool Equals(Armor otherArmor)
@@ -102,7 +108,7 @@ namespace Sulimn_WPF
             if ((object)otherArmor == null)
                 return false;
 
-            return (this.Name == otherArmor.Name) && (this.Type == otherArmor.Type) && (this.ArmorType == otherArmor.ArmorType) && (this.Description == otherArmor.Description) && (this.Defense == otherArmor.Defense) && (this.Weight == otherArmor.Weight) && (this.Value == otherArmor.Value) && (this.CanSell == otherArmor.CanSell);
+            return (this.Name == otherArmor.Name) && (this.Type == otherArmor.Type) && (this.ArmorType == otherArmor.ArmorType) && (this.Description == otherArmor.Description) && (this.Defense == otherArmor.Defense) && (this.Weight == otherArmor.Weight) && (this.Value == otherArmor.Value) && (this.CanSell == otherArmor.CanSell) && (this.IsSold == otherArmor.IsSold);
         }
 
         public static bool operator ==(Armor left, Armor right)
@@ -113,7 +119,7 @@ namespace Sulimn_WPF
             if (((object)left == null) || ((object)right == null))
                 return false;
 
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.ArmorType == right.ArmorType) && (left.Description == right.Description) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell);
+            return (left.Name == right.Name) && (left.Type == right.Type) && (left.ArmorType == right.ArmorType) && (left.Description == right.Description) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public static bool operator !=(Armor left, Armor right)
@@ -152,7 +158,8 @@ namespace Sulimn_WPF
         /// <param name="armorWeight">Weight of Armor</param>
         /// <param name="armorValue">Value of Armor</param>
         /// <param name="armorCanSell">Can Sell Armor?</param>
-        internal Armor(string armorName, string armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell)
+        /// <param name="armorIsSold">Is Armor Sold?</param>
+        internal Armor(string armorName, string armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell, bool armorIsSold)
         {
             Name = armorName;
             Type = "Armor";
@@ -162,6 +169,7 @@ namespace Sulimn_WPF
             Weight = armorWeight;
             Value = armorValue;
             CanSell = armorCanSell;
+            IsSold = armorIsSold;
         }
 
         /// <summary>
@@ -178,6 +186,7 @@ namespace Sulimn_WPF
             Weight = otherArmor.Weight;
             Value = otherArmor.Value;
             CanSell = otherArmor.CanSell;
+            IsSold = otherArmor.IsSold;
         }
 
         #endregion Constructors

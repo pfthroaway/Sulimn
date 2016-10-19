@@ -14,12 +14,6 @@ namespace Sulimn_WPF
         internal CityWindow RefToCityWindow { get; set; }
         private string nl = Environment.NewLine;
 
-        internal void LoadExplore()
-        {
-            txtExplore.Text = "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth." + nl + nl + "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers." + nl + nl + "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow." + nl + nl + "There is an abandoned mining complex on the south side of the city, which looks like no one has entered, or come out of it for years.";
-            CheckButtons();
-        }
-
         /// <summary>
         /// Adds text to the txtExplore TextBox.
         /// </summary>
@@ -85,7 +79,7 @@ namespace Sulimn_WPF
         private void EventFindItem(int minValue, int maxValue, bool canSell = true)
         {
             List<Item> availableItems = new List<Item>();
-            availableItems = GameState.AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.CanSell == true).ToList();
+            availableItems = GameState.AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold == true).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
             GameState.CurrentHero.Inventory.AddItem(availableItems[item]);
@@ -211,23 +205,10 @@ namespace Sulimn_WPF
         {
             if (GameState.CurrentHero.CurrentHealth > 0)
             {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                {
-                    EventFindGold(100, 250);
-                }
-                else if (result <= 30)
-                {
-                    EventFindItem(100, 400);
-                }
-                else if (result <= 80)
-                {
-                    EventEncounterAnimal(3, 10);
-                }
-                else
-                {
-                    EventEncounterEnemy(3, 10);
-                }
+                ForestWindow forestWindow = new ForestWindow();
+                forestWindow.RefToExploreWindow = this;
+                forestWindow.Show();
+                this.Visibility = Visibility.Hidden;
             }
             else
                 MessageBox.Show("You need to heal before you can explore.");
@@ -271,6 +252,8 @@ namespace Sulimn_WPF
         public ExploreWindow()
         {
             InitializeComponent();
+            txtExplore.Text = "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth." + nl + nl + "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers." + nl + nl + "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow." + nl + nl + "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years." + nl + nl + "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
+            CheckButtons();
         }
 
         private void windowExplore_Closing(object sender, CancelEventArgs e)

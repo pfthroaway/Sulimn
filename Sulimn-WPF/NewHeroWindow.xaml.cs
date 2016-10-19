@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Sulimn_WPF
 {
@@ -46,11 +46,11 @@ namespace Sulimn_WPF
 
                 newClass.Name = ds.Tables[0].Rows[i]["ClassName"].ToString();
                 newClass.Description = ds.Tables[0].Rows[i]["ClassDescription"].ToString();
-                newClass.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"].ToString());
-                newClass.Strength = Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"].ToString());
-                newClass.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"].ToString());
-                newClass.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"].ToString());
-                newClass.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"].ToString());
+                newClass.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]);
+                newClass.Strength = Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]);
+                newClass.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]);
+                newClass.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]);
+                newClass.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]);
 
                 classes.Add(newClass);
             }
@@ -287,11 +287,39 @@ namespace Sulimn_WPF
             InitializeComponent();
             LoadClasses();
             DataContext = selectedClass;
+            txtHeroName.Focus();
         }
 
         private void TxtName_Changed(object sender, TextChangedEventArgs e)
         {
             CheckSkillPoints();
+        }
+
+        private void txtHeroName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtHeroName.SelectAll();
+        }
+
+        private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            Key k = e.Key;
+
+            bool backspace = Keyboard.IsKeyDown(Key.Back);
+            bool delete = Keyboard.IsKeyDown(Key.Delete);
+            bool home = Keyboard.IsKeyDown(Key.Home);
+            bool end = Keyboard.IsKeyDown(Key.End);
+            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
+            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
+
+            if (backspace || delete || home || end || leftShift || rightShift || Key.A <= k && k <= Key.Z)
+                //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
+                //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
+                e.Handled = false;
+            else
+                e.Handled = true;
+
+            //System.Media.SystemSound ss = System.Media.SystemSounds.Beep;
+            //ss.Play();
         }
 
         private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)

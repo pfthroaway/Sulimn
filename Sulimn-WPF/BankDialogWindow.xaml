@@ -6,12 +6,19 @@
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
     Title="Bank" SizeToContent="WidthAndHeight"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowBankDialog_Closing" Icon="S.ico">
-    <StackPanel Margin="5">
-        <TextBlock x:Name="lblDialog" Height="100" Margin="5" TextWrapping="Wrap" Width="345" />
-        <TextBox x:Name="txtBank" Width="125" Height="30" Margin="5" TextAlignment="Center" BorderBrush="Black" MaxLength="6" />
-        <StackPanel Margin="5" Orientation="Horizontal">
-            <Button x:Name="btnAction" Width="125" Height="30" Margin="5" Click="btnAction_Click" IsDefault="True" />
-            <Button x:Name="btnCancel" Width="125" Height="30" Margin="80,5,5,5" Content="_Cancel"  IsCancel="True" Click="btnCancel_Click" />
-        </StackPanel>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="lblDialog" Height="100" Margin="10" TextWrapping="Wrap" Width="345" />
+        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="txtBank" Width="125" Padding="5" Margin="10" TextAlignment="Center" BorderBrush="Black" MaxLength="6" PreviewKeyDown="txtBank_PreviewKeyDown" GotFocus="txtBank_GotFocus" />
+        <Button x:Name="btnAction" Grid.Column="0" Grid.Row="2" Width="125" Height="30" Margin="10" Click="btnAction_Click" IsDefault="True" />
+        <Button x:Name="btnCancel"  Grid.Column="1" Grid.Row="2" Width="125" Height="30" Margin="10" Content="_Cancel"  IsCancel="True" Click="btnCancel_Click" />
+    </Grid>
 </Window>

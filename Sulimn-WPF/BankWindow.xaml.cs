@@ -139,8 +139,8 @@ namespace Sulimn_WPF
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                GoldInBank = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"].ToString());
-                LoanTaken = Int32Helper.Parse(ds.Tables[0].Rows[0]["LoanTaken"].ToString());
+                GoldInBank = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
+                LoanTaken = Int32Helper.Parse(ds.Tables[0].Rows[0]["LoanTaken"]);
             }
             else
             {

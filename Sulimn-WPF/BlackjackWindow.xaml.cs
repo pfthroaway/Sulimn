@@ -292,15 +292,6 @@ namespace Sulimn_WPF
 
         #endregion Card Management
 
-        ///// <summary>
-        ///// Sets the current Hero.
-        ///// </summary>
-        ///// <param name="Hero">Current Hero</param>
-        //internal void LoadGame()
-        //{
-        //    DisplayStatistics();
-        //}
-
         private void DealerAction()
         {
             bool keepGoing = true;
@@ -524,32 +515,6 @@ namespace Sulimn_WPF
             CloseWindow();
         }
 
-        private void txtBet_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            if (txtBet.Text.Length > 0)
-                btnNewHand.IsEnabled = true;
-            else
-                btnNewHand.IsEnabled = false;
-        }
-
-        private void txtBet_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Key k = e.Key;
-
-            bool controlKeyIsDown = Keyboard.IsKeyDown(Key.Back);
-
-            if (controlKeyIsDown || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
-                //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
-                e.Handled = false;
-            else
-            {
-                e.Handled = true;
-
-                //System.Media.SystemSound ss = System.Media.SystemSounds.Beep;
-                //ss.Play();
-            }
-        }
-
         private void btnHit_Click(object sender, RoutedEventArgs e)
         {
             playerHand.CardList.Add(new Card(cardList[index]));
@@ -618,6 +583,36 @@ namespace Sulimn_WPF
             DisplayStatistics();
             txtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat." + nl + nl + "\"Care to place a bet?\" asks the dealer.";
             txtBet.Focus();
+        }
+
+        private void txtBet_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtBet.SelectAll();
+        }
+
+        private void txtBet_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            Key k = e.Key;
+
+            bool backspace = Keyboard.IsKeyDown(Key.Back);
+            bool delete = Keyboard.IsKeyDown(Key.Delete);
+            bool home = Keyboard.IsKeyDown(Key.Home);
+            bool end = Keyboard.IsKeyDown(Key.End);
+            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
+            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
+
+            if (backspace || delete || home || end || leftShift || rightShift || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void txtBet_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (txtBet.Text.Length > 0)
+                btnNewHand.IsEnabled = true;
+            else
+                btnNewHand.IsEnabled = false;
         }
 
         private void windowBlackjack_Closing(object sender, System.ComponentModel.CancelEventArgs e)

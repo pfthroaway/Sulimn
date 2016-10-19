@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sulimn_WPF
 {
@@ -76,7 +65,7 @@ namespace Sulimn_WPF
                     AddTextTT(GameState.EventFindGold(1, 150));
                 else if (result <= 30)
                     AddTextTT(GameState.EventFindItem(1, 250));
-                else if (result <= 65)
+                else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake");
                     StartBattle();
@@ -102,7 +91,7 @@ namespace Sulimn_WPF
                     AddTextTT(GameState.EventFindItem(1, 300));
                 else if (result <= 65)
                 {
-                    GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog");
+                    GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
                     StartBattle();
                 }
                 else
@@ -124,9 +113,9 @@ namespace Sulimn_WPF
                     AddTextTT(GameState.EventFindGold(50, 250));
                 else if (result <= 30)
                     AddTextTT(GameState.EventFindItem(1, 350));
-                else if (result <= 65)
+                else if (result <= 80)
                 {
-                    GameState.EventEncounterEnemy("Rabbit", "Snake");
+                    GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
                     StartBattle();
                 }
                 else
@@ -148,6 +137,9 @@ namespace Sulimn_WPF
 
         #region Window-Manipulation Methods
 
+        /// <summary>
+        /// Closes the Window.
+        /// </summary>
         private void CloseWindow()
         {
             this.Close();

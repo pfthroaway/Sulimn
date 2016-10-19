@@ -164,18 +164,27 @@ namespace Sulimn_WPF
             txtBank.Focus();
         }
 
-        private void txtBet_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void txtBank_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtBank.SelectAll();
+        }
+
+        private void txtBank_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key k = e.Key;
 
-            bool controlKeyIsDown = Keyboard.IsKeyDown(Key.Back);
+            bool backspace = Keyboard.IsKeyDown(Key.Back);
+            bool delete = Keyboard.IsKeyDown(Key.Delete);
+            bool home = Keyboard.IsKeyDown(Key.Home);
+            bool end = Keyboard.IsKeyDown(Key.End);
+            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
+            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
+            bool enter = Keyboard.IsKeyDown(Key.Enter);
 
-            if (controlKeyIsDown || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+            if (backspace || delete || enter || home || end || leftShift || rightShift || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
                 e.Handled = false;
             else
-            {
                 e.Handled = true;
-            }
         }
 
         private void windowBankDialog_Closing(object sender, CancelEventArgs e)

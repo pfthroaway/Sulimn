@@ -17,11 +17,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="txtFields" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415" Margin="10" BorderBrush="Black" BorderThickness="1" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" />
+        <TextBox x:Name="txtFields" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415" Margin="10" BorderBrush="Black" BorderThickness="1" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" IsReadOnly="True" />
         <Button x:Name="btnFarm" Grid.Column="0" Grid.Row="1" Width="125" Height="30" Margin="10" Content="_Farm" Click="btnFarm_Click" />
         <Button x:Name="btnCellar" Grid.Column="1" Grid.Row="1" Width="125" Height="30" Margin="10" Content="_Root Cellar" Click="btnCellar_Click" />
         <Button x:Name="btnCropFields" Grid.Column="2" Grid.Row="1" Width="125" Height="30" Margin="10" Content="_Crop Fields" Click="btnCropFields_Click" />
         <Button x:Name="btnOrchard" Grid.Column="1" Grid.Row="2" Width="125" Height="30" Margin="10" Content="_Orchard" Click="btnOrchard_Click" />
-        <Button x:Name="btnBack" Grid.Column="2" Grid.Row="2" Width="125" Height="30" Content="_Back" Margin="10" Click="btnBack_Click" />
+        <Button x:Name="btnBack" Grid.Column="2" Grid.Row="2" Width="125" Height="30" Content="_Back" Margin="10" Click="btnBack_Click" IsCancel="True" />
     </Grid>
 </Window>

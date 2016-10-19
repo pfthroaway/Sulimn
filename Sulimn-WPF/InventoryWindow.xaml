@@ -67,7 +67,7 @@
         <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="6" Margin="10" Height="590" Header="Inventory">
             <ListBox x:Name="lstInventory" Width="265" Height="550" ItemsSource="{Binding}" ItemTemplate="{StaticResource itemNameTemplate}" SelectionChanged="lstInventory_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         </GroupBox>
-        <StackPanel Grid.Column="2" Grid.Row="0" Margin="10">
+        <StackPanel Grid.Column="2" Grid.Row="0" Width="290" Margin="10">
             <GroupBox Header="Selected Item" Margin="5">
                 <StackPanel>
                     <TextBlock x:Name="lblSelectedName" Margin="5" />

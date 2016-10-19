@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Sulimn_WPF
 {
@@ -57,18 +58,18 @@ namespace Sulimn_WPF
 
             GameState.CurrentHero.Name = ds.Tables[0].Rows[0]["CharacterName"].ToString();
             GameState.CurrentHero.ClassName = ds.Tables[0].Rows[0]["Class"].ToString();
-            GameState.CurrentHero.Level = Int32Helper.Parse(ds.Tables[0].Rows[0]["Level"].ToString());
-            GameState.CurrentHero.Experience = Int32Helper.Parse(ds.Tables[0].Rows[0]["Experience"].ToString());
-            GameState.CurrentHero.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[0]["SkillPoints"].ToString());
-            GameState.CurrentHero.Strength = Int32Helper.Parse(ds.Tables[0].Rows[0]["Strength"].ToString());
-            GameState.CurrentHero.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[0]["Vitality"].ToString());
-            GameState.CurrentHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[0]["Dexterity"].ToString());
-            GameState.CurrentHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"].ToString());
-            GameState.CurrentHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"].ToString());
-            GameState.CurrentHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrHealth"].ToString());
-            GameState.CurrentHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxHealth"].ToString());
-            GameState.CurrentHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrMagic"].ToString());
-            GameState.CurrentHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxMagic"].ToString());
+            GameState.CurrentHero.Level = Int32Helper.Parse(ds.Tables[0].Rows[0]["Level"]);
+            GameState.CurrentHero.Experience = Int32Helper.Parse(ds.Tables[0].Rows[0]["Experience"]);
+            GameState.CurrentHero.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[0]["SkillPoints"]);
+            GameState.CurrentHero.Strength = Int32Helper.Parse(ds.Tables[0].Rows[0]["Strength"]);
+            GameState.CurrentHero.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[0]["Vitality"]);
+            GameState.CurrentHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[0]["Dexterity"]);
+            GameState.CurrentHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"]);
+            GameState.CurrentHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
+            GameState.CurrentHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrHealth"]);
+            GameState.CurrentHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxHealth"]);
+            GameState.CurrentHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrMagic"]);
+            GameState.CurrentHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxMagic"]);
             spells = ds.Tables[0].Rows[0]["KnownSpells"].ToString();
             weapon = ds.Tables[0].Rows[0]["Weapon"].ToString();
             head = ds.Tables[0].Rows[0]["Head"].ToString();
@@ -173,6 +174,42 @@ namespace Sulimn_WPF
         {
             InitializeComponent();
             txtHeroName.Focus();
+        }
+
+        private void txtHeroName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtHeroName.SelectAll();
+        }
+
+        private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            Key k = e.Key;
+
+            bool backspace = Keyboard.IsKeyDown(Key.Back);
+            bool delete = Keyboard.IsKeyDown(Key.Delete);
+            bool home = Keyboard.IsKeyDown(Key.Home);
+            bool end = Keyboard.IsKeyDown(Key.End);
+            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
+            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
+            bool enter = Keyboard.IsKeyDown(Key.Enter);
+
+            if (backspace || delete || enter || home || end || leftShift || rightShift || Key.A <= k && k <= Key.Z)
+                //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
+                //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
+                e.Handled = false;
+            else
+                e.Handled = true;
+
+            //System.Media.SystemSound ss = System.Media.SystemSounds.Beep;
+            //ss.Play();
+        }
+
+        private void txtHeroName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (txtHeroName.Text.Length > 0)
+                btnLogin.IsEnabled = true;
+            else
+                btnLogin.IsEnabled = false;
         }
 
         private async void windowMain_Loaded(object sender, RoutedEventArgs e)
