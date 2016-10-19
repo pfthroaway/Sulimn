@@ -19,6 +19,8 @@ namespace Sulimn_WPF
 
         internal ExploreWindow RefToExploreWindow { get; set; }
 
+        internal FieldsWindow RefToFieldsWindow { get; set; }
+
         public int HeroShield
         {
             get { return _heroShield; }
@@ -460,10 +462,16 @@ namespace Sulimn_WPF
             GameState.SaveHero();
             if (battleEnded)
             {
-                if (previousWindow == "Explore")
+                switch (previousWindow)
                 {
-                    RefToExploreWindow.Show();
-                    RefToExploreWindow.CheckButtons();
+                    case "Explore":
+                        RefToExploreWindow.Show();
+                        RefToExploreWindow.CheckButtons();
+                        break;
+
+                    case "Fields":
+                        RefToFieldsWindow.Show();
+                        break;
                 }
             }
             else

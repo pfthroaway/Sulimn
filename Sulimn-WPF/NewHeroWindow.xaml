@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
-    Title="New Hero" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowNewHero_Closing" FontFamily="Segoe UI Semibold" FontSize="17">
+    Title="New Hero" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowNewHero_Closing" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

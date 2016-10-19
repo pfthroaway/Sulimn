@@ -10,7 +10,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem x:Name="mnuFileExit" Header="_Exit" Click="mnuFileExit_Click" />
             </MenuItem>
             <MenuItem x:Name="mnuAdmin" Header="_Admin" Click="mnuAdmin_Click">
             </MenuItem>

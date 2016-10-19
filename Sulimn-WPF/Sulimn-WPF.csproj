@@ -92,6 +92,9 @@
       <DependentUpon>ExploreWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extension.cs" />
+    <Compile Include="FieldsWindow.xaml.cs">
+      <DependentUpon>FieldsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExploreWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FieldsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

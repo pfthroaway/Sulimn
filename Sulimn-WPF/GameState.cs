@@ -278,5 +278,109 @@ namespace Sulimn_WPF
             newList = AllItems.OfType<T>().ToList<T>();
             return newList;
         }
+
+        #region Exploration Events
+
+        /// <summary>
+        /// Event where the Hero finds gold.
+        /// </summary>
+        internal static string EventFindGold(int minGold, int maxGold)
+        {
+            int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
+            CurrentHero.Gold += foundGold;
+            SaveHero();
+            return "You find " + foundGold.ToString("N0") + " gold!";
+        }
+
+        /// <summary>
+        /// Event where the Hero finds an item.
+        /// </summary>
+        internal static string EventFindItem(int minValue, int maxValue, bool canSell = true)
+        {
+            List<Item> availableItems = new List<Item>();
+            availableItems = GameState.AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.CanSell == true).ToList();
+            int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
+
+            CurrentHero.Inventory.AddItem(availableItems[item]);
+            SaveHero();
+            return "You find a " + availableItems[item].Name + "!";
+        }
+
+        internal static void EventFindItem(params string[] names)
+        {
+            List<Item> availableItems = new List<Item>();
+            foreach (string name in names)
+                availableItems.Add(GetItem(name));
+            int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
+
+            CurrentHero.Inventory.AddItem(availableItems[item]);
+
+            SaveHero();
+        }
+
+        /// <summary>
+        /// Event where the Hero encounters a hostile animal.
+        /// </summary>
+        /// <param name="minLevel">Minimum level of animal</param>
+        /// <param name="maxLevel">Maximum level of animal</param>
+        internal static void EventEncounterAnimal(int minLevel, int maxLevel)
+        {
+            List<Enemy> availableEnemies = new List<Enemy>();
+            availableEnemies = AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
+            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
+            CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
+        }
+
+        /// <summary>
+        /// Event where the Hero encounters a hostile Enemy.
+        /// </summary>
+        /// <param name="minLevel">Minimum level of Enemy.</param>
+        /// <param name="maxLevel">Maximum level of Enemy.</param>
+        internal static void EventEncounterEnemy(int minLevel, int maxLevel)
+        {
+            List<Enemy> availableEnemies = new List<Enemy>();
+            availableEnemies = AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
+            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
+            CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
+            if (CurrentEnemy.Gold > 0)
+                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2, CurrentEnemy.Gold);
+        }
+
+        /// <summary>
+        /// Event where the Hero encounters a hostile Enemy.
+        /// </summary>
+        /// <param name="names">Array of names</param>
+        internal static void EventEncounterEnemy(params string[] names)
+        {
+            List<Enemy> availableEnemies = new List<Enemy>();
+            foreach (string name in names)
+                availableEnemies.Add(GetEnemy(name));
+            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
+            CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
+            if (CurrentEnemy.Gold > 0)
+                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2, CurrentEnemy.Gold);
+        }
+
+        #endregion Exploration Events
+
+        /// <summary>
+        /// Gets a specific Enemy based on its name.
+        /// </summary>
+        /// <param name="name">Name of Enemy</param>
+        /// <returns>Enemy</returns>
+        internal static Enemy GetEnemy(string name)
+        {
+            return new Enemy(AllEnemies.Find(enemy => enemy.Name == name));
+        }
+
+        /// <summary>
+        /// Gets a specific Item based on its name.
+        /// </summary>
+        /// <param name="name">Item name</param>
+        /// <returns>Item</returns>
+        internal static Item GetItem(string name)
+        {
+            return AllItems.Find(itm => itm.Name == name);
+        }
     }
 }

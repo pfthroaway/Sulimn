@@ -160,7 +160,14 @@ namespace Sulimn_WPF
             this.Visibility = Visibility.Hidden;
         }
 
+        private void mnuFileExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         #endregion Button-Click Methods
+
+        #region Window-Manipulation Methods
 
         public MainWindow()
         {
@@ -172,5 +179,7 @@ namespace Sulimn_WPF
         {
             await Task.Factory.StartNew(() => GameState.LoadAll());
         }
+
+        #endregion Window-Manipulation Methods
     }
 }

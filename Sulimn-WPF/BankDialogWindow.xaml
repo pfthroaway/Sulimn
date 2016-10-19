@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Sulimn_WPF"
     mc:Ignorable="d"
-    Title="Bank" SizeToContent="WidthAndHeight"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowBankDialog_Closing">
+    Title="Bank" SizeToContent="WidthAndHeight"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowBankDialog_Closing" Icon="S.ico">
     <StackPanel Margin="5">
         <TextBlock x:Name="lblDialog" Height="100" Margin="5" TextWrapping="Wrap" Width="345" />
         <TextBox x:Name="txtBank" Width="125" Height="30" Margin="5" TextAlignment="Center" BorderBrush="Black" MaxLength="6" />

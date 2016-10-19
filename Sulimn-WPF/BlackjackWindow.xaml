@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sulimn_WPF"
         mc:Ignorable="d"
-        Title="Blackjack" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackjack_Closing">
+        Title="Blackjack" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackjack_Closing" Icon="S.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

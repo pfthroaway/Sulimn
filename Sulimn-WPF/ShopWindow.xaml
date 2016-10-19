@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sulimn_WPF"
         mc:Ignorable="d"
-        Title="Shop" SizeToContent="WidthAndHeight" Closing="windowShop_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17">
+        Title="Shop" SizeToContent="WidthAndHeight" Closing="windowShop_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="435" />
