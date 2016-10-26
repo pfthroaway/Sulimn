@@ -60,11 +60,11 @@ namespace Sulimn_WPF
             CharacterWindow characterWindow = new CharacterWindow();
 
             characterWindow.RefToCityWindow = this;
-            this.Visibility = Visibility.Hidden;
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("City");
             characterWindow.BindLabels();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -76,8 +76,8 @@ namespace Sulimn_WPF
         {
             ExploreWindow exploreWindow = new ExploreWindow();
             exploreWindow.RefToCityWindow = this;
-            this.Visibility = Visibility.Hidden;
             exploreWindow.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void btnMarket_Click(object sender, RoutedEventArgs e)

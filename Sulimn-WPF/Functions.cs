@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Sulimn_WPF
 {
@@ -46,6 +48,19 @@ namespace Sulimn_WPF
         }
 
         #endregion Random Number Generation
+
+        /// <summary>
+        /// Turns several Keyboard.Keys into a list of Keys which can be tested using List.Any.
+        /// </summary>
+        /// <param name="keys">Array of Keys</param>
+        /// <returns></returns>
+        internal static List<bool> GetListOfKeys(params Key[] keys)
+        {
+            List<bool> allKeys = new List<bool>();
+            foreach (Key key in keys)
+                allKeys.Add(Keyboard.IsKeyDown(key));
+            return allKeys;
+        }
 
         #region Hero Database Manipulation
 

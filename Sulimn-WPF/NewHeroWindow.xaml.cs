@@ -199,6 +199,7 @@ namespace Sulimn_WPF
             if (ds.Tables[table].Rows.Count > 0)
             {
                 MessageBox.Show("This username has already been taken. Please choose another.", "Test", MessageBoxButton.OK);
+                txtHeroName.SelectAll();
             }
             else
             {
@@ -304,23 +305,12 @@ namespace Sulimn_WPF
         {
             Key k = e.Key;
 
-            bool backspace = Keyboard.IsKeyDown(Key.Back);
-            bool delete = Keyboard.IsKeyDown(Key.Delete);
-            bool home = Keyboard.IsKeyDown(Key.Home);
-            bool end = Keyboard.IsKeyDown(Key.End);
-            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
-            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
-            bool tab = Keyboard.IsKeyDown(Key.Tab);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl);
 
-            if (backspace || delete || home || tab || end || leftShift || rightShift || Key.A <= k && k <= Key.Z)
-                //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
-                //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
+            if (keys.Any(key => key == true) || Key.A <= k && k <= Key.Z)
                 e.Handled = false;
             else
                 e.Handled = true;
-
-            //System.Media.SystemSound ss = System.Media.SystemSounds.Beep;
-            //ss.Play();
         }
 
         private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -338,8 +328,7 @@ namespace Sulimn_WPF
 
         private void windowNewHero_Closing(object sender, CancelEventArgs e)
         {
-            RefToMainWindow.Visibility = Visibility.Visible;
-            //CloseWindow();
+            RefToMainWindow.Show();
         }
 
         #endregion Window-Manipulation Methods

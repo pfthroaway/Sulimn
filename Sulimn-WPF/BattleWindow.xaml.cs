@@ -419,8 +419,8 @@ namespace Sulimn_WPF
             CastSpellWindow castSpellWindow = new CastSpellWindow();
             castSpellWindow.RefToBattleWindow = this;
             castSpellWindow.LoadWindow("Battle");
-            this.Visibility = Visibility.Hidden;
             castSpellWindow.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void btnFlee_Click(object sender, RoutedEventArgs e)

@@ -554,6 +554,18 @@ namespace Sulimn_WPF
             lblGoldSell.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
         }
 
+        private void btnCharacter_Click(object sender, RoutedEventArgs e)
+        {
+            CharacterWindow characterWindow = new CharacterWindow();
+
+            characterWindow.RefToShopWindow = this;
+            characterWindow.Show();
+            characterWindow.SetupChar();
+            characterWindow.SetPreviousWindow("Shop");
+            characterWindow.BindLabels();
+            this.Visibility = Visibility.Hidden;
+        }
+
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();

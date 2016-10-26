@@ -21,7 +21,10 @@ namespace Sulimn_WPF
                 CloseWindow();
             }
             else
+            {
                 MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                pswdAdmin.SelectAll();
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

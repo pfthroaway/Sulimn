@@ -9,10 +9,13 @@ namespace Sulimn_WPF
     public partial class CharacterWindow : Window, INotifyPropertyChanged
     {
         private Hero copyOfHero = new Hero();
+        private string PreviousWindow;
+
         internal BattleWindow RefToBattleWindow { get; set; }
+
         internal CityWindow RefToCityWindow { get; set; }
 
-        private string PreviousWindow;
+        internal ShopWindow RefToShopWindow { get; set; }
 
         #region Data Binding
 
@@ -269,6 +272,11 @@ namespace Sulimn_WPF
 
                 case "City":
                     RefToCityWindow.Show();
+                    break;
+
+                case "Shop":
+                    RefToShopWindow.Show();
+                    RefToShopWindow.LoadAll();
                     break;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -111,12 +112,11 @@ namespace Sulimn_WPF
             DataSet ds = await Functions.FillDataSet(sql, table);
 
             if (ds.Tables[0].Rows.Count > 0)
-            {
                 AssignHero(ds);
-            }
             else
             {
                 MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                txtHeroName.SelectAll();
             }
         }
 
@@ -184,18 +184,9 @@ namespace Sulimn_WPF
         {
             Key k = e.Key;
 
-            bool backspace = Keyboard.IsKeyDown(Key.Back);
-            bool delete = Keyboard.IsKeyDown(Key.Delete);
-            bool home = Keyboard.IsKeyDown(Key.Home);
-            bool end = Keyboard.IsKeyDown(Key.End);
-            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
-            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
-            bool enter = Keyboard.IsKeyDown(Key.Enter);
-            bool tab = Keyboard.IsKeyDown(Key.Tab);
-            bool leftAlt = Keyboard.IsKeyDown(Key.LeftAlt);
-            bool rightAlt = Keyboard.IsKeyDown(Key.RightAlt);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl);
 
-            if (backspace || delete || enter || tab || home || end || leftShift || rightShift || leftAlt || rightAlt || Key.A <= k && k <= Key.Z)
+            if (keys.Any(key => key == true) || Key.A <= k && k <= Key.Z)
                 //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
                 //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
                 e.Handled = false;
