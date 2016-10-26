@@ -54,7 +54,7 @@ namespace Sulimn_WPF
 
         public string Statistics
         {
-            get { return "Wins: " + TotalWins + nl + "Losses: " + TotalLosses + nl + "Draws: " + TotalDraws + nl + "Gold Won: " + TotalBetWinnings + nl + "Gold Lost: " + TotalBetLosses; }
+            get { return "Wins: " + TotalWins.ToString("N0") + nl + "Losses: " + TotalLosses.ToString("N0") + nl + "Draws: " + TotalDraws.ToString("N0") + nl + "Gold Won: " + TotalBetWinnings.ToString("N0") + nl + "Gold Lost: " + TotalBetLosses.ToString("N0"); }
         }
 
         #endregion Properties
@@ -275,7 +275,7 @@ namespace Sulimn_WPF
             handOver = false;
             txtBet.IsEnabled = false;
             btnNewHand.IsEnabled = false;
-            bet = Int32Helper.Parse(txtBet.Text);
+            btnExit.IsEnabled = false;
             if (index >= (cardList.Count * 0.8))
             {
                 index = 0;
@@ -388,6 +388,25 @@ namespace Sulimn_WPF
         }
 
         /// <summary>
+        /// Player either chooses not to draw a card or has reached 21 with more than 2 cards.
+        /// </summary>
+        private void Stay()
+        {
+            handOver = true;
+            DealerAction();
+            DisplayDealerHand();
+
+            if (playerHand.TotalValue() > dealerHand.TotalValue() && !CheckBust(dealerHand))
+                WinBlackjack(bet);
+            else if (CheckBust(dealerHand))
+                WinBlackjack(bet);
+            else if (playerHand.TotalValue() == dealerHand.TotalValue())
+                DrawBlackjack();
+            else if (playerHand.TotalValue() < dealerHand.TotalValue())
+                LoseBlackjack(bet);
+        }
+
+        /// <summary>
         /// The game ends with the Player winning.
         /// </summary>
         /// <param name="betAmount">Amount the Player bet</param>
@@ -469,7 +488,7 @@ namespace Sulimn_WPF
                     }
                 }
                 else
-                    WinBlackjack(bet);
+                    Stay();
             }
             else if (!handOver)
             {
@@ -496,7 +515,7 @@ namespace Sulimn_WPF
         /// </summary>
         private void DisplayStatistics()
         {
-            lblStatistics.Text = "Wins: " + TotalWins.ToString("N0") + nl + "Losses: " + TotalLosses.ToString("N0") + nl + "Draws: " + TotalDraws.ToString("N0") + nl + "Money Won: " + TotalBetWinnings.ToString("N0") + nl + "Money Lost: " + TotalBetLosses.ToString("N0");
+            lblStatistics.Text = Statistics;
             lblGold.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
         }
 
@@ -536,9 +555,10 @@ namespace Sulimn_WPF
 
         private void btnNewHand_Click(object sender, RoutedEventArgs e)
         {
-            if (Int32Helper.Parse(txtBet.Text) > 0 && Int32Helper.Parse(txtBet.Text) <= GameState.CurrentHero.Gold)
+            bet = Int32Helper.Parse(txtBet.Text);
+            if (bet > 0 && bet <= GameState.CurrentHero.Gold)
                 NewHand();
-            else if (Int32Helper.Parse(txtBet.Text) > GameState.CurrentHero.Gold)
+            else if (bet > GameState.CurrentHero.Gold)
                 MessageBox.Show("You can't bet more gold than you have!", "Sulimn", MessageBoxButton.OK);
             else
                 MessageBox.Show("Please enter a valid bet.", "Sulimn", MessageBoxButton.OK);
