@@ -192,8 +192,11 @@ namespace Sulimn_WPF
             bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
             bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
             bool enter = Keyboard.IsKeyDown(Key.Enter);
+            bool tab = Keyboard.IsKeyDown(Key.Tab);
+            bool leftAlt = Keyboard.IsKeyDown(Key.LeftAlt);
+            bool rightAlt = Keyboard.IsKeyDown(Key.RightAlt);
 
-            if (backspace || delete || enter || home || end || leftShift || rightShift || Key.A <= k && k <= Key.Z)
+            if (backspace || delete || enter || tab || home || end || leftShift || rightShift || leftAlt || rightAlt || Key.A <= k && k <= Key.Z)
                 //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
                 //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
                 e.Handled = false;
