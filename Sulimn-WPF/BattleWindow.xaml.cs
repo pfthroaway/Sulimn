@@ -23,6 +23,12 @@ namespace Sulimn_WPF
 
         internal ForestWindow RefToForestWindow { get; set; }
 
+        internal CathedralWindow RefToCathedralWindow { get; set; }
+
+        internal MinesWindow RefToMinesWindow { get; set; }
+
+        internal CatacombsWindow RefToCatacombsWindow { get; set; }
+
         public int HeroShield
         {
             get { return _heroShield; }
@@ -477,6 +483,18 @@ namespace Sulimn_WPF
 
                     case "Forest":
                         RefToForestWindow.Show();
+                        break;
+
+                    case "Cathedral":
+                        RefToCathedralWindow.Show();
+                        break;
+
+                    case "Mines":
+                        RefToMinesWindow.Show();
+                        break;
+
+                    case "Catacombs":
+                        RefToCatacombsWindow.Show();
                         break;
                 }
             }

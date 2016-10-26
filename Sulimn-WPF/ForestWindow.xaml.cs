@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sulimn_WPF
 {
@@ -50,21 +40,26 @@ namespace Sulimn_WPF
 
         private void btnClearing_Click(object sender, RoutedEventArgs e)
         {
-            int result = Functions.GenerateRandomNumber(1, 100);
-            if (result <= 15)
-                AddTextTT(GameState.EventFindGold(50, 300));
-            else if (result <= 50)
-                AddTextTT(GameState.EventFindItem(100, 350));
-            else if (result <= 85)
+            if (GameState.CurrentHero.CurrentHealth > 0)
             {
-                GameState.EventEncounterEnemy("Knave", "Wolf", "Wild Boar");
-                StartBattle();
+                int result = Functions.GenerateRandomNumber(1, 100);
+                if (result <= 15)
+                    AddTextTT(GameState.EventFindGold(50, 300));
+                else if (result <= 50)
+                    AddTextTT(GameState.EventFindItem(100, 350));
+                else if (result <= 85)
+                {
+                    GameState.EventEncounterEnemy("Knave", "Wolf", "Wild Boar");
+                    StartBattle();
+                }
+                else
+                {
+                    GameState.EventEncounterEnemy("Mangy Dog", "Snake", "Thief");
+                    StartBattle();
+                }
             }
             else
-            {
-                GameState.EventEncounterEnemy("Mangy Dog", "Snake", "Thief");
-                StartBattle();
-            }
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnCottage_Click(object sender, RoutedEventArgs e)
@@ -88,7 +83,7 @@ namespace Sulimn_WPF
                 }
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnCave_Click(object sender, RoutedEventArgs e)
@@ -112,7 +107,7 @@ namespace Sulimn_WPF
                 }
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnInvestigate_Click(object sender, RoutedEventArgs e)
@@ -129,7 +124,7 @@ namespace Sulimn_WPF
                 }
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -163,8 +158,9 @@ namespace Sulimn_WPF
             txtForest.Text = "You travel west along a beaten path into the dark forest. After a short while, you come to a \"T\" fork in the path. You can see the faint silhouette of a cottage to your left, and the sun pouring into a clearing to your right. Ahead of you, through the trees, you see a small cave entrance. Suddenly, you hear the distinct sound of a stick snapping close behind you.";
         }
 
-        private void windowForest_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowForest_Closing(object sender, CancelEventArgs e)
         {
+            RefToExploreWindow.Show();
         }
 
         #endregion Window-Manipulation Methods

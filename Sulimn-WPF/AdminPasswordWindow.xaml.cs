@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn_WPF
@@ -55,7 +55,7 @@ namespace Sulimn_WPF
                 btnSubmit.IsEnabled = false;
         }
 
-        private void windowAdminPassword_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowAdminPassword_Closing(object sender, CancelEventArgs e)
         {
             if (!admin)
                 RefToMainWindow.Show();

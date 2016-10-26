@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 
 namespace Sulimn_WPF
@@ -59,76 +57,6 @@ namespace Sulimn_WPF
 
         #endregion Button Manipulation
 
-        #region Events
-
-        /// <summary>
-        /// Event where the Hero finds gold.
-        /// </summary>
-        private void EventFindGold(int minGold, int maxGold)
-        {
-            int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
-            GameState.CurrentHero.Gold += foundGold;
-            AddTextTT("You find " + foundGold.ToString("N0") + " gold!");
-            GameState.SaveHero();
-            CheckButtons();
-        }
-
-        /// <summary>
-        /// Event where the Hero finds an item.
-        /// </summary>
-        private void EventFindItem(int minValue, int maxValue, bool canSell = true)
-        {
-            List<Item> availableItems = new List<Item>();
-            availableItems = GameState.AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold == true).ToList();
-            int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
-
-            GameState.CurrentHero.Inventory.AddItem(availableItems[item]);
-
-            AddTextTT("You find a " + availableItems[item].Name + "!");
-            GameState.SaveHero();
-            CheckButtons();
-        }
-
-        /// <summary>
-        /// Event where the Hero encounters a hostile animal.
-        /// </summary>
-        /// <param name="minLevel">Minimum level of animal</param>
-        /// <param name="maxLevel">Maximum level of animal</param>
-        private void EventEncounterAnimal(int minLevel, int maxLevel)
-        {
-            List<Enemy> availableEnemies = new List<Enemy>();
-            availableEnemies = GameState.AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
-            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
-            GameState.CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
-            BattleWindow battleWindow = new BattleWindow();
-            battleWindow.RefToExploreWindow = this;
-            battleWindow.PrepareBattle("Explore");
-            battleWindow.Show();
-            this.Visibility = Visibility.Hidden;
-        }
-
-        /// <summary>
-        /// Event where the Hero encounters a hostile Enemy.
-        /// </summary>
-        /// <param name="minLevel">Minimum level of Enemy.</param>
-        /// <param name="maxLevel">Maximum level of Enemy.</param>
-        private void EventEncounterEnemy(int minLevel, int maxLevel)
-        {
-            List<Enemy> availableEnemies = new List<Enemy>();
-            availableEnemies = GameState.AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
-            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
-            GameState.CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
-            if (GameState.CurrentEnemy.Gold > 0)
-                GameState.CurrentEnemy.Gold = Functions.GenerateRandomNumber(GameState.CurrentEnemy.Gold / 2, GameState.CurrentEnemy.Gold);
-            BattleWindow battleWindow = new BattleWindow();
-            battleWindow.RefToExploreWindow = this;
-            battleWindow.PrepareBattle("Explore");
-            battleWindow.Show();
-            this.Visibility = Visibility.Hidden;
-        }
-
-        #endregion Events
-
         #region Button-Click Methods
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -140,52 +68,26 @@ namespace Sulimn_WPF
         {
             if (GameState.CurrentHero.CurrentHealth > 0)
             {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                {
-                    EventFindGold(300, 800);
-                }
-                else if (result <= 30)
-                {
-                    EventFindItem(300, 800);
-                }
-                else if (result <= 40)
-                {
-                    EventEncounterAnimal(10, 25);
-                }
-                else
-                {
-                    EventEncounterEnemy(10, 25);
-                }
+                CatacombsWindow catacombsWindow = new CatacombsWindow();
+                catacombsWindow.RefToExploreWindow = this;
+                catacombsWindow.Show();
+                this.Visibility = Visibility.Hidden;
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnCathedral_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.CurrentHealth > 0)
             {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                {
-                    EventFindGold(150, 400);
-                }
-                else if (result <= 30)
-                {
-                    EventFindItem(150, 400);
-                }
-                else if (result <= 40)
-                {
-                    EventEncounterAnimal(5, 15);
-                }
-                else
-                {
-                    EventEncounterEnemy(5, 15);
-                }
+                CathedralWindow cathedralWindow = new CathedralWindow();
+                cathedralWindow.RefToExploreWindow = this;
+                cathedralWindow.Show();
+                this.Visibility = Visibility.Hidden;
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnFields_Click(object sender, RoutedEventArgs e)
@@ -198,7 +100,7 @@ namespace Sulimn_WPF
                 this.Visibility = Visibility.Hidden;
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnForest_Click(object sender, RoutedEventArgs e)
@@ -211,33 +113,20 @@ namespace Sulimn_WPF
                 this.Visibility = Visibility.Hidden;
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         private void btnMines_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.CurrentHealth > 0)
             {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                {
-                    EventFindGold(200, 600);
-                }
-                else if (result <= 30)
-                {
-                    EventFindItem(200, 600);
-                }
-                else if (result <= 50)
-                {
-                    EventEncounterAnimal(8, 20);
-                }
-                else
-                {
-                    EventEncounterEnemy(8, 20);
-                }
+                MinesWindow minesWindow = new MinesWindow();
+                minesWindow.RefToExploreWindow = this;
+                minesWindow.Show();
+                this.Visibility = Visibility.Hidden;
             }
             else
-                MessageBox.Show("You need to heal before you can explore.");
+                AddTextTT("You need to heal before you can explore.");
         }
 
         #endregion Button-Click Methods

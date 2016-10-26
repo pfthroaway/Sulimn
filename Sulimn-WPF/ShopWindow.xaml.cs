@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -591,7 +592,7 @@ namespace Sulimn_WPF
             InitializeComponent();
         }
 
-        private void windowShop_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowShop_Closing(object sender, CancelEventArgs e)
         {
             if (shopType != "Food")
                 RefToMarketWindow.Show();

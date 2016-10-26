@@ -636,7 +636,7 @@ namespace Sulimn_WPF
                 btnNewHand.IsEnabled = false;
         }
 
-        private void windowBlackjack_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowBlackjack_Closing(object sender, CancelEventArgs e)
         {
             if (handOver)
             {

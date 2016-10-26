@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 
 namespace Sulimn_WPF
 {
@@ -51,7 +52,7 @@ namespace Sulimn_WPF
             InitializeComponent();
         }
 
-        private void windowTavern_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowTavern_Closing(object sender, CancelEventArgs e)
         {
             RefToCityWindow.Show();
         }

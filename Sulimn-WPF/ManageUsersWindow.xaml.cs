@@ -73,7 +73,7 @@ namespace Sulimn_WPF
         {
         }
 
-        private void windowManageUsers_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowManageUsers_Closing(object sender, CancelEventArgs e)
         {
             RefToAdminWindow.Show();
         }

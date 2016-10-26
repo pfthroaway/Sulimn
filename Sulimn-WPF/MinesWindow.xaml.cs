@@ -5,23 +5,23 @@ using System.Windows;
 namespace Sulimn_WPF
 {
     /// <summary>
-    /// Interaction logic for FieldsWindow.xaml
+    /// Interaction logic for MinesWindow.xaml
     /// </summary>
-    public partial class FieldsWindow : Window
+    public partial class MinesWindow : Window
     {
         internal ExploreWindow RefToExploreWindow { get; set; }
 
         /// <summary>
-        /// Adds text to the txtFields TextBox.
+        /// Adds text to the txtMines TextBox.
         /// </summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
             string nl = Environment.NewLine;
-            txtFields.Text += nl + nl + newText;
-            txtFields.Focus();
-            txtFields.CaretIndex = txtFields.Text.Length;
-            txtFields.ScrollToEnd();
+            txtMines.Text += nl + nl + newText;
+            txtMines.Focus();
+            txtMines.CaretIndex = txtMines.Text.Length;
+            txtMines.ScrollToEnd();
         }
 
         /// <summary>
@@ -30,55 +30,31 @@ namespace Sulimn_WPF
         private void StartBattle()
         {
             BattleWindow battleWindow = new BattleWindow();
-            battleWindow.RefToFieldsWindow = this;
-            battleWindow.PrepareBattle("Fields");
+            battleWindow.RefToMinesWindow = this;
+            battleWindow.PrepareBattle("Mines");
             battleWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
 
         #region Button-Click Methods
 
-        private void btnFarm_Click(object sender, RoutedEventArgs e)
+        private void btnOffices_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(1, 100));
-                else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 200));
-                else if (result <= 65)
-                {
-                    GameState.EventEncounterAnimal(1, 3);
-                    StartBattle();
-                }
-                else
-                {
-                    GameState.EventEncounterEnemy(1, 3);
-                    StartBattle();
-                }
-            }
-            else
-                AddTextTT("You need to heal before you can explore.");
-        }
-
-        private void btnCellar_Click(object sender, RoutedEventArgs e)
-        {
-            if (GameState.CurrentHero.CurrentHealth > 0)
-            {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(1, 150));
-                else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 250));
+                if (result <= 20)
+                    AddTextTT(GameState.EventFindGold(200, 600));
+                else if (result <= 40)
+                    AddTextTT(GameState.EventFindItem(250, 650));
                 else if (result <= 80)
                 {
-                    GameState.EventEncounterEnemy("Rabbit", "Snake");
+                    GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
                     StartBattle();
                 }
                 else
                 {
-                    GameState.EventEncounterEnemy("Beggar", "Thief");
+                    GameState.EventEncounterEnemy("Knight", "Adventurer");
                     StartBattle();
                 }
             }
@@ -86,47 +62,71 @@ namespace Sulimn_WPF
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnCropFields_Click(object sender, RoutedEventArgs e)
+        private void btnOreBin_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 5)
-                    AddTextTT(GameState.EventFindGold(25, 200));
-                else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 300));
-                else if (result <= 65)
-                {
-                    GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
-                    StartBattle();
-                }
-                else
-                {
-                    GameState.EventEncounterEnemy("Thief");
-                    StartBattle();
-                }
-            }
-            else
-                AddTextTT("You need to heal before you can explore.");
-        }
-
-        private void btnOrchard_Click(object sender, RoutedEventArgs e)
-        {
-            if (GameState.CurrentHero.CurrentHealth > 0)
-            {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(50, 250));
-                else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 350));
+                if (result <= 20)
+                    AddTextTT(GameState.EventFindGold(300, 700));
+                else if (result <= 40)
+                    AddTextTT(GameState.EventFindItem(350, 750));
                 else if (result <= 80)
                 {
-                    GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
+                    GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
                     StartBattle();
                 }
                 else
                 {
-                    GameState.EventEncounterEnemy("Beggar", "Thief", "Knave");
+                    GameState.EventEncounterEnemy("Knight", "Adventurer");
+                    StartBattle();
+                }
+            }
+            else
+                AddTextTT("You need to heal before you can explore.");
+        }
+
+        private void btnPumpStation_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameState.CurrentHero.CurrentHealth > 0)
+            {
+                int result = Functions.GenerateRandomNumber(1, 100);
+                if (result <= 10)
+                    AddTextTT(GameState.EventFindGold(200, 600));
+                else if (result <= 30)
+                    AddTextTT(GameState.EventFindItem(250, 650));
+                else if (result <= 75)
+                {
+                    GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
+                    StartBattle();
+                }
+                else
+                {
+                    GameState.EventEncounterEnemy("Adventurer", "Gladiator", "Crazed Miner");
+                    StartBattle();
+                }
+            }
+            else
+                AddTextTT("You need to heal before you can explore.");
+        }
+
+        private void btnWorkshop_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameState.CurrentHero.CurrentHealth > 0)
+            {
+                int result = Functions.GenerateRandomNumber(1, 100);
+                if (result <= 10)
+                    AddTextTT(GameState.EventFindGold(300, 700));
+                else if (result <= 30)
+                    AddTextTT(GameState.EventFindItem(350, 750));
+                else if (result <= 80)
+                {
+                    GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
+                    StartBattle();
+                }
+                else
+                {
+                    GameState.EventEncounterEnemy("Knight", "Adventurer", "Monk", "Gladiator");
                     StartBattle();
                 }
             }
@@ -151,13 +151,13 @@ namespace Sulimn_WPF
             this.Close();
         }
 
-        public FieldsWindow()
+        public MinesWindow()
         {
             InitializeComponent();
-            txtFields.Text = "You enter the farmlands and head toward the crop fields. On the way, you see an abandoned farmhouse that is overgrown with weeds and vines. You stop at a crumbling stone wall that used to be its property line and see an overgrown door to a root cellar. In the distance, you see an orchard.";
+            txtMines.Text = "You enter the abandoned mines. The path splits very near to the entrance, with paths leading south, east, and west. There are offices nearby. A crumbling, barely legible sign shows that the south path leads a shaft that goes to the ore bin, the east path leads to pump station, and the west path leads to the workshop.";
         }
 
-        private void windowFields_Closing(object sender, CancelEventArgs e)
+        private void windowMines_Closing(object sender, CancelEventArgs e)
         {
             RefToExploreWindow.Show();
         }

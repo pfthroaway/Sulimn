@@ -94,6 +94,12 @@
     <Compile Include="CastSpellWindow.xaml.cs">
       <DependentUpon>CastSpellWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CatacombsWindow.xaml.cs">
+      <DependentUpon>CatacombsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CathedralWindow.xaml.cs">
+      <DependentUpon>CathedralWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CharacterWindow.xaml.cs">
       <DependentUpon>CharacterWindow.xaml</DependentUpon>
     </Compile>
@@ -121,6 +127,9 @@
     </Compile>
     <Compile Include="MarketWindow.xaml.cs">
       <DependentUpon>MarketWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MinesWindow.xaml.cs">
+      <DependentUpon>MinesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewHeroWindow.xaml.cs">
       <DependentUpon>NewHeroWindow.xaml</DependentUpon>
@@ -163,6 +172,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CastSpellWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CatacombsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CathedralWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,6 +240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MarketWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MinesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

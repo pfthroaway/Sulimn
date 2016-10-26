@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn_WPF
@@ -88,7 +89,7 @@ namespace Sulimn_WPF
             txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + nl + nl + "Weapons 'R' Us - A weapons shop." + nl + nl + "The Armoury - An armor shop." + nl + nl + "The General Store - A shop supplying general goods like potions." + nl + nl + "Ye Old Magick Shoppe -A shop selling magical spells and equipment.";
         }
 
-        private void windowMarket_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void windowMarket_Closing(object sender, CancelEventArgs e)
         {
             RefToCityWindow.Show();
         }
