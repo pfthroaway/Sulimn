@@ -361,6 +361,8 @@ namespace Sulimn_WPF
             if (GameState.CurrentHero.Body.Name != "Cloth Shirt")
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Body);
             GameState.CurrentHero.Body = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Shirt");
+            lblEquippedBody.DataContext = GameState.CurrentHero.Body;
+            lblEquippedBodyDefense.DataContext = GameState.CurrentHero.Body;
             DisplayAllInfo();
         }
 
@@ -369,6 +371,8 @@ namespace Sulimn_WPF
             if (GameState.CurrentHero.Head.Name != "Cloth Helmet")
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Head);
             GameState.CurrentHero.Head = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Helmet");
+            lblEquippedHead.DataContext = GameState.CurrentHero.Head;
+            lblEquippedHeadDefense.DataContext = GameState.CurrentHero.Head;
             DisplayAllInfo();
         }
 
@@ -377,6 +381,8 @@ namespace Sulimn_WPF
             if (GameState.CurrentHero.Feet.Name != "Cloth Shoes")
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Feet);
             GameState.CurrentHero.Feet = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Shoes");
+            lblEquippedFeet.DataContext = GameState.CurrentHero.Feet;
+            lblEquippedFeetDefense.DataContext = GameState.CurrentHero.Feet;
             DisplayAllInfo();
         }
 
@@ -385,6 +391,8 @@ namespace Sulimn_WPF
             if (GameState.CurrentHero.Legs.Name != "Cloth Pants")
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Legs);
             GameState.CurrentHero.Legs = (Armor)GameState.AllItems.Find(x => x.Name == "Cloth Pants");
+            lblEquippedLegs.DataContext = GameState.CurrentHero.Legs;
+            lblEquippedLegsDefense.DataContext = GameState.CurrentHero.Legs;
             DisplayAllInfo();
         }
 
@@ -393,6 +401,8 @@ namespace Sulimn_WPF
             if (GameState.CurrentHero.Weapon.Name != "Fists")
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Weapon);
             GameState.CurrentHero.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == "Fists");
+            lblEquippedWeapon.DataContext = GameState.CurrentHero.Weapon;
+            lblEquippedWeaponDamage.DataContext = GameState.CurrentHero.Weapon;
             DisplayAllInfo();
         }
 
