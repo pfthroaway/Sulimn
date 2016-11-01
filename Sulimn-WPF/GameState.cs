@@ -28,15 +28,22 @@ namespace Sulimn_WPF
             try
             {
                 checkHero = AllHeroes.Find(hero => hero.Name == username);
+                if (PasswordHash.ValidatePassword(password, checkHero.Password))
+                {
+                    CurrentHero = new Hero(checkHero);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                    return false;
+                }
             }
             catch (Exception)
             {
                 MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
                 return false;
             }
-            if (PasswordHash.ValidatePassword(password, checkHero.Password))
-                return true;
-            return false;
         }
 
         /// <summary>
@@ -211,28 +218,28 @@ namespace Sulimn_WPF
                                 string spells, weapon, head, body, legs, feet, inventory;
                                 newHero = new Hero();
 
-                                newHero.Name = ds.Tables[0].Rows[0]["CharacterName"].ToString();
-                                newHero.Password = ds.Tables[0].Rows[0]["CharacterPassword"].ToString();
-                                newHero.ClassName = ds.Tables[0].Rows[0]["Class"].ToString();
-                                newHero.Level = Int32Helper.Parse(ds.Tables[0].Rows[0]["Level"]);
-                                newHero.Experience = Int32Helper.Parse(ds.Tables[0].Rows[0]["Experience"]);
-                                newHero.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[0]["SkillPoints"]);
-                                newHero.Strength = Int32Helper.Parse(ds.Tables[0].Rows[0]["Strength"]);
-                                newHero.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[0]["Vitality"]);
-                                newHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[0]["Dexterity"]);
-                                newHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"]);
-                                newHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
-                                newHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrHealth"]);
-                                newHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxHealth"]);
-                                newHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrMagic"]);
-                                newHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxMagic"]);
-                                spells = ds.Tables[0].Rows[0]["KnownSpells"].ToString();
-                                weapon = ds.Tables[0].Rows[0]["Weapon"].ToString();
-                                head = ds.Tables[0].Rows[0]["Head"].ToString();
-                                body = ds.Tables[0].Rows[0]["Body"].ToString();
-                                legs = ds.Tables[0].Rows[0]["Legs"].ToString();
-                                feet = ds.Tables[0].Rows[0]["Feet"].ToString();
-                                inventory = ds.Tables[0].Rows[0]["Inventory"].ToString();
+                                newHero.Name = ds.Tables[0].Rows[i]["CharacterName"].ToString();
+                                newHero.Password = ds.Tables[0].Rows[i]["CharacterPassword"].ToString();
+                                newHero.ClassName = ds.Tables[0].Rows[i]["Class"].ToString();
+                                newHero.Level = Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]);
+                                newHero.Experience = Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]);
+                                newHero.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]);
+                                newHero.Strength = Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]);
+                                newHero.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]);
+                                newHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]);
+                                newHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]);
+                                newHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
+                                newHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrHealth"]);
+                                newHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[i]["MaxHealth"]);
+                                newHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrMagic"]);
+                                newHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[i]["MaxMagic"]);
+                                spells = ds.Tables[0].Rows[i]["KnownSpells"].ToString();
+                                weapon = ds.Tables[0].Rows[i]["Weapon"].ToString();
+                                head = ds.Tables[0].Rows[i]["Head"].ToString();
+                                body = ds.Tables[0].Rows[i]["Body"].ToString();
+                                legs = ds.Tables[0].Rows[i]["Legs"].ToString();
+                                feet = ds.Tables[0].Rows[i]["Feet"].ToString();
+                                inventory = ds.Tables[0].Rows[i]["Inventory"].ToString();
 
                                 if (spells.Length > 0)
                                 {

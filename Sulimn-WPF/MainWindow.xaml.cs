@@ -47,15 +47,7 @@ namespace Sulimn_WPF
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CheckLogin(txtHeroName.Text.Trim(), pswdPassword.Password.Trim()))
-            {
-                GameState.CurrentHero = GameState.AllHeroes.Find(hero => hero.Name == txtHeroName.Text.Trim());
                 Login();
-            }
-            else
-            {
-                MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
-                txtHeroName.SelectAll();
-            }
         }
 
         private void mnuAdmin_Click(object sender, RoutedEventArgs e)
