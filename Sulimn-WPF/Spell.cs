@@ -5,7 +5,8 @@ namespace Sulimn_WPF
 {
     internal class Spell : IEquatable<Spell>, INotifyPropertyChanged
     {
-        private string _name, _type, _description, _requiredClass;
+        private string _name, _description, _requiredClass;
+        private SpellTypes _type;
         private int _requiredLevel, _magicCost, _amount;
 
         #region Data-Binding
@@ -33,7 +34,7 @@ namespace Sulimn_WPF
             set { _description = value; OnPropertyChanged("Description"); }
         }
 
-        public string Type
+        public SpellTypes Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); OnPropertyChanged("TypeAmount"); }
@@ -87,42 +88,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
+        public static bool Equals(Spell left, Spell right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase) && (left.RequiredLevel == right.RequiredLevel) && (left.MagicCost == right.MagicCost) && (left.Amount == right.Amount);
+        }
+
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            Spell spl = obj as Spell;
-            if ((System.Object)spl == null)
-                return false;
-
-            return (this.Name == spl.Name) && (this.Type == spl.Type) && (this.Description == spl.Description) && (this.Description == spl.Description) && (this.RequiredClass == spl.RequiredClass) && (this.RequiredLevel == spl.RequiredLevel) && (this.MagicCost == spl.MagicCost) && (this.Amount == spl.Amount);
+            return Equals(this, obj as Spell);
         }
 
         public bool Equals(Spell otherSpell)
         {
-            if ((object)otherSpell == null)
-                return false;
-
-            return (this.Name == otherSpell.Name) && (this.Type == otherSpell.Type) && (this.Description == otherSpell.Description) && (this.Description == otherSpell.Description) && (this.RequiredClass == otherSpell.RequiredClass) && (this.RequiredLevel == otherSpell.RequiredLevel) && (this.MagicCost == otherSpell.MagicCost) && (this.Amount == otherSpell.Amount);
+            return Equals(this, otherSpell);
         }
 
         public static bool operator ==(Spell left, Spell right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Description == right.Description) && (left.RequiredClass == right.RequiredClass) && (left.RequiredLevel == right.RequiredLevel) && (left.MagicCost == right.MagicCost) && (left.Amount == right.Amount);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Spell left, Spell right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
@@ -139,19 +129,32 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Spell.
+        /// </summary>
         internal Spell()
         {
         }
 
-        internal Spell(string spellName, string spellType, string spellDescription, string spellRequiredClass, int spellRequiredLevel, int spellMagicCost, int spellAmount)
+        /// <summary>
+        /// Initializes an instance of Spell by assigning Properties.
+        /// </summary>
+        /// <param name="spellName">Name of Spell</param>
+        /// <param name="spellType">Type of Spell</param>
+        /// <param name="spellDescription">Description of Spell</param>
+        /// <param name="spellRequiredClass">Required HeroClass of Spell</param>
+        /// <param name="spellRequiredLevel">Required Level to learn Spell</param>
+        /// <param name="spellMagicCost">Magic cost of Spell</param>
+        /// <param name="spellAmount">Amount of Spell</param>
+        internal Spell(string spellName, SpellTypes spellType, string spellDescription, string spellRequiredClass, int spellRequiredLevel, int spellMagicCost, int spellAmount)
         {
-            _name = spellName;
-            _type = spellType;
-            _description = spellDescription;
-            _requiredClass = spellRequiredClass;
-            _requiredLevel = spellRequiredLevel;
-            _magicCost = spellMagicCost;
-            _amount = spellAmount;
+            Name = spellName;
+            Type = spellType;
+            Description = spellDescription;
+            RequiredClass = spellRequiredClass;
+            RequiredLevel = spellRequiredLevel;
+            MagicCost = spellMagicCost;
+            Amount = spellAmount;
         }
 
         #endregion Constructors

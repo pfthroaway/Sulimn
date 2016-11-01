@@ -138,7 +138,7 @@ namespace Sulimn_WPF
                 // Player casts first
                 AddTextTT("You cast " + spell.Name + ".");
 
-                if (spell.Type == "Damage")
+                if (spell.Type == SpellTypes.Damage)
                 {
                     int playerHits = Functions.GenerateRandomNumber(10, 90);
                     if (playerHits <= chanceHeroHits)
@@ -146,11 +146,11 @@ namespace Sulimn_WPF
                     else
                         AddTextTT("You miss.");
                 }
-                else if (spell.Type == "Healing")
+                else if (spell.Type == SpellTypes.Healing)
                 {
                     AddTextTT(GameState.CurrentHero.Heal(spell.Amount));
                 }
-                else if (spell.Type == "Shield")
+                else if (spell.Type == SpellTypes.Shield)
                 {
                     HeroShield += spell.Amount;
                     AddTextTT("You now have a magical shield which will help protect you from " + HeroShield + " damage.");
@@ -185,7 +185,7 @@ namespace Sulimn_WPF
                     // Player casts
                     AddTextTT("You cast " + spell.Name + ".");
 
-                    if (spell.Type == "Damage")
+                    if (spell.Type == SpellTypes.Damage)
                     {
                         int playerHits = Functions.GenerateRandomNumber(10, 90);
                         if (playerHits <= chanceHeroHits)
@@ -193,11 +193,11 @@ namespace Sulimn_WPF
                         else
                             AddTextTT("You miss.");
                     }
-                    else if (spell.Type == "Healing")
+                    else if (spell.Type == SpellTypes.Healing)
                     {
                         GameState.CurrentHero.Heal(spell.Amount);
                     }
-                    else if (spell.Type == "Shield")
+                    else if (spell.Type == SpellTypes.Shield)
                     {
                         HeroShield += spell.Amount;
                         AddTextTT("You now have a magical shield which will help protect you from " + HeroShield + " damage.");
@@ -218,9 +218,9 @@ namespace Sulimn_WPF
         /// </summary>
         private void HeroAttack()
         {
-            if (GameState.CurrentHero.Weapon.WeaponType == "Melee")
+            if (GameState.CurrentHero.Weapon.WeaponType == WeaponTypes.Melee)
                 HeroAttack(GameState.CurrentHero.Strength, GameState.CurrentHero.Weapon.Damage);
-            else if (GameState.CurrentHero.Weapon.WeaponType == "Ranged")
+            else if (GameState.CurrentHero.Weapon.WeaponType == WeaponTypes.Ranged)
                 HeroAttack(GameState.CurrentHero.Dexterity, GameState.CurrentHero.Weapon.Damage);
         }
 

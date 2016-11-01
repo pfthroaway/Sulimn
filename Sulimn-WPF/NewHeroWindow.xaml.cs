@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +16,7 @@ namespace Sulimn_WPF
         private List<HeroClass> classes = new List<HeroClass>();
         private HeroClass selectedClass = new HeroClass();
         private HeroClass compareClass = new HeroClass();
+        private bool startGame = false;
 
         internal MainWindow RefToMainWindow { get; set; }
 
@@ -29,35 +30,6 @@ namespace Sulimn_WPF
         }
 
         #endregion Data-Binding
-
-        /// <summary>
-        /// Loads all Classes from the database.
-        /// </summary>
-        private async void LoadClasses()
-        {
-            string sql = "SELECT * FROM Classes";
-            string table = "Classes";
-            DataSet ds = new DataSet();
-            ds = await Functions.FillDataSet(sql, table);
-
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                HeroClass newClass = new HeroClass();
-
-                newClass.Name = ds.Tables[0].Rows[i]["ClassName"].ToString();
-                newClass.Description = ds.Tables[0].Rows[i]["ClassDescription"].ToString();
-                newClass.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]);
-                newClass.Strength = Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]);
-                newClass.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]);
-                newClass.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]);
-                newClass.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]);
-
-                classes.Add(newClass);
-            }
-
-            classes = classes.OrderBy(x => x.Name).ToList(); // sort classes alphabetically
-            lstClasses.ItemsSource = classes;
-        }
 
         #region Attribute Modification
 
@@ -96,6 +68,7 @@ namespace Sulimn_WPF
         {
             selectedClass = new HeroClass();
             compareClass = new HeroClass();
+            lstClasses.UnselectAll();
             txtHeroName.Clear();
             txtHeroName.Focus();
             CheckSkillPoints();
@@ -122,7 +95,7 @@ namespace Sulimn_WPF
             else if (lstClasses.SelectedIndex >= 0 && selectedClass.SkillPoints == 0)
             {
                 DisablePlus();
-                if (txtHeroName.Text.Length >= 4)
+                if (txtHeroName.Text.Length > 0 && pswdPassword.Password.Length > 0 && pswdConfirm.Password.Length > 0)
                     btnCreate.IsEnabled = true;
                 else
                     btnCreate.IsEnabled = false;
@@ -189,24 +162,40 @@ namespace Sulimn_WPF
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            string cName = txtHeroName.Text;
+            Hero createHero = new Hero();
 
-            DataSet ds = new DataSet();
-            string sql = "SELECT * FROM Players WHERE [CharacterName]='" + cName + "'";
-            string table = "Player";
-            ds = await Functions.FillDataSet(sql, table);
-
-            if (ds.Tables[table].Rows.Count > 0)
+            try
+            {
+                createHero = GameState.AllHeroes.Find(hero => hero.Name == txtHeroName.Text);
+            }
+            catch (Exception)
+            {
+            }
+            if (createHero != null && !string.IsNullOrWhiteSpace(createHero.Name))
             {
                 MessageBox.Show("This username has already been taken. Please choose another.", "Test", MessageBoxButton.OK);
                 txtHeroName.SelectAll();
             }
             else
             {
-                Hero newHero = new Hero(txtHeroName.Text, selectedClass.Name, 1, 0, 0, selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom, 250, selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic, new Armor(), new Armor(), new Armor(), new Armor(), new Weapon(), new Spellbook(), new Inventory());
+                if (txtHeroName.Text.Length >= 4 && pswdPassword.Password.Length >= 4)
+                {
+                    if (pswdPassword.Password.Trim() == pswdConfirm.Password.Trim())
+                    {
+                        Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass.Name, 1, 0, 0, selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom, 250, selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic, new Armor(), new Armor(), new Armor(), new Armor(), new Weapon(), new Spellbook(), new Inventory());
 
-                Functions.NewHero(newHero);
-                CloseWindow();
+                        if (await Functions.NewHero(newHero))
+                        {
+                            startGame = true;
+                            GameState.CurrentHero = newHero;
+                            CloseWindow();
+                        }
+                    }
+                    else
+                        MessageBox.Show("Please ensure that the passwords match.", "Sulimn", MessageBoxButton.OK);
+                }
+                else
+                    MessageBox.Show("Names and passwords have to be at least 4 characters.", "Sulimn", MessageBoxButton.OK);
             }
         }
 
@@ -286,12 +275,13 @@ namespace Sulimn_WPF
         public NewHeroWindow()
         {
             InitializeComponent();
-            LoadClasses();
+            classes.AddRange(GameState.AllClasses);
+            lstClasses.ItemsSource = classes;
             DataContext = selectedClass;
             txtHeroName.Focus();
         }
 
-        private void TxtName_Changed(object sender, TextChangedEventArgs e)
+        private void txtName_Changed(object sender, TextChangedEventArgs e)
         {
             CheckSkillPoints();
         }
@@ -313,6 +303,21 @@ namespace Sulimn_WPF
                 e.Handled = true;
         }
 
+        private void pswdConfirm_GotFocus(object sender, RoutedEventArgs e)
+        {
+            pswdConfirm.SelectAll();
+        }
+
+        private void pswdPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            pswdPassword.SelectAll();
+        }
+
+        private void pswd_Changed(object sender, RoutedEventArgs e)
+        {
+            CheckSkillPoints();
+        }
+
         private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstClasses.SelectedIndex >= 0)
@@ -323,12 +328,23 @@ namespace Sulimn_WPF
             }
             else
                 Clear();
+
+            lstClasses.ItemsSource = classes;
             DataContext = selectedClass;
         }
 
         private void windowNewHero_Closing(object sender, CancelEventArgs e)
         {
-            RefToMainWindow.Show();
+            if (startGame)
+            {
+                CityWindow cityWindow = new CityWindow();
+                cityWindow.Show();
+                cityWindow.RefToMainWindow = RefToMainWindow;
+                cityWindow.EnterCity();
+                this.Visibility = Visibility.Hidden;
+            }
+            else
+                RefToMainWindow.Show();
         }
 
         #endregion Window-Manipulation Methods

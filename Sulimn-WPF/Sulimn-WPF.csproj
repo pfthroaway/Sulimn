@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminChangePasswordWindow.xaml.cs">
+      <DependentUpon>AdminChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPasswordWindow.xaml.cs">
       <DependentUpon>AdminPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,7 @@
     <Compile Include="EnemyDetailsWindow.xaml.cs">
       <DependentUpon>EnemyDetailsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="ExploreWindow.xaml.cs">
       <DependentUpon>ExploreWindow.xaml</DependentUpon>
     </Compile>
@@ -119,11 +123,17 @@
     <Compile Include="ForestWindow.xaml.cs">
       <DependentUpon>ForestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HeroChangePasswordWindow.xaml.cs">
+      <DependentUpon>HeroChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageUsersWindow.xaml.cs">
       <DependentUpon>ManageUsersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageUserWindow.xaml.cs">
+      <DependentUpon>ManageUserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MarketWindow.xaml.cs">
       <DependentUpon>MarketWindow.xaml</DependentUpon>
@@ -147,6 +157,10 @@
       <DependentUpon>TavernWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Weapon.cs" />
+    <Page Include="AdminChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -207,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="HeroChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,6 +254,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManageUsersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

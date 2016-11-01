@@ -6,7 +6,7 @@ namespace Sulimn_WPF
     internal class Card : INotifyPropertyChanged, IEquatable<Card>
     {
         private string _name;
-        private string _suit;
+        private CardSuit _suit;
         private int _value;
 
         #region Properties
@@ -17,10 +17,10 @@ namespace Sulimn_WPF
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
-        public string Suit
+        public CardSuit Suit
         {
             get { return _suit; }
-            set { _suit = value; OnPropertyChanged("Suit"); }
+            set { _suit = value; OnPropertyChanged("CardSuit"); }
         }
 
         public int Value
@@ -49,42 +49,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
+        public static bool Equals(Card left, Card right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Suit == right.Suit && left.Value == right.Value;
+        }
+
         public sealed override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            Card otherCard = obj as Card;
-            if ((object)otherCard == null)
-                return false;
-
-            return (this.Name == otherCard.Name) && (this.Suit == otherCard.Suit) && (this.Value == otherCard.Value);
+            return Equals(this, obj as Card);
         }
 
         public bool Equals(Card otherCard)
         {
-            if ((object)otherCard == null)
-                return false;
-
-            return (this.Name == otherCard.Name) && (this.Suit == otherCard.Suit) && (this.Value == otherCard.Value);
+            return Equals(this, otherCard);
         }
 
         public static bool operator ==(Card left, Card right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Suit == right.Suit) && (left.Value == right.Value);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Card left, Card right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public sealed override int GetHashCode()
@@ -114,7 +103,7 @@ namespace Sulimn_WPF
         /// <param name="name">Name of Card</param>
         /// <param name="suit">Suit of Card</param>
         /// <param name="value">Value of Card</param>
-        internal Card(string name, string suit, int value)
+        internal Card(string name, CardSuit suit, int value)
         {
             Name = name;
             Suit = suit;

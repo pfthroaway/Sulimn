@@ -251,7 +251,7 @@ namespace Sulimn_WPF
 
                     switch (selectedArmor.ArmorType)
                     {
-                        case "Head":
+                        case ArmorTypes.Head:
                             if (GameState.CurrentHero.Head.Name != "Cloth Helmet")
                                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Head);
 
@@ -260,7 +260,7 @@ namespace Sulimn_WPF
                             lblEquippedHeadDefense.DataContext = GameState.CurrentHero.Head;
                             break;
 
-                        case "Body":
+                        case ArmorTypes.Body:
                             if (GameState.CurrentHero.Body.Name != "Cloth Shirt")
                                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Body);
 
@@ -269,7 +269,7 @@ namespace Sulimn_WPF
                             lblEquippedBodyDefense.DataContext = GameState.CurrentHero.Body;
                             break;
 
-                        case "Legs":
+                        case ArmorTypes.Legs:
                             if (GameState.CurrentHero.Legs.Name != "Cloth Pants")
                                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Legs);
 
@@ -278,7 +278,7 @@ namespace Sulimn_WPF
                             lblEquippedLegsDefense.DataContext = GameState.CurrentHero.Legs;
                             break;
 
-                        case "Feet":
+                        case ArmorTypes.Feet:
                             if (GameState.CurrentHero.Feet.Name != "Cloth Shoes")
                                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Feet);
 
@@ -315,15 +315,15 @@ namespace Sulimn_WPF
 
                     switch (selectedPotion.PotionType)
                     {
-                        case "Healing":
+                        case PotionTypes.Healing:
                             GameState.CurrentHero.Heal(selectedPotion.Amount);
                             break;
 
-                        case "Magic":
+                        case PotionTypes.Magic:
                             GameState.CurrentHero.RestoreMagic(selectedPotion.Amount);
                             break;
 
-                        case "Curing":
+                        case PotionTypes.Curing:
                             break;
 
                         default:
@@ -338,11 +338,11 @@ namespace Sulimn_WPF
 
                     switch (selectedFood.FoodType)
                     {
-                        case "Food":
+                        case FoodTypes.Food:
                             GameState.CurrentHero.Heal(selectedFood.Amount);
                             break;
 
-                        case "Drink":
+                        case FoodTypes.Drink:
                             GameState.CurrentHero.RestoreMagic(selectedFood.Amount);
                             break;
                     }

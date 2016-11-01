@@ -27,6 +27,7 @@
         <Button x:Name="btnMarket" Grid.Column="3" Grid.Row="1" Margin="10" Height="30"  Content="_Market" Click="btnMarket_Click" Width="125" />
         <Button x:Name="btnBank" Grid.Column="0" Grid.Row="2" Margin="10" Height="30"  Content="_Bank" Click="btnBank_Click" Width="125" />
         <Button x:Name="btnChapel" Grid.Column="1" Grid.Row="2" Margin="10" Height="30"  Content="C_hapel" Click="btnChapel_Click" Width="125" />
+        <Button x:Name="btnOptions" Grid.Column="2" Grid.Row="2" Margin="10" Height="30"  Content="_Options" Click="btnOptions_Click" Width="125" />
         <Button x:Name="btnExit" Grid.Column="3" Grid.Row="2" Margin="10" Height="30"  Content="E_xit" Click="btnExit_Click" Width="125" />
     </Grid>
 </Window>

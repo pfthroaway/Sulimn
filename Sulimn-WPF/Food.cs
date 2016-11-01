@@ -4,7 +4,7 @@ namespace Sulimn_WPF
 {
     internal class Food : Item, IEquatable<Food>
     {
-        private string _foodType;
+        private FoodTypes _foodType;
         private int _amount;
 
         #region Properties
@@ -21,7 +21,11 @@ namespace Sulimn_WPF
             set { _type = value; }
         }
 
-        public string FoodType { get { return _foodType; } set { _foodType = value; } }
+        public FoodTypes FoodType
+        {
+            get { return _foodType; }
+            set { _foodType = value; }
+        }
 
         public sealed override string Description
         {
@@ -63,42 +67,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
+        public static bool Equals(Food left, Food right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && left.FoodType == right.FoodType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+        }
+
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            Food food = obj as Food;
-            if ((object)food == null)
-                return false;
-
-            return (this.Name == food.Name) && (this.Type == food.Type) && (this.Description == food.Description) && (this.Amount == food.Amount) && (this.Weight == food.Weight) && (this.Value == food.Value) && (this.CanSell == food.CanSell) && (this.IsSold == food.IsSold);
+            return Equals(this, obj as Food);
         }
 
         public bool Equals(Food otherFood)
         {
-            if ((object)otherFood == null)
-                return false;
-
-            return (this.Name == otherFood.Name) && (this.Type == otherFood.Type) && (this.Description == otherFood.Description) && (this.Amount == otherFood.Amount) && (this.Weight == otherFood.Weight) && (this.Value == otherFood.Value) && (this.CanSell == otherFood.CanSell) && (this.IsSold == otherFood.IsSold);
+            return Equals(this, otherFood);
         }
 
         public static bool operator ==(Food left, Food right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Food left, Food right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
@@ -115,11 +108,25 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Food.
+        /// </summary>
         internal Food()
         {
         }
 
-        internal Food(string foodName, string foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell, bool foodIsSold)
+        /// <summary>
+        /// Initializes an instance of Food by assigning Properties.
+        /// </summary>
+        /// <param name="foodName">Name of Food</param>
+        /// <param name="foodType">Type of Food</param>
+        /// <param name="foodDescription">Description of Food</param>
+        /// <param name="foodAmount">Amount of Food</param>
+        /// <param name="foodWeight">Weight of Food</param>
+        /// <param name="foodValue">Value of Food</param>
+        /// <param name="foodCanSell">Can Food be sold?</param>
+        /// <param name="foodIsSold">Is Food sold?</param>
+        internal Food(string foodName, FoodTypes foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell, bool foodIsSold)
         {
             Name = foodName;
             Type = "Food";

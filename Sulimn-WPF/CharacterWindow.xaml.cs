@@ -35,7 +35,7 @@ namespace Sulimn_WPF
 
         internal void CastSpell(Spell spell)
         {
-            if (spell.Type == "Healing")
+            if (spell.Type == SpellTypes.Healing)
                 GameState.CurrentHero.Heal(spell.Amount);
             GameState.CurrentHero.CurrentMagic -= spell.MagicCost;
             //FUTURE SPELL TYPES

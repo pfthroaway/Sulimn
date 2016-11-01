@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Sulimn_WPF
@@ -8,17 +9,16 @@ namespace Sulimn_WPF
     {
         private List<Item> _items = new List<Item>();
 
-        internal List<Item> Items
+        internal ReadOnlyCollection<Item> Items
         {
-            get { return _items; }
-            set { _items = value; }
+            get { return new ReadOnlyCollection<Item>(_items); }
         }
 
         #region Inventory Management
 
         internal void AddItem(Item _item)
         {
-            Items.Add(_item);
+            _items.Add(_item);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Sulimn_WPF
         /// <param name="_item">Item to be removed</param>
         internal void RemoveItem(Item _item)
         {
-            Items.Remove(_item);
+            _items.Remove(_item);
         }
 
         /// <summary>
@@ -36,11 +36,16 @@ namespace Sulimn_WPF
         /// <param name="index">Index of where to remove Item.</param>
         internal void RemoveItemAt(int index)
         {
-            Items.RemoveAt(index);
+            _items.RemoveAt(index);
         }
 
         #endregion Inventory Management
 
+        /// <summary>
+        /// Gets all Items of specified Type.
+        /// </summary>
+        /// <typeparam name="T">Type</typeparam>
+        /// <returns>Items of Ty[e</returns>
         internal List<T> GetItemsOfType<T>()
         {
             return Items.OfType<T>().ToList<T>();
@@ -67,13 +72,23 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initalizes a default instance of Inventory.
+        /// </summary>
         public Inventory()
         {
         }
 
-        public Inventory(List<Item> itemList)
+        /// <summary>
+        /// Initializes an instance of Inventory by assigning the Inventory.
+        /// </summary>
+        /// <param name="itemList">List of Items in Inventory</param>
+        public Inventory(IEnumerable<Item> itemList)
         {
-            Items = itemList;
+            List<Item> newItems = new List<Item>();
+            newItems.AddRange(itemList);
+
+            _items = newItems;
         }
 
         #endregion Constructors

@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.Resources>
             <DataTemplate x:Key="spellNameTemplate">
@@ -23,10 +24,11 @@
             </DataTemplate>
         </Grid.Resources>
         <ListBox x:Name="lstSpells" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="250" Margin="10" Height="200" ItemsSource="{Binding}" ItemTemplate="{StaticResource spellNameTemplate}" SelectionChanged="lstSpells_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
-        <TextBlock x:Name="lblMagic" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <Button x:Name="btnCastSpell" Grid.Column="0" Grid.Row="2" Content="_Cast Spell" Height="30" Margin="10" Click="btnCastSpell_Click" IsEnabled="False" IsDefault="True" />
-        <Button x:Name="btnBack" Grid.Column="1" Grid.Row="2" Content="_Back" Height="30" Margin="10" Click="btnBack_Click" IsCancel="True" />
-        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Width="275" Margin="5">
+        <TextBlock x:Name="lblHealth" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" />
+        <TextBlock x:Name="lblMagic" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" />
+        <Button x:Name="btnCastSpell" Grid.Column="0" Grid.Row="3" Content="_Cast Spell" Height="30" Margin="10" Click="btnCastSpell_Click" IsEnabled="False" IsDefault="True" />
+        <Button x:Name="btnBack" Grid.Column="1" Grid.Row="3" Content="_Back" Height="30" Margin="10" Click="btnBack_Click" IsCancel="True" />
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Width="275" Margin="5">
             <TextBlock x:Name="lblDescription" Width="260" Height="110" Margin="5" TextWrapping="Wrap" Text="{Binding Path=Description, Mode=TwoWay}" />
             <TextBlock x:Name="lblMagicCost" Text="{Binding Path=MagicCostToString, Mode=OneWay}" Margin="5" />
             <TextBlock x:Name="lblSpellType" Text="{Binding Path=Type, Mode=TwoWay}" Margin="5" />

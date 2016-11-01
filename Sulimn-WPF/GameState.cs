@@ -19,6 +19,25 @@ namespace Sulimn_WPF
         internal static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
         internal static List<Spell> AllSpells = new List<Spell>();
+        internal static List<Hero> AllHeroes = new List<Hero>();
+        internal static List<HeroClass> AllClasses = new List<HeroClass>();
+
+        internal static bool CheckLogin(string username, string password)
+        {
+            Hero checkHero = new Hero();
+            try
+            {
+                checkHero = AllHeroes.Find(hero => hero.Name == username);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                return false;
+            }
+            if (PasswordHash.ValidatePassword(password, checkHero.Password))
+                return true;
+            return false;
+        }
 
         /// <summary>
         /// Loads almost everything from the database.
@@ -34,8 +53,28 @@ namespace Sulimn_WPF
             {
                 try
                 {
-                    string sql = "SELECT * FROM Armor";
-                    string table = "Items";
+                    string sql = "SELECT * FROM Classes";
+                    string table = "LoadStuff";
+                    da = new OleDbDataAdapter(sql, con);
+                    da.Fill(ds, table);
+
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        HeroClass newClass = new HeroClass();
+
+                        newClass.Name = ds.Tables[0].Rows[i]["ClassName"].ToString();
+                        newClass.Description = ds.Tables[0].Rows[i]["ClassDescription"].ToString();
+                        newClass.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]);
+                        newClass.Strength = Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]);
+                        newClass.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]);
+                        newClass.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]);
+                        newClass.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]);
+
+                        AllClasses.Add(newClass);
+                    }
+
+                    sql = "SELECT * FROM Armor";
+                    ds = new DataSet();
                     da = new OleDbDataAdapter(sql, con);
                     da.Fill(ds, table);
 
@@ -43,7 +82,9 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Armor newArmor = new Armor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), ds.Tables[0].Rows[i]["ArmorType"].ToString(), ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                            ArmorTypes currentArmorType;
+                            Enum.TryParse(ds.Tables[0].Rows[i]["ArmorType"].ToString(), out currentArmorType);
+                            Armor newArmor = new Armor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), currentArmorType, ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newArmor);
                         }
@@ -66,7 +107,9 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Food newFood = new Food(ds.Tables[0].Rows[i]["FoodName"].ToString(), ds.Tables[0].Rows[i]["FoodType"].ToString(), ds.Tables[0].Rows[i]["FoodDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                            FoodTypes currentFoodType;
+                            Enum.TryParse(ds.Tables[0].Rows[i]["FoodType"].ToString(), out currentFoodType);
+                            Food newFood = new Food(ds.Tables[0].Rows[i]["FoodName"].ToString(), currentFoodType, ds.Tables[0].Rows[i]["FoodDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newFood);
                         }
@@ -81,7 +124,9 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Potion newPotion = new Potion(ds.Tables[0].Rows[i]["PotionName"].ToString(), ds.Tables[0].Rows[i]["PotionType"].ToString(), ds.Tables[0].Rows[i]["PotionDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                            PotionTypes currentPotionType;
+                            Enum.TryParse(ds.Tables[0].Rows[i]["PotionType"].ToString(), out currentPotionType);
+                            Potion newPotion = new Potion(ds.Tables[0].Rows[i]["PotionName"].ToString(), currentPotionType, ds.Tables[0].Rows[i]["PotionDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newPotion);
                         }
@@ -96,7 +141,9 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Spell newSpell = new Spell(ds.Tables[0].Rows[i]["SpellName"].ToString(), ds.Tables[0].Rows[i]["SpellType"].ToString(), ds.Tables[0].Rows[i]["SpellDescription"].ToString(), ds.Tables[0].Rows[i]["ReqClass"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ReqLevel"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
+                            SpellTypes currentSpellType;
+                            Enum.TryParse(ds.Tables[0].Rows[i]["SpellType"].ToString(), out currentSpellType);
+                            Spell newSpell = new Spell(ds.Tables[0].Rows[i]["SpellName"].ToString(), currentSpellType, ds.Tables[0].Rows[i]["SpellDescription"].ToString(), ds.Tables[0].Rows[i]["ReqClass"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ReqLevel"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
 
                             AllSpells.Add(newSpell);
                         }
@@ -111,7 +158,9 @@ namespace Sulimn_WPF
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Weapon newWeapon = new Weapon(ds.Tables[0].Rows[i]["WeaponName"].ToString(), ds.Tables[0].Rows[i]["WeaponType"].ToString(), ds.Tables[0].Rows[i]["WeaponDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                            WeaponTypes currentWeaponType;
+                            Enum.TryParse(ds.Tables[0].Rows[i]["WeaponType"].ToString(), out currentWeaponType);
+                            Weapon newWeapon = new Weapon(ds.Tables[0].Rows[i]["WeaponName"].ToString(), currentWeaponType, ds.Tables[0].Rows[i]["WeaponDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newWeapon);
                         }
@@ -149,6 +198,63 @@ namespace Sulimn_WPF
                             AllEnemies.Add(newEnemy);
                         }
 
+                        sql = "SELECT * FROM Players";
+                        ds = new DataSet();
+                        da = new OleDbDataAdapter(sql, con);
+                        da.Fill(ds, table);
+
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                Hero newHero = new Hero();
+                                string spells, weapon, head, body, legs, feet, inventory;
+                                newHero = new Hero();
+
+                                newHero.Name = ds.Tables[0].Rows[0]["CharacterName"].ToString();
+                                newHero.Password = ds.Tables[0].Rows[0]["CharacterPassword"].ToString();
+                                newHero.ClassName = ds.Tables[0].Rows[0]["Class"].ToString();
+                                newHero.Level = Int32Helper.Parse(ds.Tables[0].Rows[0]["Level"]);
+                                newHero.Experience = Int32Helper.Parse(ds.Tables[0].Rows[0]["Experience"]);
+                                newHero.SkillPoints = Int32Helper.Parse(ds.Tables[0].Rows[0]["SkillPoints"]);
+                                newHero.Strength = Int32Helper.Parse(ds.Tables[0].Rows[0]["Strength"]);
+                                newHero.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[0]["Vitality"]);
+                                newHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[0]["Dexterity"]);
+                                newHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"]);
+                                newHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
+                                newHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrHealth"]);
+                                newHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxHealth"]);
+                                newHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrMagic"]);
+                                newHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[0]["MaxMagic"]);
+                                spells = ds.Tables[0].Rows[0]["KnownSpells"].ToString();
+                                weapon = ds.Tables[0].Rows[0]["Weapon"].ToString();
+                                head = ds.Tables[0].Rows[0]["Head"].ToString();
+                                body = ds.Tables[0].Rows[0]["Body"].ToString();
+                                legs = ds.Tables[0].Rows[0]["Legs"].ToString();
+                                feet = ds.Tables[0].Rows[0]["Feet"].ToString();
+                                inventory = ds.Tables[0].Rows[0]["Inventory"].ToString();
+
+                                if (spells.Length > 0)
+                                {
+                                    newHero.Spellbook = SetSpellbook(spells);
+                                }
+
+                                newHero.Weapon = (Weapon)AllItems.Find(x => x.Name == weapon);
+
+                                if (inventory.Length > 0)
+                                {
+                                    newHero.Inventory = SetInventory(inventory);
+                                }
+
+                                newHero.Head = (Armor)AllItems.Find(x => x.Name == head);
+                                newHero.Body = (Armor)AllItems.Find(x => x.Name == body);
+                                newHero.Legs = (Armor)AllItems.Find(x => x.Name == legs);
+                                newHero.Feet = (Armor)AllItems.Find(x => x.Name == feet);
+
+                                AllHeroes.Add(newHero);
+                            }
+                        }
+
                         sql = "SELECT * FROM MaxHeroStats";
                         ds = new DataSet();
                         da = new OleDbDataAdapter(sql, con);
@@ -174,6 +280,7 @@ namespace Sulimn_WPF
                     AllItems = AllItems.OrderBy(item => item.Name).ToList();
                     AllEnemies = AllEnemies.OrderBy(enemy => enemy.Name).ToList();
                     AllSpells = AllSpells.OrderBy(spell => spell.Name).ToList();
+                    AllClasses = AllClasses.OrderBy(x => x.Name).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -181,6 +288,39 @@ namespace Sulimn_WPF
                 }
                 finally { con.Close(); }
             });
+        }
+
+        /// <summary>
+        /// Sets the Hero's inventory.
+        /// </summary>
+        /// <param name="inventory">Inventory to be converted</param>
+        /// <returns>Inventory List</returns>
+        private static Inventory SetInventory(string inventory)
+        {
+            List<Item> itemList = new List<Item>();
+            string[] arrInventory = inventory.Split(',');
+
+            foreach (string str in arrInventory)
+            {
+                string type = GameState.AllItems.Find(x => x.Name == (str.Trim())).Type;
+                itemList.Add(GameState.AllItems.Find(x => x.Name == str.Trim()));
+            }
+            return new Inventory(itemList);
+        }
+
+        /// <summary>
+        /// Sets the list of the Hero's known spells.
+        /// </summary>
+        /// <param name="spells">String list of spells</param>
+        /// <returns>List of known Spells</returns>
+        private static Spellbook SetSpellbook(string spells)
+        {
+            List<Spell> spellList = new List<Spell>();
+            string[] arrSpell = spells.Split(',');
+
+            foreach (string str in arrSpell)
+                spellList.Add(GameState.AllSpells.Find(x => x.Name == str.Trim()));
+            return new Spellbook(spellList);
         }
 
         /// <summary>
@@ -223,6 +363,8 @@ namespace Sulimn_WPF
                     cmd.Connection = con;
                     con.Open();
                     cmd.ExecuteNonQuery();
+                    int index = AllHeroes.FindIndex(hero => hero.Name == CurrentHero.Name);
+                    AllHeroes[index] = new Hero(CurrentHero);
                 }
                 catch (Exception ex)
                 {

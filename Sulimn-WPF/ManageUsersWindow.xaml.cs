@@ -39,12 +39,13 @@ namespace Sulimn_WPF
         {
         }
 
-        private void btnSaveUser_Click(object sender, RoutedEventArgs e)
+        private void btnManageUser_Click(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void btnClear_Click(object sender, RoutedEventArgs e)
-        {
+            ManageUserWindow manageUserWindow = new ManageUserWindow();
+            manageUserWindow.RefToManageUsersWindow = this;
+            manageUserWindow.LoadWindow((Hero)lstUsers.SelectedValue);
+            manageUserWindow.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

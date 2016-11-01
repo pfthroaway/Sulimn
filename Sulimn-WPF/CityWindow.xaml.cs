@@ -88,6 +88,14 @@ namespace Sulimn_WPF
             this.Visibility = Visibility.Hidden;
         }
 
+        private void btnOptions_Click(object sender, RoutedEventArgs e)
+        {
+            HeroChangePasswordWindow heroChangePasswordWindow = new HeroChangePasswordWindow();
+            heroChangePasswordWindow.RefToCityWindow = this;
+            heroChangePasswordWindow.Show();
+            this.Visibility = Visibility.Hidden;
+        }
+
         private void btnTavern_Click(object sender, RoutedEventArgs e)
         {
             TavernWindow tavernWindow = new TavernWindow();

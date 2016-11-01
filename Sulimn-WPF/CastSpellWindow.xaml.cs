@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sulimn_WPF
 {
@@ -92,7 +94,7 @@ namespace Sulimn_WPF
                     break;
 
                 case "Character":
-                    availableSpells = new BindingList<Spell>(GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == "Healing").ToList());
+                    availableSpells = new BindingList<Spell>(GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellTypes.Healing).ToList());
                     break;
             }
         }
@@ -123,11 +125,13 @@ namespace Sulimn_WPF
             this.Close();
         }
 
-        private void lstSpells_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void lstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstSpells.SelectedIndex >= 0)
             {
-                selectedSpell = GameState.CurrentHero.Spellbook.Spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
+                List<Spell> spells = new List<Spell>();
+                spells.AddRange(GameState.CurrentHero.Spellbook.Spells);
+                selectedSpell = spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
 
                 if (selectedSpell.MagicCost <= GameState.CurrentHero.CurrentMagic)
                 {

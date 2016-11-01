@@ -65,44 +65,45 @@ namespace Sulimn_WPF
         #region Hero Database Manipulation
 
         // This method adds a new player to the database.
-        internal static async void NewHero(Hero newChar)
+        internal static async Task<bool> NewHero(Hero newHero)
         {
-            newChar.Head.Name = "Cloth Helmet";
-            newChar.Body.Name = "Cloth Shirt";
-            newChar.Legs.Name = "Cloth Pants";
-            newChar.Feet.Name = "Cloth Shoes";
+            bool success = false;
+            newHero.Head.Name = "Cloth Helmet";
+            newHero.Body.Name = "Cloth Shirt";
+            newHero.Legs.Name = "Cloth Pants";
+            newHero.Feet.Name = "Cloth Shoes";
 
             string spells = "";
 
-            switch (newChar.ClassName)
+            switch (newHero.ClassName)
             {
                 case "Wizard":
-                    newChar.Weapon.Name = "Starter Staff";
+                    newHero.Weapon.Name = "Starter Staff";
                     spells += "Fireball";
                     break;
 
                 case "Cleric":
-                    newChar.Weapon.Name = "Starter Staff";
+                    newHero.Weapon.Name = "Starter Staff";
                     spells += "Heal Self";
                     break;
 
                 case "Warrior":
-                    newChar.Weapon.Name = "Stone Dagger";
+                    newHero.Weapon.Name = "Stone Dagger";
                     break;
 
                 case "Rogue":
-                    newChar.Weapon.Name = "Starter Bow";
+                    newHero.Weapon.Name = "Starter Bow";
                     break;
 
                 default:
-                    newChar.Weapon.Name = "Stone Dagger";
+                    newHero.Weapon.Name = "Stone Dagger";
                     break;
             }
 
             OleDbConnection con = new OleDbConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
             OleDbCommand cmd = con.CreateCommand();
-            cmd.CommandText = "Insert into Players([CharacterName],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrHealth],[MaxHealth],[CurrMagic],[MaxMagic],[KnownSpells],[Weapon],[Head],[Body],[Legs],[Feet],[Inventory])Values('" + newChar.Name + "','" + newChar.ClassName + "','" + newChar.Level + "','" + newChar.Experience + "','" + newChar.SkillPoints + "','" + newChar.Strength + "','" + newChar.Vitality + "','" + newChar.Dexterity + "','" + newChar.Wisdom + "','" + newChar.Gold + "','" + newChar.CurrentHealth + "','" + newChar.MaximumHealth + "','" + newChar.CurrentMagic + "','" + newChar.MaximumMagic + "','" + spells + "','" + newChar.Weapon.Name + "','" + newChar.Head.Name + "','" + newChar.Body.Name + "','" + newChar.Legs.Name + "','" + newChar.Feet.Name + "','Minor Healing Potion,Minor Healing Potion,Minor Healing Potion')";
+            cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrHealth],[MaxHealth],[CurrMagic],[MaxMagic],[KnownSpells],[Weapon],[Head],[Body],[Legs],[Feet],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.ClassName + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Strength + "','" + newHero.Vitality + "','" + newHero.Dexterity + "','" + newHero.Wisdom + "','" + newHero.Gold + "','" + newHero.CurrentHealth + "','" + newHero.MaximumHealth + "','" + newHero.CurrentMagic + "','" + newHero.MaximumMagic + "','" + spells + "','" + newHero.Weapon.Name + "','" + newHero.Head.Name + "','" + newHero.Body.Name + "','" + newHero.Legs.Name + "','" + newHero.Feet.Name + "','Minor Healing Potion,Minor Healing Potion,Minor Healing Potion')";
 
             await Task.Factory.StartNew(() =>
             {
@@ -111,9 +112,10 @@ namespace Sulimn_WPF
                     con.Open();
                     cmd.Connection = con;
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "Insert into Bank([CharacterName],[Gold],[LoanTaken])Values('" + newChar.Name + "',0,0)";
+                    cmd.CommandText = "INSERT INTO Bank([CharacterName],[Gold],[LoanTaken])Values('" + newHero.Name + "',0,0)";
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("New user was successfully added!", "Congrats", MessageBoxButton.OK);
+                    GameState.AllHeroes.Add(newHero);
+                    success = true;
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +123,7 @@ namespace Sulimn_WPF
                 }
                 finally { con.Close(); }
             });
+            return success;
         }
 
         #endregion Hero Database Manipulation

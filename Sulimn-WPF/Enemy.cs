@@ -254,7 +254,7 @@ namespace Sulimn_WPF
         }
 
         /// <summary>
-        /// Replaces this instnace of Enemy with another instance.
+        /// Replaces this instance of Enemy with another instance.
         /// </summary>
         /// <param name="otherEnemy">Instance of Enemy that replaces this one</param>
         internal Enemy(Enemy otherEnemy)

@@ -25,6 +25,38 @@ namespace Sulimn_WPF
             this.Visibility = Visibility.Hidden;
         }
 
+        private void btnChangeAdminPassword_Click(object sender, RoutedEventArgs e)
+        {
+            AdminChangePasswordWindow adminChangePasswordWindow = new AdminChangePasswordWindow();
+            adminChangePasswordWindow.RefToAdminWindow = this;
+            adminChangePasswordWindow.Show();
+            this.Visibility = Visibility.Hidden;
+        }
+
+        private void btnManageArmor_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnManageEnemies_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnManageFood_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnManageHeroClass_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnManagePotion_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnManageWeapons_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
         #endregion Button-Click Methods
 
         #region Window-Manipulation Methods

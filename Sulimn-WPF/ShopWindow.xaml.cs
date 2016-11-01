@@ -263,11 +263,11 @@ namespace Sulimn_WPF
 
                 case "General":
                     Potion potn = purchasePotions[lstPurchase.SelectedIndex];
-                    if (potn.PotionType == "Curing")
+                    if (potn.PotionType == PotionTypes.Curing)
                         lblAmountPurchase.Text = "Curing";
-                    else if (potn.PotionType == "Healing")
+                    else if (potn.PotionType == PotionTypes.Healing)
                         lblAmountPurchase.Text = "Healing: " + potn.Amount.ToString("N0");
-                    else if (potn.PotionType == "Magic")
+                    else if (potn.PotionType == PotionTypes.Magic)
                         lblAmountPurchase.Text = "Magic: " + potn.Amount.ToString("N0");
                     //else FUTURE POTION TYPES
 
@@ -284,9 +284,9 @@ namespace Sulimn_WPF
 
                 case "Food":
                     Food food = purchaseFood[lstPurchase.SelectedIndex];
-                    if (food.FoodType == "Food")
+                    if (food.FoodType == FoodTypes.Food)
                         lblAmountPurchase.Text = "Healing: " + food.Amount.ToString("N0");
-                    else if (food.FoodType == "Drink")
+                    else if (food.FoodType == FoodTypes.Drink)
                         lblAmountPurchase.Text = "Restore Magic: " + food.Amount.ToString("N0");
                     //else FUTURE FOOD TYPES
 

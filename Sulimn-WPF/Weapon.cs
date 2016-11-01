@@ -5,7 +5,7 @@ namespace Sulimn_WPF
 {
     internal class Weapon : Item, IEquatable<Weapon>, INotifyPropertyChanged
     {
-        private string _weaponType;
+        private WeaponTypes _weaponType;
         private int _damage;
 
         #region Data-Binding
@@ -33,7 +33,7 @@ namespace Sulimn_WPF
             set { _type = value; OnPropertyChanged("Type"); }
         }
 
-        public string WeaponType
+        public WeaponTypes WeaponType
         {
             get { return _weaponType; }
             set { _weaponType = value; OnPropertyChanged("WeaponType"); }
@@ -89,42 +89,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
+        public static bool Equals(Weapon left, Weapon right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && (left.WeaponType == right.WeaponType) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+        }
+
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            Weapon wpn = obj as Weapon;
-            if ((System.Object)wpn == null)
-                return false;
-
-            return (this.Name == wpn.Name) && (this.Type == wpn.Type) && (this.WeaponType == wpn.WeaponType) && (this.Description == wpn.Description) && (this.Damage == wpn.Damage) && (this.Weight == wpn.Weight) && (this.Value == wpn.Value) && (this.CanSell == wpn.CanSell) && (this.IsSold == wpn.IsSold);
+            return Equals(this, obj as Weapon);
         }
 
         public bool Equals(Weapon otherWeapon)
         {
-            if ((object)otherWeapon == null)
-                return false;
-
-            return (this.Name == otherWeapon.Name) && (this.Type == otherWeapon.Type) && (this.WeaponType == otherWeapon.WeaponType) && (this.Description == otherWeapon.Description) && (this.Damage == otherWeapon.Damage) && (this.Weight == otherWeapon.Weight) && (this.Value == otherWeapon.Value) && (this.CanSell == otherWeapon.CanSell) && (this.IsSold == otherWeapon.IsSold);
+            return Equals(this, otherWeapon);
         }
 
         public static bool operator ==(Weapon left, Weapon right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.WeaponType == right.WeaponType) && (left.Description == right.Description) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Weapon left, Weapon right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
@@ -141,11 +130,25 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Weapon.
+        /// </summary>
         internal Weapon()
         {
         }
 
-        internal Weapon(string weaponName, string weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell, bool weaponIsSold)
+        /// <summary>
+        /// Initializes an instance of Weapon by assigning Properties.
+        /// </summary>
+        /// <param name="weaponName">Name of Weapon</param>
+        /// <param name="weaponType">Type of Weapon</param>
+        /// <param name="weaponDescription">Description of Weapon</param>
+        /// <param name="weaponDamage">Damage of Weapon</param>
+        /// <param name="weaponWeight">Weight of Weapon</param>
+        /// <param name="weaponValue">Value of Weapon</param>
+        /// <param name="weaponCanSell">Can Weapon be sold?</param>
+        /// <param name="weaponIsSold">Is Weapon sold?</param>
+        internal Weapon(string weaponName, WeaponTypes weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell, bool weaponIsSold)
         {
             Name = weaponName;
             Type = "Weapon";
@@ -158,6 +161,10 @@ namespace Sulimn_WPF
             IsSold = weaponIsSold;
         }
 
+        /// <summary>
+        /// Replaces this instance of Weapon with another instance.
+        /// </summary>
+        /// <param name="otherWeapon">Instance to replace this instance</param>
         internal Weapon(Weapon otherWeapon)
         {
             Name = otherWeapon.Name;
@@ -169,19 +176,6 @@ namespace Sulimn_WPF
             Value = otherWeapon.Value;
             CanSell = otherWeapon.CanSell;
             IsSold = otherWeapon.IsSold;
-        }
-
-        internal Weapon(Item otherItem, string weaponType, int weaponDamage)
-        {
-            Name = otherItem.Name;
-            Type = "Weapon";
-            WeaponType = weaponType;
-            Description = otherItem.Description;
-            Damage = weaponDamage;
-            Weight = otherItem.Weight;
-            Value = otherItem.Value;
-            CanSell = otherItem.CanSell;
-            IsSold = otherItem.IsSold;
         }
 
         #endregion Constructors

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Sulimn_WPF
@@ -197,25 +199,25 @@ namespace Sulimn_WPF
                     for (int j = 0; j < 4; j++)
                     {
                         string name = "";
-                        string suit = "";
+                        CardSuit suit = CardSuit.Spades;
                         int value = 0;
 
                         switch (j)
                         {
                             case 0:
-                                suit = "Spades";
+                                suit = CardSuit.Spades;
                                 break;
 
                             case 1:
-                                suit = "Hearts";
+                                suit = CardSuit.Hearts;
                                 break;
 
                             case 2:
-                                suit = "Clubs";
+                                suit = CardSuit.Clubs;
                                 break;
 
                             case 3:
-                                suit = "Diamonds";
+                                suit = CardSuit.Diamonds;
                                 break;
                         }
 
@@ -614,21 +616,15 @@ namespace Sulimn_WPF
         {
             Key k = e.Key;
 
-            bool backspace = Keyboard.IsKeyDown(Key.Back);
-            bool delete = Keyboard.IsKeyDown(Key.Delete);
-            bool home = Keyboard.IsKeyDown(Key.Home);
-            bool end = Keyboard.IsKeyDown(Key.End);
-            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
-            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
-            bool tab = Keyboard.IsKeyDown(Key.Tab);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl);
 
-            if (backspace || delete || home || tab || end || leftShift || rightShift || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+            if (keys.Any(key => key == true) || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
                 e.Handled = false;
             else
                 e.Handled = true;
         }
 
-        private void txtBet_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txtBet_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtBet.Text.Length > 0)
                 btnNewHand.IsEnabled = true;

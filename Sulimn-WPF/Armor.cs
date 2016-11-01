@@ -5,7 +5,7 @@ namespace Sulimn_WPF
 {
     internal class Armor : Item, IEquatable<Armor>, INotifyPropertyChanged
     {
-        private string _armorType;
+        private ArmorTypes _armorType;
         private int _defense;
 
         #region Data-Binding
@@ -33,7 +33,7 @@ namespace Sulimn_WPF
             set { _type = value; OnPropertyChanged("Type"); }
         }
 
-        public string ArmorType
+        public ArmorTypes ArmorType
         {
             get { return _armorType; }
             set { _armorType = value; OnPropertyChanged("ArmorType"); }
@@ -89,42 +89,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
+        public static bool Equals(Armor left, Armor right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && left.ArmorType == right.ArmorType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+        }
+
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            Armor armr = obj as Armor;
-            if ((System.Object)armr == null)
-                return false;
-
-            return (this.Name == armr.Name) && (this.Type == armr.Type) && (this.ArmorType == armr.ArmorType) && (this.Description == armr.Description) && (this.Defense == armr.Defense) && (this.Weight == armr.Weight) && (this.Value == armr.Value) && (this.CanSell == armr.CanSell) && (this.IsSold == armr.IsSold);
+            return Equals(this, obj as Armor);
         }
 
         public bool Equals(Armor otherArmor)
         {
-            if ((object)otherArmor == null)
-                return false;
-
-            return (this.Name == otherArmor.Name) && (this.Type == otherArmor.Type) && (this.ArmorType == otherArmor.ArmorType) && (this.Description == otherArmor.Description) && (this.Defense == otherArmor.Defense) && (this.Weight == otherArmor.Weight) && (this.Value == otherArmor.Value) && (this.CanSell == otherArmor.CanSell) && (this.IsSold == otherArmor.IsSold);
+            return Equals(this, otherArmor);
         }
 
         public static bool operator ==(Armor left, Armor right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.ArmorType == right.ArmorType) && (left.Description == right.Description) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Armor left, Armor right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
@@ -159,7 +148,7 @@ namespace Sulimn_WPF
         /// <param name="armorValue">Value of Armor</param>
         /// <param name="armorCanSell">Can Sell Armor?</param>
         /// <param name="armorIsSold">Is Armor Sold?</param>
-        internal Armor(string armorName, string armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell, bool armorIsSold)
+        internal Armor(string armorName, ArmorTypes armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell, bool armorIsSold)
         {
             Name = armorName;
             Type = "Armor";
@@ -180,7 +169,7 @@ namespace Sulimn_WPF
         {
             Name = otherArmor.Name;
             Type = otherArmor.Type;
-            ArmorType = otherArmor.Type;
+            ArmorType = otherArmor.ArmorType;
             Description = otherArmor.Description;
             Defense = otherArmor.Defense;
             Weight = otherArmor.Weight;

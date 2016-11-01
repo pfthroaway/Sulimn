@@ -8,7 +8,7 @@ namespace Sulimn_WPF
     /// </summary>
     internal class Hero : Character, INotifyPropertyChanged
     {
-        private string _name, _className;
+        private string _name, _password, _className;
         private int _level, _experience, _skillPoints, _strength, _vitality, _dexterity, _wisdom, _gold, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
         private Weapon _weapon = new Weapon();
         private Armor _head, _body, _legs, _feet = new Armor();
@@ -32,6 +32,12 @@ namespace Sulimn_WPF
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
+        }
+
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; }
         }
 
         public string ClassName
@@ -322,6 +328,7 @@ namespace Sulimn_WPF
         /// Initializes an instance of Hero by setting Properties.
         /// </summary>
         /// <param name="heroName">Name of Hero</param>
+        /// <param name="password">Password of Hero</param>
         /// <param name="heroClassName">Class of Hero</param>
         /// <param name="heroLevel">Level of Hero</param>
         /// <param name="heroExperience">Experience of Hero</param>
@@ -342,9 +349,10 @@ namespace Sulimn_WPF
         /// <param name="heroWeapon">Weapon wielded by Hero</param>
         /// <param name="heroSpellbook">Spellbook of Hero</param>
         /// <param name="heroInventory">Inventory of Hero</param>
-        internal Hero(string heroName, string heroClassName, int heroLevel, int heroExperience, int heroSkillPts, int heroStrength, int heroVitality, int heroDexterity, int heroWisdom, int heroGold, int heroCurrentHealth, int heroMaximumHealth, int heroCurrentMagic, int heroMaximumMagic, Armor heroHead, Armor heroBody, Armor heroLegs, Armor heroFeet, Weapon heroWeapon, Spellbook heroSpellbook, Inventory heroInventory)
+        internal Hero(string heroName, string password, string heroClassName, int heroLevel, int heroExperience, int heroSkillPts, int heroStrength, int heroVitality, int heroDexterity, int heroWisdom, int heroGold, int heroCurrentHealth, int heroMaximumHealth, int heroCurrentMagic, int heroMaximumMagic, Armor heroHead, Armor heroBody, Armor heroLegs, Armor heroFeet, Weapon heroWeapon, Spellbook heroSpellbook, Inventory heroInventory)
         {
             Name = heroName;
+            Password = password;
             ClassName = heroClassName;
             Level = heroLevel;
             Experience = heroExperience;
@@ -373,6 +381,7 @@ namespace Sulimn_WPF
         internal Hero(Hero otherHero)
         {
             Name = otherHero.Name;
+            Password = otherHero.Password;
             ClassName = otherHero.ClassName;
             Level = otherHero.Level;
             Experience = otherHero.Experience;

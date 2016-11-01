@@ -112,40 +112,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
-        public override bool Equals(object obj)
+        public static bool Equals(HeroClass left, HeroClass right)
         {
-            if (obj == null)
-                return false;
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.SkillPoints == right.SkillPoints) && (left.Strength == right.Strength) && (left.Vitality == right.Vitality) && (left.Dexterity == right.Dexterity) && (left.Wisdom == right.Wisdom);
+        }
 
-            HeroClass otherClass = obj as HeroClass;
-            if ((object)otherClass == null)
-                return false;
-
-            return (this.Name == otherClass.Name) && (this.Description == otherClass.Description) && (this.Strength == otherClass.Strength) && (this.Vitality == otherClass.Vitality) && (this.Dexterity == otherClass.Dexterity) && (this.Wisdom == otherClass.Wisdom);
+        public sealed override bool Equals(object obj)
+        {
+            return Equals(this, obj as HeroClass);
         }
 
         public bool Equals(HeroClass otherClass)
         {
-            if ((object)otherClass == null)
-                return false;
-
-            return (this.Name == otherClass.Name) && (this.Description == otherClass.Description) && (this.Strength == otherClass.Strength) && (this.Vitality == otherClass.Vitality) && (this.Dexterity == otherClass.Dexterity) && (this.Wisdom == otherClass.Wisdom);
+            return Equals(this, otherClass);
         }
 
         public static bool operator ==(HeroClass left, HeroClass right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Description == right.Description) && (left.Strength == right.Strength) && (left.Vitality == right.Vitality) && (left.Dexterity == right.Dexterity) && (left.Wisdom == right.Wisdom);
+            return Equals(left, right);
         }
 
         public static bool operator !=(HeroClass left, HeroClass right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
@@ -162,10 +153,23 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of HeroClass.
+        /// </summary>
         internal HeroClass()
         {
         }
 
+        /// <summary>
+        /// Initializes an instance of HeroClass by assigning Properties.
+        /// </summary>
+        /// <param name="className">Name of HeroClass</param>
+        /// <param name="classDescription">Description of HeroClass</param>
+        /// <param name="skillPoints">Skill Points</param>
+        /// <param name="classStrength">Strength</param>
+        /// <param name="classVitality">Vitality</param>
+        /// <param name="classDexterity">Dexterity</param>
+        /// <param name="classWisdom">Wisdom</param>
         internal HeroClass(string className, string classDescription, int skillPoints, int classStrength, int classVitality, int classDexterity, int classWisdom)
         {
             Name = className;
@@ -177,6 +181,10 @@ namespace Sulimn_WPF
             Wisdom = classWisdom;
         }
 
+        /// <summary>
+        /// Replaces this instance of HeroClass with another instance.
+        /// </summary>
+        /// <param name="otherClass">Instance of HeroClass to replace this instance</param>
         internal HeroClass(HeroClass otherClass)
         {
             Name = otherClass.Name;

@@ -33,6 +33,10 @@ namespace Sulimn_WPF
 
         #endregion Data-Binding
 
+        /// <summary>
+        /// Total value of Cards in Hand.
+        /// </summary>
+        /// <returns>Total value</returns>
         internal int TotalValue()
         {
             int total = 0;
@@ -43,10 +47,17 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Hand.
+        /// </summary>
         internal Hand()
         {
         }
 
+        /// <summary>
+        /// Initializes an instance of Hand by assigning the list of Cards.
+        /// </summary>
+        /// <param name="cardList">List of Cards</param>
         internal Hand(List<Card> cardList)
         {
             CardList = cardList;

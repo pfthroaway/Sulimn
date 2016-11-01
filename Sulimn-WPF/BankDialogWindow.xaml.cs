@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -171,16 +173,9 @@ namespace Sulimn_WPF
         {
             Key k = e.Key;
 
-            bool backspace = Keyboard.IsKeyDown(Key.Back);
-            bool delete = Keyboard.IsKeyDown(Key.Delete);
-            bool home = Keyboard.IsKeyDown(Key.Home);
-            bool end = Keyboard.IsKeyDown(Key.End);
-            bool leftShift = Keyboard.IsKeyDown(Key.LeftShift);
-            bool rightShift = Keyboard.IsKeyDown(Key.RightShift);
-            bool enter = Keyboard.IsKeyDown(Key.Enter);
-            bool tab = Keyboard.IsKeyDown(Key.Tab);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl);
 
-            if (backspace || delete || enter || tab || home || end || leftShift || rightShift || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+            if (keys.Any(key => key == true) || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
                 e.Handled = false;
             else
                 e.Handled = true;

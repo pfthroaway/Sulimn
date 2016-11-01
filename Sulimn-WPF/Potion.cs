@@ -4,7 +4,7 @@ namespace Sulimn_WPF
 {
     internal class Potion : Item, IEquatable<Potion>
     {
-        private string _potionType;
+        private PotionTypes _potionType;
         private int _amount;
 
         #region Properties
@@ -21,7 +21,11 @@ namespace Sulimn_WPF
             set { _type = value; }
         }
 
-        public string PotionType { get { return _potionType; } set { _potionType = value; } }
+        public PotionTypes PotionType
+        {
+            get { return _potionType; }
+            set { _potionType = value; }
+        }
 
         public sealed override string Description
         {
@@ -63,42 +67,31 @@ namespace Sulimn_WPF
 
         #region Override Operators
 
+        public static bool Equals(Potion left, Potion right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+        }
+
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-
-            Potion potn = obj as Potion;
-            if ((object)potn == null)
-                return false;
-
-            return (this.Name == potn.Name) && (this.Type == potn.Type) && (this.Description == potn.Description) && (this.Amount == potn.Amount) && (this.Weight == potn.Weight) && (this.Value == potn.Value) && (this.CanSell == potn.CanSell) && (this.IsSold == potn.IsSold);
+            return Equals(this, obj as Potion);
         }
 
         public bool Equals(Potion otherPotion)
         {
-            if ((object)otherPotion == null)
-                return false;
-
-            return (this.Name == otherPotion.Name) && (this.Type == otherPotion.Type) && (this.Description == otherPotion.Description) && (this.Amount == otherPotion.Amount) && (this.Weight == otherPotion.Weight) && (this.Value == otherPotion.Value) && (this.CanSell == otherPotion.CanSell) && (this.IsSold == otherPotion.IsSold);
+            return Equals(this, otherPotion);
         }
 
         public static bool operator ==(Potion left, Potion right)
         {
-            if (System.Object.ReferenceEquals(left, right))
-                return true;
-
-            if (((object)left == null) || ((object)right == null))
-                return false;
-
-            return (left.Name == right.Name) && (left.Type == right.Type) && (left.Description == right.Description) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Potion left, Potion right)
         {
-            return !(left == right);
+            return !Equals(left, right);
         }
 
         public override int GetHashCode()
@@ -115,11 +108,24 @@ namespace Sulimn_WPF
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a default instance of Potion.
+        /// </summary>
         internal Potion()
         {
         }
 
-        internal Potion(string potionName, string potionType, string potionDescription, int potionAmount, int potionValue, bool potionCanSell, bool potionIsSold)
+        /// <summary>
+        /// Initializes an instance of Potion by assigning Properties.
+        /// </summary>
+        /// <param name="potionName">Name of Potion</param>
+        /// <param name="potionType">Type of Potion</param>
+        /// <param name="potionDescription">Description of Potion</param>
+        /// <param name="potionAmount">Amount of Potion</param>
+        /// <param name="potionValue">Value of Potion</param>
+        /// <param name="potionCanSell">Can Potion be sold?</param>
+        /// <param name="potionIsSold">Is Potion sold?</param>
+        internal Potion(string potionName, PotionTypes potionType, string potionDescription, int potionAmount, int potionValue, bool potionCanSell, bool potionIsSold)
         {
             Name = potionName;
             Type = "Potion";
