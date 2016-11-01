@@ -202,7 +202,7 @@ namespace Sulimn_WPF
 
         private void windowBank_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero();
+            GameState.SaveHero(GameState.CurrentHero);
             GameState.SaveHeroBank(GoldInBank, LoanTaken);
             RefToCityWindow.Show();
         }

@@ -262,7 +262,7 @@ namespace Sulimn_WPF
 
         private void windowCharacter_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero();
+            GameState.SaveHero(GameState.CurrentHero);
 
             switch (PreviousWindow)
             {

@@ -431,7 +431,7 @@ namespace Sulimn_WPF
 
         private void windowInventory_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero();
+            GameState.SaveHero(GameState.CurrentHero);
             RefToCharacterWindow.Show();
         }
 

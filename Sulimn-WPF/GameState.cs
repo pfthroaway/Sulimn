@@ -290,6 +290,20 @@ namespace Sulimn_WPF
             });
         }
 
+        #region Item Management
+
+        /// <summary>
+        /// Retrieves a List of all Items of specified Type.
+        /// </summary>
+        /// <typeparam name="T">Type</typeparam>
+        /// <returns>List of specified Type.</returns>
+        static public List<T> GetItemsOfType<T>()
+        {
+            List<T> newList = new List<T>();
+            newList = AllItems.OfType<T>().ToList<T>();
+            return newList;
+        }
+
         /// <summary>
         /// Sets the Hero's inventory.
         /// </summary>
@@ -302,8 +316,8 @@ namespace Sulimn_WPF
 
             foreach (string str in arrInventory)
             {
-                string type = GameState.AllItems.Find(x => x.Name == (str.Trim())).Type;
-                itemList.Add(GameState.AllItems.Find(x => x.Name == str.Trim()));
+                string type = AllItems.Find(x => x.Name == (str.Trim())).Type;
+                itemList.Add(AllItems.Find(x => x.Name == str.Trim()));
             }
             return new Inventory(itemList);
         }
@@ -319,14 +333,18 @@ namespace Sulimn_WPF
             string[] arrSpell = spells.Split(',');
 
             foreach (string str in arrSpell)
-                spellList.Add(GameState.AllSpells.Find(x => x.Name == str.Trim()));
+                spellList.Add(AllSpells.Find(x => x.Name == str.Trim()));
             return new Spellbook(spellList);
         }
+
+        #endregion Item Management
+
+        #region Hero Saving
 
         /// <summary>
         /// Saves Hero to database.
         /// </summary>
-        internal static async void SaveHero()
+        internal static async void SaveHero(Hero saveHero)
         {
             OleDbCommand cmd = new OleDbCommand();
             OleDbConnection con = new OleDbConnection();
@@ -335,26 +353,26 @@ namespace Sulimn_WPF
 
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@level", CurrentHero.Level);
-            cmd.Parameters.AddWithValue("@exp", CurrentHero.Experience.ToString());
-            cmd.Parameters.AddWithValue("@skillPts", CurrentHero.SkillPoints.ToString());
-            cmd.Parameters.AddWithValue("@str", CurrentHero.Strength.ToString());
-            cmd.Parameters.AddWithValue("@vit", CurrentHero.Vitality.ToString());
-            cmd.Parameters.AddWithValue("@dex", CurrentHero.Dexterity.ToString());
-            cmd.Parameters.AddWithValue("@wis", CurrentHero.Wisdom.ToString());
-            cmd.Parameters.AddWithValue("@gold", CurrentHero.Gold.ToString());
-            cmd.Parameters.AddWithValue("@currHealth", CurrentHero.CurrentHealth.ToString());
-            cmd.Parameters.AddWithValue("@maxHealth", CurrentHero.MaximumHealth.ToString());
-            cmd.Parameters.AddWithValue("@currMagic", CurrentHero.CurrentMagic.ToString());
-            cmd.Parameters.AddWithValue("@maxMagic", CurrentHero.MaximumMagic.ToString());
-            cmd.Parameters.AddWithValue("@spells", CurrentHero.Spellbook.ToString());
-            cmd.Parameters.AddWithValue("@weapon", CurrentHero.Weapon.Name);
-            cmd.Parameters.AddWithValue("@head", CurrentHero.Head.Name);
-            cmd.Parameters.AddWithValue("@body", CurrentHero.Body.Name);
-            cmd.Parameters.AddWithValue("@legs", CurrentHero.Legs.Name);
-            cmd.Parameters.AddWithValue("@feet", CurrentHero.Feet.Name);
-            cmd.Parameters.AddWithValue("@inv", CurrentHero.Inventory.ToString());
-            cmd.Parameters.AddWithValue("@name", CurrentHero.Name);
+            cmd.Parameters.AddWithValue("@level", saveHero.Level);
+            cmd.Parameters.AddWithValue("@exp", saveHero.Experience.ToString());
+            cmd.Parameters.AddWithValue("@skillPts", saveHero.SkillPoints.ToString());
+            cmd.Parameters.AddWithValue("@str", saveHero.Strength.ToString());
+            cmd.Parameters.AddWithValue("@vit", saveHero.Vitality.ToString());
+            cmd.Parameters.AddWithValue("@dex", saveHero.Dexterity.ToString());
+            cmd.Parameters.AddWithValue("@wis", saveHero.Wisdom.ToString());
+            cmd.Parameters.AddWithValue("@gold", saveHero.Gold.ToString());
+            cmd.Parameters.AddWithValue("@currHealth", saveHero.CurrentHealth.ToString());
+            cmd.Parameters.AddWithValue("@maxHealth", saveHero.MaximumHealth.ToString());
+            cmd.Parameters.AddWithValue("@currMagic", saveHero.CurrentMagic.ToString());
+            cmd.Parameters.AddWithValue("@maxMagic", saveHero.MaximumMagic.ToString());
+            cmd.Parameters.AddWithValue("@spells", saveHero.Spellbook.ToString());
+            cmd.Parameters.AddWithValue("@weapon", saveHero.Weapon.Name);
+            cmd.Parameters.AddWithValue("@head", saveHero.Head.Name);
+            cmd.Parameters.AddWithValue("@body", saveHero.Body.Name);
+            cmd.Parameters.AddWithValue("@legs", saveHero.Legs.Name);
+            cmd.Parameters.AddWithValue("@feet", saveHero.Feet.Name);
+            cmd.Parameters.AddWithValue("@inv", saveHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@name", saveHero.Name);
 
             await Task.Factory.StartNew(() =>
             {
@@ -363,8 +381,8 @@ namespace Sulimn_WPF
                     cmd.Connection = con;
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    int index = AllHeroes.FindIndex(hero => hero.Name == CurrentHero.Name);
-                    AllHeroes[index] = new Hero(CurrentHero);
+                    int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
+                    AllHeroes[index] = new Hero(saveHero);
                 }
                 catch (Exception ex)
                 {
@@ -410,16 +428,40 @@ namespace Sulimn_WPF
         }
 
         /// <summary>
-        /// Retrieves a List of all Items of specified Type.
+        /// Saves the Hero's password to the database.
         /// </summary>
-        /// <typeparam name="T">Type</typeparam>
-        /// <returns>List of specified Type.</returns>
-        static public List<T> GetItemsOfType<T>()
+        /// <param name="saveHero">Hero whose password needs to be saved</param>
+        internal static async void SaveHeroPassword(Hero saveHero)
         {
-            List<T> newList = new List<T>();
-            newList = AllItems.OfType<T>().ToList<T>();
-            return newList;
+            OleDbCommand cmd = new OleDbCommand();
+            OleDbConnection con = new OleDbConnection();
+            con.ConnectionString = _DBPROVIDERANDSOURCE;
+            string sql = "UPDATE Players SET [CharacterPassword] = @password WHERE [CharacterName] = @name";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@password", saveHero.Password);
+            cmd.Parameters.AddWithValue("@name", saveHero.Name);
+
+            await Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    int index = AllHeroes.FindIndex(hero => hero.Name == CurrentHero.Name);
+                    AllHeroes[index] = new Hero(CurrentHero);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error Saving Hero Bank", MessageBoxButton.OK);
+                }
+                finally { con.Close(); }
+            });
         }
+
+        #endregion Hero Saving
 
         #region Exploration Events
 
@@ -430,7 +472,7 @@ namespace Sulimn_WPF
         {
             int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
             CurrentHero.Gold += foundGold;
-            SaveHero();
+            SaveHero(CurrentHero);
             return "You find " + foundGold.ToString("N0") + " gold!";
         }
 
@@ -444,11 +486,11 @@ namespace Sulimn_WPF
         internal static string EventFindItem(int minValue, int maxValue, bool canSell = true)
         {
             List<Item> availableItems = new List<Item>();
-            availableItems = GameState.AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold == true).ToList();
+            availableItems = AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold == true).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
             CurrentHero.Inventory.AddItem(availableItems[item]);
-            SaveHero();
+            SaveHero(CurrentHero);
             return "You find a " + availableItems[item].Name + "!";
         }
 
@@ -461,7 +503,7 @@ namespace Sulimn_WPF
 
             CurrentHero.Inventory.AddItem(availableItems[item]);
 
-            SaveHero();
+            SaveHero(CurrentHero);
         }
 
         /// <summary>

@@ -636,7 +636,7 @@ namespace Sulimn_WPF
         {
             if (handOver)
             {
-                GameState.SaveHero();
+                GameState.SaveHero(GameState.CurrentHero);
                 RefToTavernWindow.Show();
             }
             else

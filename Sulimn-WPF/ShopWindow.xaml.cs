@@ -611,7 +611,7 @@ namespace Sulimn_WPF
             else
                 RefToTavernWindow.Show();
 
-            GameState.SaveHero();
+            GameState.SaveHero(GameState.CurrentHero);
         }
 
         #endregion Window-Manipulation Methods

@@ -467,7 +467,7 @@ namespace Sulimn_WPF
 
         private void windowBattle_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero();
+            GameState.SaveHero(GameState.CurrentHero);
             if (battleEnded)
             {
                 switch (previousWindow)

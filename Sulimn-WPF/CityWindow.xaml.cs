@@ -49,7 +49,7 @@ namespace Sulimn_WPF
             {
                 AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + nl + "\"Let me heal your wounds. You look like you've been through a tough battle.\"" + nl + "The priest gives you a potion which heals you to full health!" + nl + "You thank the priest and return to the streets.");
                 GameState.CurrentHero.CurrentHealth = GameState.CurrentHero.MaximumHealth;
-                GameState.SaveHero();
+                GameState.SaveHero(GameState.CurrentHero);
             }
             else
                 AddTextTT("You enter a local chapel. A priest approaches you." + nl + "\"You look healthy to me. If you ever need healing, don't hesitate to come see me.\"" + nl + nl + "You thank the priest and return to the streets.");
