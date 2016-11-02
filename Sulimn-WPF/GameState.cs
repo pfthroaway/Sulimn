@@ -462,7 +462,7 @@ namespace Sulimn_WPF
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Saving Hero Bank", MessageBoxButton.OK);
+                    MessageBox.Show(ex.Message, "Error Saving Hero Password", MessageBoxButton.OK);
                 }
                 finally { con.Close(); }
             });

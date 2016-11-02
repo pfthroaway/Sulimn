@@ -23,6 +23,7 @@ namespace Sulimn_WPF
                         if (pswdCurrentPassword.Password != pswdNewPassword.Password)
                         {
                             GameState.CurrentHero.Password = PasswordHash.HashPassword(pswdNewPassword.Password);
+                            GameState.SaveHeroPassword(GameState.CurrentHero);
                             MessageBox.Show("Successfully changed password.", "Sulimn", MessageBoxButton.OK);
                             CloseWindow();
                         }
