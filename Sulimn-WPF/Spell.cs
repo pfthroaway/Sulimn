@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a Spell a Hero can cast.
+    /// </summary>
     internal class Spell : IEquatable<Spell>, INotifyPropertyChanged
     {
         private string _name, _description, _requiredClass;

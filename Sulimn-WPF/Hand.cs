@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a hand of playing cards.
+    /// </summary>
     internal class Hand : INotifyPropertyChanged
     {
         private List<Card> _cardList = new List<Card>();

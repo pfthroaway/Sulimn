@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a playing card.
+    /// </summary>
     internal class Card : INotifyPropertyChanged, IEquatable<Card>
     {
         private string _name;

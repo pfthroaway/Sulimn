@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents the Class of a Hero.
+    /// </summary>
     internal class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
     {
         private string _name, _description;

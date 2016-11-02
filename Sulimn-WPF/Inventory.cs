@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a Hero's inventory.
+    /// </summary>
     internal class Inventory : IEnumerable<Item>
     {
         private List<Item> _items = new List<Item>();

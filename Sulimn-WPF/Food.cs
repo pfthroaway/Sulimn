@@ -2,6 +2,9 @@
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a Food which the Hero can consume.
+    /// </summary>
     internal class Food : Item, IEquatable<Food>
     {
         private FoodTypes _foodType;

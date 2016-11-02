@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Sulimn_WPF
 {
     /// <summary>
-    /// Hero from Sulimn.
+    /// Represents a Hero from Sulimn.
     /// </summary>
     internal class Hero : Character, INotifyPropertyChanged
     {

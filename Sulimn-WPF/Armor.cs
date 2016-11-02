@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a piece of Armor that a Hero can wear.
+    /// </summary>
     internal class Armor : Item, IEquatable<Armor>, INotifyPropertyChanged
     {
         private ArmorTypes _armorType;

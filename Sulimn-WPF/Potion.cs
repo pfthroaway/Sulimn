@@ -2,6 +2,9 @@
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a Potion which can be consumed by a Hero.
+    /// </summary>
     internal class Potion : Item, IEquatable<Potion>
     {
         private PotionTypes _potionType;

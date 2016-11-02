@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a collection of Spells a Hero can cast.
+    /// </summary>
     internal class Spellbook
     {
         private List<Spell> _spells = new List<Spell>();

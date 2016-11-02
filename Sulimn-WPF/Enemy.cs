@@ -2,6 +2,9 @@
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents an Enemy who opposes the Hero.
+    /// </summary>
     internal class Enemy : Character, INotifyPropertyChanged
     {
         private string _name, _type;

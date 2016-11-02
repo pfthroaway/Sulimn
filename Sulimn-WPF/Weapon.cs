@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents a Weapon a Hero can attack with.
+    /// </summary>
     internal class Weapon : Item, IEquatable<Weapon>, INotifyPropertyChanged
     {
         private WeaponTypes _weaponType;

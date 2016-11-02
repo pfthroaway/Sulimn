@@ -2,6 +2,9 @@
 
 namespace Sulimn_WPF
 {
+    /// <summary>
+    /// Represents an Item.
+    /// </summary>
     internal abstract class Item : INotifyPropertyChanged
     {
         protected string _name, _type, _description;

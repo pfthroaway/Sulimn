@@ -1,7 +1,7 @@
 ﻿namespace Sulimn_WPF
 {
     /// <summary>
-    /// Base class of living entities in Sulimn.
+    /// Represents living entities in Sulimn.
     /// </summary>
     internal abstract class Character
     {
