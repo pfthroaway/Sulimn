@@ -184,10 +184,10 @@ namespace Sulimn_WPF
                     {
                         Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass.Name, 1, 0, 0, selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom, 250, selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic, new Armor(), new Armor(), new Armor(), new Armor(), new Weapon(), new Spellbook(), new Inventory());
 
-                        if (await Functions.NewHero(newHero))
+                        if (await GameState.NewHero(newHero))
                         {
                             startGame = true;
-                            GameState.CurrentHero = newHero;
+                            GameState.CurrentHero = GameState.AllHeroes.Find(hero => hero.Name == newHero.Name);
                             CloseWindow();
                         }
                     }

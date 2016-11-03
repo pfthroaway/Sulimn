@@ -161,6 +161,7 @@ namespace Sulimn_WPF
         private void windowForest_Closing(object sender, CancelEventArgs e)
         {
             RefToExploreWindow.Show();
+            RefToExploreWindow.CheckButtons();
         }
 
         #endregion Window-Manipulation Methods

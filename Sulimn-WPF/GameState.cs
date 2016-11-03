@@ -348,6 +348,70 @@ namespace Sulimn_WPF
 
         #region Hero Saving
 
+        internal static async Task<bool> NewHero(Hero newHero)
+        {
+            bool success = false;
+            newHero.Head = (Armor)AllItems.Find(armr => armr.Name == "Cloth Helmet");
+            newHero.Body = (Armor)AllItems.Find(armr => armr.Name == "Cloth Shirt");
+            newHero.Legs = (Armor)AllItems.Find(armr => armr.Name == "Cloth Pants");
+            newHero.Feet = (Armor)AllItems.Find(armr => armr.Name == "Cloth Shoes");
+
+            string spells = "";
+
+            switch (newHero.ClassName)
+            {
+                case "Wizard":
+                    newHero.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
+                    spells += "Fireball";
+                    break;
+
+                case "Cleric":
+                    newHero.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
+                    spells += "Heal Self";
+                    break;
+
+                case "Warrior":
+                    newHero.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
+                    break;
+
+                case "Rogue":
+                    newHero.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Bow");
+                    break;
+
+                default:
+                    newHero.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
+                    break;
+            }
+
+            for (int i = 0; i < 3; i++)
+                newHero.Inventory.AddItem(AllItems.Find(itm => itm.Name == "Minor Healing Potion"));
+
+            OleDbConnection con = new OleDbConnection();
+            con.ConnectionString = _DBPROVIDERANDSOURCE;
+            OleDbCommand cmd = con.CreateCommand();
+            cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrHealth],[MaxHealth],[CurrMagic],[MaxMagic],[KnownSpells],[Weapon],[Head],[Body],[Legs],[Feet],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.ClassName + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Strength + "','" + newHero.Vitality + "','" + newHero.Dexterity + "','" + newHero.Wisdom + "','" + newHero.Gold + "','" + newHero.CurrentHealth + "','" + newHero.MaximumHealth + "','" + newHero.CurrentMagic + "','" + newHero.MaximumMagic + "','" + spells + "','" + newHero.Weapon.Name + "','" + newHero.Head.Name + "','" + newHero.Body.Name + "','" + newHero.Legs.Name + "','" + newHero.Feet.Name + "','" + newHero.Inventory + "')";
+
+            await Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    con.Open();
+                    cmd.Connection = con;
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "INSERT INTO Bank([CharacterName],[Gold],[LoanTaken])Values('" + newHero.Name + "',0,0)";
+                    cmd.ExecuteNonQuery();
+                    GameState.AllHeroes.Add(newHero);
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error Creating New Hero", MessageBoxButton.OK);
+                }
+                finally { con.Close(); }
+            });
+            return success;
+        }
+
         /// <summary>
         /// Saves Hero to database.
         /// </summary>

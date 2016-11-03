@@ -140,6 +140,7 @@ namespace Sulimn_WPF
         private void windowCatacombs_Closing(object sender, CancelEventArgs e)
         {
             RefToExploreWindow.Show();
+            RefToExploreWindow.CheckButtons();
         }
 
         #endregion Window-Manipulation Methods

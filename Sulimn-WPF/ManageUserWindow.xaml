@@ -70,7 +70,7 @@
         <ComboBox x:Name="cmbLegs" Grid.Column="3" Grid.Row="8" ItemsSource="{Binding}" Margin="10" Width="200" />
         <TextBlock Grid.Column="2" Grid.Row="9" TextAlignment="Right" Text="Feet:" Margin="10" VerticalAlignment="Center" />
         <ComboBox x:Name="cmbFeet" Grid.Column="3" Grid.Row="9" ItemsSource="{Binding}" Margin="10" Width="200" />
-        <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="4" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+        <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="4" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button x:Name="btnSave" Height="30" Width="125" Content="_Save" Margin="10" IsDefault="True" IsEnabled="False" Click="btnSave_Click" />
             <Button x:Name="btnReset" Height="30" Width="125" Margin="10" Content="_Reset" Click="btnReset_Click" />
             <Button x:Name="btnCancel" Height="30" Width="125" Margin="10" Content="_Cancel" IsCancel="True" Click="btnCancel_Click" />

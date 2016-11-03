@@ -92,7 +92,7 @@
                     <TextBlock x:Name="lblEquippedLegsDefense" Width="250" Margin="5" Text="{Binding Path=DefenseToStringWithText, Mode=OneWay}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="270" Header="Feet">
+            <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="270" Header="Feet" Margin="0,0,5,5">
                 <StackPanel>
                     <TextBlock x:Name="lblEquippedFeet" Width="250" Margin="5" Text="{Binding Path=Name, Mode=TwoWay}" />
                     <TextBlock x:Name="lblEquippedFeetDefense" Width="250" Margin="5" Text="{Binding Path=DefenseToStringWithText, Mode=OneWay}" />

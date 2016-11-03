@@ -61,7 +61,12 @@ namespace Sulimn_WPF
 
         public string DefenseToStringWithText
         {
-            get { return "Defense: " + DefenseToString; }
+            get
+            {
+                if (Defense > 0)
+                    return "Defense: " + DefenseToString;
+                return "";
+            }
         }
 
         public sealed override int Weight

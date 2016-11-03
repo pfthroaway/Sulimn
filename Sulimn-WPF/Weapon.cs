@@ -61,7 +61,12 @@ namespace Sulimn_WPF
 
         public string DamageToStringWithText
         {
-            get { return "Damage: " + DamageToString; }
+            get
+            {
+                if (Damage > 0)
+                    return "Damage: " + DamageToString;
+                return "";
+            }
         }
 
         public sealed override int Weight

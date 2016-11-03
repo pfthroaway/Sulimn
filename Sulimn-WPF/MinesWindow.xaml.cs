@@ -160,6 +160,7 @@ namespace Sulimn_WPF
         private void windowMines_Closing(object sender, CancelEventArgs e)
         {
             RefToExploreWindow.Show();
+            RefToExploreWindow.CheckButtons();
         }
 
         #endregion Window-Manipulation Methods

@@ -181,7 +181,10 @@ namespace Sulimn_WPF
         {
             CurrentHealth -= damage;
             if (CurrentHealth <= 0)
+            {
+                CurrentHealth = 0;
                 return "The " + Name + " takes " + damage + " damage and has been slain!";
+            }
             return "The " + Name + " takes " + damage + " damage.";
         }
 

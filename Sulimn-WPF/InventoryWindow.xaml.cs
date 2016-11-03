@@ -223,6 +223,8 @@ namespace Sulimn_WPF
             if (dropItem == MessageBoxResult.Yes)
             {
                 GameState.CurrentHero.Inventory.RemoveItemAt(lstInventory.SelectedIndex);
+                lstInventory.UnselectAll();
+                lstInventory.Items.Refresh();
             }
 
             DisplayInventoryList();

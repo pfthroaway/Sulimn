@@ -43,6 +43,16 @@ namespace Sulimn_WPF
             set { _type = value; OnPropertyChanged("Type"); OnPropertyChanged("TypeAmount"); }
         }
 
+        public string TypeToString
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Name))
+                    return Type.ToString();
+                return "";
+            }
+        }
+
         public string TypeAmount
         {
             get
