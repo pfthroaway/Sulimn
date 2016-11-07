@@ -24,19 +24,19 @@ namespace Sulimn_WPF
 
         #region Properties
 
-        abstract public string Name { get; set; }
+        public abstract string Name { get; set; }
 
-        abstract public string Type { get; set; }
+        public abstract string Type { get; set; }
 
-        abstract public string Description { get; set; }
+        public abstract string Description { get; set; }
 
-        abstract public int Weight { get; set; }
+        public abstract int Weight { get; set; }
 
-        abstract public int Value { get; set; }
+        public abstract int Value { get; set; }
 
-        abstract public bool CanSell { get; set; }
+        public abstract bool CanSell { get; set; }
 
-        abstract public bool IsSold { get; set; }
+        public abstract bool IsSold { get; set; }
 
         #endregion Properties
     }

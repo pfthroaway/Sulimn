@@ -7,28 +7,28 @@
     {
         #region Properties
 
-        abstract public string Name { get; set; }
-        abstract public int Level { get; set; }
-        abstract public int Experience { get; set; }
-        abstract public int Strength { get; set; }
-        abstract public int Vitality { get; set; }
-        abstract public int Dexterity { get; set; }
-        abstract public int Wisdom { get; set; }
-        abstract public int Gold { get; set; }
-        abstract public int CurrentHealth { get; set; }
-        abstract public int MaximumHealth { get; set; }
-        abstract public int CurrentMagic { get; set; }
-        abstract public int MaximumMagic { get; set; }
-        abstract public Weapon Weapon { get; set; }
-        abstract public Armor Head { get; set; }
-        abstract public Armor Body { get; set; }
-        abstract public Armor Legs { get; set; }
-        abstract public Armor Feet { get; set; }
+        public abstract string Name { get; set; }
+        public abstract int Level { get; set; }
+        public abstract int Experience { get; set; }
+        public abstract int Strength { get; set; }
+        public abstract int Vitality { get; set; }
+        public abstract int Dexterity { get; set; }
+        public abstract int Wisdom { get; set; }
+        public abstract int Gold { get; set; }
+        public abstract int CurrentHealth { get; set; }
+        public abstract int MaximumHealth { get; set; }
+        public abstract int CurrentMagic { get; set; }
+        public abstract int MaximumMagic { get; set; }
+        public abstract Weapon Weapon { get; set; }
+        public abstract Armor Head { get; set; }
+        public abstract Armor Body { get; set; }
+        public abstract Armor Legs { get; set; }
+        public abstract Armor Feet { get; set; }
 
         #endregion Properties
 
-        abstract internal string TakeDamage(int damage);
+        internal abstract string TakeDamage(int damage);
 
-        abstract internal string Heal(int healAmount);
+        internal abstract string Heal(int healAmount);
     }
 }
