@@ -389,7 +389,7 @@ namespace Sulimn_WPF
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
             SQLiteCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrHealth],[MaxHealth],[CurrMagic],[MaxMagic],[KnownSpells],[Weapon],[Head],[Body],[Legs],[Feet],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.ClassName + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Strength + "','" + newHero.Vitality + "','" + newHero.Dexterity + "','" + newHero.Wisdom + "','" + newHero.Gold + "','" + newHero.CurrentHealth + "','" + newHero.MaximumHealth + "','" + newHero.CurrentMagic + "','" + newHero.MaximumMagic + "','" + spells + "','" + newHero.Weapon.Name + "','" + newHero.Head.Name + "','" + newHero.Body.Name + "','" + newHero.Legs.Name + "','" + newHero.Feet.Name + "','" + newHero.Inventory + "')";
+            cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrentHealth],[MaximumHealth],[CurrentMagic],[MaximumMagic],[KnownSpells],[Weapon],[Head],[Body],[Legs],[Feet],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.ClassName + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Strength + "','" + newHero.Vitality + "','" + newHero.Dexterity + "','" + newHero.Wisdom + "','" + newHero.Gold + "','" + newHero.CurrentHealth + "','" + newHero.MaximumHealth + "','" + newHero.CurrentMagic + "','" + newHero.MaximumMagic + "','" + spells + "','" + newHero.Weapon.Name + "','" + newHero.Head.Name + "','" + newHero.Body.Name + "','" + newHero.Legs.Name + "','" + newHero.Feet.Name + "','" + newHero.Inventory + "')";
 
             await Task.Factory.StartNew(() =>
             {
@@ -420,29 +420,29 @@ namespace Sulimn_WPF
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
-            string sql = "UPDATE Players SET [Level] = @level, [Experience] = @exp, [SkillPoints] = @skillPts, [Strength] = @str, [Vitality] = @vit, [Dexterity] = @dex, [Wisdom] = @wis, [Gold] = @gold, [CurrHealth] = @currHealth, [MaxHealth] = @maxHealth, [CurrMagic] = @currMagic, [MaxMagic] = @maxMagic, [KnownSpells] = @spells, [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Legs] = @legs, [Feet] = @feet, [Inventory] = @inv WHERE [CharacterName] = @name";
+            string sql = "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Legs] = @legs, [Feet] = @feet, [Inventory] = @inventory WHERE [CharacterName] = @name";
 
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@level", saveHero.Level);
-            cmd.Parameters.AddWithValue("@exp", saveHero.Experience.ToString());
-            cmd.Parameters.AddWithValue("@skillPts", saveHero.SkillPoints.ToString());
-            cmd.Parameters.AddWithValue("@str", saveHero.Strength.ToString());
-            cmd.Parameters.AddWithValue("@vit", saveHero.Vitality.ToString());
-            cmd.Parameters.AddWithValue("@dex", saveHero.Dexterity.ToString());
-            cmd.Parameters.AddWithValue("@wis", saveHero.Wisdom.ToString());
+            cmd.Parameters.AddWithValue("@experience", saveHero.Experience.ToString());
+            cmd.Parameters.AddWithValue("@skillPoints", saveHero.SkillPoints.ToString());
+            cmd.Parameters.AddWithValue("@strength", saveHero.Strength.ToString());
+            cmd.Parameters.AddWithValue("@vitality", saveHero.Vitality.ToString());
+            cmd.Parameters.AddWithValue("@dexterity", saveHero.Dexterity.ToString());
+            cmd.Parameters.AddWithValue("@wisdom", saveHero.Wisdom.ToString());
             cmd.Parameters.AddWithValue("@gold", saveHero.Gold.ToString());
-            cmd.Parameters.AddWithValue("@currHealth", saveHero.CurrentHealth.ToString());
-            cmd.Parameters.AddWithValue("@maxHealth", saveHero.MaximumHealth.ToString());
-            cmd.Parameters.AddWithValue("@currMagic", saveHero.CurrentMagic.ToString());
-            cmd.Parameters.AddWithValue("@maxMagic", saveHero.MaximumMagic.ToString());
+            cmd.Parameters.AddWithValue("@currentHealth", saveHero.CurrentHealth.ToString());
+            cmd.Parameters.AddWithValue("@maximumHealth", saveHero.MaximumHealth.ToString());
+            cmd.Parameters.AddWithValue("@currentMagic", saveHero.CurrentMagic.ToString());
+            cmd.Parameters.AddWithValue("@maximumMagic", saveHero.MaximumMagic.ToString());
             cmd.Parameters.AddWithValue("@spells", saveHero.Spellbook.ToString());
             cmd.Parameters.AddWithValue("@weapon", saveHero.Weapon.Name);
             cmd.Parameters.AddWithValue("@head", saveHero.Head.Name);
             cmd.Parameters.AddWithValue("@body", saveHero.Body.Name);
             cmd.Parameters.AddWithValue("@legs", saveHero.Legs.Name);
             cmd.Parameters.AddWithValue("@feet", saveHero.Feet.Name);
-            cmd.Parameters.AddWithValue("@inv", saveHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@inventory", saveHero.Inventory.ToString());
             cmd.Parameters.AddWithValue("@name", saveHero.Name);
 
             await Task.Factory.StartNew(() =>
