@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OleDb;
+using System.Data.SQLite;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -10,7 +10,7 @@ namespace Sulimn_WPF
 {
     internal static class Functions
     {
-        private const string _DBPROVIDERANDSOURCE = "Provider=Microsoft.ACE.oledb.12.0;Data Source = Sulimn.accdb";
+        private const string _DBPROVIDERANDSOURCE = "Data Source = Sulimn.sqlite;Version=3";
 
         #region Random Number Generation
 
@@ -62,15 +62,13 @@ namespace Sulimn_WPF
             return allKeys;
         }
 
-
-
         #region General Database Manipulation
 
         // This method fills a DataSet with data from a table.
         internal static async Task<DataSet> FillDataSet(string sql, string tableName)
         {
-            OleDbConnection con = new OleDbConnection();
-            OleDbDataAdapter da = new OleDbDataAdapter();
+            SQLiteConnection con = new SQLiteConnection();
+            SQLiteDataAdapter da = new SQLiteDataAdapter();
             DataSet ds = new DataSet();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
 
@@ -78,7 +76,7 @@ namespace Sulimn_WPF
             {
                 try
                 {
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, tableName);
                 }
                 catch (Exception ex)
@@ -95,14 +93,14 @@ namespace Sulimn_WPF
         //{
         //  string dbProvider = "Provider=Microsoft.ACE.oledb.12.0;";
         //  string dbSource = "Data Source=Players.accdb";
-        //  OleDbConnection con = new OleDbConnection();
-        //  OleDbDataAdapter da = new OleDbDataAdapter();
-        //  OleDbCommandBuilder cb = new OleDbCommandBuilder(da);
+        //  SQLiteConnection con = new SQLiteConnection();
+        //  SQLiteDataAdapter da = new SQLiteDataAdapter();
+        //  SQLiteCommandBuilder cb = new SQLiteCommandBuilder(da);
 
         //  try
         //  {
         //    con.ConnectionString = dbProvider + dbSource;
-        //    da = new OleDbDataAdapter(sql, con);
+        //    da = new SQLiteDataAdapter(sql, con);
         //    ds.Tables[tableName].Rows[0].Delete();
         //    da.Update(ds, tableName);
         //  }
@@ -118,14 +116,14 @@ namespace Sulimn_WPF
         //{
         //  string dbProvider = "Provider=Microsoft.ACE.oledb.12.0;";
         //  string dbSource = "Data Source=Players.accdb";
-        //  OleDbConnection con = new OleDbConnection();
-        //  OleDbDataAdapter da = new OleDbDataAdapter();
-        //  OleDbCommandBuilder cb = new OleDbCommandBuilder(da);
+        //  SQLiteConnection con = new SQLiteConnection();
+        //  SQLiteDataAdapter da = new SQLiteDataAdapter();
+        //  SQLiteCommandBuilder cb = new SQLiteCommandBuilder(da);
 
         //  try
         //  {
         //    con.ConnectionString = dbProvider + dbSource;
-        //    da = new OleDbDataAdapter(sql, con);
+        //    da = new SQLiteDataAdapter(sql, con);
         //    da.UpdateCommand.CommandText = sql;
         //    da.Update(ds, tableName);
         //  }

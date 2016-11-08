@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OleDb;
+using System.Data.SQLite;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,7 +10,7 @@ namespace Sulimn_WPF
 {
     internal static class GameState
     {
-        private const string _DBPROVIDERANDSOURCE = "Provider=Microsoft.ACE.oledb.12.0;Data Source = Sulimn.accdb";
+        private const string _DBPROVIDERANDSOURCE = "Data Source = Sulimn.sqlite;Version=3";
 
         internal static string AdminPassword = "";
         internal static Hero CurrentHero = new Hero();
@@ -51,8 +51,8 @@ namespace Sulimn_WPF
         /// </summary>
         internal static async void LoadAll()
         {
-            OleDbConnection con = new OleDbConnection();
-            OleDbDataAdapter da = new OleDbDataAdapter();
+            SQLiteConnection con = new SQLiteConnection();
+            SQLiteDataAdapter da = new SQLiteDataAdapter();
             DataSet ds = new DataSet();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
 
@@ -62,7 +62,7 @@ namespace Sulimn_WPF
                 {
                     string sql = "SELECT * FROM Classes";
                     string table = "LoadStuff";
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -82,7 +82,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Armor";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -99,7 +99,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Admin";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -107,7 +107,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Food";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -124,7 +124,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Potions";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -141,7 +141,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Spells";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -150,7 +150,7 @@ namespace Sulimn_WPF
                         {
                             SpellTypes currentSpellType;
                             Enum.TryParse(ds.Tables[0].Rows[i]["SpellType"].ToString(), out currentSpellType);
-                            Spell newSpell = new Spell(ds.Tables[0].Rows[i]["SpellName"].ToString(), currentSpellType, ds.Tables[0].Rows[i]["SpellDescription"].ToString(), ds.Tables[0].Rows[i]["ReqClass"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ReqLevel"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
+                            Spell newSpell = new Spell(ds.Tables[0].Rows[i]["SpellName"].ToString(), currentSpellType, ds.Tables[0].Rows[i]["SpellDescription"].ToString(), ds.Tables[0].Rows[i]["RequiredClass"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["RequiredLevel"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
 
                             AllSpells.Add(newSpell);
                         }
@@ -158,7 +158,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Weapons";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -175,7 +175,7 @@ namespace Sulimn_WPF
 
                     sql = "SELECT * FROM Enemies";
                     ds = new DataSet();
-                    da = new OleDbDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter(sql, con);
                     da.Fill(ds, table);
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -183,31 +183,31 @@ namespace Sulimn_WPF
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
                             Weapon weapon = new Weapon();
-                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyWeapon"].ToString()))
-                                weapon = (Weapon)AllItems.Find(wpn => wpn.Name == (ds.Tables[0].Rows[i]["EnemyWeapon"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Weapon"].ToString()))
+                                weapon = (Weapon)AllItems.Find(wpn => wpn.Name == (ds.Tables[0].Rows[i]["Weapon"].ToString()));
                             Armor head = new Armor();
-                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyHead"].ToString()))
-                                head = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyHead"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Head"].ToString()))
+                                head = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Head"].ToString()));
                             Armor body = new Armor();
-                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyBody"].ToString()))
-                                body = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyBody"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Body"].ToString()))
+                                body = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Body"].ToString()));
                             Armor legs = new Armor();
-                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyLegs"].ToString()))
-                                legs = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyLegs"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Legs"].ToString()))
+                                legs = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Legs"].ToString()));
                             Armor feet = new Armor();
-                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["EnemyFeet"].ToString()))
-                                feet = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["EnemyFeet"].ToString()));
+                            if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Feet"].ToString()))
+                                feet = (Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Feet"].ToString()));
 
-                            int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyGold"]);
+                            int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
 
-                            Enemy newEnemy = new Enemy(ds.Tables[0].Rows[i]["EnemyName"].ToString(), ds.Tables[0].Rows[i]["EnemyType"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyLevel"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyExp"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyStrength"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyVitality"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyDexterity"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyWisdom"]), gold, Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyCurrHealth"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["EnemyMaxHealth"]), weapon, head, body, legs, feet);
+                            Enemy newEnemy = new Enemy(ds.Tables[0].Rows[i]["EnemyName"].ToString(), ds.Tables[0].Rows[i]["EnemyType"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]), gold, Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]), weapon, head, body, legs, feet);
 
                             AllEnemies.Add(newEnemy);
                         }
 
                         sql = "SELECT * FROM Players";
                         ds = new DataSet();
-                        da = new OleDbDataAdapter(sql, con);
+                        da = new SQLiteDataAdapter(sql, con);
                         da.Fill(ds, table);
 
                         if (ds.Tables[0].Rows.Count > 0)
@@ -229,10 +229,10 @@ namespace Sulimn_WPF
                                 newHero.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]);
                                 newHero.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]);
                                 newHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
-                                newHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrHealth"]);
-                                newHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[i]["MaxHealth"]);
-                                newHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrMagic"]);
-                                newHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[i]["MaxMagic"]);
+                                newHero.CurrentHealth = Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]);
+                                newHero.MaximumHealth = Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]);
+                                newHero.CurrentMagic = Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]);
+                                newHero.MaximumMagic = Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"]);
                                 spells = ds.Tables[0].Rows[i]["KnownSpells"].ToString();
                                 weapon = ds.Tables[0].Rows[i]["Weapon"].ToString();
                                 head = ds.Tables[0].Rows[i]["Head"].ToString();
@@ -264,7 +264,7 @@ namespace Sulimn_WPF
 
                         sql = "SELECT * FROM MaxHeroStats";
                         ds = new DataSet();
-                        da = new OleDbDataAdapter(sql, con);
+                        da = new SQLiteDataAdapter(sql, con);
                         da.Fill(ds, table);
 
                         if (ds.Tables[0].Rows.Count > 0)
@@ -386,9 +386,9 @@ namespace Sulimn_WPF
             for (int i = 0; i < 3; i++)
                 newHero.Inventory.AddItem(AllItems.Find(itm => itm.Name == "Minor Healing Potion"));
 
-            OleDbConnection con = new OleDbConnection();
+            SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
-            OleDbCommand cmd = con.CreateCommand();
+            SQLiteCommand cmd = con.CreateCommand();
             cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrHealth],[MaxHealth],[CurrMagic],[MaxMagic],[KnownSpells],[Weapon],[Head],[Body],[Legs],[Feet],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.ClassName + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Strength + "','" + newHero.Vitality + "','" + newHero.Dexterity + "','" + newHero.Wisdom + "','" + newHero.Gold + "','" + newHero.CurrentHealth + "','" + newHero.MaximumHealth + "','" + newHero.CurrentMagic + "','" + newHero.MaximumMagic + "','" + spells + "','" + newHero.Weapon.Name + "','" + newHero.Head.Name + "','" + newHero.Body.Name + "','" + newHero.Legs.Name + "','" + newHero.Feet.Name + "','" + newHero.Inventory + "')";
 
             await Task.Factory.StartNew(() =>
@@ -417,8 +417,8 @@ namespace Sulimn_WPF
         /// </summary>
         internal static async void SaveHero(Hero saveHero)
         {
-            OleDbCommand cmd = new OleDbCommand();
-            OleDbConnection con = new OleDbConnection();
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
             string sql = "UPDATE Players SET [Level] = @level, [Experience] = @exp, [SkillPoints] = @skillPts, [Strength] = @str, [Vitality] = @vit, [Dexterity] = @dex, [Wisdom] = @wis, [Gold] = @gold, [CurrHealth] = @currHealth, [MaxHealth] = @maxHealth, [CurrMagic] = @currMagic, [MaxMagic] = @maxMagic, [KnownSpells] = @spells, [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Legs] = @legs, [Feet] = @feet, [Inventory] = @inv WHERE [CharacterName] = @name";
 
@@ -471,8 +471,8 @@ namespace Sulimn_WPF
         /// <param name="loanTaken">Loan taken out</param>
         internal static async void SaveHeroBank(int goldInBank, int loanTaken)
         {
-            OleDbCommand cmd = new OleDbCommand();
-            OleDbConnection con = new OleDbConnection();
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
             string sql = "UPDATE Bank SET [Gold] = @gold, [LoanTaken] = @loanTaken WHERE [CharacterName] = @name";
 
@@ -504,8 +504,8 @@ namespace Sulimn_WPF
         /// <param name="saveHero">Hero whose password needs to be saved</param>
         internal static async void SaveHeroPassword(Hero saveHero)
         {
-            OleDbCommand cmd = new OleDbCommand();
-            OleDbConnection con = new OleDbConnection();
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
             string sql = "UPDATE Players SET [CharacterPassword] = @password WHERE [CharacterName] = @name";
 
