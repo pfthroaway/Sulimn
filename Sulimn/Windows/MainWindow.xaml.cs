@@ -112,6 +112,10 @@ namespace Sulimn_WPF
 
         private void txtHeroName_TextChanged(object sender, TextChangedEventArgs e)
         {
+            txtHeroName.Text = new string((from c in txtHeroName.Text
+                                           where char.IsWhiteSpace(c) || char.IsLetter(c)
+                                           select c).ToArray());
+            txtHeroName.CaretIndex = txtHeroName.Text.Length;
             TextChanged();
         }
 

@@ -28,7 +28,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center" Text="Hero Name:" Margin="10" />
-        <TextBox x:Name="txtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="200" MaxLength="20" Padding="5" Margin="10" PreviewKeyDown="txtHeroName_PreviewKeyDown" />
+        <TextBox x:Name="txtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="200" MaxLength="20" Padding="5" Margin="10" PreviewKeyDown="txtHeroName_PreviewKeyDown" TextChanged="txtHeroName_TextChanged" />
         <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Text="Password:" Margin="10" />
         <PasswordBox x:Name="pswdPassword" Grid.Column="1" Grid.Row="1" Width="200" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="5" Margin="10" />
         <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Text="Confirm Password:" Margin="10" />

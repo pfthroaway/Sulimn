@@ -37,7 +37,7 @@
             </DataTemplate>
         </Grid.Resources>
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,0">Hero Name:</TextBlock>
-        <TextBox x:Name="txtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Margin="5" TextChanged="txtName_Changed" TextAlignment="Center" MaxLength="20" PreviewKeyDown="txtHeroName_PreviewKeyDown" Padding="5" GotFocus="txtHeroName_GotFocus" />
+        <TextBox x:Name="txtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Margin="5" TextChanged="txtHeroName_Changed" TextAlignment="Center" MaxLength="20" PreviewKeyDown="txtHeroName_PreviewKeyDown" Padding="5" GotFocus="txtHeroName_GotFocus" />
         <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,0">Password:</TextBlock>
         <PasswordBox x:Name="pswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Margin="5" PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5" GotFocus="pswdPassword_GotFocus" />
         <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,0">Confirm Password:</TextBlock>

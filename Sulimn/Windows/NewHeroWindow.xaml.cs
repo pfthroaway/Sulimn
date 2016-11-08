@@ -281,8 +281,12 @@ namespace Sulimn_WPF
             txtHeroName.Focus();
         }
 
-        private void txtName_Changed(object sender, TextChangedEventArgs e)
+        private void txtHeroName_Changed(object sender, TextChangedEventArgs e)
         {
+            txtHeroName.Text = new string((from c in txtHeroName.Text
+                                           where char.IsWhiteSpace(c) || char.IsLetter(c)
+                                           select c).ToArray());
+            txtHeroName.CaretIndex = txtHeroName.Text.Length;
             CheckSkillPoints();
         }
 
