@@ -103,14 +103,21 @@ namespace Sulimn_WPF
         }
 
         /// <summary>
-        /// Utilizes bool.TryParse to easily Parse a Boolean.
+        /// Utilizes Convert.ToBoolean to easily Parse a Boolean.
         /// </summary>
         /// <param name="obj">Object to be parsed</param>
         /// <returns>Parsed Boolean</returns>
         internal static bool Parse(object obj)
         {
             bool temp = false;
-            bool.TryParse(obj.ToString(), out temp);
+            try
+            {
+                temp = Convert.ToBoolean(obj);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Sulimn", MessageBoxButton.OK);
+            }
             return temp;
         }
     }
