@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a Weapon a Hero can attack with.
@@ -30,7 +30,7 @@ namespace Sulimn_WPF
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
-        public sealed override string Type
+        public sealed override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }
@@ -101,7 +101,7 @@ namespace Sulimn_WPF
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && (left.WeaponType == right.WeaponType) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && (left.WeaponType == right.WeaponType) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public override bool Equals(object obj)
@@ -159,7 +159,7 @@ namespace Sulimn_WPF
         internal Weapon(string weaponName, WeaponTypes weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell, bool weaponIsSold)
         {
             Name = weaponName;
-            Type = "Weapon";
+            Type = ItemTypes.Weapon;
             WeaponType = weaponType;
             Description = weaponDescription;
             Damage = weaponDamage;

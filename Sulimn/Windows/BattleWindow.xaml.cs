@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for BattleWindow.xaml
@@ -52,11 +52,11 @@ namespace Sulimn_WPF
         internal void BindLabels()
         {
             lblCharName.DataContext = GameState.CurrentHero;
-            lblCharHealth.DataContext = GameState.CurrentHero;
-            lblCharMagic.DataContext = GameState.CurrentHero;
+            lblCharHealth.DataContext = GameState.CurrentHero.Statistics;
+            lblCharMagic.DataContext = GameState.CurrentHero.Statistics;
             lblShield.DataContext = this;
             lblEnemyName.DataContext = GameState.CurrentEnemy;
-            lblEnemyHealth.DataContext = GameState.CurrentEnemy;
+            lblEnemyHealth.DataContext = GameState.CurrentEnemy.Statistics;
         }
 
         protected void OnPropertyChanged(string property)
@@ -123,13 +123,13 @@ namespace Sulimn_WPF
 
             int chanceHeroAttacksFirst, chanceHeroHits, chanceEnemyHits;
 
-            if (GameState.CurrentHero.Dexterity > GameState.CurrentEnemy.Dexterity)
+            if (GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity)
                 chanceHeroAttacksFirst = Functions.GenerateRandomNumber(51, 90);
             else
                 chanceHeroAttacksFirst = Functions.GenerateRandomNumber(10, 49);
 
-            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Dexterity - GameState.CurrentEnemy.Dexterity, 90, 90);
-            chanceEnemyHits = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Dexterity + GameState.CurrentEnemy.Dexterity, 90, 90);
+            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
+            chanceEnemyHits = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
 
             int attacksFirst = Functions.GenerateRandomNumber(1, 100);
 
@@ -161,7 +161,7 @@ namespace Sulimn_WPF
                 }
 
                 // Then Enemy's turn
-                if (GameState.CurrentEnemy.CurrentHealth > 0)
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0)
                 {
                     int enemyHits = Functions.GenerateRandomNumber(10, 90);
                     if (enemyHits <= chanceEnemyHits)
@@ -180,7 +180,7 @@ namespace Sulimn_WPF
                     AddTextTT("The enemy misses.");
 
                 // Then Hero's turn
-                if (GameState.CurrentHero.CurrentHealth > 0)
+                if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
                 {
                     // Player casts
                     AddTextTT("You cast " + spell.Name + ".");
@@ -208,9 +208,9 @@ namespace Sulimn_WPF
                     }
                 }
                 else
-                    GameState.CurrentHero.CurrentHealth = 1;
+                    GameState.CurrentHero.Statistics.CurrentHealth = 1;
             }
-            GameState.CurrentHero.CurrentMagic -= spell.MagicCost;
+            GameState.CurrentHero.Statistics.CurrentMagic -= spell.MagicCost;
         }
 
         /// <summary>
@@ -218,10 +218,10 @@ namespace Sulimn_WPF
         /// </summary>
         private void HeroAttack()
         {
-            if (GameState.CurrentHero.Weapon.WeaponType == WeaponTypes.Melee)
-                HeroAttack(GameState.CurrentHero.Strength, GameState.CurrentHero.Weapon.Damage);
-            else if (GameState.CurrentHero.Weapon.WeaponType == WeaponTypes.Ranged)
-                HeroAttack(GameState.CurrentHero.Dexterity, GameState.CurrentHero.Weapon.Damage);
+            if (GameState.CurrentHero.Equipment.Weapon.WeaponType == WeaponTypes.Melee)
+                HeroAttack(GameState.CurrentHero.Attributes.Strength, GameState.CurrentHero.Equipment.Weapon.Damage);
+            else if (GameState.CurrentHero.Equipment.Weapon.WeaponType == WeaponTypes.Ranged)
+                HeroAttack(GameState.CurrentHero.Attributes.Dexterity, GameState.CurrentHero.Equipment.Weapon.Damage);
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace Sulimn_WPF
         private void HeroAttack(int statModifier, int damage)
         {
             int maxHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
-            int maxEnemyAbsorb = GameState.CurrentEnemy.Head.Defense + GameState.CurrentEnemy.Body.Defense + GameState.CurrentEnemy.Legs.Defense + GameState.CurrentEnemy.Feet.Defense;
+            int maxEnemyAbsorb = GameState.CurrentEnemy.Equipment.Head.Defense + GameState.CurrentEnemy.Equipment.Body.Defense + GameState.CurrentEnemy.Equipment.Legs.Defense + GameState.CurrentEnemy.Equipment.Feet.Defense;
 
             int actualDamage = Functions.GenerateRandomNumber(1, maxHeroDamage);
             int actualAbsorb = Functions.GenerateRandomNumber(0, maxEnemyAbsorb);
@@ -244,13 +244,13 @@ namespace Sulimn_WPF
             if (actualDamage > actualAbsorb)
             {
                 AddTextTT("You attack for " + actualDamage + " damage. " + absorb + GameState.CurrentEnemy.TakeDamage(actualDamage - actualAbsorb));
-                if (GameState.CurrentEnemy.CurrentHealth <= 0)
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                 {
                     EndBattle();
                     AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience));
-                    if (GameState.CurrentEnemy.Gold > 0)
-                        AddTextTT("You find " + GameState.CurrentEnemy.Gold + " gold on the body.");
-                    GameState.CurrentHero.Gold += GameState.CurrentEnemy.Gold;
+                    if (GameState.CurrentEnemy.Inventory.Gold > 0)
+                        AddTextTT("You find " + GameState.CurrentEnemy.Inventory.Gold + " gold on the body.");
+                    GameState.CurrentHero.Inventory.Gold += GameState.CurrentEnemy.Inventory.Gold;
                 }
             }
             else
@@ -262,7 +262,7 @@ namespace Sulimn_WPF
         /// </summary>
         private void HeroAttack(Spell spell)
         {
-            HeroAttack(GameState.CurrentHero.Wisdom, spell.Amount);
+            HeroAttack(GameState.CurrentHero.Attributes.Wisdom, spell.Amount);
         }
 
         /// <summary>
@@ -270,8 +270,8 @@ namespace Sulimn_WPF
         /// </summary>
         private void EnemyAttack()
         {
-            int maxDamage = Int32Helper.Parse(GameState.CurrentEnemy.Strength * 0.2 + GameState.CurrentEnemy.Weapon.Damage);
-            int HeroDefense = GameState.CurrentHero.Head.Defense + GameState.CurrentHero.Body.Defense + GameState.CurrentHero.Legs.Defense + GameState.CurrentHero.Feet.Defense;
+            int maxDamage = Int32Helper.Parse(GameState.CurrentEnemy.Attributes.Strength * 0.2 + GameState.CurrentEnemy.Equipment.Weapon.Damage);
+            int HeroDefense = GameState.CurrentHero.Equipment.Head.Defense + GameState.CurrentHero.Equipment.Body.Defense + GameState.CurrentHero.Equipment.Legs.Defense + GameState.CurrentHero.Equipment.Feet.Defense;
             int actualDamage = Functions.GenerateRandomNumber(1, maxDamage);
             int maxShieldAbsorb = Functions.GenerateRandomNumber(0, HeroShield);
             int maxArmorAbsorb = Functions.GenerateRandomNumber(0, HeroDefense);
@@ -316,11 +316,11 @@ namespace Sulimn_WPF
                     AddTextTT("The " + GameState.CurrentEnemy.Name + " attacks you for " + actualDamage + ", but your armor absorbed all of it.");
             }
 
-            if (GameState.CurrentHero.CurrentHealth <= 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
             {
                 EndBattle();
                 AddTextTT("A mysterious fairy appears, and, seeing your crumpled body on the ground, resurrects you. You have just enough health to make it back to town.");
-                GameState.CurrentHero.CurrentHealth = 1;
+                GameState.CurrentHero.Statistics.CurrentHealth = 1;
             }
         }
 
@@ -338,13 +338,13 @@ namespace Sulimn_WPF
 
             int chanceHeroAttacksFirst, chanceHeroHits, chanceEnemyHits;
 
-            if (GameState.CurrentHero.Dexterity > GameState.CurrentEnemy.Dexterity)
+            if (GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity)
                 chanceHeroAttacksFirst = Functions.GenerateRandomNumber(51, 90);
             else
                 chanceHeroAttacksFirst = Functions.GenerateRandomNumber(10, 49);
 
-            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Dexterity - GameState.CurrentEnemy.Dexterity, 90, 90);
-            chanceEnemyHits = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Dexterity + GameState.CurrentEnemy.Dexterity, 90, 90);
+            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
+            chanceEnemyHits = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
 
             int attacksFirst = Functions.GenerateRandomNumber(1, 100);
 
@@ -358,7 +358,7 @@ namespace Sulimn_WPF
                     AddTextTT("You miss.");
 
                 // Then Enemy's turn
-                if (GameState.CurrentEnemy.CurrentHealth > 0)
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0)
                 {
                     int enemyHits = Functions.GenerateRandomNumber(10, 90);
                     if (enemyHits <= chanceEnemyHits)
@@ -377,7 +377,7 @@ namespace Sulimn_WPF
                     AddTextTT("The enemy misses.");
 
                 // Then Hero's turn
-                if (GameState.CurrentHero.CurrentHealth > 0 && !battleEnded)
+                if (GameState.CurrentHero.Statistics.CurrentHealth > 0 && !battleEnded)
                 {
                     int playerHits = Functions.GenerateRandomNumber(10, 90);
                     if (playerHits <= chanceHeroHits)
@@ -386,7 +386,7 @@ namespace Sulimn_WPF
                         AddTextTT("You miss.");
                 }
                 else
-                    GameState.CurrentHero.CurrentHealth = 1;
+                    GameState.CurrentHero.Statistics.CurrentHealth = 1;
             }
         }
 
@@ -426,10 +426,10 @@ namespace Sulimn_WPF
         private void btnFlee_Click(object sender, RoutedEventArgs e)
         {
             int chanceToFlee;
-            if (GameState.CurrentHero.Dexterity > GameState.CurrentEnemy.Dexterity)
-                chanceToFlee = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Dexterity - GameState.CurrentEnemy.Dexterity, 90, 90);
+            if (GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity)
+                chanceToFlee = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
             else
-                chanceToFlee = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Dexterity + GameState.CurrentEnemy.Dexterity, 90, 90);
+                chanceToFlee = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
 
             int flee = Functions.GenerateRandomNumber(1, 100);
 
@@ -443,10 +443,10 @@ namespace Sulimn_WPF
                 // Enemy attacks
 
                 int chanceEnemyHits;
-                if (GameState.CurrentHero.Dexterity > GameState.CurrentEnemy.Dexterity)
-                    chanceEnemyHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Dexterity - GameState.CurrentEnemy.Dexterity, 90, 90);
+                if (GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity)
+                    chanceEnemyHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
                 else
-                    chanceEnemyHits = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Dexterity + GameState.CurrentEnemy.Dexterity, 90, 90);
+                    chanceEnemyHits = Functions.GenerateRandomNumber(50 - GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
 
                 int enemyHits = Functions.GenerateRandomNumber(1, 90);
                 if (enemyHits <= chanceEnemyHits)

@@ -1,21 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a piece of Armor that a Hero can wear.
     /// </summary>
     internal class Armor : Item, IEquatable<Armor>, INotifyPropertyChanged
     {
-        private ArmorTypes _armorType;
-        private int _defense;
+        protected ArmorTypes _armorType;
+        protected int _defense;
 
         #region Data-Binding
 
-        public sealed override event PropertyChangedEventHandler PropertyChanged;
+        public override event PropertyChangedEventHandler PropertyChanged;
 
-        protected sealed override void OnPropertyChanged(string property)
+        protected  override void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -24,70 +24,55 @@ namespace Sulimn_WPF
 
         #region Properties
 
-        public sealed override string Name
+        public  override string Name
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
-        public sealed override string Type
+        public  override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }
         }
 
-        public ArmorTypes ArmorType
+        public virtual ArmorTypes ArmorType
         {
             get { return _armorType; }
             set { _armorType = value; OnPropertyChanged("ArmorType"); }
         }
 
-        public sealed override string Description
+        public  override string Description
         {
             get { return _description; }
             set { _description = value; OnPropertyChanged("Description"); }
         }
 
-        public int Defense
+        public virtual int Defense
         {
             get { return _defense; }
             set { _defense = value; OnPropertyChanged("DefenseToString"); OnPropertyChanged("DefenseToStringWithText"); }
         }
 
-        public string DefenseToString
-        {
-            get { return Defense.ToString("N0"); }
-        }
-
-        public string DefenseToStringWithText
-        {
-            get
-            {
-                if (Defense > 0)
-                    return "Defense: " + DefenseToString;
-                return "";
-            }
-        }
-
-        public sealed override int Weight
+        public  override int Weight
         {
             get { return _weight; }
             set { _weight = value; OnPropertyChanged("Weight"); }
         }
 
-        public sealed override int Value
+        public  override int Value
         {
             get { return _value; }
             set { _value = value; OnPropertyChanged("Value"); }
         }
 
-        public sealed override bool CanSell
+        public  override bool CanSell
         {
             get { return _canSell; }
             set { _canSell = value; OnPropertyChanged("CanSell"); }
         }
 
-        public sealed override bool IsSold
+        public  override bool IsSold
         {
             get { return _isSold; }
             set { _isSold = value; OnPropertyChanged("IsSold"); }
@@ -101,7 +86,7 @@ namespace Sulimn_WPF
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && left.ArmorType == right.ArmorType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && left.ArmorType == right.ArmorType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public override bool Equals(object obj)
@@ -159,7 +144,7 @@ namespace Sulimn_WPF
         internal Armor(string armorName, ArmorTypes armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell, bool armorIsSold)
         {
             Name = armorName;
-            Type = "Armor";
+            Type = ItemTypes.HeadArmor;
             ArmorType = armorType;
             Description = armorDescription;
             Defense = armorDefense;

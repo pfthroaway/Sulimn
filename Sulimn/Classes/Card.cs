@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a playing card.

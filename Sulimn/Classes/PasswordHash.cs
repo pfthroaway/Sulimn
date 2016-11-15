@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     public class PasswordHash
     {

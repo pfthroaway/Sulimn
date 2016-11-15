@@ -1,9 +1,9 @@
-﻿<Window x:Name="windowExplore" x:Class="Sulimn_WPF.ExploreWindow"
+﻿<Window x:Name="windowExplore" x:Class="Sulimn.ExploreWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Sulimn_WPF"
+    xmlns:local="clr-namespace:Sulimn"
     mc:Ignorable="d"
     Title="Explore Sulimn" SizeToContent="WidthAndHeight" FontFamily="Segoe UI Semibold" FontSize="17" Margin="5" Closing="windowExplore_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="S.ico">
     <Grid>

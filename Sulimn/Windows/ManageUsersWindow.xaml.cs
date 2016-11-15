@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for ManageUsersWindow.xaml

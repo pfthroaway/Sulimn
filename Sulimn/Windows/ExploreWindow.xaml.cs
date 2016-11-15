@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for ExploreWindow.xaml
@@ -66,7 +66,7 @@ namespace Sulimn_WPF
 
         private void btnCatacombs_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 CatacombsWindow catacombsWindow = new CatacombsWindow();
                 catacombsWindow.RefToExploreWindow = this;
@@ -79,7 +79,7 @@ namespace Sulimn_WPF
 
         private void btnCathedral_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 CathedralWindow cathedralWindow = new CathedralWindow();
                 cathedralWindow.RefToExploreWindow = this;
@@ -92,7 +92,7 @@ namespace Sulimn_WPF
 
         private void btnFields_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 FieldsWindow fieldsWindow = new FieldsWindow();
                 fieldsWindow.RefToExploreWindow = this;
@@ -105,7 +105,7 @@ namespace Sulimn_WPF
 
         private void btnForest_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 ForestWindow forestWindow = new ForestWindow();
                 forestWindow.RefToExploreWindow = this;
@@ -118,7 +118,7 @@ namespace Sulimn_WPF
 
         private void btnMines_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 MinesWindow minesWindow = new MinesWindow();
                 minesWindow.RefToExploreWindow = this;

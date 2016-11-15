@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for EnemyDetailsWindow.xaml
@@ -20,16 +20,21 @@ namespace Sulimn_WPF
         private void BindLabels()
         {
             DataContext = GameState.CurrentEnemy;
-            lblEquippedWeapon.DataContext = GameState.CurrentEnemy.Weapon;
-            lblEquippedWeaponDamage.DataContext = GameState.CurrentEnemy.Weapon;
-            lblEquippedHead.DataContext = GameState.CurrentEnemy.Head;
-            lblEquippedHeadDefense.DataContext = GameState.CurrentEnemy.Head;
-            lblEquippedBody.DataContext = GameState.CurrentEnemy.Body;
-            lblEquippedBodyDefense.DataContext = GameState.CurrentEnemy.Body;
-            lblEquippedLegs.DataContext = GameState.CurrentEnemy.Legs;
-            lblEquippedLegsDefense.DataContext = GameState.CurrentEnemy.Legs;
-            lblEquippedFeet.DataContext = GameState.CurrentEnemy.Feet;
-            lblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Feet;
+            lblStrength.DataContext = GameState.CurrentEnemy.Attributes;
+            lblVitality.DataContext = GameState.CurrentEnemy.Attributes;
+            lblDexterity.DataContext = GameState.CurrentEnemy.Attributes;
+            lblHealth.DataContext = GameState.CurrentEnemy.Statistics;
+            lblGold.DataContext = GameState.CurrentEnemy.Inventory;
+            lblEquippedWeapon.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
+            lblEquippedWeaponDamage.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
+            lblEquippedHead.DataContext = GameState.CurrentEnemy.Equipment.Head;
+            lblEquippedHeadDefense.DataContext = GameState.CurrentEnemy.Equipment.Head;
+            lblEquippedBody.DataContext = GameState.CurrentEnemy.Equipment.Body;
+            lblEquippedBodyDefense.DataContext = GameState.CurrentEnemy.Equipment.Body;
+            lblEquippedLegs.DataContext = GameState.CurrentEnemy.Equipment.Legs;
+            lblEquippedLegsDefense.DataContext = GameState.CurrentEnemy.Equipment.Legs;
+            lblEquippedFeet.DataContext = GameState.CurrentEnemy.Equipment.Feet;
+            lblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Equipment.Feet;
         }
 
         protected void OnPropertyChanged(string property)

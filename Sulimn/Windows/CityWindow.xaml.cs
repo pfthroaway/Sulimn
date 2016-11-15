@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for CityWindow.xaml
@@ -45,10 +45,10 @@ namespace Sulimn_WPF
 
         private void btnChapel_Click(object sender, RoutedEventArgs e)
         {
-            if (Decimal.Divide(GameState.CurrentHero.CurrentHealth, GameState.CurrentHero.MaximumHealth) <= 0.25M)
+            if (Decimal.Divide(GameState.CurrentHero.Statistics.CurrentHealth, GameState.CurrentHero.Statistics.MaximumHealth) <= 0.25M)
             {
                 AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + nl + "\"Let me heal your wounds. You look like you've been through a tough battle.\"" + nl + "The priest gives you a potion which heals you to full health!" + nl + "You thank the priest and return to the streets.");
-                GameState.CurrentHero.CurrentHealth = GameState.CurrentHero.MaximumHealth;
+                GameState.CurrentHero.Statistics.CurrentHealth = GameState.CurrentHero.Statistics.MaximumHealth;
                 GameState.SaveHero(GameState.CurrentHero);
             }
             else

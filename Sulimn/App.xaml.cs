@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Sulimn_WPF_WPF
+namespace Sulimn_WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml

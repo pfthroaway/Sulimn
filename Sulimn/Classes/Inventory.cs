@@ -1,21 +1,58 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a Hero's inventory.
     /// </summary>
-    internal class Inventory : IEnumerable<Item>
+    internal class Inventory : IEnumerable<Item>, INotifyPropertyChanged
     {
         private List<Item> _items = new List<Item>();
+        private int _gold = 0;
+
+        #region Modifying Properties
 
         internal ReadOnlyCollection<Item> Items
         {
             get { return new ReadOnlyCollection<Item>(_items); }
         }
+
+        public int Gold
+        {
+            get { return _gold; }
+            set { _gold = value; OnPropertyChanged("Gold"); OnPropertyChanged("GoldToString"); OnPropertyChanged("GoldToStringWithText"); }
+        }
+
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        public string GoldToString
+        {
+            get { return Gold.ToString("N0"); }
+        }
+
+        public string GoldToStringWithText
+        {
+            get { return "Gold: " + GoldToString; }
+        }
+
+        #endregion Helper Properties
+
+        #region Data-Binding
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data-Binding
 
         #region Inventory Management
 
@@ -63,6 +100,8 @@ namespace Sulimn_WPF
             return string.Join(",", arrInventoryNames);
         }
 
+        #region Enumerator
+
         public IEnumerator<Item> GetEnumerator()
         {
             return Items.GetEnumerator();
@@ -72,6 +111,8 @@ namespace Sulimn_WPF
         {
             return this.GetEnumerator();
         }
+
+        #endregion Enumerator
 
         #region Constructors
 
@@ -86,12 +127,24 @@ namespace Sulimn_WPF
         /// Initializes an instance of Inventory by assigning the Inventory.
         /// </summary>
         /// <param name="itemList">List of Items in Inventory</param>
-        public Inventory(IEnumerable<Item> itemList)
+        /// <param name="gold">Gold</param>
+        public Inventory(IEnumerable<Item> itemList, int gold)
         {
             List<Item> newItems = new List<Item>();
             newItems.AddRange(itemList);
 
             _items = newItems;
+            Gold = gold;
+        }
+
+        /// <summary>
+        /// Replaces this instance of Inventory with another instance.
+        /// </summary>
+        /// <param name="otherInventory">Instance of Inventory to replace this instance</param>
+        public Inventory(Inventory otherInventory)
+        {
+            _items = new List<Item>(otherInventory.Items);
+            Gold = otherInventory.Gold;
         }
 
         #endregion Constructors

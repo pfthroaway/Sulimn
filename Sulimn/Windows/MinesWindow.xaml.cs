@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for MinesWindow.xaml
@@ -40,7 +40,7 @@ namespace Sulimn_WPF
 
         private void btnOffices_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
@@ -64,7 +64,7 @@ namespace Sulimn_WPF
 
         private void btnOreBin_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
@@ -88,7 +88,7 @@ namespace Sulimn_WPF
 
         private void btnPumpStation_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
@@ -112,7 +112,7 @@ namespace Sulimn_WPF
 
         private void btnWorkshop_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)

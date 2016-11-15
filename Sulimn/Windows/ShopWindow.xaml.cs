@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for ShopWindow.xaml
@@ -129,7 +129,7 @@ namespace Sulimn_WPF
             {
                 case "Weapon":
                     purchaseWeapons.Clear();
-                    purchaseWeapons.AddRange(GameState.GetItemsOfType<Weapon>().Where(x => x.IsSold == true && x.Type == "Weapon"));
+                    purchaseWeapons.AddRange(GameState.GetItemsOfType<Weapon>().Where(x => x.IsSold == true));
                     purchaseWeapons = purchaseWeapons.OrderBy(x => x.Value).ToList();
                     foreach (Weapon wpn in purchaseWeapons)
                         lstPurchase.Items.Add(wpn.Name);
@@ -137,10 +137,13 @@ namespace Sulimn_WPF
 
                 case "Armor":
                     purchaseArmor.Clear();
-                    purchaseArmor.AddRange(GameState.GetItemsOfType<Armor>().Where(x => x.IsSold == true));
+                    purchaseArmor.AddRange(GameState.GetItemsOfType<HeadArmor>().Where(x => x.IsSold == true));
+                    purchaseArmor.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(x => x.IsSold == true));
+                    purchaseArmor.AddRange(GameState.GetItemsOfType<LegArmor>().Where(x => x.IsSold == true));
+                    purchaseArmor.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(x => x.IsSold == true));
                     purchaseArmor = purchaseArmor.OrderBy(x => x.Value).ToList();
-                    foreach (Armor armr in purchaseArmor)
-                        lstPurchase.Items.Add(armr.Name);
+                    foreach (Item itm in purchaseArmor)
+                        lstPurchase.Items.Add(itm.Name);
                     break;
 
                 case "General":
@@ -183,7 +186,7 @@ namespace Sulimn_WPF
                     break;
             }
 
-            lblGoldPurchase.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
+            lblGoldPurchase.Text = "Gold: " + GameState.CurrentHero.Inventory.Gold.ToString("N0");
         }
 
         /// <summary>
@@ -202,9 +205,10 @@ namespace Sulimn_WPF
                     break;
 
                 case "Armor":
-                    sellArmor = GameState.CurrentHero.Inventory.GetItemsOfType<Armor>().OrderBy(x => x.Value).ToList();
-                    foreach (Armor armr in sellArmor)
-                        lstSell.Items.Add(armr.Name);
+                    sellArmor.Clear();
+                    sellArmor.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().OrderBy(x => x.Value).ToList());
+                    foreach (Item itm in sellArmor)
+                        lstSell.Items.Add(itm.Name);
                     break;
 
                 case "General":
@@ -223,7 +227,7 @@ namespace Sulimn_WPF
                     break;
             }
 
-            lblGoldSell.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
+            lblGoldSell.Text = "Gold: " + GameState.CurrentHero.Inventory.Gold.ToString("N0");
         }
 
         /// <summary>
@@ -241,21 +245,22 @@ namespace Sulimn_WPF
                     lblValuePurchase.Text = "Value: " + wpn.Value.ToString("N0");
                     lblSelectedTypePurchase.Text = "Weapon: " + wpn.WeaponType;
 
-                    if (wpn.Value <= GameState.CurrentHero.Gold)
+                    if (wpn.Value <= GameState.CurrentHero.Inventory.Gold)
                         btnPurchase.IsEnabled = true;
                     else
                         btnPurchase.IsEnabled = false;
                     break;
 
                 case "Armor":
-                    Armor armr = purchaseArmor[lstPurchase.SelectedIndex];
+
+                    Armor armr = (Armor)purchaseArmor[lstPurchase.SelectedIndex];
                     lblAmountPurchase.Text = "Defense: " + armr.Defense.ToString("N0");
                     lblDescriptionPurchase.Text = armr.Description;
                     lblSelectedNamePurchase.Text = armr.Name;
                     lblValuePurchase.Text = "Value: " + armr.Value.ToString("N0");
                     lblSelectedTypePurchase.Text = "Armor: " + armr.ArmorType;
 
-                    if (armr.Value <= GameState.CurrentHero.Gold)
+                    if (armr.Value <= GameState.CurrentHero.Inventory.Gold)
                         btnPurchase.IsEnabled = true;
                     else
                         btnPurchase.IsEnabled = false;
@@ -276,7 +281,7 @@ namespace Sulimn_WPF
                     lblValuePurchase.Text = "Value: " + potn.Value.ToString("N0");
                     lblSelectedTypePurchase.Text = "Potion: " + potn.PotionType;
 
-                    if (potn.Value <= GameState.CurrentHero.Gold)
+                    if (potn.Value <= GameState.CurrentHero.Inventory.Gold)
                         btnPurchase.IsEnabled = true;
                     else
                         btnPurchase.IsEnabled = false;
@@ -295,7 +300,7 @@ namespace Sulimn_WPF
                     lblValuePurchase.Text = "Value: " + food.Value.ToString("N0");
                     lblSelectedTypePurchase.Text = "Food: " + food.FoodType;
 
-                    if (food.Value <= GameState.CurrentHero.Gold)
+                    if (food.Value <= GameState.CurrentHero.Inventory.Gold)
                         btnPurchase.IsEnabled = true;
                     else
                         btnPurchase.IsEnabled = false;
@@ -310,8 +315,8 @@ namespace Sulimn_WPF
                     lblSelectedNamePurchase.Text = spl.Name;
                     lblValuePurchase.Text = "Value: " + value.ToString("N0");
                     lblSelectedTypePurchase.Text = "Spell: " + spl.Type;
-
-                    if (value <= GameState.CurrentHero.Gold)
+                    lblRequiredLevel.Text = spl.RequiredLevelToString;
+                    if (value <= GameState.CurrentHero.Inventory.Gold)
                         btnPurchase.IsEnabled = true;
                     else
                         btnPurchase.IsEnabled = false;
@@ -426,9 +431,9 @@ namespace Sulimn_WPF
                         MessageBox.Show(ex.Message, "Sulimn", MessageBoxButton.OK);
                     }
                     //FUTURE SET SWITCH
-                    if (food.Type == "Food")
+                    if (food.FoodType == FoodTypes.Food)
                         lblAmountSell.Text = "Healing: " + food.Amount.ToString("N0");
-                    else if (food.Type == "Drink")
+                    else if (food.FoodType == FoodTypes.Drink)
                         lblAmountSell.Text = "Restore Magic: " + food.Amount.ToString("N0");
                     lblDescriptionSell.Text = food.Description;
                     lblSelectedNameSell.Text = food.Name;
@@ -459,14 +464,14 @@ namespace Sulimn_WPF
 
         private string Purchase(Item itmPurchase)
         {
-            GameState.CurrentHero.Gold -= itmPurchase.Value;
+            GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
             GameState.CurrentHero.Inventory.AddItem(itmPurchase);
             return "You have purchased " + itmPurchase.Name + " for " + itmPurchase.Value + " gold.";
         }
 
         private string Purchase(Spell splPurchase)
         {
-            GameState.CurrentHero.Gold -= splPurchase.RequiredLevel * 200;
+            GameState.CurrentHero.Inventory.Gold -= splPurchase.RequiredLevel * 200;
             return GameState.CurrentHero.Spellbook.LearnSpell(splPurchase) + " It cost " + splPurchase.RequiredLevel * 200 + " gold.";
         }
 
@@ -483,7 +488,7 @@ namespace Sulimn_WPF
                 MessageBox.Show(ex.Message, "Error Converting Decimal", MessageBoxButton.OK);
             }
 
-            GameState.CurrentHero.Gold += Int32Helper.Parse(itemHalfValue);
+            GameState.CurrentHero.Inventory.Gold += Int32Helper.Parse(itemHalfValue);
             GameState.CurrentHero.Inventory.RemoveItem(itmSell);
             return "You have sold your " + itmSell.Name + " for " + itemHalfValue.ToString("N0") + " gold.";
         }
@@ -518,8 +523,8 @@ namespace Sulimn_WPF
             }
             LoadAllSell();
             LoadAllPurchase();
-            lblGoldPurchase.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
-            lblGoldSell.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
+            lblGoldPurchase.Text = GameState.CurrentHero.Inventory.GoldToStringWithText; ;
+            lblGoldSell.Text = GameState.CurrentHero.Inventory.GoldToStringWithText;
             ClearPurchaseLabels();
         }
 
@@ -550,8 +555,8 @@ namespace Sulimn_WPF
             LoadAllSell();
             ClearSellLabels();
 
-            lblGoldPurchase.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
-            lblGoldSell.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
+            lblGoldPurchase.Text = GameState.CurrentHero.Inventory.GoldToStringWithText;
+            lblGoldSell.Text = GameState.CurrentHero.Inventory.GoldToStringWithText;
         }
 
         private void btnCharacter_Click(object sender, RoutedEventArgs e)

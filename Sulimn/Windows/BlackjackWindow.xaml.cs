@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for BlackjackWindow.xaml
@@ -383,7 +383,7 @@ namespace Sulimn_WPF
         private void LoseBlackjack(int betAmount)
         {
             AddTextTT("You lose " + betAmount + ".");
-            GameState.CurrentHero.Gold -= betAmount;
+            GameState.CurrentHero.Inventory.Gold -= betAmount;
             TotalLosses += 1;
             TotalBetLosses += betAmount;
             EndHand();
@@ -414,7 +414,7 @@ namespace Sulimn_WPF
         /// <param name="betAmount">Amount the Player bet</param>
         private void WinBlackjack(int betAmount)
         {
-            GameState.CurrentHero.Gold += betAmount;
+            GameState.CurrentHero.Inventory.Gold += betAmount;
             AddTextTT("You win " + betAmount + "!");
             TotalWins += 1;
             TotalBetWinnings += betAmount;
@@ -518,7 +518,7 @@ namespace Sulimn_WPF
         private void DisplayStatistics()
         {
             lblStatistics.Text = Statistics;
-            lblGold.Text = "Gold: " + GameState.CurrentHero.Gold.ToString("N0");
+            lblGold.Text = "Gold: " + GameState.CurrentHero.Inventory.Gold.ToString("N0");
         }
 
         #endregion Display Manipulation
@@ -558,9 +558,9 @@ namespace Sulimn_WPF
         private void btnNewHand_Click(object sender, RoutedEventArgs e)
         {
             bet = Int32Helper.Parse(txtBet.Text);
-            if (bet > 0 && bet <= GameState.CurrentHero.Gold)
+            if (bet > 0 && bet <= GameState.CurrentHero.Inventory.Gold)
                 NewHand();
-            else if (bet > GameState.CurrentHero.Gold)
+            else if (bet > GameState.CurrentHero.Inventory.Gold)
                 MessageBox.Show("You can't bet more gold than you have!", "Sulimn", MessageBoxButton.OK);
             else
                 MessageBox.Show("Please enter a valid bet.", "Sulimn", MessageBoxButton.OK);

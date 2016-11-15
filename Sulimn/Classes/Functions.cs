@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     internal static class Functions
     {

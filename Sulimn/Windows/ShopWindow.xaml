@@ -1,9 +1,9 @@
-﻿<Window x:Name="windowShop" x:Class="Sulimn_WPF.ShopWindow"
+﻿<Window x:Name="windowShop" x:Class="Sulimn.ShopWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sulimn_WPF"
+        xmlns:local="clr-namespace:Sulimn"
         mc:Ignorable="d"
         Title="Shop" SizeToContent="WidthAndHeight" Closing="windowShop_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid>
@@ -32,6 +32,7 @@
                             <TextBlock x:Name="lblAmountPurchase" Margin="5" />
                             <TextBlock x:Name="lblValuePurchase" Margin="5" />
                             <TextBlock x:Name="lblSellablePurchase" Margin="5" />
+                            <TextBlock x:Name="lblRequiredLevel" Margin="5" />
                         </StackPanel>
                     </GroupBox>
                 </Grid>

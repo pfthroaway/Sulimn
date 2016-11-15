@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for NewPlayerWindow.xaml
@@ -182,7 +182,7 @@ namespace Sulimn_WPF
                 {
                     if (pswdPassword.Password.Trim() == pswdConfirm.Password.Trim())
                     {
-                        Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass.Name, 1, 0, 0, selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom, 250, selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic, new Armor(), new Armor(), new Armor(), new Armor(), new Weapon(), new Spellbook(), new Inventory());
+                        Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass.Name, 1, 0, 0, new Attributes(selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom), new Statistics(selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic), new Equipment(new Weapon(), new HeadArmor(), new BodyArmor(), new LegArmor(), new FeetArmor()), new Spellbook(), new Inventory(new List<Item>(), 250));
 
                         if (await GameState.NewHero(newHero))
                         {

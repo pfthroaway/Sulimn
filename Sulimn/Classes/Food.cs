@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a Food which the Hero can consume.
@@ -18,7 +18,7 @@ namespace Sulimn_WPF
             set { _name = value; }
         }
 
-        public sealed override string Type
+        public sealed override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; }
@@ -74,7 +74,7 @@ namespace Sulimn_WPF
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && left.FoodType == right.FoodType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && left.FoodType == right.FoodType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public override bool Equals(object obj)
@@ -132,7 +132,7 @@ namespace Sulimn_WPF
         internal Food(string foodName, FoodTypes foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell, bool foodIsSold)
         {
             Name = foodName;
-            Type = "Food";
+            Type = ItemTypes.Food;
             FoodType = foodType;
             Description = foodDescription;
             Weight = foodWeight;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a collection of Spells a Hero can cast.
@@ -53,6 +53,15 @@ namespace Sulimn_WPF
             List<Spell> newSpells = new List<Spell>();
             newSpells.AddRange(spellList);
             _spells = newSpells;
+        }
+
+        /// <summary>
+        /// Replaces this instance of Spellbook with another instance.
+        /// </summary>
+        /// <param name="otherSpellbook">Instance of Spellbook to replace this instance</param>
+        public Spellbook(Spellbook otherSpellbook)
+        {
+            _spells = new List<Spell>(otherSpellbook.Spells);
         }
 
         #endregion Constructors

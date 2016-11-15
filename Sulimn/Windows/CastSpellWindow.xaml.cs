@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for CastSpellWindow.xaml
@@ -30,7 +30,8 @@ namespace Sulimn_WPF
         {
             lstSpells.DataContext = availableSpells;
             DataContext = selectedSpell;
-            lblMagic.DataContext = GameState.CurrentHero;
+            lblHealth.DataContext = GameState.CurrentHero.Statistics;
+            lblMagic.DataContext = GameState.CurrentHero.Statistics;
         }
 
         protected void OnPropertyChanged(string property)
@@ -133,7 +134,7 @@ namespace Sulimn_WPF
                 spells.AddRange(GameState.CurrentHero.Spellbook.Spells);
                 selectedSpell = spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
 
-                if (selectedSpell.MagicCost <= GameState.CurrentHero.CurrentMagic)
+                if (selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic)
                 {
                     btnCastSpell.IsEnabled = true;
                 }

@@ -1,4 +1,4 @@
-﻿namespace Sulimn_WPF
+﻿namespace Sulimn
 {
     /// <summary>
     /// Represents the suit of a playing card.
@@ -14,6 +14,11 @@
     /// Represents the types of Armor which exist.
     /// </summary>
     public enum ArmorTypes { Head, Body, Legs, Feet }
+
+    /// <summary>
+    /// Represents the types of Items which exist.
+    /// </summary>
+    public enum ItemTypes { Weapon, HeadArmor, BodyArmor, LegArmor, FeetArmor, Ring, Potion, Food }
 
     /// <summary>
     /// Represents the types of Food which exist.

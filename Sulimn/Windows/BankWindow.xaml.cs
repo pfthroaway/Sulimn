@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for BankWindow.xaml
@@ -64,7 +65,7 @@ namespace Sulimn_WPF
         internal void BindLabels()
         {
             DataContext = this;
-            lblGoldOnHand.DataContext = GameState.CurrentHero;
+            lblGoldOnHand.DataContext = GameState.CurrentHero.Inventory;
         }
 
         protected void OnPropertyChanged(string property)
@@ -93,7 +94,7 @@ namespace Sulimn_WPF
         /// </summary>
         internal void CheckButtons()
         {
-            if (GameState.CurrentHero.Gold > 0)
+            if (GameState.CurrentHero.Inventory.Gold > 0)
                 btnDeposit.IsEnabled = true;
             else
                 btnDeposit.IsEnabled = false;
@@ -165,7 +166,7 @@ namespace Sulimn_WPF
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(GameState.CurrentHero.Gold, "Deposit");
+            DisplayBankDialog(GameState.CurrentHero.Inventory.Gold, "Deposit");
         }
 
         private void btnRepayLoan_Click(object sender, RoutedEventArgs e)
@@ -200,10 +201,10 @@ namespace Sulimn_WPF
             InitializeComponent();
         }
 
-        private void windowBank_Closing(object sender, CancelEventArgs e)
+        private async void windowBank_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero(GameState.CurrentHero);
-            GameState.SaveHeroBank(GoldInBank, LoanTaken);
+            await Task.Factory.StartNew(() => GameState.SaveHero(GameState.CurrentHero));
+            await Task.Factory.StartNew(() => GameState.SaveHeroBank(GoldInBank, LoanTaken));
             RefToCityWindow.Show();
         }
 

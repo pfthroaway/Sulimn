@@ -1,9 +1,9 @@
-﻿<Window x:Name="windowCastSpell" x:Class="Sulimn_WPF.CastSpellWindow"
+﻿<Window x:Name="windowCastSpell" x:Class="Sulimn.CastSpellWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Sulimn_WPF"
+    xmlns:local="clr-namespace:Sulimn"
     mc:Ignorable="d"
     Title="Cast Spell" SizeToContent="WidthAndHeight" Closing="windowCastSpell_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid>

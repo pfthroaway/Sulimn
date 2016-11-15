@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents an Item.
     /// </summary>
     internal abstract class Item : INotifyPropertyChanged
     {
-        protected string _name, _type, _description;
+        protected string _name, _description;
+        protected ItemTypes _type;
         protected int _weight, _value;
         protected bool _canSell, _isSold;
 
@@ -26,7 +27,7 @@ namespace Sulimn_WPF
 
         public abstract string Name { get; set; }
 
-        public abstract string Type { get; set; }
+        public abstract ItemTypes Type { get; set; }
 
         public abstract string Description { get; set; }
 

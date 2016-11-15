@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a Spell a Hero can cast.
@@ -23,7 +23,7 @@ namespace Sulimn_WPF
 
         #endregion Data-Binding
 
-        #region Properties
+        #region Modifying Properties
 
         public string Name
         {
@@ -42,6 +42,34 @@ namespace Sulimn_WPF
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); OnPropertyChanged("TypeAmount"); }
         }
+
+        public string RequiredClass
+        {
+            get { return _requiredClass; }
+            set { _requiredClass = value; OnPropertyChanged("RequiredClass"); }
+        }
+
+        public int RequiredLevel
+        {
+            get { return _requiredLevel; }
+            set { _requiredLevel = value; OnPropertyChanged("RequiredLevel"); }
+        }
+
+        public int MagicCost
+        {
+            get { return _magicCost; }
+            set { _magicCost = value; OnPropertyChanged("MagicCost"); }
+        }
+
+        public int Amount
+        {
+            get { return _amount; }
+            set { _amount = value; OnPropertyChanged("Amount"); OnPropertyChanged("TypeAmount"); }
+        }
+
+        #endregion Modifying Properties
+
+        #region Helper Properties
 
         public string TypeToString
         {
@@ -63,24 +91,6 @@ namespace Sulimn_WPF
             }
         }
 
-        public string RequiredClass
-        {
-            get { return _requiredClass; }
-            set { _requiredClass = value; OnPropertyChanged("RequiredClass"); }
-        }
-
-        public int RequiredLevel
-        {
-            get { return _requiredLevel; }
-            set { _requiredLevel = value; OnPropertyChanged("RequiredLevel"); }
-        }
-
-        public int MagicCost
-        {
-            get { return _magicCost; }
-            set { _magicCost = value; OnPropertyChanged("MagicCost"); }
-        }
-
         public string MagicCostToString
         {
             get
@@ -91,13 +101,12 @@ namespace Sulimn_WPF
             }
         }
 
-        public int Amount
+        public string RequiredLevelToString
         {
-            get { return _amount; }
-            set { _amount = value; OnPropertyChanged("Amount"); OnPropertyChanged("TypeAmount"); }
+            get { return "Required Level: " + RequiredLevel; }
         }
 
-        #endregion Properties
+        #endregion Helper Properties
 
         #region Override Operators
 

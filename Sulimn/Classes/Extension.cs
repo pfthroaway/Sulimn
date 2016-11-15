@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     internal static class ThreadSafeRandom
     {

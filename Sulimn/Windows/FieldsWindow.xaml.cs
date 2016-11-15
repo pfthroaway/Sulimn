@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for FieldsWindow.xaml
@@ -40,7 +40,7 @@ namespace Sulimn_WPF
 
         private void btnFarm_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
@@ -64,7 +64,7 @@ namespace Sulimn_WPF
 
         private void btnCellar_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
@@ -88,7 +88,7 @@ namespace Sulimn_WPF
 
         private void btnCropFields_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
@@ -112,7 +112,7 @@ namespace Sulimn_WPF
 
         private void btnOrchard_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.CurrentHealth > 0)
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)

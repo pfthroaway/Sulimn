@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Represents a Potion which can be consumed by a Hero.
@@ -18,7 +18,7 @@ namespace Sulimn_WPF
             set { _name = value; }
         }
 
-        public sealed override string Type
+        public sealed override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; }
@@ -74,7 +74,7 @@ namespace Sulimn_WPF
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Type, right.Type, StringComparison.OrdinalIgnoreCase) && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
         public override bool Equals(object obj)
@@ -131,7 +131,7 @@ namespace Sulimn_WPF
         internal Potion(string potionName, PotionTypes potionType, string potionDescription, int potionAmount, int potionValue, bool potionCanSell, bool potionIsSold)
         {
             Name = potionName;
-            Type = "Potion";
+            Type = ItemTypes.Potion;
             PotionType = potionType;
             Description = potionDescription;
             Weight = 0;

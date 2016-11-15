@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Sulimn_WPF
+namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for ManageUserWindow.xaml
@@ -14,10 +14,10 @@ namespace Sulimn_WPF
         private Hero modifyHero = new Hero();
         private Hero originalHero = new Hero();
         private List<Weapon> AllWeapons = new List<Weapon>(GameState.GetItemsOfType<Weapon>());
-        private List<Armor> AllHeadArmor = new List<Armor>(GameState.GetItemsOfType<Armor>().Where(armr => armr.ArmorType == ArmorTypes.Head));
-        private List<Armor> AllBodyArmor = new List<Armor>(GameState.GetItemsOfType<Armor>().Where(armr => armr.ArmorType == ArmorTypes.Body));
-        private List<Armor> AllLegsArmor = new List<Armor>(GameState.GetItemsOfType<Armor>().Where(armr => armr.ArmorType == ArmorTypes.Legs));
-        private List<Armor> AllFeetArmor = new List<Armor>(GameState.GetItemsOfType<Armor>().Where(armr => armr.ArmorType == ArmorTypes.Feet));
+        private List<HeadArmor> AllHeadArmor = GameState.GetItemsOfType<HeadArmor>();
+        private List<BodyArmor> AllBodyArmor = GameState.GetItemsOfType<BodyArmor>();
+        private List<LegArmor> AllLegsArmor = GameState.GetItemsOfType<LegArmor>();
+        private List<FeetArmor> AllFeetArmor = GameState.GetItemsOfType<FeetArmor>();
         private List<HeroClass> AllClasses = new List<HeroClass>(GameState.AllClasses);
 
         internal ManageUsersWindow RefToManageUsersWindow { get; set; }
@@ -59,20 +59,20 @@ namespace Sulimn_WPF
             txtLevel.Text = originalHero.Level.ToString();
             txtExperience.Text = originalHero.Experience.ToString();
             txtSkillPoints.Text = originalHero.SkillPoints.ToString();
-            txtStrength.Text = originalHero.Strength.ToString();
-            txtVitality.Text = originalHero.Vitality.ToString();
-            txtDexterity.Text = originalHero.Dexterity.ToString();
-            txtWisdom.Text = originalHero.Wisdom.ToString();
-            txtGold.Text = originalHero.Gold.ToString();
-            txtCurrentHealth.Text = originalHero.CurrentHealth.ToString();
-            txtMaximumHealth.Text = originalHero.MaximumHealth.ToString();
-            txtCurrentMagic.Text = originalHero.CurrentMagic.ToString();
-            txtMaximumMagic.Text = originalHero.MaximumMagic.ToString();
-            cmbHead.SelectedValue = originalHero.Head;
-            cmbBody.SelectedValue = originalHero.Body;
-            cmbLegs.SelectedValue = originalHero.Legs;
-            cmbFeet.SelectedValue = originalHero.Feet;
-            cmbWeapon.SelectedValue = originalHero.Weapon;
+            txtStrength.Text = originalHero.Attributes.Strength.ToString();
+            txtVitality.Text = originalHero.Attributes.Vitality.ToString();
+            txtDexterity.Text = originalHero.Attributes.Dexterity.ToString();
+            txtWisdom.Text = originalHero.Attributes.Wisdom.ToString();
+            txtGold.Text = originalHero.Inventory.Gold.ToString();
+            txtCurrentHealth.Text = originalHero.Statistics.CurrentHealth.ToString();
+            txtMaximumHealth.Text = originalHero.Statistics.MaximumHealth.ToString();
+            txtCurrentMagic.Text = originalHero.Statistics.CurrentMagic.ToString();
+            txtMaximumMagic.Text = originalHero.Statistics.MaximumMagic.ToString();
+            cmbHead.SelectedValue = originalHero.Equipment.Head;
+            cmbBody.SelectedValue = originalHero.Equipment.Body;
+            cmbLegs.SelectedValue = originalHero.Equipment.Legs;
+            cmbFeet.SelectedValue = originalHero.Equipment.Feet;
+            cmbWeapon.SelectedValue = originalHero.Equipment.Weapon;
             cmbClass.SelectedValue = originalHero.ClassName;
         }
 
