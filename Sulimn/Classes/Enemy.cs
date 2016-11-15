@@ -138,10 +138,10 @@ namespace Sulimn
             Type = type;
             Level = level;
             Experience = experience;
-            Attributes = attributes;
-            Statistics = statistics;
-            Equipment = equipment;
-            Inventory = inventory;
+            Attributes = new Attributes(attributes);
+            Statistics = new Statistics(statistics);
+            Equipment = new Equipment(equipment);
+            Inventory = new Inventory(inventory);
         }
 
         /// <summary>
@@ -154,10 +154,10 @@ namespace Sulimn
             Type = otherEnemy.Type;
             Level = otherEnemy.Level;
             Experience = otherEnemy.Experience;
-            Attributes = otherEnemy.Attributes;
-            Statistics = otherEnemy.Statistics;
-            Equipment = otherEnemy.Equipment;
-            Inventory = otherEnemy.Inventory;
+            Attributes = new Attributes(otherEnemy.Attributes);
+            Statistics = new Statistics(otherEnemy.Statistics);
+            Equipment = new Equipment(otherEnemy.Equipment);
+            Inventory = new Inventory(otherEnemy.Inventory);
         }
 
         #endregion Constructors
