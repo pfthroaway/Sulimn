@@ -18,7 +18,7 @@
     /// <summary>
     /// Represents the types of Items which exist.
     /// </summary>
-    public enum ItemTypes { Weapon, Head, Body, Leg, Feet, Ring, Potion, Food }
+    public enum ItemTypes { Weapon, Head, Body, Legs, Feet, Ring, Potion, Food }
 
     /// <summary>
     /// Represents the types of Food which exist.
@@ -34,4 +34,6 @@
     /// Represents the types of Spells which exist.
     /// </summary>
     public enum SpellTypes { Damage, Healing, Curing, Shield }
+
+    public enum StatusEffects { Normal, }
 }

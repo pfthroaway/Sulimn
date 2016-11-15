@@ -146,7 +146,7 @@ namespace Sulimn
 
                     case ItemTypes.Head:
                     case ItemTypes.Body:
-                    case ItemTypes.Leg:
+                    case ItemTypes.Legs:
                     case ItemTypes.Feet:
                         btnEquip.IsEnabled = true;
                         btnConsume.IsEnabled = false;
@@ -252,7 +252,7 @@ namespace Sulimn
 
                 case ItemTypes.Head:
                 case ItemTypes.Body:
-                case ItemTypes.Leg:
+                case ItemTypes.Legs:
                 case ItemTypes.Feet:
                     Armor selectedArmor = (Armor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]);
                     GameState.CurrentHero.Inventory.RemoveItem(selectedArmor);
