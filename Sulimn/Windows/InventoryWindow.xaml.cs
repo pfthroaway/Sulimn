@@ -144,10 +144,10 @@ namespace Sulimn
                             lblSellable.Text = "Not Sellable";
                         break;
 
-                    case ItemTypes.HeadArmor:
-                    case ItemTypes.BodyArmor:
-                    case ItemTypes.LegArmor:
-                    case ItemTypes.FeetArmor:
+                    case ItemTypes.Head:
+                    case ItemTypes.Body:
+                    case ItemTypes.Leg:
+                    case ItemTypes.Feet:
                         btnEquip.IsEnabled = true;
                         btnConsume.IsEnabled = false;
                         btnDrop.IsEnabled = true;
@@ -250,10 +250,10 @@ namespace Sulimn
                     lblEquippedWeaponDamage.DataContext = GameState.CurrentHero.Equipment.Weapon;
                     break;
 
-                case ItemTypes.HeadArmor:
-                case ItemTypes.BodyArmor:
-                case ItemTypes.LegArmor:
-                case ItemTypes.FeetArmor:
+                case ItemTypes.Head:
+                case ItemTypes.Body:
+                case ItemTypes.Leg:
+                case ItemTypes.Feet:
                     Armor selectedArmor = (Armor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]);
                     GameState.CurrentHero.Inventory.RemoveItem(selectedArmor);
 

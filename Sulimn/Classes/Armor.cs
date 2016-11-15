@@ -15,7 +15,7 @@ namespace Sulimn
 
         public override event PropertyChangedEventHandler PropertyChanged;
 
-        protected  override void OnPropertyChanged(string property)
+        protected override void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -24,13 +24,13 @@ namespace Sulimn
 
         #region Properties
 
-        public  override string Name
+        public override string Name
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
-        public  override ItemTypes Type
+        public override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }
@@ -42,7 +42,7 @@ namespace Sulimn
             set { _armorType = value; OnPropertyChanged("ArmorType"); }
         }
 
-        public  override string Description
+        public override string Description
         {
             get { return _description; }
             set { _description = value; OnPropertyChanged("Description"); }
@@ -54,25 +54,25 @@ namespace Sulimn
             set { _defense = value; OnPropertyChanged("DefenseToString"); OnPropertyChanged("DefenseToStringWithText"); }
         }
 
-        public  override int Weight
+        public override int Weight
         {
             get { return _weight; }
             set { _weight = value; OnPropertyChanged("Weight"); }
         }
 
-        public  override int Value
+        public override int Value
         {
             get { return _value; }
             set { _value = value; OnPropertyChanged("Value"); }
         }
 
-        public  override bool CanSell
+        public override bool CanSell
         {
             get { return _canSell; }
             set { _canSell = value; OnPropertyChanged("CanSell"); }
         }
 
-        public  override bool IsSold
+        public override bool IsSold
         {
             get { return _isSold; }
             set { _isSold = value; OnPropertyChanged("IsSold"); }
@@ -144,7 +144,7 @@ namespace Sulimn
         internal Armor(string armorName, ArmorTypes armorType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell, bool armorIsSold)
         {
             Name = armorName;
-            Type = ItemTypes.HeadArmor;
+            Type = ItemTypes.Head;
             ArmorType = armorType;
             Description = armorDescription;
             Defense = armorDefense;

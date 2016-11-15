@@ -18,7 +18,7 @@
     /// <summary>
     /// Represents the types of Items which exist.
     /// </summary>
-    public enum ItemTypes { Weapon, HeadArmor, BodyArmor, LegArmor, FeetArmor, Ring, Potion, Food }
+    public enum ItemTypes { Weapon, Head, Body, Leg, Feet, Ring, Potion, Food }
 
     /// <summary>
     /// Represents the types of Food which exist.
