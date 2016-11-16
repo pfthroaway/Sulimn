@@ -91,7 +91,7 @@ namespace Sulimn
             return Items.OfType<T>().ToList<T>();
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             string[] arrInventoryNames = new string[Items.Count];
             for (int i = 0; i < Items.Count; i++)

@@ -9,9 +9,9 @@ namespace Sulimn
 
         #region Data-Binding
 
-        public override event PropertyChangedEventHandler PropertyChanged;
+        public sealed override event PropertyChangedEventHandler PropertyChanged;
 
-        protected override void OnPropertyChanged(string property)
+        protected sealed override void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -20,19 +20,19 @@ namespace Sulimn
 
         #region Properties
 
-        public override string Name
+        public sealed override string Name
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
-        public override ItemTypes Type
+        public sealed override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }
         }
 
-        public override string Description
+        public sealed override string Description
         {
             get { return _description; }
             set { _description = value; OnPropertyChanged("Description"); }
@@ -59,25 +59,25 @@ namespace Sulimn
             }
         }
 
-        public override int Weight
+        public sealed override int Weight
         {
             get { return _weight; }
             set { _weight = value; OnPropertyChanged("Weight"); }
         }
 
-        public override int Value
+        public sealed override int Value
         {
             get { return _value; }
             set { _value = value; OnPropertyChanged("Value"); }
         }
 
-        public override bool CanSell
+        public sealed override bool CanSell
         {
             get { return _canSell; }
             set { _canSell = value; OnPropertyChanged("CanSell"); }
         }
 
-        public override bool IsSold
+        public sealed override bool IsSold
         {
             get { return _isSold; }
             set { _isSold = value; OnPropertyChanged("IsSold"); }
@@ -94,7 +94,7 @@ namespace Sulimn
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Defense == right.Defense) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
-        public override bool Equals(object obj)
+        public sealed override bool Equals(object obj)
         {
             return Equals(this, obj as HeadArmor);
         }
@@ -114,12 +114,12 @@ namespace Sulimn
             return !Equals(left, right);
         }
 
-        public override int GetHashCode()
+        public sealed override int GetHashCode()
         {
             return base.GetHashCode() ^ 17;
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }

@@ -15,7 +15,7 @@ namespace Sulimn
         private int _heroShield;
         private Spell currentSpell = new Spell();
 
-        private enum BattleAction { Attack, Cast, Flee }
+        private enum BattleAction { Attack, Flee, Cast }
 
         private BattleAction _heroAction;
         private BattleAction _enemyAction;
@@ -115,61 +115,42 @@ namespace Sulimn
         #region Battle Logic
 
         /// <summary>
-        /// Sets the Enemy's action for the round.
+        /// Starts a new round of battle.
         /// </summary>
-        private void SetEnemyAction()
+        /// <param name="heroAction">Action the hero chose to perform this round</param>
+        private void NewRound(BattleAction heroAction)
         {
-            int result = Functions.GenerateRandomNumber(1, 100);
-            if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 2))
+            _heroAction = heroAction;
+
+            // if Hero Dexterity is greater
+            // chance to attack first is between 51 and 90%
+            // chance to hit is 50 + Hero Dexterity - Enemy Dexterity
+            // chance for Enemy to hit is 50 - Hero Dexterity + Enemy Dexterity
+            // 10% chance to hit/miss no matter how big the difference is between the two
+
+            int chanceHeroAttacksFirst;
+
+            if (GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity)
+                chanceHeroAttacksFirst = Functions.GenerateRandomNumber(51, 90);
+            else
+                chanceHeroAttacksFirst = Functions.GenerateRandomNumber(10, 49);
+
+            int attacksFirst = Functions.GenerateRandomNumber(1, 100);
+
+            if (attacksFirst <= chanceHeroAttacksFirst)
             {
-                if (result <= 90)
-                    _enemyAction = BattleAction.Attack;
-                else
-                    _enemyAction = BattleAction.Flee;
-            }
-            else if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 4))
-            {
-                if (result <= 75)
-                    _enemyAction = BattleAction.Attack;
-                else
-                    _enemyAction = BattleAction.Flee;
+                HeroTurn();
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0 && !battleEnded)
+                    EnemyTurn();
             }
             else
             {
-                if (result <= 80)
-                    _enemyAction = BattleAction.Flee;
-                else
-                    _enemyAction = BattleAction.Attack;
+                EnemyTurn();
+                if (GameState.CurrentHero.Statistics.CurrentHealth > 0 && !battleEnded)
+                    HeroTurn();
+                else if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
+                    Fairy();
             }
-        }
-
-        /// <summary>
-        /// A fairy is summoned to resurrect the Hero.
-        /// </summary>
-        private void Fairy()
-        {
-            EndBattle();
-            AddTextTT("A mysterious fairy appears, and, seeing your crumpled body on the ground, resurrects you. You have just enough health to make it back to town.");
-            GameState.CurrentHero.Statistics.CurrentHealth = 1;
-        }
-
-        /// <summary>
-        /// Determines whether a flight attempt is successful.
-        /// </summary>
-        /// <param name="fleeAttemptDexterity">Whoever is attempting to flee's Dexterity</param>
-        /// <param name="blockAttemptDexterity">Whoever is not attempting to flee's Dexterity</param>
-        /// <returns></returns>
-        private bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
-        {
-            fleeAttemptDexterity = 20;
-            blockAttemptDexterity = 30;
-
-            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 90);
-            int flee = Functions.GenerateRandomNumber(1, 100);
-
-            if (flee <= chanceToFlee)
-                return true;
-            return false;
         }
 
         /// <summary>
@@ -221,6 +202,97 @@ namespace Sulimn
         }
 
         /// <summary>
+        /// The Hero attacks the Enemy.
+        /// </summary>
+        /// <param name="statModifier">Stat to be given 20% bonus to damage</param>
+        /// <param name="damage">Damage</param>
+        private void HeroAttack(int statModifier, int damage)
+        {
+            int chanceHeroHits;
+            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
+            int heroHits = Functions.GenerateRandomNumber(10, 90);
+
+            if (heroHits <= chanceHeroHits)
+            {
+                int maximumHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
+                int maximumEnemyAbsorb = GameState.CurrentEnemy.Equipment.TotalDefense;
+
+                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage);
+                int actualAbsorb = Functions.GenerateRandomNumber(maximumEnemyAbsorb / 10, maximumEnemyAbsorb);
+
+                string absorb = "";
+                if (actualAbsorb > 0)
+                    absorb = "The " + GameState.CurrentEnemy.Name + "'s armor absorbed " + actualAbsorb + " damage. ";
+
+                if (actualDamage > actualAbsorb)
+                {
+                    AddTextTT("You attack for " + actualDamage + " damage. " + absorb + GameState.CurrentEnemy.TakeDamage(actualDamage - actualAbsorb));
+                    if (GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                    {
+                        EndBattle();
+                        AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience));
+                        if (GameState.CurrentEnemy.Inventory.Gold > 0)
+                            AddTextTT("You find " + GameState.CurrentEnemy.Inventory.Gold + " gold on the body.");
+                        GameState.CurrentHero.Inventory.Gold += GameState.CurrentEnemy.Inventory.Gold;
+                    }
+                }
+                else
+                    AddTextTT("You attack for " + actualDamage + ", but its armor absorbs all of it.");
+            }
+            else
+                AddTextTT("You miss.");
+        }
+
+        /// <summary>
+        /// Sets the current Spell.
+        /// </summary>
+        /// <param name="spell">Spell to be set</param>
+        internal void SetSpell(Spell spell)
+        {
+            currentSpell = spell;
+            NewRound(BattleAction.Cast);
+        }
+
+        /// <summary>
+        /// Sets the Enemy's action for the round.
+        /// </summary>
+        private void SetEnemyAction()
+        {
+            _enemyAction = BattleAction.Attack;
+            if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 20)
+            {
+                int flee = Functions.GenerateRandomNumber(1, 100);
+                if (flee <= 75)
+                    _enemyAction = BattleAction.Flee;
+            }
+            if (_enemyAction != BattleAction.Flee)
+            {
+                int result = Functions.GenerateRandomNumber(1, 100);
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 2))
+                {
+                    if (result <= 95)
+                        _enemyAction = BattleAction.Attack;
+                    else
+                        _enemyAction = BattleAction.Flee;
+                }
+                else if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 5))
+                {
+                    if (result <= 90)
+                        _enemyAction = BattleAction.Attack;
+                    else
+                        _enemyAction = BattleAction.Flee;
+                }
+                else
+                {
+                    if (result <= 50)
+                        _enemyAction = BattleAction.Flee;
+                    else
+                        _enemyAction = BattleAction.Attack;
+                }
+            }
+        }
+
+        /// <summary>
         /// The Enemy's turn this round of battle.
         /// </summary>
         private void EnemyTurn()
@@ -248,97 +320,6 @@ namespace Sulimn
         }
 
         /// <summary>
-        /// Starts a new round of battle.
-        /// </summary>
-        /// <param name="heroAction">Action the hero chose to perform this round</param>
-        private void NewRound(BattleAction heroAction)
-        {
-            _heroAction = heroAction;
-
-            // if Hero Dexterity is greater
-            // chance to attack first is between 51 and 90%
-            // chance to hit is 50 + Hero Dexterity - Enemy Dexterity
-            // chance for Enemy to hit is 50 - Hero Dexterity + Enemy Dexterity
-            // 10% chance to hit/miss no matter how big the difference is between the two
-
-            int chanceHeroAttacksFirst;
-
-            if (GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity)
-                chanceHeroAttacksFirst = Functions.GenerateRandomNumber(51, 90);
-            else
-                chanceHeroAttacksFirst = Functions.GenerateRandomNumber(10, 49);
-
-            int attacksFirst = Functions.GenerateRandomNumber(1, 100);
-
-            if (attacksFirst <= chanceHeroAttacksFirst)
-            {
-                HeroTurn();
-                if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0 && !battleEnded)
-                    EnemyTurn();
-            }
-            else
-            {
-                EnemyTurn();
-                if (GameState.CurrentHero.Statistics.CurrentHealth > 0 && !battleEnded)
-                    HeroTurn();
-                else
-                    Fairy();
-            }
-        }
-
-        /// <summary>
-        /// Sets the current Spell.
-        /// </summary>
-        /// <param name="spell">Spell to be set</param>
-        internal void SetSpell(Spell spell)
-        {
-            currentSpell = spell;
-            NewRound(BattleAction.Cast);
-        }
-
-        /// <summary>
-        /// The Hero attacks the Enemy.
-        /// </summary>
-        /// <param name="statModifier">Stat to be given 20% bonus to damage</param>
-        /// <param name="damage">Damage</param>
-        private void HeroAttack(int statModifier, int damage)
-        {
-            int chanceHeroHits;
-            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
-            int heroHits = Functions.GenerateRandomNumber(10, 90);
-
-            if (heroHits <= chanceHeroHits)
-            {
-                int maxHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
-                int maxEnemyAbsorb = GameState.CurrentEnemy.Equipment.TotalDefense;
-
-                int actualDamage = Functions.GenerateRandomNumber(maxHeroDamage / 10, maxHeroDamage);
-                int actualAbsorb = Functions.GenerateRandomNumber(maxEnemyAbsorb / 10, maxEnemyAbsorb);
-
-                string absorb = "";
-                if (actualAbsorb > 0)
-                    absorb = "The " + GameState.CurrentEnemy.Name + "'s armor absorbed " + actualAbsorb + " damage. ";
-
-                if (actualDamage > actualAbsorb)
-                {
-                    AddTextTT("You attack for " + actualDamage + " damage. " + absorb + GameState.CurrentEnemy.TakeDamage(actualDamage - actualAbsorb));
-                    if (GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
-                    {
-                        EndBattle();
-                        AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience));
-                        if (GameState.CurrentEnemy.Inventory.Gold > 0)
-                            AddTextTT("You find " + GameState.CurrentEnemy.Inventory.Gold + " gold on the body.");
-                        GameState.CurrentHero.Inventory.Gold += GameState.CurrentEnemy.Inventory.Gold;
-                    }
-                }
-                else
-                    AddTextTT("You attack for " + actualDamage + ", but its armor absorbs all of it.");
-            }
-            else
-                AddTextTT("You miss.");
-        }
-
-        /// <summary>
         /// The Enemy attacks the Hero.
         /// </summary>
         private void EnemyAttack(int statModifier, int damage)
@@ -349,29 +330,29 @@ namespace Sulimn
 
             if (heroHits <= chanceHeroHits)
             {
-                int maxDamage = Int32Helper.Parse(GameState.CurrentEnemy.Attributes.Strength * 0.2 + GameState.CurrentEnemy.Equipment.Weapon.Damage);
+                int maximumDamage = Int32Helper.Parse(GameState.CurrentEnemy.Attributes.Strength * 0.2 + GameState.CurrentEnemy.Equipment.Weapon.Damage);
                 int HeroDefense = GameState.CurrentHero.Equipment.TotalDefense;
-                int actualDamage = Functions.GenerateRandomNumber(maxDamage / 10, maxDamage);
-                int maxShieldAbsorb = Functions.GenerateRandomNumber(HeroShield / 10, HeroShield);
-                int maxArmorAbsorb = Functions.GenerateRandomNumber(HeroDefense / 10, HeroDefense);
+                int actualDamage = Functions.GenerateRandomNumber(maximumDamage / 10, maximumDamage);
+                int maximumShieldAbsorb = Functions.GenerateRandomNumber(HeroShield / 10, HeroShield);
+                int maximumArmorAbsorb = Functions.GenerateRandomNumber(HeroDefense / 10, HeroDefense);
                 int actualShieldAbsorb = 0;
                 int actualArmorAbsorb = 0;
 
                 // shield absorbs actualDamage up to maxShieldAbsorb
-                if (maxShieldAbsorb >= actualDamage)
+                if (maximumShieldAbsorb >= actualDamage)
                     actualShieldAbsorb = actualDamage;
                 else
-                    actualShieldAbsorb = maxShieldAbsorb;
+                    actualShieldAbsorb = maximumShieldAbsorb;
 
                 HeroShield -= actualShieldAbsorb;
 
                 // if shield absorbs all damage, actualArmorAbsorb is 0, otherwise check actualDamage - maxShieldAbsorb
                 if (actualShieldAbsorb < actualDamage)
                 {
-                    if (maxArmorAbsorb >= (actualDamage - actualShieldAbsorb))
+                    if (maximumArmorAbsorb >= (actualDamage - actualShieldAbsorb))
                         actualArmorAbsorb = actualDamage - actualShieldAbsorb;
                     else
-                        actualArmorAbsorb = maxArmorAbsorb;
+                        actualArmorAbsorb = maximumArmorAbsorb;
                 }
 
                 string absorb = "";
@@ -397,6 +378,35 @@ namespace Sulimn
             }
             else
                 AddTextTT("The " + GameState.CurrentEnemy.Name + " misses.");
+        }
+
+        /// <summary>
+        /// Determines whether a flight attempt is successful.
+        /// </summary>
+        /// <param name="fleeAttemptDexterity">Whoever is attempting to flee's Dexterity</param>
+        /// <param name="blockAttemptDexterity">Whoever is not attempting to flee's Dexterity</param>
+        /// <returns></returns>
+        private bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
+        {
+            fleeAttemptDexterity = 20;
+            blockAttemptDexterity = 30;
+
+            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 90);
+            int flee = Functions.GenerateRandomNumber(1, 100);
+
+            if (flee <= chanceToFlee)
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// A fairy is summoned to resurrect the Hero.
+        /// </summary>
+        private void Fairy()
+        {
+            EndBattle();
+            AddTextTT("A mysterious fairy appears, and, seeing your crumpled body on the ground, resurrects you. You have just enough health to make it back to town.");
+            GameState.CurrentHero.Statistics.CurrentHealth = 1;
         }
 
         #endregion Battle Logic

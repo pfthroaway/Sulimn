@@ -26,7 +26,7 @@ namespace Sulimn
             return "You learn " + newSpell.Name + ".";
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             string[] arrSpellNames = new string[Spells.Count];
             for (int i = 0; i < Spells.Count; i++)

@@ -104,7 +104,7 @@ namespace Sulimn
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && (left.WeaponType == right.WeaponType) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Damage == right.Damage) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
-        public override bool Equals(object obj)
+        public sealed override bool Equals(object obj)
         {
             return Equals(this, obj as Weapon);
         }
@@ -124,12 +124,12 @@ namespace Sulimn
             return !Equals(left, right);
         }
 
-        public override int GetHashCode()
+        public sealed override int GetHashCode()
         {
             return base.GetHashCode() ^ 17;
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }

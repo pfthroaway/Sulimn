@@ -54,7 +54,7 @@ namespace Sulimn
             txtShop.ScrollToEnd();
         }
 
-        #region Load and Display InWindowation
+        #region Load and Display Information
 
         /// <summary>
         /// Clears text from the labels on the Purchase tab.
@@ -635,7 +635,7 @@ namespace Sulimn
             }
         }
 
-        #endregion Load and Display InWindowation
+        #endregion Load and Display Information
 
         #region Transaction Methods
 

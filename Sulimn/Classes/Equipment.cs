@@ -12,9 +12,9 @@ namespace Sulimn
 
         #region Data-Binding
 
-        public virtual event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string property)
+        protected void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -118,11 +118,11 @@ namespace Sulimn
         /// <param name="feet">Feet</param>
         public Equipment(Weapon weapon, HeadArmor head, BodyArmor body, LegArmor legs, FeetArmor feet)
         {
-            Weapon = weapon;
-            Head = head;
-            Body = body;
-            Legs = legs;
-            Feet = feet;
+            Weapon = new Weapon(weapon);
+            Head = new HeadArmor(head);
+            Body = new BodyArmor(body);
+            Legs = new LegArmor(legs);
+            Feet = new FeetArmor(feet);
         }
 
         /// <summary>
@@ -131,11 +131,11 @@ namespace Sulimn
         /// <param name="otherEquipment">Instance of Equipment to replace this instance</param>
         public Equipment(Equipment otherEquipment)
         {
-            Weapon = otherEquipment.Weapon;
-            Head = otherEquipment.Head;
-            Body = otherEquipment.Body;
-            Legs = otherEquipment.Legs;
-            Feet = otherEquipment.Feet;
+            Weapon = new Weapon(otherEquipment.Weapon);
+            Head = new HeadArmor(otherEquipment.Head);
+            Body = new BodyArmor(otherEquipment.Body);
+            Legs = new LegArmor(otherEquipment.Legs);
+            Feet = new FeetArmor(otherEquipment.Feet);
         }
 
         #endregion Constructors

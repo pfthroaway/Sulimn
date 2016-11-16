@@ -77,7 +77,7 @@ namespace Sulimn
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && left.FoodType == right.FoodType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
         }
 
-        public override bool Equals(object obj)
+        public sealed override bool Equals(object obj)
         {
             return Equals(this, obj as Food);
         }
@@ -97,12 +97,12 @@ namespace Sulimn
             return !Equals(left, right);
         }
 
-        public override int GetHashCode()
+        public sealed override int GetHashCode()
         {
             return base.GetHashCode() ^ 17;
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }

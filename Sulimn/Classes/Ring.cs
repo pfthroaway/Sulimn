@@ -12,9 +12,9 @@ namespace Sulimn
     {
         //#region Data-Binding
 
-        //public override event PropertyChangedEventHandler PropertyChanged;
+        //public sealed override event PropertyChangedEventHandler PropertyChanged;
 
-        //protected override void OnPropertyChanged(string property)
+        //protected sealed override void OnPropertyChanged(string property)
         //{
         //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         //}

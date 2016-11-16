@@ -142,12 +142,12 @@ namespace Sulimn
             return !Equals(left, right);
         }
 
-        public override int GetHashCode()
+        public sealed override int GetHashCode()
         {
             return base.GetHashCode() ^ 17;
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }

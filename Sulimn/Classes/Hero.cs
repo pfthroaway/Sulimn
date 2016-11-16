@@ -199,7 +199,7 @@ namespace Sulimn
 
         #endregion Health Manipulation
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }

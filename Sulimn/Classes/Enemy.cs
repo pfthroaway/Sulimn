@@ -107,7 +107,7 @@ namespace Sulimn
             return "The " + Name + " takes " + damage + " damage.";
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }
