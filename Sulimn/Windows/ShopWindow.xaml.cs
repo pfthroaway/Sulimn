@@ -15,12 +15,18 @@ namespace Sulimn
         internal MarketWindow RefToMarketWindow { get; set; }
         internal TavernWindow RefToTavernWindow { get; set; }
 
-        private string shopType;
+        private ItemTypes shopType;
         private string nl = Environment.NewLine;
         private List<Weapon> purchaseWeapons = new List<Weapon>();
         private List<Weapon> sellWeapons = new List<Weapon>();
-        private List<Armor> purchaseArmor = new List<Armor>();
-        private List<Armor> sellArmor = new List<Armor>();
+        private List<HeadArmor> purchaseHead = new List<HeadArmor>();
+        private List<HeadArmor> sellHead = new List<HeadArmor>();
+        private List<BodyArmor> purchaseBody = new List<BodyArmor>();
+        private List<BodyArmor> sellBody = new List<BodyArmor>();
+        private List<LegArmor> purchaseLegs = new List<LegArmor>();
+        private List<LegArmor> sellLegs = new List<LegArmor>();
+        private List<FeetArmor> purchaseFeet = new List<FeetArmor>();
+        private List<FeetArmor> sellFeet = new List<FeetArmor>();
         private List<Potion> purchasePotions = new List<Potion>();
         private List<Potion> sellPotions = new List<Potion>();
         private List<Spell> purchaseSpells = new List<Spell>();
@@ -31,7 +37,7 @@ namespace Sulimn
         /// Sets the Shop type.
         /// </summary>
         /// <param name="typeOfShop">Shop type</param>
-        internal void SetShopType(string typeOfShop)
+        internal void SetShopType(ItemTypes typeOfShop)
         {
             shopType = typeOfShop;
         }
@@ -48,7 +54,7 @@ namespace Sulimn
             txtShop.ScrollToEnd();
         }
 
-        #region Load and Display Information
+        #region Load and Display InWindowation
 
         /// <summary>
         /// Clears text from the labels on the Purchase tab.
@@ -85,27 +91,27 @@ namespace Sulimn
         {
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     this.Title = "Weapons 'R' Us";
                     txtShop.Text = "You enter Weapons 'R' Us, the finest weaponsmith shop in the city of Sulimn. You approach the shopkeeper and he shows you his wares.";
                     break;
 
-                case "Armor":
+                case ItemTypes.Head:
                     this.Title = "The Armoury";
                     txtShop.Text = "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
                     break;
 
-                case "General":
+                case ItemTypes.Potion:
                     this.Title = "The General Store";
                     txtShop.Text = "You enter The General Store, a solid wooden building near the center of the market. A beautiful young woman is standing behind a counter, smiling at you. You approach her and examine her wares.";
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     this.Title = "The Tavern";
                     txtShop.Text = "You approach the bar at The Tavern. The barkeeper asks you if you'd like a drink or a bite to eat.";
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     this.Title = "Ye Olde Magick Shoppe";
                     txtShop.Text = "You enter Ye Olde Magick Shoppe, a hut of a building. Inside there is a woman facing away from you, stirring a mixture in a cauldron. Sensing your presence, she turns to you, her face hideous and covered in boils." + nl + nl + "\"Would you like to learn some spells, " + GameState.CurrentHero.Name + "?\" she asks. How she knows your name is beyond you.";
                     break;
@@ -127,7 +133,7 @@ namespace Sulimn
             btnPurchase.IsEnabled = false;
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     purchaseWeapons.Clear();
                     purchaseWeapons.AddRange(GameState.GetItemsOfType<Weapon>().Where(x => x.IsSold == true));
                     purchaseWeapons = purchaseWeapons.OrderBy(x => x.Value).ToList();
@@ -135,18 +141,36 @@ namespace Sulimn
                         lstPurchase.Items.Add(wpn.Name);
                     break;
 
-                case "Armor":
-                    purchaseArmor.Clear();
-                    purchaseArmor.AddRange(GameState.GetItemsOfType<HeadArmor>().Where(x => x.IsSold == true));
-                    purchaseArmor.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(x => x.IsSold == true));
-                    purchaseArmor.AddRange(GameState.GetItemsOfType<LegArmor>().Where(x => x.IsSold == true));
-                    purchaseArmor.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(x => x.IsSold == true));
-                    purchaseArmor = purchaseArmor.OrderBy(x => x.Value).ToList();
-                    foreach (Item itm in purchaseArmor)
+                case ItemTypes.Head:
+                    purchaseHead.Clear();
+                    purchaseHead.AddRange(GameState.GetItemsOfType<HeadArmor>().Where(x => x.IsSold == true));
+                    purchaseHead = purchaseHead.OrderBy(x => x.Value).ToList();
+                    foreach (Item itm in purchaseHead)
                         lstPurchase.Items.Add(itm.Name);
                     break;
 
-                case "General":
+                case ItemTypes.Body:
+                    purchaseBody.Clear();
+                    purchaseBody.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(x => x.IsSold == true));
+                    foreach (Item itm in purchaseHead)
+                        lstPurchase.Items.Add(itm.Name);
+                    break;
+
+                case ItemTypes.Legs:
+                    purchaseLegs.Clear();
+                    purchaseLegs.AddRange(GameState.GetItemsOfType<LegArmor>().Where(x => x.IsSold == true));
+                    foreach (Item itm in purchaseHead)
+                        lstPurchase.Items.Add(itm.Name);
+                    break;
+
+                case ItemTypes.Feet:
+                    purchaseFeet.Clear();
+                    purchaseFeet.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(x => x.IsSold == true));
+                    foreach (Item itm in purchaseHead)
+                        lstPurchase.Items.Add(itm.Name);
+                    break;
+
+                case ItemTypes.Potion:
                     purchasePotions.Clear();
                     purchasePotions.AddRange(GameState.GetItemsOfType<Potion>().Where(x => x.IsSold == true));
                     purchasePotions = purchasePotions.OrderBy(x => x.Value).ToList();
@@ -154,7 +178,7 @@ namespace Sulimn
                         lstPurchase.Items.Add(potn.Name);
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     purchaseFood.Clear();
                     purchaseFood.AddRange(GameState.GetItemsOfType<Food>().Where(x => x.IsSold == true));
                     purchaseFood = purchaseFood.OrderBy(x => x.Value).ToList();
@@ -162,7 +186,7 @@ namespace Sulimn
                         lstPurchase.Items.Add(food.Name);
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     purchaseSpells.Clear();
                     purchaseSpells.AddRange(GameState.AllSpells);
                     List<Spell> learnSpells = new List<Spell>();
@@ -198,32 +222,53 @@ namespace Sulimn
             btnSell.IsEnabled = false;
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     sellWeapons = GameState.CurrentHero.Inventory.GetItemsOfType<Weapon>().OrderBy(x => x.Value).ToList();
                     foreach (Weapon wpn in sellWeapons)
                         lstSell.Items.Add(wpn.Name);
                     break;
 
-                case "Armor":
-                    sellArmor.Clear();
-                    sellArmor.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().OrderBy(x => x.Value).ToList());
-                    foreach (Item itm in sellArmor)
+                case ItemTypes.Head:
+                    sellHead.Clear();
+                    sellHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().OrderBy(x => x.Value).ToList());
+                    foreach (Item itm in sellHead)
                         lstSell.Items.Add(itm.Name);
                     break;
 
-                case "General":
+                case ItemTypes.Body:
+                    sellBody.Clear();
+                    sellBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>().OrderBy(x => x.Value).ToList());
+                    foreach (Item itm in sellBody)
+                        lstSell.Items.Add(itm.Name);
+                    break;
+
+                case ItemTypes.Legs:
+                    sellLegs.Clear();
+                    sellLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>().OrderBy(x => x.Value).ToList());
+                    foreach (Item itm in sellLegs)
+                        lstSell.Items.Add(itm.Name);
+                    break;
+
+                case ItemTypes.Feet:
+                    sellFeet.Clear();
+                    sellFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>().OrderBy(x => x.Value).ToList());
+                    foreach (Item itm in sellFeet)
+                        lstSell.Items.Add(itm.Name);
+                    break;
+
+                case ItemTypes.Potion:
                     sellPotions = GameState.CurrentHero.Inventory.GetItemsOfType<Potion>().OrderBy(x => x.Value).ToList();
                     foreach (Potion potn in sellPotions)
                         lstSell.Items.Add(potn.Name);
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     sellFood = GameState.CurrentHero.Inventory.GetItemsOfType<Food>().OrderBy(x => x.Value).ToList();
                     foreach (Food food in sellFood)
                         lstSell.Items.Add(food.Name);
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     break;
             }
 
@@ -237,7 +282,7 @@ namespace Sulimn
         {
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     Weapon wpn = purchaseWeapons[lstPurchase.SelectedIndex];
                     lblAmountPurchase.Text = "Damage: " + wpn.Damage.ToString("N0");
                     lblDescriptionPurchase.Text = wpn.Description;
@@ -251,22 +296,67 @@ namespace Sulimn
                         btnPurchase.IsEnabled = false;
                     break;
 
-                case "Armor":
+                case ItemTypes.Head:
 
-                    Armor armr = (Armor)purchaseArmor[lstPurchase.SelectedIndex];
-                    lblAmountPurchase.Text = "Defense: " + armr.Defense.ToString("N0");
-                    lblDescriptionPurchase.Text = armr.Description;
-                    lblSelectedNamePurchase.Text = armr.Name;
-                    lblValuePurchase.Text = "Value: " + armr.Value.ToString("N0");
-                    lblSelectedTypePurchase.Text = "Armor: " + armr.ArmorType;
+                    HeadArmor headArmor = new HeadArmor(purchaseHead[lstPurchase.SelectedIndex]);
+                    lblAmountPurchase.Text = "Defense: " + headArmor.Defense.ToString("N0");
+                    lblDescriptionPurchase.Text = headArmor.Description;
+                    lblSelectedNamePurchase.Text = headArmor.Name;
+                    lblValuePurchase.Text = "Value: " + headArmor.Value.ToString("N0");
+                    lblSelectedTypePurchase.Text = "Armor: " + headArmor.Type;
 
-                    if (armr.Value <= GameState.CurrentHero.Inventory.Gold)
+                    if (headArmor.Value <= GameState.CurrentHero.Inventory.Gold)
                         btnPurchase.IsEnabled = true;
                     else
                         btnPurchase.IsEnabled = false;
                     break;
 
-                case "General":
+                case ItemTypes.Body:
+
+                    BodyArmor bodyArmor = new BodyArmor(purchaseBody[lstPurchase.SelectedIndex]);
+                    lblAmountPurchase.Text = "Defense: " + bodyArmor.Defense.ToString("N0");
+                    lblDescriptionPurchase.Text = bodyArmor.Description;
+                    lblSelectedNamePurchase.Text = bodyArmor.Name;
+                    lblValuePurchase.Text = "Value: " + bodyArmor.Value.ToString("N0");
+                    lblSelectedTypePurchase.Text = "Armor: " + bodyArmor.Type;
+
+                    if (bodyArmor.Value <= GameState.CurrentHero.Inventory.Gold)
+                        btnPurchase.IsEnabled = true;
+                    else
+                        btnPurchase.IsEnabled = false;
+                    break;
+
+                case ItemTypes.Legs:
+
+                    LegArmor legArmor = new LegArmor(purchaseLegs[lstPurchase.SelectedIndex]);
+                    lblAmountPurchase.Text = "Defense: " + legArmor.Defense.ToString("N0");
+                    lblDescriptionPurchase.Text = legArmor.Description;
+                    lblSelectedNamePurchase.Text = legArmor.Name;
+                    lblValuePurchase.Text = "Value: " + legArmor.Value.ToString("N0");
+                    lblSelectedTypePurchase.Text = "Armor: " + legArmor.Type;
+
+                    if (legArmor.Value <= GameState.CurrentHero.Inventory.Gold)
+                        btnPurchase.IsEnabled = true;
+                    else
+                        btnPurchase.IsEnabled = false;
+                    break;
+
+                case ItemTypes.Feet:
+
+                    FeetArmor feetArmor = new FeetArmor(purchaseFeet[lstPurchase.SelectedIndex]);
+                    lblAmountPurchase.Text = "Defense: " + feetArmor.Defense.ToString("N0");
+                    lblDescriptionPurchase.Text = feetArmor.Description;
+                    lblSelectedNamePurchase.Text = feetArmor.Name;
+                    lblValuePurchase.Text = "Value: " + feetArmor.Value.ToString("N0");
+                    lblSelectedTypePurchase.Text = "Armor: " + feetArmor.Type;
+
+                    if (feetArmor.Value <= GameState.CurrentHero.Inventory.Gold)
+                        btnPurchase.IsEnabled = true;
+                    else
+                        btnPurchase.IsEnabled = false;
+                    break;
+
+                case ItemTypes.Potion:
                     Potion potn = purchasePotions[lstPurchase.SelectedIndex];
                     if (potn.PotionType == PotionTypes.Curing)
                         lblAmountPurchase.Text = "Curing";
@@ -287,7 +377,7 @@ namespace Sulimn
                         btnPurchase.IsEnabled = false;
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     Food food = purchaseFood[lstPurchase.SelectedIndex];
                     if (food.FoodType == FoodTypes.Food)
                         lblAmountPurchase.Text = "Healing: " + food.Amount.ToString("N0");
@@ -306,7 +396,7 @@ namespace Sulimn
                         btnPurchase.IsEnabled = false;
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     Spell spl = purchaseSpells[lstPurchase.SelectedIndex];
                     int value = spl.RequiredLevel * 200;
                     lblAmountPurchase.Text = spl.Type + ": " + spl.Amount.ToString("N0");
@@ -331,7 +421,7 @@ namespace Sulimn
         {
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     Weapon wpn = sellWeapons[lstSell.SelectedIndex];
                     Decimal weaponHalfValue = 0;
                     try
@@ -360,24 +450,24 @@ namespace Sulimn
                     }
                     break;
 
-                case "Armor":
-                    Armor armr = sellArmor[lstSell.SelectedIndex];
-                    Decimal armorHalfValue = 0;
+                case ItemTypes.Head:
+                    HeadArmor headArmor = new HeadArmor(sellHead[lstSell.SelectedIndex]);
+                    Decimal headHalfValue = 0;
                     try
                     {
-                        armorHalfValue = Decimal.Round(armr.Value / 2, 0);
+                        headHalfValue = Decimal.Round(headArmor.Value / 2, 0);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Sulimn", MessageBoxButton.OK);
                     }
-                    lblAmountSell.Text = "Defense: " + armr.Defense.ToString("N0");
-                    lblDescriptionSell.Text = armr.Description;
-                    lblSelectedNameSell.Text = armr.Name;
-                    lblValueSell.Text = "Value: " + armorHalfValue.ToString("N0");
-                    lblSelectedTypeSell.Text = "Armor: " + armr.ArmorType;
+                    lblAmountSell.Text = "Defense: " + headArmor.Defense.ToString("N0");
+                    lblDescriptionSell.Text = headArmor.Description;
+                    lblSelectedNameSell.Text = headArmor.Name;
+                    lblValueSell.Text = "Value: " + headHalfValue.ToString("N0");
+                    lblSelectedTypeSell.Text = "Armor: " + headArmor.Type;
 
-                    if (armr.CanSell)
+                    if (headArmor.CanSell)
                     {
                         lblSellableSell.Text = "Sellable";
                         btnSell.IsEnabled = true;
@@ -389,7 +479,94 @@ namespace Sulimn
                     }
                     break;
 
-                case "General":
+                case ItemTypes.Body:
+                    BodyArmor bodyArmor = new BodyArmor(sellBody[lstSell.SelectedIndex]);
+                    Decimal bodyHalfValue = 0;
+                    try
+                    {
+                        headHalfValue = Decimal.Round(bodyArmor.Value / 2, 0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Sulimn", MessageBoxButton.OK);
+                    }
+                    lblAmountSell.Text = "Defense: " + bodyArmor.Defense.ToString("N0");
+                    lblDescriptionSell.Text = bodyArmor.Description;
+                    lblSelectedNameSell.Text = bodyArmor.Name;
+                    lblValueSell.Text = "Value: " + bodyHalfValue.ToString("N0");
+                    lblSelectedTypeSell.Text = "Armor: " + bodyArmor.Type;
+
+                    if (bodyArmor.CanSell)
+                    {
+                        lblSellableSell.Text = "Sellable";
+                        btnSell.IsEnabled = true;
+                    }
+                    else
+                    {
+                        lblSellableSell.Text = "Not Sellable";
+                        btnSell.IsEnabled = false;
+                    }
+                    break;
+
+                case ItemTypes.Legs:
+                    LegArmor legArmor = new LegArmor(sellLegs[lstSell.SelectedIndex]);
+                    Decimal legHalfValue = 0;
+                    try
+                    {
+                        headHalfValue = Decimal.Round(legArmor.Value / 2, 0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Sulimn", MessageBoxButton.OK);
+                    }
+                    lblAmountSell.Text = "Defense: " + legArmor.Defense.ToString("N0");
+                    lblDescriptionSell.Text = legArmor.Description;
+                    lblSelectedNameSell.Text = legArmor.Name;
+                    lblValueSell.Text = "Value: " + legHalfValue.ToString("N0");
+                    lblSelectedTypeSell.Text = "Armor: " + legArmor.Type;
+
+                    if (legArmor.CanSell)
+                    {
+                        lblSellableSell.Text = "Sellable";
+                        btnSell.IsEnabled = true;
+                    }
+                    else
+                    {
+                        lblSellableSell.Text = "Not Sellable";
+                        btnSell.IsEnabled = false;
+                    }
+                    break;
+
+                case ItemTypes.Feet:
+                    FeetArmor feetArmor = new FeetArmor(sellFeet[lstSell.SelectedIndex]);
+                    Decimal feetHalfValue = 0;
+                    try
+                    {
+                        headHalfValue = Decimal.Round(feetArmor.Value / 2, 0);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Sulimn", MessageBoxButton.OK);
+                    }
+                    lblAmountSell.Text = "Defense: " + feetArmor.Defense.ToString("N0");
+                    lblDescriptionSell.Text = feetArmor.Description;
+                    lblSelectedNameSell.Text = feetArmor.Name;
+                    lblValueSell.Text = "Value: " + feetHalfValue.ToString("N0");
+                    lblSelectedTypeSell.Text = "Armor: " + feetArmor.Type;
+
+                    if (feetArmor.CanSell)
+                    {
+                        lblSellableSell.Text = "Sellable";
+                        btnSell.IsEnabled = true;
+                    }
+                    else
+                    {
+                        lblSellableSell.Text = "Not Sellable";
+                        btnSell.IsEnabled = false;
+                    }
+                    break;
+
+                case ItemTypes.Potion:
                     Potion potn = sellPotions[lstSell.SelectedIndex];
                     Decimal potionHalfValue = 0;
                     try
@@ -419,7 +596,7 @@ namespace Sulimn
                     }
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     Food food = sellFood[lstSell.SelectedIndex];
                     Decimal foodHalfValue = 0;
                     try
@@ -452,13 +629,13 @@ namespace Sulimn
                     }
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     MessageBox.Show("How in the world did you get this error message? You can't sell Spells!", "Sulimn", MessageBoxButton.OK);
                     break;
             }
         }
 
-        #endregion Load and Display Information
+        #endregion Load and Display InWindowation
 
         #region Transaction Methods
 
@@ -501,23 +678,35 @@ namespace Sulimn
         {
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     AddTextTT(Purchase(purchaseWeapons[lstPurchase.SelectedIndex]));
                     break;
 
-                case "Armor":
-                    AddTextTT(Purchase(purchaseArmor[lstPurchase.SelectedIndex]));
+                case ItemTypes.Head:
+                    AddTextTT(Purchase(purchaseHead[lstPurchase.SelectedIndex]));
                     break;
 
-                case "General":
+                case ItemTypes.Body:
+                    AddTextTT(Purchase(purchaseBody[lstPurchase.SelectedIndex]));
+                    break;
+
+                case ItemTypes.Legs:
+                    AddTextTT(Purchase(purchaseLegs[lstPurchase.SelectedIndex]));
+                    break;
+
+                case ItemTypes.Feet:
+                    AddTextTT(Purchase(purchaseFeet[lstPurchase.SelectedIndex]));
+                    break;
+
+                case ItemTypes.Potion:
                     AddTextTT(Purchase(purchasePotions[lstPurchase.SelectedIndex]));
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     AddTextTT(Purchase(purchaseFood[lstPurchase.SelectedIndex]));
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     AddTextTT(Purchase(purchaseSpells[lstPurchase.SelectedIndex]));
                     break;
             }
@@ -532,23 +721,35 @@ namespace Sulimn
         {
             switch (shopType)
             {
-                case "Weapon":
+                case ItemTypes.Weapon:
                     AddTextTT(Sell(sellWeapons[lstSell.SelectedIndex]));
                     break;
 
-                case "Armor":
-                    AddTextTT(Sell(sellArmor[lstSell.SelectedIndex]));
+                case ItemTypes.Head:
+                    AddTextTT(Sell(sellHead[lstSell.SelectedIndex]));
                     break;
 
-                case "General":
+                case ItemTypes.Body:
+                    AddTextTT(Sell(sellBody[lstSell.SelectedIndex]));
+                    break;
+
+                case ItemTypes.Legs:
+                    AddTextTT(Sell(sellLegs[lstSell.SelectedIndex]));
+                    break;
+
+                case ItemTypes.Feet:
+                    AddTextTT(Sell(sellFeet[lstSell.SelectedIndex]));
+                    break;
+
+                case ItemTypes.Potion:
                     AddTextTT(Sell(sellPotions[lstSell.SelectedIndex]));
                     break;
 
-                case "Food":
+                case ItemTypes.Food:
                     AddTextTT(Sell(sellFood[lstSell.SelectedIndex]));
                     break;
 
-                case "Magic":
+                case ItemTypes.Spell:
                     MessageBox.Show("Seriously, how did you manage to sell a Spell without even selecting it?", "Sulimn", MessageBoxButton.OK);
                     break;
             }
@@ -611,7 +812,7 @@ namespace Sulimn
 
         private void windowShop_Closing(object sender, CancelEventArgs e)
         {
-            if (shopType != "Food")
+            if (shopType != ItemTypes.Food)
                 RefToMarketWindow.Show();
             else
                 RefToTavernWindow.Show();

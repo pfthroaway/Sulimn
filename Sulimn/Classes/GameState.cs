@@ -18,10 +18,23 @@ namespace Sulimn
         internal static Hero MaximumStatsHero = new Hero();
         internal static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
+        internal static List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
+        internal static List<BodyArmor> AllBodyArmor = new List<BodyArmor>();
+        internal static List<LegArmor> AllLegArmor = new List<LegArmor>();
+        internal static List<FeetArmor> AllFeetArmor = new List<FeetArmor>();
+        internal static List<Weapon> AllWeapons = new List<Weapon>();
+        internal static List<Food> AllFood = new List<Food>();
+        internal static List<Potion> AllPotions = new List<Potion>();
         internal static List<Spell> AllSpells = new List<Spell>();
         internal static List<Hero> AllHeroes = new List<Hero>();
         internal static List<HeroClass> AllClasses = new List<HeroClass>();
 
+        /// <summary>
+        /// Determines whether a Hero's credentials are authentic.
+        /// </summary>
+        /// <param name="username">Hero's name</param>
+        /// <param name="password">Hero's password</param>
+        /// <returns></returns>
         internal static bool CheckLogin(string username, string password)
         {
             Hero checkHero = new Hero();
@@ -89,38 +102,41 @@ namespace Sulimn
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            ArmorTypes currentArmorType;
-                            Enum.TryParse(ds.Tables[0].Rows[i]["ArmorType"].ToString(), out currentArmorType);
                             ItemTypes currentItemType;
                             Enum.TryParse(ds.Tables[0].Rows[i]["ArmorType"].ToString(), out currentItemType);
-                            switch (currentArmorType)
+                            switch (currentItemType)
                             {
-                                case ArmorTypes.Head:
+                                case ItemTypes.Head:
                                     HeadArmor newHeadArmor = new HeadArmor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), currentItemType, ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                                     AllItems.Add(newHeadArmor);
+                                    AllHeadArmor.Add(newHeadArmor);
                                     break;
 
-                                case ArmorTypes.Body:
+                                case ItemTypes.Body:
                                     BodyArmor newBodyArmor = new BodyArmor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), currentItemType, ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                                     AllItems.Add(newBodyArmor);
+                                    AllBodyArmor.Add(newBodyArmor);
                                     break;
 
-                                case ArmorTypes.Legs:
+                                case ItemTypes.Legs:
                                     LegArmor newLegArmor = new LegArmor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), currentItemType, ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                                     AllItems.Add(newLegArmor);
+                                    AllLegArmor.Add(newLegArmor);
                                     break;
 
-                                case ArmorTypes.Feet:
+                                case ItemTypes.Feet:
                                     FeetArmor newFeetArmor = new FeetArmor(ds.Tables[0].Rows[i]["ArmorName"].ToString(), currentItemType, ds.Tables[0].Rows[i]["ArmorDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                                     AllItems.Add(newFeetArmor);
+                                    AllFeetArmor.Add(newFeetArmor);
                                     break;
                             }
                         }
                     }
+
                     sql = "SELECT * FROM Admin";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
@@ -143,6 +159,7 @@ namespace Sulimn
                             Food newFood = new Food(ds.Tables[0].Rows[i]["FoodName"].ToString(), currentFoodType, ds.Tables[0].Rows[i]["FoodDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newFood);
+                            AllFood.Add(newFood);
                         }
                     }
 
@@ -160,6 +177,7 @@ namespace Sulimn
                             Potion newPotion = new Potion(ds.Tables[0].Rows[i]["PotionName"].ToString(), currentPotionType, ds.Tables[0].Rows[i]["PotionDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newPotion);
+                            AllPotions.Add(newPotion);
                         }
                     }
 
@@ -194,6 +212,7 @@ namespace Sulimn
                             Weapon newWeapon = new Weapon(ds.Tables[0].Rows[i]["WeaponName"].ToString(), currentWeaponType, ds.Tables[0].Rows[i]["WeaponDescription"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newWeapon);
+                            AllWeapons.Add(newWeapon);
                         }
                     }
 
@@ -208,19 +227,19 @@ namespace Sulimn
                         {
                             Weapon weapon = new Weapon();
                             if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Weapon"].ToString()))
-                                weapon = (Weapon)AllItems.Find(wpn => wpn.Name == (ds.Tables[0].Rows[i]["Weapon"].ToString()));
+                                weapon = new Weapon(AllWeapons.Find(wpn => wpn.Name == ds.Tables[0].Rows[i]["Weapon"].ToString()));
                             HeadArmor head = new HeadArmor();
                             if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Head"].ToString()))
-                                head = new HeadArmor((Armor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Head"].ToString())));
+                                head = new HeadArmor(AllHeadArmor.Find(armr => armr.Name == ds.Tables[0].Rows[i]["Head"].ToString()));
                             BodyArmor body = new BodyArmor();
                             if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Body"].ToString()))
-                                body = (BodyArmor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Body"].ToString()));
+                                body = new BodyArmor(AllBodyArmor.Find(armr => armr.Name == ds.Tables[0].Rows[i]["Body"].ToString()));
                             LegArmor legs = new LegArmor();
                             if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Legs"].ToString()))
-                                legs = (LegArmor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Legs"].ToString()));
+                                legs = new LegArmor(AllLegArmor.Find(armr => armr.Name == ds.Tables[0].Rows[i]["Legs"].ToString()));
                             FeetArmor feet = new FeetArmor();
                             if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Feet"].ToString()))
-                                feet = (FeetArmor)AllItems.Find(armr => armr.Name == (ds.Tables[0].Rows[i]["Feet"].ToString()));
+                                feet = new FeetArmor(AllFeetArmor.Find(armr => armr.Name == ds.Tables[0].Rows[i]["Feet"].ToString()));
 
                             int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
 
@@ -267,17 +286,17 @@ namespace Sulimn
                             if (spells.Length > 0)
                                 newHero.Spellbook = SetSpellbook(spells);
 
-                            newHero.Equipment.Weapon = (Weapon)AllItems.Find(x => x.Name == weapon);
+                            newHero.Equipment.Weapon = AllWeapons.Find(x => x.Name == weapon);
 
                             if (inventory.Length > 0)
                                 newHero.Inventory = SetInventory(inventory);
 
                             newHero.Inventory.Gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
 
-                            newHero.Equipment.Head = (HeadArmor)AllItems.Find(x => x.Name == head);
-                            newHero.Equipment.Body = (BodyArmor)AllItems.Find(x => x.Name == body);
-                            newHero.Equipment.Legs = (LegArmor)AllItems.Find(x => x.Name == legs);
-                            newHero.Equipment.Feet = (FeetArmor)AllItems.Find(x => x.Name == feet);
+                            newHero.Equipment.Head = AllHeadArmor.Find(x => x.Name == head);
+                            newHero.Equipment.Body = AllBodyArmor.Find(x => x.Name == body);
+                            newHero.Equipment.Legs = AllLegArmor.Find(x => x.Name == legs);
+                            newHero.Equipment.Feet = AllFeetArmor.Find(x => x.Name == feet);
 
                             AllHeroes.Add(newHero);
                         }

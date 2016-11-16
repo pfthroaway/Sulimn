@@ -52,7 +52,7 @@ namespace Sulimn
             switch (PreviousWindow)
             {
                 case "Battle":
-                    RefToBattleWindow.CastSpell(spell);
+                    RefToBattleWindow.SetSpell(spell);
                     break;
 
                 case "Character":
@@ -119,7 +119,7 @@ namespace Sulimn
         #region Window-Manipulation Methods
 
         /// <summary>
-        /// Closes the form.
+        /// Closes the Window.
         /// </summary>
         private void CloseWindow()
         {

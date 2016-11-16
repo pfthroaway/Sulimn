@@ -34,7 +34,7 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        // This method opens the newPlayer form.
+        // This method opens the newPlayer Window.
         private void btnNewHero_Click(object sender, RoutedEventArgs e)
         {
             NewHeroWindow newHeroWindow = new NewHeroWindow();

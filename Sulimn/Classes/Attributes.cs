@@ -17,7 +17,7 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        #region Properties
+        #region Modifying Properties
 
         public int Strength
         {
@@ -43,7 +43,9 @@ namespace Sulimn
             set { _wisdom = value; OnPropertyChanged("Wisdom"); }
         }
 
-        #endregion Properties
+        #endregion Modifying Properties
+
+
 
         #region Constructors
 

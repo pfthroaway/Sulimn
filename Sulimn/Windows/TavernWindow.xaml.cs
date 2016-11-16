@@ -29,7 +29,7 @@ namespace Sulimn
         {
             ShopWindow shopWindow = new ShopWindow();
             shopWindow.RefToTavernWindow = this;
-            shopWindow.SetShopType("Food");
+            shopWindow.SetShopType(ItemTypes.Food);
             shopWindow.LoadAll();
             shopWindow.Show();
             this.Visibility = Visibility.Hidden;

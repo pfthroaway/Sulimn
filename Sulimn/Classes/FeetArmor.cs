@@ -3,8 +3,10 @@ using System.ComponentModel;
 
 namespace Sulimn
 {
-    internal class FeetArmor : Armor, IEquatable<FeetArmor>, INotifyPropertyChanged
+    internal class FeetArmor : Item, IEquatable<FeetArmor>, INotifyPropertyChanged
     {
+        protected int _defense;
+
         #region Data-Binding
 
         public override event PropertyChangedEventHandler PropertyChanged;
@@ -36,7 +38,7 @@ namespace Sulimn
             set { _description = value; OnPropertyChanged("Description"); }
         }
 
-        public override int Defense
+        public int Defense
         {
             get { return _defense; }
             set { _defense = value; OnPropertyChanged("DefenseToString"); OnPropertyChanged("DefenseToStringWithText"); }
@@ -148,7 +150,6 @@ namespace Sulimn
         {
             Name = armorName;
             Type = _itemType;
-            ArmorType = ArmorTypes.Feet;
             Description = armorDescription;
             Defense = armorDefense;
             Weight = armorWeight;
@@ -165,23 +166,6 @@ namespace Sulimn
         {
             Name = otherArmor.Name;
             Type = otherArmor.Type;
-            Description = otherArmor.Description;
-            Defense = otherArmor.Defense;
-            Weight = otherArmor.Weight;
-            Value = otherArmor.Value;
-            CanSell = otherArmor.CanSell;
-            IsSold = otherArmor.IsSold;
-        }
-
-        /// <summary>
-        /// Casts an Armor class object to FeetArmor.
-        /// </summary>
-        /// <param name="otherArmor">Armor</param>
-        internal FeetArmor(Armor otherArmor)
-        {
-            Name = otherArmor.Name;
-            Type = otherArmor.Type;
-            ArmorType = ArmorTypes.Feet;
             Description = otherArmor.Description;
             Defense = otherArmor.Defense;
             Weight = otherArmor.Weight;

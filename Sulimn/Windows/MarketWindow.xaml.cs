@@ -30,7 +30,7 @@ namespace Sulimn
         {
             ShopWindow shopWindow = new ShopWindow();
             shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType("Weapon");
+            shopWindow.SetShopType(ItemTypes.Weapon);
             shopWindow.LoadAll();
             shopWindow.Show();
             this.Visibility = Visibility.Hidden;
@@ -43,10 +43,8 @@ namespace Sulimn
 
         private void btnArmorShop_Click(object sender, RoutedEventArgs e)
         {
-            ShopWindow shopWindow = new ShopWindow();
+            ArmoryWindow shopWindow = new ArmoryWindow();
             shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType("Armor");
-            shopWindow.LoadAll();
             shopWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
@@ -55,7 +53,7 @@ namespace Sulimn
         {
             ShopWindow shopWindow = new ShopWindow();
             shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType("General");
+            shopWindow.SetShopType(ItemTypes.Potion);
             shopWindow.LoadAll();
             shopWindow.Show();
             this.Visibility = Visibility.Hidden;
@@ -65,7 +63,7 @@ namespace Sulimn
         {
             ShopWindow shopWindow = new ShopWindow();
             shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType("Magic");
+            shopWindow.SetShopType(ItemTypes.Spell);
             shopWindow.LoadAll();
             shopWindow.Show();
             this.Visibility = Visibility.Hidden;

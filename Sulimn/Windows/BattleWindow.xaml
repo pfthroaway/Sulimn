@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Sulimn"
     mc:Ignorable="d"
     Title="Battle" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBattle_Closing" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -22,34 +22,30 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="0" Grid.Row="0" Margin="10,10,5,0">
+        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="0" Grid.Row="0">
             <TextBlock x:Name="lblCharName" Margin="5" TextAlignment="Center" Text="{Binding Path=Name, Mode=TwoWay}" Width="167" />
         </Border>
-        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="0" Grid.Row="1" Margin="10,0,5,0">
+        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="0" Grid.Row="1">
             <TextBlock x:Name="lblCharHealth" Margin="5" TextAlignment="Center" Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" Width="167" />
         </Border>
-        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="0" Grid.Row="2" Margin="10,0,5,0">
+        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="0" Grid.Row="2">
             <TextBlock x:Name="lblCharMagic" Margin="5" TextAlignment="Center" Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" Width="167" />
         </Border>
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="3" Margin="10,0,5,10">
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="3">
             <TextBlock x:Name="lblShield" Margin="5" TextAlignment="Center" Text="{Binding Path=HeroShieldToString, Mode=OneWay}" Width="167" />
         </Border>
-
-        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="2" Grid.Row="0" Margin="5,10,10,0">
+        <Border BorderThickness="1,1,1,0" BorderBrush="Black" Grid.Column="2" Grid.Row="0">
             <TextBlock x:Name="lblEnemyName" Margin="5" TextAlignment="Center" Text="{Binding Path=Name, Mode=TwoWay}" Width="167" />
         </Border>
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.Row="1" Margin="5,-4,10,0">
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.Row="1">
             <TextBlock x:Name="lblEnemyHealth" Margin="5" TextAlignment="Center" Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" Width="167" />
         </Border>
         <Button x:Name="btnCharacter" Grid.Column="0" Grid.Row="4" Margin="10" Height="30" Width="125" Content="C_haracter" Click="btnCharDetails_Click" />
         <Button x:Name="btnEnemyDetails" Grid.Column="2" Grid.Row="4" Margin="10" Height="30" Width="125" Content="_Details" Click="btnEnemyDetails_Click" />
-
-        <TextBox x:Name="txtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="513" Height="190" Margin="10" TextWrapping="Wrap" BorderBrush="Black" Padding="5" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-
-        <Button x:Name="btnAttack" Grid.Column="0" Grid.Row="6" Content="_Attack" Height="30" Width="125" Margin="10" Click="btnAttack_Click" />
-        <Button x:Name="btnCastSpell" Grid.Column="1" Grid.Row="6" Content="_Cast Spell" Height="30" Width="125" Margin="10" Click="btnCastSpell_Click" />
-        <Button x:Name="btnFlee" Grid.Column="2" Grid.Row="6" Content="_Flee" Height="30" Width="125" Margin="10" Click="btnFlee_Click" />
-        <Button x:Name="btnReturn" Grid.Column="2" Grid.Row="7" Content="_Return" Height="30" Width="125" Margin="10" Click="btnReturn_Click" IsEnabled="False" IsCancel="True" />
+        <TextBox x:Name="txtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="513" Height="190" Margin="0,0,0,10" TextWrapping="Wrap" BorderBrush="Black" Padding="5" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
+        <Button x:Name="btnAttack" Grid.Column="0" Grid.Row="6" Content="_Attack" Height="30" Width="125" Margin="0,0,0,10" Click="btnAttack_Click" />
+        <Button x:Name="btnCastSpell" Grid.Column="1" Grid.Row="6" Content="_Cast Spell" Height="30" Width="125" Margin="0,0,0,10" Click="btnCastSpell_Click" />
+        <Button x:Name="btnFlee" Grid.Column="2" Grid.Row="6" Content="_Flee" Height="30" Width="125" Margin="0,0,0,10" Click="btnFlee_Click" />
+        <Button x:Name="btnReturn" Grid.Column="2" Grid.Row="7" Content="_Return" Height="30" Width="125" Click="btnReturn_Click" IsEnabled="False" IsCancel="True" />
     </Grid>
 </Window>

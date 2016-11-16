@@ -21,7 +21,7 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        #region Properties
+        #region Modifying Properties
 
         public Weapon Weapon
         {
@@ -53,7 +53,51 @@ namespace Sulimn
             set { _feet = value; OnPropertyChanged("Feet"); }
         }
 
-        #endregion Properties
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        public int TotalDamage
+        {
+            get { return Weapon.Damage; }
+        }
+
+        public int TotalDefense
+        {
+            get { return Head.Defense + Body.Defense + Legs.Defense + Feet.Defense; }
+        }
+
+        public string TotalDefenseToString
+        {
+            get { return TotalDefense.ToString("N0"); }
+        }
+
+        public string TotalDefenseToStringWithText
+        {
+            get { return "Defense: " + TotalDefense.ToString("N0"); }
+        }
+
+        public int BonusStrength
+        {
+            get { return 0; }
+        }
+
+        public int BonusVitality
+        {
+            get { return 0; }
+        }
+
+        public int BonusDexterity
+        {
+            get { return 0; }
+        }
+
+        public int BonusWisdom
+        {
+            get { return 0; }
+        }
+
+        #endregion Helper Properties
 
         #region Constructors
 

@@ -13,38 +13,39 @@ namespace Sulimn
     {
         private int _maximum = 0;
         private int _textAmount = 0;
-        private string _type = "";
+        private BankAction _action;
+        private string _actionText = "";
 
         internal BankWindow RefToBankWindow { get; set; }
 
         /// <summary>
-        /// Load the necessary data for the form.
+        /// Load the necessary data for the Window.
         /// </summary>
         /// <param name="maximum">Maximum amount of gold to be used.</param>
         /// <param name="type">What type of transaction is taking place.</param>
-        internal void LoadWindow(int maximum, string type)
+        internal void LoadWindow(int maximum, BankAction type)
         {
             _maximum = maximum;
-            _type = type;
+            _action = type;
 
-            switch (_type)
+            switch (_action)
             {
-                case "Deposit":
+                case BankAction.Deposit:
                     lblDialog.Text = "How much gold would you like to deposit? You have " + _maximum.ToString("N0") + " gold with you.";
                     btnAction.Content = "_Deposit";
                     break;
 
-                case "Withdrawal":
+                case BankAction.Withdrawal:
                     lblDialog.Text = "How much gold would you like to withdraw? You have " + _maximum.ToString("N0") + " gold in your account.";
                     btnAction.Content = "_Withdraw";
                     break;
 
-                case "Repay Loan":
+                case BankAction.Repay:
                     lblDialog.Text = "How much of your loan would you like to repay? You currently owe " + _maximum.ToString("N0") + " gold. You have " + GameState.CurrentHero.Inventory.Gold.ToString("N0") + " with you.";
                     btnAction.Content = "_Repay";
                     break;
 
-                case "Take Out Loan":
+                case BankAction.Borrow:
                     lblDialog.Text = "How much gold would you like to take out on loan? Your credit deems you worthy of receiving up to " + maximum.ToString("N0") + " gold. Remember, we have a 5% loan fee.";
                     btnAction.Content = "_Borrow";
                     break;
@@ -105,20 +106,20 @@ namespace Sulimn
 
             if (_textAmount <= _maximum && _textAmount > 0)
             {
-                switch (_type)
+                switch (_action)
                 {
-                    case "Deposit":
+                    case BankAction.Deposit:
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                             Deposit();
                         else
                             MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Inventory.GoldToString + " gold.");
                         break;
 
-                    case "Withdrawal":
+                    case BankAction.Withdrawal:
                         Withdrawal();
                         break;
 
-                    case "Repay Loan":
+                    case BankAction.Repay:
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                         {
                             RepayLoan();
@@ -127,7 +128,7 @@ namespace Sulimn
                             MessageBox.Show("Please enter a value less than or equal to your current gold. You currently have " + GameState.CurrentHero.Inventory.GoldToString + " gold.");
                         break;
 
-                    case "Take Out Loan":
+                    case BankAction.Borrow:
                         TakeOutLoan();
                         break;
                 }
@@ -151,10 +152,7 @@ namespace Sulimn
         /// <param name="text">Text to be passed back to the Bank Window</param>
         private void CloseWindow(string text)
         {
-            RefToBankWindow.Show();
-            if (text.Length > 0)
-                RefToBankWindow.AddTextTT(text);
-            RefToBankWindow.CheckButtons();
+            _actionText = text;
             this.Close();
         }
 
@@ -184,6 +182,9 @@ namespace Sulimn
         private void windowBankDialog_Closing(object sender, CancelEventArgs e)
         {
             RefToBankWindow.Show();
+            if (_actionText.Length > 0)
+                RefToBankWindow.AddTextTT(_actionText);
+            RefToBankWindow.CheckButtons();
         }
 
         #endregion Window-Manipulation Methods

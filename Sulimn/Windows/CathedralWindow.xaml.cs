@@ -174,7 +174,7 @@ namespace Sulimn
         public CathedralWindow()
         {
             InitializeComponent();
-            txtCathedral.Text = "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the former bishop's basilica, the public sanctuary, the former clergymen's espiscopium, and the looming tower.";
+            txtCathedral.Text = "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the Windower bishop's basilica, the public sanctuary, the Windower clergymen's espiscopium, and the looming tower.";
         }
 
         private void windowCathedral_Closing(object sender, CancelEventArgs e)

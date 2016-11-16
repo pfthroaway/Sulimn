@@ -18,17 +18,12 @@ namespace Sulimn
 
         internal CityWindow RefToCityWindow { get; set; }
 
-        #region Properties
+        #region Modifying Properties
 
         public int GoldInBank
         {
             get { return _goldInBank; }
             set { _goldInBank = value; OnPropertyChanged("GoldInBankToString"); }
-        }
-
-        public string GoldInBankToString
-        {
-            get { return GoldInBank.ToString("N0"); }
         }
 
         public int LoanAvailable
@@ -37,15 +32,24 @@ namespace Sulimn
             set { _loanAvailable = value; OnPropertyChanged("LoanAvailableToString"); }
         }
 
-        public string LoanAvailableToString
-        {
-            get { return LoanAvailable.ToString("N0"); }
-        }
-
         public int LoanTaken
         {
             get { return _loanTaken; }
             set { _loanTaken = value; OnPropertyChanged("LoanTakenToString"); }
+        }
+
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        public string GoldInBankToString
+        {
+            get { return GoldInBank.ToString("N0"); }
+        }
+
+        public string LoanAvailableToString
+        {
+            get { return LoanAvailable.ToString("N0"); }
         }
 
         public string LoanTakenToString
@@ -53,7 +57,7 @@ namespace Sulimn
             get { return LoanTaken.ToString("N0"); }
         }
 
-        #endregion Properties
+        #endregion Helper Properties
 
         #region Data-Binding
 
@@ -120,7 +124,7 @@ namespace Sulimn
         /// </summary>
         /// <param name="maximum">Maximum amount of gold permitted</param>
         /// <param name="type">Type of Window information to be displayed</param>
-        private void DisplayBankDialog(int maximum, string type)
+        private void DisplayBankDialog(int maximum, BankAction type)
         {
             BankDialogWindow bankDialogWindow = new BankDialogWindow();
             bankDialogWindow.LoadWindow(maximum, type);
@@ -144,9 +148,7 @@ namespace Sulimn
                 LoanTaken = Int32Helper.Parse(ds.Tables[0].Rows[0]["LoanTaken"]);
             }
             else
-            {
                 MessageBox.Show("No such user exists in the bank.", "Sulimn", MessageBoxButton.OK);
-            }
 
             LoanAvailable = GameState.CurrentHero.Level * 250 - LoanTaken;
 
@@ -166,22 +168,22 @@ namespace Sulimn
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(GameState.CurrentHero.Inventory.Gold, "Deposit");
+            DisplayBankDialog(GameState.CurrentHero.Inventory.Gold, BankAction.Deposit);
         }
 
         private void btnRepayLoan_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(LoanTaken, "Repay Loan");
+            DisplayBankDialog(LoanTaken, BankAction.Repay);
         }
 
         private void btnTakeLoan_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(LoanAvailable, "Take Out Loan");
+            DisplayBankDialog(LoanAvailable, BankAction.Borrow);
         }
 
         private void btnWithdraw_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(GoldInBank, "Withdrawal");
+            DisplayBankDialog(GoldInBank, BankAction.Withdrawal);
         }
 
         #endregion Button-Click Methods
