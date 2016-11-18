@@ -209,7 +209,7 @@ namespace Sulimn
         private void HeroAttack(int statModifier, int damage)
         {
             int chanceHeroHits;
-            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
+            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 10, 90);
             int heroHits = Functions.GenerateRandomNumber(10, 90);
 
             if (heroHits <= chanceHeroHits)
@@ -217,7 +217,7 @@ namespace Sulimn
                 int maximumHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
                 int maximumEnemyAbsorb = GameState.CurrentEnemy.Equipment.TotalDefense;
 
-                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage);
+                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage, 1, int.MaxValue);
                 int actualAbsorb = Functions.GenerateRandomNumber(maximumEnemyAbsorb / 10, maximumEnemyAbsorb);
 
                 string absorb = "";
@@ -263,6 +263,12 @@ namespace Sulimn
             {
                 int flee = Functions.GenerateRandomNumber(1, 100);
                 if (flee <= 75)
+                    _enemyAction = BattleAction.Flee;
+            }
+            else if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 10)
+            {
+                int flee = Functions.GenerateRandomNumber(1, 100);
+                if (flee <= 25)
                     _enemyAction = BattleAction.Flee;
             }
             if (_enemyAction != BattleAction.Flee)
@@ -325,14 +331,14 @@ namespace Sulimn
         private void EnemyAttack(int statModifier, int damage)
         {
             int chanceHeroHits;
-            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 90);
+            chanceHeroHits = Functions.GenerateRandomNumber(50 + GameState.CurrentHero.Attributes.Dexterity - GameState.CurrentEnemy.Attributes.Dexterity, 90, 10, 90);
             int heroHits = Functions.GenerateRandomNumber(10, 90);
 
             if (heroHits <= chanceHeroHits)
             {
                 int maximumDamage = Int32Helper.Parse(GameState.CurrentEnemy.Attributes.Strength * 0.2 + GameState.CurrentEnemy.Equipment.Weapon.Damage);
                 int HeroDefense = GameState.CurrentHero.Equipment.TotalDefense;
-                int actualDamage = Functions.GenerateRandomNumber(maximumDamage / 10, maximumDamage);
+                int actualDamage = Functions.GenerateRandomNumber(maximumDamage / 10, maximumDamage, 1, int.MaxValue);
                 int maximumShieldAbsorb = Functions.GenerateRandomNumber(HeroShield / 10, HeroShield);
                 int maximumArmorAbsorb = Functions.GenerateRandomNumber(HeroDefense / 10, HeroDefense);
                 int actualShieldAbsorb = 0;
@@ -388,10 +394,7 @@ namespace Sulimn
         /// <returns></returns>
         private bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
         {
-            fleeAttemptDexterity = 20;
-            blockAttemptDexterity = 30;
-
-            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 90);
+            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 10, 90);
             int flee = Functions.GenerateRandomNumber(1, 100);
 
             if (flee <= chanceToFlee)

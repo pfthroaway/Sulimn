@@ -22,7 +22,7 @@ namespace Sulimn
         /// <returns>Returns randomly generated integer between min and max.</returns>
         internal static int GenerateRandomNumber(int min, int max)
         {
-            return GenerateRandomNumber(min, max, Int32.MaxValue);
+            return GenerateRandomNumber(min, max, int.MinValue, int.MaxValue);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Sulimn
         /// <param name="max">Inclusive maximum number</param>
         /// <param name="upperLimit">Maximum limit for the method, regardless of min and max.</param>
         /// <returns>Returns randomly generated integer between min and max with an upper limit of upperLimit.</returns>
-        internal static int GenerateRandomNumber(int min, int max, int upperLimit)
+        internal static int GenerateRandomNumber(int min, int max, int lowerLimit, int upperLimit)
         {
             int result;
 
@@ -41,6 +41,8 @@ namespace Sulimn
             else
                 result = ThreadSafeRandom.ThisThreadsRandom.Next(max, min + 1);
 
+            if (result < lowerLimit)
+                return lowerLimit;
             if (result > upperLimit)
                 return upperLimit;
 
