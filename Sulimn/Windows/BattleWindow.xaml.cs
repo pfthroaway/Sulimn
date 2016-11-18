@@ -318,6 +318,7 @@ namespace Sulimn
                     {
                         EndBattle();
                         AddTextTT("The " + GameState.CurrentEnemy.Name + " fled from the battle.");
+                        GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience / 2);
                     }
                     else
                         AddTextTT("You block the " + GameState.CurrentEnemy.Name + "'s attempt to flee.");
