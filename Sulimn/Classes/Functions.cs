@@ -8,6 +8,7 @@ using System.Windows.Input;
 
 namespace Sulimn
 {
+    /// <summary>Represents various common functions which receive use throughout the application.</summary>
     internal static class Functions
     {
         private const string _DBPROVIDERANDSOURCE = "Data Source = Sulimn.sqlite;Version=3";

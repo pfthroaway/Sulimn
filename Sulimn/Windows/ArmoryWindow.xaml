@@ -22,6 +22,6 @@
         <Button x:Name="btnBody" Grid.Column="1" Grid.Row="1" Width="125" Height="30" Margin="0,0,0,10" Content="_Body Armor" Click="btnBody_Click" />
         <Button x:Name="btnLegs" Grid.Column="0" Grid.Row="2" Width="125" Height="30" Margin="0,0,0,10" Content="_Leggings" Click="btnLegs_Click" />
         <Button x:Name="btnFeet" Grid.Column="1" Grid.Row="2" Width="125" Height="30" Margin="0,0,0,10" Content="_Boots" Click="btnFeet_Click" />
-        <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="125" Height="30" Content="_Nevermind" Click="btnCancel_Click" />
+        <Button x:Name="btnBack" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="125" Height="30" Content="B_ack" Click="btnBack_Click" IsCancel="True" />
     </Grid>
 </Window>

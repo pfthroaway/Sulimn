@@ -14,24 +14,28 @@ namespace Sulimn
 
         #region Properties
 
+        /// <summary>The name of the card.</summary>
         public string Name
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
+        /// <summary>The suit of the card.</summary>
         public CardSuit Suit
         {
             get { return _suit; }
             set { _suit = value; OnPropertyChanged("CardSuit"); }
         }
 
+        /// <summary>The value of the card.</summary>
         public int Value
         {
             get { return _value; }
             set { _value = value; OnPropertyChanged("Value"); }
         }
 
+        /// <summary>Returns the name and suit of the card.</summary>
         public string CardToString
         {
             get { return Name + " of " + Suit; }
@@ -86,7 +90,7 @@ namespace Sulimn
 
         public sealed override string ToString()
         {
-            return Name + " of " + Suit;
+            return CardToString;
         }
 
         #endregion Override Operators

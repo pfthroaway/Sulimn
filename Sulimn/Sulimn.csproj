@@ -100,7 +100,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Armor.cs" />
     <Compile Include="Classes\Attributes.cs" />
     <Compile Include="Classes\BodyArmor.cs" />
     <Compile Include="Classes\Equipment.cs" />

@@ -2,6 +2,9 @@
 
 namespace Sulimn
 {
+    /// <summary>
+    /// Represents pieces of equipment an entity is using.
+    /// </summary>
     internal class Equipment : INotifyPropertyChanged
     {
         protected Weapon _weapon;

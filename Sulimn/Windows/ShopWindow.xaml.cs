@@ -14,6 +14,7 @@ namespace Sulimn
     {
         internal MarketWindow RefToMarketWindow { get; set; }
         internal TavernWindow RefToTavernWindow { get; set; }
+        internal ArmoryWindow RefToArmoryWindow { get; set; }
 
         private ItemTypes shopType;
         private string nl = Environment.NewLine;
@@ -152,21 +153,24 @@ namespace Sulimn
                 case ItemTypes.Body:
                     purchaseBody.Clear();
                     purchaseBody.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(x => x.IsSold == true));
-                    foreach (Item itm in purchaseHead)
+                    purchaseBody = purchaseBody.OrderBy(x => x.Value).ToList();
+                    foreach (Item itm in purchaseBody)
                         lstPurchase.Items.Add(itm.Name);
                     break;
 
                 case ItemTypes.Legs:
                     purchaseLegs.Clear();
                     purchaseLegs.AddRange(GameState.GetItemsOfType<LegArmor>().Where(x => x.IsSold == true));
-                    foreach (Item itm in purchaseHead)
+                    purchaseLegs = purchaseLegs.OrderBy(x => x.Value).ToList();
+                    foreach (Item itm in purchaseLegs)
                         lstPurchase.Items.Add(itm.Name);
                     break;
 
                 case ItemTypes.Feet:
                     purchaseFeet.Clear();
                     purchaseFeet.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(x => x.IsSold == true));
-                    foreach (Item itm in purchaseHead)
+                    purchaseFeet = purchaseFeet.OrderBy(x => x.Value).ToList();
+                    foreach (Item itm in purchaseFeet)
                         lstPurchase.Items.Add(itm.Name);
                     break;
 
@@ -812,10 +816,12 @@ namespace Sulimn
 
         private void windowShop_Closing(object sender, CancelEventArgs e)
         {
-            if (shopType != ItemTypes.Food)
-                RefToMarketWindow.Show();
-            else
+            if (shopType == ItemTypes.Food)
                 RefToTavernWindow.Show();
+            else if (shopType == ItemTypes.Body || shopType == ItemTypes.Head || shopType == ItemTypes.Legs || shopType == ItemTypes.Feet)
+                RefToArmoryWindow.Show();
+            else
+                RefToMarketWindow.Show();
 
             GameState.SaveHero(GameState.CurrentHero);
         }

@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Sulimn
 {
+    /// <summary>
+    /// Represents a piece of Armor worn on the body.
+    /// </summary>
     internal class BodyArmor : Item, IEquatable<BodyArmor>, INotifyPropertyChanged
     {
         protected int _defense;

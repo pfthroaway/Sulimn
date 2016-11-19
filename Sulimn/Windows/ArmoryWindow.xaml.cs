@@ -8,8 +8,14 @@ namespace Sulimn
     /// </summary>
     public partial class ArmoryWindow : Window
     {
-        private bool goShopping = false;
-        private ItemTypes shopType;
+        private void GoShopping(ItemTypes shopType)
+        {
+            ShopWindow shopWindow = new ShopWindow();
+            shopWindow.RefToArmoryWindow = this;
+            shopWindow.SetShopType(shopType);
+            shopWindow.LoadAll();
+            shopWindow.Show();
+        }
 
         internal MarketWindow RefToMarketWindow { get; set; }
 
@@ -17,33 +23,25 @@ namespace Sulimn
 
         private void btnHead_Click(object sender, RoutedEventArgs e)
         {
-            shopType = ItemTypes.Head;
-            goShopping = true;
-            CloseWindow();
+            GoShopping(ItemTypes.Head);
         }
 
         private void btnBody_Click(object sender, RoutedEventArgs e)
         {
-            shopType = ItemTypes.Body;
-            goShopping = true;
-            CloseWindow();
+            GoShopping(ItemTypes.Body);
         }
 
         private void btnLegs_Click(object sender, RoutedEventArgs e)
         {
-            shopType = ItemTypes.Legs;
-            goShopping = true;
-            CloseWindow();
+            GoShopping(ItemTypes.Legs);
         }
 
         private void btnFeet_Click(object sender, RoutedEventArgs e)
         {
-            shopType = ItemTypes.Feet;
-            goShopping = true;
-            CloseWindow();
+            GoShopping(ItemTypes.Feet);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -67,16 +65,7 @@ namespace Sulimn
 
         private void windowArmory_Closing(object sender, CancelEventArgs e)
         {
-            if (goShopping)
-            {
-                ShopWindow shopWindow = new ShopWindow();
-                shopWindow.RefToMarketWindow = RefToMarketWindow;
-                shopWindow.SetShopType(shopType);
-                shopWindow.LoadAll();
-                shopWindow.Show();
-            }
-            else
-                RefToMarketWindow.Show();
+            RefToMarketWindow.Show();
         }
 
         #endregion Window-Manipulation Methods
