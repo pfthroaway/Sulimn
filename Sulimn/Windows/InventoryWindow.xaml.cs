@@ -32,6 +32,8 @@ namespace Sulimn
             lblEquippedFeetDefense.DataContext = GameState.CurrentHero.Equipment.Feet;
             DataContext = GameState.CurrentHero;
             lstInventory.ItemsSource = GameState.CurrentHero.Inventory;
+            lblHealth.DataContext = GameState.CurrentHero.Statistics;
+            lblMagic.DataContext = GameState.CurrentHero.Statistics;
         }
 
         protected virtual void OnPropertyChanged(string property)
