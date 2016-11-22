@@ -108,6 +108,10 @@
     <Compile Include="Classes\LegArmor.cs" />
     <Compile Include="Classes\Ring.cs" />
     <Compile Include="Classes\Statistics.cs" />
+    <Compile Include="Classes\HandArmor.cs" />
+    <Compile Include="Windows\TheArmouryWindow.xaml.cs">
+      <DependentUpon>TheArmouryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AdminChangePasswordWindow.xaml.cs">
       <DependentUpon>AdminChangePasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -195,6 +199,10 @@
       <DependentUpon>TavernWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Weapon.cs" />
+    <Page Include="Windows\TheArmouryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AdminChangePasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

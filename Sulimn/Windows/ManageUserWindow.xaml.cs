@@ -73,7 +73,7 @@ namespace Sulimn
             cmbLegs.SelectedValue = originalHero.Equipment.Legs;
             cmbFeet.SelectedValue = originalHero.Equipment.Feet;
             cmbWeapon.SelectedValue = originalHero.Equipment.Weapon;
-            cmbClass.SelectedValue = originalHero.ClassName;
+            cmbClass.SelectedValue = originalHero.Class;
         }
 
         #endregion Display Manipulation

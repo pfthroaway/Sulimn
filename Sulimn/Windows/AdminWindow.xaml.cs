@@ -3,9 +3,7 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for AdminWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for AdminWindow.xaml</summary>
     public partial class AdminWindow : Window
     {
         internal MainWindow RefToMainWindow { get; set; }
@@ -61,9 +59,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             this.Close();

@@ -43,9 +43,9 @@ namespace Sulimn
 
         private void btnArmorShop_Click(object sender, RoutedEventArgs e)
         {
-            ArmoryWindow shopWindow = new ArmoryWindow();
-            shopWindow.RefToMarketWindow = this;
-            shopWindow.Show();
+            TheArmouryWindow theArmouryWindow = new TheArmouryWindow();
+            theArmouryWindow.RefToMarketWindow = this;
+            theArmouryWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
 

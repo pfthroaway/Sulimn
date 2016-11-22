@@ -23,22 +23,27 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        #region Properties
+        #region Modifying Properties
 
         public abstract string Name { get; set; }
-
         public abstract ItemTypes Type { get; set; }
-
         public abstract string Description { get; set; }
-
         public abstract int Weight { get; set; }
-
         public abstract int Value { get; set; }
-
         public abstract bool CanSell { get; set; }
-
         public abstract bool IsSold { get; set; }
 
-        #endregion Properties
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        public abstract string ValueToString { get; }
+        public abstract string ValueToStringWithText { get; }
+        public abstract int SellValue { get; }
+        public abstract string SellValueToString { get; }
+        public abstract string SellValueToStringWithText { get; }
+        public abstract string CanSellToString { get; }
+
+        #endregion Helper Properties
     }
 }

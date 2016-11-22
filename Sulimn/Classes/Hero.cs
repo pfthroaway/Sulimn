@@ -8,7 +8,8 @@ namespace Sulimn
     /// </summary>
     internal class Hero : Character, INotifyPropertyChanged
     {
-        private string _password, _className;
+        private string _password;
+        private HeroClass _class;
         private int _skillPoints;
         private Spellbook _spellbook = new Spellbook();
 
@@ -37,10 +38,10 @@ namespace Sulimn
             set { _password = value; }
         }
 
-        public string ClassName
+        public HeroClass Class
         {
-            get { return _className; }
-            set { _className = value; OnPropertyChanged("ClassName"); }
+            get { return _class; }
+            set { _class = value; OnPropertyChanged("Class"); }
         }
 
         public sealed override int Level
@@ -97,7 +98,7 @@ namespace Sulimn
 
         public string LevelAndClassToString
         {
-            get { return "Level " + Level + " " + ClassName; }
+            get { return "Level " + Level + " " + Class.Name; }
         }
 
         public string ExperienceToString
@@ -218,7 +219,7 @@ namespace Sulimn
         /// </summary>
         /// <param name="heroName">Name of Hero</param>
         /// <param name="password">Password of Hero</param>
-        /// <param name="heroClassName">Class of Hero</param>
+        /// <param name="heroClass">Class of Hero</param>
         /// <param name="heroLevel">Level of Hero</param>
         /// <param name="heroExperience">Experience of Hero</param>
         /// <param name="heroSkillPts">Skill Points of Hero</param>
@@ -227,11 +228,11 @@ namespace Sulimn
         /// <param name="equipment">Equipment of Hero</param>
         /// <param name="heroSpellbook">Spellbook of Hero</param>
         /// <param name="heroInventory">Inventory of Hero</param>
-        internal Hero(string heroName, string password, string heroClassName, int heroLevel, int heroExperience, int heroSkillPts, Attributes attributes, Statistics statistics, Equipment equipment, Spellbook heroSpellbook, Inventory heroInventory)
+        internal Hero(string heroName, string password, HeroClass heroClass, int heroLevel, int heroExperience, int heroSkillPts, Attributes attributes, Statistics statistics, Equipment equipment, Spellbook heroSpellbook, Inventory heroInventory)
         {
             Name = heroName;
             Password = password;
-            ClassName = heroClassName;
+            Class = heroClass;
             Level = heroLevel;
             Experience = heroExperience;
             Attributes = attributes;
@@ -249,7 +250,7 @@ namespace Sulimn
         {
             Name = otherHero.Name;
             Password = otherHero.Password;
-            ClassName = otherHero.ClassName;
+            Class = otherHero.Class;
             Level = otherHero.Level;
             Experience = otherHero.Experience;
             SkillPoints = otherHero.SkillPoints;

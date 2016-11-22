@@ -16,6 +16,7 @@ namespace Sulimn
         internal CityWindow RefToCityWindow { get; set; }
 
         internal ShopWindow RefToShopWindow { get; set; }
+        internal TheArmouryWindow RefToTheArmouryWindow { get; set; }
 
         #region Data Binding
 
@@ -284,6 +285,11 @@ namespace Sulimn
                 case "Shop":
                     RefToShopWindow.Show();
                     RefToShopWindow.LoadAll();
+                    break;
+
+                case "The Armoury":
+                    RefToTheArmouryWindow.Show();
+                    RefToTheArmouryWindow.LoadAll();
                     break;
             }
         }

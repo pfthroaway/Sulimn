@@ -21,37 +21,130 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        #region Properties
+        #region Modifying Properties
 
+        /// <summary>Name of the armor</summary>
         public sealed override string Name
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
+        /// <summary>Type of the armor</summary>
         public sealed override ItemTypes Type
         {
             get { return _type; }
             set { _type = value; OnPropertyChanged("Type"); }
         }
 
+        /// <summary>Description of the armor</summary>
         public sealed override string Description
         {
             get { return _description; }
             set { _description = value; OnPropertyChanged("Description"); }
         }
 
+        /// <summary>How much damage the armor can defend against</summary>
         public int Defense
         {
             get { return _defense; }
             set { _defense = value; OnPropertyChanged("DefenseToString"); OnPropertyChanged("DefenseToStringWithText"); }
         }
 
+        /// <summary>How much the armor weighs</summary>
+        public sealed override int Weight
+        {
+            get { return _weight; }
+            set { _weight = value; OnPropertyChanged("Weight"); }
+        }
+
+        /// <summary>How much the armor is worth</summary>
+        public sealed override int Value
+        {
+            get { return _value; }
+            set { _value = value; OnPropertyChanged("Value"); }
+        }
+
+        /// <summary>Can the armor be sold to a shop?</summary>
+        public sealed override bool CanSell
+        {
+            get { return _canSell; }
+            set { _canSell = value; OnPropertyChanged("CanSell"); }
+        }
+
+        /// <summary>Can the armor be sold in a shop?</summary>
+        public sealed override bool IsSold
+        {
+            get { return _isSold; }
+            set { _isSold = value; OnPropertyChanged("IsSold"); }
+        }
+
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        /// <summary>The value of the armor with thousands separators</summary>
+        public sealed override string ValueToString
+        {
+            get { return Value.ToString("N0"); }
+        }
+
+        /// <summary>The value of the armor with thousands separators and preceding text</summary>
+        public sealed override string ValueToStringWithText
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Value: " + ValueToString;
+                return "";
+            }
+        }
+
+        /// <summary>The value of the armor</summary>
+        public sealed override int SellValue
+        {
+            get { return Value / 2; }
+        }
+
+        /// <summary>The value of the armor with thousands separators</summary>
+        public sealed override string SellValueToString
+        {
+            get { return SellValue.ToString("N0"); }
+        }
+
+        /// <summary>The value of the armor with thousands separators with preceding text</summary>
+        public sealed override string SellValueToStringWithText
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Value: " + SellValueToString;
+                return "";
+            }
+        }
+
+        /// <summary>Returns text relating to the sellability of the armor</summary>
+        public sealed override string CanSellToString
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                {
+                    if (CanSell)
+                        return "Sellable";
+                    return "Not Sellable";
+                }
+                return "";
+            }
+        }
+
+        /// <summary>Returns the defense with a comma separating thousands.</summary>
         public string DefenseToString
         {
             get { return Defense.ToString("N0"); }
         }
 
+        /// <summary>Returns the defense with a comma separating thousands and preceding text.</summary>
         public string DefenseToStringWithText
         {
             get
@@ -62,31 +155,7 @@ namespace Sulimn
             }
         }
 
-        public sealed override int Weight
-        {
-            get { return _weight; }
-            set { _weight = value; OnPropertyChanged("Weight"); }
-        }
-
-        public sealed override int Value
-        {
-            get { return _value; }
-            set { _value = value; OnPropertyChanged("Value"); }
-        }
-
-        public sealed override bool CanSell
-        {
-            get { return _canSell; }
-            set { _canSell = value; OnPropertyChanged("CanSell"); }
-        }
-
-        public sealed override bool IsSold
-        {
-            get { return _isSold; }
-            set { _isSold = value; OnPropertyChanged("IsSold"); }
-        }
-
-        #endregion Properties
+        #endregion Helper Properties
 
         #region Override Operators
 
@@ -131,39 +200,33 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of FeetArmor.
-        /// </summary>
+        /// <summary>Initializes a default instance of FeetArmor.</summary>
         internal FeetArmor()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of FeetArmor by setting Properties.
-        /// </summary>
-        /// <param name="armorName">Name of FeetArmor</param>
+        /// <summary>Initializes an instance of FeetArmor by assigning Properties.</summary>
+        /// <param name="name">Name of FeetArmor</param>
         /// <param name="armorType">Type of Item</param>
-        /// <param name="armorDescription">Description of FeetArmor</param>
-        /// <param name="armorDefense">Defense of FeetArmor</param>
-        /// <param name="armorWeight">Weight of FeetArmor</param>
-        /// <param name="armorValue">Value of FeetArmor</param>
-        /// <param name="armorCanSell">Can Sell FeetArmor?</param>
-        /// <param name="armorIsSold">Is FeetArmor Sold?</param>
-        internal FeetArmor(string armorName, ItemTypes _itemType, string armorDescription, int armorDefense, int armorWeight, int armorValue, bool armorCanSell, bool armorIsSold)
+        /// <param name="description">Description of FeetArmor</param>
+        /// <param name="defense">Defense of FeetArmor</param>
+        /// <param name="weight">Weight of FeetArmor</param>
+        /// <param name="value">Value of FeetArmor</param>
+        /// <param name="canSell">Can Sell FeetArmor?</param>
+        /// <param name="isSold">Is FeetArmor Sold?</param>
+        internal FeetArmor(string name, ItemTypes itemType, string description, int defense, int weight, int value, bool canSell, bool isSold)
         {
-            Name = armorName;
-            Type = _itemType;
-            Description = armorDescription;
-            Defense = armorDefense;
-            Weight = armorWeight;
-            Value = armorValue;
-            CanSell = armorCanSell;
-            IsSold = armorIsSold;
+            Name = name;
+            Type = itemType;
+            Description = description;
+            Defense = defense;
+            Weight = weight;
+            Value = value;
+            CanSell = canSell;
+            IsSold = isSold;
         }
 
-        /// <summary>
-        /// Replaces this instance of FeetArmor with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of FeetArmor with another instance.</summary>
         /// <param name="otherArmor">Instance of FeetArmor to replace this one</param>
         internal FeetArmor(FeetArmor otherArmor)
         {

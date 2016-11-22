@@ -182,7 +182,7 @@ namespace Sulimn
                 {
                     if (pswdPassword.Password.Trim() == pswdConfirm.Password.Trim())
                     {
-                        Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass.Name, 1, 0, 0, new Attributes(selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom), new Statistics(selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic), new Equipment(new Weapon(), new HeadArmor(), new BodyArmor(), new LegArmor(), new FeetArmor()), new Spellbook(), new Inventory(new List<Item>(), 250));
+                        Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass, 1, 0, 0, new Attributes(selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom), new Statistics(selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic), new Equipment(new Weapon(), new HeadArmor(), new HandArmor(), new BodyArmor(), new LegArmor(), new FeetArmor(), new Ring(), new Ring()), new Spellbook(), new Inventory(new List<Item>(), 250));
 
                         if (await GameState.NewHero(newHero))
                         {
@@ -264,9 +264,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             this.Close();

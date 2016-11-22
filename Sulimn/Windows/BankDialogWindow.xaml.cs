@@ -6,9 +6,7 @@ using System.Windows.Input;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for BankDialogWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for BankDialogWindow.xaml</summary>
     public partial class BankDialogWindow : Window
     {
         private int _maximum = 0;
@@ -18,9 +16,7 @@ namespace Sulimn
 
         internal BankWindow RefToBankWindow { get; set; }
 
-        /// <summary>
-        /// Load the necessary data for the Window.
-        /// </summary>
+        /// <summary>Load the necessary data for the Window.</summary>
         /// <param name="maximum">Maximum amount of gold to be used.</param>
         /// <param name="type">What type of transaction is taking place.</param>
         internal void LoadWindow(int maximum, BankAction type)
@@ -54,9 +50,7 @@ namespace Sulimn
 
         #region Transaction Methods
 
-        /// <summary>
-        /// Deposit money into the bank.
-        /// </summary>
+        /// <summary>Deposit money into the bank.</summary>
         private void Deposit()
         {
             RefToBankWindow.GoldInBank += _textAmount;
@@ -64,9 +58,7 @@ namespace Sulimn
             CloseWindow("You deposit " + _textAmount.ToString("N0") + " gold.");
         }
 
-        /// <summary>
-        /// Repay the loan.
-        /// </summary>
+        /// <summary>Repay the loan.</summary>
         private void RepayLoan()
         {
             RefToBankWindow.LoanTaken -= _textAmount;
@@ -75,9 +67,7 @@ namespace Sulimn
             CloseWindow("You repay " + _textAmount.ToString("N0") + " gold on your loan.");
         }
 
-        /// <summary>
-        /// Take out a loan.
-        /// </summary>
+        /// <summary>Take out a loan.</summary>
         private void TakeOutLoan()
         {
             RefToBankWindow.LoanTaken += _textAmount + (_textAmount / 20);
@@ -86,9 +76,7 @@ namespace Sulimn
             CloseWindow("You take out a loan for " + _textAmount.ToString("N0") + " gold.");
         }
 
-        /// <summary>
-        /// Withdraw money from the bank account.
-        /// </summary>
+        /// <summary>Withdraw money from the bank account.</summary>
         private void Withdrawal()
         {
             RefToBankWindow.GoldInBank -= _textAmount;
@@ -146,9 +134,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window
-        /// </summary>
+        /// <summary>Closes the Window</summary>
         /// <param name="text">Text to be passed back to the Bank Window</param>
         private void CloseWindow(string text)
         {

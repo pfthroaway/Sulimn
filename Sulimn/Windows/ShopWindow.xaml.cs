@@ -202,7 +202,7 @@ namespace Sulimn
                                 learnSpells.Add(spl);
                             else
                             {
-                                if (GameState.CurrentHero.ClassName == spl.RequiredClass)
+                                if (GameState.CurrentHero.Class.Name == spl.RequiredClass)
                                     learnSpells.Add(spl);
                             }
                         }
@@ -767,7 +767,6 @@ namespace Sulimn
         private void btnCharacter_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow();
-
             characterWindow.RefToShopWindow = this;
             characterWindow.Show();
             characterWindow.SetupChar();

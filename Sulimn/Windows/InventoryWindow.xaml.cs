@@ -103,16 +103,9 @@ namespace Sulimn
         private void DisplayInventoryList()
         {
             ClearSelectedInfo();
-            //lstInventory.Items.Clear();
             btnEquip.IsEnabled = false;
             btnConsume.IsEnabled = false;
             btnDrop.IsEnabled = false;
-
-            //if (GameState.currentHero.Inventory.Items.Count > 0)
-            //{
-            //  foreach (Item itm in GameState.currentHero.Inventory.Items)
-            //    lstInventory.Items.Add(itm.Name);
-            //}
         }
 
         /// <summary>

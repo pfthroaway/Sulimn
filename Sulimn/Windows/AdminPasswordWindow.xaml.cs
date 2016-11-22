@@ -3,9 +3,7 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for AdminPasswordWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for AdminPasswordWindow.xaml</summary>
     public partial class AdminPasswordWindow : Window
     {
         internal MainWindow RefToMainWindow { get; set; }
@@ -36,9 +34,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             this.Close();

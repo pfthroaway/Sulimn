@@ -81,9 +81,7 @@ namespace Sulimn
 
         #endregion Inventory Management
 
-        /// <summary>
-        /// Gets all Items of specified Type.
-        /// </summary>
+        /// <summary>Gets all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
         /// <returns>Items of Ty[e</returns>
         internal List<T> GetItemsOfType<T>()

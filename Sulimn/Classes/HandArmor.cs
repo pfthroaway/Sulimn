@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace Sulimn
 {
     /// <summary>
-    /// Represents a piece of Armor worn on the head.
+    /// Represents a piece of Armor worn on the hands.
     /// </summary>
-    internal class HeadArmor : Item, IEquatable<HeadArmor>, INotifyPropertyChanged
+    internal class HandArmor : Item, IEquatable<HandArmor>, INotifyPropertyChanged
     {
         protected int _defense;
 
@@ -159,7 +159,7 @@ namespace Sulimn
 
         #region Override Operators
 
-        public static bool Equals(HeadArmor left, HeadArmor right)
+        public static bool Equals(HandArmor left, HandArmor right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
@@ -168,20 +168,20 @@ namespace Sulimn
 
         public sealed override bool Equals(object obj)
         {
-            return Equals(this, obj as HeadArmor);
+            return Equals(this, obj as HandArmor);
         }
 
-        public bool Equals(HeadArmor otherArmor)
+        public bool Equals(HandArmor otherArmor)
         {
             return Equals(this, otherArmor);
         }
 
-        public static bool operator ==(HeadArmor left, HeadArmor right)
+        public static bool operator ==(HandArmor left, HandArmor right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(HeadArmor left, HeadArmor right)
+        public static bool operator !=(HandArmor left, HandArmor right)
         {
             return !Equals(left, right);
         }
@@ -200,21 +200,21 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>Initializes a default instance of HeadArmor.</summary>
-        internal HeadArmor()
+        /// <summary>Initializes a default instance of HandArmor.</summary>
+        internal HandArmor()
         {
         }
 
-        /// <summary>Initializes an instance of HeadArmor by assigning Properties.</summary>
-        /// <param name="name">Name of HeadArmor</param>
+        /// <summary>Initializes an instance of HandArmor by assigning Properties.</summary>
+        /// <param name="name">Name of HandArmor</param>
         /// <param name="armorType">Type of Item</param>
-        /// <param name="description">Description of HeadArmor</param>
-        /// <param name="defense">Defense of HeadArmor</param>
-        /// <param name="weight">Weight of HeadArmor</param>
-        /// <param name="value">Value of HeadArmor</param>
-        /// <param name="canSell">Can Sell HeadArmor?</param>
-        /// <param name="isSold">Is HeadArmor Sold?</param>
-        internal HeadArmor(string name, ItemTypes itemType, string description, int defense, int weight, int value, bool canSell, bool isSold)
+        /// <param name="description">Description of HandArmor</param>
+        /// <param name="defense">Defense of HandArmor</param>
+        /// <param name="weight">Weight of HandArmor</param>
+        /// <param name="value">Value of HandArmor</param>
+        /// <param name="canSell">Can Sell HandArmor?</param>
+        /// <param name="isSold">Is HandArmor Sold?</param>
+        internal HandArmor(string name, ItemTypes itemType, string description, int defense, int weight, int value, bool canSell, bool isSold)
         {
             Name = name;
             Type = itemType;
@@ -226,9 +226,9 @@ namespace Sulimn
             IsSold = isSold;
         }
 
-        /// <summary>Replaces this instance of HeadArmor with another instance.</summary>
-        /// <param name="otherArmor">Instance of HeadArmor to replace this one</param>
-        internal HeadArmor(HeadArmor otherArmor)
+        /// <summary>Replaces this instance of HandArmor with another instance.</summary>
+        /// <param name="otherArmor">Instance of HandArmor to replace this one</param>
+        internal HandArmor(HandArmor otherArmor)
         {
             Name = otherArmor.Name;
             Type = otherArmor.Type;

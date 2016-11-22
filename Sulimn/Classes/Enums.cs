@@ -23,7 +23,7 @@
     /// <summary>
     /// Represents the types of Items which exist.
     /// </summary>
-    internal enum ItemTypes { Weapon, Head, Body, Legs, Feet, Ring, Potion, Food, Spell }
+    internal enum ItemTypes { Weapon, Head, Body, Hands, Legs, Feet, Ring, Potion, Food, Spell }
 
     /// <summary>
     /// Represents the types of Food which exist.

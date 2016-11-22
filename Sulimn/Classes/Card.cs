@@ -105,7 +105,7 @@ namespace Sulimn
         }
 
         /// <summary>
-        /// Initializes an instance of Card by setting Properties.
+        /// Initializes an instance of Card by assigning Properties.
         /// </summary>
         /// <param name="name">Name of Card</param>
         /// <param name="suit">Suit of Card</param>

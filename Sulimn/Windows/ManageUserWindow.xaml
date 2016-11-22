@@ -34,7 +34,7 @@
         <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Text="Confirm Password:" Margin="10" />
         <PasswordBox x:Name="pswdConfirm" Grid.Column="1" Grid.Row="2" Width="200" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="5" Margin="10" />
         <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" Text="Class:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbClass" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" Margin="10" Width="200" />
+        <ComboBox x:Name="cmbClass" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
         <TextBlock Grid.Column="0" Grid.Row="4" TextAlignment="Right" Text="Level:" Margin="10" VerticalAlignment="Center" />
         <TextBox x:Name="txtLevel" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" TextAlignment="Center" Width="75" Margin="10" MaxLength="2" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
         <TextBlock Grid.Column="0" Grid.Row="5" TextAlignment="Right" Text="Experience:" Margin="10" VerticalAlignment="Center" />

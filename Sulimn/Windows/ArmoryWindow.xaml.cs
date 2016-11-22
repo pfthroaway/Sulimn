@@ -3,9 +3,7 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for ArmoryWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for ArmoryWindow.xaml</summary>
     public partial class ArmoryWindow : Window
     {
         private void GoShopping(ItemTypes shopType)
@@ -50,9 +48,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             this.Close();

@@ -13,8 +13,13 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
+        <Grid.Resources>
+            <DataTemplate x:Key="heroNameTemplate">
+                <TextBlock Text="{Binding Path=Name}" />
+            </DataTemplate>
+        </Grid.Resources>
         <StackPanel>
-            <ListBox x:Name="lstUsers" Grid.Column="0" Height="350" Width="175" Margin="10" SelectionChanged="lstUsers_SelectionChanged" />
+            <ListBox x:Name="lstUsers" Grid.Column="0" Height="350" Width="225" Margin="10" ItemsSource="{Binding}" ItemTemplate="{StaticResource heroNameTemplate}" SelectionChanged="lstUsers_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
             <Button x:Name="btnNewUser" Width="125" Height="30" Content="_New User" Margin="10" Click="btnNewUser_Click" />
             <Button x:Name="btnDeleteUser" Width="125" Height="30" Content="_Delete User" Margin="10" Click="btnDeleteUser_Click" IsEnabled="False" />
             <Button x:Name="btnManageUser" Width="125" Height="30" Content="_Manage User" Margin="10" Click="btnManageUser_Click" IsEnabled="False" />

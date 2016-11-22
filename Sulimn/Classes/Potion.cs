@@ -68,6 +68,65 @@ namespace Sulimn
 
         #endregion Properties
 
+        #region Helper Properties
+
+        /// <summary>The value of the Potion with thousands separators</summary>
+        public sealed override string ValueToString
+        {
+            get { return Value.ToString("N0"); }
+        }
+
+        /// <summary>The value of the Potion with thousands separators and preceding text</summary>
+        public sealed override string ValueToStringWithText
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Value: " + ValueToString;
+                return "";
+            }
+        }
+
+        /// <summary>The value of the Potion</summary>
+        public sealed override int SellValue
+        {
+            get { return Value / 2; }
+        }
+
+        /// <summary>The value of the Potion with thousands separators</summary>
+        public sealed override string SellValueToString
+        {
+            get { return SellValue.ToString("N0"); }
+        }
+
+        /// <summary>The value of the Potion with thousands separators with preceding text</summary>
+        public sealed override string SellValueToStringWithText
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Value: " + SellValueToString;
+                return "";
+            }
+        }
+
+        /// <summary>Returns text relating to the sellability of the Potion</summary>
+        public sealed override string CanSellToString
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                {
+                    if (CanSell)
+                        return "Sellable";
+                    return "Not Sellable";
+                }
+                return "";
+            }
+        }
+
+        #endregion Helper Properties
+
         #region Override Operators
 
         public static bool Equals(Potion left, Potion right)
