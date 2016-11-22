@@ -262,35 +262,30 @@ namespace Sulimn
             if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 20)
             {
                 int flee = Functions.GenerateRandomNumber(1, 100);
-                if (flee <= 75)
+                if (flee <= 5)
                     _enemyAction = BattleAction.Flee;
             }
             else if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 10)
             {
                 int flee = Functions.GenerateRandomNumber(1, 100);
-                if (flee <= 25)
+                if (flee <= 2)
                     _enemyAction = BattleAction.Flee;
             }
             if (_enemyAction != BattleAction.Flee)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
-                if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 2))
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 3))
+                    _enemyAction = BattleAction.Attack;
+                else if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 5))
                 {
                     if (result <= 98)
                         _enemyAction = BattleAction.Attack;
                     else
                         _enemyAction = BattleAction.Flee;
                 }
-                else if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 5))
-                {
-                    if (result <= 95)
-                        _enemyAction = BattleAction.Attack;
-                    else
-                        _enemyAction = BattleAction.Flee;
-                }
                 else
                 {
-                    if (result <= 80)
+                    if (result <= 95)
                         _enemyAction = BattleAction.Attack;
                     else
                         _enemyAction = BattleAction.Flee;
