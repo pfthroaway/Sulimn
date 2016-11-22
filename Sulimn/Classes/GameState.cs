@@ -515,7 +515,7 @@ namespace Sulimn
                     cmd.ExecuteNonQuery();
                     cmd.CommandText = "INSERT INTO Bank([CharacterName],[Gold],[LoanTaken])Values('" + newHero.Name + "',0,0)";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = "INSERT INTO Equipment([CharacterName],[Weapon],[Head],[Body],[Legs],[Feet])Values('" + newHero.Name + newHero.Equipment.Weapon.Name + "','" + newHero.Equipment.Head.Name + "','" + newHero.Equipment.Body.Name + "','" + newHero.Equipment.Legs.Name + "','" + newHero.Equipment.Feet.Name + "')";
+                    cmd.CommandText = "INSERT INTO Equipment([CharacterName],[Weapon],[Head],[Body],[Hands],[Legs],[Feet])Values('" + newHero.Name + "','" + newHero.Equipment.Weapon.Name + "','" + newHero.Equipment.Head.Name + "','" + newHero.Equipment.Body.Name + "','" + newHero.Equipment.Hands.Name + "','" + newHero.Equipment.Legs.Name + "','" + newHero.Equipment.Feet.Name + "')";
                     cmd.ExecuteNonQuery();
 
                     GameState.AllHeroes.Add(newHero);
