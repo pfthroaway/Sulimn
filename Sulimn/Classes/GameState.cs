@@ -471,18 +471,16 @@ namespace Sulimn
             newHero.Equipment.Legs = AllLegArmor.Find(armr => armr.Name == "Cloth Pants");
             newHero.Equipment.Feet = AllFeetArmor.Find(armr => armr.Name == "Cloth Shoes");
 
-            string spells = "";
-
             switch (newHero.Class.Name)
             {
                 case "Wizard":
                     newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
-                    spells += "Fire Bolt";
+                    newHero.Spellbook.LearnSpell(AllSpells.Find(spell => spell.Name == "Fire Bolt"));
                     break;
 
                 case "Cleric":
                     newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
-                    spells += "Heal Self";
+                    newHero.Spellbook.LearnSpell(AllSpells.Find(spell => spell.Name == "Heal Self"));
                     break;
 
                 case "Warrior":
@@ -504,7 +502,7 @@ namespace Sulimn
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
             SQLiteCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrentHealth],[MaximumHealth],[CurrentMagic],[MaximumMagic],[KnownSpells],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.Class.Name + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Attributes.Strength + "','" + newHero.Attributes.Vitality + "','" + newHero.Attributes.Dexterity + "','" + newHero.Attributes.Wisdom + "','" + newHero.Inventory.Gold + "','" + newHero.Statistics.CurrentHealth + "','" + newHero.Statistics.MaximumHealth + "','" + newHero.Statistics.CurrentMagic + "','" + newHero.Statistics.MaximumMagic + "','" + spells + "','" + newHero.Inventory + "')";
+            cmd.CommandText = "INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrentHealth],[MaximumHealth],[CurrentMagic],[MaximumMagic],[KnownSpells],[Inventory])Values('" + newHero.Name + "','" + newHero.Password + "','" + newHero.Class.Name + "','" + newHero.Level + "','" + newHero.Experience + "','" + newHero.SkillPoints + "','" + newHero.Attributes.Strength + "','" + newHero.Attributes.Vitality + "','" + newHero.Attributes.Dexterity + "','" + newHero.Attributes.Wisdom + "','" + newHero.Inventory.Gold + "','" + newHero.Statistics.CurrentHealth + "','" + newHero.Statistics.MaximumHealth + "','" + newHero.Statistics.CurrentMagic + "','" + newHero.Statistics.MaximumMagic + "','" + newHero.Spellbook.ToString() + "','" + newHero.Inventory + "')";
 
             await Task.Factory.StartNew(() =>
             {

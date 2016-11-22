@@ -276,24 +276,24 @@ namespace Sulimn
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 2))
                 {
-                    if (result <= 95)
+                    if (result <= 98)
                         _enemyAction = BattleAction.Attack;
                     else
                         _enemyAction = BattleAction.Flee;
                 }
                 else if (GameState.CurrentEnemy.Statistics.CurrentHealth > (GameState.CurrentEnemy.Statistics.MaximumHealth / 5))
                 {
-                    if (result <= 90)
+                    if (result <= 95)
                         _enemyAction = BattleAction.Attack;
                     else
                         _enemyAction = BattleAction.Flee;
                 }
                 else
                 {
-                    if (result <= 50)
-                        _enemyAction = BattleAction.Flee;
-                    else
+                    if (result <= 80)
                         _enemyAction = BattleAction.Attack;
+                    else
+                        _enemyAction = BattleAction.Flee;
                 }
             }
         }
@@ -318,7 +318,7 @@ namespace Sulimn
                     {
                         EndBattle();
                         AddTextTT("The " + GameState.CurrentEnemy.Name + " fled from the battle.");
-                        GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience / 2);
+                        AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience / 2));
                     }
                     else
                         AddTextTT("You block the " + GameState.CurrentEnemy.Name + "'s attempt to flee.");
@@ -395,7 +395,7 @@ namespace Sulimn
         /// <returns></returns>
         private bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
         {
-            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 10, 90);
+            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 1, 90);
             int flee = Functions.GenerateRandomNumber(1, 100);
 
             if (flee <= chanceToFlee)
