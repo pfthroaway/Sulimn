@@ -119,9 +119,7 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        /// <summary>
-        /// Adds text to the txtTheArmoury TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
@@ -534,10 +532,10 @@ namespace Sulimn
             txtTheArmoury.Text = "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
         }
 
-        private void windowTheArmoury_Closing(object sender, CancelEventArgs e)
+        private async void windowTheArmoury_Closing(object sender, CancelEventArgs e)
         {
             RefToMarketWindow.Show();
-            GameState.SaveHero(GameState.CurrentHero);
+            await GameState.SaveHero(GameState.CurrentHero);
         }
 
         #endregion Window-Manipulation Methods

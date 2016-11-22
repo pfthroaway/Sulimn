@@ -480,10 +480,10 @@ namespace Sulimn
             DisplaySelectedInfo();
         }
 
-        private void windowInventory_Closing(object sender, CancelEventArgs e)
+        private async void windowInventory_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero(GameState.CurrentHero);
             RefToCharacterWindow.Show();
+            await GameState.SaveHero(GameState.CurrentHero);
         }
 
         #endregion Window-Manipulation Methods

@@ -71,6 +71,16 @@ namespace Sulimn
 
         #region Helper Properties
 
+        public string RequiredClassToString
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Required Class: " + RequiredClass;
+                return "";
+            }
+        }
+
         public string TypeToString
         {
             get
@@ -103,7 +113,32 @@ namespace Sulimn
 
         public string RequiredLevelToString
         {
-            get { return "Required Level: " + RequiredLevel; }
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Required Level: " + RequiredLevel;
+                return "";
+            }
+        }
+
+        public int Value
+        {
+            get { return RequiredLevel * 200; }
+        }
+
+        public string ValueToString
+        {
+            get { return Value.ToString("N0"); }
+        }
+
+        public string ValueToStringWithText
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return "Value: " + ValueToString;
+                return "";
+            }
         }
 
         #endregion Helper Properties

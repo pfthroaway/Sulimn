@@ -38,15 +38,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnCrypts_Click(object sender, RoutedEventArgs e)
+        private async void btnCrypts_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(400, 800));
+                    AddTextTT(await GameState.EventFindGold(400, 800));
                 else if (result <= 40)
-                    AddTextTT(GameState.EventFindItem(500, 1000));
+                    AddTextTT(await GameState.EventFindItem(500, 1000));
                 else
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Necromancer", "Priest", "Dark Priest", "Adventurer", "Knight", "Minotaur", "Evil Knight", "Giant Bat");
@@ -57,15 +57,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnShantytown_Click(object sender, RoutedEventArgs e)
+        private async void btnShantytown_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(50, 200));
+                    AddTextTT(await GameState.EventFindGold(50, 200));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(100, 300));
+                    AddTextTT(await GameState.EventFindItem(100, 300));
                 else
                 {
                     GameState.EventEncounterEnemy("Beggar", "Thief", "Butcher", "Squire", "Adventurer", "Knave", "Mangy Dog");
@@ -76,15 +76,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnRavine_Click(object sender, RoutedEventArgs e)
+        private async void btnRavine_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
-                    AddTextTT(GameState.EventFindGold(400, 800));
+                    AddTextTT(await GameState.EventFindGold(400, 800));
                 else if (result <= 20)
-                    AddTextTT(GameState.EventFindItem(500, 1000));
+                    AddTextTT(await GameState.EventFindItem(500, 1000));
                 else
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Necromancer", "Priest", "Dark Priest", "Adventurer", "Knight", "Minotaur", "Evil Knight", "Giant Bat", "Mangy Dog");
@@ -95,15 +95,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnAqueduct_Click(object sender, RoutedEventArgs e)
+        private async void btnAqueduct_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
-                    AddTextTT(GameState.EventFindGold(450, 900));
+                    AddTextTT(await GameState.EventFindGold(450, 900));
                 else if (result <= 20)
-                    AddTextTT(GameState.EventFindItem(500, 1000));
+                    AddTextTT(await GameState.EventFindItem(500, 1000));
                 else
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Necromancer", "Priest", "Dark Priest", "Adventurer", "Knight", "Minotaur", "Evil Knight", "Giant Bat", "Mangy Dog");

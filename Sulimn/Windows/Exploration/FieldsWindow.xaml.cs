@@ -38,15 +38,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnFarm_Click(object sender, RoutedEventArgs e)
+        private async void btnFarm_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(1, 100));
+                    AddTextTT(await GameState.EventFindGold(1, 100));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 200));
+                    AddTextTT(await GameState.EventFindItem(1, 200));
                 else if (result <= 65)
                 {
                     GameState.EventEncounterAnimal(1, 3);
@@ -62,15 +62,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnCellar_Click(object sender, RoutedEventArgs e)
+        private async void btnCellar_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(1, 150));
+                    AddTextTT(await GameState.EventFindGold(1, 150));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 250));
+                    AddTextTT(await GameState.EventFindItem(1, 250));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake");
@@ -86,15 +86,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnCropFields_Click(object sender, RoutedEventArgs e)
+        private async void btnCropFields_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
-                    AddTextTT(GameState.EventFindGold(25, 200));
+                    AddTextTT(await GameState.EventFindGold(25, 200));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 300));
+                    AddTextTT(await GameState.EventFindItem(1, 300));
                 else if (result <= 65)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
@@ -110,15 +110,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnOrchard_Click(object sender, RoutedEventArgs e)
+        private async void btnOrchard_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(50, 250));
+                    AddTextTT(await GameState.EventFindGold(50, 250));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(1, 350));
+                    AddTextTT(await GameState.EventFindItem(1, 350));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");

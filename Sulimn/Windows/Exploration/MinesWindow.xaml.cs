@@ -38,15 +38,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnOffices_Click(object sender, RoutedEventArgs e)
+        private async void btnOffices_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(200, 600));
+                    AddTextTT(await GameState.EventFindGold(200, 600));
                 else if (result <= 40)
-                    AddTextTT(GameState.EventFindItem(250, 650));
+                    AddTextTT(await GameState.EventFindItem(250, 650));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -62,15 +62,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnOreBin_Click(object sender, RoutedEventArgs e)
+        private async void btnOreBin_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(300, 700));
+                    AddTextTT(await GameState.EventFindGold(300, 700));
                 else if (result <= 40)
-                    AddTextTT(GameState.EventFindItem(350, 750));
+                    AddTextTT(await GameState.EventFindItem(350, 750));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -86,15 +86,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnPumpStation_Click(object sender, RoutedEventArgs e)
+        private async void btnPumpStation_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(GameState.EventFindGold(200, 600));
+                    AddTextTT(await GameState.EventFindGold(200, 600));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(250, 650));
+                    AddTextTT(await GameState.EventFindItem(250, 650));
                 else if (result <= 75)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -110,15 +110,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnWorkshop_Click(object sender, RoutedEventArgs e)
+        private async void btnWorkshop_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(GameState.EventFindGold(300, 700));
+                    AddTextTT(await GameState.EventFindGold(300, 700));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(350, 750));
+                    AddTextTT(await GameState.EventFindItem(350, 750));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");

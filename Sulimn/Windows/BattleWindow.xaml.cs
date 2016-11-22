@@ -497,9 +497,8 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void windowBattle_Closing(object sender, CancelEventArgs e)
+        private async void windowBattle_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero(GameState.CurrentHero);
             if (battleEnded)
             {
                 switch (previousWindow)
@@ -529,6 +528,7 @@ namespace Sulimn
                         RefToCatacombsWindow.Show();
                         break;
                 }
+                await GameState.SaveHero(GameState.CurrentHero);
             }
             else
                 e.Cancel = true;

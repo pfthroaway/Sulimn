@@ -34,11 +34,6 @@ namespace Sulimn
             this.Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            CloseWindow();
-        }
-
         private void btnArmorShop_Click(object sender, RoutedEventArgs e)
         {
             TheArmouryWindow theArmouryWindow = new TheArmouryWindow();
@@ -59,21 +54,23 @@ namespace Sulimn
 
         private void btnMagicShop_Click(object sender, RoutedEventArgs e)
         {
-            ShopWindow shopWindow = new ShopWindow();
-            shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType(ItemTypes.Spell);
-            shopWindow.LoadAll();
-            shopWindow.Show();
+            MagickShoppeWindow magickShoppeWindow = new MagickShoppeWindow();
+            magickShoppeWindow.RefToMarketWindow = this;
+            magickShoppeWindow.LoadAll();
+            magickShoppeWindow.Show();
             this.Visibility = Visibility.Hidden;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindow();
         }
 
         #endregion Button-Click Methods
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             this.Close();

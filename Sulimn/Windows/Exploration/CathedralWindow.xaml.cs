@@ -24,9 +24,7 @@ namespace Sulimn
             txtCathedral.ScrollToEnd();
         }
 
-        /// <summary>
-        /// Starts a battle.
-        /// </summary>
+        /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
             BattleWindow battleWindow = new BattleWindow();
@@ -38,15 +36,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnBasilica_Click(object sender, RoutedEventArgs e)
+        private async void btnBasilica_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(150, 400));
+                    AddTextTT(await GameState.EventFindGold(150, 400));
                 else if (result <= 40)
-                    AddTextTT(GameState.EventFindItem(150, 400));
+                    AddTextTT(await GameState.EventFindItem(150, 400));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -67,15 +65,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnSanctuary_Click(object sender, RoutedEventArgs e)
+        private async void btnSanctuary_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(GameState.EventFindGold(150, 450));
+                    AddTextTT(await GameState.EventFindGold(150, 450));
                 else if (result <= 20)
-                    AddTextTT(GameState.EventFindItem(150, 450));
+                    AddTextTT(await GameState.EventFindItem(150, 450));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -96,15 +94,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnEpiscopium_Click(object sender, RoutedEventArgs e)
+        private async void btnEpiscopium_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(200, 500));
+                    AddTextTT(await GameState.EventFindGold(200, 500));
                 else if (result <= 40)
-                    AddTextTT(GameState.EventFindItem(200, 500));
+                    AddTextTT(await GameState.EventFindItem(200, 500));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -125,15 +123,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnTower_Click(object sender, RoutedEventArgs e)
+        private async void btnTower_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(200, 600));
+                    AddTextTT(await GameState.EventFindGold(200, 600));
                 else if (result <= 40)
-                    AddTextTT(GameState.EventFindItem(200, 600));
+                    AddTextTT(await GameState.EventFindItem(200, 600));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");

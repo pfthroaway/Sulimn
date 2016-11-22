@@ -813,7 +813,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void windowShop_Closing(object sender, CancelEventArgs e)
+        private async void windowShop_Closing(object sender, CancelEventArgs e)
         {
             if (shopType == ItemTypes.Food)
                 RefToTavernWindow.Show();
@@ -822,7 +822,7 @@ namespace Sulimn
             else
                 RefToMarketWindow.Show();
 
-            GameState.SaveHero(GameState.CurrentHero);
+            await GameState.SaveHero(GameState.CurrentHero);
         }
 
         #endregion Window-Manipulation Methods

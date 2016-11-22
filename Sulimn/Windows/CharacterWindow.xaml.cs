@@ -12,11 +12,10 @@ namespace Sulimn
         private string PreviousWindow;
 
         internal BattleWindow RefToBattleWindow { get; set; }
-
         internal CityWindow RefToCityWindow { get; set; }
-
         internal ShopWindow RefToShopWindow { get; set; }
         internal TheArmouryWindow RefToTheArmouryWindow { get; set; }
+        internal MagickShoppeWindow RefToMagickShoppeWindow { get; set; }
 
         #region Data Binding
 
@@ -268,10 +267,8 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void windowCharacter_Closing(object sender, CancelEventArgs e)
+        private async void windowCharacter_Closing(object sender, CancelEventArgs e)
         {
-            GameState.SaveHero(GameState.CurrentHero);
-
             switch (PreviousWindow)
             {
                 case "Battle":
@@ -291,7 +288,13 @@ namespace Sulimn
                     RefToTheArmouryWindow.Show();
                     RefToTheArmouryWindow.LoadAll();
                     break;
+
+                case "Magick Shoppe":
+                    RefToMagickShoppeWindow.Show();
+                    RefToMagickShoppeWindow.LoadAll();
+                    break;
             }
+            await GameState.SaveHero(GameState.CurrentHero);
         }
 
         #endregion Window-Generated Methods

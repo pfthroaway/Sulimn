@@ -531,8 +531,9 @@ namespace Sulimn
         /// <summary>
         /// Saves Hero to database.
         /// </summary>
-        internal static async void SaveHero(Hero saveHero)
+        internal static async Task<bool> SaveHero(Hero saveHero)
         {
+            bool success = false;
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
@@ -592,6 +593,7 @@ namespace Sulimn
                     cmd.ExecuteNonQuery();
 
                     AllHeroes[index] = new Hero(saveHero);
+                    success = true;
                 }
                 catch (Exception ex)
                 {
@@ -599,6 +601,7 @@ namespace Sulimn
                 }
                 finally { con.Close(); }
             });
+            return success;
         }
 
         /// <summary>
@@ -677,11 +680,11 @@ namespace Sulimn
         /// <summary>
         /// Event where the Hero finds gold.
         /// </summary>
-        internal static string EventFindGold(int minGold, int maxGold)
+        internal async static Task<string> EventFindGold(int minGold, int maxGold)
         {
             int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
             CurrentHero.Inventory.Gold += foundGold;
-            SaveHero(CurrentHero);
+            await SaveHero(CurrentHero);
             return "You find " + foundGold.ToString("N0") + " gold!";
         }
 
@@ -692,18 +695,18 @@ namespace Sulimn
         /// <param name="maxValue">Maximum value of Item</param>
         /// <param name="canSell">Can the item be sold?</param>
         /// <returns></returns>
-        internal static string EventFindItem(int minValue, int maxValue, bool canSell = true)
+        internal static async Task<string> EventFindItem(int minValue, int maxValue, bool canSell = true)
         {
             List<Item> availableItems = new List<Item>();
             availableItems = AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold == true).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
             CurrentHero.Inventory.AddItem(availableItems[item]);
-            SaveHero(CurrentHero);
+            await SaveHero(CurrentHero);
             return "You find a " + availableItems[item].Name + "!";
         }
 
-        internal static void EventFindItem(params string[] names)
+        internal static async void EventFindItem(params string[] names)
         {
             List<Item> availableItems = new List<Item>();
             foreach (string name in names)
@@ -712,7 +715,7 @@ namespace Sulimn
 
             CurrentHero.Inventory.AddItem(availableItems[item]);
 
-            SaveHero(CurrentHero);
+            await SaveHero(CurrentHero);
         }
 
         /// <summary>

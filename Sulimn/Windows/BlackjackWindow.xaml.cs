@@ -637,12 +637,12 @@ namespace Sulimn
                 btnNewHand.IsEnabled = false;
         }
 
-        private void windowBlackjack_Closing(object sender, CancelEventArgs e)
+        private async void windowBlackjack_Closing(object sender, CancelEventArgs e)
         {
             if (handOver)
             {
-                GameState.SaveHero(GameState.CurrentHero);
                 RefToTavernWindow.Show();
+                await GameState.SaveHero(GameState.CurrentHero);
             }
             else
                 e.Cancel = true;

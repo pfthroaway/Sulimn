@@ -38,15 +38,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnClearing_Click(object sender, RoutedEventArgs e)
+        private async void btnClearing_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                    AddTextTT(GameState.EventFindGold(50, 300));
+                    AddTextTT(await GameState.EventFindGold(50, 300));
                 else if (result <= 50)
-                    AddTextTT(GameState.EventFindItem(100, 350));
+                    AddTextTT(await GameState.EventFindItem(100, 350));
                 else if (result <= 85)
                 {
                     GameState.EventEncounterEnemy("Knave", "Wolf", "Wild Boar");
@@ -62,15 +62,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnCottage_Click(object sender, RoutedEventArgs e)
+        private async void btnCottage_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(GameState.EventFindGold(25, 200));
+                    AddTextTT(await GameState.EventFindGold(25, 200));
                 else if (result <= 60)
-                    AddTextTT(GameState.EventFindItem(50, 250));
+                    AddTextTT(await GameState.EventFindItem(50, 250));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Butcher", "Knave");
@@ -86,15 +86,15 @@ namespace Sulimn
                 AddTextTT("You need to heal before you can explore.");
         }
 
-        private void btnCave_Click(object sender, RoutedEventArgs e)
+        private async void btnCave_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(GameState.EventFindGold(50, 300));
+                    AddTextTT(await GameState.EventFindGold(50, 300));
                 else if (result <= 30)
-                    AddTextTT(GameState.EventFindItem(100, 350));
+                    AddTextTT(await GameState.EventFindItem(100, 350));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Bear", "Wolf", "Wild Boar");
@@ -137,9 +137,9 @@ namespace Sulimn
         /// <summary>
         /// Special encounter.
         /// </summary>
-        private void SpecialEncounter()
+        private async void SpecialEncounter()
         {
-            AddText(GameState.EventFindGold(200, 1000));
+            AddText(await GameState.EventFindGold(200, 1000));
         }
 
         #region Window-Manipulation Methods

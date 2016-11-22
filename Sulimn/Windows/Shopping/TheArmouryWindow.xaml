@@ -42,7 +42,7 @@
                                     <ListBox x:Name="lstHeadPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" ItemsSource="{Binding}" ItemTemplate="{StaticResource itemNameTemplate}" Margin="10" SelectionChanged="lstHeadPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                     <Button x:Name="btnHeadPurchase" Height="30" Width="125" Content="_Purchase" Margin="0,0,0,10" Click="btnHeadPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
-                                <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
+                                <GroupBox Grid.Column="1" Header="Selected Armor" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="lblHeadNamePurchase" Text="{Binding Path=Name}" Margin="5" />
                                         <TextBlock x:Name="lblHeadDefensePurchase" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
