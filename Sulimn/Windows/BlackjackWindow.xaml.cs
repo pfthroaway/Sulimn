@@ -626,6 +626,11 @@ namespace Sulimn
 
         private void txtBet_TextChanged(object sender, TextChangedEventArgs e)
         {
+            txtBet.Text = new string((from c in txtBet.Text
+                                      where char.IsDigit(c)
+                                      select c).ToArray());
+            txtBet.CaretIndex = txtBet.Text.Length;
+
             if (txtBet.Text.Length > 0)
                 btnNewHand.IsEnabled = true;
             else

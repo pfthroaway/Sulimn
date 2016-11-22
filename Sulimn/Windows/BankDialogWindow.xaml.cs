@@ -165,6 +165,19 @@ namespace Sulimn
                 e.Handled = true;
         }
 
+        private void txtBank_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            txtBank.Text = new string((from c in txtBank.Text
+                                       where char.IsDigit(c)
+                                       select c).ToArray());
+            txtBank.CaretIndex = txtBank.Text.Length;
+
+            if (txtBank.Text.Length > 0)
+                btnAction.IsEnabled = true;
+            else
+                btnAction.IsEnabled = false;
+        }
+
         private void windowBankDialog_Closing(object sender, CancelEventArgs e)
         {
             RefToBankWindow.Show();

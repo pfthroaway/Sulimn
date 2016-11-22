@@ -103,9 +103,6 @@ namespace Sulimn
         /// </summary>
         private void EndBattle()
         {
-            btnAttack.IsEnabled = false;
-            btnCastSpell.IsEnabled = false;
-            btnFlee.IsEnabled = false;
             battleEnded = true;
             btnReturn.IsEnabled = true;
         }
@@ -120,6 +117,7 @@ namespace Sulimn
         /// <param name="heroAction">Action the hero chose to perform this round</param>
         private void NewRound(BattleAction heroAction)
         {
+            DisableButtons();
             _heroAction = heroAction;
 
             // if Hero Dexterity is greater
@@ -141,7 +139,11 @@ namespace Sulimn
             {
                 HeroTurn();
                 if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0 && !battleEnded)
+                {
                     EnemyTurn();
+                    if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
+                        Fairy();
+                }
             }
             else
             {
@@ -151,6 +153,8 @@ namespace Sulimn
                 else if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
                     Fairy();
             }
+
+            CheckButtons();
         }
 
         /// <summary>
@@ -409,6 +413,35 @@ namespace Sulimn
         }
 
         #endregion Battle Logic
+
+        #region Button Management
+
+        /// <summary>Checks whether to enable/disable battle buttons.</summary>
+        private void CheckButtons()
+        {
+            if (!battleEnded)
+                EnableButtons();
+            else
+                DisableButtons();
+        }
+
+        /// <summary>Disables battle buttons on Window</summary>
+        private void DisableButtons()
+        {
+            btnAttack.IsEnabled = false;
+            btnCastSpell.IsEnabled = false;
+            btnFlee.IsEnabled = false;
+        }
+
+        /// <summary>Enables battle buttons on Window</summary>
+        private void EnableButtons()
+        {
+            btnAttack.IsEnabled = true;
+            btnCastSpell.IsEnabled = true;
+            btnFlee.IsEnabled = true;
+        }
+
+        #endregion Button Management
 
         #region Button-Click Methods
 
