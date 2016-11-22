@@ -20,6 +20,8 @@ namespace Sulimn
     /// </summary>
     public partial class TheArmouryWindow : Window, INotifyPropertyChanged
     {
+        #region Local Variables
+
         private List<HeadArmor> purchaseHead = new List<HeadArmor>();
         private List<HeadArmor> sellHead = new List<HeadArmor>();
         private List<BodyArmor> purchaseBody = new List<BodyArmor>();
@@ -41,6 +43,8 @@ namespace Sulimn
         private FeetArmor selectedFeetPurchase = new FeetArmor();
         private FeetArmor selectedFeetSell = new FeetArmor();
         private string nl = Environment.NewLine;
+
+        #endregion Local Variables
 
         internal MarketWindow RefToMarketWindow { get; set; }
 
@@ -347,7 +351,11 @@ namespace Sulimn
             if (lstHeadPurchase.SelectedIndex >= 0)
             {
                 selectedHeadPurchase = (HeadArmor)lstHeadPurchase.SelectedValue;
-                btnHeadPurchase.IsEnabled = true;
+
+                if (selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
+                    btnHeadPurchase.IsEnabled = true;
+                else
+                    btnHeadPurchase.IsEnabled = false;
             }
             else
             {
@@ -377,7 +385,11 @@ namespace Sulimn
             if (lstBodyPurchase.SelectedIndex >= 0)
             {
                 selectedBodyPurchase = (BodyArmor)lstBodyPurchase.SelectedValue;
-                btnBodyPurchase.IsEnabled = true;
+
+                if (selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
+                    btnBodyPurchase.IsEnabled = true;
+                else
+                    btnBodyPurchase.IsEnabled = false;
             }
             else
             {
@@ -407,7 +419,11 @@ namespace Sulimn
             if (lstHandsPurchase.SelectedIndex >= 0)
             {
                 selectedHandsPurchase = (HandArmor)lstHandsPurchase.SelectedValue;
-                btnHandsPurchase.IsEnabled = true;
+
+                if (selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
+                    btnHandsPurchase.IsEnabled = true;
+                else
+                    btnHandsPurchase.IsEnabled = false;
             }
             else
             {
@@ -422,6 +438,7 @@ namespace Sulimn
             if (lstHandsSell.SelectedIndex >= 0)
             {
                 selectedHandsSell = (HandArmor)lstHandsSell.SelectedValue;
+
                 btnHandsSell.IsEnabled = true;
             }
             else
@@ -437,7 +454,11 @@ namespace Sulimn
             if (lstLegsPurchase.SelectedIndex >= 0)
             {
                 selectedLegsPurchase = (LegArmor)lstLegsPurchase.SelectedValue;
-                btnLegsPurchase.IsEnabled = true;
+
+                if (selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
+                    btnLegsPurchase.IsEnabled = true;
+                else
+                    btnLegsPurchase.IsEnabled = false;
             }
             else
             {
@@ -467,7 +488,11 @@ namespace Sulimn
             if (lstFeetPurchase.SelectedIndex >= 0)
             {
                 selectedFeetPurchase = (FeetArmor)lstFeetPurchase.SelectedValue;
-                btnFeetPurchase.IsEnabled = true;
+
+                if (selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
+                    btnFeetPurchase.IsEnabled = true;
+                else
+                    btnFeetPurchase.IsEnabled = false;
             }
             else
             {
@@ -506,6 +531,7 @@ namespace Sulimn
         {
             InitializeComponent();
             LoadAll();
+            txtTheArmoury.Text = "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
         }
 
         private void windowTheArmoury_Closing(object sender, CancelEventArgs e)

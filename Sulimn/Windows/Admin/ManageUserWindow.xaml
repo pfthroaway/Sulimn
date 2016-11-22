@@ -61,15 +61,15 @@
         <TextBox x:Name="txtMaximumMagic" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
 
         <TextBlock Grid.Column="2" Grid.Row="5" TextAlignment="Right" Text="Weapon:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbWeapon" Grid.Column="3" Grid.Row="5" ItemsSource="{Binding}" Margin="10" Width="200" />
+        <ComboBox x:Name="cmbWeapon" Grid.Column="3" Grid.Row="5" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
         <TextBlock Grid.Column="2" Grid.Row="6" TextAlignment="Right" Text="Head:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbHead" Grid.Column="3" Grid.Row="6" ItemsSource="{Binding}" Margin="10" Width="200" />
+        <ComboBox x:Name="cmbHead" Grid.Column="3" Grid.Row="6" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
         <TextBlock Grid.Column="2" Grid.Row="7" TextAlignment="Right" Text="Body:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbBody" Grid.Column="3" Grid.Row="7" ItemsSource="{Binding}" Margin="10" Width="200" />
+        <ComboBox x:Name="cmbBody" Grid.Column="3" Grid.Row="7" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
         <TextBlock Grid.Column="2" Grid.Row="8" TextAlignment="Right" Text="Legs:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbLegs" Grid.Column="3" Grid.Row="8" ItemsSource="{Binding}" Margin="10" Width="200" />
+        <ComboBox x:Name="cmbLegs" Grid.Column="3" Grid.Row="8" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
         <TextBlock Grid.Column="2" Grid.Row="9" TextAlignment="Right" Text="Feet:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbFeet" Grid.Column="3" Grid.Row="9" ItemsSource="{Binding}" Margin="10" Width="200" />
+        <ComboBox x:Name="cmbFeet" Grid.Column="3" Grid.Row="9" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
         <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="4" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button x:Name="btnSave" Height="30" Width="125" Content="_Save" Margin="10" IsDefault="True" IsEnabled="False" Click="btnSave_Click" />
             <Button x:Name="btnReset" Height="30" Width="125" Margin="10" Content="_Reset" Click="btnReset_Click" />

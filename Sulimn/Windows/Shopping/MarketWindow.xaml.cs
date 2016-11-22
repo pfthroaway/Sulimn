@@ -12,10 +12,8 @@ namespace Sulimn
         internal CityWindow RefToCityWindow { get; set; }
         private string nl = Environment.NewLine;
 
-        /// <summary>
-        /// Adds text to the TextBox.
-        /// </summary>
-        /// <param name="newText"></param>
+        /// <summary>Adds text to the TextBox.</summary>
+        /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
             txtMarket.Text += nl + nl + newText;
