@@ -26,66 +26,77 @@ namespace Sulimn
 
         #region Properties
 
+        /// <summary>The name of the Hero</summary>
         public sealed override string Name
         {
             get { return _name; }
             set { _name = value; OnPropertyChanged("Name"); }
         }
 
+        /// <summary>The hashed password of the Hero</summary>
         public string Password
         {
             get { return _password; }
             set { _password = value; }
         }
 
+        /// <summary>The HeroClass of the Hero</summary>
         public HeroClass Class
         {
             get { return _class; }
             set { _class = value; OnPropertyChanged("Class"); }
         }
 
+        /// <summary>The level of the Hero</summary>
         public sealed override int Level
         {
             get { return _level; }
             set { _level = value; OnPropertyChanged("Level"); OnPropertyChanged("LevelAndClassToString"); }
         }
 
+        /// <summary>The amount of experience the Hero has gained this level</summary>
         public sealed override int Experience
         {
             get { return _experience; }
             set { _experience = value; OnPropertyChanged("ExperienceToString"); OnPropertyChanged("ExperienceToStringWithText"); }
         }
 
+        /// <summary>The amount of available skill points the Hero has</summary>
         public int SkillPoints
         {
             get { return _skillPoints; }
             set { _skillPoints = value; OnPropertyChanged("SkillPoints"); OnPropertyChanged("SkillPointsToString"); }
         }
 
+        /// <summary>The attributes of the Hero</summary>
         public sealed override Attributes Attributes
         {
             get { return _attributes; }
             set { _attributes = value; OnPropertyChanged("Attributes"); }
         }
 
+        /// <summary>The statistics of the Hero</summary>
         public sealed override Statistics Statistics
         {
             get { return _statistics; }
             set { _statistics = value; OnPropertyChanged("Statistics"); }
         }
 
+        /// <summary>The equipment the Hero is currently using</summary>
         public sealed override Equipment Equipment
         {
             get { return _equipment; }
             set { _equipment = value; OnPropertyChanged("Equipment"); }
         }
 
+        /// <summary>The list of Spells the Hero currently knows</summary>
         public Spellbook Spellbook
         {
             get { return _spellbook; }
             set { _spellbook = value; OnPropertyChanged("KnownSpells"); }
         }
 
+        /// <summary>The list of Items the Hero is currently carrying</summary>
         public sealed override Inventory Inventory
         {
             get { return _inventory; }
@@ -96,21 +107,25 @@ namespace Sulimn
 
         #region Helper Properties
 
+        /// <summary>The level and class of the Hero</summary>
         public string LevelAndClassToString
         {
             get { return "Level " + Level + " " + Class.Name; }
         }
 
+        /// <summary>The experience the Hero has gained this level alongside how much is needed to level up</summary>
         public string ExperienceToString
         {
             get { return Experience.ToString("N0") + " / " + (_level * 100).ToString("N0"); }
         }
 
+        /// <summary>The experience the Hero has gained this level alongside how much is needed to level up with preceding text</summary>
         public string ExperienceToStringWithText
         {
             get { return "Experience: " + ExperienceToString; }
         }
 
+        /// <summary>The amount of skill points the Hero has available to spend</summary>
         public string SkillPointsToString
         {
             get
@@ -169,9 +184,7 @@ namespace Sulimn
 
         #region Health Manipulation
 
-        /// <summary>
-        /// The Hero takes damage.
-        /// </summary>
+        /// <summary>The Hero takes damage.</summary>
         /// <param name="damage">Damage amount</param>
         /// <returns></returns>
         internal string TakeDamage(int damage)
@@ -182,11 +195,9 @@ namespace Sulimn
             return "You have taken " + damage + " damage.";
         }
 
-        /// <summary>
-        /// Heals the Hero for a specified amount.
-        /// </summary>
+        /// <summary>Heals the Hero for a specified amount.</summary>
         /// <param name="healAmount">Amount to be healed</param>
-        /// <returns></returns>
+        /// <returns>Returns text saying the Hero was healed</returns>
         internal string Heal(int healAmount)
         {
             Statistics.CurrentHealth += healAmount;
@@ -207,16 +218,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Hero.
-        /// </summary>
+        /// <summary>Initializes a default instance of Hero.</summary>
         internal Hero()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Hero by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of Hero by assigning Properties.</summary>
         /// <param name="heroName">Name of Hero</param>
         /// <param name="password">Password of Hero</param>
         /// <param name="heroClass">Class of Hero</param>
@@ -242,9 +249,7 @@ namespace Sulimn
             Inventory = heroInventory;
         }
 
-        /// <summary>
-        /// Replaces this instance of Hero with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of Hero with another instance.</summary>
         /// <param name="otherHero">Instance of Hero to replace this one</param>
         internal Hero(Hero otherHero)
         {

@@ -118,7 +118,7 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                    return "Value: " + SellValueToString;
+                    return "Sell Value: " + SellValueToString;
                 return "";
             }
         }

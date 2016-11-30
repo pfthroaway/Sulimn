@@ -76,9 +76,8 @@ namespace Sulimn
                 try
                 {
                     string sql = "SELECT * FROM Classes";
-                    string table = "LoadStuff";
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Classes");
 
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
@@ -98,7 +97,7 @@ namespace Sulimn
                     sql = "SELECT * FROM HeadArmor";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "HeadArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -114,7 +113,7 @@ namespace Sulimn
                     sql = "SELECT * FROM BodyArmor";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "BodyArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -130,7 +129,7 @@ namespace Sulimn
                     sql = "SELECT * FROM HandArmor";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "HandArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -146,7 +145,7 @@ namespace Sulimn
                     sql = "SELECT * FROM LegArmor";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "LegArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -162,7 +161,7 @@ namespace Sulimn
                     sql = "SELECT * FROM FeetArmor";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "FeetArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -178,7 +177,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Rings";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Rings");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -194,7 +193,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Admin";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Admin");
 
                     if (ds.Tables[0].Rows.Count > 0)
                         AdminPassword = ds.Tables[0].Rows[0]["AdminPassword"].ToString();
@@ -202,7 +201,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Food";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Food");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -220,7 +219,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Potions";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Potions");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -238,7 +237,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Spells";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Spells");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -255,7 +254,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Weapons";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Weapons");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -273,7 +272,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Enemies";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Enemies");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -315,7 +314,7 @@ namespace Sulimn
                     sql = "SELECT * FROM Players";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "Players");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -380,7 +379,7 @@ namespace Sulimn
                     sql = "SELECT * FROM MaxHeroStats";
                     ds = new DataSet();
                     da = new SQLiteDataAdapter(sql, con);
-                    da.Fill(ds, table);
+                    da.Fill(ds, "MaxHeroStats");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {

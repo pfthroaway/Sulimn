@@ -109,6 +109,9 @@
     <Compile Include="Classes\Items\Ring.cs" />
     <Compile Include="Classes\HeroParts\Statistics.cs" />
     <Compile Include="Classes\Items\HandArmor.cs" />
+    <Compile Include="Windows\NewInventoryWindow.xaml.cs">
+      <DependentUpon>NewInventoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Shopping\TheGeneralStoreWindow.xaml.cs">
       <DependentUpon>TheGeneralStoreWindow.xaml</DependentUpon>
     </Compile>
@@ -214,6 +217,10 @@
     <Compile Include="Windows\Shopping\MagickShoppeWindow.xaml.cs">
       <DependentUpon>MagickShoppeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\NewInventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Shopping\TheGeneralStoreWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

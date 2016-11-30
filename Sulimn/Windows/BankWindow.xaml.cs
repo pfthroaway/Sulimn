@@ -139,8 +139,7 @@ namespace Sulimn
         internal async void LoadBank()
         {
             string sql = "SELECT * FROM Bank WHERE [CharacterName]='" + GameState.CurrentHero.Name + "'";
-            string table = "Bank";
-            DataSet ds = await Functions.FillDataSet(sql, table);
+            DataSet ds = await Functions.FillDataSet(sql, "Bank");
 
             if (ds.Tables[0].Rows.Count > 0)
             {

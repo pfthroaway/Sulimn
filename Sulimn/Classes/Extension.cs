@@ -5,6 +5,7 @@ using System.Windows;
 
 namespace Sulimn
 {
+    /// <summary>Extension class which provides a more stable (and random) random number generator.</summary>
     internal static class ThreadSafeRandom
     {
         [ThreadStatic]
@@ -19,9 +20,7 @@ namespace Sulimn
         }
     }
 
-    /// <summary>
-    /// Extension class to more easily parse Integers.
-    /// </summary>
+    /// <summary>Extension class to more easily parse Integers.</summary>
     internal static class Int32Helper
     {
         /// <summary>
@@ -85,9 +84,7 @@ namespace Sulimn
         }
     }
 
-    /// <summary>
-    /// Extension class to more easily parse Booleans.
-    /// </summary>
+    /// <summary>Extension class to more easily parse Booleans.</summary>
     internal static class BoolHelper
     {
         /// <summary>
@@ -122,9 +119,7 @@ namespace Sulimn
         }
     }
 
-    /// <summary>
-    /// Extension class to more easily parse DateTimes.
-    /// </summary>
+    /// <summary>Extension class to more easily parse DateTimes.</summary>
     internal static class DateTimeHelper
     {
         /// <summary>
@@ -152,9 +147,7 @@ namespace Sulimn
         }
     }
 
-    /// <summary>
-    /// Extension class to more easily parse Doubles.
-    /// </summary>
+    /// <summary>Extension class to more easily parse Doubles.</summary>
     internal static class DoubleHelper
     {
         /// <summary>
