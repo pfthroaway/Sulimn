@@ -26,11 +26,9 @@ namespace Sulimn
 
         private void btnWeaponShop_Click(object sender, RoutedEventArgs e)
         {
-            ShopWindow shopWindow = new ShopWindow();
-            shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType(ItemTypes.Weapon);
-            shopWindow.LoadAll();
-            shopWindow.Show();
+            WeaponsRUsWindow weaponsRUsWindow = new WeaponsRUsWindow();
+            weaponsRUsWindow.RefToMarketWindow = this;
+            weaponsRUsWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
 
@@ -44,11 +42,9 @@ namespace Sulimn
 
         private void btnGeneralStore_Click(object sender, RoutedEventArgs e)
         {
-            ShopWindow shopWindow = new ShopWindow();
-            shopWindow.RefToMarketWindow = this;
-            shopWindow.SetShopType(ItemTypes.Potion);
-            shopWindow.LoadAll();
-            shopWindow.Show();
+            TheGeneralStoreWindow theGeneralStoreWindow = new TheGeneralStoreWindow();
+            theGeneralStoreWindow.RefToMarketWindow = this;
+            theGeneralStoreWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
 
@@ -58,6 +54,14 @@ namespace Sulimn
             magickShoppeWindow.RefToMarketWindow = this;
             magickShoppeWindow.LoadAll();
             magickShoppeWindow.Show();
+            this.Visibility = Visibility.Hidden;
+        }
+
+        private void btnSilverEmpire_Click(object sender, RoutedEventArgs e)
+        {
+            SilverEmpireWindow silverEmpireWindow = new SilverEmpireWindow();
+            silverEmpireWindow.RefToMarketWindow = this;
+            silverEmpireWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
 
@@ -79,7 +83,7 @@ namespace Sulimn
         public MarketWindow()
         {
             InitializeComponent();
-            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + nl + nl + "Weapons 'R' Us - A weapons shop." + nl + nl + "The Armoury - An armor shop." + nl + nl + "The General Store - A shop supplying general goods like potions." + nl + nl + "Ye Old Magick Shoppe -A shop selling magical spells and equipment.";
+            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + nl + nl + "Weapons 'R' Us - A weapons shop." + nl + nl + "The Armoury - An armor shop." + nl + nl + "The General Store - A shop supplying general goods like potions." + nl + nl + "Ye Old Magick Shoppe - A shop selling magical spells and equipment." + nl + nl + "Silver Empire - A smithery selling the finest jewelry.";
         }
 
         private void windowMarket_Closing(object sender, CancelEventArgs e)

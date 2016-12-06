@@ -112,6 +112,9 @@
     <Compile Include="Windows\InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Shopping\SilverEmpireWindow.xaml.cs">
+      <DependentUpon>SilverEmpireWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Shopping\TheGeneralStoreWindow.xaml.cs">
       <DependentUpon>TheGeneralStoreWindow.xaml</DependentUpon>
     </Compile>
@@ -135,9 +138,6 @@
     </Compile>
     <Compile Include="Windows\Admin\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ArmoryWindow.xaml.cs">
-      <DependentUpon>ArmoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\BankDialogWindow.xaml.cs">
       <DependentUpon>BankDialogWindow.xaml</DependentUpon>
@@ -199,9 +199,6 @@
       <DependentUpon>NewHeroWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\PasswordHash.cs" />
-    <Compile Include="Windows\Shopping\ShopWindow.xaml.cs">
-      <DependentUpon>ShopWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\Exploration\SpecialEncounterWindow.xaml.cs">
       <DependentUpon>SpecialEncounterWindow.xaml</DependentUpon>
     </Compile>
@@ -215,6 +212,10 @@
       <DependentUpon>MagickShoppeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Windows\InventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Shopping\SilverEmpireWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,10 +248,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Admin\AdminWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ArmoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -350,10 +347,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NewHeroWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Shopping\ShopWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

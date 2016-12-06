@@ -568,18 +568,7 @@ namespace Sulimn
 
         private void btnStay_Click(object sender, RoutedEventArgs e)
         {
-            handOver = true;
-            DealerAction();
-            DisplayDealerHand();
-
-            if (playerHand.TotalValue() > dealerHand.TotalValue() && !CheckBust(dealerHand))
-                WinBlackjack(bet);
-            else if (CheckBust(dealerHand))
-                WinBlackjack(bet);
-            else if (playerHand.TotalValue() == dealerHand.TotalValue())
-                DrawBlackjack();
-            else if (playerHand.TotalValue() < dealerHand.TotalValue())
-                LoseBlackjack(bet);
+            Stay();
         }
 
         #endregion Button-Click Methods

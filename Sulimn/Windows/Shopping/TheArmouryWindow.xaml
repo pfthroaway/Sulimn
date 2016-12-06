@@ -19,7 +19,7 @@
                     <Setter Property="Padding" Value="0" />
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Head" Padding="10,5">
+            <TabItem Header="Helmets" Padding="10,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -42,7 +42,7 @@
                                     <ListBox x:Name="lstHeadPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" ItemsSource="{Binding}" ItemTemplate="{StaticResource itemNameTemplate}" Margin="10" SelectionChanged="lstHeadPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                     <Button x:Name="btnHeadPurchase" Height="30" Width="125" Content="_Purchase" Margin="0,0,0,10" Click="btnHeadPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
-                                <GroupBox Grid.Column="1" Header="Selected Armor" Margin="0,0,10,10">
+                                <GroupBox Grid.Column="1" Header="Selected Head Armor" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="lblHeadNamePurchase" Text="{Binding Path=Name}" Margin="5" />
                                         <TextBlock x:Name="lblHeadDefensePurchase" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
@@ -77,7 +77,7 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Body" Padding="10,5">
+            <TabItem Header="Body Armor" Padding="10,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -95,7 +95,7 @@
                                     <ListBox x:Name="lstBodyPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" Margin="10" SelectionChanged="lstBodyPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                     <Button x:Name="btnBodyPurchase" Height="30" Width="125" Content="_Purchase" Margin="0,0,0,10" Click="btnBodyPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
-                                <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
+                                <GroupBox Grid.Column="1" Header="Selected Body Armor" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="lblBodyNamePurchase" Text="{Binding Path=Name}" Margin="5" />
                                         <TextBlock x:Name="lblBodyDefensePurchase" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
@@ -130,7 +130,7 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Hands" Padding="10,5">
+            <TabItem Header="Gloves" Padding="10,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -148,7 +148,7 @@
                                     <ListBox x:Name="lstHandsPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" Margin="10" SelectionChanged="lstHandsPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                     <Button x:Name="btnHandsPurchase" Height="30" Width="125" Content="_Purchase" Margin="0,0,0,10" Click="btnHandsPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
-                                <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
+                                <GroupBox Grid.Column="1" Header="Selected Hand Armor" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="lblHandsNamePurchase" Text="{Binding Path=Name}" Margin="5" />
                                         <TextBlock x:Name="lblHandsDefensePurchase" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
@@ -183,7 +183,7 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Legs" Padding="10,5">
+            <TabItem Header="Leggings" Padding="10,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -201,7 +201,7 @@
                                     <ListBox x:Name="lstLegsPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" Margin="10" SelectionChanged="lstLegsPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                     <Button x:Name="btnLegsPurchase" Height="30" Width="125" Content="_Purchase" Margin="0,0,0,10" Click="btnLegsPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
-                                <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
+                                <GroupBox Grid.Column="1" Header="Selected Leg Armor" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="lblLegsNamePurchase" Text="{Binding Path=Name}" Margin="5" />
                                         <TextBlock x:Name="lblLegsDefensePurchase" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
@@ -236,7 +236,7 @@
                     </TabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="Feet" Padding="10,5">
+            <TabItem Header="Boots" Padding="10,5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -254,7 +254,7 @@
                                     <ListBox x:Name="lstFeetPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" Margin="10" SelectionChanged="lstFeetPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
                                     <Button x:Name="btnFeetPurchase" Height="30" Width="125" Content="_Purchase" Margin="0,0,0,10" Click="btnFeetPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
-                                <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
+                                <GroupBox Grid.Column="1" Header="Selected Feet Armor" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="lblFeetNamePurchase" Text="{Binding Path=Name}" Margin="5" />
                                         <TextBlock x:Name="lblFeetDefensePurchase" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />

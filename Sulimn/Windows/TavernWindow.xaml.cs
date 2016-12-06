@@ -27,11 +27,9 @@ namespace Sulimn
 
         private void btnFood_Click(object sender, RoutedEventArgs e)
         {
-            ShopWindow shopWindow = new ShopWindow();
-            shopWindow.RefToTavernWindow = this;
-            shopWindow.SetShopType(ItemTypes.Food);
-            shopWindow.LoadAll();
-            shopWindow.Show();
+            TheTavernBarWindow theTavernBarWindow = new TheTavernBarWindow();
+            theTavernBarWindow.RefToTavernWindow = this;
+            theTavernBarWindow.Show();
             this.Visibility = Visibility.Hidden;
         }
 

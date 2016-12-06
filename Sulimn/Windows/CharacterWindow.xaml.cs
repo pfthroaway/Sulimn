@@ -13,9 +13,12 @@ namespace Sulimn
 
         internal BattleWindow RefToBattleWindow { get; set; }
         internal CityWindow RefToCityWindow { get; set; }
-        internal ShopWindow RefToShopWindow { get; set; }
+        internal TheTavernBarWindow RefToTheTavernBarWindow { get; set; }
         internal TheArmouryWindow RefToTheArmouryWindow { get; set; }
         internal MagickShoppeWindow RefToMagickShoppeWindow { get; set; }
+        internal SilverEmpireWindow RefToSilverEmpireWindow { get; set; }
+        internal WeaponsRUsWindow RefToWeaponsRUsWindow { get; set; }
+        internal TheGeneralStoreWindow RefToTheGeneralStoreWindow { get; set; }
 
         #region Data Binding
 
@@ -278,9 +281,9 @@ namespace Sulimn
                     RefToCityWindow.Show();
                     break;
 
-                case "Shop":
-                    RefToShopWindow.Show();
-                    RefToShopWindow.LoadAll();
+                case "The Tavern Bar":
+                    RefToTheTavernBarWindow.Show();
+                    RefToTheTavernBarWindow.LoadAll();
                     break;
 
                 case "The Armoury":
@@ -291,6 +294,21 @@ namespace Sulimn
                 case "Magick Shoppe":
                     RefToMagickShoppeWindow.Show();
                     RefToMagickShoppeWindow.LoadAll();
+                    break;
+
+                case "Silver Empire":
+                    RefToSilverEmpireWindow.Show();
+                    RefToSilverEmpireWindow.LoadAll();
+                    break;
+
+                case "Weapons 'R' Us":
+                    RefToWeaponsRUsWindow.Show();
+                    RefToWeaponsRUsWindow.LoadAll();
+                    break;
+
+                case "The General Store":
+                    RefToTheGeneralStoreWindow.Show();
+                    RefToTheGeneralStoreWindow.LoadAll();
                     break;
             }
             await GameState.SaveHero(GameState.CurrentHero);

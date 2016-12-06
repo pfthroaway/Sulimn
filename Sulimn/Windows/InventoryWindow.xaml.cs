@@ -215,7 +215,7 @@ namespace Sulimn
             {
                 inventoryRing.Clear();
                 inventoryRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
-                inventoryRing = inventoryRing.OrderBy(armor => armor.Value).ToList();
+                inventoryRing = inventoryRing.OrderBy(ring => ring.Value).ToList();
                 lstRingInventory.ItemsSource = inventoryRing;
                 lstRingInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstRingInventory.Items.Refresh();
@@ -713,37 +713,6 @@ namespace Sulimn
 
         #endregion Rings-Click
 
-        #region Window Button-Click Methods
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            CloseWindow();
-        }
-
-        #endregion Window Button-Click Methods
-
-        #region Window-Manipulation Methods
-
-        /// <summary>Closes the Window.</summary>
-        private void CloseWindow()
-        {
-            this.Close();
-        }
-
-        public InventoryWindow()
-        {
-            InitializeComponent();
-            BindLabels();
-        }
-
-        private async void windowInventory_Closing(object sender, CancelEventArgs e)
-        {
-            RefToCharacterWindow.Show();
-            await GameState.SaveHero(GameState.CurrentHero);
-        }
-
-        #endregion Window-Manipulation Methods
-
         #region Potion-Click
 
         private void btnConsumeSelectedPotion_Click(object sender, RoutedEventArgs e)
@@ -850,5 +819,36 @@ namespace Sulimn
         }
 
         #endregion Food-Click
+
+        #region Window Button-Click Methods
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindow();
+        }
+
+        #endregion Window Button-Click Methods
+
+        #region Window-Manipulation Methods
+
+        /// <summary>Closes the Window.</summary>
+        private void CloseWindow()
+        {
+            this.Close();
+        }
+
+        public InventoryWindow()
+        {
+            InitializeComponent();
+            BindLabels();
+        }
+
+        private async void windowInventory_Closing(object sender, CancelEventArgs e)
+        {
+            RefToCharacterWindow.Show();
+            await GameState.SaveHero(GameState.CurrentHero);
+        }
+
+        #endregion Window-Manipulation Methods
     }
 }
