@@ -189,7 +189,20 @@ namespace Sulimn
                     {
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            Ring newRing = new Ring(ds.Tables[0].Rows[i]["Name"].ToString(), ItemTypes.Ring, ds.Tables[0].Rows[i]["Description"].ToString(), Int32Helper.Parse(ds.Tables[0].Rows[i]["Damage"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Defense"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Weight"]), Int32Helper.Parse(ds.Tables[0].Rows[i]["Value"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]), BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                            Ring newRing = new Ring(
+                                name: ds.Tables[0].Rows[i]["Name"].ToString(),
+                                itemType: ItemTypes.Ring,
+                                description: ds.Tables[0].Rows[i]["Description"].ToString(),
+                                damage: Int32Helper.Parse(ds.Tables[0].Rows[i]["Damage"]),
+                                defense: Int32Helper.Parse(ds.Tables[0].Rows[i]["Defense"]),
+                                strength: Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
+                                vitality: Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
+                                dexterity: Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
+                                wisdom: Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]),
+                                weight: Int32Helper.Parse(ds.Tables[0].Rows[i]["Weight"]),
+                                value: Int32Helper.Parse(ds.Tables[0].Rows[i]["Value"]),
+                                canSell: BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                                isSold: BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                             AllItems.Add(newRing);
                             AllRings.Add(newRing);

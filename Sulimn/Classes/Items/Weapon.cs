@@ -8,7 +8,7 @@ namespace Sulimn
     /// </summary>
     internal class Weapon : Item, IEquatable<Weapon>, INotifyPropertyChanged
     {
-        private WeaponTypes _weaponType;
+        private WeaponTypes? _weaponType;
         private int _damage;
 
         #region Data-Binding
@@ -36,10 +36,10 @@ namespace Sulimn
             set { _type = value; OnPropertyChanged("Type"); }
         }
 
-        public WeaponTypes WeaponType
+        public WeaponTypes? WeaponType
         {
             get { return _weaponType; }
-            set { _weaponType = value; OnPropertyChanged("WeaponType"); }
+            set { _weaponType = value; OnPropertyChanged("WeaponType"); OnPropertyChanged("WeaponTypeToString"); }
         }
 
         public sealed override string Description

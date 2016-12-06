@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Sulimn
 {
@@ -146,11 +147,7 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                {
-                    if (CanSell)
-                        return "Sellable";
-                    return "Not Sellable";
-                }
+                    return "Sell Value: " + SellValueToString;
                 return "";
             }
         }
@@ -160,9 +157,13 @@ namespace Sulimn
         {
             get
             {
-                if (CanSell)
-                    return "Sellable";
-                return "Not Sellable";
+                if (!string.IsNullOrWhiteSpace(Name))
+                {
+                    if (CanSell)
+                        return "Sellable";
+                    return "Not Sellable";
+                }
+                return "";
             }
         }
 
@@ -197,6 +198,60 @@ namespace Sulimn
                 if (Defense > 0)
                     return "Defense: " + DefenseToString;
                 return "";
+            }
+        }
+
+        /// <summary>Returns the Strength and preceding text.</summary>
+        public string StrengthToString
+        {
+            get
+            {
+                if (Strength > 0)
+                    return "Strength: " + Strength;
+                return "";
+            }
+        }
+
+        /// <summary>Returns the Vitality and preceding text.</summary>
+        public string VitalityToString
+        {
+            get
+            {
+                if (Vitality > 0)
+                    return "Vitality: " + Vitality;
+                return "";
+            }
+        }
+
+        /// <summary>Returns the Dexterity and preceding text.</summary>
+        public string DexterityToString
+        {
+            get
+            {
+                if (Dexterity > 0)
+                    return "Dexterity: " + Dexterity;
+                return "";
+            }
+        }
+
+        /// <summary>Returns the Wisdom and preceding text.</summary>
+        public string WisdomToString
+        {
+            get
+            {
+                if (Wisdom > 0)
+                    return "Wisdom: " + Wisdom;
+                return "";
+            }
+        }
+
+        public string BonusToString
+        {
+            get
+            {
+                string[] bonuses = new string[] { DamageToStringWithText, DefenseToStringWithText, StrengthToString, VitalityToString, DexterityToString, WisdomToString };
+
+                return string.Join(",", bonuses.Where(bonus => bonus.Length > 0));
             }
         }
 
@@ -266,7 +321,7 @@ namespace Sulimn
         /// <param name="isSold">Is Ring Sold?</param>
         internal Ring(string name, ItemTypes itemType, string description, int damage, int defense, int strength, int vitality, int dexterity, int wisdom, int weight, int value, bool canSell, bool isSold)
         {
-            Name = Name;
+            Name = name;
             Type = itemType;
             Description = description;
             Damage = damage;

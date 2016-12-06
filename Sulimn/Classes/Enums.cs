@@ -16,11 +16,6 @@
     internal enum WeaponTypes { Melee, Ranged }
 
     /// <summary>
-    /// Represents the types of Armor which exist.
-    /// </summary>
-    internal enum ArmorTypes { Head, Body, Legs, Feet }
-
-    /// <summary>
     /// Represents the types of Items which exist.
     /// </summary>
     internal enum ItemTypes { Weapon, Head, Body, Hands, Legs, Feet, Ring, Potion, Food, Spell }

@@ -154,7 +154,7 @@ namespace Sulimn
 
         private void btnInventory_Click(object sender, RoutedEventArgs e)
         {
-            NewInventoryWindow inventoryWindow = new NewInventoryWindow();
+            InventoryWindow inventoryWindow = new InventoryWindow();
             inventoryWindow.RefToCharacterWindow = this;
             inventoryWindow.Show();
             this.Visibility = Visibility.Hidden;
