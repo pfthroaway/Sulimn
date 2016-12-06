@@ -721,15 +721,15 @@ namespace Sulimn
             switch (selectedPotion.PotionType)
             {
                 case PotionTypes.Healing:
-                    AddText(GameState.CurrentHero.Heal(selectedPotion.Amount));
+                    AddTextTT(GameState.CurrentHero.Heal(selectedPotion.Amount));
                     break;
 
                 case PotionTypes.Magic:
-                    AddText(GameState.CurrentHero.Statistics.RestoreMagic(selectedPotion.Amount));
+                    AddTextTT(GameState.CurrentHero.Statistics.RestoreMagic(selectedPotion.Amount));
                     break;
 
                 case PotionTypes.Curing:
-                    AddText("You are now free of any ailments.");
+                    AddTextTT("You are now free of any ailments.");
                     break;
             }
 

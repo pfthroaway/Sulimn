@@ -139,7 +139,7 @@ namespace Sulimn
         /// </summary>
         private async void SpecialEncounter()
         {
-            AddText(await GameState.EventFindGold(200, 1000));
+            AddTextTT(await GameState.EventFindGold(200, 1000));
         }
 
         #region Window-Manipulation Methods
