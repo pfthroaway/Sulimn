@@ -30,6 +30,12 @@ namespace Sulimn
         internal static List<Spell> AllSpells = new List<Spell>();
         internal static List<Hero> AllHeroes = new List<Hero>();
         internal static List<HeroClass> AllClasses = new List<HeroClass>();
+        internal static Weapon DefaultWeapon = new Weapon();
+        internal static HeadArmor DefaultHead = new HeadArmor();
+        internal static BodyArmor DefaultBody = new BodyArmor();
+        internal static HandArmor DefaultHands = new HandArmor();
+        internal static LegArmor DefaultLegs = new LegArmor();
+        internal static FeetArmor DefaultFeet = new FeetArmor();
 
         /// <summary>
         /// Determines whether a Hero's credentials are authentic.
@@ -401,6 +407,13 @@ namespace Sulimn
                     AllEnemies = AllEnemies.OrderBy(enemy => enemy.Name).ToList();
                     AllSpells = AllSpells.OrderBy(spell => spell.Name).ToList();
                     AllClasses = AllClasses.OrderBy(x => x.Name).ToList();
+
+                    DefaultWeapon = AllWeapons.Find(weapon => weapon.Name == "Fists");
+                    DefaultHead = AllHeadArmor.Find(armor => armor.Name == "Cloth Helmet");
+                    DefaultBody = AllBodyArmor.Find(armor => armor.Name == "Cloth Shirt");
+                    DefaultHands = AllHandArmor.Find(armor => armor.Name == "Cloth Gloves");
+                    DefaultLegs = AllLegArmor.Find(armor => armor.Name == "Cloth Pants");
+                    DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
                 }
                 catch (Exception ex)
                 {
@@ -464,11 +477,11 @@ namespace Sulimn
         internal static async Task<bool> NewHero(Hero newHero)
         {
             bool success = false;
-            newHero.Equipment.Head = AllHeadArmor.Find(armr => armr.Name == "Cloth Helmet");
-            newHero.Equipment.Body = AllBodyArmor.Find(armr => armr.Name == "Cloth Shirt");
-            newHero.Equipment.Hands = AllHandArmor.Find(armr => armr.Name == "Cloth Gloves");
-            newHero.Equipment.Legs = AllLegArmor.Find(armr => armr.Name == "Cloth Pants");
-            newHero.Equipment.Feet = AllFeetArmor.Find(armr => armr.Name == "Cloth Shoes");
+            newHero.Equipment.Head = AllHeadArmor.Find(armr => armr.Name == GameState.DefaultHead.Name);
+            newHero.Equipment.Body = AllBodyArmor.Find(armr => armr.Name == GameState.DefaultBody.Name);
+            newHero.Equipment.Hands = AllHandArmor.Find(armr => armr.Name == GameState.DefaultHands.Name);
+            newHero.Equipment.Legs = AllLegArmor.Find(armr => armr.Name == GameState.DefaultLegs.Name);
+            newHero.Equipment.Feet = AllFeetArmor.Find(armr => armr.Name == GameState.DefaultFeet.Name);
 
             switch (newHero.Class.Name)
             {

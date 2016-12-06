@@ -125,6 +125,29 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Returns text relating to the type and amount of the Potion</summary>
+        public string TypeAmount
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                {
+                    switch (PotionType)
+                    {
+                        case PotionTypes.Healing:
+                            return "Restores " + Amount + " Health.";
+
+                        case PotionTypes.Magic:
+                            return "Restores " + Amount + " Magic.";
+
+                        case PotionTypes.Curing:
+                            return "Cures any ailments.";
+                    }
+                }
+                return "";
+            }
+        }
+
         #endregion Helper Properties
 
         #region Override Operators
@@ -198,6 +221,21 @@ namespace Sulimn
             Amount = potionAmount;
             CanSell = potionCanSell;
             IsSold = potionIsSold;
+        }
+
+        /// <summary>Replaces this instance of Potion with another instance.</summary>
+        /// <param name="otherPotion">Instance of Potion to replace this instance</param>
+        internal Potion(Potion otherPotion)
+        {
+            Name = otherPotion.Name;
+            Type = ItemTypes.Potion;
+            PotionType = otherPotion.PotionType;
+            Description = otherPotion.Description;
+            Weight = 0;
+            Value = otherPotion.Value;
+            Amount = otherPotion.Amount;
+            CanSell = otherPotion.CanSell;
+            IsSold = otherPotion.IsSold;
         }
 
         #endregion Constructors

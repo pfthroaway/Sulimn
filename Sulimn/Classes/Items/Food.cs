@@ -100,11 +100,7 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                {
-                    if (CanSell)
-                        return "Sellable";
-                    return "Not Sellable";
-                }
+                    return "Sell Value: " + SellValueToString;
                 return "";
             }
         }
@@ -114,9 +110,29 @@ namespace Sulimn
         {
             get
             {
-                if (CanSell)
-                    return "Sellable";
-                return "Not Sellable";
+                if (!string.IsNullOrWhiteSpace(Name))
+                {
+                    if (CanSell)
+                        return "Sellable";
+                    return "Not Sellable";
+                }
+                return "";
+            }
+        }
+
+        /// <summary>Returns text relating to the type and amount of the Potion</summary>
+        public string TypeAmount
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                {
+                    if (FoodType == FoodTypes.Food)
+                        return "Restores " + Amount + " Health.";
+                    else
+                        return "Restores " + Amount + " Magic.";
+                }
+                return "";
             }
         }
 
@@ -194,6 +210,21 @@ namespace Sulimn
             Amount = foodAmount;
             CanSell = foodCanSell;
             IsSold = foodIsSold;
+        }
+
+        /// <summary>Replaces this instance of Food with another instance.</summary>
+        /// <param name="otherFood">Instance of Food to replace this instance</param>
+        internal Food(Food otherFood)
+        {
+            Name = otherFood.Name;
+            Type = ItemTypes.Food;
+            FoodType = otherFood.FoodType;
+            Description = otherFood.Description;
+            Weight = 0;
+            Value = otherFood.Value;
+            Amount = otherFood.Amount;
+            CanSell = otherFood.CanSell;
+            IsSold = otherFood.IsSold;
         }
 
         #endregion Constructors

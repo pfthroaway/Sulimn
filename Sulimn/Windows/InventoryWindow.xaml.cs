@@ -73,27 +73,27 @@ namespace Sulimn
         /// </summary>
         private void CheckUnequipButtons()
         {
-            if (GameState.CurrentHero.Equipment.Weapon.Name == "Fists")
+            if (GameState.CurrentHero.Equipment.Weapon.Name == GameState.DefaultWeapon.Name)
                 btnUnequipWeapon.IsEnabled = false;
             else
                 btnUnequipWeapon.IsEnabled = true;
 
-            if (GameState.CurrentHero.Equipment.Head.Name == "Cloth Helmet")
+            if (GameState.CurrentHero.Equipment.Head.Name == GameState.DefaultHead.Name)
                 btnUnequipHead.IsEnabled = false;
             else
                 btnUnequipHead.IsEnabled = true;
 
-            if (GameState.CurrentHero.Equipment.Body.Name == "Cloth Shirt")
+            if (GameState.CurrentHero.Equipment.Body.Name == GameState.DefaultBody.Name)
                 btnUnequipBody.IsEnabled = false;
             else
                 btnUnequipBody.IsEnabled = true;
 
-            if (GameState.CurrentHero.Equipment.Legs.Name == "Cloth Pants")
+            if (GameState.CurrentHero.Equipment.Legs.Name == GameState.DefaultLegs.Name)
                 btnUnequipLegs.IsEnabled = false;
             else
                 btnUnequipLegs.IsEnabled = true;
 
-            if (GameState.CurrentHero.Equipment.Feet.Name == "Cloth Shoes")
+            if (GameState.CurrentHero.Equipment.Feet.Name == GameState.DefaultFeet.Name)
                 btnUnequipFeet.IsEnabled = false;
             else
                 btnUnequipFeet.IsEnabled = true;
@@ -286,7 +286,7 @@ namespace Sulimn
                 case ItemTypes.Weapon:
                     Weapon selectedWeapon = (Weapon)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]);
                     GameState.CurrentHero.Inventory.RemoveItem(selectedWeapon);
-                    if (GameState.CurrentHero.Equipment.Weapon.Name != "Fists")
+                    if (GameState.CurrentHero.Equipment.Weapon.Name != GameState.DefaultWeapon.Name)
                     {
                         GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Weapon);
                         lstInventory.ItemsSource = GameState.CurrentHero.Inventory;
@@ -300,7 +300,7 @@ namespace Sulimn
                     HeadArmor selectedHead = new HeadArmor((HeadArmor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]));
                     GameState.CurrentHero.Inventory.RemoveItem(selectedHead);
 
-                    if (GameState.CurrentHero.Equipment.Head.Name != "Cloth Helmet")
+                    if (GameState.CurrentHero.Equipment.Head.Name != GameState.DefaultHead.Name)
                         GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Head);
 
                     GameState.CurrentHero.Equipment.Head = selectedHead;
@@ -312,7 +312,7 @@ namespace Sulimn
                     BodyArmor selectedBody = new BodyArmor((BodyArmor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]));
                     GameState.CurrentHero.Inventory.RemoveItem(selectedBody);
 
-                    if (GameState.CurrentHero.Equipment.Body.Name != "Cloth Shirt")
+                    if (GameState.CurrentHero.Equipment.Body.Name != GameState.DefaultBody.Name)
                         GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Body);
 
                     GameState.CurrentHero.Equipment.Body = selectedBody;
@@ -324,7 +324,7 @@ namespace Sulimn
                     LegArmor selectedLegs = new LegArmor((LegArmor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]));
                     GameState.CurrentHero.Inventory.RemoveItem(selectedLegs);
 
-                    if (GameState.CurrentHero.Equipment.Legs.Name != "Cloth Pants")
+                    if (GameState.CurrentHero.Equipment.Legs.Name != GameState.DefaultLegs.Name)
                         GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Legs);
 
                     GameState.CurrentHero.Equipment.Legs = selectedLegs;
@@ -336,7 +336,7 @@ namespace Sulimn
                     FeetArmor selectedFeet = new FeetArmor((FeetArmor)(GameState.CurrentHero.Inventory.Items[lstInventory.SelectedIndex]));
                     GameState.CurrentHero.Inventory.RemoveItem(selectedFeet);
 
-                    if (GameState.CurrentHero.Equipment.Feet.Name != "Cloth Shoes")
+                    if (GameState.CurrentHero.Equipment.Feet.Name != GameState.DefaultFeet.Name)
                         GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Feet);
 
                     GameState.CurrentHero.Equipment.Feet = selectedFeet;
@@ -409,9 +409,9 @@ namespace Sulimn
 
         private void btnUnequipHead_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Equipment.Head.Name != "Cloth Helmet")
+            if (GameState.CurrentHero.Equipment.Head.Name != GameState.DefaultHead.Name)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Head);
-            GameState.CurrentHero.Equipment.Head = (HeadArmor)GameState.AllItems.Find(x => x.Name == "Cloth Helmet");
+            GameState.CurrentHero.Equipment.Head = (HeadArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultHead.Name);
             lblEquippedHead.DataContext = GameState.CurrentHero.Equipment.Head;
             lblEquippedHeadDefense.DataContext = GameState.CurrentHero.Equipment.Head;
             DisplayAllInfo();
@@ -419,9 +419,9 @@ namespace Sulimn
 
         private void btnUnequipBody_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Equipment.Body.Name != "Cloth Shirt")
+            if (GameState.CurrentHero.Equipment.Body.Name != GameState.DefaultBody.Name)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Body);
-            GameState.CurrentHero.Equipment.Body = (BodyArmor)GameState.AllItems.Find(x => x.Name == "Cloth Shirt");
+            GameState.CurrentHero.Equipment.Body = (BodyArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultBody.Name);
             lblEquippedBody.DataContext = GameState.CurrentHero.Equipment.Body;
             lblEquippedBodyDefense.DataContext = GameState.CurrentHero.Equipment.Body;
             DisplayAllInfo();
@@ -429,9 +429,9 @@ namespace Sulimn
 
         private void btnUnequipLegs_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Equipment.Legs.Name != "Cloth Pants")
+            if (GameState.CurrentHero.Equipment.Legs.Name != GameState.DefaultLegs.Name)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Legs);
-            GameState.CurrentHero.Equipment.Legs = (LegArmor)GameState.AllItems.Find(x => x.Name == "Cloth Pants");
+            GameState.CurrentHero.Equipment.Legs = (LegArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultLegs.Name);
             lblEquippedLegs.DataContext = GameState.CurrentHero.Equipment.Legs;
             lblEquippedLegsDefense.DataContext = GameState.CurrentHero.Equipment.Legs;
             DisplayAllInfo();
@@ -439,9 +439,9 @@ namespace Sulimn
 
         private void btnUnequipFeet_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Equipment.Feet.Name != "Cloth Shoes")
+            if (GameState.CurrentHero.Equipment.Feet.Name != GameState.DefaultFeet.Name)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Feet);
-            GameState.CurrentHero.Equipment.Feet = (FeetArmor)GameState.AllItems.Find(x => x.Name == "Cloth Shoes");
+            GameState.CurrentHero.Equipment.Feet = (FeetArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultFeet.Name);
             lblEquippedFeet.DataContext = GameState.CurrentHero.Equipment.Feet;
             lblEquippedFeetDefense.DataContext = GameState.CurrentHero.Equipment.Feet;
             DisplayAllInfo();
@@ -449,9 +449,9 @@ namespace Sulimn
 
         private void btnUnequipWeapon_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Equipment.Weapon.Name != "Fists")
+            if (GameState.CurrentHero.Equipment.Weapon.Name != GameState.DefaultWeapon.Name)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Weapon);
-            GameState.CurrentHero.Equipment.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == "Fists");
+            GameState.CurrentHero.Equipment.Weapon = (Weapon)GameState.AllItems.Find(x => x.Name == GameState.DefaultWeapon.Name);
             lblEquippedWeapon.DataContext = GameState.CurrentHero.Equipment.Weapon;
             lblEquippedWeaponDamage.DataContext = GameState.CurrentHero.Equipment.Weapon;
             DisplayAllInfo();
