@@ -202,25 +202,25 @@ namespace Sulimn
         /// <summary>
         /// Initializes an instance of Weapon by assigning Properties.
         /// </summary>
-        /// <param name="weaponName">Name of Weapon</param>
+        /// <param name="name">Name of Weapon</param>
         /// <param name="weaponType">Type of Weapon</param>
-        /// <param name="weaponDescription">Description of Weapon</param>
-        /// <param name="weaponDamage">Damage of Weapon</param>
-        /// <param name="weaponWeight">Weight of Weapon</param>
-        /// <param name="weaponValue">Value of Weapon</param>
-        /// <param name="weaponCanSell">Can Weapon be sold?</param>
-        /// <param name="weaponIsSold">Is Weapon sold?</param>
-        internal Weapon(string weaponName, WeaponTypes weaponType, string weaponDescription, int weaponDamage, int weaponWeight, int weaponValue, bool weaponCanSell, bool weaponIsSold)
+        /// <param name="description">Description of Weapon</param>
+        /// <param name="damage">Damage of Weapon</param>
+        /// <param name="weight">Weight of Weapon</param>
+        /// <param name="value">Value of Weapon</param>
+        /// <param name="canSell">Can Weapon be sold?</param>
+        /// <param name="isSold">Is Weapon sold?</param>
+        internal Weapon(string name, WeaponTypes weaponType, string description, int damage, int weight, int value, bool canSell, bool isSold)
         {
-            Name = weaponName;
+            Name = name;
             Type = ItemTypes.Weapon;
             WeaponType = weaponType;
-            Description = weaponDescription;
-            Damage = weaponDamage;
-            Weight = weaponWeight;
-            Value = weaponValue;
-            CanSell = weaponCanSell;
-            IsSold = weaponIsSold;
+            Description = description;
+            Damage = damage;
+            Weight = weight;
+            Value = value;
+            CanSell = canSell;
+            IsSold = isSold;
         }
 
         /// <summary>

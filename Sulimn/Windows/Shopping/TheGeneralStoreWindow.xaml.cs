@@ -45,8 +45,8 @@ namespace Sulimn
             if (reload)
             {
                 purchasePotion.Clear();
-                purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(ring => ring.IsSold == true));
-                purchasePotion = purchasePotion.OrderBy(ring => ring.Value).ToList();
+                purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(potion => potion.IsSold == true));
+                purchasePotion = purchasePotion.OrderBy(potion => potion.Value).ToList();
                 lstPotionPurchase.ItemsSource = purchasePotion;
                 lstPotionPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstPotionPurchase.Items.Refresh();
@@ -64,7 +64,7 @@ namespace Sulimn
             {
                 sellPotion.Clear();
                 sellPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
-                sellPotion = sellPotion.OrderBy(ring => ring.Value).ToList();
+                sellPotion = sellPotion.OrderBy(potion => potion.Value).ToList();
                 lstPotionSell.ItemsSource = sellPotion;
                 lstPotionSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
                 lstPotionSell.Items.Refresh();

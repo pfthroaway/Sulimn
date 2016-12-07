@@ -148,9 +148,12 @@ namespace Sulimn
         /// <param name="weapon">Weapon</param>
         /// <param name="head">Head Armor</param>
         /// <param name="body">Body Armor</param>
-        /// <param name="legs">Legs</param>
-        /// <param name="feet">Feet</param>
-        public Equipment(Weapon weapon, HeadArmor head, HandArmor hands, BodyArmor body, LegArmor legs, FeetArmor feet, Ring leftRing, Ring rightRing)
+        /// <param name="hands">Hand Armor</param>
+        /// <param name="legs">Leg Armor</param>
+        /// <param name="feet">Feet Armor</param>
+        /// <param name="leftRing">Left Ring</param>
+        /// <param name="rightRing">Right Ring</param>
+        public Equipment(Weapon weapon, HeadArmor head, BodyArmor body, HandArmor hands, LegArmor legs, FeetArmor feet, Ring leftRing, Ring rightRing)
         {
             Weapon = new Weapon(weapon);
             Head = new HeadArmor(head);

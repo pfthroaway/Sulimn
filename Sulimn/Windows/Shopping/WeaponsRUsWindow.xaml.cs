@@ -37,8 +37,8 @@ namespace Sulimn
             if (reload)
             {
                 purchaseWeapon.Clear();
-                purchaseWeapon.AddRange(GameState.GetItemsOfType<Weapon>().Where(ring => ring.IsSold == true));
-                purchaseWeapon = purchaseWeapon.OrderBy(ring => ring.Value).ToList();
+                purchaseWeapon.AddRange(GameState.GetItemsOfType<Weapon>().Where(weapon => weapon.IsSold == true));
+                purchaseWeapon = purchaseWeapon.OrderBy(weapon => weapon.Value).ToList();
                 lstWeaponPurchase.ItemsSource = purchaseWeapon;
                 lstWeaponPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstWeaponPurchase.Items.Refresh();
@@ -57,7 +57,7 @@ namespace Sulimn
             {
                 sellWeapon.Clear();
                 sellWeapon.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Weapon>());
-                sellWeapon = sellWeapon.OrderBy(ring => ring.Value).ToList();
+                sellWeapon = sellWeapon.OrderBy(weapon => weapon.Value).ToList();
                 lstWeaponSell.ItemsSource = sellWeapon;
                 lstWeaponSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
                 lstWeaponSell.Items.Refresh();

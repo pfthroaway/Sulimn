@@ -166,22 +166,22 @@ namespace Sulimn
         /// <summary>
         /// Initializes an instance of HeroClass by assigning Properties.
         /// </summary>
-        /// <param name="className">Name of HeroClass</param>
-        /// <param name="classDescription">Description of HeroClass</param>
+        /// <param name="name">Name of HeroClass</param>
+        /// <param name="description">Description of HeroClass</param>
         /// <param name="skillPoints">Skill Points</param>
-        /// <param name="classStrength">Strength</param>
-        /// <param name="classVitality">Vitality</param>
-        /// <param name="classDexterity">Dexterity</param>
-        /// <param name="classWisdom">Wisdom</param>
-        internal HeroClass(string className, string classDescription, int skillPoints, int classStrength, int classVitality, int classDexterity, int classWisdom)
+        /// <param name="strength">Strength</param>
+        /// <param name="vitality">Vitality</param>
+        /// <param name="dexterity">Dexterity</param>
+        /// <param name="wisdom">Wisdom</param>
+        internal HeroClass(string name, string description, int skillPoints, int strength, int vitality, int dexterity, int wisdom)
         {
-            Name = className;
-            Description = classDescription;
+            Name = name;
+            Description = description;
             SkillPoints = skillPoints;
-            Strength = classStrength;
-            Vitality = classVitality;
-            Dexterity = classDexterity;
-            Wisdom = classWisdom;
+            Strength = strength;
+            Vitality = vitality;
+            Dexterity = dexterity;
+            Wisdom = wisdom;
         }
 
         /// <summary>
@@ -192,8 +192,8 @@ namespace Sulimn
         {
             Name = otherClass.Name;
             Description = otherClass.Description;
-            Strength = otherClass.Strength;
             SkillPoints = otherClass.SkillPoints;
+            Strength = otherClass.Strength;
             Vitality = otherClass.Vitality;
             Dexterity = otherClass.Dexterity;
             Wisdom = otherClass.Wisdom;

@@ -191,25 +191,25 @@ namespace Sulimn
         /// <summary>
         /// Initializes an instance of Food by assigning Properties.
         /// </summary>
-        /// <param name="foodName">Name of Food</param>
+        /// <param name="name">Name of Food</param>
         /// <param name="foodType">Type of Food</param>
-        /// <param name="foodDescription">Description of Food</param>
-        /// <param name="foodAmount">Amount of Food</param>
-        /// <param name="foodWeight">Weight of Food</param>
-        /// <param name="foodValue">Value of Food</param>
-        /// <param name="foodCanSell">Can Food be sold?</param>
-        /// <param name="foodIsSold">Is Food sold?</param>
-        internal Food(string foodName, FoodTypes foodType, string foodDescription, int foodAmount, int foodWeight, int foodValue, bool foodCanSell, bool foodIsSold)
+        /// <param name="description">Description of Food</param>
+        /// <param name="amount">Amount of Food</param>
+        /// <param name="weight">Weight of Food</param>
+        /// <param name="value">Value of Food</param>
+        /// <param name="canSell">Can Food be sold?</param>
+        /// <param name="isSold">Is Food sold?</param>
+        internal Food(string name, FoodTypes foodType, string description, int amount, int weight, int value, bool canSell, bool isSold)
         {
-            Name = foodName;
+            Name = name;
             Type = ItemTypes.Food;
             FoodType = foodType;
-            Description = foodDescription;
-            Weight = foodWeight;
-            Value = foodValue;
-            Amount = foodAmount;
-            CanSell = foodCanSell;
-            IsSold = foodIsSold;
+            Description = description;
+            Weight = weight;
+            Value = value;
+            Amount = amount;
+            CanSell = canSell;
+            IsSold = isSold;
         }
 
         /// <summary>Replaces this instance of Food with another instance.</summary>

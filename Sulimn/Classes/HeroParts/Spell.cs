@@ -196,22 +196,22 @@ namespace Sulimn
         /// <summary>
         /// Initializes an instance of Spell by assigning Properties.
         /// </summary>
-        /// <param name="spellName">Name of Spell</param>
+        /// <param name="name">Name of Spell</param>
         /// <param name="spellType">Type of Spell</param>
         /// <param name="spellDescription">Description of Spell</param>
-        /// <param name="spellRequiredClass">Required HeroClass of Spell</param>
-        /// <param name="spellRequiredLevel">Required Level to learn Spell</param>
-        /// <param name="spellMagicCost">Magic cost of Spell</param>
-        /// <param name="spellAmount">Amount of Spell</param>
-        internal Spell(string spellName, SpellTypes spellType, string spellDescription, string spellRequiredClass, int spellRequiredLevel, int spellMagicCost, int spellAmount)
+        /// <param name="requiredClass">Required HeroClass of Spell</param>
+        /// <param name="requiredLevel">Required Level to learn Spell</param>
+        /// <param name="magicCost">Magic cost of Spell</param>
+        /// <param name="amount">Amount of Spell</param>
+        internal Spell(string name, SpellTypes spellType, string description, string requiredClass, int requiredLevel, int magicCost, int amount)
         {
-            Name = spellName;
+            Name = name;
             Type = spellType;
-            Description = spellDescription;
-            RequiredClass = spellRequiredClass;
-            RequiredLevel = spellRequiredLevel;
-            MagicCost = spellMagicCost;
-            Amount = spellAmount;
+            Description = description;
+            RequiredClass = requiredClass;
+            RequiredLevel = requiredLevel;
+            MagicCost = magicCost;
+            Amount = amount;
         }
 
         #endregion Constructors

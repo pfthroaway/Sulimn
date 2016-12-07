@@ -272,29 +272,30 @@ namespace Sulimn
         }
 
         /// <summary>Initializes an instance of Hero by assigning Properties.</summary>
-        /// <param name="heroName">Name of Hero</param>
+        /// <param name="name">Name of Hero</param>
         /// <param name="password">Password of Hero</param>
         /// <param name="heroClass">Class of Hero</param>
-        /// <param name="heroLevel">Level of Hero</param>
-        /// <param name="heroExperience">Experience of Hero</param>
-        /// <param name="heroSkillPts">Skill Points of Hero</param>
+        /// <param name="level">Level of Hero</param>
+        /// <param name="experience">Experience of Hero</param>
+        /// <param name="skillPoints">Skill Points of Hero</param>
         /// <param name="attributes">Attributes of Hero</param>
         /// <param name="statistics">Statistics of Hero</param>
         /// <param name="equipment">Equipment of Hero</param>
-        /// <param name="heroSpellbook">Spellbook of Hero</param>
-        /// <param name="heroInventory">Inventory of Hero</param>
-        internal Hero(string heroName, string password, HeroClass heroClass, int heroLevel, int heroExperience, int heroSkillPts, Attributes attributes, Statistics statistics, Equipment equipment, Spellbook heroSpellbook, Inventory heroInventory)
+        /// <param name="spellbook">Spellbook of Hero</param>
+        /// <param name="inventory">Inventory of Hero</param>
+        internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints, Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory)
         {
-            Name = heroName;
+            Name = name;
             Password = password;
             Class = heroClass;
-            Level = heroLevel;
-            Experience = heroExperience;
+            Level = level;
+            Experience = experience;
+            SkillPoints = skillPoints;
             Attributes = attributes;
             Statistics = statistics;
             Equipment = equipment;
-            Spellbook = heroSpellbook;
-            Inventory = heroInventory;
+            Spellbook = spellbook;
+            Inventory = inventory;
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>

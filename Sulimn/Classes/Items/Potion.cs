@@ -205,22 +205,22 @@ namespace Sulimn
         /// </summary>
         /// <param name="potionName">Name of Potion</param>
         /// <param name="potionType">Type of Potion</param>
-        /// <param name="potionDescription">Description of Potion</param>
-        /// <param name="potionAmount">Amount of Potion</param>
-        /// <param name="potionValue">Value of Potion</param>
-        /// <param name="potionCanSell">Can Potion be sold?</param>
-        /// <param name="potionIsSold">Is Potion sold?</param>
-        internal Potion(string potionName, PotionTypes potionType, string potionDescription, int potionAmount, int potionValue, bool potionCanSell, bool potionIsSold)
+        /// <param name="description">Description of Potion</param>
+        /// <param name="amount">Amount of Potion</param>
+        /// <param name="value">Value of Potion</param>
+        /// <param name="canSell">Can Potion be sold?</param>
+        /// <param name="isSold">Is Potion sold?</param>
+        internal Potion(string name, PotionTypes potionType, string description, int amount, int value, bool canSell, bool isSold)
         {
-            Name = potionName;
+            Name = name;
             Type = ItemTypes.Potion;
             PotionType = potionType;
-            Description = potionDescription;
+            Description = description;
             Weight = 0;
-            Value = potionValue;
-            Amount = potionAmount;
-            CanSell = potionCanSell;
-            IsSold = potionIsSold;
+            Value = value;
+            Amount = amount;
+            CanSell = canSell;
+            IsSold = isSold;
         }
 
         /// <summary>Replaces this instance of Potion with another instance.</summary>
