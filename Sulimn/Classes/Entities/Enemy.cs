@@ -80,6 +80,30 @@ namespace Sulimn
 
         #region Helper Properties
 
+        /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalStrength
+        {
+            get { return Attributes.Strength + Equipment.BonusStrength; }
+        }
+
+        /// <summary>Returns the total Vitality attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalVitality
+        {
+            get { return Attributes.Vitality + Equipment.BonusVitality; }
+        }
+
+        /// <summary>Returns the total Dexterity attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalDexterity
+        {
+            get { return Attributes.Dexterity + Equipment.BonusDexterity; }
+        }
+
+        /// <summary>Returns the total Wisdom attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalWisdom
+        {
+            get { return Attributes.Wisdom + Equipment.BonusWisdom; }
+        }
+
         /// <summary>Returns the Enemy's level with preceding text.</summary>
         public string LevelToString
         {

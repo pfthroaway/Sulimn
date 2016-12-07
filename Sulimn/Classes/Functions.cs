@@ -91,52 +91,6 @@ namespace Sulimn
             return ds;
         }
 
-        //// This method deletes a record in a database.
-        //internal void DeleteRecord(string sql, string tableName, DataSet ds)
-        //{
-        //  string dbProvider = "Provider=Microsoft.ACE.oledb.12.0;";
-        //  string dbSource = "Data Source=Players.accdb";
-        //  SQLiteConnection con = new SQLiteConnection();
-        //  SQLiteDataAdapter da = new SQLiteDataAdapter();
-        //  SQLiteCommandBuilder cb = new SQLiteCommandBuilder(da);
-
-        //  try
-        //  {
-        //    con.ConnectionString = dbProvider + dbSource;
-        //    da = new SQLiteDataAdapter(sql, con);
-        //    ds.Tables[tableName].Rows[0].Delete();
-        //    da.Update(ds, tableName);
-        //  }
-        //  catch (Exception e)
-        //  {
-        //    MessageBox.Show(e.Message, "Sulimn", MessageBoxButtons.OK);
-        //  }
-        //  finally { con.Close(); }
-        //}
-
-        //// This method updates a record in a database.
-        //internal void UpdateRecord(string sql, string tableName, DataSet ds)
-        //{
-        //  string dbProvider = "Provider=Microsoft.ACE.oledb.12.0;";
-        //  string dbSource = "Data Source=Players.accdb";
-        //  SQLiteConnection con = new SQLiteConnection();
-        //  SQLiteDataAdapter da = new SQLiteDataAdapter();
-        //  SQLiteCommandBuilder cb = new SQLiteCommandBuilder(da);
-
-        //  try
-        //  {
-        //    con.ConnectionString = dbProvider + dbSource;
-        //    da = new SQLiteDataAdapter(sql, con);
-        //    da.UpdateCommand.CommandText = sql;
-        //    da.Update(ds, tableName);
-        //  }
-        //  catch (Exception e)
-        //  {
-        //    MessageBox.Show(e.Message, "Sulimn", MessageBoxButtons.OK);
-        //  }
-        //  finally { con.Close(); }
-        //}
-
         #endregion General Database Manipulation
     }
 }

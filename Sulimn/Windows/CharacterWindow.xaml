@@ -34,25 +34,25 @@
         <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">Strength</TextBlock>
         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0">
             <Button x:Name="btnStrengthMinus" Height="30" Width="30" Margin="5" Click="btnStrengthMinus_Click" IsEnabled="False" Content="-" />
-            <TextBlock x:Name="lblStrength" Width="80" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Strength, Mode=TwoWay}" />
+            <TextBlock x:Name="lblStrength" Width="80" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=TotalStrength}" />
             <Button x:Name="btnStrengthPlus" Height="30" Width="30" Margin="5" Click="btnStrengthPlus_Click" IsEnabled="False" Content="+" />
         </StackPanel>
         <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" >Vitality</TextBlock>
         <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0">
             <Button x:Name="btnVitalityMinus" MinWidth="30" Margin="5" Click="btnVitalityMinus_Click" IsEnabled="False" Content="-" Height="30" Width="30" />
-            <TextBlock x:Name="lblVitality" MinWidth="60" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Vitality, Mode=TwoWay}" Width="80" />
+            <TextBlock x:Name="lblVitality" MinWidth="60" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=TotalVitality}" Width="80" />
             <Button x:Name="btnVitalityPlus" MinWidth="30" Margin="5" Click="btnVitalityPlus_Click" IsEnabled="False" Content="+" Height="30" Width="30" />
         </StackPanel>
         <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" >Dexterity</TextBlock>
         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0">
             <Button x:Name="btnDexterityMinus" MinWidth="30" Margin="5" Click="btnDexterityMinus_Click" IsEnabled="False" Content="-" Height="30" Width="30" />
-            <TextBlock x:Name="lblDexterity" MinWidth="60" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Dexterity, Mode=TwoWay}" Width="80" />
+            <TextBlock x:Name="lblDexterity" MinWidth="60" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=TotalDexterity}" Width="80" />
             <Button x:Name="btnDexterityPlus" MinWidth="30" Margin="5" Click="btnDexterityPlus_Click" IsEnabled="False" Content="+" Height="30" Width="30" />
         </StackPanel>
         <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" >Wisdom</TextBlock>
         <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0">
             <Button x:Name="btnWisdomMinus" MinWidth="30" Margin="5" Click="btnWisdomMinus_Click" IsEnabled="False" Content="-" Height="30" Width="30" />
-            <TextBlock x:Name="lblWisdom" MinWidth="60" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Wisdom, Mode=TwoWay}" Width="80" />
+            <TextBlock x:Name="lblWisdom" MinWidth="60" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=TotalWisdom}" Width="80" />
             <Button x:Name="btnWisdomPlus" MinWidth="30" Margin="5" Click="btnWisdomPlus_Click" IsEnabled="False" Content="+" Height="30" Width="30" />
         </StackPanel>
         <TextBlock Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center" >Health</TextBlock>

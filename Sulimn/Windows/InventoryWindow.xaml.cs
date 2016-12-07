@@ -645,6 +645,7 @@ namespace Sulimn
             if (GameState.CurrentHero.Equipment.LeftRing != new Ring())
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.LeftRing);
             GameState.CurrentHero.Equipment.LeftRing = new Ring();
+            GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }
 
@@ -654,6 +655,7 @@ namespace Sulimn
             if (GameState.CurrentHero.Equipment.RightRing != new Ring())
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.RightRing);
             GameState.CurrentHero.Equipment.RightRing = new Ring();
+            GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }
 
@@ -665,6 +667,7 @@ namespace Sulimn
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.LeftRing);
             GameState.CurrentHero.Equipment.LeftRing = selectedRing;
             btnEquipSelectedRingLeft.IsEnabled = false;
+            GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }
 
@@ -676,6 +679,7 @@ namespace Sulimn
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.RightRing);
             GameState.CurrentHero.Equipment.RightRing = selectedRing;
             btnEquipSelectedRingRight.IsEnabled = false;
+            GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }
 

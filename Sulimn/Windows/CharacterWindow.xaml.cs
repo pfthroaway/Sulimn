@@ -25,10 +25,10 @@ namespace Sulimn
         internal void BindLabels()
         {
             DataContext = GameState.CurrentHero;
-            lblStrength.DataContext = GameState.CurrentHero.Attributes;
-            lblVitality.DataContext = GameState.CurrentHero.Attributes;
-            lblDexterity.DataContext = GameState.CurrentHero.Attributes;
-            lblWisdom.DataContext = GameState.CurrentHero.Attributes;
+            lblStrength.DataContext = GameState.CurrentHero;
+            lblVitality.DataContext = GameState.CurrentHero;
+            lblDexterity.DataContext = GameState.CurrentHero;
+            lblWisdom.DataContext = GameState.CurrentHero;
             lblHealth.DataContext = GameState.CurrentHero.Statistics;
             lblMagic.DataContext = GameState.CurrentHero.Statistics;
             lblGold.DataContext = GameState.CurrentHero.Inventory;
@@ -119,6 +119,8 @@ namespace Sulimn
                 btnReset.IsEnabled = true;
             else
                 btnReset.IsEnabled = false;
+
+            GameState.CurrentHero.UpdateStatistics();
         }
 
         /// <summary>

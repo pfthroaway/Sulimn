@@ -81,8 +81,7 @@ namespace Sulimn
             {
                 try
                 {
-                    string sql = "SELECT * FROM Classes";
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Classes", con);
                     da.Fill(ds, "Classes");
 
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -100,9 +99,8 @@ namespace Sulimn
                         AllClasses.Add(newClass);
                     }
 
-                    sql = "SELECT * FROM HeadArmor";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM HeadArmor", con);
                     da.Fill(ds, "HeadArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -116,9 +114,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM BodyArmor";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM BodyArmor", con);
                     da.Fill(ds, "BodyArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -132,9 +129,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM HandArmor";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM HandArmor", con);
                     da.Fill(ds, "HandArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -148,9 +144,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM LegArmor";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM LegArmor", con);
                     da.Fill(ds, "LegArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -164,9 +159,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM FeetArmor";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM FeetArmor", con);
                     da.Fill(ds, "FeetArmor");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -180,9 +174,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Rings";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Rings", con);
                     da.Fill(ds, "Rings");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -209,17 +202,15 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Admin";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Admin", con);
                     da.Fill(ds, "Admin");
 
                     if (ds.Tables[0].Rows.Count > 0)
                         AdminPassword = ds.Tables[0].Rows[0]["AdminPassword"].ToString();
 
-                    sql = "SELECT * FROM Food";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Food", con);
                     da.Fill(ds, "Food");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -235,9 +226,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Potions";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Potions", con);
                     da.Fill(ds, "Potions");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -253,9 +243,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Spells";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Spells", con);
                     da.Fill(ds, "Spells");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -270,9 +259,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Weapons";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Weapons", con);
                     da.Fill(ds, "Weapons");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -288,9 +276,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Enemies";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Enemies", con);
                     da.Fill(ds, "Enemies");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -330,9 +317,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM Players";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM Players", con);
                     da.Fill(ds, "Players");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -395,9 +381,8 @@ namespace Sulimn
                         }
                     }
 
-                    sql = "SELECT * FROM MaxHeroStats";
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter(sql, con);
+                    da = new SQLiteDataAdapter("SELECT * FROM MaxHeroStats", con);
                     da.Fill(ds, "MaxHeroStats");
 
                     if (ds.Tables[0].Rows.Count > 0)
@@ -562,10 +547,8 @@ namespace Sulimn
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
-            string sql = "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory WHERE [CharacterName] = @name";
 
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = sql;
+            cmd.CommandText = "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory WHERE [CharacterName] = @name";
             cmd.Parameters.AddWithValue("@level", saveHero.Level);
             cmd.Parameters.AddWithValue("@experience", saveHero.Experience.ToString());
             cmd.Parameters.AddWithValue("@skillPoints", saveHero.SkillPoints.ToString());
@@ -595,28 +578,25 @@ namespace Sulimn
                         leftRing = saveHero.Equipment.LeftRing.Name;
                     else
                         leftRing = "";
-                    if (saveHero.Equipment.LeftRing != new Ring())
-                        rightRing = saveHero.Equipment.LeftRing.Name;
+                    if (saveHero.Equipment.RightRing != new Ring())
+                        rightRing = saveHero.Equipment.RightRing.Name;
                     else
                         rightRing = "";
 
-                    sql = "UPDATE Equipment SET [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Hands] = hands, [Legs] = @legs, [Feet] = @feet, [LeftRing] = leftRing, [RightRing] = rightRing WHERE [CharacterName] = @name";
-                    cmd = new SQLiteCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = sql;
-                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "UPDATE Equipment SET [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Hands] = hands, [Legs] = @legs, [Feet] = @feet, [LeftRing] = @leftRing, [RightRing] = @rightRing WHERE [CharacterName] = @name";
                     cmd.Parameters.AddWithValue("@weapon", saveHero.Equipment.Weapon.Name);
                     cmd.Parameters.AddWithValue("@head", saveHero.Equipment.Head.Name);
                     cmd.Parameters.AddWithValue("@body", saveHero.Equipment.Body.Name);
                     cmd.Parameters.AddWithValue("@hands", saveHero.Equipment.Hands.Name);
                     cmd.Parameters.AddWithValue("@legs", saveHero.Equipment.Legs.Name);
                     cmd.Parameters.AddWithValue("@feet", saveHero.Equipment.Feet.Name);
-                    cmd.Parameters.AddWithValue("@leftRing", leftRing);
-                    cmd.Parameters.AddWithValue("@rightRing", rightRing);
-                    int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
+                    cmd.Parameters.AddWithValue("@leftRing", saveHero.Equipment.LeftRing.Name);
+                    cmd.Parameters.AddWithValue("@rightRing", saveHero.Equipment.RightRing.Name);
                     cmd.Parameters.AddWithValue("@name", saveHero.Name);
                     cmd.ExecuteNonQuery();
 
+                    int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
                     AllHeroes[index] = new Hero(saveHero);
                     success = true;
                 }
@@ -640,10 +620,8 @@ namespace Sulimn
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
-            string sql = "UPDATE Bank SET [Gold] = @gold, [LoanTaken] = @loanTaken WHERE [CharacterName] = @name";
 
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = sql;
+            cmd.CommandText = "UPDATE Bank SET [Gold] = @gold, [LoanTaken] = @loanTaken WHERE [CharacterName] = @name";
             cmd.Parameters.AddWithValue("@gold", goldInBank);
             cmd.Parameters.AddWithValue("@loanTaken", loanTaken);
             cmd.Parameters.AddWithValue("@name", CurrentHero.Name);
@@ -673,10 +651,8 @@ namespace Sulimn
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteConnection con = new SQLiteConnection();
             con.ConnectionString = _DBPROVIDERANDSOURCE;
-            string sql = "UPDATE Players SET [CharacterPassword] = @password WHERE [CharacterName] = @name";
 
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = sql;
+            cmd.CommandText = "UPDATE Players SET [CharacterPassword] = @password WHERE [CharacterName] = @name";
             cmd.Parameters.AddWithValue("@password", saveHero.Password);
             cmd.Parameters.AddWithValue("@name", saveHero.Name);
 

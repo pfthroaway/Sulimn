@@ -90,7 +90,7 @@ namespace Sulimn
         /// <summary>Returns the total damage produced by the current set of equipment.</summary>
         public int TotalDamage
         {
-            get { return Weapon.Damage; }
+            get { return Weapon.Damage + LeftRing.Damage + RightRing.Damage; }
         }
 
         /// <summary>Returns the total defense produced by the current set of equipment.</summary>
@@ -114,25 +114,25 @@ namespace Sulimn
         /// <summary>Returns the total Strength bonus produced by the current set of equipment.</summary>
         public int BonusStrength
         {
-            get { return 0; }
+            get { return LeftRing.Strength + RightRing.Strength; }
         }
 
         /// <summary>Returns the total Vitality bonus produced by the current set of equipment.</summary>
         public int BonusVitality
         {
-            get { return 0; }
+            get { return LeftRing.Vitality + RightRing.Vitality; }
         }
 
         /// <summary>Returns the total Dexterity bonus produced by the current set of equipment.</summary>
         public int BonusDexterity
         {
-            get { return 0; }
+            get { return LeftRing.Dexterity + RightRing.Dexterity; }
         }
 
         /// <summary>Returns the total Wisdom bonus produced by the current set of equipment.</summary>
         public int BonusWisdom
         {
-            get { return 0; }
+            get { return LeftRing.Wisdom + RightRing.Wisdom; }
         }
 
         #endregion Helper Properties

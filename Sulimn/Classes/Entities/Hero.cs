@@ -137,6 +137,30 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalStrength
+        {
+            get { return Attributes.Strength + Equipment.BonusStrength; }
+        }
+
+        /// <summary>Returns the total Vitality attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalVitality
+        {
+            get { return Attributes.Vitality + Equipment.BonusVitality; }
+        }
+
+        /// <summary>Returns the total Dexterity attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalDexterity
+        {
+            get { return Attributes.Dexterity + Equipment.BonusDexterity; }
+        }
+
+        /// <summary>Returns the total Wisdom attribute and bonus produced by the current set of equipment.</summary>
+        public int TotalWisdom
+        {
+            get { return Attributes.Wisdom + Equipment.BonusWisdom; }
+        }
+
         #endregion Helper Properties
 
         #region Experience Manipulation
@@ -210,6 +234,30 @@ namespace Sulimn
         }
 
         #endregion Health Manipulation
+
+        internal void UpdateStatistics()
+        {
+            if (Statistics.MaximumHealth != (TotalVitality + Level - 1) * 5)
+            {
+                int diff = (TotalVitality + Level - 1) * 5 - Statistics.MaximumHealth;
+
+                Statistics.CurrentHealth += diff;
+                Statistics.MaximumHealth += diff;
+            }
+
+            if (Statistics.MaximumMagic != (TotalWisdom + Level - 1) * 5)
+            {
+                int diff = (TotalWisdom + Level - 1) * 5 - Statistics.MaximumMagic;
+
+                Statistics.CurrentMagic += diff;
+                Statistics.MaximumMagic += diff;
+            }
+
+            OnPropertyChanged("TotalStrength");
+            OnPropertyChanged("TotalVitality");
+            OnPropertyChanged("TotalDexterity");
+            OnPropertyChanged("TotalWisdom");
+        }
 
         public sealed override string ToString()
         {

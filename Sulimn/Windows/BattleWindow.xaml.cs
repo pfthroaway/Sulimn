@@ -166,9 +166,9 @@ namespace Sulimn
             {
                 case BattleAction.Attack:
                     if (GameState.CurrentHero.Equipment.Weapon.WeaponType == WeaponTypes.Melee)
-                        HeroAttack(GameState.CurrentHero.Attributes.Strength + GameState.CurrentHero.Equipment.BonusStrength, GameState.CurrentHero.Equipment.TotalDamage);
+                        HeroAttack(GameState.CurrentHero.TotalStrength, GameState.CurrentHero.Equipment.TotalDamage);
                     else if (GameState.CurrentHero.Equipment.Weapon.WeaponType == WeaponTypes.Ranged)
-                        HeroAttack(GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentHero.Equipment.BonusDexterity, GameState.CurrentHero.Equipment.TotalDamage);
+                        HeroAttack(GameState.CurrentHero.TotalDexterity, GameState.CurrentHero.Equipment.TotalDamage);
                     break;
 
                 case BattleAction.Cast:
@@ -176,7 +176,7 @@ namespace Sulimn
                     AddTextTT("You cast " + currentSpell.Name + ".");
 
                     if (currentSpell.Type == SpellTypes.Damage)
-                        HeroAttack(GameState.CurrentHero.Attributes.Wisdom + GameState.CurrentHero.Equipment.BonusWisdom, currentSpell.Amount);
+                        HeroAttack(GameState.CurrentHero.TotalWisdom, currentSpell.Amount);
                     else if (currentSpell.Type == SpellTypes.Healing)
                         AddTextTT(GameState.CurrentHero.Heal(currentSpell.Amount));
                     else if (currentSpell.Type == SpellTypes.Shield)
@@ -194,7 +194,7 @@ namespace Sulimn
 
                 case BattleAction.Flee:
 
-                    if (FleeAttempt(GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentHero.Equipment.BonusDexterity, GameState.CurrentEnemy.Attributes.Dexterity + GameState.CurrentEnemy.Equipment.BonusDexterity))
+                    if (FleeAttempt(GameState.CurrentHero.TotalDexterity, GameState.CurrentEnemy.TotalDexterity))
                     {
                         EndBattle();
                         AddTextTT("You successfully fled from the " + GameState.CurrentEnemy.Name + ".");
@@ -307,13 +307,13 @@ namespace Sulimn
             {
                 case BattleAction.Attack:
                     if (GameState.CurrentEnemy.Equipment.Weapon.WeaponType == WeaponTypes.Melee)
-                        EnemyAttack(GameState.CurrentEnemy.Attributes.Strength + GameState.CurrentEnemy.Equipment.BonusStrength, GameState.CurrentEnemy.Equipment.TotalDamage);
+                        EnemyAttack(GameState.CurrentEnemy.TotalStrength, GameState.CurrentEnemy.Equipment.TotalDamage);
                     else if (GameState.CurrentEnemy.Equipment.Weapon.WeaponType == WeaponTypes.Ranged)
-                        EnemyAttack(GameState.CurrentEnemy.Attributes.Dexterity + GameState.CurrentEnemy.Equipment.BonusDexterity, GameState.CurrentEnemy.Equipment.TotalDamage);
+                        EnemyAttack(GameState.CurrentEnemy.TotalDexterity, GameState.CurrentEnemy.Equipment.TotalDamage);
                     break;
 
                 case BattleAction.Flee:
-                    if (FleeAttempt(GameState.CurrentEnemy.Attributes.Dexterity + GameState.CurrentEnemy.Equipment.BonusDexterity, GameState.CurrentHero.Attributes.Dexterity + GameState.CurrentHero.Equipment.BonusDexterity))
+                    if (FleeAttempt(GameState.CurrentEnemy.TotalDexterity, GameState.CurrentHero.TotalDexterity))
                     {
                         EndBattle();
                         AddTextTT("The " + GameState.CurrentEnemy.Name + " fled from the battle.");
