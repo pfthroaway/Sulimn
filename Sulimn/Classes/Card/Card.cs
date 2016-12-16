@@ -18,28 +18,37 @@ namespace Sulimn
         public string Name
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged("Name"); }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         /// <summary>The suit of the card.</summary>
         public CardSuit Suit
         {
             get { return _suit; }
-            set { _suit = value; OnPropertyChanged("CardSuit"); }
+            set
+            {
+                _suit = value;
+                OnPropertyChanged("CardSuit");
+            }
         }
 
         /// <summary>The value of the card.</summary>
         public int Value
         {
             get { return _value; }
-            set { _value = value; OnPropertyChanged("Value"); }
+            set
+            {
+                _value = value;
+                OnPropertyChanged("Value");
+            }
         }
 
         /// <summary>Returns the name and suit of the card.</summary>
-        public string CardToString
-        {
-            get { return Name + " of " + Suit; }
-        }
+        public string CardToString => Name + " of " + Suit;
 
         #endregion Properties
 
@@ -60,7 +69,8 @@ namespace Sulimn
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Suit == right.Suit && left.Value == right.Value;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Suit == right.Suit &&
+             left.Value == right.Value;
         }
 
         public sealed override bool Equals(object obj)

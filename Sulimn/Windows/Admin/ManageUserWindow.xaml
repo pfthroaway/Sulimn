@@ -1,12 +1,13 @@
 ﻿<Window x:Name="windowManageUser" x:Class="Sulimn.ManageUserWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sulimn"
-        mc:Ignorable="d"
-        Title="Manage User" SizeToContent="WidthAndHeight" Closing="windowManageUsers_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
-    <Grid Grid.Column="1">
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+mc:Ignorable="d"
+Title="Manage User" SizeToContent="WidthAndHeight" Closing="windowManageUsers_Closing" ResizeMode="NoResize"
+WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -27,53 +28,103 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center" Text="Hero Name:" Margin="10" />
-        <TextBox x:Name="txtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="200" MaxLength="20" Padding="5" Margin="10" PreviewKeyDown="txtHeroName_PreviewKeyDown" TextChanged="txtHeroName_TextChanged" />
-        <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Text="Password:" Margin="10" />
-        <PasswordBox x:Name="pswdPassword" Grid.Column="1" Grid.Row="1" Width="200" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="5" Margin="10" />
-        <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Text="Confirm Password:" Margin="10" />
-        <PasswordBox x:Name="pswdConfirm" Grid.Column="1" Grid.Row="2" Width="200" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="5" Margin="10" />
-        <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" Text="Class:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbClass" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
-        <TextBlock Grid.Column="0" Grid.Row="4" TextAlignment="Right" Text="Level:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtLevel" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" TextAlignment="Center" Width="75" Margin="10" MaxLength="2" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="0" Grid.Row="5" TextAlignment="Right" Text="Experience:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtExperience" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" TextAlignment="Center" Width="75" Margin="10" MaxLength="5" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="0" Grid.Row="6" TextAlignment="Right" Text="Skill Points:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtSkillPoints" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" TextAlignment="Center" Width="75" Margin="10" MaxLength="3" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="0" Grid.Row="7" TextAlignment="Right" Text="Strength:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtStrength" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="0" Grid.Row="8" TextAlignment="Right" Text="Vitality:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtVitality" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="0" Grid.Row="9" TextAlignment="Right" Text="Dexterity:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtDexterity" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="0" Grid.Row="10" TextAlignment="Right" Text="Wisdom:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtWisdom" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Right" Text="Gold:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtGold" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="6" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="2" Grid.Row="1" TextAlignment="Right" Text="Current Health:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtCurrentHealth" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="2" Grid.Row="2" TextAlignment="Right" Text="Maximum Health:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtMaximumHealth" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="2" Grid.Row="3" TextAlignment="Right" Text="Current Magic:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtCurrentMagic" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
-        <TextBlock Grid.Column="2" Grid.Row="4" TextAlignment="Right" Text="Maximum Magic:" Margin="10" VerticalAlignment="Center" />
-        <TextBox x:Name="txtMaximumMagic" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center" Text="Hero Name:"
+ Margin="10" />
+        <TextBox x:Name="txtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="200" MaxLength="20"
+ Padding="5" Margin="10" PreviewKeyDown="txtHeroName_PreviewKeyDown"
+ TextChanged="txtHeroName_TextChanged" />
+        <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Text="Password:"
+ Margin="10" />
+        <PasswordBox x:Name="pswdPassword" Grid.Column="1" Grid.Row="1" Width="200" HorizontalContentAlignment="Center"
+ VerticalAlignment="Center" Padding="5" Margin="10" />
+        <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center"
+ Text="Confirm Password:" Margin="10" />
+        <PasswordBox x:Name="pswdConfirm" Grid.Column="1" Grid.Row="2" Width="200" HorizontalContentAlignment="Center"
+ VerticalAlignment="Center" Padding="5" Margin="10" />
+        <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" Text="Class:" Margin="10"
+ VerticalAlignment="Center" />
+        <ComboBox x:Name="cmbClass" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}"
+VerticalContentAlignment="Center" Margin="10" Width="200" />
+        <TextBlock Grid.Column="0" Grid.Row="4" TextAlignment="Right" Text="Level:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtLevel" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" Margin="10" MaxLength="2" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="5" TextAlignment="Right" Text="Experience:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtExperience" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" Margin="10" MaxLength="5" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="6" TextAlignment="Right" Text="Skill Points:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtSkillPoints" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" Margin="10" MaxLength="3" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="7" TextAlignment="Right" Text="Strength:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtStrength" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="8" TextAlignment="Right" Text="Vitality:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtVitality" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="9" TextAlignment="Right" Text="Dexterity:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtDexterity" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="0" Grid.Row="10" TextAlignment="Right" Text="Wisdom:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtWisdom" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" MaxLength="3" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Right" Text="Gold:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtGold" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" TextAlignment="Center"
+ Width="75" MaxLength="6" Margin="10" Padding="5" PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="2" Grid.Row="1" TextAlignment="Right" Text="Current Health:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtCurrentHealth" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left"
+ TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5"
+ PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="2" Grid.Row="2" TextAlignment="Right" Text="Maximum Health:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtMaximumHealth" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left"
+ TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5"
+ PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="2" Grid.Row="3" TextAlignment="Right" Text="Current Magic:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtCurrentMagic" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left"
+ TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5"
+ PreviewKeyDown="txtNumbers_PreviewKeyDown" />
+        <TextBlock Grid.Column="2" Grid.Row="4" TextAlignment="Right" Text="Maximum Magic:" Margin="10"
+ VerticalAlignment="Center" />
+        <TextBox x:Name="txtMaximumMagic" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left"
+ TextAlignment="Center" Width="75" MaxLength="4" Margin="10" Padding="5"
+ PreviewKeyDown="txtNumbers_PreviewKeyDown" />
 
-        <TextBlock Grid.Column="2" Grid.Row="5" TextAlignment="Right" Text="Weapon:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbWeapon" Grid.Column="3" Grid.Row="5" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
-        <TextBlock Grid.Column="2" Grid.Row="6" TextAlignment="Right" Text="Head:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbHead" Grid.Column="3" Grid.Row="6" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
-        <TextBlock Grid.Column="2" Grid.Row="7" TextAlignment="Right" Text="Body:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbBody" Grid.Column="3" Grid.Row="7" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
-        <TextBlock Grid.Column="2" Grid.Row="8" TextAlignment="Right" Text="Legs:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbLegs" Grid.Column="3" Grid.Row="8" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
-        <TextBlock Grid.Column="2" Grid.Row="9" TextAlignment="Right" Text="Feet:" Margin="10" VerticalAlignment="Center" />
-        <ComboBox x:Name="cmbFeet" Grid.Column="3" Grid.Row="9" ItemsSource="{Binding}" VerticalContentAlignment="Center" Margin="10" Width="200" />
-        <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="4" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button x:Name="btnSave" Height="30" Width="125" Content="_Save" Margin="10" IsDefault="True" IsEnabled="False" Click="btnSave_Click" />
+        <TextBlock Grid.Column="2" Grid.Row="5" TextAlignment="Right" Text="Weapon:" Margin="10"
+ VerticalAlignment="Center" />
+        <ComboBox x:Name="cmbWeapon" Grid.Column="3" Grid.Row="5" ItemsSource="{Binding}"
+VerticalContentAlignment="Center" Margin="10" Width="200" />
+        <TextBlock Grid.Column="2" Grid.Row="6" TextAlignment="Right" Text="Head:" Margin="10"
+ VerticalAlignment="Center" />
+        <ComboBox x:Name="cmbHead" Grid.Column="3" Grid.Row="6" ItemsSource="{Binding}"
+VerticalContentAlignment="Center" Margin="10" Width="200" />
+        <TextBlock Grid.Column="2" Grid.Row="7" TextAlignment="Right" Text="Body:" Margin="10"
+ VerticalAlignment="Center" />
+        <ComboBox x:Name="cmbBody" Grid.Column="3" Grid.Row="7" ItemsSource="{Binding}"
+VerticalContentAlignment="Center" Margin="10" Width="200" />
+        <TextBlock Grid.Column="2" Grid.Row="8" TextAlignment="Right" Text="Legs:" Margin="10"
+ VerticalAlignment="Center" />
+        <ComboBox x:Name="cmbLegs" Grid.Column="3" Grid.Row="8" ItemsSource="{Binding}"
+VerticalContentAlignment="Center" Margin="10" Width="200" />
+        <TextBlock Grid.Column="2" Grid.Row="9" TextAlignment="Right" Text="Feet:" Margin="10"
+ VerticalAlignment="Center" />
+        <ComboBox x:Name="cmbFeet" Grid.Column="3" Grid.Row="9" ItemsSource="{Binding}"
+VerticalContentAlignment="Center" Margin="10" Width="200" />
+        <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="4" HorizontalAlignment="Center"
+Orientation="Horizontal">
+            <Button x:Name="btnSave" Height="30" Width="125" Content="_Save" Margin="10" IsDefault="True"
+IsEnabled="False" Click="btnSave_Click" />
             <Button x:Name="btnReset" Height="30" Width="125" Margin="10" Content="_Reset" Click="btnReset_Click" />
-            <Button x:Name="btnCancel" Height="30" Width="125" Margin="10" Content="_Cancel" IsCancel="True" Click="btnCancel_Click" />
+            <Button x:Name="btnCancel" Height="30" Width="125" Margin="10" Content="_Cancel" IsCancel="True"
+Click="btnCancel_Click" />
         </StackPanel>
     </Grid>
 </Window>

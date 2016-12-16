@@ -10,15 +10,25 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for WeaponsRUsWindow.xaml
     /// </summary>
-    public partial class WeaponsRUsWindow : Window, INotifyPropertyChanged
+    public partial class WeaponsRUsWindow : INotifyPropertyChanged
     {
+        private readonly string nl = Environment.NewLine;
         private List<Weapon> purchaseWeapon = new List<Weapon>();
-        private List<Weapon> sellWeapon = new List<Weapon>();
         private Weapon selectedWeaponPurchase = new Weapon();
         private Weapon selectedWeaponSell = new Weapon();
-        private string nl = Environment.NewLine;
+        private List<Weapon> sellWeapon = new List<Weapon>();
 
         internal MarketWindow RefToMarketWindow { get; set; }
+
+        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
+        /// <param name="newText">Text to be added</param>
+        private void AddTextTT(string newText)
+        {
+            txtWeaponsRUs.Text += nl + nl + newText;
+            txtWeaponsRUs.Focus();
+            txtWeaponsRUs.CaretIndex = txtWeaponsRUs.Text.Length;
+            txtWeaponsRUs.ScrollToEnd();
+        }
 
         #region Data-Binding
 
@@ -37,7 +47,7 @@ namespace Sulimn
             if (reload)
             {
                 purchaseWeapon.Clear();
-                purchaseWeapon.AddRange(GameState.GetItemsOfType<Weapon>().Where(weapon => weapon.IsSold == true));
+                purchaseWeapon.AddRange(GameState.GetItemsOfType<Weapon>().Where(weapon => weapon.IsSold));
                 purchaseWeapon = purchaseWeapon.OrderBy(weapon => weapon.Value).ToList();
                 lstWeaponPurchase.ItemsSource = purchaseWeapon;
                 lstWeaponPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -96,16 +106,6 @@ namespace Sulimn
 
         #endregion Load
 
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtWeaponsRUs.Text += nl + nl + newText;
-            txtWeaponsRUs.Focus();
-            txtWeaponsRUs.CaretIndex = txtWeaponsRUs.Text.Length;
-            txtWeaponsRUs.ScrollToEnd();
-        }
-
         #region Transaction Methods
 
         /// <summary>Purchases selected Item.</summary>
@@ -157,10 +157,7 @@ namespace Sulimn
             {
                 selectedWeaponPurchase = (Weapon)lstWeaponPurchase.SelectedValue;
 
-                if (selectedWeaponPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnWeaponPurchase.IsEnabled = true;
-                else
-                    btnWeaponPurchase.IsEnabled = false;
+                btnWeaponPurchase.IsEnabled = selectedWeaponPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -175,10 +172,7 @@ namespace Sulimn
             if (lstWeaponSell.SelectedIndex >= 0)
             {
                 selectedWeaponSell = (Weapon)lstWeaponSell.SelectedValue;
-                if (selectedWeaponSell.CanSell)
-                    btnWeaponSell.IsEnabled = true;
-                else
-                    btnWeaponSell.IsEnabled = false;
+                btnWeaponSell.IsEnabled = selectedWeaponSell.CanSell;
             }
             else
             {
@@ -194,13 +188,12 @@ namespace Sulimn
 
         private void btnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow();
-            characterWindow.RefToWeaponsRUsWindow = this;
+            CharacterWindow characterWindow = new CharacterWindow { RefToWeaponsRUsWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("Weapons 'R' Us");
             characterWindow.BindLabels();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -215,13 +208,14 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public WeaponsRUsWindow()
         {
             InitializeComponent();
-            txtWeaponsRUs.Text = "You enter Weapons 'R' Us, the finest weaponsmith shop in the city of Sulimn. You approach the shopkeeper and he shows you his wares.";
+            txtWeaponsRUs.Text =
+            "You enter Weapons 'R' Us, the finest weaponsmith shop in the city of Sulimn. You approach the shopkeeper and he shows you his wares.";
             BindLabels();
         }
 

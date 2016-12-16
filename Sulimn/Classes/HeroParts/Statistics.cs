@@ -6,69 +6,6 @@ namespace Sulimn
     {
         private int _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
 
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
-
-        #region Modifying Properties
-
-        public int CurrentHealth
-        {
-            get { return _currentHealth; }
-            set { _currentHealth = value; OnPropertyChanged("HealthToString"); OnPropertyChanged("HealthToStringWithText"); }
-        }
-
-        public int MaximumHealth
-        {
-            get { return _maximumHealth; }
-            set { _maximumHealth = value; OnPropertyChanged("HealthToString"); OnPropertyChanged("HealthToStringWithText"); }
-        }
-
-        public int CurrentMagic
-        {
-            get { return _currentMagic; }
-            set { _currentMagic = value; OnPropertyChanged("MagicToString"); OnPropertyChanged("MagicToStringWithText"); }
-        }
-
-        public int MaximumMagic
-        {
-            get { return _maximumMagic; }
-            set { _maximumMagic = value; OnPropertyChanged("MagicToString"); OnPropertyChanged("MagicToStringWithText"); }
-        }
-
-        #endregion Modifying Properties
-
-        #region Helper Properties
-
-        public string HealthToString
-        {
-            get { return CurrentHealth.ToString("N0") + " / " + MaximumHealth.ToString("N0"); }
-        }
-
-        public string HealthToStringWithText
-        {
-            get { return "Health: " + HealthToString; }
-        }
-
-        public string MagicToString
-        {
-            get { return CurrentMagic.ToString("N0") + " / " + MaximumMagic.ToString("N0"); }
-        }
-
-        public string MagicToStringWithText
-        {
-            get { return "Magic: " + MagicToString; }
-        }
-
-        #endregion Helper Properties
-
         /// <summary>
         /// Restores magic to the Hero.
         /// </summary>
@@ -85,6 +22,77 @@ namespace Sulimn
             return "You restore " + restoreAmount + " magic.";
         }
 
+        #region Data-Binding
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data-Binding
+
+        #region Modifying Properties
+
+        public int CurrentHealth
+        {
+            get { return _currentHealth; }
+            set
+            {
+                _currentHealth = value;
+                OnPropertyChanged("HealthToString");
+                OnPropertyChanged("HealthToStringWithText");
+            }
+        }
+
+        public int MaximumHealth
+        {
+            get { return _maximumHealth; }
+            set
+            {
+                _maximumHealth = value;
+                OnPropertyChanged("HealthToString");
+                OnPropertyChanged("HealthToStringWithText");
+            }
+        }
+
+        public int CurrentMagic
+        {
+            get { return _currentMagic; }
+            set
+            {
+                _currentMagic = value;
+                OnPropertyChanged("MagicToString");
+                OnPropertyChanged("MagicToStringWithText");
+            }
+        }
+
+        public int MaximumMagic
+        {
+            get { return _maximumMagic; }
+            set
+            {
+                _maximumMagic = value;
+                OnPropertyChanged("MagicToString");
+                OnPropertyChanged("MagicToStringWithText");
+            }
+        }
+
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        public string HealthToString => CurrentHealth.ToString("N0") + " / " + MaximumHealth.ToString("N0");
+
+        public string HealthToStringWithText => "Health: " + HealthToString;
+
+        public string MagicToString => CurrentMagic.ToString("N0") + " / " + MaximumMagic.ToString("N0");
+
+        public string MagicToStringWithText => "Magic: " + MagicToString;
+
+        #endregion Helper Properties
+
         #region Constructors
 
         /// <summary>
@@ -100,7 +108,7 @@ namespace Sulimn
         /// <param name="currentHealth">Current Health</param>
         /// <param name="maximumHealth">Maximum Health</param>
         /// <param name="currentMagic">Current Magic</param>
-        /// <param name="MaximumMagic">Maximum Magic</param>
+        /// <param name="maximumMagic">Maximum Magic</param>
         public Statistics(int currentHealth, int maximumHealth, int currentMagic, int maximumMagic)
         {
             CurrentHealth = currentHealth;

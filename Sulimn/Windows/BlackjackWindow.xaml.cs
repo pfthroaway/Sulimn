@@ -11,53 +11,88 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for BlackjackWindow.xaml
     /// </summary>
-    public partial class BlackjackWindow : Window, INotifyPropertyChanged
+    public partial class BlackjackWindow : INotifyPropertyChanged
     {
-        internal TavernWindow RefToTavernWindow { get; set; }
-        private List<Card> cardList = new List<Card>();
-        private Hand playerHand = new Hand();
+        private readonly List<Card> cardList = new List<Card>();
+        private readonly string nl = Environment.NewLine;
         private Hand dealerHand = new Hand();
-        private int index = 0, bet = 0, _totalWins = 0, _totalLosses = 0, _totalDraws = 0, _totalBetWinnings = 0, _totalBetLosses = 0;
-        private int sidePot = 0;
         private bool handOver = true;
-        private string nl = Environment.NewLine;
+        private int index, bet, _totalWins, _totalLosses, _totalDraws, _totalBetWinnings, _totalBetLosses;
+        private Hand playerHand = new Hand();
+        private readonly int sidePot = 0;
+        internal TavernWindow RefToTavernWindow { get; set; }
+
+        private void DealerAction()
+        {
+            bool keepGoing = true;
+
+            while (keepGoing)
+                if (dealerHand.TotalValue() == 21)
+                    keepGoing = false;
+                else if (dealerHand.TotalValue() >= 17)
+                    if (dealerHand.TotalValue() > 21 && CheckHasAceEleven(dealerHand))
+                        ConvertAce(dealerHand);
+                    else
+                        keepGoing = false;
+                else
+                    DealCard(dealerHand);
+        }
 
         #region Properties
 
         public int TotalWins
         {
             get { return _totalWins; }
-            set { _totalWins = value; OnPropertyChanged("Statistics"); }
+            set
+            {
+                _totalWins = value;
+                OnPropertyChanged("Statistics");
+            }
         }
 
         public int TotalLosses
         {
             get { return _totalLosses; }
-            set { _totalLosses = value; OnPropertyChanged("Statistics"); }
+            set
+            {
+                _totalLosses = value;
+                OnPropertyChanged("Statistics");
+            }
         }
 
         public int TotalDraws
         {
             get { return _totalDraws; }
-            set { _totalDraws = value; OnPropertyChanged("Statistics"); }
+            set
+            {
+                _totalDraws = value;
+                OnPropertyChanged("Statistics");
+            }
         }
 
         public int TotalBetWinnings
         {
             get { return _totalBetWinnings; }
-            set { _totalBetWinnings = value; OnPropertyChanged("Statistics"); }
+            set
+            {
+                _totalBetWinnings = value;
+                OnPropertyChanged("Statistics");
+            }
         }
 
         public int TotalBetLosses
         {
             get { return _totalBetLosses; }
-            set { _totalBetLosses = value; OnPropertyChanged("Statistics"); }
+            set
+            {
+                _totalBetLosses = value;
+                OnPropertyChanged("Statistics");
+            }
         }
 
-        public string Statistics
-        {
-            get { return "Wins: " + TotalWins.ToString("N0") + nl + "Losses: " + TotalLosses.ToString("N0") + nl + "Draws: " + TotalDraws.ToString("N0") + nl + "Gold Won: " + TotalBetWinnings.ToString("N0") + nl + "Gold Lost: " + TotalBetLosses.ToString("N0"); }
-        }
+        public string Statistics => "Wins: " + TotalWins.ToString("N0") + nl + "Losses: " + TotalLosses.ToString("N0") + nl +
+                                    "Draws: " + TotalDraws.ToString("N0") + nl + "Gold Won: " + TotalBetWinnings.ToString("N0") + nl +
+                                    "Gold Lost: " + TotalBetLosses.ToString("N0");
 
         #endregion Properties
 
@@ -70,15 +105,14 @@ namespace Sulimn
         /// </summary>
         //private void BindLabels()
         //{
-        //    lstPlayer.DisplayMember = "CardToString";
-        //    lstPlayer.DataSource = playerHand.CardList;
-        //    //lstDealer.DataSource = dealerHand.CardList;
-        //    lblPlayerTotal.DataBindings.Add("Text", playerHand, "Value");
-        //    lblDealerTotal.DataBindings.Add("Text", dealerHand, "Value");
-        //    lblGold.DataBindings.Add("Text", GameState.currentHero, "GoldToString");
-        //    lblStatistics.DataBindings.Add("Text", this, "Statistics");
+        //lstPlayer.DisplayMember = "CardToString";
+        //lstPlayer.DataSource = playerHand.CardList;
+        ////lstDealer.DataSource = dealerHand.CardList;
+        //lblPlayerTotal.DataBindings.Add("Text", playerHand, "Value");
+        //lblDealerTotal.DataBindings.Add("Text", dealerHand, "Value");
+        //lblGold.DataBindings.Add("Text", GameState.currentHero, "GoldToString");
+        //lblStatistics.DataBindings.Add("Text", this, "Statistics");
         //}
-
         protected virtual void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -121,9 +155,7 @@ namespace Sulimn
         private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit)
         {
             if (checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0)
-            {
-                return (checkHand.TotalValue() >= 9) && (checkHand.TotalValue() <= 11);
-            }
+                return checkHand.TotalValue() >= 9 && checkHand.TotalValue() <= 11;
             return false;
         }
 
@@ -148,10 +180,8 @@ namespace Sulimn
         private bool CheckHasAceEleven(Hand checkHand)
         {
             foreach (Card card in checkHand.CardList)
-            {
                 if (card.Value == 11)
                     return true;
-            }
             return false;
         }
 
@@ -177,13 +207,11 @@ namespace Sulimn
         private void ConvertAce(Hand handConvert)
         {
             foreach (Card card in handConvert.CardList)
-            {
                 if (card.Value == 11)
                 {
                     card.Value = 1;
                     break;
                 }
-            }
         }
 
         /// <summary>
@@ -193,14 +221,12 @@ namespace Sulimn
         {
             cardList.Clear();
             for (int h = 0; h < numberOfDecks; h++)
-            {
                 for (int i = 1; i < 14; i++)
-                {
                     for (int j = 0; j < 4; j++)
                     {
-                        string name = "";
+                        string name;
                         CardSuit suit = CardSuit.Spades;
-                        int value = 0;
+                        int value;
 
                         switch (j)
                         {
@@ -252,8 +278,6 @@ namespace Sulimn
                         Card newCard = new Card(name, suit, value);
                         cardList.Add(newCard);
                     }
-                }
-            }
         }
 
         /// <summary>
@@ -278,7 +302,7 @@ namespace Sulimn
             txtBet.IsEnabled = false;
             btnNewHand.IsEnabled = false;
             btnExit.IsEnabled = false;
-            if (index >= (cardList.Count * 0.8))
+            if (index >= cardList.Count * 0.8)
             {
                 index = 0;
                 cardList.Shuffle();
@@ -293,26 +317,6 @@ namespace Sulimn
         }
 
         #endregion Card Management
-
-        private void DealerAction()
-        {
-            bool keepGoing = true;
-
-            while (keepGoing)
-            {
-                if (dealerHand.TotalValue() == 21)
-                    keepGoing = false;
-                else if (dealerHand.TotalValue() >= 17)
-                {
-                    if (dealerHand.TotalValue() > 21 && CheckHasAceEleven(dealerHand))
-                        ConvertAce(dealerHand);
-                    else
-                        keepGoing = false;
-                }
-                else
-                    DealCard(dealerHand);
-            }
-        }
 
         #region Button Management
 
@@ -332,10 +336,7 @@ namespace Sulimn
                 btnStay.IsEnabled = false;
             }
 
-            if (CheckHasAceEleven(playerHand))
-                btnConvertAce.IsEnabled = true;
-            else
-                btnConvertAce.IsEnabled = false;
+            btnConvertAce.IsEnabled = CheckHasAceEleven(playerHand);
         }
 
         /// <summary>
@@ -482,7 +483,9 @@ namespace Sulimn
                 {
                     AddTextTT("You have a natural blackjack!");
                     if (dealerHand.TotalValue() != 21)
+                    {
                         WinBlackjack(Int32Helper.Parse(bet * 1.5));
+                    }
                     else
                     {
                         AddTextTT("You and the dealer both have natural blackjacks.");
@@ -490,7 +493,9 @@ namespace Sulimn
                     }
                 }
                 else
+                {
                     Stay();
+                }
             }
             else if (!handOver)
             {
@@ -506,9 +511,7 @@ namespace Sulimn
             lstPlayer.Items.Clear();
 
             foreach (Card card in playerHand.CardList)
-            {
                 lstPlayer.Items.Add(card.Name + " of " + card.Suit);
-            }
             lblPlayerTotal.Text = playerHand.TotalValue().ToString();
         }
 
@@ -541,17 +544,21 @@ namespace Sulimn
             playerHand.CardList.Add(new Card(cardList[index]));
             index++;
             if (playerHand.CardList.Count < 5)
+            {
                 DisplayHand();
+            }
             else
             {
-                if (playerHand.TotalValue() < 21 || (CheckHasAceEleven(playerHand) && playerHand.TotalValue() <= 31))
+                if (playerHand.TotalValue() < 21 || CheckHasAceEleven(playerHand) && playerHand.TotalValue() <= 31)
                 {
                     AddTextTT("Five Card Charlie!");
                     DisplayPlayerHand();
                     WinBlackjack(bet);
                 }
                 else
+                {
                     DisplayHand();
+                }
             }
         }
 
@@ -581,9 +588,7 @@ namespace Sulimn
         private void CloseWindow()
         {
             if (handOver)
-            {
-                this.Close();
-            }
+                Close();
         }
 
         public BlackjackWindow()
@@ -592,7 +597,8 @@ namespace Sulimn
             CreateDeck(6);
             cardList.Shuffle();
             DisplayStatistics();
-            txtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat." + nl + nl + "\"Care to place a bet?\" asks the dealer.";
+            txtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat." + nl + nl +
+            "\"Care to place a bet?\" asks the dealer.";
             txtBet.Focus();
         }
 
@@ -605,9 +611,11 @@ namespace Sulimn
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl, Key.Escape);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
+            Key.Escape);
 
-            if (keys.Any(key => key == true) || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+            if (keys.Any(key => key) || Key.D0 <= k && k <= Key.D9 || Key.NumPad0 <= k && k <= Key.NumPad9)
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -620,10 +628,7 @@ namespace Sulimn
                                       select c).ToArray());
             txtBet.CaretIndex = txtBet.Text.Length;
 
-            if (txtBet.Text.Length > 0)
-                btnNewHand.IsEnabled = true;
-            else
-                btnNewHand.IsEnabled = false;
+            btnNewHand.IsEnabled = txtBet.Text.Length > 0;
         }
 
         private async void windowBlackjack_Closing(object sender, CancelEventArgs e)
@@ -634,7 +639,9 @@ namespace Sulimn
                 await GameState.SaveHero(GameState.CurrentHero);
             }
             else
+            {
                 e.Cancel = true;
+            }
         }
 
         #endregion Window-Manipulation Methods

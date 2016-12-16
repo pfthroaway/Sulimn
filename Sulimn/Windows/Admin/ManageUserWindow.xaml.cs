@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Sulimn
@@ -9,44 +10,18 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for ManageUserWindow.xaml
     /// </summary>
-    public partial class ManageUserWindow : Window, INotifyPropertyChanged
+    public partial class ManageUserWindow : INotifyPropertyChanged
     {
+        private readonly List<BodyArmor> AllBodyArmor = GameState.GetItemsOfType<BodyArmor>();
+        private readonly List<HeroClass> AllClasses = new List<HeroClass>(GameState.AllClasses);
+        private readonly List<FeetArmor> AllFeetArmor = GameState.GetItemsOfType<FeetArmor>();
+        private readonly List<HeadArmor> AllHeadArmor = GameState.GetItemsOfType<HeadArmor>();
+        private readonly List<LegArmor> AllLegsArmor = GameState.GetItemsOfType<LegArmor>();
+        private readonly List<Weapon> AllWeapons = new List<Weapon>(GameState.GetItemsOfType<Weapon>());
         private Hero modifyHero = new Hero();
         private Hero originalHero = new Hero();
-        private List<Weapon> AllWeapons = new List<Weapon>(GameState.GetItemsOfType<Weapon>());
-        private List<HeadArmor> AllHeadArmor = GameState.GetItemsOfType<HeadArmor>();
-        private List<BodyArmor> AllBodyArmor = GameState.GetItemsOfType<BodyArmor>();
-        private List<LegArmor> AllLegsArmor = GameState.GetItemsOfType<LegArmor>();
-        private List<FeetArmor> AllFeetArmor = GameState.GetItemsOfType<FeetArmor>();
-        private List<HeroClass> AllClasses = new List<HeroClass>(GameState.AllClasses);
 
         internal ManageUsersWindow RefToManageUsersWindow { get; set; }
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Binds information to controls.
-        /// </summary>
-        private void BindControls()
-        {
-            cmbClass.ItemsSource = AllClasses;
-            cmbWeapon.ItemsSource = AllWeapons;
-            cmbHead.ItemsSource = AllHeadArmor;
-            cmbBody.ItemsSource = AllBodyArmor;
-            cmbLegs.ItemsSource = AllLegsArmor;
-            cmbFeet.ItemsSource = AllFeetArmor;
-
-            DisplayOriginalHero();
-        }
-
-        protected virtual void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
 
         #region Display Manipulation
 
@@ -78,15 +53,43 @@ namespace Sulimn
 
         #endregion Display Manipulation
 
+        #region Data-Binding
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Binds information to controls.
+        /// </summary>
+        private void BindControls()
+        {
+            cmbClass.ItemsSource = AllClasses;
+            cmbWeapon.ItemsSource = AllWeapons;
+            cmbHead.ItemsSource = AllHeadArmor;
+            cmbBody.ItemsSource = AllBodyArmor;
+            cmbLegs.ItemsSource = AllLegsArmor;
+            cmbFeet.ItemsSource = AllFeetArmor;
+
+            DisplayOriginalHero();
+        }
+
+        protected virtual void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data-Binding
+
         #region Input Manipulation
 
         private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl, Key.Escape);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
+            Key.Escape);
 
-            if (keys.Any(key => key == true) || Key.A <= k && k <= Key.Z)
+            if (keys.Any(key => key) || Key.A <= k && k <= Key.Z)
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -96,9 +99,11 @@ namespace Sulimn
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl, Key.Escape);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
+            Key.Escape);
 
-            if (keys.Any(key => key == true) || (Key.D0 <= k && k <= Key.D9) || (Key.NumPad0 <= k && k <= Key.NumPad9))
+            if (keys.Any(key => key) || Key.D0 <= k && k <= Key.D9 || Key.NumPad0 <= k && k <= Key.NumPad9)
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -132,7 +137,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         internal void LoadWindow(Hero manageHero)
@@ -147,7 +152,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void txtHeroName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txtHeroName_TextChanged(object sender, TextChangedEventArgs e)
         {
             txtHeroName.Text = new string((from c in txtHeroName.Text
                                            where char.IsLetter(c)

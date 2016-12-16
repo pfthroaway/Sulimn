@@ -7,9 +7,6 @@ namespace Sulimn
     /// </summary>
     internal class Potion : Item, IEquatable<Potion>
     {
-        private PotionTypes _potionType;
-        private int _amount;
-
         #region Properties
 
         public sealed override string Name
@@ -24,11 +21,7 @@ namespace Sulimn
             set { _type = value; }
         }
 
-        public PotionTypes PotionType
-        {
-            get { return _potionType; }
-            set { _potionType = value; }
-        }
+        public PotionTypes PotionType { get; set; }
 
         public sealed override string Description
         {
@@ -36,11 +29,7 @@ namespace Sulimn
             set { _description = value; }
         }
 
-        public int Amount
-        {
-            get { return _amount; }
-            set { _amount = value; }
-        }
+        public int Amount { get; set; }
 
         public sealed override int Weight
         {
@@ -63,7 +52,11 @@ namespace Sulimn
         public sealed override bool IsSold
         {
             get { return _isSold; }
-            set { _isSold = value; OnPropertyChanged("IsSold"); }
+            set
+            {
+                _isSold = value;
+                OnPropertyChanged("IsSold");
+            }
         }
 
         #endregion Properties
@@ -71,10 +64,7 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>The value of the Potion with thousands separators</summary>
-        public sealed override string ValueToString
-        {
-            get { return Value.ToString("N0"); }
-        }
+        public sealed override string ValueToString => Value.ToString("N0");
 
         /// <summary>The value of the Potion with thousands separators and preceding text</summary>
         public sealed override string ValueToStringWithText
@@ -88,16 +78,10 @@ namespace Sulimn
         }
 
         /// <summary>The value of the Potion</summary>
-        public sealed override int SellValue
-        {
-            get { return Value / 2; }
-        }
+        public sealed override int SellValue => Value / 2;
 
         /// <summary>The value of the Potion with thousands separators</summary>
-        public sealed override string SellValueToString
-        {
-            get { return SellValue.ToString("N0"); }
-        }
+        public sealed override string SellValueToString => SellValue.ToString("N0");
 
         /// <summary>The value of the Potion with thousands separators with preceding text</summary>
         public sealed override string SellValueToStringWithText
@@ -131,7 +115,6 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                {
                     switch (PotionType)
                     {
                         case PotionTypes.Healing:
@@ -143,7 +126,6 @@ namespace Sulimn
                         case PotionTypes.Curing:
                             return "Cures any ailments.";
                     }
-                }
                 return "";
             }
         }
@@ -156,7 +138,11 @@ namespace Sulimn
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
+             left.PotionType == right.PotionType &&
+             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+             left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
+             left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)
@@ -203,14 +189,15 @@ namespace Sulimn
         /// <summary>
         /// Initializes an instance of Potion by assigning Properties.
         /// </summary>
-        /// <param name="potionName">Name of Potion</param>
+        /// <param name="name">Name of Potion</param>
         /// <param name="potionType">Type of Potion</param>
         /// <param name="description">Description of Potion</param>
         /// <param name="amount">Amount of Potion</param>
         /// <param name="value">Value of Potion</param>
         /// <param name="canSell">Can Potion be sold?</param>
         /// <param name="isSold">Is Potion sold?</param>
-        internal Potion(string name, PotionTypes potionType, string description, int amount, int value, bool canSell, bool isSold)
+        internal Potion(string name, PotionTypes potionType, string description, int amount, int value, bool canSell,
+        bool isSold)
         {
             Name = name;
             Type = ItemTypes.Potion;

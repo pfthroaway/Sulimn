@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace Sulimn
+﻿namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for AdminNewUserWindow.xaml
     /// </summary>
-    public partial class AdminNewUserWindow : Window
+    public partial class AdminNewUserWindow
     {
         public AdminNewUserWindow()
         {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,14 +9,11 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         #region Login
 
-        /// <summary>
-        /// Logs the Hero in.
-        /// </summary>
-        /// <param name="Hero">Current Hero</param>
+        /// <summary>Logs the Hero in.</summary>
         internal void Login()
         {
             txtHeroName.Text = "";
@@ -27,7 +23,7 @@ namespace Sulimn
             cityWindow.Show();
             cityWindow.RefToMainWindow = this;
             cityWindow.EnterCity();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         #endregion Login
@@ -40,7 +36,7 @@ namespace Sulimn
             NewHeroWindow newHeroWindow = new NewHeroWindow();
             newHeroWindow.Show();
             newHeroWindow.RefToMainWindow = this;
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -54,12 +50,12 @@ namespace Sulimn
             AdminPasswordWindow adminPasswordWindow = new AdminPasswordWindow();
             adminPasswordWindow.Show();
             adminPasswordWindow.RefToMainWindow = this;
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void mnuFileExit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         #endregion Button-Click Methods
@@ -86,9 +82,11 @@ namespace Sulimn
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl, Key.Escape);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
+            Key.Escape);
 
-            if (keys.Any(key => key == true) || Key.A <= k && k <= Key.Z)
+            if (keys.Any(key => key) || Key.A <= k && k <= Key.Z)
                 //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
                 //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
                 e.Handled = false;
@@ -126,7 +124,7 @@ namespace Sulimn
 
         private async void windowMain_Loaded(object sender, RoutedEventArgs e)
         {
-            await Task.Factory.StartNew(() => GameState.LoadAll());
+            await GameState.LoadAll();
         }
 
         #endregion Window-Manipulation Methods

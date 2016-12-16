@@ -2,31 +2,33 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for TheGeneralStoreWindow.xaml
     /// </summary>
-    public partial class TheGeneralStoreWindow : Window, INotifyPropertyChanged
+    public partial class TheGeneralStoreWindow : INotifyPropertyChanged
     {
+        private readonly string nl = Environment.NewLine;
         private List<Potion> purchasePotion = new List<Potion>();
-        private List<Potion> sellPotion = new List<Potion>();
         private Potion selectedPotionPurchase = new Potion();
         private Potion selectedPotionSell = new Potion();
-        private string nl = Environment.NewLine;
+        private List<Potion> sellPotion = new List<Potion>();
 
         internal MarketWindow RefToMarketWindow { get; set; }
+
+        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
+        /// <param name="newText">Text to be added</param>
+        private void AddTextTT(string newText)
+        {
+            txtTheGeneralStore.Text += nl + nl + newText;
+            txtTheGeneralStore.Focus();
+            txtTheGeneralStore.CaretIndex = txtTheGeneralStore.Text.Length;
+            txtTheGeneralStore.ScrollToEnd();
+        }
 
         #region Data-Binding
 
@@ -45,7 +47,7 @@ namespace Sulimn
             if (reload)
             {
                 purchasePotion.Clear();
-                purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(potion => potion.IsSold == true));
+                purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(potion => potion.IsSold));
                 purchasePotion = purchasePotion.OrderBy(potion => potion.Value).ToList();
                 lstPotionPurchase.ItemsSource = purchasePotion;
                 lstPotionPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -102,16 +104,6 @@ namespace Sulimn
 
         #endregion Load
 
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtTheGeneralStore.Text += nl + nl + newText;
-            txtTheGeneralStore.Focus();
-            txtTheGeneralStore.CaretIndex = txtTheGeneralStore.Text.Length;
-            txtTheGeneralStore.ScrollToEnd();
-        }
-
         #region Transaction Methods
 
         /// <summary>Purchases selected Item.</summary>
@@ -163,10 +155,7 @@ namespace Sulimn
             {
                 selectedPotionPurchase = (Potion)lstPotionPurchase.SelectedValue;
 
-                if (selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnPotionPurchase.IsEnabled = true;
-                else
-                    btnPotionPurchase.IsEnabled = false;
+                btnPotionPurchase.IsEnabled = selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -181,10 +170,7 @@ namespace Sulimn
             if (lstPotionSell.SelectedIndex >= 0)
             {
                 selectedPotionSell = (Potion)lstPotionSell.SelectedValue;
-                if (selectedPotionSell.CanSell)
-                    btnPotionSell.IsEnabled = true;
-                else
-                    btnPotionSell.IsEnabled = false;
+                btnPotionSell.IsEnabled = selectedPotionSell.CanSell;
             }
             else
             {
@@ -200,13 +186,12 @@ namespace Sulimn
 
         private void btnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow();
-            characterWindow.RefToTheGeneralStoreWindow = this;
+            CharacterWindow characterWindow = new CharacterWindow { RefToTheGeneralStoreWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("The General Store");
             characterWindow.BindLabels();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -221,13 +206,14 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public TheGeneralStoreWindow()
         {
             InitializeComponent();
-            txtTheGeneralStore.Text = "You enter The General Store, a solid wooden building near the center of the market. A beautiful young woman is standing behind a counter, smiling at you. You approach her and examine her wares.";
+            txtTheGeneralStore.Text =
+            "You enter The General Store, a solid wooden building near the center of the market. A beautiful young woman is standing behind a counter, smiling at you. You approach her and examine her wares.";
             BindLabels();
         }
 

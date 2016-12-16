@@ -8,10 +8,38 @@ namespace Sulimn
     /// </summary>
     internal class Hero : Character, INotifyPropertyChanged
     {
-        private string _password;
         private HeroClass _class;
         private int _skillPoints;
         private Spellbook _spellbook = new Spellbook();
+
+        internal void UpdateStatistics()
+        {
+            if (Statistics.MaximumHealth != (TotalVitality + Level - 1) * 5)
+            {
+                int diff = (TotalVitality + Level - 1) * 5 - Statistics.MaximumHealth;
+
+                Statistics.CurrentHealth += diff;
+                Statistics.MaximumHealth += diff;
+            }
+
+            if (Statistics.MaximumMagic != (TotalWisdom + Level - 1) * 5)
+            {
+                int diff = (TotalWisdom + Level - 1) * 5 - Statistics.MaximumMagic;
+
+                Statistics.CurrentMagic += diff;
+                Statistics.MaximumMagic += diff;
+            }
+
+            OnPropertyChanged("TotalStrength");
+            OnPropertyChanged("TotalVitality");
+            OnPropertyChanged("TotalDexterity");
+            OnPropertyChanged("TotalWisdom");
+        }
+
+        public sealed override string ToString()
+        {
+            return Name;
+        }
 
         #region Data-Binding
 
@@ -30,77 +58,116 @@ namespace Sulimn
         public sealed override string Name
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged("Name"); }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         /// <summary>The hashed password of the Hero</summary>
-        public string Password
-        {
-            get { return _password; }
-            set { _password = value; }
-        }
+        public string Password { get; set; }
 
         /// <summary>The HeroClass of the Hero</summary>
         public HeroClass Class
         {
             get { return _class; }
-            set { _class = value; OnPropertyChanged("Class"); }
+            set
+            {
+                _class = value;
+                OnPropertyChanged("Class");
+            }
         }
 
         /// <summary>The level of the Hero</summary>
         public sealed override int Level
         {
             get { return _level; }
-            set { _level = value; OnPropertyChanged("Level"); OnPropertyChanged("LevelAndClassToString"); }
+            set
+            {
+                _level = value;
+                OnPropertyChanged("Level");
+                OnPropertyChanged("LevelAndClassToString");
+            }
         }
 
         /// <summary>The amount of experience the Hero has gained this level</summary>
         public sealed override int Experience
         {
             get { return _experience; }
-            set { _experience = value; OnPropertyChanged("ExperienceToString"); OnPropertyChanged("ExperienceToStringWithText"); }
+            set
+            {
+                _experience = value;
+                OnPropertyChanged("ExperienceToString");
+                OnPropertyChanged("ExperienceToStringWithText");
+            }
         }
 
         /// <summary>The amount of available skill points the Hero has</summary>
         public int SkillPoints
         {
             get { return _skillPoints; }
-            set { _skillPoints = value; OnPropertyChanged("SkillPoints"); OnPropertyChanged("SkillPointsToString"); }
+            set
+            {
+                _skillPoints = value;
+                OnPropertyChanged("SkillPoints");
+                OnPropertyChanged("SkillPointsToString");
+            }
         }
 
         /// <summary>The attributes of the Hero</summary>
         public sealed override Attributes Attributes
         {
             get { return _attributes; }
-            set { _attributes = value; OnPropertyChanged("Attributes"); }
+            set
+            {
+                _attributes = value;
+                OnPropertyChanged("Attributes");
+            }
         }
 
         /// <summary>The statistics of the Hero</summary>
         public sealed override Statistics Statistics
         {
             get { return _statistics; }
-            set { _statistics = value; OnPropertyChanged("Statistics"); }
+            set
+            {
+                _statistics = value;
+                OnPropertyChanged("Statistics");
+            }
         }
 
         /// <summary>The equipment the Hero is currently using</summary>
         public sealed override Equipment Equipment
         {
             get { return _equipment; }
-            set { _equipment = value; OnPropertyChanged("Equipment"); }
+            set
+            {
+                _equipment = value;
+                OnPropertyChanged("Equipment");
+            }
         }
 
         /// <summary>The list of Spells the Hero currently knows</summary>
         public Spellbook Spellbook
         {
             get { return _spellbook; }
-            set { _spellbook = value; OnPropertyChanged("KnownSpells"); }
+            set
+            {
+                _spellbook = value;
+                OnPropertyChanged("KnownSpells");
+            }
         }
 
         /// <summary>The list of Items the Hero is currently carrying</summary>
         public sealed override Inventory Inventory
         {
             get { return _inventory; }
-            set { _inventory = value; OnPropertyChanged("Inventory"); }
+            set
+            {
+                _inventory = value;
+                OnPropertyChanged("Inventory");
+            }
         }
 
         #endregion Properties
@@ -108,22 +175,13 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>The level and class of the Hero</summary>
-        public string LevelAndClassToString
-        {
-            get { return "Level " + Level + " " + Class.Name; }
-        }
+        public string LevelAndClassToString => "Level " + Level + " " + Class.Name;
 
         /// <summary>The experience the Hero has gained this level alongside how much is needed to level up</summary>
-        public string ExperienceToString
-        {
-            get { return Experience.ToString("N0") + " / " + (_level * 100).ToString("N0"); }
-        }
+        public string ExperienceToString => Experience.ToString("N0") + " / " + (_level * 100).ToString("N0");
 
         /// <summary>The experience the Hero has gained this level alongside how much is needed to level up with preceding text</summary>
-        public string ExperienceToStringWithText
-        {
-            get { return "Experience: " + ExperienceToString; }
-        }
+        public string ExperienceToStringWithText => "Experience: " + ExperienceToString;
 
         /// <summary>The amount of skill points the Hero has available to spend</summary>
         public string SkillPointsToString
@@ -132,34 +190,21 @@ namespace Sulimn
             {
                 if (SkillPoints != 1)
                     return SkillPoints.ToString("N0") + " Skill Points Available";
-                else
-                    return SkillPoints.ToString("N0") + " Skill Point Available";
+                return SkillPoints.ToString("N0") + " Skill Point Available";
             }
         }
 
         /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalStrength
-        {
-            get { return Attributes.Strength + Equipment.BonusStrength; }
-        }
+        public int TotalStrength => Attributes.Strength + Equipment.BonusStrength;
 
         /// <summary>Returns the total Vitality attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalVitality
-        {
-            get { return Attributes.Vitality + Equipment.BonusVitality; }
-        }
+        public int TotalVitality => Attributes.Vitality + Equipment.BonusVitality;
 
         /// <summary>Returns the total Dexterity attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalDexterity
-        {
-            get { return Attributes.Dexterity + Equipment.BonusDexterity; }
-        }
+        public int TotalDexterity => Attributes.Dexterity + Equipment.BonusDexterity;
 
         /// <summary>Returns the total Wisdom attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalWisdom
-        {
-            get { return Attributes.Wisdom + Equipment.BonusWisdom; }
-        }
+        public int TotalWisdom => Attributes.Wisdom + Equipment.BonusWisdom;
 
         #endregion Helper Properties
 
@@ -194,14 +239,15 @@ namespace Sulimn
         /// <returns>Returns level up String.</returns>
         private string LevelUp()
         {
-            Experience -= (Level * 100);
+            Experience -= Level * 100;
             Level += 1;
             SkillPoints += 5;
             Statistics.CurrentHealth += 5;
             Statistics.MaximumHealth += 5;
             Statistics.CurrentMagic += 5;
             Statistics.MaximumMagic += 5;
-            return Environment.NewLine + Environment.NewLine + "You gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
+            return Environment.NewLine + Environment.NewLine +
+             "You gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
         }
 
         #endregion Experience Manipulation
@@ -235,35 +281,6 @@ namespace Sulimn
 
         #endregion Health Manipulation
 
-        internal void UpdateStatistics()
-        {
-            if (Statistics.MaximumHealth != (TotalVitality + Level - 1) * 5)
-            {
-                int diff = (TotalVitality + Level - 1) * 5 - Statistics.MaximumHealth;
-
-                Statistics.CurrentHealth += diff;
-                Statistics.MaximumHealth += diff;
-            }
-
-            if (Statistics.MaximumMagic != (TotalWisdom + Level - 1) * 5)
-            {
-                int diff = (TotalWisdom + Level - 1) * 5 - Statistics.MaximumMagic;
-
-                Statistics.CurrentMagic += diff;
-                Statistics.MaximumMagic += diff;
-            }
-
-            OnPropertyChanged("TotalStrength");
-            OnPropertyChanged("TotalVitality");
-            OnPropertyChanged("TotalDexterity");
-            OnPropertyChanged("TotalWisdom");
-        }
-
-        public sealed override string ToString()
-        {
-            return Name;
-        }
-
         #region Constructors
 
         /// <summary>Initializes a default instance of Hero.</summary>
@@ -283,7 +300,8 @@ namespace Sulimn
         /// <param name="equipment">Equipment of Hero</param>
         /// <param name="spellbook">Spellbook of Hero</param>
         /// <param name="inventory">Inventory of Hero</param>
-        internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints, Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory)
+        internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints,
+        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory)
         {
             Name = name;
             Password = password;

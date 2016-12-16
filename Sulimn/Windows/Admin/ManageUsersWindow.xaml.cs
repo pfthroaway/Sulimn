@@ -8,10 +8,10 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for ManageUsersWindow.xaml
     /// </summary>
-    public partial class ManageUsersWindow : Window, INotifyPropertyChanged
+    public partial class ManageUsersWindow : INotifyPropertyChanged
     {
+        private readonly List<Hero> AllHeroes = new List<Hero>(GameState.AllHeroes);
         private Hero selectedHero = new Hero();
-        private List<Hero> AllHeroes = new List<Hero>(GameState.AllHeroes);
         internal AdminWindow RefToAdminWindow { get; set; }
 
         #region Data Binding
@@ -55,11 +55,10 @@ namespace Sulimn
 
         private void btnManageUser_Click(object sender, RoutedEventArgs e)
         {
-            ManageUserWindow manageUserWindow = new ManageUserWindow();
-            manageUserWindow.RefToManageUsersWindow = this;
+            ManageUserWindow manageUserWindow = new ManageUserWindow { RefToManageUsersWindow = this };
             manageUserWindow.LoadWindow((Hero)lstUsers.SelectedValue);
             manageUserWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -74,7 +73,7 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public ManageUsersWindow()

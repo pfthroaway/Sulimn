@@ -6,7 +6,7 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for TavernWindow.xaml
     /// </summary>
-    public partial class TavernWindow : Window
+    public partial class TavernWindow
     {
         internal CityWindow RefToCityWindow { get; set; }
 
@@ -14,10 +14,9 @@ namespace Sulimn
 
         private void btnBlackjack_Click(object sender, RoutedEventArgs e)
         {
-            BlackjackWindow blackjackWindow = new BlackjackWindow();
-            blackjackWindow.RefToTavernWindow = this;
+            BlackjackWindow blackjackWindow = new BlackjackWindow { RefToTavernWindow = this };
             blackjackWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -27,10 +26,9 @@ namespace Sulimn
 
         private void btnFood_Click(object sender, RoutedEventArgs e)
         {
-            TheTavernBarWindow theTavernBarWindow = new TheTavernBarWindow();
-            theTavernBarWindow.RefToTavernWindow = this;
+            TheTavernBarWindow theTavernBarWindow = new TheTavernBarWindow { RefToTavernWindow = this };
             theTavernBarWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         #endregion Button-Click Methods
@@ -42,7 +40,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public TavernWindow()

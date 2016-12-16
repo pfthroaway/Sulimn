@@ -5,12 +5,12 @@
     /// </summary>
     internal abstract class Character
     {
-        protected string _name;
-        protected int _level, _experience;
         protected Attributes _attributes = new Attributes();
-        protected Statistics _statistics = new Statistics();
         protected Equipment _equipment = new Equipment();
         protected Inventory _inventory = new Inventory();
+        protected int _level, _experience;
+        protected string _name;
+        protected Statistics _statistics = new Statistics();
 
         #region Properties
 

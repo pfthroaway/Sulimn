@@ -5,14 +5,14 @@ namespace Sulimn
     /// <summary>Represents pieces of equipment an entity is using.</summary>
     internal class Equipment : INotifyPropertyChanged
     {
-        protected Weapon _weapon = new Weapon();
-        protected HeadArmor _head = new HeadArmor();
         protected BodyArmor _body = new BodyArmor();
-        protected HandArmor _hands = new HandArmor();
-        protected LegArmor _legs = new LegArmor();
         protected FeetArmor _feet = new FeetArmor();
+        protected HandArmor _hands = new HandArmor();
+        protected HeadArmor _head = new HeadArmor();
         protected Ring _leftRing = new Ring();
+        protected LegArmor _legs = new LegArmor();
         protected Ring _rightRing = new Ring();
+        protected Weapon _weapon = new Weapon();
 
         #region Data-Binding
 
@@ -31,56 +31,88 @@ namespace Sulimn
         public Weapon Weapon
         {
             get { return _weapon; }
-            set { _weapon = value; OnPropertyChanged("Weapon"); }
+            set
+            {
+                _weapon = value;
+                OnPropertyChanged("Weapon");
+            }
         }
 
         /// <summary>The Head Armor an entity is wearing.</summary>
         public HeadArmor Head
         {
             get { return _head; }
-            set { _head = value; OnPropertyChanged("Head"); }
+            set
+            {
+                _head = value;
+                OnPropertyChanged("Head");
+            }
         }
 
         /// <summary>The Body Armor an entity is wearing.</summary>
         public BodyArmor Body
         {
             get { return _body; }
-            set { _body = value; OnPropertyChanged("Body"); }
+            set
+            {
+                _body = value;
+                OnPropertyChanged("Body");
+            }
         }
 
         /// <summary>The Hand Armor an entity is wearing.</summary>
         public HandArmor Hands
         {
             get { return _hands; }
-            set { _hands = value; OnPropertyChanged("Hands"); }
+            set
+            {
+                _hands = value;
+                OnPropertyChanged("Hands");
+            }
         }
 
         /// <summary>The Leg Armor an entity is wearing.</summary>
         public LegArmor Legs
         {
             get { return _legs; }
-            set { _legs = value; OnPropertyChanged("Legs"); }
+            set
+            {
+                _legs = value;
+                OnPropertyChanged("Legs");
+            }
         }
 
         /// <summary>The Feet Armor an entity is wearing.</summary>
         public FeetArmor Feet
         {
             get { return _feet; }
-            set { _feet = value; OnPropertyChanged("Feet"); }
+            set
+            {
+                _feet = value;
+                OnPropertyChanged("Feet");
+            }
         }
 
         /// <summary>The Ring an entity is wearing on its left hand.</summary>
         public Ring LeftRing
         {
             get { return _leftRing; }
-            set { _leftRing = value; OnPropertyChanged("LeftRing"); }
+            set
+            {
+                _leftRing = value;
+                OnPropertyChanged("LeftRing");
+            }
         }
 
         /// <summary>The Ring an entity is wearing on its right hand.</summary>
         public Ring RightRing
         {
             get { return _rightRing; }
-            set { _rightRing = value; OnPropertyChanged("RightRing"); }
+            set
+            {
+                _rightRing = value;
+                OnPropertyChanged("RightRing");
+            }
         }
 
         #endregion Modifying Properties
@@ -88,52 +120,29 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>Returns the total damage produced by the current set of equipment.</summary>
-        public int TotalDamage
-        {
-            get { return Weapon.Damage + LeftRing.Damage + RightRing.Damage; }
-        }
+        public int TotalDamage => Weapon.Damage + LeftRing.Damage + RightRing.Damage;
 
         /// <summary>Returns the total defense produced by the current set of equipment.</summary>
-        public int TotalDefense
-        {
-            get { return Head.Defense + Body.Defense + Hands.Defense + Legs.Defense + Feet.Defense + LeftRing.Defense + RightRing.Defense; }
-        }
+        public int TotalDefense => Head.Defense + Body.Defense + Hands.Defense + Legs.Defense + Feet.Defense + LeftRing.Defense +
+                                   RightRing.Defense;
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators.</summary>
-        public string TotalDefenseToString
-        {
-            get { return TotalDefense.ToString("N0"); }
-        }
+        public string TotalDefenseToString => TotalDefense.ToString("N0");
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators and preceding text.</summary>
-        public string TotalDefenseToStringWithText
-        {
-            get { return "Defense: " + TotalDefense.ToString("N0"); }
-        }
+        public string TotalDefenseToStringWithText => "Defense: " + TotalDefense.ToString("N0");
 
         /// <summary>Returns the total Strength bonus produced by the current set of equipment.</summary>
-        public int BonusStrength
-        {
-            get { return LeftRing.Strength + RightRing.Strength; }
-        }
+        public int BonusStrength => LeftRing.Strength + RightRing.Strength;
 
         /// <summary>Returns the total Vitality bonus produced by the current set of equipment.</summary>
-        public int BonusVitality
-        {
-            get { return LeftRing.Vitality + RightRing.Vitality; }
-        }
+        public int BonusVitality => LeftRing.Vitality + RightRing.Vitality;
 
         /// <summary>Returns the total Dexterity bonus produced by the current set of equipment.</summary>
-        public int BonusDexterity
-        {
-            get { return LeftRing.Dexterity + RightRing.Dexterity; }
-        }
+        public int BonusDexterity => LeftRing.Dexterity + RightRing.Dexterity;
 
         /// <summary>Returns the total Wisdom bonus produced by the current set of equipment.</summary>
-        public int BonusWisdom
-        {
-            get { return LeftRing.Wisdom + RightRing.Wisdom; }
-        }
+        public int BonusWisdom => LeftRing.Wisdom + RightRing.Wisdom;
 
         #endregion Helper Properties
 
@@ -153,7 +162,8 @@ namespace Sulimn
         /// <param name="feet">Feet Armor</param>
         /// <param name="leftRing">Left Ring</param>
         /// <param name="rightRing">Right Ring</param>
-        public Equipment(Weapon weapon, HeadArmor head, BodyArmor body, HandArmor hands, LegArmor legs, FeetArmor feet, Ring leftRing, Ring rightRing)
+        public Equipment(Weapon weapon, HeadArmor head, BodyArmor body, HandArmor hands, LegArmor legs, FeetArmor feet,
+        Ring leftRing, Ring rightRing)
         {
             Weapon = new Weapon(weapon);
             Head = new HeadArmor(head);

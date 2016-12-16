@@ -1,11 +1,12 @@
 ﻿<Window x:Name="windowAdmin" x:Class="Sulimn.AdminWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sulimn"
-        mc:Ignorable="d"
-        Title="Admin" SizeToContent="WidthAndHeight" Closing="windowAdmin_Closing" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+mc:Ignorable="d"
+Title="Admin" SizeToContent="WidthAndHeight" Closing="windowAdmin_Closing" ResizeMode="NoResize"
+WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -17,24 +18,33 @@
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Header="User Management" Margin="0,0,5,10">
             <StackPanel>
-                <Button x:Name="btnManageUsers" Width="175" Height="30" Content="Manage _Users" Margin="10,10,10,5" Click="btnManageUsers_Click" />
-                <Button x:Name="btnManageHeroClass" Width="175" Height="30" Content="Manage _Hero Classes" Margin="10,5,10,5" Click="btnManageHeroClass_Click" />
-                <Button x:Name="btnManageEnemies" Width="175" Height="30" Content="Manage _Enemies" Margin="10,5,10,5" Click="btnManageEnemies_Click" />
+                <Button x:Name="btnManageUsers" Width="175" Height="30" Content="Manage _Users" Margin="10,10,10,5"
+Click="btnManageUsers_Click" />
+                <Button x:Name="btnManageHeroClass" Width="175" Height="30" Content="Manage _Hero Classes"
+Margin="10,5,10,5" Click="btnManageHeroClass_Click" />
+                <Button x:Name="btnManageEnemies" Width="175" Height="30" Content="Manage _Enemies" Margin="10,5,10,5"
+Click="btnManageEnemies_Click" />
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Row="0" Grid.Column="1" Header="Item Management" Margin="5,0,0,10">
             <StackPanel>
-                <Button x:Name="btnManageArmor" Width="175" Height="30" Content="Manage _Armor" Margin="10,10,10,5" Click="btnManageArmor_Click" />
-                <Button x:Name="btnManageFood" Width="175" Height="30" Content="Manage _Food" Margin="10,5,10,5" Click="btnManageFood_Click" />
-                <Button x:Name="btnManagePotion" Width="175" Height="30" Content="Manage _Potions" Margin="10,5,10,5" Click="btnManagePotion_Click" />
-                <Button x:Name="btnManageWeapons" Width="175" Height="30" Content="Manage _Weapons" Margin="10,5,10,10" Click="btnManageWeapons_Click" />
+                <Button x:Name="btnManageArmor" Width="175" Height="30" Content="Manage _Armor" Margin="10,10,10,5"
+Click="btnManageArmor_Click" />
+                <Button x:Name="btnManageFood" Width="175" Height="30" Content="Manage _Food" Margin="10,5,10,5"
+Click="btnManageFood_Click" />
+                <Button x:Name="btnManagePotion" Width="175" Height="30" Content="Manage _Potions" Margin="10,5,10,5"
+Click="btnManagePotion_Click" />
+                <Button x:Name="btnManageWeapons" Width="175" Height="30" Content="Manage _Weapons" Margin="10,5,10,10"
+Click="btnManageWeapons_Click" />
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Admin" Margin="0,0,5,0">
             <StackPanel>
-                <Button x:Name="btnChangeAdminPassword" Width="150" Height="30" Content="_Change Password" Margin="0,5" Click="btnChangeAdminPassword_Click" />
+                <Button x:Name="btnChangeAdminPassword" Width="150" Height="30" Content="_Change Password" Margin="0,5"
+Click="btnChangeAdminPassword_Click" />
             </StackPanel>
         </GroupBox>
-        <Button x:Name="btnBack" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Content="_Back" Margin="0,18,0,0" Click="btnBack_Click" IsCancel="True" />
+        <Button x:Name="btnBack" Grid.Column="1" Grid.Row="1" Width="150" Height="30" Content="_Back" Margin="0,18,0,0"
+Click="btnBack_Click" IsCancel="True" />
     </Grid>
 </Window>

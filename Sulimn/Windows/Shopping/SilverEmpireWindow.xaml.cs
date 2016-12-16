@@ -10,15 +10,25 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for SilverEmpireWindow.xaml
     /// </summary>
-    public partial class SilverEmpireWindow : Window, INotifyPropertyChanged
+    public partial class SilverEmpireWindow : INotifyPropertyChanged
     {
+        private readonly string nl = Environment.NewLine;
         private List<Ring> purchaseRing = new List<Ring>();
-        private List<Ring> sellRing = new List<Ring>();
         private Ring selectedRingPurchase = new Ring();
         private Ring selectedRingSell = new Ring();
-        private string nl = Environment.NewLine;
+        private List<Ring> sellRing = new List<Ring>();
 
         internal MarketWindow RefToMarketWindow { get; set; }
+
+        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
+        /// <param name="newText">Text to be added</param>
+        private void AddTextTT(string newText)
+        {
+            txtSilverEmpire.Text += nl + nl + newText;
+            txtSilverEmpire.Focus();
+            txtSilverEmpire.CaretIndex = txtSilverEmpire.Text.Length;
+            txtSilverEmpire.ScrollToEnd();
+        }
 
         #region Data-Binding
 
@@ -37,7 +47,7 @@ namespace Sulimn
             if (reload)
             {
                 purchaseRing.Clear();
-                purchaseRing.AddRange(GameState.GetItemsOfType<Ring>().Where(ring => ring.IsSold == true));
+                purchaseRing.AddRange(GameState.GetItemsOfType<Ring>().Where(ring => ring.IsSold));
                 purchaseRing = purchaseRing.OrderBy(ring => ring.Value).ToList();
                 lstRingPurchase.ItemsSource = purchaseRing;
                 lstRingPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -94,16 +104,6 @@ namespace Sulimn
 
         #endregion Load
 
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtSilverEmpire.Text += nl + nl + newText;
-            txtSilverEmpire.Focus();
-            txtSilverEmpire.CaretIndex = txtSilverEmpire.Text.Length;
-            txtSilverEmpire.ScrollToEnd();
-        }
-
         #region Transaction Methods
 
         /// <summary>Purchases selected Item.</summary>
@@ -155,10 +155,7 @@ namespace Sulimn
             {
                 selectedRingPurchase = (Ring)lstRingPurchase.SelectedValue;
 
-                if (selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnRingPurchase.IsEnabled = true;
-                else
-                    btnRingPurchase.IsEnabled = false;
+                btnRingPurchase.IsEnabled = selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -173,10 +170,7 @@ namespace Sulimn
             if (lstRingSell.SelectedIndex >= 0)
             {
                 selectedRingSell = (Ring)lstRingSell.SelectedValue;
-                if (selectedRingSell.CanSell)
-                    btnRingSell.IsEnabled = true;
-                else
-                    btnRingSell.IsEnabled = false;
+                btnRingSell.IsEnabled = selectedRingSell.CanSell;
             }
             else
             {
@@ -192,13 +186,12 @@ namespace Sulimn
 
         private void btnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow();
-            characterWindow.RefToSilverEmpireWindow = this;
+            CharacterWindow characterWindow = new CharacterWindow { RefToSilverEmpireWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("Silver Empire");
             characterWindow.BindLabels();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -213,13 +206,14 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public SilverEmpireWindow()
         {
             InitializeComponent();
-            txtSilverEmpire.Text = "You enter the impressive establishment named 'Silver Empire'. You are immediately astounded by the glass display cases unlike any other shop in Sulimn. A tough-looking old man sitting behind the counter greets you.";
+            txtSilverEmpire.Text =
+            "You enter the impressive establishment named 'Silver Empire'. You are immediately astounded by the glass display cases unlike any other shop in Sulimn. A tough-looking old man sitting behind the counter greets you.";
             BindLabels();
         }
 

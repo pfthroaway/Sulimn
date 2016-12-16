@@ -9,37 +9,15 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for CastSpellWindow.xaml
     /// </summary>
-    public partial class CastSpellWindow : Window, INotifyPropertyChanged
+    public partial class CastSpellWindow : INotifyPropertyChanged
     {
         private BindingList<Spell> availableSpells = new BindingList<Spell>();
+
+        private string PreviousWindow;
         private Spell selectedSpell = new Spell();
 
         internal BattleWindow RefToBattleWindow { get; set; }
         internal CharacterWindow RefToCharacterWindow { get; set; }
-
-        private string PreviousWindow;
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Binds text to the labels.
-        /// </summary>
-        internal void BindLabels()
-        {
-            lstSpells.DataContext = availableSpells;
-            DataContext = selectedSpell;
-            lblHealth.DataContext = GameState.CurrentHero.Statistics;
-            lblMagic.DataContext = GameState.CurrentHero.Statistics;
-        }
-
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
 
         /// <summary>
         /// Casts spell.
@@ -72,6 +50,28 @@ namespace Sulimn
             ClearSpellInfo();
         }
 
+        #region Data-Binding
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Binds text to the labels.
+        /// </summary>
+        internal void BindLabels()
+        {
+            lstSpells.DataContext = availableSpells;
+            DataContext = selectedSpell;
+            lblHealth.DataContext = GameState.CurrentHero.Statistics;
+            lblMagic.DataContext = GameState.CurrentHero.Statistics;
+        }
+
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data-Binding
+
         #region Display Manipulation
 
         /// <summary>
@@ -95,7 +95,9 @@ namespace Sulimn
                     break;
 
                 case "Character":
-                    availableSpells = new BindingList<Spell>(GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellTypes.Healing).ToList());
+                    availableSpells =
+                    new BindingList<Spell>(
+                    GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellTypes.Healing).ToList());
                     break;
             }
         }
@@ -123,7 +125,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         private void lstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,12 +136,7 @@ namespace Sulimn
                 spells.AddRange(GameState.CurrentHero.Spellbook.Spells);
                 selectedSpell = spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
 
-                if (selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic)
-                {
-                    btnCastSpell.IsEnabled = true;
-                }
-                else
-                    btnCastSpell.IsEnabled = false;
+                btnCastSpell.IsEnabled = selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic;
             }
             else
             {

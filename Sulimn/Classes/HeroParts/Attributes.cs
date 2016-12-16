@@ -24,28 +24,44 @@ namespace Sulimn
         public int Strength
         {
             get { return _strength; }
-            set { _strength = value; OnPropertyChanged("Strength"); }
+            set
+            {
+                _strength = value;
+                OnPropertyChanged("Strength");
+            }
         }
 
         /// <summary>How much health an entity can have.</summary>
         public int Vitality
         {
             get { return _vitality; }
-            set { _vitality = value; OnPropertyChanged("Vitality"); }
+            set
+            {
+                _vitality = value;
+                OnPropertyChanged("Vitality");
+            }
         }
 
         /// <summary>How fast an entity can move.</summary>
         public int Dexterity
         {
             get { return _dexterity; }
-            set { _dexterity = value; OnPropertyChanged("Dexterity"); }
+            set
+            {
+                _dexterity = value;
+                OnPropertyChanged("Dexterity");
+            }
         }
 
         /// <summary>How magically-inclined an entity is.</summary>
         public int Wisdom
         {
             get { return _wisdom; }
-            set { _wisdom = value; OnPropertyChanged("Wisdom"); }
+            set
+            {
+                _wisdom = value;
+                OnPropertyChanged("Wisdom");
+            }
         }
 
         #endregion Modifying Properties

@@ -8,12 +8,9 @@ namespace Sulimn
     /// </summary>
     internal class Spellbook
     {
-        private List<Spell> _spells = new List<Spell>();
+        private readonly List<Spell> _spells = new List<Spell>();
 
-        internal ReadOnlyCollection<Spell> Spells
-        {
-            get { return new ReadOnlyCollection<Spell>(_spells); }
-        }
+        internal ReadOnlyCollection<Spell> Spells => new ReadOnlyCollection<Spell>(_spells);
 
         /// <summary>
         /// Teaches a Hero a Spell.

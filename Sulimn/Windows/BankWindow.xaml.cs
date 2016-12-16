@@ -9,12 +9,12 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for BankWindow.xaml
     /// </summary>
-    public partial class BankWindow : Window, INotifyPropertyChanged
+    public partial class BankWindow : INotifyPropertyChanged
     {
-        private int _goldInBank = 0;
-        private int _loanAvailable = 0;
-        private int _loanTaken = 0;
-        private string nl = Environment.NewLine;
+        private readonly string nl = Environment.NewLine;
+        private int _goldInBank;
+        private int _loanAvailable;
+        private int _loanTaken;
 
         internal CityWindow RefToCityWindow { get; set; }
 
@@ -23,39 +23,42 @@ namespace Sulimn
         public int GoldInBank
         {
             get { return _goldInBank; }
-            set { _goldInBank = value; OnPropertyChanged("GoldInBankToString"); }
+            set
+            {
+                _goldInBank = value;
+                OnPropertyChanged("GoldInBankToString");
+            }
         }
 
         public int LoanAvailable
         {
             get { return _loanAvailable; }
-            set { _loanAvailable = value; OnPropertyChanged("LoanAvailableToString"); }
+            set
+            {
+                _loanAvailable = value;
+                OnPropertyChanged("LoanAvailableToString");
+            }
         }
 
         public int LoanTaken
         {
             get { return _loanTaken; }
-            set { _loanTaken = value; OnPropertyChanged("LoanTakenToString"); }
+            set
+            {
+                _loanTaken = value;
+                OnPropertyChanged("LoanTakenToString");
+            }
         }
 
         #endregion Modifying Properties
 
         #region Helper Properties
 
-        public string GoldInBankToString
-        {
-            get { return GoldInBank.ToString("N0"); }
-        }
+        public string GoldInBankToString => GoldInBank.ToString("N0");
 
-        public string LoanAvailableToString
-        {
-            get { return LoanAvailable.ToString("N0"); }
-        }
+        public string LoanAvailableToString => LoanAvailable.ToString("N0");
 
-        public string LoanTakenToString
-        {
-            get { return LoanTaken.ToString("N0"); }
-        }
+        public string LoanTakenToString => LoanTaken.ToString("N0");
 
         #endregion Helper Properties
 
@@ -98,25 +101,13 @@ namespace Sulimn
         /// </summary>
         internal void CheckButtons()
         {
-            if (GameState.CurrentHero.Inventory.Gold > 0)
-                btnDeposit.IsEnabled = true;
-            else
-                btnDeposit.IsEnabled = false;
+            btnDeposit.IsEnabled = GameState.CurrentHero.Inventory.Gold > 0;
 
-            if (GoldInBank > 0)
-                btnWithdraw.IsEnabled = true;
-            else
-                btnWithdraw.IsEnabled = false;
+            btnWithdraw.IsEnabled = GoldInBank > 0;
 
-            if (LoanAvailable > 0)
-                btnTakeLoan.IsEnabled = true;
-            else
-                btnTakeLoan.IsEnabled = false;
+            btnTakeLoan.IsEnabled = LoanAvailable > 0;
 
-            if (LoanTaken > 0)
-                btnRepayLoan.IsEnabled = true;
-            else
-                btnRepayLoan.IsEnabled = false;
+            btnRepayLoan.IsEnabled = LoanTaken > 0;
         }
 
         /// <summary>
@@ -130,7 +121,7 @@ namespace Sulimn
             bankDialogWindow.LoadWindow(maximum, type);
             bankDialogWindow.RefToBankWindow = this;
             bankDialogWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -138,7 +129,9 @@ namespace Sulimn
         /// </summary>
         internal async void LoadBank()
         {
-            DataSet ds = await Functions.FillDataSet("SELECT * FROM Bank WHERE [CharacterName]='" + GameState.CurrentHero.Name + "'", "Bank");
+            DataSet ds =
+            await Functions.FillDataSet(
+            "SELECT * FROM Bank WHERE [CharacterName]='" + GameState.CurrentHero.Name + "'", "Bank");
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -146,11 +139,17 @@ namespace Sulimn
                 LoanTaken = Int32Helper.Parse(ds.Tables[0].Rows[0]["LoanTaken"]);
             }
             else
+            {
                 MessageBox.Show("No such user exists in the bank.", "Sulimn", MessageBoxButton.OK);
+            }
 
             LoanAvailable = GameState.CurrentHero.Level * 250 - LoanTaken;
 
-            txtBank.Text = "You enter the Bank. A teller beckons to you and you approach him. You tell him your name, and he rummages through a few papers. He finds one, and pulls it out." + nl + nl + "You have " + GoldInBank.ToString("N0") + " gold available to withdraw. You also have an open credit line of " + LoanAvailable.ToString("N0") + " gold.";
+            txtBank.Text =
+            "You enter the Bank. A teller beckons to you and you approach him. You tell him your name, and he rummages through a few papers. He finds one, and pulls it out." +
+            nl + nl + "You have " + GoldInBank.ToString("N0") +
+            " gold available to withdraw. You also have an open credit line of " + LoanAvailable.ToString("N0") +
+            " gold.";
             BindLabels();
             CheckButtons();
         }
@@ -193,7 +192,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public BankWindow()

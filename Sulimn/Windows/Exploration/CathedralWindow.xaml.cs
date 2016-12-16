@@ -7,7 +7,7 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for CathedralWindow.xaml
     /// </summary>
-    public partial class CathedralWindow : Window
+    public partial class CathedralWindow
     {
         internal ExploreWindow RefToExploreWindow { get; set; }
 
@@ -27,11 +27,10 @@ namespace Sulimn
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
-            BattleWindow battleWindow = new BattleWindow();
-            battleWindow.RefToCathedralWindow = this;
+            BattleWindow battleWindow = new BattleWindow { RefToCathedralWindow = this };
             battleWindow.PrepareBattle("Cathedral");
             battleWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         #region Button-Click Methods
@@ -42,9 +41,13 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
+                {
                     AddTextTT(await GameState.EventFindGold(150, 400));
+                }
                 else if (result <= 40)
+                {
                     AddTextTT(await GameState.EventFindItem(150, 400));
+                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -62,7 +65,9 @@ namespace Sulimn
                 }
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private async void btnSanctuary_Click(object sender, RoutedEventArgs e)
@@ -71,9 +76,13 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
+                {
                     AddTextTT(await GameState.EventFindGold(150, 450));
+                }
                 else if (result <= 20)
+                {
                     AddTextTT(await GameState.EventFindItem(150, 450));
+                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -91,7 +100,9 @@ namespace Sulimn
                 }
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private async void btnEpiscopium_Click(object sender, RoutedEventArgs e)
@@ -100,9 +111,13 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
+                {
                     AddTextTT(await GameState.EventFindGold(200, 500));
+                }
                 else if (result <= 40)
+                {
                     AddTextTT(await GameState.EventFindItem(200, 500));
+                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -120,7 +135,9 @@ namespace Sulimn
                 }
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private async void btnTower_Click(object sender, RoutedEventArgs e)
@@ -129,9 +146,13 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
+                {
                     AddTextTT(await GameState.EventFindGold(200, 600));
+                }
                 else if (result <= 40)
+                {
                     AddTextTT(await GameState.EventFindItem(200, 600));
+                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -149,7 +170,9 @@ namespace Sulimn
                 }
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -166,13 +189,14 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public CathedralWindow()
         {
             InitializeComponent();
-            txtCathedral.Text = "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the Windower bishop's basilica, the public sanctuary, the Windower clergymen's espiscopium, and the looming tower.";
+            txtCathedral.Text =
+            "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the Windower bishop's basilica, the public sanctuary, the Windower clergymen's espiscopium, and the looming tower.";
         }
 
         private void windowCathedral_Closing(object sender, CancelEventArgs e)

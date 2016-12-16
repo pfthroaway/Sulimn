@@ -1,19 +1,18 @@
 ﻿using System.ComponentModel;
-using System.Windows;
 
 namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for SpecialEncounterWindow.xaml
     /// </summary>
-    public partial class SpecialEncounterWindow : Window
+    public partial class SpecialEncounterWindow
     {
-        internal ForestWindow RefToForestWindow { get; set; }
-
         public SpecialEncounterWindow()
         {
             InitializeComponent();
         }
+
+        internal ForestWindow RefToForestWindow { get; set; }
 
         private void windowSpecialEncounter_Closing(object sender, CancelEventArgs e)
         {

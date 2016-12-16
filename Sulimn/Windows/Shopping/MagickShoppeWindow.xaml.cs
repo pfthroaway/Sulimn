@@ -2,46 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sulimn
 {
     /// <summary>
     /// Interaction logic for YeOldeMagickShoppeWindow.xaml
     /// </summary>
-    public partial class MagickShoppeWindow : Window, INotifyPropertyChanged
+    public partial class MagickShoppeWindow : INotifyPropertyChanged
     {
-        private Spell selectedSpell = new Spell();
+        private readonly string nl = Environment.NewLine;
         private List<Spell> purchasableSpells = new List<Spell>();
-        private string nl = Environment.NewLine;
+        private Spell selectedSpell = new Spell();
 
         internal MarketWindow RefToMarketWindow { get; set; }
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void BindLabels()
-        {
-            DataContext = selectedSpell;
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
-        }
-
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
 
         /// <summary>Adds text to the txtMagickShoppe TextBox.</summary>
         /// <param name="newText">Text to be added</param>
@@ -61,16 +36,11 @@ namespace Sulimn
             List<Spell> learnSpells = new List<Spell>();
 
             foreach (Spell spell in purchasableSpells)
-            {
                 if (!GameState.CurrentHero.Spellbook.Spells.Contains(spell))
-                {
                     if (spell.RequiredClass.Length == 0)
                         learnSpells.Add(spell);
-                    else
-                        if (GameState.CurrentHero.Class.Name == spell.RequiredClass)
+                    else if (GameState.CurrentHero.Class.Name == spell.RequiredClass)
                         learnSpells.Add(spell);
-                }
-            }
 
             purchasableSpells.Clear();
             purchasableSpells = learnSpells.OrderBy(x => x.Name).ToList();
@@ -78,24 +48,41 @@ namespace Sulimn
             lstSpells.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
         }
 
+        #region Data-Binding
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void BindLabels()
+        {
+            DataContext = selectedSpell;
+            lblGold.DataContext = GameState.CurrentHero.Inventory;
+        }
+
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data-Binding
+
         #region Button-Click Methods
 
         private void btnPurchase_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.Inventory.Gold -= selectedSpell.Value;
-            AddTextTT(GameState.CurrentHero.Spellbook.LearnSpell(selectedSpell) + " It cost " + selectedSpell.ValueToString + " gold.");
+            AddTextTT(GameState.CurrentHero.Spellbook.LearnSpell(selectedSpell) + " It cost " +
+            selectedSpell.ValueToString + " gold.");
             LoadAll();
         }
 
         private void btnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow();
-            characterWindow.RefToMagickShoppeWindow = this;
+            CharacterWindow characterWindow = new CharacterWindow { RefToMagickShoppeWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("Magick Shoppe");
             characterWindow.BindLabels();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -110,13 +97,16 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public MagickShoppeWindow()
         {
             InitializeComponent();
-            txtMagickShoppe.Text = "You enter Ye Olde Magick Shoppe, a hut of a building. Inside there is a woman facing away from you, stirring a mixture in a cauldron. Sensing your presence, she turns to you, her face hideous and covered in boils." + nl + nl + "\"Would you like to learn some spells, " + GameState.CurrentHero.Name + "?\" she asks. How she knows your name is beyond you.";
+            txtMagickShoppe.Text =
+            "You enter Ye Olde Magick Shoppe, a hut of a building. Inside there is a woman facing away from you, stirring a mixture in a cauldron. Sensing your presence, she turns to you, her face hideous and covered in boils." +
+            nl + nl + "\"Would you like to learn some spells, " + GameState.CurrentHero.Name +
+            "?\" she asks. How she knows your name is beyond you.";
         }
 
         private void lstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,7 +115,8 @@ namespace Sulimn
             {
                 selectedSpell = (Spell)lstSpells.SelectedValue;
 
-                if (selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold && selectedSpell.RequiredLevel <= GameState.CurrentHero.Level)
+                if (selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
+                selectedSpell.RequiredLevel <= GameState.CurrentHero.Level)
                     btnPurchase.IsEnabled = true;
                 else
                     btnPurchase.IsEnabled = false;
@@ -138,7 +129,7 @@ namespace Sulimn
             BindLabels();
         }
 
-        private async void windowMagickShoppe_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void windowMagickShoppe_Closing(object sender, CancelEventArgs e)
         {
             RefToMarketWindow.Show();
             await GameState.SaveHero(GameState.CurrentHero);

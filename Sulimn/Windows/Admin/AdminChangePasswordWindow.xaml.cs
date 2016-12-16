@@ -4,7 +4,7 @@ using System.Windows;
 namespace Sulimn
 {
     /// <summary>Interaction logic for AdminChangePasswordWindow.xaml</summary>
-    public partial class AdminChangePasswordWindow : Window
+    public partial class AdminChangePasswordWindow
     {
         internal AdminWindow RefToAdminWindow { get; set; }
 
@@ -13,9 +13,7 @@ namespace Sulimn
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (PasswordHash.ValidatePassword(pswdCurrentPassword.Password, GameState.AdminPassword))
-            {
                 if (pswdNewPassword.Password == pswdConfirmPassword.Password)
-                {
                     if (pswdCurrentPassword.Password != pswdNewPassword.Password)
                     {
                         GameState.AdminPassword = PasswordHash.HashPassword(pswdNewPassword.Password);
@@ -23,11 +21,12 @@ namespace Sulimn
                         CloseWindow();
                     }
                     else
-                        MessageBox.Show("The new password can't be the same as the current password.", "Sulimn", MessageBoxButton.OK);
-                }
+                    {
+                        MessageBox.Show("The new password can't be the same as the current password.", "Sulimn",
+                        MessageBoxButton.OK);
+                    }
                 else
                     MessageBox.Show("Please ensure the new passwords match.", "Sulimn", MessageBoxButton.OK);
-            }
             else
                 MessageBox.Show("Invalid current administrator password.", "Sulimn", MessageBoxButton.OK);
         }
@@ -44,7 +43,7 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public AdminChangePasswordWindow()
@@ -55,7 +54,8 @@ namespace Sulimn
 
         private void pswdChanged(object sender, RoutedEventArgs e)
         {
-            if (pswdCurrentPassword.Password.Length >= 4 && pswdNewPassword.Password.Length >= 4 && pswdConfirmPassword.Password.Length >= 4)
+            if (pswdCurrentPassword.Password.Length >= 4 && pswdNewPassword.Password.Length >= 4 &&
+            pswdConfirmPassword.Password.Length >= 4)
                 btnSubmit.IsEnabled = true;
             else
                 btnSubmit.IsEnabled = false;

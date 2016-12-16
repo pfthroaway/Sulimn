@@ -7,10 +7,10 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for MarketWindow.xaml
     /// </summary>
-    public partial class MarketWindow : Window
+    public partial class MarketWindow
     {
+        private readonly string nl = Environment.NewLine;
         internal CityWindow RefToCityWindow { get; set; }
-        private string nl = Environment.NewLine;
 
         /// <summary>Adds text to the TextBox.</summary>
         /// <param name="newText">Text to be added</param>
@@ -26,43 +26,38 @@ namespace Sulimn
 
         private void btnWeaponShop_Click(object sender, RoutedEventArgs e)
         {
-            WeaponsRUsWindow weaponsRUsWindow = new WeaponsRUsWindow();
-            weaponsRUsWindow.RefToMarketWindow = this;
+            WeaponsRUsWindow weaponsRUsWindow = new WeaponsRUsWindow { RefToMarketWindow = this };
             weaponsRUsWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnArmorShop_Click(object sender, RoutedEventArgs e)
         {
-            TheArmouryWindow theArmouryWindow = new TheArmouryWindow();
-            theArmouryWindow.RefToMarketWindow = this;
+            TheArmouryWindow theArmouryWindow = new TheArmouryWindow { RefToMarketWindow = this };
             theArmouryWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnGeneralStore_Click(object sender, RoutedEventArgs e)
         {
-            TheGeneralStoreWindow theGeneralStoreWindow = new TheGeneralStoreWindow();
-            theGeneralStoreWindow.RefToMarketWindow = this;
+            TheGeneralStoreWindow theGeneralStoreWindow = new TheGeneralStoreWindow { RefToMarketWindow = this };
             theGeneralStoreWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnMagicShop_Click(object sender, RoutedEventArgs e)
         {
-            MagickShoppeWindow magickShoppeWindow = new MagickShoppeWindow();
-            magickShoppeWindow.RefToMarketWindow = this;
+            MagickShoppeWindow magickShoppeWindow = new MagickShoppeWindow { RefToMarketWindow = this };
             magickShoppeWindow.LoadAll();
             magickShoppeWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnSilverEmpire_Click(object sender, RoutedEventArgs e)
         {
-            SilverEmpireWindow silverEmpireWindow = new SilverEmpireWindow();
-            silverEmpireWindow.RefToMarketWindow = this;
+            SilverEmpireWindow silverEmpireWindow = new SilverEmpireWindow { RefToMarketWindow = this };
             silverEmpireWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -77,13 +72,17 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public MarketWindow()
         {
             InitializeComponent();
-            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + nl + nl + "Weapons 'R' Us - A weapons shop." + nl + nl + "The Armoury - An armor shop." + nl + nl + "The General Store - A shop supplying general goods like potions." + nl + nl + "Ye Old Magick Shoppe - A shop selling magical spells and equipment." + nl + nl + "Silver Empire - A smithery selling the finest jewelry.";
+            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + nl +
+             nl + "Weapons 'R' Us - A weapons shop." + nl + nl + "The Armoury - An armor shop." + nl +
+             nl + "The General Store - A shop supplying general goods like potions." + nl + nl +
+             "Ye Old Magick Shoppe - A shop selling magical spells and equipment." + nl + nl +
+             "Silver Empire - A smithery selling the finest jewelry.";
         }
 
         private void windowMarket_Closing(object sender, CancelEventArgs e)

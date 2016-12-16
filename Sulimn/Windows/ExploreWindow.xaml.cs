@@ -7,10 +7,10 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for ExploreWindow.xaml
     /// </summary>
-    public partial class ExploreWindow : Window
+    public partial class ExploreWindow
     {
+        private readonly string nl = Environment.NewLine;
         internal CityWindow RefToCityWindow { get; set; }
-        private string nl = Environment.NewLine;
 
         /// <summary>
         /// Adds text to the txtExplore TextBox.
@@ -43,18 +43,6 @@ namespace Sulimn
                 btnCatacombs.IsEnabled = true;
         }
 
-        /// <summary>
-        /// Disable all the buttons.
-        /// </summary>
-        private void DisableButtons()
-        {
-            btnBack.IsEnabled = false;
-            btnCathedral.IsEnabled = false;
-            btnFields.IsEnabled = false;
-            btnForest.IsEnabled = false;
-            btnMines.IsEnabled = false;
-        }
-
         #endregion Button Manipulation
 
         #region Button-Click Methods
@@ -68,65 +56,70 @@ namespace Sulimn
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
-                CatacombsWindow catacombsWindow = new CatacombsWindow();
-                catacombsWindow.RefToExploreWindow = this;
+                CatacombsWindow catacombsWindow = new CatacombsWindow { RefToExploreWindow = this };
                 catacombsWindow.Show();
-                this.Visibility = Visibility.Hidden;
+                Visibility = Visibility.Hidden;
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private void btnCathedral_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
-                CathedralWindow cathedralWindow = new CathedralWindow();
-                cathedralWindow.RefToExploreWindow = this;
+                CathedralWindow cathedralWindow = new CathedralWindow { RefToExploreWindow = this };
                 cathedralWindow.Show();
-                this.Visibility = Visibility.Hidden;
+                Visibility = Visibility.Hidden;
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private void btnFields_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
-                FieldsWindow fieldsWindow = new FieldsWindow();
-                fieldsWindow.RefToExploreWindow = this;
+                FieldsWindow fieldsWindow = new FieldsWindow { RefToExploreWindow = this };
                 fieldsWindow.Show();
-                this.Visibility = Visibility.Hidden;
+                Visibility = Visibility.Hidden;
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private void btnForest_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
-                ForestWindow forestWindow = new ForestWindow();
-                forestWindow.RefToExploreWindow = this;
+                ForestWindow forestWindow = new ForestWindow { RefToExploreWindow = this };
                 forestWindow.Show();
-                this.Visibility = Visibility.Hidden;
+                Visibility = Visibility.Hidden;
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         private void btnMines_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
-                MinesWindow minesWindow = new MinesWindow();
-                minesWindow.RefToExploreWindow = this;
+                MinesWindow minesWindow = new MinesWindow { RefToExploreWindow = this };
                 minesWindow.Show();
-                this.Visibility = Visibility.Hidden;
+                Visibility = Visibility.Hidden;
             }
             else
+            {
                 AddTextTT("You need to heal before you can explore.");
+            }
         }
 
         #endregion Button-Click Methods
@@ -135,13 +128,22 @@ namespace Sulimn
 
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public ExploreWindow()
         {
             InitializeComponent();
-            txtExplore.Text = "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth." + nl + nl + "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers." + nl + nl + "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow." + nl + nl + "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years." + nl + nl + "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
+            txtExplore.Text =
+            "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth." +
+            nl + nl +
+            "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers." +
+            nl + nl +
+            "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow." +
+            nl + nl +
+            "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years." +
+            nl + nl +
+            "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
             CheckButtons();
         }
 

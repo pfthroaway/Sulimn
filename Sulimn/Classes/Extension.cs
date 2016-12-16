@@ -14,10 +14,8 @@ namespace Sulimn
         /// <summary>
         /// Returns a Random based on this thread.
         /// </summary>
-        internal static Random ThisThreadsRandom
-        {
-            get { return Local ?? (Local = new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId))); }
-        }
+        internal static Random ThisThreadsRandom => Local ??
+                                                    (Local = new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId)));
     }
 
     /// <summary>Extension class to more easily parse Integers.</summary>
@@ -30,7 +28,7 @@ namespace Sulimn
         /// <returns></returns>
         internal static int Parse(string text)
         {
-            int temp = 0;
+            int temp;
             int.TryParse(text, out temp);
             return temp;
         }
@@ -48,7 +46,9 @@ namespace Sulimn
                 temp = (int)dbl;
             }
             catch (Exception e)
-            { MessageBox.Show(e.Message, "Sulimn", MessageBoxButton.OK); }
+            {
+                MessageBox.Show(e.Message, "Sulimn", MessageBoxButton.OK);
+            }
 
             return temp;
         }
@@ -66,7 +66,9 @@ namespace Sulimn
                 temp = (int)dcml;
             }
             catch (Exception e)
-            { MessageBox.Show(e.Message, "Sulimn", MessageBoxButton.OK); }
+            {
+                MessageBox.Show(e.Message, "Sulimn", MessageBoxButton.OK);
+            }
 
             return temp;
         }
@@ -78,7 +80,7 @@ namespace Sulimn
         /// <returns>Parsed integer</returns>
         internal static int Parse(object obj)
         {
-            int temp = 0;
+            int temp;
             int.TryParse(obj.ToString(), out temp);
             return temp;
         }
@@ -94,7 +96,7 @@ namespace Sulimn
         /// <returns>Parsed Boolean</returns>
         internal static bool Parse(string text)
         {
-            bool temp = false;
+            bool temp;
             bool.TryParse(text, out temp);
             return temp;
         }
@@ -129,7 +131,7 @@ namespace Sulimn
         /// <returns>Parsed DateTime</returns>
         internal static DateTime Parse(string text)
         {
-            DateTime temp = new DateTime();
+            DateTime temp;
             DateTime.TryParse(text, out temp);
             return temp;
         }
@@ -141,7 +143,7 @@ namespace Sulimn
         /// <returns>Parsed DateTime</returns>
         internal static DateTime Parse(object obj)
         {
-            DateTime temp = new DateTime();
+            DateTime temp;
             DateTime.TryParse(obj.ToString(), out temp);
             return temp;
         }
@@ -157,7 +159,7 @@ namespace Sulimn
         /// <returns>Parsed Double</returns>
         internal static double Parse(string text)
         {
-            double temp = 0;
+            double temp;
             double.TryParse(text, out temp);
             return temp;
         }
@@ -169,7 +171,7 @@ namespace Sulimn
         /// <returns>Parsed Double</returns>
         internal static double Parse(object obj)
         {
-            double temp = 0;
+            double temp;
             double.TryParse(obj.ToString(), out temp);
             return temp;
         }

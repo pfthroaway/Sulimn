@@ -7,9 +7,6 @@ namespace Sulimn
     /// </summary>
     internal class Food : Item, IEquatable<Food>
     {
-        private FoodTypes _foodType;
-        private int _amount;
-
         #region Properties
 
         public sealed override string Name
@@ -24,11 +21,7 @@ namespace Sulimn
             set { _type = value; }
         }
 
-        public FoodTypes FoodType
-        {
-            get { return _foodType; }
-            set { _foodType = value; }
-        }
+        public FoodTypes FoodType { get; set; }
 
         public sealed override string Description
         {
@@ -36,11 +29,7 @@ namespace Sulimn
             set { _description = value; }
         }
 
-        public int Amount
-        {
-            get { return _amount; }
-            set { _amount = value; }
-        }
+        public int Amount { get; set; }
 
         public sealed override int Weight
         {
@@ -63,7 +52,11 @@ namespace Sulimn
         public sealed override bool IsSold
         {
             get { return _isSold; }
-            set { _isSold = value; OnPropertyChanged("IsSold"); }
+            set
+            {
+                _isSold = value;
+                OnPropertyChanged("IsSold");
+            }
         }
 
         #endregion Properties
@@ -71,28 +64,23 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>The value of the Food with thousands separators</summary>
-        public sealed override string ValueToString
-        {
-            get { return Value.ToString("N0"); }
-        }
+        public sealed override string ValueToString => Value.ToString("N0");
 
         /// <summary>The value of the Food with thousands separators and preceding text</summary>
         public sealed override string ValueToStringWithText
         {
-            get { if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString; return ""; }
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString;
+                return "";
+            }
         }
 
         /// <summary>The value of the Food</summary>
-        public sealed override int SellValue
-        {
-            get { return Value / 2; }
-        }
+        public sealed override int SellValue => Value / 2;
 
         /// <summary>The value of the Food with thousands separators</summary>
-        public sealed override string SellValueToString
-        {
-            get { return SellValue.ToString("N0"); }
-        }
+        public sealed override string SellValueToString => SellValue.ToString("N0");
 
         /// <summary>The value of the Food with thousands separators with preceding text</summary>
         public sealed override string SellValueToStringWithText
@@ -126,12 +114,10 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                {
                     if (FoodType == FoodTypes.Food)
                         return "Restores " + Amount + " Health.";
                     else
                         return "Restores " + Amount + " Magic.";
-                }
                 return "";
             }
         }
@@ -144,7 +130,11 @@ namespace Sulimn
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && left.FoodType == right.FoodType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Amount == right.Amount) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
+             left.FoodType == right.FoodType &&
+             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+             left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
+             left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)
@@ -199,7 +189,8 @@ namespace Sulimn
         /// <param name="value">Value of Food</param>
         /// <param name="canSell">Can Food be sold?</param>
         /// <param name="isSold">Is Food sold?</param>
-        internal Food(string name, FoodTypes foodType, string description, int amount, int weight, int value, bool canSell, bool isSold)
+        internal Food(string name, FoodTypes foodType, string description, int amount, int weight, int value,
+        bool canSell, bool isSold)
         {
             Name = name;
             Type = ItemTypes.Food;

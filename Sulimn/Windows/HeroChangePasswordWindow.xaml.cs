@@ -6,7 +6,7 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for HeroChangePasswordWindow.xaml
     /// </summary>
-    public partial class HeroChangePasswordWindow : Window
+    public partial class HeroChangePasswordWindow
     {
         internal CityWindow RefToCityWindow { get; set; }
 
@@ -15,11 +15,8 @@ namespace Sulimn
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (PasswordHash.ValidatePassword(pswdCurrentPassword.Password, GameState.CurrentHero.Password))
-            {
                 if (pswdNewPassword.Password.Length >= 4 && pswdConfirmPassword.Password.Length >= 4)
-                {
                     if (pswdNewPassword.Password == pswdConfirmPassword.Password)
-                    {
                         if (pswdCurrentPassword.Password != pswdNewPassword.Password)
                         {
                             GameState.CurrentHero.Password = PasswordHash.HashPassword(pswdNewPassword.Password);
@@ -28,14 +25,14 @@ namespace Sulimn
                             CloseWindow();
                         }
                         else
-                            MessageBox.Show("The new password can't be the same as the current password.", "Sulimn", MessageBoxButton.OK);
-                    }
+                        {
+                            MessageBox.Show("The new password can't be the same as the current password.", "Sulimn",
+                            MessageBoxButton.OK);
+                        }
                     else
                         MessageBox.Show("Please ensure the new passwords match.", "Sulimn", MessageBoxButton.OK);
-                }
                 else
                     MessageBox.Show("Your password must be at least 4 characters.", "Sulimn", MessageBoxButton.OK);
-            }
             else
                 MessageBox.Show("Invalid current password.", "Sulimn", MessageBoxButton.OK);
         }
@@ -54,7 +51,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public HeroChangePasswordWindow()
@@ -65,7 +62,8 @@ namespace Sulimn
 
         private void pswdChanged(object sender, RoutedEventArgs e)
         {
-            if (pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 && pswdConfirmPassword.Password.Length >= 1)
+            if (pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 &&
+            pswdConfirmPassword.Password.Length >= 1)
                 btnSubmit.IsEnabled = true;
             else
                 btnSubmit.IsEnabled = false;

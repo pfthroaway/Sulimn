@@ -9,8 +9,8 @@ namespace Sulimn
     internal class Spell : IEquatable<Spell>, INotifyPropertyChanged
     {
         private string _name, _description, _requiredClass;
-        private SpellTypes _type;
         private int _requiredLevel, _magicCost, _amount;
+        private SpellTypes _type;
 
         #region Data-Binding
 
@@ -28,43 +28,73 @@ namespace Sulimn
         public string Name
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged("Name"); }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         public string Description
         {
             get { return _description; }
-            set { _description = value; OnPropertyChanged("Description"); }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("Description");
+            }
         }
 
         public SpellTypes Type
         {
             get { return _type; }
-            set { _type = value; OnPropertyChanged("Type"); OnPropertyChanged("TypeAmount"); }
+            set
+            {
+                _type = value;
+                OnPropertyChanged("Type");
+                OnPropertyChanged("TypeAmount");
+            }
         }
 
         public string RequiredClass
         {
             get { return _requiredClass; }
-            set { _requiredClass = value; OnPropertyChanged("RequiredClass"); }
+            set
+            {
+                _requiredClass = value;
+                OnPropertyChanged("RequiredClass");
+            }
         }
 
         public int RequiredLevel
         {
             get { return _requiredLevel; }
-            set { _requiredLevel = value; OnPropertyChanged("RequiredLevel"); }
+            set
+            {
+                _requiredLevel = value;
+                OnPropertyChanged("RequiredLevel");
+            }
         }
 
         public int MagicCost
         {
             get { return _magicCost; }
-            set { _magicCost = value; OnPropertyChanged("MagicCost"); }
+            set
+            {
+                _magicCost = value;
+                OnPropertyChanged("MagicCost");
+            }
         }
 
         public int Amount
         {
             get { return _amount; }
-            set { _amount = value; OnPropertyChanged("Amount"); OnPropertyChanged("TypeAmount"); }
+            set
+            {
+                _amount = value;
+                OnPropertyChanged("Amount");
+                OnPropertyChanged("TypeAmount");
+            }
         }
 
         #endregion Modifying Properties
@@ -121,15 +151,9 @@ namespace Sulimn
             }
         }
 
-        public int Value
-        {
-            get { return RequiredLevel * 200; }
-        }
+        public int Value => RequiredLevel * 200;
 
-        public string ValueToString
-        {
-            get { return Value.ToString("N0"); }
-        }
+        public string ValueToString => Value.ToString("N0");
 
         public string ValueToStringWithText
         {
@@ -149,7 +173,11 @@ namespace Sulimn
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase) && (left.RequiredLevel == right.RequiredLevel) && (left.MagicCost == right.MagicCost) && (left.Amount == right.Amount);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
+             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+             string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase) &&
+             left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost &&
+             left.Amount == right.Amount;
         }
 
         public sealed override bool Equals(object obj)
@@ -198,12 +226,13 @@ namespace Sulimn
         /// </summary>
         /// <param name="name">Name of Spell</param>
         /// <param name="spellType">Type of Spell</param>
-        /// <param name="spellDescription">Description of Spell</param>
+        /// <param name="description">Description of Spell</param>
         /// <param name="requiredClass">Required HeroClass of Spell</param>
         /// <param name="requiredLevel">Required Level to learn Spell</param>
         /// <param name="magicCost">Magic cost of Spell</param>
         /// <param name="amount">Amount of Spell</param>
-        internal Spell(string name, SpellTypes spellType, string description, string requiredClass, int requiredLevel, int magicCost, int amount)
+        internal Spell(string name, SpellTypes spellType, string description, string requiredClass, int requiredLevel,
+        int magicCost, int amount)
         {
             Name = name;
             Type = spellType;

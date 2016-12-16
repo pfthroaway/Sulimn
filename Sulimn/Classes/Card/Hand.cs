@@ -10,18 +10,32 @@ namespace Sulimn
     {
         private List<Card> _cardList = new List<Card>();
 
+        /// <summary>
+        /// Total value of Cards in Hand.
+        /// </summary>
+        /// <returns>Total value</returns>
+        internal int TotalValue()
+        {
+            int total = 0;
+            foreach (Card card in _cardList)
+                total += card.Value;
+            return total;
+        }
+
         #region Properties
 
         public List<Card> CardList
         {
             get { return _cardList; }
-            set { _cardList = value; OnPropertyChanged("CardList"); OnPropertyChanged("Value"); }
+            set
+            {
+                _cardList = value;
+                OnPropertyChanged("CardList");
+                OnPropertyChanged("Value");
+            }
         }
 
-        public string Value
-        {
-            get { return "Total: " + TotalValue(); }
-        }
+        public string Value => "Total: " + TotalValue();
 
         #endregion Properties
 
@@ -35,18 +49,6 @@ namespace Sulimn
         }
 
         #endregion Data-Binding
-
-        /// <summary>
-        /// Total value of Cards in Hand.
-        /// </summary>
-        /// <returns>Total value</returns>
-        internal int TotalValue()
-        {
-            int total = 0;
-            foreach (Card card in _cardList)
-                total += card.Value;
-            return total;
-        }
 
         #region Constructors
 

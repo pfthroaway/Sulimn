@@ -19,14 +19,14 @@ namespace Sulimn
         /// <returns></returns>
         public static string HashPassword(string password)
         {
-            var cryptoProvider = new RNGCryptoServiceProvider();
+            RNGCryptoServiceProvider cryptoProvider = new RNGCryptoServiceProvider();
             byte[] salt = new byte[SaltByteSize];
             cryptoProvider.GetBytes(salt);
 
-            var hash = GetPbkdf2Bytes(password, salt, Pbkdf2Iterations, HashByteSize);
+            byte[] hash = GetPbkdf2Bytes(password, salt, Pbkdf2Iterations, HashByteSize);
             return Pbkdf2Iterations + ":" +
-                   Convert.ToBase64String(salt) + ":" +
-                   Convert.ToBase64String(hash);
+             Convert.ToBase64String(salt) + ":" +
+             Convert.ToBase64String(hash);
         }
 
         /// <summary>
@@ -38,12 +38,12 @@ namespace Sulimn
         public static bool ValidatePassword(string password, string correctHash)
         {
             char[] delimiter = { ':' };
-            var split = correctHash.Split(delimiter);
-            var iterations = Int32.Parse(split[IterationIndex]);
-            var salt = Convert.FromBase64String(split[SaltIndex]);
-            var hash = Convert.FromBase64String(split[Pbkdf2Index]);
+            string[] split = correctHash.Split(delimiter);
+            int iterations = int.Parse(split[IterationIndex]);
+            byte[] salt = Convert.FromBase64String(split[SaltIndex]);
+            byte[] hash = Convert.FromBase64String(split[Pbkdf2Index]);
 
-            var testHash = GetPbkdf2Bytes(password, salt, iterations, hash.Length);
+            byte[] testHash = GetPbkdf2Bytes(password, salt, iterations, hash.Length);
             return SlowEquals(hash, testHash);
         }
 
@@ -55,11 +55,9 @@ namespace Sulimn
         /// <returns></returns>
         private static bool SlowEquals(byte[] a, byte[] b)
         {
-            var diff = (uint)a.Length ^ (uint)b.Length;
+            uint diff = (uint)a.Length ^ (uint)b.Length;
             for (int i = 0; i < a.Length && i < b.Length; i++)
-            {
                 diff |= (uint)(a[i] ^ b[i]);
-            }
             return diff == 0;
         }
 
@@ -73,8 +71,7 @@ namespace Sulimn
         /// <returns></returns>
         private static byte[] GetPbkdf2Bytes(string password, byte[] salt, int iterations, int outputBytes)
         {
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt);
-            pbkdf2.IterationCount = iterations;
+            Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt) { IterationCount = iterations };
             return pbkdf2.GetBytes(outputBytes);
         }
     }

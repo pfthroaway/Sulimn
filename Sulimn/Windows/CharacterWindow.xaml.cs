@@ -6,7 +6,7 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for CharacterWindow.xaml
     /// </summary>
-    public partial class CharacterWindow : Window, INotifyPropertyChanged
+    public partial class CharacterWindow : INotifyPropertyChanged
     {
         private Hero copyOfHero = new Hero();
         private string PreviousWindow;
@@ -19,29 +19,6 @@ namespace Sulimn
         internal SilverEmpireWindow RefToSilverEmpireWindow { get; set; }
         internal WeaponsRUsWindow RefToWeaponsRUsWindow { get; set; }
         internal TheGeneralStoreWindow RefToTheGeneralStoreWindow { get; set; }
-
-        #region Data Binding
-
-        internal void BindLabels()
-        {
-            DataContext = GameState.CurrentHero;
-            lblStrength.DataContext = GameState.CurrentHero;
-            lblVitality.DataContext = GameState.CurrentHero;
-            lblDexterity.DataContext = GameState.CurrentHero;
-            lblWisdom.DataContext = GameState.CurrentHero;
-            lblHealth.DataContext = GameState.CurrentHero.Statistics;
-            lblMagic.DataContext = GameState.CurrentHero.Statistics;
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data Binding
 
         internal void CastSpell(Spell spell)
         {
@@ -69,6 +46,62 @@ namespace Sulimn
             PreviousWindow = prevWindow;
         }
 
+        /// <summary>
+        /// Displays the Hero's information.
+        /// </summary>
+        internal void CheckSkillPoints()
+        {
+            if (GameState.CurrentHero.SkillPoints > 0)
+                EnablePlus();
+            else
+                DisablePlus();
+
+            btnReset.IsEnabled = GameState.CurrentHero.SkillPoints != copyOfHero.SkillPoints;
+
+            GameState.CurrentHero.UpdateStatistics();
+        }
+
+        /// <summary>
+        /// Resets the current Hero to the copy created when the Window loaded.
+        /// </summary>
+        private void Reset()
+        {
+            GameState.CurrentHero.Attributes.Strength = copyOfHero.Attributes.Strength;
+            GameState.CurrentHero.Attributes.Vitality = copyOfHero.Attributes.Vitality;
+            GameState.CurrentHero.Attributes.Dexterity = copyOfHero.Attributes.Dexterity;
+            GameState.CurrentHero.Attributes.Wisdom = copyOfHero.Attributes.Wisdom;
+            GameState.CurrentHero.SkillPoints = copyOfHero.SkillPoints;
+            GameState.CurrentHero.Statistics.CurrentHealth = copyOfHero.Statistics.CurrentHealth;
+            GameState.CurrentHero.Statistics.MaximumHealth = copyOfHero.Statistics.MaximumHealth;
+            GameState.CurrentHero.Statistics.CurrentMagic = copyOfHero.Statistics.CurrentMagic;
+            GameState.CurrentHero.Statistics.MaximumMagic = copyOfHero.Statistics.MaximumMagic;
+            DisableMinus();
+            CheckSkillPoints();
+        }
+
+        #region Data Binding
+
+        internal void BindLabels()
+        {
+            DataContext = GameState.CurrentHero;
+            lblStrength.DataContext = GameState.CurrentHero;
+            lblVitality.DataContext = GameState.CurrentHero;
+            lblDexterity.DataContext = GameState.CurrentHero;
+            lblWisdom.DataContext = GameState.CurrentHero;
+            lblHealth.DataContext = GameState.CurrentHero.Statistics;
+            lblMagic.DataContext = GameState.CurrentHero.Statistics;
+            lblGold.DataContext = GameState.CurrentHero.Inventory;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data Binding
+
         #region Enable/Disable Buttons
 
         private void DisablePlus()
@@ -95,51 +128,7 @@ namespace Sulimn
             btnVitalityMinus.IsEnabled = false;
         }
 
-        private void EnableMinus()
-        {
-            btnDexterityMinus.IsEnabled = true;
-            btnStrengthMinus.IsEnabled = true;
-            btnWisdomMinus.IsEnabled = true;
-            btnVitalityMinus.IsEnabled = true;
-        }
-
         #endregion Enable/Disable Buttons
-
-        /// <summary>
-        /// Displays the Hero's information.
-        /// </summary>
-        internal void CheckSkillPoints()
-        {
-            if (GameState.CurrentHero.SkillPoints > 0)
-                EnablePlus();
-            else
-                DisablePlus();
-
-            if (GameState.CurrentHero.SkillPoints != copyOfHero.SkillPoints)
-                btnReset.IsEnabled = true;
-            else
-                btnReset.IsEnabled = false;
-
-            GameState.CurrentHero.UpdateStatistics();
-        }
-
-        /// <summary>
-        /// Resets the current Hero to the copy created when the Window loaded.
-        /// </summary>
-        private void Reset()
-        {
-            GameState.CurrentHero.Attributes.Strength = copyOfHero.Attributes.Strength;
-            GameState.CurrentHero.Attributes.Vitality = copyOfHero.Attributes.Vitality;
-            GameState.CurrentHero.Attributes.Dexterity = copyOfHero.Attributes.Dexterity;
-            GameState.CurrentHero.Attributes.Wisdom = copyOfHero.Attributes.Wisdom;
-            GameState.CurrentHero.SkillPoints = copyOfHero.SkillPoints;
-            GameState.CurrentHero.Statistics.CurrentHealth = copyOfHero.Statistics.CurrentHealth;
-            GameState.CurrentHero.Statistics.MaximumHealth = copyOfHero.Statistics.MaximumHealth;
-            GameState.CurrentHero.Statistics.CurrentMagic = copyOfHero.Statistics.CurrentMagic;
-            GameState.CurrentHero.Statistics.MaximumMagic = copyOfHero.Statistics.MaximumMagic;
-            DisableMinus();
-            CheckSkillPoints();
-        }
 
         #region Button-Click Methods
 
@@ -150,19 +139,17 @@ namespace Sulimn
 
         private void btnCastSpell_Click(object sender, RoutedEventArgs e)
         {
-            CastSpellWindow CastSpellWindow = new CastSpellWindow();
-            CastSpellWindow.RefToCharacterWindow = this;
+            CastSpellWindow CastSpellWindow = new CastSpellWindow { RefToCharacterWindow = this };
             CastSpellWindow.LoadWindow("Character");
             CastSpellWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnInventory_Click(object sender, RoutedEventArgs e)
         {
-            InventoryWindow inventoryWindow = new InventoryWindow();
-            inventoryWindow.RefToCharacterWindow = this;
+            InventoryWindow inventoryWindow = new InventoryWindow { RefToCharacterWindow = this };
             inventoryWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
@@ -263,7 +250,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public CharacterWindow()

@@ -26,91 +26,145 @@ namespace Sulimn
         public sealed override string Name
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged("Name"); }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         /// <summary>Type of the Ring</summary>
         public sealed override ItemTypes Type
         {
             get { return _type; }
-            set { _type = value; OnPropertyChanged("Type"); }
+            set
+            {
+                _type = value;
+                OnPropertyChanged("Type");
+            }
         }
 
         /// <summary>Description of the Ring</summary>
         public sealed override string Description
         {
             get { return _description; }
-            set { _description = value; OnPropertyChanged("Description"); }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("Description");
+            }
         }
 
         /// <summary>How much bonus damage the Ring inflicts</summary>
         public int Damage
         {
             get { return _damage; }
-            set { _damage = value; OnPropertyChanged("DamageToString"); OnPropertyChanged("DamageToStringWithText"); }
+            set
+            {
+                _damage = value;
+                OnPropertyChanged("DamageToString");
+                OnPropertyChanged("DamageToStringWithText");
+            }
         }
 
         /// <summary>How much bonus damage the Ring can defend against</summary>
         public int Defense
         {
             get { return _defense; }
-            set { _defense = value; OnPropertyChanged("DefenseToString"); OnPropertyChanged("DefenseToStringWithText"); }
+            set
+            {
+                _defense = value;
+                OnPropertyChanged("DefenseToString");
+                OnPropertyChanged("DefenseToStringWithText");
+            }
         }
 
         /// <summary>How much bonus Strength the Ring grants</summary>
         public int Strength
         {
             get { return _strength; }
-            set { _strength = value; OnPropertyChanged("Strength"); }
+            set
+            {
+                _strength = value;
+                OnPropertyChanged("Strength");
+            }
         }
 
         /// <summary>How much bonus Vitality the Ring grants</summary>
         public int Vitality
         {
             get { return _vitality; }
-            set { _vitality = value; OnPropertyChanged("Vitality"); }
+            set
+            {
+                _vitality = value;
+                OnPropertyChanged("Vitality");
+            }
         }
 
         /// <summary>How much bonus Dexterity the Ring grants</summary>
         public int Dexterity
         {
             get { return _dexterity; }
-            set { _dexterity = value; OnPropertyChanged("Dexterity"); }
+            set
+            {
+                _dexterity = value;
+                OnPropertyChanged("Dexterity");
+            }
         }
 
         /// <summary>How much bonus Wisdom the Ring grants</summary>
         public int Wisdom
         {
             get { return _wisdom; }
-            set { _wisdom = value; OnPropertyChanged("Wisdom"); }
+            set
+            {
+                _wisdom = value;
+                OnPropertyChanged("Wisdom");
+            }
         }
 
         /// <summary>How much the Ring weighs</summary>
         public sealed override int Weight
         {
             get { return _weight; }
-            set { _weight = value; OnPropertyChanged("Weight"); }
+            set
+            {
+                _weight = value;
+                OnPropertyChanged("Weight");
+            }
         }
 
         /// <summary>How much the Ring is worth</summary>
         public sealed override int Value
         {
             get { return _value; }
-            set { _value = value; OnPropertyChanged("Value"); }
+            set
+            {
+                _value = value;
+                OnPropertyChanged("Value");
+            }
         }
 
         /// <summary>Can the Ring be sold to a shop?</summary>
         public sealed override bool CanSell
         {
             get { return _canSell; }
-            set { _canSell = value; OnPropertyChanged("CanSell"); }
+            set
+            {
+                _canSell = value;
+                OnPropertyChanged("CanSell");
+            }
         }
 
         /// <summary>Can the Ring be sold in a shop?</summary>
         public sealed override bool IsSold
         {
             get { return _isSold; }
-            set { _isSold = value; OnPropertyChanged("IsSold"); }
+            set
+            {
+                _isSold = value;
+                OnPropertyChanged("IsSold");
+            }
         }
 
         #endregion Modifying Properties
@@ -118,28 +172,23 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>The value of the Ring with thousands separators</summary>
-        public sealed override string ValueToString
-        {
-            get { return Value.ToString("N0"); }
-        }
+        public sealed override string ValueToString => Value.ToString("N0");
 
         /// <summary>The value of the Ring with thousands separators and preceding text</summary>
         public sealed override string ValueToStringWithText
         {
-            get { if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString; return ""; }
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString;
+                return "";
+            }
         }
 
         /// <summary>The value of the Ring</summary>
-        public sealed override int SellValue
-        {
-            get { return Value / 2; }
-        }
+        public sealed override int SellValue => Value / 2;
 
         /// <summary>The value of the Ring with thousands separators</summary>
-        public sealed override string SellValueToString
-        {
-            get { return SellValue.ToString("N0"); }
-        }
+        public sealed override string SellValueToString => SellValue.ToString("N0");
 
         /// <summary>The value of the Ring with thousands separators with preceding text</summary>
         public sealed override string SellValueToStringWithText
@@ -168,10 +217,7 @@ namespace Sulimn
         }
 
         /// <summary>Returns the damage with a comma separating thousands.</summary>
-        public string DamageToString
-        {
-            get { return Damage.ToString("N0"); }
-        }
+        public string DamageToString => Damage.ToString("N0");
 
         /// <summary>Returns the damage with a comma separating thousands and preceding text.</summary>
         public string DamageToStringWithText
@@ -185,10 +231,7 @@ namespace Sulimn
         }
 
         /// <summary>Returns the defense with a comma separating thousands.</summary>
-        public string DefenseToString
-        {
-            get { return Defense.ToString("N0"); }
-        }
+        public string DefenseToString => Defense.ToString("N0");
 
         /// <summary>Returns the defense with a comma separating thousands and preceding text.</summary>
         public string DefenseToStringWithText
@@ -249,7 +292,11 @@ namespace Sulimn
         {
             get
             {
-                string[] bonuses = new string[] { DamageToStringWithText, DefenseToStringWithText, StrengthToString, VitalityToString, DexterityToString, WisdomToString };
+                string[] bonuses =
+                {
+DamageToStringWithText, DefenseToStringWithText, StrengthToString, VitalityToString,
+DexterityToString, WisdomToString
+};
 
                 return string.Join(",", bonuses.Where(bonus => bonus.Length > 0));
             }
@@ -263,7 +310,12 @@ namespace Sulimn
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.Damage == right.Damage) && (left.Defense == right.Defense) && (left.Strength == right.Strength) && (left.Vitality == right.Vitality) && (left.Dexterity == right.Dexterity) && (left.Wisdom == right.Wisdom) && (left.Weight == right.Weight) && (left.Value == right.Value) && (left.CanSell == right.CanSell) && (left.IsSold == right.IsSold);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
+             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+             left.Damage == right.Damage && left.Defense == right.Defense && left.Strength == right.Strength &&
+             left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom &&
+             left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell &&
+             left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)
@@ -319,7 +371,8 @@ namespace Sulimn
         /// <param name="value">Value of Ring</param>
         /// <param name="canSell">Can Sell Ring?</param>
         /// <param name="isSold">Is Ring Sold?</param>
-        internal Ring(string name, ItemTypes itemType, string description, int damage, int defense, int strength, int vitality, int dexterity, int wisdom, int weight, int value, bool canSell, bool isSold)
+        internal Ring(string name, ItemTypes itemType, string description, int damage, int defense, int strength,
+        int vitality, int dexterity, int wisdom, int weight, int value, bool canSell, bool isSold)
         {
             Name = name;
             Type = itemType;

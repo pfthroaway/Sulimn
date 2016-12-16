@@ -1,11 +1,12 @@
 ﻿<Window x:Name="windowNewHero" x:Class="Sulimn.NewHeroWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Sulimn"
-    mc:Ignorable="d"
-    Title="New Hero" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowNewHero_Closing" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+mc:Ignorable="d"
+Title="New Hero" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+Closing="windowNewHero_Closing" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -31,55 +32,87 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.Resources>
-            <DataTemplate x:Key="classNameTemplate">
-                <TextBlock Text="{Binding Path=Name}" />
-            </DataTemplate>
-        </Grid.Resources>
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,0">Hero Name:</TextBlock>
-        <TextBox x:Name="txtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Margin="5" TextChanged="txtHeroName_Changed" TextAlignment="Center" MaxLength="20" PreviewKeyDown="txtHeroName_PreviewKeyDown" Padding="5" GotFocus="txtHeroName_GotFocus" />
-        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,0">Password:</TextBlock>
-        <PasswordBox x:Name="pswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Margin="5" PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5" GotFocus="pswdPassword_GotFocus" />
-        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,0">Confirm Password:</TextBlock>
-        <PasswordBox x:Name="pswdConfirm" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Width="200" Margin="5" PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5" GotFocus="pswdConfirm_GotFocus" />
-        <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select a Class" Margin="5,5,5,0" />
-        <ListBox x:Name="lstClasses" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="140" Margin="5" SelectionChanged="lstClasses_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource classNameTemplate}" ScrollViewer.VerticalScrollBarVisibility="Visible" />
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5">
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"
+ HorizontalAlignment="Center" Margin="5,5,5,0">
+Hero Name:
+        </TextBlock>
+        <TextBox x:Name="txtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Margin="5"
+ TextChanged="txtHeroName_Changed" TextAlignment="Center" MaxLength="20"
+ PreviewKeyDown="txtHeroName_PreviewKeyDown" Padding="5" GotFocus="txtHeroName_GotFocus" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center"
+ HorizontalAlignment="Center" Margin="5,5,5,0">
+Password:
+        </TextBlock>
+        <PasswordBox x:Name="pswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Margin="5"
+ PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5"
+ GotFocus="pswdPassword_GotFocus" />
+        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center"
+ HorizontalAlignment="Center" Margin="5,5,5,0">
+Confirm Password:
+        </TextBlock>
+        <PasswordBox x:Name="pswdConfirm" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Width="200" Margin="5"
+ PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5"
+ GotFocus="pswdConfirm_GotFocus" />
+        <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center"
+ HorizontalAlignment="Center" Text="Select a Class" Margin="5,5,5,0" />
+        <ListBox x:Name="lstClasses" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center"
+ HorizontalAlignment="Center" Width="200" Height="140" Margin="5"
+ SelectionChanged="lstClasses_SelectionChanged" ItemsSource="{Binding}"
+  ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
+VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5">
             <TextBlock Text="{Binding Path=Description, Mode=TwoWay}" TextWrapping="Wrap" Margin="5" />
         </Border>
         <TextBlock Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Strength" />
-        <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="btnStrengthMinus" MinWidth="30" Margin="5" Click="btnStrengthMinus_Click" IsEnabled="False" >-</Button>
-            <TextBlock MinWidth="60" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Strength, Mode=TwoWay}" />
-            <Button x:Name="btnStrengthPlus" MinWidth="30" Margin="5" Click="btnStrengthPlus_Click" IsEnabled="False" >+</Button>
+        <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Center"
+HorizontalAlignment="Center">
+            <Button x:Name="btnStrengthMinus" MinWidth="30" Margin="5" Click="btnStrengthMinus_Click" IsEnabled="False">-</Button>
+            <TextBlock MinWidth="60" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+ Text="{Binding Path=Strength, Mode=TwoWay}" />
+            <Button x:Name="btnStrengthPlus" MinWidth="30" Margin="5" Click="btnStrengthPlus_Click" IsEnabled="False">+</Button>
         </StackPanel>
-        <TextBlock Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center" >Vitality</TextBlock>
-        <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="btnVitalityMinus" MinWidth="30" Margin="5" Click="btnVitalityMinus_Click" IsEnabled="False" >-</Button>
-            <TextBlock MinWidth="60" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Vitality, Mode=TwoWay}" />
-            <Button x:Name="btnVitalityPlus" MinWidth="30" Margin="5" Click="btnVitalityPlus_Click" IsEnabled="False" >+</Button>
+        <TextBlock Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center">Vitality</TextBlock>
+        <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal" VerticalAlignment="Center"
+HorizontalAlignment="Center">
+            <Button x:Name="btnVitalityMinus" MinWidth="30" Margin="5" Click="btnVitalityMinus_Click" IsEnabled="False">-</Button>
+            <TextBlock MinWidth="60" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+ Text="{Binding Path=Vitality, Mode=TwoWay}" />
+            <Button x:Name="btnVitalityPlus" MinWidth="30" Margin="5" Click="btnVitalityPlus_Click" IsEnabled="False">+</Button>
         </StackPanel>
-        <TextBlock Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center" >Dexterity</TextBlock>
-        <StackPanel Grid.Column="1" Grid.Row="11" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="btnDexterityMinus" MinWidth="30" Margin="5" Click="btnDexterityMinus_Click" IsEnabled="False" >-</Button>
-            <TextBlock MinWidth="60" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Dexterity, Mode=TwoWay}" />
-            <Button x:Name="btnDexterityPlus" MinWidth="30" Margin="5" Click="btnDexterityPlus_Click" IsEnabled="False" >+</Button>
+        <TextBlock Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center">Dexterity</TextBlock>
+        <StackPanel Grid.Column="1" Grid.Row="11" Orientation="Horizontal" VerticalAlignment="Center"
+HorizontalAlignment="Center">
+            <Button x:Name="btnDexterityMinus" MinWidth="30" Margin="5" Click="btnDexterityMinus_Click"
+IsEnabled="False">
+                -
+            </Button>
+            <TextBlock MinWidth="60" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+ Text="{Binding Path=Dexterity, Mode=TwoWay}" />
+            <Button x:Name="btnDexterityPlus" MinWidth="30" Margin="5" Click="btnDexterityPlus_Click" IsEnabled="False">+</Button>
         </StackPanel>
-        <TextBlock Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" >Wisdom</TextBlock>
-        <StackPanel Grid.Column="1" Grid.Row="12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="btnWisdomMinus" MinWidth="30" Margin="5" Click="btnWisdomMinus_Click" IsEnabled="False" >-</Button>
-            <TextBlock MinWidth="60" VerticalAlignment="Center"  HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Wisdom, Mode=TwoWay}" />
-            <Button x:Name="btnWisdomPlus" MinWidth="30" Margin="5" Click="btnWisdomPlus_Click" IsEnabled="False" >+</Button>
+        <TextBlock Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center">Wisdom</TextBlock>
+        <StackPanel Grid.Column="1" Grid.Row="12" Orientation="Horizontal" VerticalAlignment="Center"
+HorizontalAlignment="Center">
+            <Button x:Name="btnWisdomMinus" MinWidth="30" Margin="5" Click="btnWisdomMinus_Click" IsEnabled="False">-</Button>
+            <TextBlock MinWidth="60" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+ Text="{Binding Path=Wisdom, Mode=TwoWay}" />
+            <Button x:Name="btnWisdomPlus" MinWidth="30" Margin="5" Click="btnWisdomPlus_Click" IsEnabled="False">+</Button>
         </StackPanel>
         <TextBlock Grid.Column="0" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="7">Health</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=HealthToString, Mode=OneWay}" />
-        <TextBlock Grid.Column="0" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="7" >Magic</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=MagicToString, Mode=OneWay}" />
-        <TextBlock Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=SkillPointsToString, Mode=OneWay}" Margin="7" />
-        <StackPanel Grid.Row="16" Grid.Column="0"  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="btnCreate" Margin="5,5,50,5" Width="100" Height="30" Click="btnCreate_Click" Content="_Create" IsDefault="True" IsEnabled="False" />
-            <Button x:Name="btnReset" Margin="5" Width="100"  Height="30" Click="btnReset_Click" Content="_Reset" />
+        <TextBlock Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center"
+ Text="{Binding Path=HealthToString, Mode=OneWay}" />
+        <TextBlock Grid.Column="0" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="7">Magic</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Center"
+ Text="{Binding Path=MagicToString, Mode=OneWay}" />
+        <TextBlock Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" VerticalAlignment="Center"
+ HorizontalAlignment="Center" Text="{Binding Path=SkillPointsToString, Mode=OneWay}" Margin="7" />
+        <StackPanel Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+HorizontalAlignment="Center">
+            <Button x:Name="btnCreate" Margin="5,5,50,5" Width="100" Height="30" Click="btnCreate_Click"
+Content="_Create" IsDefault="True" IsEnabled="False" />
+            <Button x:Name="btnReset" Margin="5" Width="100" Height="30" Click="btnReset_Click" Content="_Reset" />
         </StackPanel>
-        <Button x:Name="btnCancel" Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,10" Width="100" Height="30"  Click="btnCancel_Click" Content="C_ancel" IsCancel="True" />
+        <Button x:Name="btnCancel" Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,10" Width="100"
+Height="30" Click="btnCancel_Click" Content="C_ancel" IsCancel="True" />
     </Grid>
 </Window>

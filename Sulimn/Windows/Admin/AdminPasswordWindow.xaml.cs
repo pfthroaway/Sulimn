@@ -4,10 +4,10 @@ using System.Windows;
 namespace Sulimn
 {
     /// <summary>Interaction logic for AdminPasswordWindow.xaml</summary>
-    public partial class AdminPasswordWindow : Window
+    public partial class AdminPasswordWindow
     {
+        private bool admin;
         internal MainWindow RefToMainWindow { get; set; }
-        private bool admin = false;
 
         #region Button-Click Methods
 
@@ -37,7 +37,7 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public AdminPasswordWindow()
@@ -48,20 +48,18 @@ namespace Sulimn
 
         private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (pswdAdmin.Password.Length > 0)
-                btnSubmit.IsEnabled = true;
-            else
-                btnSubmit.IsEnabled = false;
+            btnSubmit.IsEnabled = pswdAdmin.Password.Length > 0;
         }
 
         private void windowAdminPassword_Closing(object sender, CancelEventArgs e)
         {
             if (!admin)
+            {
                 RefToMainWindow.Show();
+            }
             else
             {
-                AdminWindow adminWindow = new AdminWindow();
-                adminWindow.RefToMainWindow = RefToMainWindow;
+                AdminWindow adminWindow = new AdminWindow { RefToMainWindow = RefToMainWindow };
                 adminWindow.Show();
             }
         }

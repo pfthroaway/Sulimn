@@ -7,10 +7,10 @@ namespace Sulimn
     /// </summary>
     internal abstract class Item : INotifyPropertyChanged
     {
+        protected bool _canSell, _isSold;
         protected string _name, _description;
         protected ItemTypes _type;
         protected int _weight, _value;
-        protected bool _canSell, _isSold;
 
         #region Data-Binding
 

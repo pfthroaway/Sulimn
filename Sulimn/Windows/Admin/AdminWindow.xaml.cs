@@ -4,7 +4,7 @@ using System.Windows;
 namespace Sulimn
 {
     /// <summary>Interaction logic for AdminWindow.xaml</summary>
-    public partial class AdminWindow : Window
+    public partial class AdminWindow
     {
         internal MainWindow RefToMainWindow { get; set; }
 
@@ -17,18 +17,19 @@ namespace Sulimn
 
         private void btnManageUsers_Click(object sender, RoutedEventArgs e)
         {
-            ManageUsersWindow manageUsersWindow = new ManageUsersWindow();
-            manageUsersWindow.RefToAdminWindow = this;
+            ManageUsersWindow manageUsersWindow = new ManageUsersWindow { RefToAdminWindow = this };
             manageUsersWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnChangeAdminPassword_Click(object sender, RoutedEventArgs e)
         {
-            AdminChangePasswordWindow adminChangePasswordWindow = new AdminChangePasswordWindow();
-            adminChangePasswordWindow.RefToAdminWindow = this;
+            AdminChangePasswordWindow adminChangePasswordWindow = new AdminChangePasswordWindow
+            {
+                RefToAdminWindow = this
+            };
             adminChangePasswordWindow.Show();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnManageArmor_Click(object sender, RoutedEventArgs e)
@@ -62,7 +63,7 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public AdminWindow()

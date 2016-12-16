@@ -10,8 +10,20 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for TabbedShopping.xaml
     /// </summary>
-    public partial class TheArmouryWindow : Window, INotifyPropertyChanged
+    public partial class TheArmouryWindow : INotifyPropertyChanged
     {
+        internal MarketWindow RefToMarketWindow { get; set; }
+
+        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
+        /// <param name="newText">Text to be added</param>
+        private void AddTextTT(string newText)
+        {
+            txtTheArmoury.Text += nl + nl + newText;
+            txtTheArmoury.Focus();
+            txtTheArmoury.CaretIndex = txtTheArmoury.Text.Length;
+            txtTheArmoury.ScrollToEnd();
+        }
+
         #region Local Variables
 
         private List<HeadArmor> purchaseHead = new List<HeadArmor>();
@@ -34,11 +46,9 @@ namespace Sulimn
         private LegArmor selectedLegsSell = new LegArmor();
         private FeetArmor selectedFeetPurchase = new FeetArmor();
         private FeetArmor selectedFeetSell = new FeetArmor();
-        private string nl = Environment.NewLine;
+        private readonly string nl = Environment.NewLine;
 
         #endregion Local Variables
-
-        internal MarketWindow RefToMarketWindow { get; set; }
 
         #region Data-Binding
 
@@ -111,16 +121,6 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtTheArmoury.Text += nl + nl + newText;
-            txtTheArmoury.Focus();
-            txtTheArmoury.CaretIndex = txtTheArmoury.Text.Length;
-            txtTheArmoury.ScrollToEnd();
-        }
-
         #region Load Methods
 
         /// <summary>Loads everything for data binding.</summary>
@@ -145,27 +145,27 @@ namespace Sulimn
         private void LoadAllPurchase()
         {
             purchaseHead.Clear();
-            purchaseHead.AddRange(GameState.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold == true));
+            purchaseHead.AddRange(GameState.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold));
             purchaseHead = purchaseHead.OrderBy(armor => armor.Value).ToList();
             lstHeadPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             purchaseBody.Clear();
-            purchaseBody.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold == true));
+            purchaseBody.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold));
             purchaseBody = purchaseBody.OrderBy(armor => armor.Value).ToList();
             lstBodyPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             purchaseHands.Clear();
-            purchaseHands.AddRange(GameState.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold == true));
+            purchaseHands.AddRange(GameState.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold));
             purchaseHands = purchaseHands.OrderBy(armor => armor.Value).ToList();
             lstHandsPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             purchaseLegs.Clear();
-            purchaseLegs.AddRange(GameState.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold == true));
+            purchaseLegs.AddRange(GameState.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold));
             purchaseLegs = purchaseLegs.OrderBy(armor => armor.Value).ToList();
             lstLegsPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             purchaseFeet.Clear();
-            purchaseFeet.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold == true));
+            purchaseFeet.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold));
             purchaseFeet = purchaseFeet.OrderBy(armor => armor.Value).ToList();
             lstFeetPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
@@ -176,31 +176,31 @@ namespace Sulimn
         private void LoadAllSell()
         {
             sellHead.Clear();
-            sellHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold == true));
+            sellHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold));
             sellHead = sellHead.OrderBy(armor => armor.Value).ToList();
             lstHeadSell.ItemsSource = sellHead;
             lstHeadSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             sellBody.Clear();
-            sellBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold == true));
+            sellBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold));
             sellBody = sellBody.OrderBy(armor => armor.Value).ToList();
             lstBodySell.ItemsSource = sellBody;
             lstBodySell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             sellHands.Clear();
-            sellHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold == true));
+            sellHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold));
             sellHands = sellHands.OrderBy(armor => armor.Value).ToList();
             lstHandsSell.ItemsSource = sellHands;
             lstHandsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             sellLegs.Clear();
-            sellLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold == true));
+            sellLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold));
             sellLegs = sellLegs.OrderBy(armor => armor.Value).ToList();
             lstLegsSell.ItemsSource = sellLegs;
             lstLegsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             sellFeet.Clear();
-            sellFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold == true));
+            sellFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold));
             sellFeet = sellFeet.OrderBy(armor => armor.Value).ToList();
             lstFeetSell.ItemsSource = sellFeet;
             lstFeetSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -318,13 +318,12 @@ namespace Sulimn
 
         private void btnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow();
-            characterWindow.RefToTheArmouryWindow = this;
+            CharacterWindow characterWindow = new CharacterWindow { RefToTheArmouryWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("The Armoury");
             characterWindow.BindLabels();
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -342,10 +341,7 @@ namespace Sulimn
             {
                 selectedHeadPurchase = (HeadArmor)lstHeadPurchase.SelectedValue;
 
-                if (selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnHeadPurchase.IsEnabled = true;
-                else
-                    btnHeadPurchase.IsEnabled = false;
+                btnHeadPurchase.IsEnabled = selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -376,10 +372,7 @@ namespace Sulimn
             {
                 selectedBodyPurchase = (BodyArmor)lstBodyPurchase.SelectedValue;
 
-                if (selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnBodyPurchase.IsEnabled = true;
-                else
-                    btnBodyPurchase.IsEnabled = false;
+                btnBodyPurchase.IsEnabled = selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -410,10 +403,7 @@ namespace Sulimn
             {
                 selectedHandsPurchase = (HandArmor)lstHandsPurchase.SelectedValue;
 
-                if (selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnHandsPurchase.IsEnabled = true;
-                else
-                    btnHandsPurchase.IsEnabled = false;
+                btnHandsPurchase.IsEnabled = selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -445,10 +435,7 @@ namespace Sulimn
             {
                 selectedLegsPurchase = (LegArmor)lstLegsPurchase.SelectedValue;
 
-                if (selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnLegsPurchase.IsEnabled = true;
-                else
-                    btnLegsPurchase.IsEnabled = false;
+                btnLegsPurchase.IsEnabled = selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -479,10 +466,7 @@ namespace Sulimn
             {
                 selectedFeetPurchase = (FeetArmor)lstFeetPurchase.SelectedValue;
 
-                if (selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold)
-                    btnFeetPurchase.IsEnabled = true;
-                else
-                    btnFeetPurchase.IsEnabled = false;
+                btnFeetPurchase.IsEnabled = selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             }
             else
             {
@@ -514,14 +498,15 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public TheArmouryWindow()
         {
             InitializeComponent();
             LoadAll();
-            txtTheArmoury.Text = "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
+            txtTheArmoury.Text =
+            "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
         }
 
         private async void windowTheArmoury_Closing(object sender, CancelEventArgs e)

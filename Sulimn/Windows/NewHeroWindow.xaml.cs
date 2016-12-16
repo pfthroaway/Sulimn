@@ -11,14 +11,33 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for NewPlayerWindow.xaml
     /// </summary>
-    public partial class NewHeroWindow : Window
+    public partial class NewHeroWindow
     {
-        private List<HeroClass> classes = new List<HeroClass>();
-        private HeroClass selectedClass = new HeroClass();
+        private readonly List<HeroClass> classes = new List<HeroClass>();
         private HeroClass compareClass = new HeroClass();
-        private bool startGame = false;
+        private HeroClass selectedClass = new HeroClass();
+        private bool startGame;
 
         internal MainWindow RefToMainWindow { get; set; }
+
+        #region Display Manipulation
+
+        /// <summary>
+        /// Clears all text from the labels and resets the Window to default.
+        /// </summary>
+        private void Clear()
+        {
+            selectedClass = new HeroClass();
+            compareClass = new HeroClass();
+            lstClasses.UnselectAll();
+            txtHeroName.Clear();
+            txtHeroName.Focus();
+            CheckSkillPoints();
+            DisableMinus();
+            DisablePlus();
+        }
+
+        #endregion Display Manipulation
 
         #region Data-Binding
 
@@ -59,25 +78,6 @@ namespace Sulimn
 
         #endregion Attribute Modification
 
-        #region Display Manipulation
-
-        /// <summary>
-        /// Clears all text from the labels and resets the Window to default.
-        /// </summary>
-        private void Clear()
-        {
-            selectedClass = new HeroClass();
-            compareClass = new HeroClass();
-            lstClasses.UnselectAll();
-            txtHeroName.Clear();
-            txtHeroName.Focus();
-            CheckSkillPoints();
-            DisableMinus();
-            DisablePlus();
-        }
-
-        #endregion Display Manipulation
-
         #region Enable/Disable Buttons
 
         /// <summary>
@@ -102,7 +102,8 @@ namespace Sulimn
             }
             else if (lstClasses.SelectedIndex >= 0 && selectedClass.SkillPoints < 0)
             {
-                MessageBox.Show("Somehow you have negative skill points. Please try creating your character again.", "Sulimn", MessageBoxButton.OK);
+                MessageBox.Show("Somehow you have negative skill points. Please try creating your character again.",
+                "Sulimn", MessageBoxButton.OK);
                 Clear();
             }
         }
@@ -140,24 +141,13 @@ namespace Sulimn
             btnVitalityMinus.IsEnabled = false;
         }
 
-        /// <summary>
-        /// Enables all Minus buttons.
-        /// </summary>
-        private void EnableMinus()
-        {
-            btnDexterityMinus.IsEnabled = true;
-            btnStrengthMinus.IsEnabled = true;
-            btnWisdomMinus.IsEnabled = true;
-            btnVitalityMinus.IsEnabled = true;
-        }
-
         #endregion Enable/Disable Buttons
 
         #region Button-Click Methods
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -168,21 +158,48 @@ namespace Sulimn
             {
                 createHero = GameState.AllHeroes.Find(hero => hero.Name == txtHeroName.Text);
             }
-            catch (Exception)
+            catch (ArgumentNullException)
             {
             }
-            if (createHero != null && !string.IsNullOrWhiteSpace(createHero.Name))
+            if (!string.IsNullOrWhiteSpace(createHero?.Name))
             {
-                MessageBox.Show("This username has already been taken. Please choose another.", "Test", MessageBoxButton.OK);
+                MessageBox.Show("This username has already been taken. Please choose another.", "Test",
+                MessageBoxButton.OK);
                 txtHeroName.SelectAll();
             }
             else
             {
                 if (txtHeroName.Text.Length >= 4 && pswdPassword.Password.Length >= 4)
-                {
                     if (pswdPassword.Password.Trim() == pswdConfirm.Password.Trim())
                     {
-                        Hero newHero = new Hero(txtHeroName.Text.Trim(), PasswordHash.HashPassword(pswdPassword.Password.Trim()), selectedClass, 1, 0, 0, new Attributes(selectedClass.Strength, selectedClass.Vitality, selectedClass.Dexterity, selectedClass.Wisdom), new Statistics(selectedClass.CurrentHealth, selectedClass.MaximumHealth, selectedClass.CurrentMagic, selectedClass.MaximumMagic), new Equipment(new Weapon(), new HeadArmor(), new BodyArmor(), new HandArmor(), new LegArmor(), new FeetArmor(), new Ring(), new Ring()), new Spellbook(), new Inventory(new List<Item>(), 250));
+                        Hero newHero = new Hero(
+                        txtHeroName.Text.Trim(),
+                        PasswordHash.HashPassword(pswdPassword.Password.Trim()),
+                        selectedClass,
+                        1,
+                        0,
+                        0,
+                        new Attributes(
+                        selectedClass.Strength,
+                        selectedClass.Vitality,
+                        selectedClass.Dexterity,
+                        selectedClass.Wisdom),
+                        new Statistics(
+                        selectedClass.CurrentHealth,
+                        selectedClass.MaximumHealth,
+                        selectedClass.CurrentMagic,
+                        selectedClass.MaximumMagic),
+                        new Equipment(
+                        new Weapon(),
+                        new HeadArmor(),
+                        new BodyArmor(),
+                        new HandArmor(),
+                        new LegArmor(),
+                        new FeetArmor(),
+                        new Ring(),
+                        new Ring()),
+                        new Spellbook(),
+                        new Inventory(new List<Item>(), 250));
 
                         if (await GameState.NewHero(newHero))
                         {
@@ -192,10 +209,12 @@ namespace Sulimn
                         }
                     }
                     else
+                    {
                         MessageBox.Show("Please ensure that the passwords match.", "Sulimn", MessageBoxButton.OK);
-                }
+                    }
                 else
-                    MessageBox.Show("Names and passwords have to be at least 4 characters.", "Sulimn", MessageBoxButton.OK);
+                    MessageBox.Show("Names and passwords have to be at least 4 characters.", "Sulimn",
+                    MessageBoxButton.OK);
             }
         }
 
@@ -267,7 +286,7 @@ namespace Sulimn
         /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public NewHeroWindow()
@@ -297,9 +316,11 @@ namespace Sulimn
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl, Key.Escape);
+            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
+            Key.Escape);
 
-            if (keys.Any(key => key == true) || Key.A <= k && k <= Key.Z)
+            if (keys.Any(key => key) || Key.A <= k && k <= Key.Z)
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -329,7 +350,9 @@ namespace Sulimn
                 CheckSkillPoints();
             }
             else
+            {
                 Clear();
+            }
 
             lstClasses.ItemsSource = classes;
             DataContext = selectedClass;
@@ -343,10 +366,12 @@ namespace Sulimn
                 cityWindow.Show();
                 cityWindow.RefToMainWindow = RefToMainWindow;
                 cityWindow.EnterCity();
-                this.Visibility = Visibility.Hidden;
+                Visibility = Visibility.Hidden;
             }
             else
+            {
                 RefToMainWindow.Show();
+            }
         }
 
         #endregion Window-Manipulation Methods

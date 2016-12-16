@@ -9,7 +9,16 @@ namespace Sulimn
     internal class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
     {
         private string _name, _description;
-        private int _skillPoints, _strength, _vitality, _dexterity, _wisdom, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
+
+        private int _skillPoints,
+        _strength,
+        _vitality,
+        _dexterity,
+        _wisdom,
+        _currentHealth,
+        _maximumHealth,
+        _currentMagic,
+        _maximumMagic;
 
         #region Data-Binding
 
@@ -27,19 +36,31 @@ namespace Sulimn
         public string Name
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged("Name"); }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         public string Description
         {
             get { return _description; }
-            set { _description = value; OnPropertyChanged("Description"); }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("Description");
+            }
         }
 
         public int SkillPoints
         {
             get { return _skillPoints; }
-            set { _skillPoints = value; OnPropertyChanged("SkillPointsToString"); }
+            set
+            {
+                _skillPoints = value;
+                OnPropertyChanged("SkillPointsToString");
+            }
         }
 
         public string SkillPointsToString
@@ -48,68 +69,97 @@ namespace Sulimn
             {
                 if (SkillPoints != 1)
                     return SkillPoints.ToString("N0") + " Skill Points Available";
-                else
-                    return SkillPoints.ToString("N0") + " Skill Point Available";
+                return SkillPoints.ToString("N0") + " Skill Point Available";
             }
         }
 
         public int Strength
         {
             get { return _strength; }
-            set { _strength = value; OnPropertyChanged("Strength"); }
+            set
+            {
+                _strength = value;
+                OnPropertyChanged("Strength");
+            }
         }
 
         public int Vitality
         {
             get { return _vitality; }
-            set { _vitality = value; CurrentHealth = Vitality * 5; MaximumHealth = Vitality * 5; OnPropertyChanged("Vitality"); }
+            set
+            {
+                _vitality = value;
+                CurrentHealth = Vitality * 5;
+                MaximumHealth = Vitality * 5;
+                OnPropertyChanged("Vitality");
+            }
         }
 
         public int Dexterity
         {
             get { return _dexterity; }
-            set { _dexterity = value; OnPropertyChanged("Dexterity"); }
+            set
+            {
+                _dexterity = value;
+                OnPropertyChanged("Dexterity");
+            }
         }
 
         public int Wisdom
         {
             get { return _wisdom; }
-            set { _wisdom = value; CurrentMagic = Wisdom * 5; MaximumMagic = Wisdom * 5; OnPropertyChanged("Wisdom"); }
+            set
+            {
+                _wisdom = value;
+                CurrentMagic = Wisdom * 5;
+                MaximumMagic = Wisdom * 5;
+                OnPropertyChanged("Wisdom");
+            }
         }
 
         public int CurrentHealth
         {
             get { return _currentHealth; }
-            set { _currentHealth = value; OnPropertyChanged("HealthToString"); }
+            set
+            {
+                _currentHealth = value;
+                OnPropertyChanged("HealthToString");
+            }
         }
 
         public int MaximumHealth
         {
             get { return _maximumHealth; }
-            set { _maximumHealth = value; OnPropertyChanged("HealthToString"); }
+            set
+            {
+                _maximumHealth = value;
+                OnPropertyChanged("HealthToString");
+            }
         }
 
         public int CurrentMagic
         {
             get { return _currentMagic; }
-            set { _currentMagic = value; OnPropertyChanged("MagicToString"); }
+            set
+            {
+                _currentMagic = value;
+                OnPropertyChanged("MagicToString");
+            }
         }
 
         public int MaximumMagic
         {
             get { return _maximumMagic; }
-            set { _maximumMagic = value; OnPropertyChanged("MagicToString"); }
+            set
+            {
+                _maximumMagic = value;
+                OnPropertyChanged("MagicToString");
+            }
         }
 
-        public string HealthToString
-        {
-            get { return CurrentHealth + " / " + MaximumHealth; }
-        }
+        public string HealthToString => CurrentHealth + " / " + MaximumHealth;
 
-        public string MagicToString
-        {
-            get { return CurrentMagic + " / " + MaximumMagic; }
-        }
+        public string MagicToString => CurrentMagic + " / " + MaximumMagic;
 
         #endregion Properties
 
@@ -119,7 +169,10 @@ namespace Sulimn
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && (left.SkillPoints == right.SkillPoints) && (left.Strength == right.Strength) && (left.Vitality == right.Vitality) && (left.Dexterity == right.Dexterity) && (left.Wisdom == right.Wisdom);
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+             left.SkillPoints == right.SkillPoints && left.Strength == right.Strength &&
+             left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom;
         }
 
         public sealed override bool Equals(object obj)
@@ -173,7 +226,8 @@ namespace Sulimn
         /// <param name="vitality">Vitality</param>
         /// <param name="dexterity">Dexterity</param>
         /// <param name="wisdom">Wisdom</param>
-        internal HeroClass(string name, string description, int skillPoints, int strength, int vitality, int dexterity, int wisdom)
+        internal HeroClass(string name, string description, int skillPoints, int strength, int vitality, int dexterity,
+        int wisdom)
         {
             Name = name;
             Description = description;

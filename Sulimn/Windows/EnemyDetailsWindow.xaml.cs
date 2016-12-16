@@ -6,9 +6,14 @@ namespace Sulimn
     /// <summary>
     /// Interaction logic for EnemyDetailsWindow.xaml
     /// </summary>
-    public partial class EnemyDetailsWindow : Window, INotifyPropertyChanged
+    public partial class EnemyDetailsWindow : INotifyPropertyChanged
     {
         internal BattleWindow RefToBattleWindow { get; set; }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindow();
+        }
 
         #region Data-Binding
 
@@ -44,11 +49,6 @@ namespace Sulimn
 
         #endregion Data-Binding
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            CloseWindow();
-        }
-
         #region Window-Manipulation Methods
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Sulimn
         /// </summary>
         private void CloseWindow()
         {
-            this.Close();
+            Close();
         }
 
         public EnemyDetailsWindow()
