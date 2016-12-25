@@ -17,18 +17,18 @@ namespace Sulimn
                     if (pswdCurrentPassword.Password != pswdNewPassword.Password)
                     {
                         GameState.AdminPassword = PasswordHash.HashPassword(pswdNewPassword.Password);
-                        MessageBox.Show("Successfully changed administrator password.", "Sulimn", MessageBoxButton.OK);
+                        new Notification("Successfully changed administrator password.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
                         CloseWindow();
                     }
                     else
                     {
-                        MessageBox.Show("The new password can't be the same as the current password.", "Sulimn",
-                        MessageBoxButton.OK);
+                        new Notification("The new password can't be the same as the current password.", "Sulimn",
+                        NotificationButtons.OK, this).ShowDialog();
                     }
                 else
-                    MessageBox.Show("Please ensure the new passwords match.", "Sulimn", MessageBoxButton.OK);
+                    new Notification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
             else
-                MessageBox.Show("Invalid current administrator password.", "Sulimn", MessageBoxButton.OK);
+                new Notification("Invalid current administrator password.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

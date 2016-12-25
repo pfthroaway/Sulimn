@@ -4,21 +4,17 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for ExploreWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for ExploreWindow.xaml</summary>
     public partial class ExploreWindow
     {
-        private readonly string nl = Environment.NewLine;
-        internal CityWindow RefToCityWindow { get; set; }
+        private readonly string _nl = Environment.NewLine;
+        internal CityWindow RefToCityWindow { private get; set; }
 
-        /// <summary>
-        /// Adds text to the txtExplore TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtExplore TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtExplore.Text += nl + nl + newText;
+            txtExplore.Text += _nl + _nl + newText;
             txtExplore.Focus();
             txtExplore.CaretIndex = txtExplore.Text.Length;
             txtExplore.ScrollToEnd();
@@ -26,21 +22,15 @@ namespace Sulimn
 
         #region Button Manipulation
 
-        /// <summary>
-        /// Checks the player's level to determine which buttons to allow to be enabled.
-        /// </summary>
+        /// <summary>Checks the player's level to determine which buttons to allow to be enabled.</summary>
         internal void CheckButtons()
         {
             btnBack.IsEnabled = true;
             btnFields.IsEnabled = true;
-            if (GameState.CurrentHero.Level >= 5)
-                btnForest.IsEnabled = true;
-            if (GameState.CurrentHero.Level >= 10)
-                btnCathedral.IsEnabled = true;
-            if (GameState.CurrentHero.Level >= 15)
-                btnMines.IsEnabled = true;
-            if (GameState.CurrentHero.Level >= 20)
-                btnCatacombs.IsEnabled = true;
+            btnForest.IsEnabled = GameState.CurrentHero.Level >= 5;
+            btnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10;
+            btnMines.IsEnabled = GameState.CurrentHero.Level >= 15;
+            btnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20;
         }
 
         #endregion Button Manipulation
@@ -61,9 +51,7 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnCathedral_Click(object sender, RoutedEventArgs e)
@@ -75,9 +63,7 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnFields_Click(object sender, RoutedEventArgs e)
@@ -89,9 +75,7 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnForest_Click(object sender, RoutedEventArgs e)
@@ -103,9 +87,7 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnMines_Click(object sender, RoutedEventArgs e)
@@ -117,9 +99,7 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         #endregion Button-Click Methods
@@ -136,13 +116,13 @@ namespace Sulimn
             InitializeComponent();
             txtExplore.Text =
             "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth." +
-            nl + nl +
+            _nl + _nl +
             "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers." +
-            nl + nl +
+            _nl + _nl +
             "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow." +
-            nl + nl +
+            _nl + _nl +
             "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years." +
-            nl + nl +
+            _nl + _nl +
             "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
             CheckButtons();
         }

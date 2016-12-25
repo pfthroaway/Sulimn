@@ -4,16 +4,12 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for MinesWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for MinesWindow.xaml</summary>
     public partial class MinesWindow
     {
-        internal ExploreWindow RefToExploreWindow { get; set; }
+        internal ExploreWindow RefToExploreWindow { private get; set; }
 
-        /// <summary>
-        /// Adds text to the txtMines TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtMines TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
@@ -24,9 +20,7 @@ namespace Sulimn
             txtMines.ScrollToEnd();
         }
 
-        /// <summary>
-        /// Starts a battle.
-        /// </summary>
+        /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
             BattleWindow battleWindow = new BattleWindow { RefToMinesWindow = this };
@@ -43,13 +37,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindGold(200, 600));
-                }
                 else if (result <= 40)
-                {
                     AddTextTT(await GameState.EventFindItem(250, 650));
-                }
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -62,9 +52,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnOreBin_Click(object sender, RoutedEventArgs e)
@@ -73,13 +61,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindGold(300, 700));
-                }
                 else if (result <= 40)
-                {
                     AddTextTT(await GameState.EventFindItem(350, 750));
-                }
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -92,9 +76,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnPumpStation_Click(object sender, RoutedEventArgs e)
@@ -103,13 +85,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                {
                     AddTextTT(await GameState.EventFindGold(200, 600));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(250, 650));
-                }
                 else if (result <= 75)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -122,9 +100,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnWorkshop_Click(object sender, RoutedEventArgs e)
@@ -133,13 +109,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                {
                     AddTextTT(await GameState.EventFindGold(300, 700));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(350, 750));
-                }
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -152,9 +124,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -166,9 +136,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();

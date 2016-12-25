@@ -7,46 +7,56 @@ using System.Windows.Controls;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for NewInventoryWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for NewInventoryWindow.xaml</summary>
     public partial class InventoryWindow : INotifyPropertyChanged
     {
-        private readonly string nl = Environment.NewLine;
-        private List<BodyArmor> inventoryBody = new List<BodyArmor>();
-        private List<FeetArmor> inventoryFeet = new List<FeetArmor>();
-        private List<Food> inventoryFood = new List<Food>();
-        private List<HandArmor> inventoryHands = new List<HandArmor>();
-        private List<HeadArmor> inventoryHead = new List<HeadArmor>();
-        private List<LegArmor> inventoryLegs = new List<LegArmor>();
-        private List<Potion> inventoryPotion = new List<Potion>();
-        private List<Ring> inventoryRing = new List<Ring>();
-        private List<Weapon> inventoryWeapon = new List<Weapon>();
-        private BodyArmor selectedBody = new BodyArmor();
-        private FeetArmor selectedFeet = new FeetArmor();
-        private Food selectedFood = new Food();
-        private HandArmor selectedHands = new HandArmor();
-        private HeadArmor selectedHead = new HeadArmor();
-        private LegArmor selectedLegs = new LegArmor();
-        private Potion selectedPotion = new Potion();
-        private Ring selectedRing = new Ring();
+        private readonly string _nl = Environment.NewLine;
+        private List<BodyArmor> _inventoryBody = new List<BodyArmor>();
+        private List<FeetArmor> _inventoryFeet = new List<FeetArmor>();
+        private List<Food> _inventoryFood = new List<Food>();
+        private List<HandArmor> _inventoryHands = new List<HandArmor>();
+        private List<HeadArmor> _inventoryHead = new List<HeadArmor>();
+        private List<LegArmor> _inventoryLegs = new List<LegArmor>();
+        private List<Potion> _inventoryPotion = new List<Potion>();
+        private List<Ring> _inventoryRing = new List<Ring>();
+        private List<Weapon> _inventoryWeapon = new List<Weapon>();
+        private BodyArmor _selectedBody = new BodyArmor();
+        private FeetArmor _selectedFeet = new FeetArmor();
+        private Food _selectedFood = new Food();
+        private HandArmor _selectedHands = new HandArmor();
+        private HeadArmor _selectedHead = new HeadArmor();
+        private LegArmor _selectedLegs = new LegArmor();
+        private Potion _selectedPotion = new Potion();
+        private Ring _selectedRing = new Ring();
+        private Weapon _selectedWeapon = new Weapon();
+        internal CharacterWindow RefToCharacterWindow { private get; set; }
 
-        private Weapon selectedWeapon = new Weapon();
-        internal CharacterWindow RefToCharacterWindow { get; set; }
-
-        /// <summary>
-        /// Adds text to the txtInventory Textbox.
-        /// </summary>
+        /// <summary>Adds text to the txtInventory Textbox.</summary>
         /// <param name="newText">Text to be added</param>
-        internal void AddTextTT(string newText)
+        private void AddTextTT(string newText)
         {
             if (txtInventory.Text.Length > 0)
-                txtInventory.Text += nl + nl + newText;
+                txtInventory.Text += _nl + _nl + newText;
             else
                 txtInventory.Text = newText;
             txtInventory.Focus();
             txtInventory.CaretIndex = txtInventory.Text.Length;
             txtInventory.ScrollToEnd();
+        }
+
+        /// <summary>Determines if the Hero really wants to drop an Item.</summary>
+        /// <param name="dropItem">Item to be dropped</param>
+        /// <returns>Returns true if the Item is dropped</returns>
+        private bool DropItem(Item dropItem)
+        {
+            if (new Notification("Are you sure you really want to drop this " + dropItem.Name + "? You won't be able to get it back.",
+              "Sulimn", NotificationButtons.YesNo, this).ShowDialog() == true)
+            {
+                GameState.CurrentHero.Inventory.RemoveItem(dropItem);
+                AddTextTT("You drop the " + dropItem.Name + ".");
+                return true;
+            }
+            return false;
         }
 
         #region Window Button-Click Methods
@@ -66,13 +76,13 @@ namespace Sulimn
         {
             if (reload)
             {
-                inventoryWeapon.Clear();
-                inventoryWeapon.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Weapon>());
-                inventoryWeapon = inventoryWeapon.OrderBy(weapon => weapon.Value).ToList();
-                lstWeaponInventory.ItemsSource = inventoryWeapon;
+                _inventoryWeapon.Clear();
+                _inventoryWeapon.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Weapon>());
+                _inventoryWeapon = _inventoryWeapon.OrderBy(weapon => weapon.Value).ToList();
+                lstWeaponInventory.UnselectAll();
+                lstWeaponInventory.ItemsSource = _inventoryWeapon;
                 lstWeaponInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstWeaponInventory.Items.Refresh();
-
                 btnUnequipWeapon.IsEnabled = GameState.CurrentHero.Equipment.Weapon != GameState.DefaultWeapon;
             }
             lblEquippedWeapon.DataContext = GameState.CurrentHero.Equipment.Weapon;
@@ -81,25 +91,25 @@ namespace Sulimn
             lblEquippedWeaponType.DataContext = GameState.CurrentHero.Equipment.Weapon;
             lblEquippedWeaponSellable.DataContext = GameState.CurrentHero.Equipment.Weapon;
             lblEquippedWeaponDescription.DataContext = GameState.CurrentHero.Equipment.Weapon;
-            lblSelectedWeapon.DataContext = selectedWeapon;
-            lblSelectedWeaponDamage.DataContext = selectedWeapon;
-            lblSelectedWeaponValue.DataContext = selectedWeapon;
-            lblSelectedWeaponType.DataContext = selectedWeapon;
-            lblSelectedWeaponSellable.DataContext = selectedWeapon;
-            lblSelectedWeaponDescription.DataContext = selectedWeapon;
+            lblSelectedWeapon.DataContext = _selectedWeapon;
+            lblSelectedWeaponDamage.DataContext = _selectedWeapon;
+            lblSelectedWeaponValue.DataContext = _selectedWeapon;
+            lblSelectedWeaponType.DataContext = _selectedWeapon;
+            lblSelectedWeaponSellable.DataContext = _selectedWeapon;
+            lblSelectedWeaponDescription.DataContext = _selectedWeapon;
         }
 
         private void BindHead(bool reload = true)
         {
             if (reload)
             {
-                inventoryHead.Clear();
-                inventoryHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>());
-                inventoryHead = inventoryHead.OrderBy(armor => armor.Value).ToList();
-                lstHeadInventory.ItemsSource = inventoryHead;
+                _inventoryHead.Clear();
+                _inventoryHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>());
+                _inventoryHead = _inventoryHead.OrderBy(armor => armor.Value).ToList();
+                lstHeadInventory.UnselectAll();
+                lstHeadInventory.ItemsSource = _inventoryHead;
                 lstHeadInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstHeadInventory.Items.Refresh();
-
                 btnUnequipHead.IsEnabled = GameState.CurrentHero.Equipment.Head != GameState.DefaultHead;
             }
             lblEquippedHead.DataContext = GameState.CurrentHero.Equipment.Head;
@@ -107,24 +117,24 @@ namespace Sulimn
             lblEquippedHeadValue.DataContext = GameState.CurrentHero.Equipment.Head;
             lblEquippedHeadSellable.DataContext = GameState.CurrentHero.Equipment.Head;
             lblEquippedHeadDescription.DataContext = GameState.CurrentHero.Equipment.Head;
-            lblSelectedHead.DataContext = selectedHead;
-            lblSelectedHeadDefense.DataContext = selectedHead;
-            lblSelectedHeadValue.DataContext = selectedHead;
-            lblSelectedHeadSellable.DataContext = selectedHead;
-            lblSelectedHeadDescription.DataContext = selectedHead;
+            lblSelectedHead.DataContext = _selectedHead;
+            lblSelectedHeadDefense.DataContext = _selectedHead;
+            lblSelectedHeadValue.DataContext = _selectedHead;
+            lblSelectedHeadSellable.DataContext = _selectedHead;
+            lblSelectedHeadDescription.DataContext = _selectedHead;
         }
 
         private void BindBody(bool reload = true)
         {
             if (reload)
             {
-                inventoryBody.Clear();
-                inventoryBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>());
-                inventoryBody = inventoryBody.OrderBy(armor => armor.Value).ToList();
-                lstBodyInventory.ItemsSource = inventoryBody;
+                _inventoryBody.Clear();
+                _inventoryBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>());
+                _inventoryBody = _inventoryBody.OrderBy(armor => armor.Value).ToList();
+                lstBodyInventory.UnselectAll();
+                lstBodyInventory.ItemsSource = _inventoryBody;
                 lstBodyInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstBodyInventory.Items.Refresh();
-
                 btnUnequipBody.IsEnabled = GameState.CurrentHero.Equipment.Body != GameState.DefaultBody;
             }
             lblEquippedBody.DataContext = GameState.CurrentHero.Equipment.Body;
@@ -132,24 +142,24 @@ namespace Sulimn
             lblEquippedBodyValue.DataContext = GameState.CurrentHero.Equipment.Body;
             lblEquippedBodySellable.DataContext = GameState.CurrentHero.Equipment.Body;
             lblEquippedBodyDescription.DataContext = GameState.CurrentHero.Equipment.Body;
-            lblSelectedBody.DataContext = selectedBody;
-            lblSelectedBodyDefense.DataContext = selectedBody;
-            lblSelectedBodyValue.DataContext = selectedBody;
-            lblSelectedBodySellable.DataContext = selectedBody;
-            lblSelectedBodyDescription.DataContext = selectedBody;
+            lblSelectedBody.DataContext = _selectedBody;
+            lblSelectedBodyDefense.DataContext = _selectedBody;
+            lblSelectedBodyValue.DataContext = _selectedBody;
+            lblSelectedBodySellable.DataContext = _selectedBody;
+            lblSelectedBodyDescription.DataContext = _selectedBody;
         }
 
         private void BindHands(bool reload = true)
         {
             if (reload)
             {
-                inventoryHands.Clear();
-                inventoryHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>());
-                inventoryHands = inventoryHands.OrderBy(armor => armor.Value).ToList();
-                lstHandsInventory.ItemsSource = inventoryHands;
+                _inventoryHands.Clear();
+                _inventoryHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>());
+                _inventoryHands = _inventoryHands.OrderBy(armor => armor.Value).ToList();
+                lstHandsInventory.UnselectAll();
+                lstHandsInventory.ItemsSource = _inventoryHands;
                 lstHandsInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstHandsInventory.Items.Refresh();
-
                 btnUnequipHands.IsEnabled = GameState.CurrentHero.Equipment.Hands != GameState.DefaultHands;
             }
             lblEquippedHands.DataContext = GameState.CurrentHero.Equipment.Hands;
@@ -157,24 +167,24 @@ namespace Sulimn
             lblEquippedHandsValue.DataContext = GameState.CurrentHero.Equipment.Hands;
             lblEquippedHandsSellable.DataContext = GameState.CurrentHero.Equipment.Hands;
             lblEquippedHandsDescription.DataContext = GameState.CurrentHero.Equipment.Hands;
-            lblSelectedHands.DataContext = selectedHands;
-            lblSelectedHandsDefense.DataContext = selectedHands;
-            lblSelectedHandsValue.DataContext = selectedHands;
-            lblSelectedHandsSellable.DataContext = selectedHands;
-            lblSelectedHandsDescription.DataContext = selectedHands;
+            lblSelectedHands.DataContext = _selectedHands;
+            lblSelectedHandsDefense.DataContext = _selectedHands;
+            lblSelectedHandsValue.DataContext = _selectedHands;
+            lblSelectedHandsSellable.DataContext = _selectedHands;
+            lblSelectedHandsDescription.DataContext = _selectedHands;
         }
 
         private void BindLegs(bool reload = true)
         {
             if (reload)
             {
-                inventoryLegs.Clear();
-                inventoryLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>());
-                inventoryLegs = inventoryLegs.OrderBy(armor => armor.Value).ToList();
-                lstLegsInventory.ItemsSource = inventoryLegs;
+                _inventoryLegs.Clear();
+                _inventoryLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>());
+                _inventoryLegs = _inventoryLegs.OrderBy(armor => armor.Value).ToList();
+                lstLegsInventory.UnselectAll();
+                lstLegsInventory.ItemsSource = _inventoryLegs;
                 lstLegsInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstLegsInventory.Items.Refresh();
-
                 btnUnequipLegs.IsEnabled = GameState.CurrentHero.Equipment.Legs != GameState.DefaultLegs;
             }
             lblEquippedLegs.DataContext = GameState.CurrentHero.Equipment.Legs;
@@ -182,24 +192,24 @@ namespace Sulimn
             lblEquippedLegsValue.DataContext = GameState.CurrentHero.Equipment.Legs;
             lblEquippedLegsSellable.DataContext = GameState.CurrentHero.Equipment.Legs;
             lblEquippedLegsDescription.DataContext = GameState.CurrentHero.Equipment.Legs;
-            lblSelectedLegs.DataContext = selectedLegs;
-            lblSelectedLegsDefense.DataContext = selectedLegs;
-            lblSelectedLegsValue.DataContext = selectedLegs;
-            lblSelectedLegsSellable.DataContext = selectedLegs;
-            lblSelectedLegsDescription.DataContext = selectedLegs;
+            lblSelectedLegs.DataContext = _selectedLegs;
+            lblSelectedLegsDefense.DataContext = _selectedLegs;
+            lblSelectedLegsValue.DataContext = _selectedLegs;
+            lblSelectedLegsSellable.DataContext = _selectedLegs;
+            lblSelectedLegsDescription.DataContext = _selectedLegs;
         }
 
         private void BindFeet(bool reload = true)
         {
             if (reload)
             {
-                inventoryFeet.Clear();
-                inventoryFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>());
-                inventoryFeet = inventoryFeet.OrderBy(armor => armor.Value).ToList();
-                lstFeetInventory.ItemsSource = inventoryFeet;
+                _inventoryFeet.Clear();
+                _inventoryFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>());
+                _inventoryFeet = _inventoryFeet.OrderBy(armor => armor.Value).ToList();
+                lstFeetInventory.UnselectAll();
+                lstFeetInventory.ItemsSource = _inventoryFeet;
                 lstFeetInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstFeetInventory.Items.Refresh();
-
                 btnUnequipFeet.IsEnabled = GameState.CurrentHero.Equipment.Feet != GameState.DefaultFeet;
             }
             lblEquippedFeet.DataContext = GameState.CurrentHero.Equipment.Feet;
@@ -207,26 +217,25 @@ namespace Sulimn
             lblEquippedFeetValue.DataContext = GameState.CurrentHero.Equipment.Feet;
             lblEquippedFeetSellable.DataContext = GameState.CurrentHero.Equipment.Feet;
             lblEquippedFeetDescription.DataContext = GameState.CurrentHero.Equipment.Feet;
-            lblSelectedFeet.DataContext = selectedFeet;
-            lblSelectedFeetDefense.DataContext = selectedFeet;
-            lblSelectedFeetValue.DataContext = selectedFeet;
-            lblSelectedFeetSellable.DataContext = selectedFeet;
-            lblSelectedFeetDescription.DataContext = selectedFeet;
+            lblSelectedFeet.DataContext = _selectedFeet;
+            lblSelectedFeetDefense.DataContext = _selectedFeet;
+            lblSelectedFeetValue.DataContext = _selectedFeet;
+            lblSelectedFeetSellable.DataContext = _selectedFeet;
+            lblSelectedFeetDescription.DataContext = _selectedFeet;
         }
 
         private void BindRing(bool reload = true)
         {
             if (reload)
             {
-                inventoryRing.Clear();
-                inventoryRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
-                inventoryRing = inventoryRing.OrderBy(ring => ring.Value).ToList();
-                lstRingInventory.ItemsSource = inventoryRing;
+                _inventoryRing.Clear();
+                _inventoryRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
+                _inventoryRing = _inventoryRing.OrderBy(ring => ring.Value).ToList();
+                lstRingInventory.UnselectAll();
+                lstRingInventory.ItemsSource = _inventoryRing;
                 lstRingInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstRingInventory.Items.Refresh();
-
                 btnUnequipLeftRing.IsEnabled = GameState.CurrentHero.Equipment.LeftRing != new Ring();
-
                 btnUnequipRightRing.IsEnabled = GameState.CurrentHero.Equipment.RightRing != new Ring();
             }
             lblEquippedLeftRing.DataContext = GameState.CurrentHero.Equipment.LeftRing;
@@ -235,47 +244,49 @@ namespace Sulimn
             lblEquippedRightRing.DataContext = GameState.CurrentHero.Equipment.RightRing;
             lblEquippedRightRingBonus.DataContext = GameState.CurrentHero.Equipment.RightRing;
             lblEquippedRightRingValue.DataContext = GameState.CurrentHero.Equipment.RightRing;
-            lblSelectedRing.DataContext = selectedRing;
-            lblSelectedRingBonus.DataContext = selectedRing;
-            lblSelectedRingValue.DataContext = selectedRing;
-            lblSelectedRingSellable.DataContext = selectedRing;
-            lblSelectedRingDescription.DataContext = selectedRing;
+            lblSelectedRing.DataContext = _selectedRing;
+            lblSelectedRingBonus.DataContext = _selectedRing;
+            lblSelectedRingValue.DataContext = _selectedRing;
+            lblSelectedRingSellable.DataContext = _selectedRing;
+            lblSelectedRingDescription.DataContext = _selectedRing;
         }
 
         private void BindPotion(bool reload = true)
         {
             if (reload)
             {
-                inventoryPotion.Clear();
-                inventoryPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
-                inventoryPotion = inventoryPotion.OrderBy(potion => potion.Value).ToList();
-                lstPotionInventory.ItemsSource = inventoryPotion;
+                _inventoryPotion.Clear();
+                _inventoryPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
+                _inventoryPotion = _inventoryPotion.OrderBy(potion => potion.Value).ToList();
+                lstPotionInventory.UnselectAll();
+                lstPotionInventory.ItemsSource = _inventoryPotion;
                 lstPotionInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstPotionInventory.Items.Refresh();
             }
-            lblSelectedPotion.DataContext = selectedPotion;
-            lblSelectedPotionTypeAmount.DataContext = selectedPotion;
-            lblSelectedPotionValue.DataContext = selectedPotion;
-            lblSelectedPotionSellable.DataContext = selectedPotion;
-            lblSelectedPotionDescription.DataContext = selectedPotion;
+            lblSelectedPotion.DataContext = _selectedPotion;
+            lblSelectedPotionTypeAmount.DataContext = _selectedPotion;
+            lblSelectedPotionValue.DataContext = _selectedPotion;
+            lblSelectedPotionSellable.DataContext = _selectedPotion;
+            lblSelectedPotionDescription.DataContext = _selectedPotion;
         }
 
         private void BindFood(bool reload = true)
         {
             if (reload)
             {
-                inventoryFood.Clear();
-                inventoryFood.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Food>());
-                inventoryFood = inventoryFood.OrderBy(food => food.Value).ToList();
-                lstFoodInventory.ItemsSource = inventoryFood;
+                _inventoryFood.Clear();
+                _inventoryFood.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Food>());
+                _inventoryFood = _inventoryFood.OrderBy(food => food.Value).ToList();
+                lstFoodInventory.UnselectAll();
+                lstFoodInventory.ItemsSource = _inventoryFood;
                 lstFoodInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstFoodInventory.Items.Refresh();
             }
-            lblSelectedFood.DataContext = selectedFood;
-            lblSelectedFoodTypeAmount.DataContext = selectedFood;
-            lblSelectedFoodValue.DataContext = selectedFood;
-            lblSelectedFoodSellable.DataContext = selectedFood;
-            lblSelectedFoodDescription.DataContext = selectedFood;
+            lblSelectedFood.DataContext = _selectedFood;
+            lblSelectedFoodTypeAmount.DataContext = _selectedFood;
+            lblSelectedFoodValue.DataContext = _selectedFood;
+            lblSelectedFoodSellable.DataContext = _selectedFood;
+            lblSelectedFoodDescription.DataContext = _selectedFood;
         }
 
         private void BindLabels()
@@ -296,7 +307,7 @@ namespace Sulimn
             lblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -317,42 +328,25 @@ namespace Sulimn
 
         private void btnEquipSelectedWeapon_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedWeapon.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedWeapon);
+            AddTextTT("You equip your " + _selectedWeapon.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedWeapon);
             if (GameState.CurrentHero.Equipment.Weapon != GameState.DefaultWeapon)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Weapon);
-            GameState.CurrentHero.Equipment.Weapon = selectedWeapon;
+            GameState.CurrentHero.Equipment.Weapon = _selectedWeapon;
             BindWeapon();
         }
 
         private void btnDropSelectedWeapon_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedWeapon);
-                AddTextTT("You drop the " + selectedWeapon.Name + ".");
+            if (DropItem(_selectedWeapon))
                 BindWeapon();
-            }
         }
 
         private void lstWeaponInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstWeaponInventory.SelectedIndex >= 0)
-            {
-                selectedWeapon = new Weapon((Weapon)lstWeaponInventory.SelectedValue);
-                btnEquipSelectedWeapon.IsEnabled = true;
-                btnDropSelectedWeapon.IsEnabled = true;
-            }
-            else
-            {
-                selectedWeapon = new Weapon();
-                btnEquipSelectedWeapon.IsEnabled = false;
-                btnDropSelectedWeapon.IsEnabled = false;
-            }
+            _selectedWeapon = lstWeaponInventory.SelectedIndex >= 0 ? new Weapon((Weapon)lstWeaponInventory.SelectedValue) : new Weapon();
+            btnEquipSelectedWeapon.IsEnabled = lstWeaponInventory.SelectedIndex >= 0;
+            btnDropSelectedWeapon.IsEnabled = lstWeaponInventory.SelectedIndex >= 0;
 
             BindWeapon(false);
         }
@@ -373,42 +367,25 @@ namespace Sulimn
 
         private void btnEquipSelectedHead_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedHead.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedHead);
+            AddTextTT("You equip your " + _selectedHead.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedHead);
             if (GameState.CurrentHero.Equipment.Head != GameState.DefaultHead)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Head);
-            GameState.CurrentHero.Equipment.Head = selectedHead;
+            GameState.CurrentHero.Equipment.Head = _selectedHead;
             BindHead();
         }
 
         private void btnDropSelectedHead_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedHead);
-                AddTextTT("You drop the " + selectedHead.Name + ".");
+            if (DropItem(_selectedHead))
                 BindHead();
-            }
         }
 
         private void lstHeadInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstHeadInventory.SelectedIndex >= 0)
-            {
-                selectedHead = new HeadArmor((HeadArmor)lstHeadInventory.SelectedValue);
-                btnEquipSelectedHead.IsEnabled = true;
-                btnDropSelectedHead.IsEnabled = true;
-            }
-            else
-            {
-                selectedHead = new HeadArmor();
-                btnEquipSelectedHead.IsEnabled = false;
-                btnDropSelectedHead.IsEnabled = false;
-            }
+            _selectedHead = lstHeadInventory.SelectedIndex >= 0 ? new HeadArmor((HeadArmor)lstHeadInventory.SelectedValue) : new HeadArmor();
+            btnEquipSelectedHead.IsEnabled = lstHeadInventory.SelectedIndex >= 0;
+            btnDropSelectedHead.IsEnabled = lstHeadInventory.SelectedIndex >= 0;
 
             BindHead(false);
         }
@@ -429,42 +406,25 @@ namespace Sulimn
 
         private void btnEquipSelectedBody_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedBody.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedBody);
+            AddTextTT("You equip your " + _selectedBody.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedBody);
             if (GameState.CurrentHero.Equipment.Body != GameState.DefaultBody)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Body);
-            GameState.CurrentHero.Equipment.Body = selectedBody;
+            GameState.CurrentHero.Equipment.Body = _selectedBody;
             BindBody();
         }
 
         private void btnDropSelectedBody_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedBody);
-                AddTextTT("You drop the " + selectedBody.Name + ".");
+            if (DropItem(_selectedBody))
                 BindBody();
-            }
         }
 
         private void lstBodyInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstBodyInventory.SelectedIndex >= 0)
-            {
-                selectedBody = new BodyArmor((BodyArmor)lstBodyInventory.SelectedValue);
-                btnEquipSelectedBody.IsEnabled = true;
-                btnDropSelectedBody.IsEnabled = true;
-            }
-            else
-            {
-                selectedBody = new BodyArmor();
-                btnEquipSelectedBody.IsEnabled = false;
-                btnDropSelectedBody.IsEnabled = false;
-            }
+            _selectedBody = lstBodyInventory.SelectedIndex >= 0 ? new BodyArmor((BodyArmor)lstBodyInventory.SelectedValue) : new BodyArmor();
+            btnEquipSelectedBody.IsEnabled = lstBodyInventory.SelectedIndex >= 0;
+            btnDropSelectedBody.IsEnabled = lstBodyInventory.SelectedIndex >= 0;
 
             BindBody(false);
         }
@@ -485,42 +445,25 @@ namespace Sulimn
 
         private void btnEquipSelectedHands_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedHands.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedHands);
+            AddTextTT("You equip your " + _selectedHands.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedHands);
             if (GameState.CurrentHero.Equipment.Hands != GameState.DefaultHands)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Hands);
-            GameState.CurrentHero.Equipment.Hands = selectedHands;
+            GameState.CurrentHero.Equipment.Hands = _selectedHands;
             BindHands();
         }
 
         private void btnDropSelectedHands_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedHands);
-                AddTextTT("You drop the " + selectedHands.Name + ".");
+            if (DropItem(_selectedHands))
                 BindHands();
-            }
         }
 
         private void lstHandsInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstHandsInventory.SelectedIndex >= 0)
-            {
-                selectedHands = new HandArmor((HandArmor)lstHandsInventory.SelectedValue);
-                btnEquipSelectedHands.IsEnabled = true;
-                btnDropSelectedHands.IsEnabled = true;
-            }
-            else
-            {
-                selectedHands = new HandArmor();
-                btnEquipSelectedHands.IsEnabled = false;
-                btnDropSelectedHands.IsEnabled = false;
-            }
+            _selectedHands = lstHandsInventory.SelectedIndex >= 0 ? new HandArmor((HandArmor)lstHandsInventory.SelectedValue) : new HandArmor();
+            btnEquipSelectedHands.IsEnabled = lstHandsInventory.SelectedIndex >= 0;
+            btnDropSelectedHands.IsEnabled = lstHandsInventory.SelectedIndex >= 0;
 
             BindHands(false);
         }
@@ -541,42 +484,25 @@ namespace Sulimn
 
         private void btnEquipSelectedLegs_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedLegs.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedLegs);
+            AddTextTT("You equip your " + _selectedLegs.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedLegs);
             if (GameState.CurrentHero.Equipment.Legs != GameState.DefaultLegs)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Legs);
-            GameState.CurrentHero.Equipment.Legs = selectedLegs;
+            GameState.CurrentHero.Equipment.Legs = _selectedLegs;
             BindLegs();
         }
 
         private void btnDropSelectedLegs_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedLegs);
-                AddTextTT("You drop the " + selectedLegs.Name + ".");
+            if (DropItem(_selectedLegs))
                 BindLegs();
-            }
         }
 
         private void lstLegsInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstLegsInventory.SelectedIndex >= 0)
-            {
-                selectedLegs = new LegArmor((LegArmor)lstLegsInventory.SelectedValue);
-                btnEquipSelectedLegs.IsEnabled = true;
-                btnDropSelectedLegs.IsEnabled = true;
-            }
-            else
-            {
-                selectedLegs = new LegArmor();
-                btnEquipSelectedLegs.IsEnabled = false;
-                btnDropSelectedLegs.IsEnabled = false;
-            }
+            _selectedLegs = lstLegsInventory.SelectedIndex >= 0 ? new LegArmor((LegArmor)lstLegsInventory.SelectedValue) : new LegArmor();
+            btnEquipSelectedLegs.IsEnabled = lstLegsInventory.SelectedIndex >= 0;
+            btnDropSelectedLegs.IsEnabled = lstLegsInventory.SelectedIndex >= 0;
 
             BindLegs(false);
         }
@@ -597,42 +523,25 @@ namespace Sulimn
 
         private void btnEquipSelectedFeet_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedFeet.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedFeet);
+            AddTextTT("You equip your " + _selectedFeet.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedFeet);
             if (GameState.CurrentHero.Equipment.Feet != GameState.DefaultFeet)
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Feet);
-            GameState.CurrentHero.Equipment.Feet = selectedFeet;
+            GameState.CurrentHero.Equipment.Feet = _selectedFeet;
             BindFeet();
         }
 
         private void btnDropSelectedFeet_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedFeet);
-                AddTextTT("You drop the " + selectedFeet.Name + ".");
+            if (DropItem(_selectedFeet))
                 BindFeet();
-            }
         }
 
         private void lstFeetInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstFeetInventory.SelectedIndex >= 0)
-            {
-                selectedFeet = new FeetArmor((FeetArmor)lstFeetInventory.SelectedValue);
-                btnEquipSelectedFeet.IsEnabled = true;
-                btnDropSelectedFeet.IsEnabled = true;
-            }
-            else
-            {
-                selectedFeet = new FeetArmor();
-                btnEquipSelectedFeet.IsEnabled = false;
-                btnDropSelectedFeet.IsEnabled = false;
-            }
+            _selectedFeet = lstFeetInventory.SelectedIndex >= 0 ? new FeetArmor((FeetArmor)lstFeetInventory.SelectedValue) : new FeetArmor();
+            btnEquipSelectedFeet.IsEnabled = lstFeetInventory.SelectedIndex >= 0;
+            btnDropSelectedFeet.IsEnabled = lstFeetInventory.SelectedIndex >= 0;
 
             BindFeet(false);
         }
@@ -663,11 +572,11 @@ namespace Sulimn
 
         private void btnEquipSelectedRingLeft_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedRing.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedRing);
+            AddTextTT("You equip your " + _selectedRing.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedRing);
             if (GameState.CurrentHero.Equipment.LeftRing != new Ring())
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.LeftRing);
-            GameState.CurrentHero.Equipment.LeftRing = selectedRing;
+            GameState.CurrentHero.Equipment.LeftRing = _selectedRing;
             btnEquipSelectedRingLeft.IsEnabled = false;
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
@@ -675,11 +584,11 @@ namespace Sulimn
 
         private void btnEquipSelectedRingRight_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You equip your " + selectedRing.Name + ".");
-            GameState.CurrentHero.Inventory.RemoveItem(selectedRing);
+            AddTextTT("You equip your " + _selectedRing.Name + ".");
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedRing);
             if (GameState.CurrentHero.Equipment.RightRing != new Ring())
                 GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.RightRing);
-            GameState.CurrentHero.Equipment.RightRing = selectedRing;
+            GameState.CurrentHero.Equipment.RightRing = _selectedRing;
             btnEquipSelectedRingRight.IsEnabled = false;
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
@@ -687,34 +596,16 @@ namespace Sulimn
 
         private void btnDropSelectedRing_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedRing);
-                AddTextTT("You drop the " + selectedRing.Name + ".");
+            if (DropItem(_selectedRing))
                 BindRing();
-            }
         }
 
         private void lstRingInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstRingInventory.SelectedIndex >= 0)
-            {
-                selectedRing = new Ring((Ring)lstRingInventory.SelectedValue);
-                btnEquipSelectedRingLeft.IsEnabled = true;
-                btnEquipSelectedRingRight.IsEnabled = true;
-                btnDropSelectedRing.IsEnabled = true;
-            }
-            else
-            {
-                selectedRing = new Ring();
-                btnEquipSelectedRingLeft.IsEnabled = false;
-                btnEquipSelectedRingRight.IsEnabled = false;
-                btnDropSelectedRing.IsEnabled = false;
-            }
+            _selectedRing = lstRingInventory.SelectedIndex >= 0 ? new Ring((Ring)lstRingInventory.SelectedValue) : new Ring();
+            btnEquipSelectedRingLeft.IsEnabled = lstRingInventory.SelectedIndex >= 0;
+            btnEquipSelectedRingRight.IsEnabled = lstRingInventory.SelectedIndex >= 0;
+            btnDropSelectedRing.IsEnabled = lstRingInventory.SelectedIndex >= 0;
 
             BindRing(false);
         }
@@ -725,15 +616,15 @@ namespace Sulimn
 
         private void btnConsumeSelectedPotion_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT("You consume the " + selectedPotion.Name + ".");
-            switch (selectedPotion.PotionType)
+            AddTextTT("You consume the " + _selectedPotion.Name + ".");
+            switch (_selectedPotion.PotionType)
             {
                 case PotionTypes.Healing:
-                    AddTextTT(GameState.CurrentHero.Heal(selectedPotion.Amount));
+                    AddTextTT(GameState.CurrentHero.Heal(_selectedPotion.Amount));
                     break;
 
                 case PotionTypes.Magic:
-                    AddTextTT(GameState.CurrentHero.Statistics.RestoreMagic(selectedPotion.Amount));
+                    AddTextTT(GameState.CurrentHero.Statistics.RestoreMagic(_selectedPotion.Amount));
                     break;
 
                 case PotionTypes.Curing:
@@ -741,38 +632,21 @@ namespace Sulimn
                     break;
             }
 
-            GameState.CurrentHero.Inventory.RemoveItem(selectedPotion);
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedPotion);
             BindPotion();
         }
 
         private void btnDropSelectedPotion_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedPotion);
-                AddTextTT("You drop the " + selectedPotion.Name + ".");
+            if (DropItem(_selectedPotion))
                 BindPotion();
-            }
         }
 
         private void lstPotionInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstPotionInventory.SelectedIndex >= 0)
-            {
-                selectedPotion = new Potion((Potion)lstPotionInventory.SelectedValue);
-                btnConsumeSelectedPotion.IsEnabled = true;
-                btnDropSelectedPotion.IsEnabled = true;
-            }
-            else
-            {
-                selectedPotion = new Potion();
-                btnConsumeSelectedPotion.IsEnabled = false;
-                btnDropSelectedPotion.IsEnabled = false;
-            }
+            _selectedPotion = lstPotionInventory.SelectedIndex >= 0 ? new Potion((Potion)lstPotionInventory.SelectedValue) : new Potion();
+            btnConsumeSelectedPotion.IsEnabled = lstPotionInventory.SelectedIndex >= 0;
+            btnDropSelectedPotion.IsEnabled = lstPotionInventory.SelectedIndex >= 0;
 
             BindPotion(false);
         }
@@ -783,51 +657,34 @@ namespace Sulimn
 
         private void btnConsumeSelectedFood_Click(object sender, RoutedEventArgs e)
         {
-            switch (selectedFood.FoodType)
+            switch (_selectedFood.FoodType)
             {
                 case FoodTypes.Food:
-                    AddTextTT("You eat the " + selectedFood.Name + "." + nl +
-                    GameState.CurrentHero.Heal(selectedFood.Amount));
+                    AddTextTT("You eat the " + _selectedFood.Name + "." + _nl +
+                    GameState.CurrentHero.Heal(_selectedFood.Amount));
                     break;
 
                 case FoodTypes.Drink:
-                    AddTextTT("You drink the " + selectedFood.Name + "." + nl +
-                    GameState.CurrentHero.Statistics.RestoreMagic(selectedFood.Amount));
+                    AddTextTT("You drink the " + _selectedFood.Name + "." + _nl +
+                    GameState.CurrentHero.Statistics.RestoreMagic(_selectedFood.Amount));
                     break;
             }
 
-            GameState.CurrentHero.Inventory.RemoveItem(selectedPotion);
+            GameState.CurrentHero.Inventory.RemoveItem(_selectedPotion);
             BindFood();
         }
 
         private void btnDropSelectedFood_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dropItem =
-            MessageBox.Show("Are you sure you really want to drop this item? You won't be able to get it back.",
-            "Sulimn", MessageBoxButton.YesNo);
-
-            if (dropItem == MessageBoxResult.Yes)
-            {
-                GameState.CurrentHero.Inventory.RemoveItem(selectedFood);
-                AddTextTT("You drop the " + selectedFood.Name + ".");
+            if (DropItem(_selectedFood))
                 BindFood();
-            }
         }
 
         private void lstFoodInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstFoodInventory.SelectedIndex >= 0)
-            {
-                selectedFood = new Food((Food)lstFoodInventory.SelectedValue);
-                btnConsumeSelectedFood.IsEnabled = true;
-                btnDropSelectedFood.IsEnabled = true;
-            }
-            else
-            {
-                selectedFood = new Food();
-                btnConsumeSelectedFood.IsEnabled = false;
-                btnDropSelectedFood.IsEnabled = false;
-            }
+            _selectedPotion = lstPotionInventory.SelectedIndex >= 0 ? new Potion((Potion)lstPotionInventory.SelectedValue) : new Potion();
+            btnConsumeSelectedPotion.IsEnabled = lstPotionInventory.SelectedIndex >= 0;
+            btnDropSelectedPotion.IsEnabled = lstPotionInventory.SelectedIndex >= 0;
 
             BindFood(false);
         }

@@ -4,16 +4,12 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for CathedralWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for CathedralWindow.xaml</summary>
     public partial class CathedralWindow
     {
-        internal ExploreWindow RefToExploreWindow { get; set; }
+        internal ExploreWindow RefToExploreWindow { private get; set; }
 
-        /// <summary>
-        /// Adds text to the txtCathedral TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtCathedral TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
@@ -41,13 +37,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindGold(150, 400));
-                }
                 else if (result <= 40)
-                {
                     AddTextTT(await GameState.EventFindItem(150, 400));
-                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -65,9 +57,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnSanctuary_Click(object sender, RoutedEventArgs e)
@@ -76,13 +66,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                {
                     AddTextTT(await GameState.EventFindGold(150, 450));
-                }
                 else if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindItem(150, 450));
-                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -100,9 +86,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnEpiscopium_Click(object sender, RoutedEventArgs e)
@@ -111,13 +95,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindGold(200, 500));
-                }
                 else if (result <= 40)
-                {
                     AddTextTT(await GameState.EventFindItem(200, 500));
-                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -135,9 +115,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnTower_Click(object sender, RoutedEventArgs e)
@@ -146,13 +124,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindGold(200, 600));
-                }
                 else if (result <= 40)
-                {
                     AddTextTT(await GameState.EventFindItem(200, 600));
-                }
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -170,9 +144,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -184,9 +156,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();

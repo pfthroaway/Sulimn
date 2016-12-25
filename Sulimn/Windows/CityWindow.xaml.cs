@@ -4,33 +4,20 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for CityWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for CityWindow.xaml</summary>
     public partial class CityWindow
     {
-        private readonly string nl = Environment.NewLine;
-        internal MainWindow RefToMainWindow { get; set; }
+        private readonly string _nl = Environment.NewLine;
+        internal MainWindow RefToMainWindow { private get; set; }
 
-        /// <summary>
-        /// Adds text to the txtCity TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtCity TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtCity.Text += nl + nl + newText;
+            txtCity.Text += _nl + _nl + newText;
             txtCity.Focus();
             txtCity.CaretIndex = txtCity.Text.Length;
             txtCity.ScrollToEnd();
-        }
-
-        /// <summary>
-        /// Displays text on entering the city.
-        /// </summary>
-        internal void EnterCity()
-        {
-            txtCity.Text =
-            "You are in the city of Sulimn. There is a bustling market in the center of the city, a dilapidated cathedral sprawling over the cityscape at the north end, an abandoned mining complex on the south side, crop fields to the east, and a forest to the west.";
         }
 
         #region Button-Click Methods
@@ -49,9 +36,9 @@ namespace Sulimn
             decimal.Divide(GameState.CurrentHero.Statistics.CurrentHealth,
             GameState.CurrentHero.Statistics.MaximumHealth) <= 0.25M)
             {
-                AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + nl +
-                "\"Let me heal your wounds. You look like you've been through a tough battle.\"" + nl +
-                "The priest gives you a potion which heals you to full health!" + nl +
+                AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + _nl +
+                "\"Let me heal your wounds. You look like you've been through a tough battle.\"" + _nl +
+                "The priest gives you a potion which heals you to full health!" + _nl +
                 "You thank the priest and return to the streets.");
                 GameState.CurrentHero.Statistics.CurrentHealth = GameState.CurrentHero.Statistics.MaximumHealth;
 
@@ -59,9 +46,9 @@ namespace Sulimn
             }
             else
             {
-                AddTextTT("You enter a local chapel. A priest approaches you." + nl +
-                "\"You look healthy to me. If you ever need healing, don't hesitate to come see me.\"" + nl +
-                nl + "You thank the priest and return to the streets.");
+                AddTextTT("You enter a local chapel. A priest approaches you." + _nl +
+                "\"You look healthy to me. If you ever need healing, don't hesitate to come see me.\"" + _nl +
+                _nl + "You thank the priest and return to the streets.");
             }
         }
 
@@ -112,9 +99,7 @@ namespace Sulimn
 
         #region Window-Generated Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();
@@ -123,6 +108,8 @@ namespace Sulimn
         public CityWindow()
         {
             InitializeComponent();
+            txtCity.Text =
+             "You are in the city of Sulimn. There is a bustling market in the center of the city, a dilapidated cathedral sprawling over the cityscape at the north end, an abandoned mining complex on the south side, crop fields to the east, and a forest to the west.";
         }
 
         private void windowCity_Closing(object sender, CancelEventArgs e)

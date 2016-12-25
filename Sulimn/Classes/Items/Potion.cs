@@ -134,7 +134,7 @@ namespace Sulimn
 
         #region Override Operators
 
-        public static bool Equals(Potion left, Potion right)
+        private static bool Equals(Potion left, Potion right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -15,7 +16,7 @@ namespace Sulimn
         private int _maximum;
         private int _textAmount;
 
-        internal BankWindow RefToBankWindow { get; set; }
+        internal BankWindow RefToBankWindow { private get; set; }
 
         /// <summary>Load the necessary data for the Window.</summary>
         /// <param name="maximum">Maximum amount of gold to be used.</param>
@@ -52,6 +53,10 @@ namespace Sulimn
                     maximum.ToString("N0") + " gold. Remember, we have a 5% loan fee.";
                     btnAction.Content = "_Borrow";
                     break;
+
+                default:
+                    new Notification("How did you break my game?", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                    break; ;
             }
         }
 
@@ -106,9 +111,9 @@ namespace Sulimn
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                             Deposit();
                         else
-                            MessageBox.Show(
+                            new Notification(
                             "Please enter a value less than or equal to your current gold. You currently have " +
-                            GameState.CurrentHero.Inventory.GoldToString + " gold.");
+                            GameState.CurrentHero.Inventory.GoldToString + " gold.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
                         break;
 
                     case BankAction.Withdrawal:
@@ -119,19 +124,24 @@ namespace Sulimn
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                             RepayLoan();
                         else
-                            MessageBox.Show(
-                            "Please enter a value less than or equal to your current gold. You currently have " +
-                            GameState.CurrentHero.Inventory.GoldToString + " gold.");
+                            new Notification(
+                                "Please enter a value less than or equal to your current gold. You currently have " +
+                                GameState.CurrentHero.Inventory.GoldToString + " gold.", "Sulimn",
+                                NotificationButtons.OK, this).ShowDialog();
                         break;
 
                     case BankAction.Borrow:
                         TakeOutLoan();
                         break;
+
+                    default:
+                        new Notification("How did you break my game?", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                        break;
                 }
             else
-                MessageBox.Show(
+                new Notification(
                 "Please enter a positive value less than or equal to your current gold. You currently have " +
-                GameState.CurrentHero.Inventory.GoldToString + " gold.");
+                GameState.CurrentHero.Inventory.GoldToString + " gold.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

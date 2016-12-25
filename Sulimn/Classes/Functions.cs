@@ -13,9 +13,7 @@ namespace Sulimn
     {
         private const string _DBPROVIDERANDSOURCE = "Data Source = Sulimn.sqlite;Version=3";
 
-        /// <summary>
-        /// Turns several Keyboard.Keys into a list of Keys which can be tested using List.Any.
-        /// </summary>
+        /// <summary>Turns several Keyboard.Keys into a list of Keys which can be tested using List.Any.</summary>
         /// <param name="keys">Array of Keys</param>
         /// <returns></returns>
         internal static List<bool> GetListOfKeys(params Key[] keys)
@@ -28,7 +26,10 @@ namespace Sulimn
 
         #region General Database Manipulation
 
-        // This method fills a DataSet with data from a table.
+        /// <summary>Fills a DataSet.</summary>
+        /// <param name="sql"></param>
+        /// <param name="tableName"></param>
+        /// <returns>Returns a DataSet</returns>
         internal static async Task<DataSet> FillDataSet(string sql, string tableName)
         {
             SQLiteConnection con = new SQLiteConnection();
@@ -45,7 +46,7 @@ namespace Sulimn
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Filling DataSet", MessageBoxButton.OK);
+                    new Notification(ex.Message, "Error Filling DataSet", NotificationButtons.OK).ShowDialog();
                 }
                 finally
                 {
@@ -59,35 +60,17 @@ namespace Sulimn
 
         #region Random Number Generation
 
-        /// <summary>
-        /// Generates a random number between min and max (inclusive).
-        /// </summary>
-        /// <param name="min">Inclusive minimum number</param>
-        /// <param name="max">Inclusive maximum number</param>
-        /// <returns>Returns randomly generated integer between min and max.</returns>
-        internal static int GenerateRandomNumber(int min, int max)
-        {
-            return GenerateRandomNumber(min, max, int.MinValue, int.MaxValue);
-        }
-
-        /// <summary>
-        /// Generates a random number between min and max (inclusive).
-        /// </summary>
+        /// <summary>Generates a random number between min and max (inclusive).</summary>
         /// <param name="min">Inclusive minimum number</param>
         /// <param name="max">Inclusive maximum number</param>
         /// <param name="lowerLimit">Minimum limit for the method, regardless of min and max.</param>
         /// <param name="upperLimit">Maximum limit for the method, regardless of min and max.</param>
         /// <returns>Returns randomly generated integer between min and max with an upper limit of upperLimit.</returns>
-        internal static int GenerateRandomNumber(int min, int max, int lowerLimit, int upperLimit)
+        internal static int GenerateRandomNumber(int min, int max, int lowerLimit = int.MinValue, int upperLimit = int.MaxValue)
         {
             int result = min < max ? ThreadSafeRandom.ThisThreadsRandom.Next(min, max + 1) : ThreadSafeRandom.ThisThreadsRandom.Next(max, min + 1);
 
-            if (result < lowerLimit)
-                return lowerLimit;
-            if (result > upperLimit)
-                return upperLimit;
-
-            return result;
+            return result < lowerLimit ? lowerLimit : (result > upperLimit ? upperLimit : result);
         }
 
         #endregion Random Number Generation

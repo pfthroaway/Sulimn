@@ -2,13 +2,12 @@
 
 namespace Sulimn
 {
+    /// <summary>Represents the statistics of an entity.</summary>
     internal class Statistics : INotifyPropertyChanged
     {
         private int _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
 
-        /// <summary>
-        /// Restores magic to the Hero.
-        /// </summary>
+        /// <summary>Restores magic to the Hero.</summary>
         /// <param name="restoreAmount">Amount of Magic to be restored.</param>
         /// <returns>String saying magic was restored</returns>
         internal string RestoreMagic(int restoreAmount)
@@ -26,7 +25,7 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -35,6 +34,7 @@ namespace Sulimn
 
         #region Modifying Properties
 
+        /// <summary>Amount of current health the Class has.</summary>
         public int CurrentHealth
         {
             get { return _currentHealth; }
@@ -46,6 +46,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of maximum health the Class has.</summary>
         public int MaximumHealth
         {
             get { return _maximumHealth; }
@@ -57,6 +58,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of current magic the Class has.</summary>
         public int CurrentMagic
         {
             get { return _currentMagic; }
@@ -68,6 +70,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of maximum magic the Class has.</summary>
         public int MaximumMagic
         {
             get { return _maximumMagic; }
@@ -83,28 +86,28 @@ namespace Sulimn
 
         #region Helper Properties
 
+        /// <summary>Amount of health the Class has, formatted.</summary>
         public string HealthToString => CurrentHealth.ToString("N0") + " / " + MaximumHealth.ToString("N0");
 
+        /// <summary>Amount of health the Class has, formatted.</summary>
         public string HealthToStringWithText => "Health: " + HealthToString;
 
+        /// <summary>Amount of magic the Class has, formatted with preceding text.</summary>
         public string MagicToString => CurrentMagic.ToString("N0") + " / " + MaximumMagic.ToString("N0");
 
+        /// <summary>Amount of magic the Class has, formatted with preceding text.</summary>
         public string MagicToStringWithText => "Magic: " + MagicToString;
 
         #endregion Helper Properties
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Statistics.
-        /// </summary>
+        /// <summary>Initializes a default instance of Statistics.</summary>
         public Statistics()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Statistics by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of Statistics by assigning Properties.</summary>
         /// <param name="currentHealth">Current Health</param>
         /// <param name="maximumHealth">Maximum Health</param>
         /// <param name="currentMagic">Current Magic</param>
@@ -117,9 +120,7 @@ namespace Sulimn
             MaximumMagic = maximumMagic;
         }
 
-        /// <summary>
-        /// Replaces this instance of Statistics with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of Statistics with another instance.</summary>
         /// <param name="otherStatistics">Instance to replace this instance</param>
         public Statistics(Statistics otherStatistics)
         {

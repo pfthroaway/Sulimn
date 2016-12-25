@@ -6,8 +6,8 @@ namespace Sulimn
     /// <summary>Interaction logic for AdminPasswordWindow.xaml</summary>
     public partial class AdminPasswordWindow
     {
-        private bool admin;
-        internal MainWindow RefToMainWindow { get; set; }
+        private bool _admin;
+        internal MainWindow RefToMainWindow { private get; set; }
 
         #region Button-Click Methods
 
@@ -15,12 +15,12 @@ namespace Sulimn
         {
             if (PasswordHash.ValidatePassword(pswdAdmin.Password, GameState.AdminPassword))
             {
-                admin = true;
+                _admin = true;
                 CloseWindow();
             }
             else
             {
-                MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                new Notification("Invalid login.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
                 pswdAdmin.SelectAll();
             }
         }
@@ -53,10 +53,8 @@ namespace Sulimn
 
         private void windowAdminPassword_Closing(object sender, CancelEventArgs e)
         {
-            if (!admin)
-            {
+            if (!_admin)
                 RefToMainWindow.Show();
-            }
             else
             {
                 AdminWindow adminWindow = new AdminWindow { RefToMainWindow = RefToMainWindow };

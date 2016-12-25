@@ -3,21 +3,20 @@ using System.Security.Cryptography;
 
 namespace Sulimn
 {
+    /// <summary>Represents a way to hash passwords.</summary>
     public class PasswordHash
     {
-        public const int SaltByteSize = 24;
-        public const int HashByteSize = 20; // to match the size of the PBKDF2-HMAC-SHA-1 hash
-        public const int Pbkdf2Iterations = 1000;
-        public const int IterationIndex = 0;
-        public const int SaltIndex = 1;
-        public const int Pbkdf2Index = 2;
+        private const int SaltByteSize = 24;
+        private const int HashByteSize = 20; // to match the size of the PBKDF2-HMAC-SHA-1 hash
+        private const int Pbkdf2Iterations = 1000;
+        private const int IterationIndex = 0;
+        private const int SaltIndex = 1;
+        private const int Pbkdf2Index = 2;
 
-        /// <summary>
-        /// Hashes the passed password.
-        /// </summary>
+        /// <summary>Hashes the passed password.</summary>
         /// <param name="password">Plaintext password</param>
-        /// <returns></returns>
-        public static string HashPassword(string password)
+        /// <returns>Returned hashed password</returns>
+        internal static string HashPassword(string password)
         {
             RNGCryptoServiceProvider cryptoProvider = new RNGCryptoServiceProvider();
             byte[] salt = new byte[SaltByteSize];
@@ -29,13 +28,11 @@ namespace Sulimn
              Convert.ToBase64String(hash);
         }
 
-        /// <summary>
-        /// Validates the plaintext password against the hashed password.
-        /// </summary>
+        /// <summary>Validates the plaintext password against the hashed password.</summary>
         /// <param name="password">Plaintext password</param>
         /// <param name="correctHash">Hashed correct password</param>
-        /// <returns></returns>
-        public static bool ValidatePassword(string password, string correctHash)
+        /// <returns>Returns true if plaintext password matches hashed password</returns>
+        internal static bool ValidatePassword(string password, string correctHash)
         {
             char[] delimiter = { ':' };
             string[] split = correctHash.Split(delimiter);
@@ -47,9 +44,7 @@ namespace Sulimn
             return SlowEquals(hash, testHash);
         }
 
-        /// <summary>
-        /// Slowly hashes password to prevent quick attacks.
-        /// </summary>
+        /// <summary>Slowly hashes password to prevent quick attacks.</summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
@@ -61,9 +56,7 @@ namespace Sulimn
             return diff == 0;
         }
 
-        /// <summary>
-        /// Returns an array of Bytes based on password.
-        /// </summary>
+        /// <summary>Returns an array of Bytes based on password.</summary>
         /// <param name="password"></param>
         /// <param name="salt"></param>
         /// <param name="iterations"></param>

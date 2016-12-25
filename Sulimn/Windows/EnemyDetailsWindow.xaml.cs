@@ -3,12 +3,10 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for EnemyDetailsWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for EnemyDetailsWindow.xaml</summary>
     public partial class EnemyDetailsWindow : INotifyPropertyChanged
     {
-        internal BattleWindow RefToBattleWindow { get; set; }
+        internal BattleWindow RefToBattleWindow { private get; set; }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -19,9 +17,7 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Binds information to Window.
-        /// </summary>
+        /// <summary>Binds information to Window.</summary>
         private void BindLabels()
         {
             DataContext = GameState.CurrentEnemy;
@@ -42,7 +38,7 @@ namespace Sulimn
             lblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Equipment.Feet;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -51,9 +47,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();

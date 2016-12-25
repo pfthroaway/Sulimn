@@ -7,24 +7,22 @@ using System.Windows.Controls;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for TheGeneralStoreWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for TheGeneralStoreWindow.xaml</summary>
     public partial class TheGeneralStoreWindow : INotifyPropertyChanged
     {
-        private readonly string nl = Environment.NewLine;
-        private List<Potion> purchasePotion = new List<Potion>();
-        private Potion selectedPotionPurchase = new Potion();
-        private Potion selectedPotionSell = new Potion();
-        private List<Potion> sellPotion = new List<Potion>();
+        private readonly string _nl = Environment.NewLine;
+        private List<Potion> _purchasePotion = new List<Potion>();
+        private Potion _selectedPotionPurchase = new Potion();
+        private Potion _selectedPotionSell = new Potion();
+        private List<Potion> _sellPotion = new List<Potion>();
 
-        internal MarketWindow RefToMarketWindow { get; set; }
+        internal MarketWindow RefToMarketWindow { private get; set; }
 
         /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtTheGeneralStore.Text += nl + nl + newText;
+            txtTheGeneralStore.Text += _nl + _nl + newText;
             txtTheGeneralStore.Focus();
             txtTheGeneralStore.CaretIndex = txtTheGeneralStore.Text.Length;
             txtTheGeneralStore.ScrollToEnd();
@@ -46,39 +44,39 @@ namespace Sulimn
         {
             if (reload)
             {
-                purchasePotion.Clear();
-                purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(potion => potion.IsSold));
-                purchasePotion = purchasePotion.OrderBy(potion => potion.Value).ToList();
-                lstPotionPurchase.ItemsSource = purchasePotion;
+                _purchasePotion.Clear();
+                _purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(potion => potion.IsSold));
+                _purchasePotion = _purchasePotion.OrderBy(potion => potion.Value).ToList();
+                lstPotionPurchase.ItemsSource = _purchasePotion;
                 lstPotionPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstPotionPurchase.Items.Refresh();
             }
-            lblPotionNamePurchase.DataContext = selectedPotionPurchase;
-            lblPotionBonusPurchase.DataContext = selectedPotionPurchase;
-            lblPotionDescriptionPurchase.DataContext = selectedPotionPurchase;
-            lblPotionSellablePurchase.DataContext = selectedPotionPurchase;
-            lblPotionValuePurchase.DataContext = selectedPotionPurchase;
+            lblPotionNamePurchase.DataContext = _selectedPotionPurchase;
+            lblPotionBonusPurchase.DataContext = _selectedPotionPurchase;
+            lblPotionDescriptionPurchase.DataContext = _selectedPotionPurchase;
+            lblPotionSellablePurchase.DataContext = _selectedPotionPurchase;
+            lblPotionValuePurchase.DataContext = _selectedPotionPurchase;
         }
 
         private void BindPotionSell(bool reload = true)
         {
             if (reload)
             {
-                sellPotion.Clear();
-                sellPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
-                sellPotion = sellPotion.OrderBy(potion => potion.Value).ToList();
-                lstPotionSell.ItemsSource = sellPotion;
+                _sellPotion.Clear();
+                _sellPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
+                _sellPotion = _sellPotion.OrderBy(potion => potion.Value).ToList();
+                lstPotionSell.ItemsSource = _sellPotion;
                 lstPotionSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
                 lstPotionSell.Items.Refresh();
             }
-            lblPotionNameSell.DataContext = selectedPotionSell;
-            lblPotionBonusSell.DataContext = selectedPotionSell;
-            lblPotionDescriptionSell.DataContext = selectedPotionSell;
-            lblPotionSellableSell.DataContext = selectedPotionSell;
-            lblPotionValueSell.DataContext = selectedPotionSell;
+            lblPotionNameSell.DataContext = _selectedPotionSell;
+            lblPotionBonusSell.DataContext = _selectedPotionSell;
+            lblPotionDescriptionSell.DataContext = _selectedPotionSell;
+            lblPotionSellableSell.DataContext = _selectedPotionSell;
+            lblPotionValueSell.DataContext = _selectedPotionSell;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -108,7 +106,7 @@ namespace Sulimn
 
         /// <summary>Purchases selected Item.</summary>
         /// <param name="itmPurchase">Item to be purchased</param>
-        /// <returns></returns>
+        /// <returns>Returns text regarding purchase</returns>
         private string Purchase(Item itmPurchase)
         {
             GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
@@ -120,7 +118,7 @@ namespace Sulimn
 
         /// <summary>Sells selected Item.</summary>
         /// <param name="itmSell">Item to be sold</param>
-        /// <returns></returns>
+        /// <returns>Returns text regarding sale</returns>
         private string Sell(Item itmSell)
         {
             GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
@@ -135,13 +133,13 @@ namespace Sulimn
 
         private void btnPotionPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(selectedPotionPurchase));
+            AddTextTT(Purchase(_selectedPotionPurchase));
             lstPotionPurchase.UnselectAll();
         }
 
         private void btnPotionSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(selectedPotionSell));
+            AddTextTT(Sell(_selectedPotionSell));
             lstPotionSell.UnselectAll();
         }
 
@@ -151,32 +149,19 @@ namespace Sulimn
 
         private void lstPotionPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstPotionPurchase.SelectedIndex >= 0)
-            {
-                selectedPotionPurchase = (Potion)lstPotionPurchase.SelectedValue;
+            _selectedPotionPurchase = lstPotionPurchase.SelectedIndex >= 0
+                ? (Potion)lstPotionPurchase.SelectedValue
+                : new Potion();
 
-                btnPotionPurchase.IsEnabled = selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
-            }
-            else
-            {
-                selectedPotionPurchase = new Potion();
-                btnPotionPurchase.IsEnabled = false;
-            }
+            btnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindPotionPurchase(false);
         }
 
         private void lstPotionSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstPotionSell.SelectedIndex >= 0)
-            {
-                selectedPotionSell = (Potion)lstPotionSell.SelectedValue;
-                btnPotionSell.IsEnabled = selectedPotionSell.CanSell;
-            }
-            else
-            {
-                selectedPotionSell = new Potion();
-                btnPotionSell.IsEnabled = false;
-            }
+            _selectedPotionSell = lstPotionSell.SelectedIndex >= 0 ? (Potion)lstPotionSell.SelectedValue : new Potion();
+
+            btnPotionSell.IsEnabled = _selectedPotionSell.CanSell;
             BindPotionSell(false);
         }
 

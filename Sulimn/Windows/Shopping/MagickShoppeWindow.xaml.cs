@@ -7,44 +7,43 @@ using System.Windows.Controls;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for YeOldeMagickShoppeWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for YeOldeMagickShoppeWindow.xaml</summary>
     public partial class MagickShoppeWindow : INotifyPropertyChanged
     {
-        private readonly string nl = Environment.NewLine;
-        private List<Spell> purchasableSpells = new List<Spell>();
-        private Spell selectedSpell = new Spell();
+        private readonly string _nl = Environment.NewLine;
+        private List<Spell> _purchasableSpells = new List<Spell>();
+        private Spell _selectedSpell = new Spell();
 
-        internal MarketWindow RefToMarketWindow { get; set; }
+        internal MarketWindow RefToMarketWindow { private get; set; }
 
         /// <summary>Adds text to the txtMagickShoppe TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtMagickShoppe.Text += nl + nl + newText;
+            txtMagickShoppe.Text += _nl + _nl + newText;
             txtMagickShoppe.Focus();
             txtMagickShoppe.CaretIndex = txtMagickShoppe.Text.Length;
             txtMagickShoppe.ScrollToEnd();
         }
 
+        /// <summary>Loads all the required data.</summary>
         internal void LoadAll()
         {
             BindLabels();
-            purchasableSpells.Clear();
-            purchasableSpells.AddRange(GameState.AllSpells);
+            _purchasableSpells.Clear();
+            _purchasableSpells.AddRange(GameState.AllSpells);
             List<Spell> learnSpells = new List<Spell>();
 
-            foreach (Spell spell in purchasableSpells)
+            foreach (Spell spell in _purchasableSpells)
                 if (!GameState.CurrentHero.Spellbook.Spells.Contains(spell))
                     if (spell.RequiredClass.Length == 0)
                         learnSpells.Add(spell);
                     else if (GameState.CurrentHero.Class.Name == spell.RequiredClass)
                         learnSpells.Add(spell);
 
-            purchasableSpells.Clear();
-            purchasableSpells = learnSpells.OrderBy(x => x.Name).ToList();
-            lstSpells.ItemsSource = purchasableSpells;
+            _purchasableSpells.Clear();
+            _purchasableSpells = learnSpells.OrderBy(x => x.Name).ToList();
+            lstSpells.ItemsSource = _purchasableSpells;
             lstSpells.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
         }
 
@@ -54,11 +53,11 @@ namespace Sulimn
 
         private void BindLabels()
         {
-            DataContext = selectedSpell;
+            DataContext = _selectedSpell;
             lblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -69,9 +68,9 @@ namespace Sulimn
 
         private void btnPurchase_Click(object sender, RoutedEventArgs e)
         {
-            GameState.CurrentHero.Inventory.Gold -= selectedSpell.Value;
-            AddTextTT(GameState.CurrentHero.Spellbook.LearnSpell(selectedSpell) + " It cost " +
-            selectedSpell.ValueToString + " gold.");
+            GameState.CurrentHero.Inventory.Gold -= _selectedSpell.Value;
+            AddTextTT(GameState.CurrentHero.Spellbook.LearnSpell(_selectedSpell) + " It cost " +
+            _selectedSpell.ValueToString + " gold.");
             LoadAll();
         }
 
@@ -105,7 +104,7 @@ namespace Sulimn
             InitializeComponent();
             txtMagickShoppe.Text =
             "You enter Ye Olde Magick Shoppe, a hut of a building. Inside there is a woman facing away from you, stirring a mixture in a cauldron. Sensing your presence, she turns to you, her face hideous and covered in boils." +
-            nl + nl + "\"Would you like to learn some spells, " + GameState.CurrentHero.Name +
+            _nl + _nl + "\"Would you like to learn some spells, " + GameState.CurrentHero.Name +
             "?\" she asks. How she knows your name is beyond you.";
         }
 
@@ -113,17 +112,13 @@ namespace Sulimn
         {
             if (lstSpells.SelectedIndex >= 0)
             {
-                selectedSpell = (Spell)lstSpells.SelectedValue;
-
-                if (selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
-                selectedSpell.RequiredLevel <= GameState.CurrentHero.Level)
-                    btnPurchase.IsEnabled = true;
-                else
-                    btnPurchase.IsEnabled = false;
+                _selectedSpell = (Spell)lstSpells.SelectedValue;
+                btnPurchase.IsEnabled = _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
+                                        _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
             }
             else
             {
-                selectedSpell = new Spell();
+                _selectedSpell = new Spell();
                 btnPurchase.IsEnabled = false;
             }
             BindLabels();

@@ -5,20 +5,20 @@ namespace Sulimn
     /// <summary>Represents pieces of equipment an entity is using.</summary>
     internal class Equipment : INotifyPropertyChanged
     {
-        protected BodyArmor _body = new BodyArmor();
-        protected FeetArmor _feet = new FeetArmor();
-        protected HandArmor _hands = new HandArmor();
-        protected HeadArmor _head = new HeadArmor();
-        protected Ring _leftRing = new Ring();
-        protected LegArmor _legs = new LegArmor();
-        protected Ring _rightRing = new Ring();
-        protected Weapon _weapon = new Weapon();
+        private BodyArmor _body = new BodyArmor();
+        private FeetArmor _feet = new FeetArmor();
+        private HandArmor _hands = new HandArmor();
+        private HeadArmor _head = new HeadArmor();
+        private Ring _leftRing = new Ring();
+        private LegArmor _legs = new LegArmor();
+        private Ring _rightRing = new Ring();
+        private Weapon _weapon = new Weapon();
 
         #region Data-Binding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }

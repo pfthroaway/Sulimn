@@ -181,7 +181,7 @@ namespace Sulimn
 
         #region Override Operators
 
-        public static bool Equals(Weapon left, Weapon right)
+        private static bool Equals(Weapon left, Weapon right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;

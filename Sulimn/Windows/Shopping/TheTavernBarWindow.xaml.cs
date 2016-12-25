@@ -7,28 +7,26 @@ using System.Windows.Controls;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for TheTavernBarWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for TheTavernBarWindow.xaml</summary>
     public partial class TheTavernBarWindow : INotifyPropertyChanged
     {
-        private readonly string nl = Environment.NewLine;
-        private List<Food> purchaseDrink = new List<Food>();
-        private List<Food> purchaseFood = new List<Food>();
-        private Food selectedDrinkPurchase = new Food();
-        private Food selectedDrinkSell = new Food();
-        private Food selectedFoodPurchase = new Food();
-        private Food selectedFoodSell = new Food();
-        private List<Food> sellDrink = new List<Food>();
-        private List<Food> sellFood = new List<Food>();
+        private readonly string _nl = Environment.NewLine;
+        private List<Food> _purchaseDrink = new List<Food>();
+        private List<Food> _purchaseFood = new List<Food>();
+        private Food _selectedDrinkPurchase = new Food();
+        private Food _selectedDrinkSell = new Food();
+        private Food _selectedFoodPurchase = new Food();
+        private Food _selectedFoodSell = new Food();
+        private List<Food> _sellDrink = new List<Food>();
+        private List<Food> _sellFood = new List<Food>();
 
-        internal TavernWindow RefToTavernWindow { get; set; }
+        internal TavernWindow RefToTavernWindow { private get; set; }
 
         /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtTheTavernBar.Text += nl + nl + newText;
+            txtTheTavernBar.Text += _nl + _nl + newText;
             txtTheTavernBar.Focus();
             txtTheTavernBar.CaretIndex = txtTheTavernBar.Text.Length;
             txtTheTavernBar.ScrollToEnd();
@@ -50,81 +48,81 @@ namespace Sulimn
         {
             if (reload)
             {
-                purchaseFood.Clear();
-                purchaseFood.AddRange(
+                _purchaseFood.Clear();
+                _purchaseFood.AddRange(
                 GameState.GetItemsOfType<Food>().Where(food => food.IsSold && food.FoodType == FoodTypes.Food));
-                purchaseFood = purchaseFood.OrderBy(food => food.Value).ToList();
-                lstFoodPurchase.ItemsSource = purchaseFood;
+                _purchaseFood = _purchaseFood.OrderBy(food => food.Value).ToList();
+                lstFoodPurchase.ItemsSource = _purchaseFood;
                 lstFoodPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstFoodPurchase.Items.Refresh();
             }
-            lblFoodNamePurchase.DataContext = selectedFoodPurchase;
-            lblFoodTypeAmountPurchase.DataContext = selectedFoodPurchase;
-            lblFoodDescriptionPurchase.DataContext = selectedFoodPurchase;
-            lblFoodSellablePurchase.DataContext = selectedFoodPurchase;
-            lblFoodValuePurchase.DataContext = selectedFoodPurchase;
+            lblFoodNamePurchase.DataContext = _selectedFoodPurchase;
+            lblFoodTypeAmountPurchase.DataContext = _selectedFoodPurchase;
+            lblFoodDescriptionPurchase.DataContext = _selectedFoodPurchase;
+            lblFoodSellablePurchase.DataContext = _selectedFoodPurchase;
+            lblFoodValuePurchase.DataContext = _selectedFoodPurchase;
         }
 
         private void BindFoodSell(bool reload = true)
         {
             if (reload)
             {
-                sellFood.Clear();
-                sellFood.AddRange(
+                _sellFood.Clear();
+                _sellFood.AddRange(
                 GameState.CurrentHero.Inventory.GetItemsOfType<Food>()
                 .Where(food => food.FoodType == FoodTypes.Food));
-                sellFood = sellFood.OrderBy(food => food.Value).ToList();
-                lstFoodSell.ItemsSource = sellFood;
+                _sellFood = _sellFood.OrderBy(food => food.Value).ToList();
+                lstFoodSell.ItemsSource = _sellFood;
                 lstFoodSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
                 lstFoodSell.Items.Refresh();
             }
-            lblFoodNameSell.DataContext = selectedFoodSell;
-            lblFoodTypeAmountSell.DataContext = selectedFoodSell;
-            lblFoodDescriptionSell.DataContext = selectedFoodSell;
-            lblFoodSellableSell.DataContext = selectedFoodSell;
-            lblFoodValueSell.DataContext = selectedFoodSell;
+            lblFoodNameSell.DataContext = _selectedFoodSell;
+            lblFoodTypeAmountSell.DataContext = _selectedFoodSell;
+            lblFoodDescriptionSell.DataContext = _selectedFoodSell;
+            lblFoodSellableSell.DataContext = _selectedFoodSell;
+            lblFoodValueSell.DataContext = _selectedFoodSell;
         }
 
         private void BindDrinkPurchase(bool reload = true)
         {
             if (reload)
             {
-                purchaseDrink.Clear();
-                purchaseDrink.AddRange(
+                _purchaseDrink.Clear();
+                _purchaseDrink.AddRange(
                 GameState.GetItemsOfType<Food>().Where(drink => drink.IsSold && drink.FoodType == FoodTypes.Drink));
-                purchaseDrink = purchaseDrink.OrderBy(food => food.Value).ToList();
-                lstDrinkPurchase.ItemsSource = purchaseDrink;
+                _purchaseDrink = _purchaseDrink.OrderBy(food => food.Value).ToList();
+                lstDrinkPurchase.ItemsSource = _purchaseDrink;
                 lstDrinkPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstDrinkPurchase.Items.Refresh();
             }
-            lblDrinkNamePurchase.DataContext = selectedDrinkPurchase;
-            lblDrinkTypeAmountPurchase.DataContext = selectedDrinkPurchase;
-            lblDrinkDescriptionPurchase.DataContext = selectedDrinkPurchase;
-            lblDrinkSellablePurchase.DataContext = selectedDrinkPurchase;
-            lblDrinkValuePurchase.DataContext = selectedDrinkPurchase;
+            lblDrinkNamePurchase.DataContext = _selectedDrinkPurchase;
+            lblDrinkTypeAmountPurchase.DataContext = _selectedDrinkPurchase;
+            lblDrinkDescriptionPurchase.DataContext = _selectedDrinkPurchase;
+            lblDrinkSellablePurchase.DataContext = _selectedDrinkPurchase;
+            lblDrinkValuePurchase.DataContext = _selectedDrinkPurchase;
         }
 
         private void BindDrinkSell(bool reload = true)
         {
             if (reload)
             {
-                sellDrink.Clear();
-                sellDrink.AddRange(
+                _sellDrink.Clear();
+                _sellDrink.AddRange(
                 GameState.CurrentHero.Inventory.GetItemsOfType<Food>()
                 .Where(drink => drink.FoodType == FoodTypes.Drink));
-                sellDrink = sellDrink.OrderBy(drink => drink.Value).ToList();
-                lstDrinkSell.ItemsSource = sellDrink;
+                _sellDrink = _sellDrink.OrderBy(drink => drink.Value).ToList();
+                lstDrinkSell.ItemsSource = _sellDrink;
                 lstDrinkSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
                 lstDrinkSell.Items.Refresh();
             }
-            lblDrinkNameSell.DataContext = selectedDrinkSell;
-            lblDrinkTypeAmountSell.DataContext = selectedDrinkSell;
-            lblDrinkDescriptionSell.DataContext = selectedDrinkSell;
-            lblDrinkSellableSell.DataContext = selectedDrinkSell;
-            lblDrinkValueSell.DataContext = selectedDrinkSell;
+            lblDrinkNameSell.DataContext = _selectedDrinkSell;
+            lblDrinkTypeAmountSell.DataContext = _selectedDrinkSell;
+            lblDrinkDescriptionSell.DataContext = _selectedDrinkSell;
+            lblDrinkSellableSell.DataContext = _selectedDrinkSell;
+            lblDrinkValueSell.DataContext = _selectedDrinkSell;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -156,7 +154,7 @@ namespace Sulimn
 
         /// <summary>Purchases selected Item.</summary>
         /// <param name="itmPurchase">Item to be purchased</param>
-        /// <returns></returns>
+        /// <returns>Returns text about the purchase</returns>
         private string Purchase(Item itmPurchase)
         {
             GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
@@ -168,7 +166,7 @@ namespace Sulimn
 
         /// <summary>Sells selected Item.</summary>
         /// <param name="itmSell">Item to be sold</param>
-        /// <returns></returns>
+        /// <returns>Returns text about the sale</returns>
         private string Sell(Item itmSell)
         {
             GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
@@ -183,25 +181,25 @@ namespace Sulimn
 
         private void btnFoodPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(selectedFoodPurchase));
+            AddTextTT(Purchase(_selectedFoodPurchase));
             lstFoodPurchase.UnselectAll();
         }
 
         private void btnFoodSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(selectedFoodSell));
+            AddTextTT(Sell(_selectedFoodSell));
             lstFoodSell.UnselectAll();
         }
 
         private void btnDrinkPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(selectedDrinkPurchase));
+            AddTextTT(Purchase(_selectedDrinkPurchase));
             lstDrinkPurchase.UnselectAll();
         }
 
         private void btnDrinkSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(selectedDrinkSell));
+            AddTextTT(Sell(_selectedDrinkSell));
             lstDrinkSell.UnselectAll();
         }
 
@@ -211,63 +209,37 @@ namespace Sulimn
 
         private void lstFoodPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstFoodPurchase.SelectedIndex >= 0)
-            {
-                selectedFoodPurchase = (Food)lstFoodPurchase.SelectedValue;
+            _selectedFoodPurchase = lstFoodPurchase.SelectedIndex >= 0
+                ? (Food)lstFoodPurchase.SelectedValue
+                : new Food();
 
-                btnFoodPurchase.IsEnabled = selectedFoodPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
-            }
-            else
-            {
-                selectedFoodPurchase = new Food();
-                btnFoodPurchase.IsEnabled = false;
-            }
+            btnFoodPurchase.IsEnabled = _selectedFoodPurchase.Value > 0 && _selectedFoodPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindFoodPurchase(false);
         }
 
         private void lstFoodSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstFoodSell.SelectedIndex >= 0)
-            {
-                selectedFoodSell = (Food)lstFoodSell.SelectedValue;
-                btnFoodSell.IsEnabled = selectedFoodSell.CanSell;
-            }
-            else
-            {
-                selectedFoodSell = new Food();
-                btnFoodSell.IsEnabled = false;
-            }
+            _selectedFoodSell = lstFoodSell.SelectedIndex >= 0 ? (Food)lstFoodSell.SelectedValue : new Food();
+
+            btnFoodSell.IsEnabled = _selectedFoodSell.CanSell;
             BindFoodSell(false);
         }
 
         private void lstDrinkPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstDrinkPurchase.SelectedIndex >= 0)
-            {
-                selectedDrinkPurchase = (Food)lstDrinkPurchase.SelectedValue;
+            _selectedDrinkPurchase = lstDrinkPurchase.SelectedIndex >= 0
+                ? (Food)lstDrinkPurchase.SelectedValue
+                : new Food();
 
-                btnDrinkPurchase.IsEnabled = selectedDrinkPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
-            }
-            else
-            {
-                selectedDrinkPurchase = new Food();
-                btnDrinkPurchase.IsEnabled = false;
-            }
+            btnDrinkPurchase.IsEnabled = _selectedDrinkPurchase.Value > 0 && _selectedDrinkPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindDrinkPurchase(false);
         }
 
         private void lstDrinkSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstDrinkSell.SelectedIndex >= 0)
-            {
-                selectedDrinkSell = (Food)lstDrinkSell.SelectedValue;
-                btnDrinkSell.IsEnabled = selectedDrinkSell.CanSell;
-            }
-            else
-            {
-                selectedDrinkSell = new Food();
-                btnDrinkSell.IsEnabled = false;
-            }
+            _selectedDrinkSell = lstDrinkSell.SelectedIndex >= 0 ? (Food)lstDrinkSell.SelectedValue : new Food();
+
+            btnDrinkSell.IsEnabled = _selectedDrinkSell.CanSell;
             BindDrinkSell(false);
         }
 

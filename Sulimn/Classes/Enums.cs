@@ -1,8 +1,6 @@
 ﻿namespace Sulimn
 {
-    /// <summary>
-    /// Represents an action performed at the Bank.
-    /// </summary>
+    /// <summary>Represents an action performed at the Bank.</summary>
     internal enum BankAction
     {
         Deposit,
@@ -11,9 +9,7 @@
         Repay
     }
 
-    /// <summary>
-    /// Represents the suit of a playing card.
-    /// </summary>
+    /// <summary>Represents the suit of a playing card.</summary>
     internal enum CardSuit
     {
         Spades,
@@ -22,18 +18,14 @@
         Diamonds
     }
 
-    /// <summary>
-    /// Represents the types of Weapons which exist.
-    /// </summary>
+    /// <summary>Represents the types of Weapons which exist.</summary>
     internal enum WeaponTypes
     {
         Melee,
         Ranged
     }
 
-    /// <summary>
-    /// Represents the types of Items which exist.
-    /// </summary>
+    /// <summary>Represents the types of Items which exist.</summary>
     internal enum ItemTypes
     {
         Weapon,
@@ -48,18 +40,14 @@
         Spell
     }
 
-    /// <summary>
-    /// Represents the types of Food which exist.
-    /// </summary>
+    /// <summary>Represents the types of Food which exist.</summary>
     internal enum FoodTypes
     {
         Food,
         Drink
     }
 
-    /// <summary>
-    /// Represents the types of Potions which exist.
-    /// </summary>
+    /// <summary>Represents the types of Potions which exist.</summary>
     internal enum PotionTypes
     {
         Healing,
@@ -67,9 +55,7 @@
         Magic
     }
 
-    /// <summary>
-    /// Represents the types of Spells which exist.
-    /// </summary>
+    /// <summary>Represents the types of Spells which exist.</summary>
     internal enum SpellTypes
     {
         Damage,
@@ -78,9 +64,7 @@
         Shield
     }
 
-    /// <summary>
-    /// Represents an entity's status.
-    /// </summary>
+    /// <summary>Represents an entity's status.</summary>
     internal enum Status
     {
         Normal,

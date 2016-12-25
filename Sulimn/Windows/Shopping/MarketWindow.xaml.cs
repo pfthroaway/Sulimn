@@ -4,19 +4,17 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for MarketWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for MarketWindow.xaml</summary>
     public partial class MarketWindow
     {
-        private readonly string nl = Environment.NewLine;
-        internal CityWindow RefToCityWindow { get; set; }
+        private readonly string _nl = Environment.NewLine;
+        internal CityWindow RefToCityWindow { private get; set; }
 
         /// <summary>Adds text to the TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtMarket.Text += nl + nl + newText;
+            txtMarket.Text += _nl + _nl + newText;
             txtMarket.Focus();
             txtMarket.CaretIndex = txtMarket.Text.Length;
             txtMarket.ScrollToEnd();
@@ -78,10 +76,10 @@ namespace Sulimn
         public MarketWindow()
         {
             InitializeComponent();
-            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + nl +
-             nl + "Weapons 'R' Us - A weapons shop." + nl + nl + "The Armoury - An armor shop." + nl +
-             nl + "The General Store - A shop supplying general goods like potions." + nl + nl +
-             "Ye Old Magick Shoppe - A shop selling magical spells and equipment." + nl + nl +
+            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + _nl +
+             _nl + "Weapons 'R' Us - A weapons shop." + _nl + _nl + "The Armoury - An armor shop." + _nl +
+             _nl + "The General Store - A shop supplying general goods like potions." + _nl + _nl +
+             "Ye Old Magick Shoppe - A shop selling magical spells and equipment." + _nl + _nl +
              "Silver Empire - A smithery selling the finest jewelry.";
         }
 

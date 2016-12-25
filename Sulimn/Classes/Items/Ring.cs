@@ -306,7 +306,7 @@ DexterityToString, WisdomToString
 
         #region Override Operators
 
-        public static bool Equals(Ring left, Ring right)
+        private static bool Equals(Ring left, Ring right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;

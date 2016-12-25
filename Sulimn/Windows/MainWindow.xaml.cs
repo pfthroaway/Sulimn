@@ -6,23 +6,19 @@ using System.Windows.Input;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for MainWindow.xaml</summary>
     public partial class MainWindow
     {
         #region Login
 
         /// <summary>Logs the Hero in.</summary>
-        internal void Login()
+        private void Login()
         {
             txtHeroName.Text = "";
             pswdPassword.Password = "";
             txtHeroName.Focus();
-            CityWindow cityWindow = new CityWindow();
+            CityWindow cityWindow = new CityWindow { RefToMainWindow = this };
             cityWindow.Show();
-            cityWindow.RefToMainWindow = this;
-            cityWindow.EnterCity();
             Visibility = Visibility.Hidden;
         }
 
@@ -33,9 +29,8 @@ namespace Sulimn
         // This method opens the newPlayer Window.
         private void btnNewHero_Click(object sender, RoutedEventArgs e)
         {
-            NewHeroWindow newHeroWindow = new NewHeroWindow();
+            NewHeroWindow newHeroWindow = new NewHeroWindow { RefToMainWindow = this };
             newHeroWindow.Show();
-            newHeroWindow.RefToMainWindow = this;
             Visibility = Visibility.Hidden;
         }
 
@@ -47,9 +42,8 @@ namespace Sulimn
 
         private void mnuAdmin_Click(object sender, RoutedEventArgs e)
         {
-            AdminPasswordWindow adminPasswordWindow = new AdminPasswordWindow();
+            AdminPasswordWindow adminPasswordWindow = new AdminPasswordWindow { RefToMainWindow = this };
             adminPasswordWindow.Show();
-            adminPasswordWindow.RefToMainWindow = this;
             Visibility = Visibility.Hidden;
         }
 
@@ -97,15 +91,10 @@ namespace Sulimn
             //ss.Play();
         }
 
-        /// <summary>
-        /// Manages TextBox/PasswordBox text being changed.
-        /// </summary>
+        /// <summary>Manages TextBox/PasswordBox text being changed.</summary>
         private void TextChanged()
         {
-            if (txtHeroName.Text.Length > 0 && pswdPassword.Password.Length > 0)
-                btnLogin.IsEnabled = true;
-            else
-                btnLogin.IsEnabled = false;
+            btnLogin.IsEnabled = txtHeroName.Text.Length > 0 && pswdPassword.Password.Length > 0;
         }
 
         private void txtHeroName_TextChanged(object sender, TextChangedEventArgs e)

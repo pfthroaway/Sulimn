@@ -3,15 +3,14 @@ using System.ComponentModel;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a Hero from Sulimn.
-    /// </summary>
+    /// <summary>Represents a Hero from Sulimn.</summary>
     internal class Hero : Character, INotifyPropertyChanged
     {
         private HeroClass _class;
         private int _skillPoints;
         private Spellbook _spellbook = new Spellbook();
 
+        /// <summary>Updates the Hero's Statistics.</summary>
         internal void UpdateStatistics()
         {
             if (Statistics.MaximumHealth != (TotalVitality + Level - 1) * 5)
@@ -45,7 +44,7 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -210,33 +209,24 @@ namespace Sulimn
 
         #region Experience Manipulation
 
-        /// <summary>
-        /// Gains experience for Hero.
-        /// </summary>
+        /// <summary>Gains experience for Hero.</summary>
         /// <param name="exp">Experience</param>
-        /// <returns></returns>
+        /// <returns>Returns text about the Hero gaining experience</returns>
         internal string GainExperience(int exp)
         {
             Experience += exp;
             return "You gained " + exp + " experience!" + CheckLevelUp();
         }
 
-        /// <summary>
-        /// Checks where a Hero has leveled up.
-        /// </summary>
-        /// <returns>Returns null if Hero doesn't level up.</returns>
-        internal string CheckLevelUp()
+        /// <summary>Checks where a Hero has leveled up.</summary>
+        /// <returns>Returns null if Hero doesn't level up</returns>
+        private string CheckLevelUp()
         {
-            if (Experience >= Level * 100)
-                return LevelUp();
-
-            return null;
+            return Experience >= Level * 100 ? LevelUp() : null;
         }
 
-        /// <summary>
-        /// Levels up a Hero.
-        /// </summary>
-        /// <returns>Returns level up String.</returns>
+        /// <summary>Levels up a Hero.</summary>
+        /// <returns>Returns text about the Hero leveling up</returns>
         private string LevelUp()
         {
             Experience -= Level * 100;
@@ -246,8 +236,7 @@ namespace Sulimn
             Statistics.MaximumHealth += 5;
             Statistics.CurrentMagic += 5;
             Statistics.MaximumMagic += 5;
-            return Environment.NewLine + Environment.NewLine +
-             "You gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
+            return "\n\nYou gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
         }
 
         #endregion Experience Manipulation
@@ -256,13 +245,13 @@ namespace Sulimn
 
         /// <summary>The Hero takes damage.</summary>
         /// <param name="damage">Damage amount</param>
-        /// <returns></returns>
+        /// <returns>Returns text about the Hero leveling up.</returns>
         internal string TakeDamage(int damage)
         {
             Statistics.CurrentHealth -= damage;
-            if (Statistics.CurrentHealth <= 0)
-                return "You have taken " + damage + " damage and have been slain.";
-            return "You have taken " + damage + " damage.";
+            return Statistics.CurrentHealth <= 0
+                ? "You have taken " + damage + " damage and have been slain."
+                : "You have taken " + damage + " damage.";
         }
 
         /// <summary>Heals the Hero for a specified amount.</summary>

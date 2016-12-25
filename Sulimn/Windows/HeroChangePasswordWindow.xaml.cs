@@ -3,12 +3,10 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for HeroChangePasswordWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for HeroChangePasswordWindow.xaml</summary>
     public partial class HeroChangePasswordWindow
     {
-        internal CityWindow RefToCityWindow { get; set; }
+        internal CityWindow RefToCityWindow { private get; set; }
 
         #region Button-Click Methods
 
@@ -21,20 +19,20 @@ namespace Sulimn
                         {
                             GameState.CurrentHero.Password = PasswordHash.HashPassword(pswdNewPassword.Password);
                             GameState.SaveHeroPassword(GameState.CurrentHero);
-                            MessageBox.Show("Successfully changed password.", "Sulimn", MessageBoxButton.OK);
+                            new Notification("Successfully changed password.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
                             CloseWindow();
                         }
                         else
                         {
-                            MessageBox.Show("The new password can't be the same as the current password.", "Sulimn",
-                            MessageBoxButton.OK);
+                            new Notification("The new password can't be the same as the current password.", "Sulimn",
+                            NotificationButtons.OK, this).ShowDialog();
                         }
                     else
-                        MessageBox.Show("Please ensure the new passwords match.", "Sulimn", MessageBoxButton.OK);
+                        new Notification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
                 else
-                    MessageBox.Show("Your password must be at least 4 characters.", "Sulimn", MessageBoxButton.OK);
+                    new Notification("Your password must be at least 4 characters.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
             else
-                MessageBox.Show("Invalid current password.", "Sulimn", MessageBoxButton.OK);
+                new Notification("Invalid current password.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -46,9 +44,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();
@@ -60,13 +56,10 @@ namespace Sulimn
             pswdCurrentPassword.Focus();
         }
 
-        private void pswdChanged(object sender, RoutedEventArgs e)
+        private void PswdChanged(object sender, RoutedEventArgs e)
         {
-            if (pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 &&
-            pswdConfirmPassword.Password.Length >= 1)
-                btnSubmit.IsEnabled = true;
-            else
-                btnSubmit.IsEnabled = false;
+            btnSubmit.IsEnabled = pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 &&
+                                  pswdConfirmPassword.Password.Length >= 1;
         }
 
         private void pswdCurrentPassword_GotFocus(object sender, RoutedEventArgs e)

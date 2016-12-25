@@ -6,9 +6,7 @@ using System.Linq;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a Hero's inventory.
-    /// </summary>
+    /// <summary>Represents a Hero's inventory.</summary>
     internal class Inventory : IEnumerable<Item>, INotifyPropertyChanged
     {
         private readonly List<Item> _items = new List<Item>();
@@ -16,7 +14,7 @@ namespace Sulimn
 
         /// <summary>Gets all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
-        /// <returns>Items of Ty[e</returns>
+        /// <returns>Items of specified Type</returns>
         internal List<T> GetItemsOfType<T>()
         {
             return Items.OfType<T>().ToList();
@@ -33,8 +31,10 @@ namespace Sulimn
 
         #region Modifying Properties
 
+        /// <summary>List of Items in the inventory.</summary>
         internal ReadOnlyCollection<Item> Items => new ReadOnlyCollection<Item>(_items);
 
+        /// <summary>Amount of gold in the inventory.</summary>
         public int Gold
         {
             get { return _gold; }
@@ -51,8 +51,10 @@ namespace Sulimn
 
         #region Helper Properties
 
+        /// <summary>Amount of gold in the inventory, with thousands separator.</summary>
         public string GoldToString => Gold.ToString("N0");
 
+        /// <summary>Amount of gold in the inventory, with thousands separator and preceding text.</summary>
         public string GoldToStringWithText => "Gold: " + GoldToString;
 
         #endregion Helper Properties
@@ -61,7 +63,7 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -70,27 +72,18 @@ namespace Sulimn
 
         #region Inventory Management
 
-        internal void AddItem(Item _item)
+        /// <summary>Adds an Item to the inventory.</summary>
+        /// <param name="item">Item to be removed</param>
+        internal void AddItem(Item item)
         {
-            _items.Add(_item);
+            _items.Add(item);
         }
 
-        /// <summary>
-        /// Removes an Item from Items.
-        /// </summary>
-        /// <param name="_item">Item to be removed</param>
-        internal void RemoveItem(Item _item)
+        /// <summary>Removes an Item from the inventory.</summary>
+        /// <param name="item">Item to be removed</param>
+        internal void RemoveItem(Item item)
         {
-            _items.Remove(_item);
-        }
-
-        /// <summary>
-        /// Removes Inventory Item at specified index of Items List.
-        /// </summary>
-        /// <param name="index">Index of where to remove Item.</param>
-        internal void RemoveItemAt(int index)
-        {
-            _items.RemoveAt(index);
+            _items.Remove(item);
         }
 
         #endregion Inventory Management
@@ -111,16 +104,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initalizes a default instance of Inventory.
-        /// </summary>
+        /// <summary>Initalizes a default instance of Inventory.</summary>
         public Inventory()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Inventory by assigning the Inventory.
-        /// </summary>
+        /// <summary>Initializes an instance of Inventory by assigning the Inventory.</summary>
         /// <param name="itemList">List of Items in Inventory</param>
         /// <param name="gold">Gold</param>
         public Inventory(IEnumerable<Item> itemList, int gold)
@@ -132,9 +121,7 @@ namespace Sulimn
             Gold = gold;
         }
 
-        /// <summary>
-        /// Replaces this instance of Inventory with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of Inventory with another instance.</summary>
         /// <param name="otherInventory">Instance of Inventory to replace this instance</param>
         public Inventory(Inventory otherInventory)
         {

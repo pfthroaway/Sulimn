@@ -3,18 +3,15 @@ using System.Collections.ObjectModel;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a collection of Spells a Hero can cast.
-    /// </summary>
+    /// <summary>Represents a collection of Spells a Hero can cast.</summary>
     internal class Spellbook
     {
         private readonly List<Spell> _spells = new List<Spell>();
 
+        /// <summary>List of known Spells.</summary>
         internal ReadOnlyCollection<Spell> Spells => new ReadOnlyCollection<Spell>(_spells);
 
-        /// <summary>
-        /// Teaches a Hero a Spell.
-        /// </summary>
+        /// <summary>Teaches a Hero a Spell.</summary>
         /// <param name="newSpell">Spell to be learned</param>
         /// <returns>String saying Hero learned the spell</returns>
         internal string LearnSpell(Spell newSpell)
@@ -34,16 +31,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Spellbook.
-        /// </summary>
+        /// <summary>Initializes a default instance of Spellbook.</summary>
         public Spellbook()
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of Spellbook by assigning known spells.
-        /// </summary>
+        /// <summary>Initializes a new instance of Spellbook by assigning known spells.</summary>
         /// <param name="spellList">List of known spells</param>
         public Spellbook(IEnumerable<Spell> spellList)
         {
@@ -52,9 +45,7 @@ namespace Sulimn
             _spells = newSpells;
         }
 
-        /// <summary>
-        /// Replaces this instance of Spellbook with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of Spellbook with another instance.</summary>
         /// <param name="otherSpellbook">Instance of Spellbook to replace this instance</param>
         public Spellbook(Spellbook otherSpellbook)
         {

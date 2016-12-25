@@ -4,27 +4,21 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for BattleWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for BattleWindow.xaml</summary>
     public partial class BattleWindow : INotifyPropertyChanged
     {
-        private readonly string nl = Environment.NewLine;
-        private BattleAction _enemyAction;
-
-        private BattleAction _heroAction;
+        private readonly string _nl = Environment.NewLine;
+        private BattleAction _enemyAction, _heroAction;
         private int _heroShield;
-        private bool battleEnded;
-        private Spell currentSpell = new Spell();
-        private string previousWindow;
+        private bool _battleEnded;
+        private Spell _currentSpell = new Spell();
+        private string _previousWindow;
 
-        /// <summary>
-        /// Adds text to the txtBattle TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtBattle TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtBattle.Text += nl + nl + newText;
+            txtBattle.Text += _nl + _nl + newText;
             txtBattle.Focus();
             txtBattle.CaretIndex = txtBattle.Text.Length;
             txtBattle.ScrollToEnd();
@@ -69,10 +63,8 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Binds text to the labels.
-        /// </summary>
-        internal void BindLabels()
+        /// <summary>Binds text to the labels.</summary>
+        private void BindLabels()
         {
             lblCharName.DataContext = GameState.CurrentHero;
             lblCharHealth.DataContext = GameState.CurrentHero.Statistics;
@@ -82,7 +74,7 @@ namespace Sulimn
             lblEnemyHealth.DataContext = GameState.CurrentEnemy.Statistics;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -91,25 +83,21 @@ namespace Sulimn
 
         #region Battle Management
 
-        /// <summary>
-        /// Sets up the battle engine.
-        /// </summary>
+        /// <summary>Sets up the battle engine.</summary>
         /// <param name="prevWindow">Previous Window</param>
         internal void PrepareBattle(string prevWindow)
         {
             BindLabels();
-            previousWindow = prevWindow;
+            _previousWindow = prevWindow;
 
             txtBattle.Text = "You encounter an enemy. The " + GameState.CurrentEnemy.Name +
              " seems openly hostile to you. Prepare to defend yourself.";
         }
 
-        /// <summary>
-        /// Ends the battle and allows the user to exit the Window.
-        /// </summary>
+        /// <summary>Ends the battle and allows the user to exit the Window.</summary>
         private void EndBattle()
         {
-            battleEnded = true;
+            _battleEnded = true;
             btnReturn.IsEnabled = true;
         }
 
@@ -117,13 +105,11 @@ namespace Sulimn
 
         #region Battle Logic
 
-        /// <summary>
-        /// Starts a new round of battle.
-        /// </summary>
+        /// <summary>Starts a new round of battle.</summary>
         /// <param name="heroAction">Action the hero chose to perform this round</param>
         private void NewRound(BattleAction heroAction)
         {
-            DisableButtons();
+            ToggleButtons(false);
             _heroAction = heroAction;
 
             // if Hero Dexterity is greater
@@ -133,13 +119,12 @@ namespace Sulimn
             // 10% chance to hit/miss no matter how big the difference is between the two
 
             int chanceHeroAttacksFirst = GameState.CurrentHero.Attributes.Dexterity > GameState.CurrentEnemy.Attributes.Dexterity ? Functions.GenerateRandomNumber(51, 90) : Functions.GenerateRandomNumber(10, 49);
-
             int attacksFirst = Functions.GenerateRandomNumber(1, 100);
 
             if (attacksFirst <= chanceHeroAttacksFirst)
             {
                 HeroTurn();
-                if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0 && !battleEnded)
+                if (GameState.CurrentEnemy.Statistics.CurrentHealth > 0 && !_battleEnded)
                 {
                     EnemyTurn();
                     if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
@@ -149,7 +134,7 @@ namespace Sulimn
             else
             {
                 EnemyTurn();
-                if (GameState.CurrentHero.Statistics.CurrentHealth > 0 && !battleEnded)
+                if (GameState.CurrentHero.Statistics.CurrentHealth > 0 && !_battleEnded)
                     HeroTurn();
                 else if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
                     Fairy();
@@ -158,9 +143,7 @@ namespace Sulimn
             CheckButtons();
         }
 
-        /// <summary>
-        /// The Hero's turn this round of battle.
-        /// </summary>
+        /// <summary>The Hero's turn this round of battle.</summary>
         private void HeroTurn()
         {
             switch (_heroAction)
@@ -174,24 +157,26 @@ namespace Sulimn
 
                 case BattleAction.Cast:
 
-                    AddTextTT("You cast " + currentSpell.Name + ".");
+                    AddTextTT("You cast " + _currentSpell.Name + ".");
 
-                    if (currentSpell.Type == SpellTypes.Damage)
+                    switch (_currentSpell.Type)
                     {
-                        HeroAttack(GameState.CurrentHero.TotalWisdom, currentSpell.Amount);
-                    }
-                    else if (currentSpell.Type == SpellTypes.Healing)
-                    {
-                        AddTextTT(GameState.CurrentHero.Heal(currentSpell.Amount));
-                    }
-                    else if (currentSpell.Type == SpellTypes.Shield)
-                    {
-                        HeroShield += currentSpell.Amount;
-                        AddTextTT("You now have a magical shield which will help protect you from " + HeroShield +
-                        " damage.");
+                        case SpellTypes.Damage:
+                            HeroAttack(GameState.CurrentHero.TotalWisdom, _currentSpell.Amount);
+                            break;
+
+                        case SpellTypes.Healing:
+                            AddTextTT(GameState.CurrentHero.Heal(_currentSpell.Amount));
+                            break;
+
+                        case SpellTypes.Shield:
+                            HeroShield += _currentSpell.Amount;
+                            AddTextTT("You now have a magical shield which will help protect you from " + HeroShield +
+                                      " damage.");
+                            break;
                     }
 
-                    GameState.CurrentHero.Statistics.CurrentMagic -= currentSpell.MagicCost;
+                    GameState.CurrentHero.Statistics.CurrentMagic -= _currentSpell.MagicCost;
                     break;
 
                 case BattleAction.Flee:
@@ -202,16 +187,12 @@ namespace Sulimn
                         AddTextTT("You successfully fled from the " + GameState.CurrentEnemy.Name + ".");
                     }
                     else
-                    {
                         AddTextTT("The " + GameState.CurrentEnemy.Name + " blocked your attempt to flee.");
-                    }
                     break;
             }
         }
 
-        /// <summary>
-        /// The Hero attacks the Enemy.
-        /// </summary>
+        /// <summary>The Hero attacks the Enemy.</summary>
         /// <param name="statModifier">Stat to be given 20% bonus to damage</param>
         /// <param name="damage">Damage</param>
         private void HeroAttack(int statModifier, int damage)
@@ -226,9 +207,7 @@ namespace Sulimn
             {
                 int maximumHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
                 int maximumEnemyAbsorb = GameState.CurrentEnemy.Equipment.TotalDefense;
-
-                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage, 1,
-                int.MaxValue);
+                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage, 1, int.MaxValue);
                 int actualAbsorb = Functions.GenerateRandomNumber(maximumEnemyAbsorb / 10, maximumEnemyAbsorb);
 
                 string absorb = "";
@@ -249,29 +228,21 @@ namespace Sulimn
                     }
                 }
                 else
-                {
                     AddTextTT("You attack for " + actualDamage + ", but its armor absorbs all of it.");
-                }
             }
             else
-            {
                 AddTextTT("You miss.");
-            }
         }
 
-        /// <summary>
-        /// Sets the current Spell.
-        /// </summary>
+        /// <summary>Sets the current Spell.</summary>
         /// <param name="spell">Spell to be set</param>
         internal void SetSpell(Spell spell)
         {
-            currentSpell = spell;
+            _currentSpell = spell;
             NewRound(BattleAction.Cast);
         }
 
-        /// <summary>
-        /// Sets the Enemy's action for the round.
-        /// </summary>
+        /// <summary>Sets the Enemy's action for the round.</summary>
         private void SetEnemyAction()
         {
             _enemyAction = BattleAction.Attack;
@@ -292,24 +263,16 @@ namespace Sulimn
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (GameState.CurrentEnemy.Statistics.CurrentHealth >
                 GameState.CurrentEnemy.Statistics.MaximumHealth / 3)
-                {
                     _enemyAction = BattleAction.Attack;
-                }
                 else if (GameState.CurrentEnemy.Statistics.CurrentHealth >
                  GameState.CurrentEnemy.Statistics.MaximumHealth / 5)
-                {
                     _enemyAction = result <= 98 ? BattleAction.Attack : BattleAction.Flee;
-                }
                 else
-                {
                     _enemyAction = result <= 95 ? BattleAction.Attack : BattleAction.Flee;
-                }
             }
         }
 
-        /// <summary>
-        /// The Enemy's turn this round of battle.
-        /// </summary>
+        /// <summary>The Enemy's turn this round of battle.</summary>
         private void EnemyTurn()
         {
             SetEnemyAction();
@@ -330,9 +293,7 @@ namespace Sulimn
                         AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience / 2));
                     }
                     else
-                    {
                         AddTextTT("You block the " + GameState.CurrentEnemy.Name + "'s attempt to flee.");
-                    }
                     break;
             }
         }
@@ -375,7 +336,6 @@ namespace Sulimn
 
                 if (actualShieldAbsorb > 0)
                     shield = " Your magical shield absorbs " + actualShieldAbsorb + " damage.";
-
                 if (actualArmorAbsorb > 0)
                     absorb = " Your armor absorbs " + actualArmorAbsorb + " damage. ";
 
@@ -399,31 +359,23 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("The " + GameState.CurrentEnemy.Name + " misses.");
-            }
         }
 
-        /// <summary>
-        /// Determines whether a flight attempt is successful.
-        /// </summary>
+        /// <summary>Determines whether a flight attempt is successful.</summary>
         /// <param name="fleeAttemptDexterity">Whoever is attempting to flee's Dexterity</param>
         /// <param name="blockAttemptDexterity">Whoever is not attempting to flee's Dexterity</param>
-        /// <returns></returns>
-        private bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
+        /// <returns>Returns true if the flight attempt is successful</returns>
+        private static bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
         {
             int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 1,
             90);
             int flee = Functions.GenerateRandomNumber(1, 100);
 
-            if (flee <= chanceToFlee)
-                return true;
-            return false;
+            return flee <= chanceToFlee;
         }
 
-        /// <summary>
-        /// A fairy is summoned to resurrect the Hero.
-        /// </summary>
+        /// <summary>A fairy is summoned to resurrect the Hero.</summary>
         private void Fairy()
         {
             EndBattle();
@@ -439,26 +391,16 @@ namespace Sulimn
         /// <summary>Checks whether to enable/disable battle buttons.</summary>
         private void CheckButtons()
         {
-            if (!battleEnded)
-                EnableButtons();
-            else
-                DisableButtons();
+            ToggleButtons(!_battleEnded);
         }
 
-        /// <summary>Disables battle buttons on Window</summary>
-        private void DisableButtons()
+        /// <summary>Toggles whether the Window's Buttons are enabled.</summary>
+        /// <param name="enabled">Are the buttons enabled?</param>
+        private void ToggleButtons(bool enabled)
         {
-            btnAttack.IsEnabled = false;
-            btnCastSpell.IsEnabled = false;
-            btnFlee.IsEnabled = false;
-        }
-
-        /// <summary>Enables battle buttons on Window</summary>
-        private void EnableButtons()
-        {
-            btnAttack.IsEnabled = true;
-            btnCastSpell.IsEnabled = true;
-            btnFlee.IsEnabled = true;
+            btnAttack.IsEnabled = enabled;
+            btnCastSpell.IsEnabled = enabled;
+            btnFlee.IsEnabled = enabled;
         }
 
         #endregion Button Management
@@ -516,9 +458,9 @@ namespace Sulimn
 
         private async void windowBattle_Closing(object sender, CancelEventArgs e)
         {
-            if (battleEnded)
+            if (_battleEnded)
             {
-                switch (previousWindow)
+                switch (_previousWindow)
                 {
                     case "Explore":
                         RefToExploreWindow.Show();

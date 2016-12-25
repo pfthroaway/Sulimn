@@ -2,9 +2,7 @@
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for SpecialEncounterWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for SpecialEncounterWindow.xaml</summary>
     public partial class SpecialEncounterWindow
     {
         public SpecialEncounterWindow()

@@ -5,13 +5,13 @@ namespace Sulimn
     /// <summary>Represents the attributes an entity has.</summary>
     internal class Attributes : INotifyPropertyChanged
     {
-        protected int _strength, _vitality, _dexterity, _wisdom;
+        private int _strength, _vitality, _dexterity, _wisdom;
 
         #region Data-Binding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }

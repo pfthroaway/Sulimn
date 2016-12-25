@@ -3,16 +3,12 @@ using System.ComponentModel;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a hand of playing cards.
-    /// </summary>
+    /// <summary>Represents a hand of playing cards.</summary>
     internal class Hand : INotifyPropertyChanged
     {
         private List<Card> _cardList = new List<Card>();
 
-        /// <summary>
-        /// Total value of Cards in Hand.
-        /// </summary>
+        /// <summary>Total value of Cards in Hand.</summary>
         /// <returns>Total value</returns>
         internal int TotalValue()
         {
@@ -24,6 +20,7 @@ namespace Sulimn
 
         #region Properties
 
+        /// <summary>List of cards in the hand.</summary>
         public List<Card> CardList
         {
             get { return _cardList; }
@@ -43,7 +40,7 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -52,16 +49,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Hand.
-        /// </summary>
+        /// <summary>Initializes a default instance of Hand.</summary>
         internal Hand()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Hand by assigning the list of Cards.
-        /// </summary>
+        /// <summary>Initializes an instance of Hand by assigning the list of Cards.</summary>
         /// <param name="cardList">List of Cards</param>
         internal Hand(List<Card> cardList)
         {

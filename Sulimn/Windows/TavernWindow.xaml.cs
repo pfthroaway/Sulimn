@@ -3,12 +3,10 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for TavernWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for TavernWindow.xaml</summary>
     public partial class TavernWindow
     {
-        internal CityWindow RefToCityWindow { get; set; }
+        internal CityWindow RefToCityWindow { private get; set; }
 
         #region Button-Click Methods
 
@@ -35,9 +33,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();

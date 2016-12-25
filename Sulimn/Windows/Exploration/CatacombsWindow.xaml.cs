@@ -4,16 +4,12 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for CatacombsWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for CatacombsWindow.xaml</summary>
     public partial class CatacombsWindow
     {
-        internal ExploreWindow RefToExploreWindow { get; set; }
+        internal ExploreWindow RefToExploreWindow { private get; set; }
 
-        /// <summary>
-        /// Adds text to the txtCatacombs TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtCatacombs TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
@@ -24,9 +20,7 @@ namespace Sulimn
             txtCatacombs.ScrollToEnd();
         }
 
-        /// <summary>
-        /// Starts a battle.
-        /// </summary>
+        /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
             BattleWindow battleWindow = new BattleWindow { RefToCatacombsWindow = this };
@@ -43,13 +37,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindGold(400, 800));
-                }
                 else if (result <= 40)
-                {
                     AddTextTT(await GameState.EventFindItem(500, 1000));
-                }
                 else
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Necromancer", "Priest", "Dark Priest", "Adventurer",
@@ -58,9 +48,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnShantytown_Click(object sender, RoutedEventArgs e)
@@ -69,13 +57,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                {
                     AddTextTT(await GameState.EventFindGold(50, 200));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(100, 300));
-                }
                 else
                 {
                     GameState.EventEncounterEnemy("Beggar", "Thief", "Butcher", "Squire", "Adventurer", "Knave",
@@ -84,9 +68,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnRavine_Click(object sender, RoutedEventArgs e)
@@ -95,13 +77,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
-                {
                     AddTextTT(await GameState.EventFindGold(400, 800));
-                }
                 else if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindItem(500, 1000));
-                }
                 else
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Necromancer", "Priest", "Dark Priest", "Adventurer",
@@ -110,9 +88,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnAqueduct_Click(object sender, RoutedEventArgs e)
@@ -121,13 +97,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
-                {
                     AddTextTT(await GameState.EventFindGold(450, 900));
-                }
                 else if (result <= 20)
-                {
                     AddTextTT(await GameState.EventFindItem(500, 1000));
-                }
                 else
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Necromancer", "Priest", "Dark Priest", "Adventurer",
@@ -136,9 +108,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -150,9 +120,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();

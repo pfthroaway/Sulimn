@@ -7,24 +7,22 @@ using System.Windows.Controls;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for SilverEmpireWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for SilverEmpireWindow.xaml</summary>
     public partial class SilverEmpireWindow : INotifyPropertyChanged
     {
-        private readonly string nl = Environment.NewLine;
-        private List<Ring> purchaseRing = new List<Ring>();
-        private Ring selectedRingPurchase = new Ring();
-        private Ring selectedRingSell = new Ring();
-        private List<Ring> sellRing = new List<Ring>();
+        private readonly string _nl = Environment.NewLine;
+        private List<Ring> _purchaseRing = new List<Ring>();
+        private Ring _selectedRingPurchase = new Ring();
+        private Ring _selectedRingSell = new Ring();
+        private List<Ring> _sellRing = new List<Ring>();
 
-        internal MarketWindow RefToMarketWindow { get; set; }
+        internal MarketWindow RefToMarketWindow { private get; set; }
 
         /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
-            txtSilverEmpire.Text += nl + nl + newText;
+            txtSilverEmpire.Text += _nl + _nl + newText;
             txtSilverEmpire.Focus();
             txtSilverEmpire.CaretIndex = txtSilverEmpire.Text.Length;
             txtSilverEmpire.ScrollToEnd();
@@ -46,39 +44,39 @@ namespace Sulimn
         {
             if (reload)
             {
-                purchaseRing.Clear();
-                purchaseRing.AddRange(GameState.GetItemsOfType<Ring>().Where(ring => ring.IsSold));
-                purchaseRing = purchaseRing.OrderBy(ring => ring.Value).ToList();
-                lstRingPurchase.ItemsSource = purchaseRing;
+                _purchaseRing.Clear();
+                _purchaseRing.AddRange(GameState.GetItemsOfType<Ring>().Where(ring => ring.IsSold));
+                _purchaseRing = _purchaseRing.OrderBy(ring => ring.Value).ToList();
+                lstRingPurchase.ItemsSource = _purchaseRing;
                 lstRingPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 lstRingPurchase.Items.Refresh();
             }
-            lblRingNamePurchase.DataContext = selectedRingPurchase;
-            lblRingBonusPurchase.DataContext = selectedRingPurchase;
-            lblRingDescriptionPurchase.DataContext = selectedRingPurchase;
-            lblRingSellablePurchase.DataContext = selectedRingPurchase;
-            lblRingValuePurchase.DataContext = selectedRingPurchase;
+            lblRingNamePurchase.DataContext = _selectedRingPurchase;
+            lblRingBonusPurchase.DataContext = _selectedRingPurchase;
+            lblRingDescriptionPurchase.DataContext = _selectedRingPurchase;
+            lblRingSellablePurchase.DataContext = _selectedRingPurchase;
+            lblRingValuePurchase.DataContext = _selectedRingPurchase;
         }
 
         private void BindRingSell(bool reload = true)
         {
             if (reload)
             {
-                sellRing.Clear();
-                sellRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
-                sellRing = sellRing.OrderBy(ring => ring.Value).ToList();
-                lstRingSell.ItemsSource = sellRing;
+                _sellRing.Clear();
+                _sellRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
+                _sellRing = _sellRing.OrderBy(ring => ring.Value).ToList();
+                lstRingSell.ItemsSource = _sellRing;
                 lstRingSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
                 lstRingSell.Items.Refresh();
             }
-            lblRingNameSell.DataContext = selectedRingSell;
-            lblRingBonusSell.DataContext = selectedRingSell;
-            lblRingDescriptionSell.DataContext = selectedRingSell;
-            lblRingSellableSell.DataContext = selectedRingSell;
-            lblRingValueSell.DataContext = selectedRingSell;
+            lblRingNameSell.DataContext = _selectedRingSell;
+            lblRingBonusSell.DataContext = _selectedRingSell;
+            lblRingDescriptionSell.DataContext = _selectedRingSell;
+            lblRingSellableSell.DataContext = _selectedRingSell;
+            lblRingValueSell.DataContext = _selectedRingSell;
         }
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -108,7 +106,7 @@ namespace Sulimn
 
         /// <summary>Purchases selected Item.</summary>
         /// <param name="itmPurchase">Item to be purchased</param>
-        /// <returns></returns>
+        /// <returns>Returns text regarding purchase</returns>
         private string Purchase(Item itmPurchase)
         {
             GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
@@ -120,7 +118,7 @@ namespace Sulimn
 
         /// <summary>Sells selected Item.</summary>
         /// <param name="itmSell">Item to be sold</param>
-        /// <returns></returns>
+        /// <returns>Returns text regarding sale</returns>
         private string Sell(Item itmSell)
         {
             GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
@@ -135,13 +133,13 @@ namespace Sulimn
 
         private void btnRingPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(selectedRingPurchase));
+            AddTextTT(Purchase(_selectedRingPurchase));
             lstRingPurchase.UnselectAll();
         }
 
         private void btnRingSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(selectedRingSell));
+            AddTextTT(Sell(_selectedRingSell));
             lstRingSell.UnselectAll();
         }
 
@@ -151,32 +149,19 @@ namespace Sulimn
 
         private void lstRingPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstRingPurchase.SelectedIndex >= 0)
-            {
-                selectedRingPurchase = (Ring)lstRingPurchase.SelectedValue;
+            _selectedRingPurchase = lstRingPurchase.SelectedIndex >= 0
+                ? (Ring)lstRingPurchase.SelectedValue
+                : new Ring();
 
-                btnRingPurchase.IsEnabled = selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
-            }
-            else
-            {
-                selectedRingPurchase = new Ring();
-                btnRingPurchase.IsEnabled = false;
-            }
+            btnRingPurchase.IsEnabled = _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindRingPurchase(false);
         }
 
         private void lstRingSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstRingSell.SelectedIndex >= 0)
-            {
-                selectedRingSell = (Ring)lstRingSell.SelectedValue;
-                btnRingSell.IsEnabled = selectedRingSell.CanSell;
-            }
-            else
-            {
-                selectedRingSell = new Ring();
-                btnRingSell.IsEnabled = false;
-            }
+            _selectedRingSell = lstRingSell.SelectedIndex >= 0 ? (Ring)lstRingSell.SelectedValue : new Ring();
+
+            btnRingSell.IsEnabled = _selectedRingSell.CanSell;
             BindRingSell(false);
         }
 

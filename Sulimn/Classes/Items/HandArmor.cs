@@ -180,7 +180,7 @@ namespace Sulimn
 
         #region Override Operators
 
-        public static bool Equals(HandArmor left, HandArmor right)
+        private static bool Equals(HandArmor left, HandArmor right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;

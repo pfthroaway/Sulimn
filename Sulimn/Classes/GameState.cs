@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace Sulimn
 {
+    /// <summary>Represents the current state of the game.</summary>
     internal static class GameState
     {
         private const string _DBPROVIDERANDSOURCE = "Data Source = Sulimn.sqlite;Version=3";
@@ -15,12 +16,12 @@ namespace Sulimn
         internal static string AdminPassword = "";
         internal static Hero CurrentHero = new Hero();
         internal static Enemy CurrentEnemy = new Enemy();
-        internal static Hero MaximumStatsHero = new Hero();
+        private static readonly Hero MaximumStatsHero = new Hero();
         internal static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
-        internal static List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
+        private static List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
         internal static List<BodyArmor> AllBodyArmor = new List<BodyArmor>();
-        internal static List<HandArmor> AllHandArmor = new List<HandArmor>();
+        private static List<HandArmor> AllHandArmor = new List<HandArmor>();
         internal static List<LegArmor> AllLegArmor = new List<LegArmor>();
         internal static List<FeetArmor> AllFeetArmor = new List<FeetArmor>();
         internal static List<Ring> AllRings = new List<Ring>();
@@ -37,12 +38,10 @@ namespace Sulimn
         internal static LegArmor DefaultLegs = new LegArmor();
         internal static FeetArmor DefaultFeet = new FeetArmor();
 
-        /// <summary>
-        /// Determines whether a Hero's credentials are authentic.
-        /// </summary>
+        /// <summary>Determines whether a Hero's credentials are authentic.</summary>
         /// <param name="username">Hero's name</param>
         /// <param name="password">Hero's password</param>
-        /// <returns></returns>
+        /// <returns>Returns true if valid login</returns>
         internal static bool CheckLogin(string username, string password)
         {
             try
@@ -53,19 +52,17 @@ namespace Sulimn
                     CurrentHero = new Hero(checkHero);
                     return true;
                 }
-                MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                new Notification("Invalid login.", "Sulimn", NotificationButtons.OK).ShowDialog();
                 return false;
             }
             catch (Exception)
             {
-                MessageBox.Show("Invalid login.", "Sulimn", MessageBoxButton.OK);
+                new Notification("Invalid login.", "Sulimn", NotificationButtons.OK).ShowDialog();
                 return false;
             }
         }
 
-        /// <summary>
-        /// Loads almost everything from the database.
-        /// </summary>
+        /// <summary>Loads almost everything from the database.</summary>
         internal static async Task LoadAll()
         {
             SQLiteConnection con = new SQLiteConnection();
@@ -83,13 +80,13 @@ namespace Sulimn
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
                         HeroClass newClass = new HeroClass(
-            ds.Tables[0].Rows[i]["ClassName"].ToString(),
-            ds.Tables[0].Rows[i]["ClassDescription"].ToString(),
-            Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
-            Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-            Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-            Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-            Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]));
+            name: ds.Tables[0].Rows[i]["ClassName"].ToString(),
+            description: ds.Tables[0].Rows[i]["ClassDescription"].ToString(),
+            skillPoints: Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
+            strength: Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
+            vitality: Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
+            dexterity: Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
+            wisdom: Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]));
 
                         AllClasses.Add(newClass);
                     }
@@ -499,7 +496,7 @@ namespace Sulimn
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Filling DataSet", MessageBoxButton.OK);
+                    new Notification(ex.Message, "Error Filling DataSet", NotificationButtons.OK).ShowDialog();
                 }
                 finally
                 {
@@ -508,9 +505,7 @@ namespace Sulimn
             });
         }
 
-        /// <summary>
-        /// Gets a specific Enemy based on its name.
-        /// </summary>
+        /// <summary>Gets a specific Enemy based on its name.</summary>
         /// <param name="name">Name of Enemy</param>
         /// <returns>Enemy</returns>
         internal static Enemy GetEnemy(string name)
@@ -518,9 +513,7 @@ namespace Sulimn
             return new Enemy(AllEnemies.Find(enemy => enemy.Name == name));
         }
 
-        /// <summary>
-        /// Gets a specific Item based on its name.
-        /// </summary>
+        /// <summary>Gets a specific Item based on its name.</summary>
         /// <param name="name">Item name</param>
         /// <returns>Item</returns>
         internal static Item GetItem(string name)
@@ -530,9 +523,7 @@ namespace Sulimn
 
         #region Item Management
 
-        /// <summary>
-        /// Retrieves a List of all Items of specified Type.
-        /// </summary>
+        /// <summary>Retrieves a List of all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
         /// <returns>List of specified Type.</returns>
         public static List<T> GetItemsOfType<T>()
@@ -541,9 +532,7 @@ namespace Sulimn
             return newList;
         }
 
-        /// <summary>
-        /// Sets the Hero's inventory.
-        /// </summary>
+        /// <summary>Sets the Hero's inventory.</summary>
         /// <param name="inventory">Inventory to be converted</param>
         /// <param name="gold">Gold in the inventory</param>
         /// <returns>Inventory List</returns>
@@ -561,9 +550,7 @@ namespace Sulimn
             return new Inventory(itemList, gold);
         }
 
-        /// <summary>
-        /// Sets the list of the Hero's known spells.
-        /// </summary>
+        /// <summary>Sets the list of the Hero's known spells.</summary>
         /// <param name="spells">String list of spells</param>
         /// <returns>List of known Spells</returns>
         private static Spellbook SetSpellbook(string spells)
@@ -584,6 +571,9 @@ namespace Sulimn
 
         #region Hero Saving
 
+        /// <summary>Creates a new Hero and adds it to the database.</summary>
+        /// <param name="newHero">New Hero</param>
+        /// <returns>Returns true if successfully created</returns>
         internal static async Task<bool> NewHero(Hero newHero)
         {
             bool success = false;
@@ -654,7 +644,7 @@ namespace Sulimn
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Creating New Hero", MessageBoxButton.OK);
+                    new Notification(ex.Message, "Error Creating New Hero", NotificationButtons.OK).ShowDialog();
                 }
                 finally
                 {
@@ -664,9 +654,9 @@ namespace Sulimn
             return success;
         }
 
-        /// <summary>
-        /// Saves Hero to database.
-        /// </summary>
+        /// <summary>Saves Hero to database.</summary>
+        /// <param name="saveHero">Hero to be saved</param>
+        /// <returns>Returns true if successfully saved</returns>
         internal static async Task<bool> SaveHero(Hero saveHero)
         {
             bool success = false;
@@ -719,7 +709,7 @@ namespace Sulimn
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Saving Hero", MessageBoxButton.OK);
+                    new Notification(ex.Message, "Error Saving Hero", NotificationButtons.OK).ShowDialog();
                 }
                 finally
                 {
@@ -729,9 +719,7 @@ namespace Sulimn
             return success;
         }
 
-        /// <summary>
-        /// Saves the Hero's bank information.
-        /// </summary>
+        /// <summary>Saves the Hero's bank information.</summary>
         /// <param name="goldInBank">Gold in the bank</param>
         /// <param name="loanTaken">Loan taken out</param>
         internal static async void SaveHeroBank(int goldInBank, int loanTaken)
@@ -754,7 +742,7 @@ namespace Sulimn
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Saving Hero Bank", MessageBoxButton.OK);
+                    new Notification(ex.Message, "Error Saving Hero Bank", NotificationButtons.OK).ShowDialog();
                 }
                 finally
                 {
@@ -763,9 +751,7 @@ namespace Sulimn
             });
         }
 
-        /// <summary>
-        /// Saves the Hero's password to the database.
-        /// </summary>
+        /// <summary>Saves the Hero's password to the database.</summary>
         /// <param name="saveHero">Hero whose password needs to be saved</param>
         internal static async void SaveHeroPassword(Hero saveHero)
         {
@@ -788,7 +774,7 @@ namespace Sulimn
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Saving Hero Password", MessageBoxButton.OK);
+                    new Notification(ex.Message, "Error Saving Hero Password", NotificationButtons.OK).ShowDialog();
                 }
                 finally
                 {
@@ -801,9 +787,10 @@ namespace Sulimn
 
         #region Exploration Events
 
-        /// <summary>
-        /// Event where the Hero finds gold.
-        /// </summary>
+        /// <summary>Event where the Hero finds gold.</summary>
+        /// <param name="minGold">Minimum amount of gold to be found</param>
+        /// <param name="maxGold">Maximum amount of gold to be found</param>
+        /// <returns>Returns text regarding gold found</returns>
         internal static async Task<string> EventFindGold(int minGold, int maxGold)
         {
             int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
@@ -812,13 +799,11 @@ namespace Sulimn
             return "You find " + foundGold.ToString("N0") + " gold!";
         }
 
-        /// <summary>
-        /// Event where the Hero finds an item.
-        /// </summary>
+        /// <summary>Event where the Hero finds an item.</summary>
         /// <param name="minValue">Minimum value of Item</param>
         /// <param name="maxValue">Maximum value of Item</param>
         /// <param name="canSell">Can the item be sold?</param>
-        /// <returns></returns>
+        /// <returns>Returns text about found Item</returns>
         internal static async Task<string> EventFindItem(int minValue, int maxValue, bool canSell = true)
         {
             List<Item> availableItems = AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold).ToList();
@@ -829,7 +814,10 @@ namespace Sulimn
             return "You find a " + availableItems[item].Name + "!";
         }
 
-        internal static async void EventFindItem(params string[] names)
+        /// <summary>Event where the Hero finds an item.</summary>
+        /// <param name="names">List of names of available Items</param>
+        /// <returns>Returns text about found Item</returns>
+        internal static async Task<string> EventFindItem(params string[] names)
         {
             List<Item> availableItems = new List<Item>();
             foreach (string name in names)
@@ -839,11 +827,10 @@ namespace Sulimn
             CurrentHero.Inventory.AddItem(availableItems[item]);
 
             await SaveHero(CurrentHero);
+            return "You find a " + availableItems[item].Name + "!";
         }
 
-        /// <summary>
-        /// Event where the Hero encounters a hostile animal.
-        /// </summary>
+        /// <summary>Event where the Hero encounters a hostile animal.</summary>
         /// <param name="minLevel">Minimum level of animal</param>
         /// <param name="maxLevel">Maximum level of animal</param>
         internal static void EventEncounterAnimal(int minLevel, int maxLevel)
@@ -853,9 +840,7 @@ namespace Sulimn
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
         }
 
-        /// <summary>
-        /// Event where the Hero encounters a hostile Enemy.
-        /// </summary>
+        /// <summary>Event where the Hero encounters a hostile Enemy.</summary>
         /// <param name="minLevel">Minimum level of Enemy.</param>
         /// <param name="maxLevel">Maximum level of Enemy.</param>
         internal static void EventEncounterEnemy(int minLevel, int maxLevel)
@@ -868,9 +853,7 @@ namespace Sulimn
                 CurrentEnemy.Inventory.Gold);
         }
 
-        /// <summary>
-        /// Event where the Hero encounters a hostile Enemy.
-        /// </summary>
+        /// <summary>Event where the Hero encounters a hostile Enemy.</summary>
         /// <param name="names">Array of names</param>
         internal static void EventEncounterEnemy(params string[] names)
         {
@@ -884,9 +867,7 @@ namespace Sulimn
                 CurrentEnemy.Inventory.Gold);
         }
 
-        /// <summary>
-        /// Event where the Hero encounters a water stream and restores health and magic.
-        /// </summary>
+        /// <summary>Event where the Hero encounters a water stream and restores health and magic.</summary>
         /// <returns>String saying Hero has been healed</returns>
         internal static string EventEncounterStream()
         {

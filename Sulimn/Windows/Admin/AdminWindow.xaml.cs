@@ -6,7 +6,7 @@ namespace Sulimn
     /// <summary>Interaction logic for AdminWindow.xaml</summary>
     public partial class AdminWindow
     {
-        internal MainWindow RefToMainWindow { get; set; }
+        internal MainWindow RefToMainWindow { private get; set; }
 
         #region Button-Click Methods
 

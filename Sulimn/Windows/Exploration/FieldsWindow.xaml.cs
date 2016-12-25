@@ -4,16 +4,12 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for FieldsWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for FieldsWindow.xaml</summary>
     public partial class FieldsWindow
     {
-        internal ExploreWindow RefToExploreWindow { get; set; }
+        internal ExploreWindow RefToExploreWindow { private get; set; }
 
-        /// <summary>
-        /// Adds text to the txtFields TextBox.
-        /// </summary>
+        /// <summary>Adds text to the txtFields TextBox.</summary>
         /// <param name="newText">Text to be added</param>
         private void AddTextTT(string newText)
         {
@@ -24,9 +20,7 @@ namespace Sulimn
             txtFields.ScrollToEnd();
         }
 
-        /// <summary>
-        /// Starts a battle.
-        /// </summary>
+        /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
             BattleWindow battleWindow = new BattleWindow { RefToFieldsWindow = this };
@@ -43,13 +37,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                {
                     AddTextTT(await GameState.EventFindGold(1, 100));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(1, 200));
-                }
                 else if (result <= 65)
                 {
                     GameState.EventEncounterAnimal(1, 3);
@@ -62,9 +52,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnCellar_Click(object sender, RoutedEventArgs e)
@@ -73,13 +61,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                {
                     AddTextTT(await GameState.EventFindGold(1, 150));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(1, 250));
-                }
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake");
@@ -92,9 +76,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnCropFields_Click(object sender, RoutedEventArgs e)
@@ -103,13 +85,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 5)
-                {
                     AddTextTT(await GameState.EventFindGold(25, 200));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(1, 300));
-                }
                 else if (result <= 65)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
@@ -122,9 +100,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private async void btnOrchard_Click(object sender, RoutedEventArgs e)
@@ -133,13 +109,9 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 15)
-                {
                     AddTextTT(await GameState.EventFindGold(50, 250));
-                }
                 else if (result <= 30)
-                {
                     AddTextTT(await GameState.EventFindItem(1, 350));
-                }
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Rabbit", "Snake", "Mangy Dog", "Chicken");
@@ -152,9 +124,7 @@ namespace Sulimn
                 }
             }
             else
-            {
                 AddTextTT("You need to heal before you can explore.");
-            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -166,9 +136,7 @@ namespace Sulimn
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();

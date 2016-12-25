@@ -3,28 +3,18 @@ using System.ComponentModel;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents the Class of a Hero.
-    /// </summary>
+    /// <summary>Represents the Class of a Hero.</summary>
     internal class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
     {
         private string _name, _description;
 
-        private int _skillPoints,
-        _strength,
-        _vitality,
-        _dexterity,
-        _wisdom,
-        _currentHealth,
-        _maximumHealth,
-        _currentMagic,
-        _maximumMagic;
+        private int _skillPoints, _strength, _vitality, _dexterity, _wisdom, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
 
         #region Data-Binding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -33,6 +23,7 @@ namespace Sulimn
 
         #region Properties
 
+        /// <summary>Name of the Class.</summary>
         public string Name
         {
             get { return _name; }
@@ -43,6 +34,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Description of the Class.</summary>
         public string Description
         {
             get { return _description; }
@@ -53,6 +45,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Maximum number of skill points a Class can have when initially being assigned.</summary>
         public int SkillPoints
         {
             get { return _skillPoints; }
@@ -63,6 +56,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Maximum number of skill points a Class can have when initially being assigned, with thousands separator.</summary>
         public string SkillPointsToString
         {
             get
@@ -73,6 +67,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of Strength the Class has by default.</summary>
         public int Strength
         {
             get { return _strength; }
@@ -83,6 +78,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of Vitality the Class has by default.</summary>
         public int Vitality
         {
             get { return _vitality; }
@@ -95,6 +91,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of Dexterity the Class has by default.</summary>
         public int Dexterity
         {
             get { return _dexterity; }
@@ -105,6 +102,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of Wisdom the Class has by default.</summary>
         public int Wisdom
         {
             get { return _wisdom; }
@@ -117,6 +115,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of current health the Class has.</summary>
         public int CurrentHealth
         {
             get { return _currentHealth; }
@@ -127,6 +126,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of maximum health the Class has.</summary>
         public int MaximumHealth
         {
             get { return _maximumHealth; }
@@ -137,6 +137,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of current magic the Class has.</summary>
         public int CurrentMagic
         {
             get { return _currentMagic; }
@@ -147,6 +148,7 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Amount of maximum magic the Class has.</summary>
         public int MaximumMagic
         {
             get { return _maximumMagic; }
@@ -157,15 +159,17 @@ namespace Sulimn
             }
         }
 
-        public string HealthToString => CurrentHealth + " / " + MaximumHealth;
+        /// <summary>Amount of health the Class has, formatted.</summary>
+        public string HealthToString => CurrentHealth.ToString("N0") + " / " + MaximumHealth.ToString("N0");
 
-        public string MagicToString => CurrentMagic + " / " + MaximumMagic;
+        /// <summary>Amount of magic the Class has, formatted.</summary>
+        public string MagicToString => CurrentMagic.ToString("N0") + " / " + MaximumMagic.ToString("N0");
 
         #endregion Properties
 
         #region Override Operators
 
-        public static bool Equals(HeroClass left, HeroClass right)
+        private static bool Equals(HeroClass left, HeroClass right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
@@ -209,16 +213,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of HeroClass.
-        /// </summary>
+        /// <summary>Initializes a default instance of HeroClass.</summary>
         internal HeroClass()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of HeroClass by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of HeroClass by assigning Properties.</summary>
         /// <param name="name">Name of HeroClass</param>
         /// <param name="description">Description of HeroClass</param>
         /// <param name="skillPoints">Skill Points</param>
@@ -238,9 +238,7 @@ namespace Sulimn
             Wisdom = wisdom;
         }
 
-        /// <summary>
-        /// Replaces this instance of HeroClass with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of HeroClass with another instance.</summary>
         /// <param name="otherClass">Instance of HeroClass to replace this instance</param>
         internal HeroClass(HeroClass otherClass)
         {

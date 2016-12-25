@@ -126,7 +126,7 @@ namespace Sulimn
 
         #region Override Operators
 
-        public static bool Equals(Food left, Food right)
+        private static bool Equals(Food left, Food right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;

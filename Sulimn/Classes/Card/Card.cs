@@ -3,9 +3,7 @@ using System.ComponentModel;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a playing card.
-    /// </summary>
+    /// <summary>Represents a playing card.</summary>
     internal class Card : INotifyPropertyChanged, IEquatable<Card>
     {
         private string _name;
@@ -56,7 +54,7 @@ namespace Sulimn
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
+        private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
@@ -65,7 +63,7 @@ namespace Sulimn
 
         #region Override Operators
 
-        public static bool Equals(Card left, Card right)
+        private static bool Equals(Card left, Card right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
@@ -107,16 +105,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Card.
-        /// </summary>
+        /// <summary>Initializes a default instance of Card.</summary>
         internal Card()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Card by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of Card by assigning Properties.</summary>
         /// <param name="name">Name of Card</param>
         /// <param name="suit">Suit of Card</param>
         /// <param name="value">Value of Card</param>
@@ -127,9 +121,7 @@ namespace Sulimn
             Value = value;
         }
 
-        /// <summary>
-        /// Replaces this instance of Card with another instance.
-        /// </summary>
+        /// <summary>Replaces this instance of Card with another instance.</summary>
         /// <param name="otherCard">Instance to replace this instance</param>
         internal Card(Card otherCard)
         {

@@ -1,8 +1,6 @@
 ﻿namespace Sulimn
 {
-    /// <summary>
-    /// Represents living entities in Sulimn.
-    /// </summary>
+    /// <summary>Represents living entities in Sulimn.</summary>
     internal abstract class Character
     {
         protected Attributes _attributes = new Attributes();
