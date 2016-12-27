@@ -9,6 +9,7 @@ namespace Sulimn
         private string _name;
         private CardSuit _suit;
         private int _value;
+        private bool _hidden;
 
         #region Properties
 
@@ -45,8 +46,19 @@ namespace Sulimn
             }
         }
 
+        /// <summary>Should the Card be hidden from the player?</summary>
+        public bool Hidden
+        {
+            get { return _hidden; }
+            set
+            {
+                _hidden = value;
+                OnPropertyChanged("Hidden");
+            }
+        }
+
         /// <summary>Returns the name and suit of the card.</summary>
-        public string CardToString => Name + " of " + Suit;
+        public string CardToString => Hidden ? "?? of ??" : Name + " of " + Suit;
 
         #endregion Properties
 
@@ -68,7 +80,7 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Suit == right.Suit &&
-             left.Value == right.Value;
+             left.Value == right.Value && left.Hidden == right.Hidden;
         }
 
         public sealed override bool Equals(object obj)
@@ -114,11 +126,13 @@ namespace Sulimn
         /// <param name="name">Name of Card</param>
         /// <param name="suit">Suit of Card</param>
         /// <param name="value">Value of Card</param>
-        internal Card(string name, CardSuit suit, int value)
+        /// <param name="hidden">Should the Card be hidden from the player?</param>
+        internal Card(string name, CardSuit suit, int value, bool hidden)
         {
             Name = name;
             Suit = suit;
             Value = value;
+            Hidden = hidden;
         }
 
         /// <summary>Replaces this instance of Card with another instance.</summary>
@@ -128,6 +142,18 @@ namespace Sulimn
             Name = otherCard.Name;
             Suit = otherCard.Suit;
             Value = otherCard.Value;
+            Hidden = otherCard.Hidden;
+        }
+
+        /// <summary>Replaces this instance of Card with another instance.</summary>
+        /// <param name="otherCard">Instance to replace this instance</param>
+        /// <param name="hidden">Should the Card be hidden from the player?</param>
+        internal Card(Card otherCard, bool hidden)
+        {
+            Name = otherCard.Name;
+            Suit = otherCard.Suit;
+            Value = otherCard.Value;
+            Hidden = hidden;
         }
 
         #endregion Constructors

@@ -485,7 +485,8 @@ namespace Sulimn
                     AllItems = AllItems.OrderBy(item => item.Name).ToList();
                     AllEnemies = AllEnemies.OrderBy(enemy => enemy.Name).ToList();
                     AllSpells = AllSpells.OrderBy(spell => spell.Name).ToList();
-                    AllClasses = AllClasses.OrderBy(x => x.Name).ToList();
+                    AllClasses = AllClasses.OrderBy(heroClass => heroClass.Name).ToList();
+                    AllRings = AllRings.OrderBy(ring => ring.Name).ToList();
 
                     DefaultWeapon = AllWeapons.Find(weapon => weapon.Name == "Fists");
                     DefaultHead = AllHeadArmor.Find(armor => armor.Name == "Cloth Helmet");

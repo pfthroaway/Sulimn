@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Sulimn
 {
@@ -8,15 +9,13 @@ namespace Sulimn
     {
         private List<Card> _cardList = new List<Card>();
 
+        /// <summary>Actual value of Cards in Hand.</summary>
+        /// <returns>Actual value</returns>
+        internal int ActualValue => _cardList.Sum(card => card.Value);
+
         /// <summary>Total value of Cards in Hand.</summary>
         /// <returns>Total value</returns>
-        internal int TotalValue()
-        {
-            int total = 0;
-            foreach (Card card in _cardList)
-                total += card.Value;
-            return total;
-        }
+        internal int TotalValue => _cardList.Where(card => !card.Hidden).Sum(card => card.Value);
 
         #region Properties
 
@@ -27,12 +26,12 @@ namespace Sulimn
             set
             {
                 _cardList = value;
-                OnPropertyChanged("CardList");
-                OnPropertyChanged("Value");
+                UpdateProperties();
             }
         }
 
-        public string Value => "Total: " + TotalValue();
+        /// <summary>Current value of the Hand.</summary>
+        public string Value => "Total: " + TotalValue;
 
         #endregion Properties
 
@@ -46,6 +45,46 @@ namespace Sulimn
         }
 
         #endregion Data-Binding
+
+        #region Hand Management
+
+        /// <summary>Adds a Card to the Hand.</summary>
+        /// <param name="newCard">Card to be added.</param>
+        internal void AddCard(Card newCard)
+        {
+            CardList.Add(newCard);
+            UpdateProperties();
+        }
+
+        /// <summary>Clears the Hidden state of all Cards in the Hand.</summary>
+        internal void ClearHidden()
+        {
+            foreach (Card card in CardList)
+                card.Hidden = false;
+            UpdateProperties();
+        }
+
+        /// <summary>Converts an 11-valued Ace to be valued at 1.</summary>
+        internal void ConvertAce()
+        {
+            foreach (Card card in CardList)
+                if (card.Value == 11)
+                {
+                    card.Value = 1;
+                    break;
+                }
+            UpdateProperties();
+        }
+
+        /// <summary>Updates the 3 important Properties of the Hand.</summary>
+        private void UpdateProperties()
+        {
+            OnPropertyChanged("CardList");
+            OnPropertyChanged("TotalValue");
+            OnPropertyChanged("Value");
+        }
+
+        #endregion Hand Management
 
         #region Constructors
 

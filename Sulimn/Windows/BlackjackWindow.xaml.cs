@@ -13,7 +13,7 @@ namespace Sulimn
     {
         private readonly List<Card> _cardList = new List<Card>();
         private readonly string _nl = Environment.NewLine;
-        private Hand _playerHand, _dealerHand;
+        private Hand _playerHand = new Hand(), _dealerHand = new Hand();
         private bool _handOver = true;
         private int _index, _bet, _totalWins, _totalLosses, _totalDraws, _totalBetWinnings, _totalBetLosses;
         private readonly int _sidePot = 0;
@@ -25,10 +25,10 @@ namespace Sulimn
             bool keepGoing = true;
 
             while (keepGoing)
-                if (_dealerHand.TotalValue() == 21)
+                if (_dealerHand.ActualValue == 21)
                     keepGoing = false;
-                else if (_dealerHand.TotalValue() >= 17)
-                    if (_dealerHand.TotalValue() > 21 && CheckHasAceEleven(_dealerHand))
+                else if (_dealerHand.ActualValue >= 17)
+                    if (_dealerHand.ActualValue > 21 && CheckHasAceEleven(_dealerHand))
                         ConvertAce(_dealerHand);
                     else
                         keepGoing = false;
@@ -107,16 +107,18 @@ namespace Sulimn
         /// <summary>
         /// Binds information to controls.
         /// </summary>
-        //private void BindLabels()
-        //{
-        //lstPlayer.DisplayMember = "CardToString";
-        //lstPlayer.DataSource = playerHand.CardList;
-        ////lstDealer.DataSource = dealerHand.CardList;
-        //lblPlayerTotal.DataBindings.Add("Text", playerHand, "Value");
-        //lblDealerTotal.DataBindings.Add("Text", dealerHand, "Value");
-        //lblGold.DataBindings.Add("Text", GameState.currentHero, "GoldToString");
-        //lblStatistics.DataBindings.Add("Text", this, "Statistics");
-        //}
+        private void BindLabels()
+        {
+            DataContext = this;
+            lstPlayer.ItemsSource = _playerHand.CardList;
+            lstPlayer.Items.Refresh();
+            lstDealer.ItemsSource = _dealerHand.CardList;
+            lstDealer.Items.Refresh();
+            lblPlayerTotal.DataContext = _playerHand;
+            lblDealerTotal.DataContext = _dealerHand;
+            lblGold.DataContext = GameState.CurrentHero.Inventory;
+        }
+
         private void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -131,7 +133,7 @@ namespace Sulimn
         /// <returns>Returns true if the Hand's value is 21.</returns>
         private static bool CheckBlackjack(Hand checkHand)
         {
-            return checkHand.TotalValue() == 21;
+            return checkHand.TotalValue == 21;
         }
 
         /// <summary>Checks whether the current Hand has gone Bust.</summary>
@@ -139,7 +141,7 @@ namespace Sulimn
         /// <returns>Returns true if Hand has gone Bust.</returns>
         private bool CheckBust(Hand checkHand)
         {
-            return !CheckHasAceEleven(checkHand) && checkHand.TotalValue() > 21;
+            return !CheckHasAceEleven(checkHand) && checkHand.TotalValue > 21;
         }
 
         /// <summary>Checks whether the Player can Double Down with this Hand.</summary>
@@ -149,7 +151,7 @@ namespace Sulimn
         private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit)
         {
             return checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
-                   (checkHand.TotalValue() >= 9 && checkHand.TotalValue() <= 11);
+                   (checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11);
         }
 
         /// <summary>Checks whether the Player can split a specific Hand.</summary>
@@ -183,14 +185,10 @@ namespace Sulimn
 
         /// <summary>Converts the first Ace valued at eleven in the Hand to be valued at one.</summary>
         /// <param name="handConvert">Hand to be converted.</param>
-        private static void ConvertAce(Hand handConvert)
+        private void ConvertAce(Hand handConvert)
         {
-            foreach (Card card in handConvert.CardList)
-                if (card.Value == 11)
-                {
-                    card.Value = 1;
-                    break;
-                }
+            handConvert.ConvertAce();
+            BindLabels();
         }
 
         /// <summary>Creates a deck of Cards.</summary>
@@ -253,16 +251,16 @@ namespace Sulimn
                                 break;
                         }
 
-                        Card newCard = new Card(name, suit, value);
+                        Card newCard = new Card(name, suit, value, false);
                         _cardList.Add(newCard);
                     }
         }
 
         /// <summary>Deals a Card to a specific Hand.</summary>
         /// <param name="handAdd">Hand where Card is to be added.</param>
-        private void DealCard(Hand handAdd)
+        private void DealCard(Hand handAdd, bool hidden = false)
         {
-            handAdd.CardList.Add(_cardList[_index]);
+            handAdd.AddCard(new Card(_cardList[_index], hidden));
             _index++;
         }
 
@@ -282,11 +280,10 @@ namespace Sulimn
                 _cardList.Shuffle();
             }
 
-            for (int i = 0; i < 2; i++)
-            {
-                DealCard(_playerHand);
-                DealCard(_dealerHand);
-            }
+            DealCard(_playerHand);
+            DealCard(_dealerHand);
+            DealCard(_playerHand);
+            DealCard(_dealerHand, true);
             DisplayHand();
         }
 
@@ -297,7 +294,7 @@ namespace Sulimn
         /// <summary>Checks which Buttons should be enabled.</summary>
         private void CheckButtons()
         {
-            ToggleHitStay(_playerHand.TotalValue() < 21);
+            ToggleHitStay(_playerHand.TotalValue < 21);
             btnConvertAce.IsEnabled = CheckHasAceEleven(_playerHand);
         }
 
@@ -341,6 +338,7 @@ namespace Sulimn
             DisplayDealerHand();
             DisablePlayButtons();
             DisplayStatistics();
+            BindLabels();
         }
 
         /// <summary>The game ends with the Player losing.</summary>
@@ -361,13 +359,13 @@ namespace Sulimn
             DealerAction();
             DisplayDealerHand();
 
-            if (_playerHand.TotalValue() > _dealerHand.TotalValue() && !CheckBust(_dealerHand))
+            if (_playerHand.TotalValue > _dealerHand.TotalValue && !CheckBust(_dealerHand))
                 WinBlackjack(_bet);
             else if (CheckBust(_dealerHand))
                 WinBlackjack(_bet);
-            else if (_playerHand.TotalValue() == _dealerHand.TotalValue())
+            else if (_playerHand.TotalValue == _dealerHand.TotalValue)
                 DrawBlackjack();
-            else if (_playerHand.TotalValue() < _dealerHand.TotalValue())
+            else if (_playerHand.TotalValue < _dealerHand.TotalValue)
                 LoseBlackjack(_bet);
         }
 
@@ -399,28 +397,15 @@ namespace Sulimn
         /// <summary>Displays the Dealer's Hand.</summary>
         private void DisplayDealerHand()
         {
-            lstDealer.Items.Clear();
-
-            if (!_handOver)
-            {
-                lstDealer.Items.Add(_dealerHand.CardList[0].Name + " of " + _dealerHand.CardList[0].Suit);
-                lstDealer.Items.Add("?? of ??");
-                lblDealerTotal.Text = _dealerHand.CardList[0].Value.ToString();
-            }
-            else
-            {
-                foreach (Card card in _dealerHand.CardList)
-                    lstDealer.Items.Add(card.Name + " of " + card.Suit);
-
-                lblDealerTotal.Text = _dealerHand.TotalValue().ToString();
-            }
+            if (_handOver)
+                _dealerHand.ClearHidden();
+            BindLabels();
         }
 
         /// <summary>Displays all Cards in both the Player and the Dealer's Hands.</summary>
         private void DisplayHand()
         {
-            DisplayDealerHand();
-            DisplayPlayerHand();
+            BindLabels();
 
             if (!CheckBlackjack(_playerHand) && !CheckBust(_playerHand) && !_handOver) //Player can still play
                 CheckButtons();
@@ -434,7 +419,7 @@ namespace Sulimn
                 if (_playerHand.CardList.Count == 2)
                 {
                     AddTextTT("You have a natural blackjack!");
-                    if (_dealerHand.TotalValue() != 21)
+                    if (_dealerHand.TotalValue != 21)
                         WinBlackjack(Int32Helper.Parse(_bet * 1.5));
                     else
                     {
@@ -454,11 +439,7 @@ namespace Sulimn
         /// <summary>Displays the Player's Hand.</summary>
         private void DisplayPlayerHand()
         {
-            lstPlayer.Items.Clear();
-
-            foreach (Card card in _playerHand.CardList)
-                lstPlayer.Items.Add(card.Name + " of " + card.Suit);
-            lblPlayerTotal.Text = _playerHand.TotalValue().ToString();
+            BindLabels();
         }
 
         /// <summary>Displays the game's statistics.</summary>
@@ -485,13 +466,13 @@ namespace Sulimn
 
         private void btnHit_Click(object sender, RoutedEventArgs e)
         {
-            _playerHand.CardList.Add(new Card(_cardList[_index]));
+            DealCard(_playerHand);
             _index++;
             if (_playerHand.CardList.Count < 5)
                 DisplayHand();
             else
             {
-                if (_playerHand.TotalValue() < 21 || CheckHasAceEleven(_playerHand) && _playerHand.TotalValue() <= 31)
+                if (_playerHand.TotalValue < 21 || CheckHasAceEleven(_playerHand) && _playerHand.TotalValue <= 31)
                 {
                     AddTextTT("Five Card Charlie!");
                     DisplayPlayerHand();
@@ -538,6 +519,7 @@ namespace Sulimn
             txtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat." + _nl + _nl +
             "\"Care to place a bet?\" asks the dealer.";
             txtBet.Focus();
+            BindLabels();
         }
 
         private void txtBet_GotFocus(object sender, RoutedEventArgs e)
@@ -549,7 +531,7 @@ namespace Sulimn
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            IEnumerable<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
             Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
             Key.Escape);
 

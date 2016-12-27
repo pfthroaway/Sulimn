@@ -153,7 +153,7 @@ namespace Sulimn
                 ? (Ring)lstRingPurchase.SelectedValue
                 : new Ring();
 
-            btnRingPurchase.IsEnabled = _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            btnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindRingPurchase(false);
         }
 

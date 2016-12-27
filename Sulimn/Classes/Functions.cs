@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Sulimn
@@ -16,12 +18,47 @@ namespace Sulimn
         /// <summary>Turns several Keyboard.Keys into a list of Keys which can be tested using List.Any.</summary>
         /// <param name="keys">Array of Keys</param>
         /// <returns></returns>
-        internal static List<bool> GetListOfKeys(params Key[] keys)
+        internal static IEnumerable<bool> GetListOfKeys(params Key[] keys)
         {
-            List<bool> allKeys = new List<bool>();
-            foreach (Key key in keys)
-                allKeys.Add(Keyboard.IsKeyDown(key));
-            return allKeys;
+            return keys.Select(Keyboard.IsKeyDown).ToList();
+        }
+
+        /// <summary>Selects all text in passed TextBox.</summary>
+        /// <param name="sender">Object to be cast</param>
+        internal static void TextBoxGotFocus(object sender)
+        {
+            TextBox txt = (TextBox)sender;
+            txt.SelectAll();
+        }
+
+        /// <summary>Selects all text in passed PasswordBox.</summary>
+        /// <param name="sender">Object to be cast</param>
+        internal static void PasswordBoxGotFocus(object sender)
+        {
+            PasswordBox txt = (PasswordBox)sender;
+            txt.SelectAll();
+        }
+
+        /// <summary>Deletes all text in textbox which isn't a letter.</summary>
+        /// <param name="sender">Object to be cast</param>
+        internal static void TextBoxLettersOnly(object sender)
+        {
+            TextBox txt = (TextBox)sender;
+            txt.Text = new string((from c in txt.Text
+                                   where char.IsLetter(c)
+                                   select c).ToArray());
+            txt.CaretIndex = txt.Text.Length;
+        }
+
+        /// <summary>Deletes all text in textbox which isn't a number.</summary>
+        /// <param name="sender">Object to be cast</param>
+        internal static void TextBoxNumbersOnly(object sender)
+        {
+            TextBox txt = (TextBox)sender;
+            txt.Text = new string((from c in txt.Text
+                                   where char.IsDigit(c)
+                                   select c).ToArray());
+            txt.CaretIndex = txt.Text.Length;
         }
 
         #region General Database Manipulation

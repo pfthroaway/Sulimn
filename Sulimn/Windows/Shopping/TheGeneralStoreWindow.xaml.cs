@@ -153,7 +153,7 @@ namespace Sulimn
                 ? (Potion)lstPotionPurchase.SelectedValue
                 : new Potion();
 
-            btnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            btnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value > 0 && _selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindPotionPurchase(false);
         }
 

@@ -110,17 +110,10 @@ namespace Sulimn
 
         private void lstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstSpells.SelectedIndex >= 0)
-            {
-                _selectedSpell = (Spell)lstSpells.SelectedValue;
-                btnPurchase.IsEnabled = _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
+            _selectedSpell = lstSpells.SelectedIndex >= 0 ? (Spell)lstSpells.SelectedValue : new Spell();
+
+            btnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
                                         _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
-            }
-            else
-            {
-                _selectedSpell = new Spell();
-                btnPurchase.IsEnabled = false;
-            }
             BindLabels();
         }
 

@@ -64,29 +64,26 @@ namespace Sulimn
 
         private void txtHeroName_GotFocus(object sender, RoutedEventArgs e)
         {
-            txtHeroName.SelectAll();
+            Functions.TextBoxGotFocus(sender);
         }
 
         private void pswdPassword_GotFocus(object sender, RoutedEventArgs e)
         {
-            pswdPassword.SelectAll();
+            Functions.PasswordBoxGotFocus(sender);
         }
 
         private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key k = e.Key;
 
-            List<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
+            IEnumerable<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
             Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
             Key.Escape);
 
-            if (keys.Any(key => key) || Key.A <= k && k <= Key.Z)
-                //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
-                //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
-                e.Handled = false;
-            else
-                e.Handled = true;
+            e.Handled = !keys.Any(key => key) && (Key.A > k || k > Key.Z);
 
+            //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
+            //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
             //System.Media.SystemSound ss = System.Media.SystemSounds.Beep;
             //ss.Play();
         }
@@ -99,10 +96,7 @@ namespace Sulimn
 
         private void txtHeroName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            txtHeroName.Text = new string((from c in txtHeroName.Text
-                                           where char.IsLetter(c)
-                                           select c).ToArray());
-            txtHeroName.CaretIndex = txtHeroName.Text.Length;
+            Functions.TextBoxLettersOnly(sender);
             TextChanged();
         }
 

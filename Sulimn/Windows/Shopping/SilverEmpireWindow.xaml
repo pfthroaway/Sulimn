@@ -4,7 +4,7 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 mc:Ignorable="d"
-Title="SilverEmpireWindow" ResizeMode="NoResize" Icon="../S.ico" SizeToContent="WidthAndHeight"
+Title="Silver Empire" ResizeMode="NoResize" Icon="../S.ico" SizeToContent="WidthAndHeight"
 WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17"
 Closing="windowSilverEmpire_Closing">
     <Grid Margin="10">

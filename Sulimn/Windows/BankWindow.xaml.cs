@@ -10,9 +10,7 @@ namespace Sulimn
     public partial class BankWindow : INotifyPropertyChanged
     {
         private readonly string _nl = Environment.NewLine;
-        private int _goldInBank;
-        private int _loanAvailable;
-        private int _loanTaken;
+        private int _goldInBank, _loanAvailable, _loanTaken;
 
         internal CityWindow RefToCityWindow { private get; set; }
 

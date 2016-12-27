@@ -298,7 +298,7 @@ DamageToStringWithText, DefenseToStringWithText, StrengthToString, VitalityToStr
 DexterityToString, WisdomToString
 };
 
-                return string.Join(",", bonuses.Where(bonus => bonus.Length > 0));
+                return string.Join(", ", bonuses.Where(bonus => bonus.Length > 0));
             }
         }
 

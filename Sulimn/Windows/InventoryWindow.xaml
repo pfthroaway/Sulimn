@@ -425,20 +425,15 @@ Height="340" Header="Selected Feet" Margin="5">
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="lblSelectedFeet" Grid.Row="0" Width="250" Margin="5"
  Text="{Binding Path=Name}" />
-                            <TextBlock x:Name="lblSelectedFeetDefense" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=DefenseToStringWithText}" />
-                            <TextBlock x:Name="lblSelectedFeetValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
-                            <TextBlock x:Name="lblSelectedFeetSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="lblSelectedFeetDefense" Grid.Row="1" Width="250" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
+                            <TextBlock x:Name="lblSelectedFeetValue" Grid.Row="2" Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                            <TextBlock x:Name="lblSelectedFeetSellable" Grid.Row="3" Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="lblSelectedFeetDescription" Grid.Row="4" Height="67"
  Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
 HorizontalAlignment="Center">
-                                <Button x:Name="btnEquipSelectedFeet" Content="_Equip" Width="100" Height="30"
-Margin="5" Click="btnEquipSelectedFeet_Click" IsEnabled="False" />
-                                <Button x:Name="btnDropSelectedFeet" Content="_Drop" Width="100" Height="30" Margin="5"
-Click="btnDropSelectedFeet_Click" IsEnabled="False" />
+                                <Button x:Name="btnEquipSelectedFeet" Content="_Equip" Width="100" Height="30" Click="btnEquipSelectedFeet_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="btnDropSelectedFeet" Content="_Drop" Width="100" Height="30" Click="btnDropSelectedFeet_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -461,15 +456,12 @@ Header="Equipped Left Ring" Margin="5,5,5,0">
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock x:Name="lblEquippedLeftRing" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
-                                <TextBlock x:Name="lblEquippedLeftRingBonus" Grid.Row="1" Margin="5"
- Text="{Binding Path=BonusToString}" />
-                                <TextBlock x:Name="lblEquippedLeftRingValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
-                                <Button x:Name="btnUnequipLeftRing" Grid.Row="3" Content="_Unequip" Width="100"
-Height="30" VerticalAlignment="Bottom" Margin="5"
-Click="btnUnequipLeftRing_Click" IsEnabled="False" />
+                                <TextBlock x:Name="lblEquippedLeftRing" Grid.Row="0" Width="250" Text="{Binding Path=Name}" Margin="5" />
+                                <TextBlock x:Name="lblEquippedLeftRingBonus" Grid.Row="1" Height="55" Text="{Binding Path=BonusToString}" TextWrapping="Wrap" Margin="5" />
+                                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <TextBlock x:Name="lblEquippedLeftRingValue" Width="138" Text="{Binding Path=ValueToStringWithText}" VerticalAlignment="Center" Margin="5" />
+                                    <Button x:Name="btnUnequipLeftRing" Content="_Unequip" Width="100" Height="30" Click="btnUnequipLeftRing_Click" IsEnabled="False" Margin="5" />
+                                </StackPanel>
                             </Grid>
                         </GroupBox>
                         <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="270" Height="170"
@@ -481,15 +473,12 @@ Header="Equipped Right Ring" Margin="5,0">
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock x:Name="lblEquippedRightRing" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
-                                <TextBlock x:Name="lblEquippedRightRingBonus" Grid.Row="1" Margin="5"
- Text="{Binding Path=BonusToString}" />
-                                <TextBlock x:Name="lblEquippedRightRingValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
-                                <Button x:Name="btnUnequipRightRing" Grid.Row="3" Content="_Unequip" Width="100"
-Height="30" VerticalAlignment="Bottom" Margin="5"
-Click="btnUnequipRightRing_Click" IsEnabled="False" />
+                                <TextBlock x:Name="lblEquippedRightRing" Grid.Row="0" Width="250" Text="{Binding Path=Name}" Margin="5" />
+                                <TextBlock x:Name="lblEquippedRightRingBonus" Grid.Row="1" Height="55" Text="{Binding Path=BonusToString}" TextWrapping="Wrap" Margin="5" />
+                                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <TextBlock x:Name="lblEquippedRightRingValue" Width="138"  Text="{Binding Path=ValueToStringWithText}" VerticalAlignment="Center" Margin="5" />
+                                    <Button x:Name="btnUnequipRightRing" Content="_Unequip" Width="100" Height="30" Click="btnUnequipRightRing_Click" IsEnabled="False" Margin="5" />
+                                </StackPanel>
                             </Grid>
                         </GroupBox>
                     </StackPanel>

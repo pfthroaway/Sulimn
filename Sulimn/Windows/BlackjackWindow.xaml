@@ -15,15 +15,15 @@ WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="windowBlackj
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
             <StackPanel Width="185">
                 <TextBlock Text="Your Cards" TextAlignment="Center" Margin="5" />
-                <ListBox x:Name="lstPlayer" Margin="5" Height="149" />
-                <TextBlock x:Name="lblPlayerTotal" TextAlignment="Center" Margin="5" />
+                <ListBox x:Name="lstPlayer" ItemsSource="{Binding}" Margin="5" Height="149" />
+                <TextBlock x:Name="lblPlayerTotal" Text="{Binding Path=Value, Mode=OneWay}" TextAlignment="Center" Margin="5" />
             </StackPanel>
             <TextBox x:Name="txtBlackjack" Width="326" Height="215" Margin="5" IsReadOnly="True"
  ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" TextWrapping="Wrap" />
             <StackPanel Width="185">
                 <TextBlock Text="Dealer's Cards" TextAlignment="Center" Margin="5" />
-                <ListBox x:Name="lstDealer" Margin="5" Height="149" />
-                <TextBlock x:Name="lblDealerTotal" TextAlignment="Center" Margin="5" />
+                <ListBox x:Name="lstDealer" ItemsSource="{Binding}" Margin="5" Height="149" />
+                <TextBlock x:Name="lblDealerTotal" Text="{Binding Path=Value, Mode=OneWay}" TextAlignment="Center" Margin="5" />
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
@@ -35,7 +35,7 @@ IsEnabled="False" Margin="5" />
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBox x:Name="lblStatistics" Width="160" HorizontalAlignment="Center" Margin="10" IsReadOnly="True"
+            <TextBox x:Name="lblStatistics" Text="{Binding Path=Statistics, Mode=OneWay}" Width="160" HorizontalAlignment="Center" Margin="10" IsReadOnly="True"
  TextWrapping="Wrap" />
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="10">
@@ -44,7 +44,7 @@ IsEnabled="False" Margin="5" />
                 <TextBox x:Name="txtBet" TextAlignment="Center" Margin="5" Width="105"
  PreviewKeyDown="txtBet_PreviewKeyDown" TextChanged="txtBet_TextChanged" MaxLength="6"
  Padding="5" GotFocus="txtBet_GotFocus" />
-                <TextBlock Width="105" x:Name="lblGold" TextAlignment="Center" Margin="5" />
+                <TextBlock x:Name="lblGold" Width="105" Text="{Binding Path=GoldToStringWithText}" TextAlignment="Center" Margin="5" />
             </StackPanel>
             <StackPanel VerticalAlignment="Center">
                 <Button x:Name="btnNewHand" Width="125" Height="30" Content="_New Hand" Click="btnNewHand_Click"
