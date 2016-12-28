@@ -32,7 +32,7 @@ namespace Sulimn
         #region Modifying Properties
 
         /// <summary>List of Items in the inventory.</summary>
-        internal ReadOnlyCollection<Item> Items => new ReadOnlyCollection<Item>(_items);
+        private ReadOnlyCollection<Item> Items => new ReadOnlyCollection<Item>(_items);
 
         /// <summary>Amount of gold in the inventory.</summary>
         public int Gold

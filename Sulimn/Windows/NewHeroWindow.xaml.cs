@@ -108,6 +108,7 @@ namespace Sulimn
             btnVitalityPlus.IsEnabled = enabled;
         }
 
+        /// <summary>Disables attribute Minus Buttons.</summary>
         private void DisableMinus()
         {
             btnDexterityMinus.IsEnabled = false;
@@ -142,7 +143,7 @@ namespace Sulimn
             {
                 new Notification("This username has already been taken. Please choose another.", "Test",
                 NotificationButtons.OK, this).ShowDialog();
-                txtHeroName.SelectAll();
+                txtHeroName.Focus();
             }
             else
             {
@@ -273,37 +274,23 @@ namespace Sulimn
 
         private void txtHeroName_Changed(object sender, TextChangedEventArgs e)
         {
-            txtHeroName.Text = new string((from c in txtHeroName.Text
-                                           where char.IsLetter(c)
-                                           select c).ToArray());
-            txtHeroName.CaretIndex = txtHeroName.Text.Length;
+            Functions.TextBoxTextChanged(sender, KeyType.Letters);
             CheckSkillPoints();
         }
 
         private void txtHeroName_GotFocus(object sender, RoutedEventArgs e)
         {
-            txtHeroName.SelectAll();
+            Functions.TextBoxGotFocus(sender);
         }
 
         private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Key k = e.Key;
-
-            IEnumerable<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
-            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
-            Key.Escape);
-
-            e.Handled = !keys.Any(key => key) && (Key.A > k || k > Key.Z);
+            Functions.PreviewKeyDown(e, KeyType.Letters);
         }
 
-        private void pswdConfirm_GotFocus(object sender, RoutedEventArgs e)
+        private void pswd_GotFocus(object sender, RoutedEventArgs e)
         {
-            pswdConfirm.SelectAll();
-        }
-
-        private void pswdPassword_GotFocus(object sender, RoutedEventArgs e)
-        {
-            pswdPassword.SelectAll();
+            Functions.PasswordBoxGotFocus(sender);
         }
 
         private void pswd_Changed(object sender, RoutedEventArgs e)

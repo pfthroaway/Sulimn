@@ -27,7 +27,7 @@ namespace Sulimn
         public string Name
         {
             get { return _name; }
-            set
+            private set
             {
                 _name = value;
                 OnPropertyChanged("Name");
@@ -119,7 +119,7 @@ namespace Sulimn
         public int CurrentHealth
         {
             get { return _currentHealth; }
-            set
+            private set
             {
                 _currentHealth = value;
                 OnPropertyChanged("HealthToString");
@@ -130,7 +130,7 @@ namespace Sulimn
         public int MaximumHealth
         {
             get { return _maximumHealth; }
-            set
+            private set
             {
                 _maximumHealth = value;
                 OnPropertyChanged("HealthToString");
@@ -141,7 +141,7 @@ namespace Sulimn
         public int CurrentMagic
         {
             get { return _currentMagic; }
-            set
+            private set
             {
                 _currentMagic = value;
                 OnPropertyChanged("MagicToString");
@@ -152,7 +152,7 @@ namespace Sulimn
         public int MaximumMagic
         {
             get { return _maximumMagic; }
-            set
+            private set
             {
                 _maximumMagic = value;
                 OnPropertyChanged("MagicToString");

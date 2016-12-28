@@ -45,14 +45,14 @@ Password:
         </TextBlock>
         <PasswordBox x:Name="pswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Margin="5"
  PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5"
- GotFocus="pswdPassword_GotFocus" />
+ GotFocus="pswd_GotFocus" />
         <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center"
  HorizontalAlignment="Center" Margin="5,5,5,0">
 Confirm Password:
         </TextBlock>
         <PasswordBox x:Name="pswdConfirm" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Width="200" Margin="5"
  PasswordChanged="pswd_Changed" HorizontalContentAlignment="Center" Padding="5"
- GotFocus="pswdConfirm_GotFocus" />
+ GotFocus="pswd_GotFocus" />
         <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center"
  HorizontalAlignment="Center" Text="Select a Class" Margin="5,5,5,0" />
         <ListBox x:Name="lstClasses" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center"

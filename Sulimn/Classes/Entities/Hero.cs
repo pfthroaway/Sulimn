@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Sulimn
 {
@@ -71,7 +70,7 @@ namespace Sulimn
         public HeroClass Class
         {
             get { return _class; }
-            set
+            private set
             {
                 _class = value;
                 OnPropertyChanged("Class");
@@ -151,7 +150,7 @@ namespace Sulimn
         public Spellbook Spellbook
         {
             get { return _spellbook; }
-            set
+            private set
             {
                 _spellbook = value;
                 OnPropertyChanged("KnownSpells");

@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Sulimn
 {
@@ -17,19 +16,19 @@ namespace Sulimn
         internal static Hero CurrentHero = new Hero();
         internal static Enemy CurrentEnemy = new Enemy();
         private static readonly Hero MaximumStatsHero = new Hero();
-        internal static List<Enemy> AllEnemies = new List<Enemy>();
+        private static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
-        private static List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
-        internal static List<BodyArmor> AllBodyArmor = new List<BodyArmor>();
-        private static List<HandArmor> AllHandArmor = new List<HandArmor>();
-        internal static List<LegArmor> AllLegArmor = new List<LegArmor>();
-        internal static List<FeetArmor> AllFeetArmor = new List<FeetArmor>();
-        internal static List<Ring> AllRings = new List<Ring>();
-        internal static List<Weapon> AllWeapons = new List<Weapon>();
-        internal static List<Food> AllFood = new List<Food>();
-        internal static List<Potion> AllPotions = new List<Potion>();
+        private static readonly List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
+        private static readonly List<BodyArmor> AllBodyArmor = new List<BodyArmor>();
+        private static readonly List<HandArmor> AllHandArmor = new List<HandArmor>();
+        private static readonly List<LegArmor> AllLegArmor = new List<LegArmor>();
+        private static readonly List<FeetArmor> AllFeetArmor = new List<FeetArmor>();
+        private static List<Ring> AllRings = new List<Ring>();
+        private static readonly List<Weapon> AllWeapons = new List<Weapon>();
+        private static readonly List<Food> AllFood = new List<Food>();
+        private static readonly List<Potion> AllPotions = new List<Potion>();
         internal static List<Spell> AllSpells = new List<Spell>();
-        internal static List<Hero> AllHeroes = new List<Hero>();
+        internal static readonly List<Hero> AllHeroes = new List<Hero>();
         internal static List<HeroClass> AllClasses = new List<HeroClass>();
         internal static Weapon DefaultWeapon = new Weapon();
         internal static HeadArmor DefaultHead = new HeadArmor();
@@ -509,7 +508,7 @@ namespace Sulimn
         /// <summary>Gets a specific Enemy based on its name.</summary>
         /// <param name="name">Name of Enemy</param>
         /// <returns>Enemy</returns>
-        internal static Enemy GetEnemy(string name)
+        private static Enemy GetEnemy(string name)
         {
             return new Enemy(AllEnemies.Find(enemy => enemy.Name == name));
         }
@@ -517,7 +516,7 @@ namespace Sulimn
         /// <summary>Gets a specific Item based on its name.</summary>
         /// <param name="name">Item name</param>
         /// <returns>Item</returns>
-        internal static Item GetItem(string name)
+        private static Item GetItem(string name)
         {
             return AllItems.Find(itm => itm.Name == name);
         }

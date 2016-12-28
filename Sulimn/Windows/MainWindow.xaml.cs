@@ -74,18 +74,7 @@ namespace Sulimn
 
         private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Key k = e.Key;
-
-            IEnumerable<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
-            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
-            Key.Escape);
-
-            e.Handled = !keys.Any(key => key) && (Key.A > k || k > Key.Z);
-
-            //&& !(Key.D0 <= k && k <= Key.D9) && !(Key.NumPad0 <= k && k <= Key.NumPad9))
-            //|| k == Key.OemMinus || k == Key.Subtract || k == Key.Decimal || k == Key.OemPeriod)
-            //System.Media.SystemSound ss = System.Media.SystemSounds.Beep;
-            //ss.Play();
+            Functions.PreviewKeyDown(e, KeyType.Letters);
         }
 
         /// <summary>Manages TextBox/PasswordBox text being changed.</summary>
@@ -96,7 +85,7 @@ namespace Sulimn
 
         private void txtHeroName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Functions.TextBoxLettersOnly(sender);
+            Functions.TextBoxTextChanged(sender, KeyType.Letters);
             TextChanged();
         }
 

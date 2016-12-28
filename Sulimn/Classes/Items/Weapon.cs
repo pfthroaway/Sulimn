@@ -47,7 +47,7 @@ namespace Sulimn
         public WeaponTypes? WeaponType
         {
             get { return _weaponType; }
-            set
+            private set
             {
                 _weaponType = value;
                 OnPropertyChanged("WeaponType");
@@ -68,7 +68,7 @@ namespace Sulimn
         public int Damage
         {
             get { return _damage; }
-            set
+            private set
             {
                 _damage = value;
                 OnPropertyChanged("DamageToString");

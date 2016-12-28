@@ -7,6 +7,9 @@ namespace Sulimn
     /// </summary>
     internal class Food : Item, IEquatable<Food>
     {
+        private FoodTypes _foodType;
+        private int _amount;
+
         #region Properties
 
         public sealed override string Name
@@ -21,7 +24,11 @@ namespace Sulimn
             set { _type = value; }
         }
 
-        public FoodTypes FoodType { get; set; }
+        public FoodTypes FoodType
+        {
+            get { return _foodType; }
+            private set { _foodType = value; }
+        }
 
         public sealed override string Description
         {
@@ -29,7 +36,11 @@ namespace Sulimn
             set { _description = value; }
         }
 
-        public int Amount { get; set; }
+        public int Amount
+        {
+            get { return _amount; }
+            private set { _amount = value; }
+        }
 
         public sealed override int Weight
         {

@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 namespace Sulimn
 {
     /// <summary>Represents a way to hash passwords.</summary>
-    public class PasswordHash
+    public static class PasswordHash
     {
         private const int SaltByteSize = 24;
         private const int HashByteSize = 20; // to match the size of the PBKDF2-HMAC-SHA-1 hash

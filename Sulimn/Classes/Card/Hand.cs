@@ -23,7 +23,7 @@ namespace Sulimn
         public List<Card> CardList
         {
             get { return _cardList; }
-            set
+            private set
             {
                 _cardList = value;
                 UpdateProperties();

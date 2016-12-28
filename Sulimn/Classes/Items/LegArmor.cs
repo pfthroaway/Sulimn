@@ -5,7 +5,7 @@ namespace Sulimn
 {
     internal class LegArmor : Item, IEquatable<LegArmor>, INotifyPropertyChanged
     {
-        protected int _defense;
+        private int _defense;
 
         #region Data-Binding
 
@@ -57,7 +57,7 @@ namespace Sulimn
         public int Defense
         {
             get { return _defense; }
-            set
+            private set
             {
                 _defense = value;
                 OnPropertyChanged("DefenseToString");

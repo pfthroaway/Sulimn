@@ -40,7 +40,6 @@ namespace Sulimn
             _previousWindow = prevWindow;
             DisplayKnownSpells();
             BindLabels();
-            ClearSpellInfo();
         }
 
         #region Data-Binding
@@ -64,13 +63,6 @@ namespace Sulimn
         #endregion Data-Binding
 
         #region Display Manipulation
-
-        /// <summary>Clears all text from all spell Labels.</summary>
-        private void ClearSpellInfo()
-        {
-            lstSpells.UnselectAll();
-            btnCastSpell.IsEnabled = false;
-        }
 
         /// <summary>Displays list of Hero's known Spells.</summary>
         private void DisplayKnownSpells()
@@ -120,15 +112,11 @@ namespace Sulimn
                 List<Spell> spells = new List<Spell>();
                 spells.AddRange(GameState.CurrentHero.Spellbook.Spells);
                 _selectedSpell = spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
-
-                btnCastSpell.IsEnabled = _selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic;
             }
             else
-            {
                 _selectedSpell = new Spell();
-                btnCastSpell.IsEnabled = false;
-            }
 
+            btnCastSpell.IsEnabled = lstSpells.SelectedIndex >= 0 && _selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic;
             DataContext = _selectedSpell;
         }
 

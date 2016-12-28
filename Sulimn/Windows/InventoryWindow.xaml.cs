@@ -22,7 +22,7 @@ namespace Sulimn
         private List<Weapon> _inventoryWeapon = new List<Weapon>();
         private BodyArmor _selectedBody = new BodyArmor();
         private FeetArmor _selectedFeet = new FeetArmor();
-        private Food _selectedFood = new Food();
+        private readonly Food _selectedFood = new Food();
         private HandArmor _selectedHands = new HandArmor();
         private HeadArmor _selectedHead = new HeadArmor();
         private LegArmor _selectedLegs = new LegArmor();

@@ -7,6 +7,9 @@ namespace Sulimn
     /// </summary>
     internal class Potion : Item, IEquatable<Potion>
     {
+        private PotionTypes _potionType;
+        private int _amount;
+
         #region Properties
 
         public sealed override string Name
@@ -21,7 +24,11 @@ namespace Sulimn
             set { _type = value; }
         }
 
-        public PotionTypes PotionType { get; set; }
+        public PotionTypes PotionType
+        {
+            get { return _potionType; }
+            private set { _potionType = value; }
+        }
 
         public sealed override string Description
         {
@@ -29,7 +36,11 @@ namespace Sulimn
             set { _description = value; }
         }
 
-        public int Amount { get; set; }
+        public int Amount
+        {
+            get { return _amount; }
+            private set { _amount = value; }
+        }
 
         public sealed override int Weight
         {

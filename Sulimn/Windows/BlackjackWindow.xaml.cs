@@ -258,6 +258,7 @@ namespace Sulimn
 
         /// <summary>Deals a Card to a specific Hand.</summary>
         /// <param name="handAdd">Hand where Card is to be added.</param>
+        /// <param name="hidden">Should the Card be hidden?</param>
         private void DealCard(Hand handAdd, bool hidden = false)
         {
             handAdd.AddCard(new Card(_cardList[_index], hidden));
@@ -272,8 +273,7 @@ namespace Sulimn
 
             _handOver = false;
             txtBet.IsEnabled = false;
-            btnNewHand.IsEnabled = false;
-            btnExit.IsEnabled = false;
+            ToggleNewGameExitButtons(false);
             if (_index >= _cardList.Count * 0.8)
             {
                 _index = 0;
@@ -301,11 +301,15 @@ namespace Sulimn
         /// <summary>Disables all the buttons on the Window except for btnNewHand.</summary>
         private void DisablePlayButtons()
         {
-            btnNewHand.IsEnabled = true;
-            btnExit.IsEnabled = true;
-            btnHit.IsEnabled = false;
-            btnStay.IsEnabled = false;
+            ToggleNewGameExitButtons(true);
+            ToggleHitStay(false);
             btnConvertAce.IsEnabled = false;
+        }
+
+        private void ToggleNewGameExitButtons(bool enabled)
+        {
+            btnNewHand.IsEnabled = enabled;
+            btnExit.IsEnabled = enabled;
         }
 
         /// <summary>Toggles the Hit and Stay Buttons' IsEnabled state.</summary>
@@ -524,30 +528,17 @@ namespace Sulimn
 
         private void txtBet_GotFocus(object sender, RoutedEventArgs e)
         {
-            txtBet.SelectAll();
+            Functions.TextBoxGotFocus(sender);
         }
 
         private void txtBet_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Key k = e.Key;
-
-            IEnumerable<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift,
-            Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl,
-            Key.Escape);
-
-            if (keys.Any(key => key) || Key.D0 <= k && k <= Key.D9 || Key.NumPad0 <= k && k <= Key.NumPad9)
-                e.Handled = false;
-            else
-                e.Handled = true;
+            Functions.PreviewKeyDown(e, KeyType.Numbers);
         }
 
         private void txtBet_TextChanged(object sender, TextChangedEventArgs e)
         {
-            txtBet.Text = new string((from c in txtBet.Text
-                                      where char.IsDigit(c)
-                                      select c).ToArray());
-            txtBet.CaretIndex = txtBet.Text.Length;
-
+            Functions.TextBoxTextChanged(sender, KeyType.Numbers);
             btnNewHand.IsEnabled = txtBet.Text.Length > 0;
         }
 

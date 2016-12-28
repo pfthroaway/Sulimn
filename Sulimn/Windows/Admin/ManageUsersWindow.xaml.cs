@@ -5,14 +5,12 @@ using System.Windows.Controls;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for ManageUsersWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for ManageUsersWindow.xaml</summary>
     public partial class ManageUsersWindow : INotifyPropertyChanged
     {
-        private readonly List<Hero> AllHeroes = new List<Hero>(GameState.AllHeroes);
-        private Hero selectedHero = new Hero();
-        internal AdminWindow RefToAdminWindow { get; set; }
+        private readonly List<Hero> _allHeroes = new List<Hero>(GameState.AllHeroes);
+        private Hero _selectedHero = new Hero();
+        internal AdminWindow RefToAdminWindow { private get; set; }
 
         #region Data Binding
 
@@ -27,18 +25,11 @@ namespace Sulimn
 
         #region Button Manipulation
 
-        /// <summary>Enables certain buttons.</summary>
-        private void EnableButtons()
+        /// <summary>Toggles certain buttons.</summary>
+        private void ToggleButtons(bool enabled)
         {
-            btnManageUser.IsEnabled = true;
-            btnDeleteUser.IsEnabled = true;
-        }
-
-        /// <summary>Disables certain buttons.</summary>
-        private void DisableButtons()
-        {
-            btnManageUser.IsEnabled = false;
-            btnDeleteUser.IsEnabled = false;
+            btnManageUser.IsEnabled = enabled;
+            btnDeleteUser.IsEnabled = enabled;
         }
 
         #endregion Button Manipulation
@@ -79,15 +70,12 @@ namespace Sulimn
         public ManageUsersWindow()
         {
             InitializeComponent();
-            lstUsers.ItemsSource = AllHeroes;
+            lstUsers.ItemsSource = _allHeroes;
         }
 
         private void lstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstUsers.SelectedIndex >= 0)
-                EnableButtons();
-            else
-                DisableButtons();
+            ToggleButtons(lstUsers.SelectedIndex >= 0);
         }
 
         private void windowManageUsers_Closing(object sender, CancelEventArgs e)

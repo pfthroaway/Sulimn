@@ -35,15 +35,15 @@ namespace Sulimn
 
         internal ExploreWindow RefToExploreWindow { get; set; }
 
-        internal FieldsWindow RefToFieldsWindow { get; set; }
+        internal FieldsWindow RefToFieldsWindow { private get; set; }
 
-        internal ForestWindow RefToForestWindow { get; set; }
+        internal ForestWindow RefToForestWindow { private get; set; }
 
-        internal CathedralWindow RefToCathedralWindow { get; set; }
+        internal CathedralWindow RefToCathedralWindow { private get; set; }
 
-        internal MinesWindow RefToMinesWindow { get; set; }
+        internal MinesWindow RefToMinesWindow { private get; set; }
 
-        internal CatacombsWindow RefToCatacombsWindow { get; set; }
+        internal CatacombsWindow RefToCatacombsWindow { private get; set; }
 
         public int HeroShield
         {
@@ -207,7 +207,7 @@ namespace Sulimn
             {
                 int maximumHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
                 int maximumEnemyAbsorb = GameState.CurrentEnemy.Equipment.TotalDefense;
-                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage, 1, int.MaxValue);
+                int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage, 1);
                 int actualAbsorb = Functions.GenerateRandomNumber(maximumEnemyAbsorb / 10, maximumEnemyAbsorb);
 
                 string absorb = "";
@@ -314,7 +314,7 @@ namespace Sulimn
                 int maximumDamage =
                 Int32Helper.Parse(statModifier * 0.2 + damage);
                 int heroDefense = GameState.CurrentHero.Equipment.TotalDefense;
-                int actualDamage = Functions.GenerateRandomNumber(maximumDamage / 10, maximumDamage, 1, int.MaxValue);
+                int actualDamage = Functions.GenerateRandomNumber(maximumDamage / 10, maximumDamage, 1);
                 int maximumShieldAbsorb = Functions.GenerateRandomNumber(HeroShield / 10, HeroShield);
                 int maximumArmorAbsorb = Functions.GenerateRandomNumber(heroDefense / 10, heroDefense);
                 int actualArmorAbsorb = 0;

@@ -48,7 +48,6 @@ namespace Sulimn
         private void CheckSkillPoints()
         {
             TogglePlus(GameState.CurrentHero.SkillPoints > 0);
-
             btnReset.IsEnabled = GameState.CurrentHero.SkillPoints != _copyOfHero.SkillPoints;
             GameState.CurrentHero.UpdateStatistics();
         }
@@ -104,6 +103,7 @@ namespace Sulimn
             btnVitalityPlus.IsEnabled = enabled;
         }
 
+        /// <summary>Disables attribute Minus Buttons.</summary>
         private void DisableMinus()
         {
             btnDexterityMinus.IsEnabled = false;

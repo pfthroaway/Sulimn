@@ -7,7 +7,7 @@ namespace Sulimn
     /// <summary>Represents a Ring worn on an entity's finger.</summary>
     internal class Ring : Item, IEquatable<Ring>, INotifyPropertyChanged
     {
-        protected int _damage, _defense, _strength, _vitality, _dexterity, _wisdom;
+        private int _damage, _defense, _strength, _vitality, _dexterity, _wisdom;
 
         #region Data-Binding
 
@@ -59,7 +59,7 @@ namespace Sulimn
         public int Damage
         {
             get { return _damage; }
-            set
+            private set
             {
                 _damage = value;
                 OnPropertyChanged("DamageToString");
@@ -71,7 +71,7 @@ namespace Sulimn
         public int Defense
         {
             get { return _defense; }
-            set
+            private set
             {
                 _defense = value;
                 OnPropertyChanged("DefenseToString");
@@ -83,7 +83,7 @@ namespace Sulimn
         public int Strength
         {
             get { return _strength; }
-            set
+            private set
             {
                 _strength = value;
                 OnPropertyChanged("Strength");
@@ -94,7 +94,7 @@ namespace Sulimn
         public int Vitality
         {
             get { return _vitality; }
-            set
+            private set
             {
                 _vitality = value;
                 OnPropertyChanged("Vitality");
@@ -105,7 +105,7 @@ namespace Sulimn
         public int Dexterity
         {
             get { return _dexterity; }
-            set
+            private set
             {
                 _dexterity = value;
                 OnPropertyChanged("Dexterity");
@@ -116,7 +116,7 @@ namespace Sulimn
         public int Wisdom
         {
             get { return _wisdom; }
-            set
+            private set
             {
                 _wisdom = value;
                 OnPropertyChanged("Wisdom");

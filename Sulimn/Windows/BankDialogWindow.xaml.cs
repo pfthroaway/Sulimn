@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -56,7 +55,7 @@ namespace Sulimn
 
                 default:
                     new Notification("How did you break my game?", "Sulimn", NotificationButtons.OK, this).ShowDialog();
-                    break; ;
+                    break;
             }
         }
 
@@ -169,25 +168,17 @@ namespace Sulimn
 
         private void txtBank_GotFocus(object sender, RoutedEventArgs e)
         {
-            txtBank.SelectAll();
+            Functions.TextBoxGotFocus(sender);
         }
 
         private void txtBank_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Key k = e.Key;
-
-            IEnumerable<bool> keys = Functions.GetListOfKeys(Key.Back, Key.Delete, Key.Home, Key.End, Key.LeftShift, Key.RightShift, Key.Enter, Key.Tab, Key.LeftAlt, Key.RightAlt, Key.Left, Key.Right, Key.LeftCtrl, Key.RightCtrl, Key.Escape);
-
-            e.Handled = !keys.Any(key => key) && (Key.D0 > k || k > Key.D9) && (Key.NumPad0 > k || k > Key.NumPad9);
+            Functions.PreviewKeyDown(e, KeyType.Numbers);
         }
 
         private void txtBank_TextChanged(object sender, TextChangedEventArgs e)
         {
-            txtBank.Text = new string((from c in txtBank.Text
-                                       where char.IsDigit(c)
-                                       select c).ToArray());
-            txtBank.CaretIndex = txtBank.Text.Length;
-
+            Functions.TextBoxTextChanged(sender, KeyType.Numbers);
             btnAction.IsEnabled = txtBank.Text.Length > 0;
         }
 

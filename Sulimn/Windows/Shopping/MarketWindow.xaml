@@ -18,7 +18,7 @@ FontFamily="Segoe UI Semibold" FontSize="17" Closing="windowMarket_Closing" Icon
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="txtMarket" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="660" Height="262"
+        <TextBox x:Name="txtMarket" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="680" Height="262"
  Padding="5" IsReadOnly="True" BorderBrush="Black" BorderThickness="1"
  ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
         <Button x:Name="btnWeaponShop" Grid.Column="0" Grid.Row="1" Height="30" Width="200" Content="_Weapons 'R' Us"

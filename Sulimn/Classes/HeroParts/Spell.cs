@@ -27,7 +27,7 @@ namespace Sulimn
         public string Name
         {
             get { return _name; }
-            set
+            private set
             {
                 _name = value;
                 OnPropertyChanged("Name");
@@ -49,7 +49,7 @@ namespace Sulimn
         public SpellTypes Type
         {
             get { return _type; }
-            set
+            private set
             {
                 _type = value;
                 OnPropertyChanged("Type");
@@ -61,7 +61,7 @@ namespace Sulimn
         public string RequiredClass
         {
             get { return _requiredClass; }
-            set
+            private set
             {
                 _requiredClass = value;
                 OnPropertyChanged("RequiredClass");
@@ -72,7 +72,7 @@ namespace Sulimn
         public int RequiredLevel
         {
             get { return _requiredLevel; }
-            set
+            private set
             {
                 _requiredLevel = value;
                 OnPropertyChanged("RequiredLevel");
@@ -83,7 +83,7 @@ namespace Sulimn
         public int MagicCost
         {
             get { return _magicCost; }
-            set
+            private set
             {
                 _magicCost = value;
                 OnPropertyChanged("MagicCost");
@@ -94,7 +94,7 @@ namespace Sulimn
         public int Amount
         {
             get { return _amount; }
-            set
+            private set
             {
                 _amount = value;
                 OnPropertyChanged("Amount");

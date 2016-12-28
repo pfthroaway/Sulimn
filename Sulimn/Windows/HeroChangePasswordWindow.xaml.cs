@@ -58,23 +58,13 @@ namespace Sulimn
 
         private void PswdChanged(object sender, RoutedEventArgs e)
         {
-            btnSubmit.IsEnabled = pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 &&
-                                  pswdConfirmPassword.Password.Length >= 1;
+            btnSubmit.IsEnabled = pswdCurrentPassword.Password.Length > 0 && pswdNewPassword.Password.Length > 0 &&
+                                  pswdConfirmPassword.Password.Length > 0;
         }
 
-        private void pswdCurrentPassword_GotFocus(object sender, RoutedEventArgs e)
+        private void pswd_GotFocus(object sender, RoutedEventArgs e)
         {
-            pswdCurrentPassword.SelectAll();
-        }
-
-        private void pswdNewPassword_GotFocus(object sender, RoutedEventArgs e)
-        {
-            pswdNewPassword.SelectAll();
-        }
-
-        private void pswdConfirmPassword_GotFocus(object sender, RoutedEventArgs e)
-        {
-            pswdConfirmPassword.SelectAll();
+            Functions.PasswordBoxGotFocus(sender);
         }
 
         private void windowHeroChangePassword_Closing(object sender, CancelEventArgs e)
