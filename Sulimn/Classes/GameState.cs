@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -503,6 +504,36 @@ namespace Sulimn
                     con.Close();
                 }
             });
+        }
+
+        /// <summary>Fills a DataSet.</summary>
+        /// <param name="sql"></param>
+        /// <param name="tableName"></param>
+        /// <returns>Returns a DataSet</returns>
+        internal static async Task<DataSet> FillDataSet(string sql, string tableName)
+        {
+            SQLiteConnection con = new SQLiteConnection();
+            SQLiteDataAdapter da;
+            DataSet ds = new DataSet();
+            con.ConnectionString = _DBPROVIDERANDSOURCE;
+
+            await Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    da = new SQLiteDataAdapter(sql, con);
+                    da.Fill(ds, tableName);
+                }
+                catch (Exception ex)
+                {
+                    new Notification(ex.Message, "Error Filling DataSet", NotificationButtons.OK).ShowDialog();
+                }
+                finally
+                {
+                    con.Close();
+                }
+            });
+            return ds;
         }
 
         /// <summary>Gets a specific Enemy based on its name.</summary>

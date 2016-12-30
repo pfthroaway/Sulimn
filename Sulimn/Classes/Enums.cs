@@ -12,8 +12,6 @@
     /// <summary>Represents the types of Items which exist.</summary>
     internal enum ItemTypes { Weapon, Head, Body, Hands, Legs, Feet, Ring, Potion, Food, Spell }
 
-    internal enum KeyType { DecimalNumbers, Letters, NegativeDecimalNumbers, NegativeNumbers, Numbers }
-
     /// <summary>Represents the types of Potions which exist.</summary>
     internal enum PotionTypes { Healing, Curing, Magic }
 

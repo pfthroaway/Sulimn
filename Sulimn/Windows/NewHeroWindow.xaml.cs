@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -141,7 +142,7 @@ namespace Sulimn
             }
             if (!string.IsNullOrWhiteSpace(createHero?.Name))
             {
-                new Notification("This username has already been taken. Please choose another.", "Test",
+                new Notification("This username has already been taken. Please choose another.", "Sulimn",
                 NotificationButtons.OK, this).ShowDialog();
                 txtHeroName.Focus();
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Threading.Tasks;
@@ -119,7 +120,7 @@ namespace Sulimn
         internal async void LoadBank()
         {
             DataSet ds =
-            await Functions.FillDataSet(
+            await GameState.FillDataSet(
             "SELECT * FROM Bank WHERE [CharacterName]='" + GameState.CurrentHero.Name + "'", "Bank");
 
             if (ds.Tables[0].Rows.Count > 0)
