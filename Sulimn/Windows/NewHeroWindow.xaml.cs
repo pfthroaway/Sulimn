@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Sulimn
 {
-    /// <summary>Interaction logic for NewPlayerWindow.xaml</summary>
+    /// <summary>Interaction logic for NewHeroWindow.xaml</summary>
     public partial class NewHeroWindow
     {
         private readonly List<HeroClass> _classes = new List<HeroClass>();
