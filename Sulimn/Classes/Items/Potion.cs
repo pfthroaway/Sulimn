@@ -2,123 +2,18 @@
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a Potion which can be consumed by a Hero.
-    /// </summary>
+    /// <summary>Represents a Potion which can be consumed by a Hero.</summary>
     internal class Potion : Item, IEquatable<Potion>
     {
-        private PotionTypes _potionType;
-        private int _amount;
-
         #region Properties
 
-        public sealed override string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public PotionTypes PotionType { get; private set; }
 
-        public sealed override ItemTypes Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-
-        public PotionTypes PotionType
-        {
-            get { return _potionType; }
-            private set { _potionType = value; }
-        }
-
-        public sealed override string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-
-        public int Amount
-        {
-            get { return _amount; }
-            private set { _amount = value; }
-        }
-
-        public sealed override int Weight
-        {
-            get { return _weight; }
-            set { _weight = value; }
-        }
-
-        public sealed override int Value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
-
-        public sealed override bool CanSell
-        {
-            get { return _canSell; }
-            set { _canSell = value; }
-        }
-
-        public sealed override bool IsSold
-        {
-            get { return _isSold; }
-            set
-            {
-                _isSold = value;
-                OnPropertyChanged("IsSold");
-            }
-        }
+        public int Amount { get; private set; }
 
         #endregion Properties
 
         #region Helper Properties
-
-        /// <summary>The value of the Potion with thousands separators</summary>
-        public sealed override string ValueToString => Value.ToString("N0");
-
-        /// <summary>The value of the Potion with thousands separators and preceding text</summary>
-        public sealed override string ValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return "Value: " + ValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>The value of the Potion</summary>
-        public sealed override int SellValue => Value / 2;
-
-        /// <summary>The value of the Potion with thousands separators</summary>
-        public sealed override string SellValueToString => SellValue.ToString("N0");
-
-        /// <summary>The value of the Potion with thousands separators with preceding text</summary>
-        public sealed override string SellValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return "Sell Value: " + SellValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>Returns text relating to the sellability of the Potion</summary>
-        public sealed override string CanSellToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                {
-                    if (CanSell)
-                        return "Sellable";
-                    return "Not Sellable";
-                }
-                return "";
-            }
-        }
 
         /// <summary>Returns text relating to the type and amount of the Potion</summary>
         public string TypeAmount
@@ -129,10 +24,10 @@ namespace Sulimn
                     switch (PotionType)
                     {
                         case PotionTypes.Healing:
-                            return "Restores " + Amount + " Health.";
+                            return $"Restores {Amount:N0} Health.";
 
                         case PotionTypes.Magic:
-                            return "Restores " + Amount + " Magic.";
+                            return $"Restores {Amount:N0} Magic.";
 
                         case PotionTypes.Curing:
                             return "Cures any ailments.";
@@ -190,16 +85,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Potion.
-        /// </summary>
+        /// <summary>Initializes a default instance of Potion.</summary>
         internal Potion()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Potion by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of Potion by assigning Properties.</summary>
         /// <param name="name">Name of Potion</param>
         /// <param name="potionType">Type of Potion</param>
         /// <param name="description">Description of Potion</param>

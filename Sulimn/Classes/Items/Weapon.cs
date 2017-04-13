@@ -1,52 +1,18 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a Weapon a Hero can attack with.
-    /// </summary>
-    internal class Weapon : Item, IEquatable<Weapon>, INotifyPropertyChanged
+    /// <summary>Represents a Weapon a Hero can attack with.</summary>
+    internal class Weapon : Item, IEquatable<Weapon>
     {
         private int _damage;
         private WeaponTypes? _weaponType;
 
-        #region Data-Binding
-
-        public sealed override event PropertyChangedEventHandler PropertyChanged;
-
-        protected sealed override void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
-
         #region Properties
-
-        public sealed override string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        public sealed override ItemTypes Type
-        {
-            get { return _type; }
-            set
-            {
-                _type = value;
-                OnPropertyChanged("Type");
-            }
-        }
 
         public WeaponTypes? WeaponType
         {
-            get { return _weaponType; }
+            get => _weaponType;
             private set
             {
                 _weaponType = value;
@@ -55,19 +21,9 @@ namespace Sulimn
             }
         }
 
-        public sealed override string Description
-        {
-            get { return _description; }
-            set
-            {
-                _description = value;
-                OnPropertyChanged("Description");
-            }
-        }
-
         public int Damage
         {
-            get { return _damage; }
+            get => _damage;
             private set
             {
                 _damage = value;
@@ -76,6 +32,10 @@ namespace Sulimn
             }
         }
 
+        #endregion Properties
+
+        #region Helper Properties
+
         public string DamageToString => Damage.ToString("N0");
 
         public string DamageToStringWithText
@@ -83,96 +43,7 @@ namespace Sulimn
             get
             {
                 if (Damage > 0)
-                    return "Damage: " + DamageToString;
-                return "";
-            }
-        }
-
-        public sealed override int Weight
-        {
-            get { return _weight; }
-            set
-            {
-                _weight = value;
-                OnPropertyChanged("Weight");
-            }
-        }
-
-        public sealed override int Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged("Value");
-            }
-        }
-
-        public sealed override bool CanSell
-        {
-            get { return _canSell; }
-            set
-            {
-                _canSell = value;
-                OnPropertyChanged("CanSell");
-            }
-        }
-
-        public sealed override bool IsSold
-        {
-            get { return _isSold; }
-            set
-            {
-                _isSold = value;
-                OnPropertyChanged("IsSold");
-            }
-        }
-
-        #endregion Properties
-
-        #region Helper Properties
-
-        /// <summary>The value of the Weapon with thousands separators</summary>
-        public sealed override string ValueToString => Value.ToString("N0");
-
-        /// <summary>The value of the Weapon with thousands separators and preceding text</summary>
-        public sealed override string ValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>The value of the Weapon</summary>
-        public sealed override int SellValue => Value / 2;
-
-        /// <summary>The value of the Weapon with thousands separators</summary>
-        public sealed override string SellValueToString => SellValue.ToString("N0");
-
-        /// <summary>The value of the Weapon with thousands separators with preceding text</summary>
-        public sealed override string SellValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return "Sell Value: " + SellValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>Returns text relating to the sellability of the Weapon</summary>
-        public sealed override string CanSellToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                {
-                    if (CanSell)
-                        return "Sellable";
-                    return "Not Sellable";
-                }
+                    return $"Damage: {DamageToString}";
                 return "";
             }
         }

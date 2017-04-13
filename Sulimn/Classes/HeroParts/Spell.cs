@@ -26,7 +26,7 @@ namespace Sulimn
         /// <summary>Name of the Spell.</summary>
         public string Name
         {
-            get { return _name; }
+            get => _name;
             private set
             {
                 _name = value;
@@ -37,7 +37,7 @@ namespace Sulimn
         /// <summary>Description of the Spell.</summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
             set
             {
                 _description = value;
@@ -48,7 +48,7 @@ namespace Sulimn
         /// <summary>Type of the Spell.</summary>
         public SpellTypes Type
         {
-            get { return _type; }
+            get => _type;
             private set
             {
                 _type = value;
@@ -60,7 +60,7 @@ namespace Sulimn
         /// <summary>Required Class of the Spell.</summary>
         public string RequiredClass
         {
-            get { return _requiredClass; }
+            get => _requiredClass;
             private set
             {
                 _requiredClass = value;
@@ -71,7 +71,7 @@ namespace Sulimn
         /// <summary>Required Level of the Spell.</summary>
         public int RequiredLevel
         {
-            get { return _requiredLevel; }
+            get => _requiredLevel;
             private set
             {
                 _requiredLevel = value;
@@ -82,7 +82,7 @@ namespace Sulimn
         /// <summary>Magic cost of the Spell.</summary>
         public int MagicCost
         {
-            get { return _magicCost; }
+            get => _magicCost;
             private set
             {
                 _magicCost = value;
@@ -93,7 +93,7 @@ namespace Sulimn
         /// <summary>Amount of the Spell.</summary>
         public int Amount
         {
-            get { return _amount; }
+            get => _amount;
             private set
             {
                 _amount = value;
@@ -112,7 +112,7 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                    return "Required Class: " + RequiredClass;
+                    return $"Required Class: {RequiredClass}";
                 return "";
             }
         }
@@ -134,7 +134,7 @@ namespace Sulimn
             get
             {
                 if (Amount > 0)
-                    return Type + ": " + Amount;
+                    return $"{Type}: {Amount}";
                 return "";
             }
         }
@@ -145,7 +145,7 @@ namespace Sulimn
             get
             {
                 if (MagicCost > 0)
-                    return "Magic Cost: " + MagicCost.ToString("N0");
+                    return $"Magic Cost: {MagicCost:N0}";
                 return "";
             }
         }
@@ -156,7 +156,7 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                    return "Required Level: " + RequiredLevel;
+                    return $"Required Level: {RequiredLevel}";
                 return "";
             }
         }
@@ -173,7 +173,7 @@ namespace Sulimn
             get
             {
                 if (!string.IsNullOrWhiteSpace(Name))
-                    return "Value: " + ValueToString;
+                    return $"Value: {ValueToString}";
                 return "";
             }
         }

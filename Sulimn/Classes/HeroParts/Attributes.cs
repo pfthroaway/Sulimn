@@ -23,7 +23,7 @@ namespace Sulimn
         /// <summary>How strong an entity is.</summary>
         public int Strength
         {
-            get { return _strength; }
+            get => _strength;
             set
             {
                 _strength = value;
@@ -34,7 +34,7 @@ namespace Sulimn
         /// <summary>How much health an entity can have.</summary>
         public int Vitality
         {
-            get { return _vitality; }
+            get => _vitality;
             set
             {
                 _vitality = value;
@@ -45,7 +45,7 @@ namespace Sulimn
         /// <summary>How fast an entity can move.</summary>
         public int Dexterity
         {
-            get { return _dexterity; }
+            get => _dexterity;
             set
             {
                 _dexterity = value;
@@ -56,7 +56,7 @@ namespace Sulimn
         /// <summary>How magically-inclined an entity is.</summary>
         public int Wisdom
         {
-            get { return _wisdom; }
+            get => _wisdom;
             set
             {
                 _wisdom = value;

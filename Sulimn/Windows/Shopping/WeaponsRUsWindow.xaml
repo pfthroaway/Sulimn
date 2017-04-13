@@ -6,7 +6,7 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 mc:Ignorable="d"
 Title="Weapons 'R' Us" ResizeMode="NoResize" Icon="../S.ico" SizeToContent="WidthAndHeight"
 WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17"
-Closing="windowWeaponsRUs_Closing">
+Closing="WindowWeaponsRUs_Closing">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,7 +27,7 @@ Closing="windowWeaponsRUs_Closing">
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TabControl Grid.Row="0" x:Name="tabControl" HorizontalAlignment="Left" Width="736" Margin="10"
+                    <TabControl Grid.Row="0" x:Name="TabControl" HorizontalAlignment="Left" Width="736" Margin="10"
 VerticalAlignment="Top">
                         <TabItem Header="Purchase" Padding="6,2">
                             <Grid>
@@ -36,26 +36,26 @@ VerticalAlignment="Top">
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
-                                    <ListBox x:Name="lstWeaponPurchase" VerticalAlignment="Top"
+                                    <ListBox x:Name="LstWeaponPurchase" VerticalAlignment="Top"
  HorizontalAlignment="Left" Width="277" Height="277"
  ItemsSource="{Binding}"
- Margin="10" SelectionChanged="lstWeaponPurchase_SelectionChanged"
+ Margin="10" SelectionChanged="LstWeaponPurchase_SelectionChanged"
  ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="btnWeaponPurchase" Height="30" Width="125" Content="_Purchase"
-Margin="0,0,0,10" Click="btnWeaponPurchase_Click" IsEnabled="False" />
+                                    <Button x:Name="BtnWeaponPurchase" Height="30" Width="125" Content="_Purchase"
+Margin="0,0,0,10" Click="BtnWeaponPurchase_Click" IsEnabled="False" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Weapon" Margin="0,0,10,10">
                                     <StackPanel>
-                                        <TextBlock x:Name="lblWeaponNamePurchase" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponDamagePurchase"
+                                        <TextBlock x:Name="LblWeaponNamePurchase" Text="{Binding Path=Name}" Margin="5" />
+                                        <TextBlock x:Name="LblWeaponDamagePurchase"
  Text="{Binding Path=DamageToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponValuePurchase"
+                                        <TextBlock x:Name="LblWeaponValuePurchase"
  Text="{Binding Path=ValueToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponTypePurchase" Text="{Binding Path=WeaponType}"
+                                        <TextBlock x:Name="LblWeaponTypePurchase" Text="{Binding Path=WeaponType}"
  Margin="5" />
-                                        <TextBlock x:Name="lblWeaponSellablePurchase"
+                                        <TextBlock x:Name="LblWeaponSellablePurchase"
  Text="{Binding Path=CanSellToString}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponDescriptionPurchase" Height="67"
+                                        <TextBlock x:Name="LblWeaponDescriptionPurchase" Height="67"
  Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                                     </StackPanel>
                                 </GroupBox>
@@ -68,24 +68,24 @@ Margin="0,0,0,10" Click="btnWeaponPurchase_Click" IsEnabled="False" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
-                                    <ListBox x:Name="lstWeaponSell" VerticalAlignment="Top" HorizontalAlignment="Left"
- Width="277" Height="277" SelectionChanged="lstWeaponSell_SelectionChanged"
+                                    <ListBox x:Name="LstWeaponSell" VerticalAlignment="Top" HorizontalAlignment="Left"
+ Width="277" Height="277" SelectionChanged="LstWeaponSell_SelectionChanged"
  ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="btnWeaponSell" Height="30" Width="125" Content="_Sell"
-Click="btnWeaponSell_Click" Margin="0,0,0,10" IsEnabled="False" />
+                                    <Button x:Name="BtnWeaponSell" Height="30" Width="125" Content="_Sell"
+Click="BtnWeaponSell_Click" Margin="0,0,0,10" IsEnabled="False" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
-                                        <TextBlock x:Name="lblWeaponNameSell" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponDamageSell"
+                                        <TextBlock x:Name="LblWeaponNameSell" Text="{Binding Path=Name}" Margin="5" />
+                                        <TextBlock x:Name="LblWeaponDamageSell"
  Text="{Binding Path=DamageToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponValueSell"
+                                        <TextBlock x:Name="LblWeaponValueSell"
  Text="{Binding Path=SellValueToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="lblWeaponTypeSell" Text="{Binding Path=WeaponType}"
+                                        <TextBlock x:Name="LblWeaponTypeSell" Text="{Binding Path=WeaponType}"
  Margin="5" />
-                                        <TextBlock x:Name="lblWeaponSellableSell" Text="{Binding Path=CanSellToString}"
+                                        <TextBlock x:Name="LblWeaponSellableSell" Text="{Binding Path=CanSellToString}"
  Margin="5" />
-                                        <TextBlock x:Name="lblWeaponDescriptionSell" Text="{Binding Path=Description}"
+                                        <TextBlock x:Name="LblWeaponDescriptionSell" Text="{Binding Path=Description}"
  Height="67" TextWrapping="Wrap" Margin="5" />
                                     </StackPanel>
                                 </GroupBox>
@@ -95,14 +95,14 @@ Click="btnWeaponSell_Click" Margin="0,0,0,10" IsEnabled="False" />
                 </Grid>
             </TabItem>
         </TabControl>
-        <TextBlock x:Name="lblGold" Grid.Column="0" Grid.Row="1" Text="{Binding Path=GoldToStringWithText}"
+        <TextBlock x:Name="LblGold" Grid.Column="0" Grid.Row="1" Text="{Binding Path=GoldToStringWithText}"
  TextAlignment="Center" Margin="5" />
-        <TextBox x:Name="txtWeaponsRUs" Grid.Row="2" Height="176" Width="736" IsReadOnly="True" TextWrapping="Wrap"
+        <TextBox x:Name="TxtWeaponsRUs" Grid.Row="2" Height="176" Width="736" IsReadOnly="True" TextWrapping="Wrap"
  ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" Padding="5" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="btnCharacter" Width="125" Height="30" Content="_Character" Click="btnCharacter_Click"
+            <Button x:Name="BtnCharacter" Width="125" Height="30" Content="_Character" Click="BtnCharacter_Click"
 Margin="0,0,10,0" />
-            <Button x:Name="btnBack" Width="125" Height="30" Content="_Back" Click="btnBack_Click" Margin="10,0,0,0"
+            <Button x:Name="BtnBack" Width="125" Height="30" Content="_Back" Click="BtnBack_Click" Margin="10,0,0,0"
 IsCancel="True" />
         </StackPanel>
     </Grid>

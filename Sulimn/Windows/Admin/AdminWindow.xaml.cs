@@ -10,19 +10,19 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnManageUsers_Click(object sender, RoutedEventArgs e)
+        private void BtnManageUsers_Click(object sender, RoutedEventArgs e)
         {
             ManageUsersWindow manageUsersWindow = new ManageUsersWindow { RefToAdminWindow = this };
             manageUsersWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnChangeAdminPassword_Click(object sender, RoutedEventArgs e)
+        private void BtnChangeAdminPassword_Click(object sender, RoutedEventArgs e)
         {
             AdminChangePasswordWindow adminChangePasswordWindow = new AdminChangePasswordWindow
             {
@@ -32,27 +32,27 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnManageArmor_Click(object sender, RoutedEventArgs e)
+        private void BtnManageArmor_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnManageEnemies_Click(object sender, RoutedEventArgs e)
+        private void BtnManageEnemies_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnManageFood_Click(object sender, RoutedEventArgs e)
+        private void BtnManageFood_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnManageHeroClass_Click(object sender, RoutedEventArgs e)
+        private void BtnManageHeroClass_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnManagePotion_Click(object sender, RoutedEventArgs e)
+        private void BtnManagePotion_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnManageWeapons_Click(object sender, RoutedEventArgs e)
+        private void BtnManageWeapons_Click(object sender, RoutedEventArgs e)
         {
         }
 
@@ -71,7 +71,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void windowAdmin_Closing(object sender, CancelEventArgs e)
+        private void WindowAdmin_Closing(object sender, CancelEventArgs e)
         {
             RefToMainWindow.Show();
         }

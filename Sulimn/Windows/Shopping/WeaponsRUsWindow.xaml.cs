@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Extensions;
 
 namespace Sulimn
 {
     /// <summary>Interaction logic for WeaponsRUsWindow.xaml</summary>
     public partial class WeaponsRUsWindow : INotifyPropertyChanged
     {
-        private readonly string _nl = Environment.NewLine;
         private List<Weapon> _purchaseWeapon = new List<Weapon>();
         private Weapon _selectedWeaponPurchase = new Weapon();
         private Weapon _selectedWeaponSell = new Weapon();
         private List<Weapon> _sellWeapon = new List<Weapon>();
 
         internal MarketWindow RefToMarketWindow { private get; set; }
-
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtWeaponsRUs.Text += _nl + _nl + newText;
-            txtWeaponsRUs.Focus();
-            txtWeaponsRUs.CaretIndex = txtWeaponsRUs.Text.Length;
-            txtWeaponsRUs.ScrollToEnd();
-        }
 
         #region Data-Binding
 
@@ -37,7 +26,7 @@ namespace Sulimn
             LoadAllPurchase();
             LoadAllSell();
 
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         private void BindWeaponPurchase(bool reload = true)
@@ -47,16 +36,16 @@ namespace Sulimn
                 _purchaseWeapon.Clear();
                 _purchaseWeapon.AddRange(GameState.GetItemsOfType<Weapon>().Where(weapon => weapon.IsSold));
                 _purchaseWeapon = _purchaseWeapon.OrderBy(weapon => weapon.Value).ToList();
-                lstWeaponPurchase.ItemsSource = _purchaseWeapon;
-                lstWeaponPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
-                lstWeaponPurchase.Items.Refresh();
+                LstWeaponPurchase.ItemsSource = _purchaseWeapon;
+                LstWeaponPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+                LstWeaponPurchase.Items.Refresh();
             }
-            lblWeaponNamePurchase.DataContext = _selectedWeaponPurchase;
-            lblWeaponDamagePurchase.DataContext = _selectedWeaponPurchase;
-            lblWeaponDescriptionPurchase.DataContext = _selectedWeaponPurchase;
-            lblWeaponTypePurchase.DataContext = _selectedWeaponPurchase;
-            lblWeaponSellablePurchase.DataContext = _selectedWeaponPurchase;
-            lblWeaponValuePurchase.DataContext = _selectedWeaponPurchase;
+            LblWeaponNamePurchase.DataContext = _selectedWeaponPurchase;
+            LblWeaponDamagePurchase.DataContext = _selectedWeaponPurchase;
+            LblWeaponDescriptionPurchase.DataContext = _selectedWeaponPurchase;
+            LblWeaponTypePurchase.DataContext = _selectedWeaponPurchase;
+            LblWeaponSellablePurchase.DataContext = _selectedWeaponPurchase;
+            LblWeaponValuePurchase.DataContext = _selectedWeaponPurchase;
         }
 
         private void BindWeaponSell(bool reload = true)
@@ -66,16 +55,16 @@ namespace Sulimn
                 _sellWeapon.Clear();
                 _sellWeapon.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Weapon>());
                 _sellWeapon = _sellWeapon.OrderBy(weapon => weapon.Value).ToList();
-                lstWeaponSell.ItemsSource = _sellWeapon;
-                lstWeaponSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
-                lstWeaponSell.Items.Refresh();
+                LstWeaponSell.ItemsSource = _sellWeapon;
+                LstWeaponSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+                LstWeaponSell.Items.Refresh();
             }
-            lblWeaponNameSell.DataContext = _selectedWeaponSell;
-            lblWeaponDamageSell.DataContext = _selectedWeaponSell;
-            lblWeaponDescriptionSell.DataContext = _selectedWeaponSell;
-            lblWeaponTypeSell.DataContext = _selectedWeaponSell;
-            lblWeaponSellableSell.DataContext = _selectedWeaponSell;
-            lblWeaponValueSell.DataContext = _selectedWeaponSell;
+            LblWeaponNameSell.DataContext = _selectedWeaponSell;
+            LblWeaponDamageSell.DataContext = _selectedWeaponSell;
+            LblWeaponDescriptionSell.DataContext = _selectedWeaponSell;
+            LblWeaponTypeSell.DataContext = _selectedWeaponSell;
+            LblWeaponSellableSell.DataContext = _selectedWeaponSell;
+            LblWeaponValueSell.DataContext = _selectedWeaponSell;
         }
 
         private void OnPropertyChanged(string property)
@@ -115,7 +104,7 @@ namespace Sulimn
             GameState.CurrentHero.Inventory.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
-            return "You have purchased " + itmPurchase.Name + " for " + itmPurchase.ValueToString + " gold.";
+            return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
         /// <summary>Sells selected Item.</summary>
@@ -126,44 +115,44 @@ namespace Sulimn
             GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
             GameState.CurrentHero.Inventory.RemoveItem(itmSell);
             LoadAllSell();
-            return "You have sold your " + itmSell.Name + " for " + itmSell.SellValueToString + " gold.";
+            return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
         #endregion Transaction Methods
 
         #region Purchase/Sell Button-Click Methods
 
-        private void btnWeaponPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnWeaponPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedWeaponPurchase));
-            lstWeaponPurchase.UnselectAll();
+            Functions.AddTextToTextBox(TxtWeaponsRUs, Purchase(_selectedWeaponPurchase));
+            LstWeaponPurchase.UnselectAll();
         }
 
-        private void btnWeaponSell_Click(object sender, RoutedEventArgs e)
+        private void BtnWeaponSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedWeaponSell));
-            lstWeaponSell.UnselectAll();
+            Functions.AddTextToTextBox(TxtWeaponsRUs, Sell(_selectedWeaponSell));
+            LstWeaponSell.UnselectAll();
         }
 
         #endregion Purchase/Sell Button-Click Methods
 
         #region Purchase/Sell Selection Changed
 
-        private void lstWeaponPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstWeaponPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedWeaponPurchase = lstWeaponPurchase.SelectedIndex >= 0
-                ? (Weapon)lstWeaponPurchase.SelectedValue
+            _selectedWeaponPurchase = LstWeaponPurchase.SelectedIndex >= 0
+                ? (Weapon)LstWeaponPurchase.SelectedValue
                 : new Weapon();
 
-            btnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindWeaponPurchase(false);
         }
 
-        private void lstWeaponSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstWeaponSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedWeaponSell = lstWeaponSell.SelectedIndex >= 0 ? (Weapon)lstWeaponSell.SelectedValue : new Weapon();
+            _selectedWeaponSell = LstWeaponSell.SelectedIndex >= 0 ? (Weapon)LstWeaponSell.SelectedValue : new Weapon();
 
-            btnWeaponSell.IsEnabled = _selectedWeaponSell.CanSell;
+            BtnWeaponSell.IsEnabled = _selectedWeaponSell.CanSell;
             BindWeaponSell(false);
         }
 
@@ -171,7 +160,7 @@ namespace Sulimn
 
         #region Window Button-Click Methods
 
-        private void btnCharacter_Click(object sender, RoutedEventArgs e)
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow { RefToWeaponsRUsWindow = this };
             characterWindow.Show();
@@ -181,7 +170,7 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -199,12 +188,12 @@ namespace Sulimn
         public WeaponsRUsWindow()
         {
             InitializeComponent();
-            txtWeaponsRUs.Text =
+            TxtWeaponsRUs.Text =
             "You enter Weapons 'R' Us, the finest weaponsmith shop in the city of Sulimn. You approach the shopkeeper and he shows you his wares.";
             BindLabels();
         }
 
-        private async void windowWeaponsRUs_Closing(object sender, CancelEventArgs e)
+        private async void WindowWeaponsRUs_Closing(object sender, CancelEventArgs e)
         {
             RefToMarketWindow.Show();
             await GameState.SaveHero(GameState.CurrentHero);

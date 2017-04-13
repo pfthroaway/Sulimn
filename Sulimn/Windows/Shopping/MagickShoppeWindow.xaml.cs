@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Extensions;
 
 namespace Sulimn
 {
     /// <summary>Interaction logic for YeOldeMagickShoppeWindow.xaml</summary>
     public partial class MagickShoppeWindow : INotifyPropertyChanged
     {
-        private readonly string _nl = Environment.NewLine;
         private List<Spell> _purchasableSpells = new List<Spell>();
         private Spell _selectedSpell = new Spell();
 
         internal MarketWindow RefToMarketWindow { private get; set; }
-
-        /// <summary>Adds text to the txtMagickShoppe TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtMagickShoppe.Text += _nl + _nl + newText;
-            txtMagickShoppe.Focus();
-            txtMagickShoppe.CaretIndex = txtMagickShoppe.Text.Length;
-            txtMagickShoppe.ScrollToEnd();
-        }
 
         /// <summary>Loads all the required data.</summary>
         internal void LoadAll()
@@ -43,8 +32,8 @@ namespace Sulimn
 
             _purchasableSpells.Clear();
             _purchasableSpells = learnSpells.OrderBy(x => x.Name).ToList();
-            lstSpells.ItemsSource = _purchasableSpells;
-            lstSpells.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+            LstSpells.ItemsSource = _purchasableSpells;
+            LstSpells.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
         }
 
         #region Data-Binding
@@ -54,7 +43,7 @@ namespace Sulimn
         private void BindLabels()
         {
             DataContext = _selectedSpell;
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         private void OnPropertyChanged(string property)
@@ -66,15 +55,14 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnPurchase_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.Inventory.Gold -= _selectedSpell.Value;
-            AddTextTT(GameState.CurrentHero.Spellbook.LearnSpell(_selectedSpell) + " It cost " +
-            _selectedSpell.ValueToString + " gold.");
+            Functions.AddTextToTextBox(TxtMagickShoppe, $"{GameState.CurrentHero.Spellbook.LearnSpell(_selectedSpell)} It cost {_selectedSpell.ValueToString} gold.");
             LoadAll();
         }
 
-        private void btnCharacter_Click(object sender, RoutedEventArgs e)
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow { RefToMagickShoppeWindow = this };
             characterWindow.Show();
@@ -84,7 +72,7 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -102,22 +90,21 @@ namespace Sulimn
         public MagickShoppeWindow()
         {
             InitializeComponent();
-            txtMagickShoppe.Text =
-            "You enter Ye Olde Magick Shoppe, a hut of a building. Inside there is a woman facing away from you, stirring a mixture in a cauldron. Sensing your presence, she turns to you, her face hideous and covered in boils." +
-            _nl + _nl + "\"Would you like to learn some spells, " + GameState.CurrentHero.Name +
-            "?\" she asks. How she knows your name is beyond you.";
+            TxtMagickShoppe.Text =
+            "You enter Ye Olde Magick Shoppe, a hut of a building. Inside there is a woman facing away from you, stirring a mixture in a cauldron. Sensing your presence, she turns to you, her face hideous and covered in boils.\n\n" +
+            $"\"Would you like to learn some spells, {GameState.CurrentHero.Name}?\" she asks. How she knows your name is beyond you.";
         }
 
-        private void lstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedSpell = lstSpells.SelectedIndex >= 0 ? (Spell)lstSpells.SelectedValue : new Spell();
+            _selectedSpell = LstSpells.SelectedIndex >= 0 ? (Spell)LstSpells.SelectedValue : new Spell();
 
-            btnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
+            BtnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
                                         _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
             BindLabels();
         }
 
-        private async void windowMagickShoppe_Closing(object sender, CancelEventArgs e)
+        private async void WindowMagickShoppe_Closing(object sender, CancelEventArgs e)
         {
             RefToMarketWindow.Show();
             await GameState.SaveHero(GameState.CurrentHero);

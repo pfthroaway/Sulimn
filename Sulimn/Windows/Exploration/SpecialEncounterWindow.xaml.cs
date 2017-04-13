@@ -12,7 +12,7 @@ namespace Sulimn
 
         internal ForestWindow RefToForestWindow { get; set; }
 
-        private void windowSpecialEncounter_Closing(object sender, CancelEventArgs e)
+        private void WindowSpecialEncounter_Closing(object sender, CancelEventArgs e)
         {
         }
     }

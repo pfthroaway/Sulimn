@@ -25,9 +25,9 @@ namespace Sulimn
         {
             _selectedClass = new HeroClass();
             _compareClass = new HeroClass();
-            lstClasses.UnselectAll();
-            txtHeroName.Clear();
-            txtHeroName.Focus();
+            LstClasses.UnselectAll();
+            TxtHeroName.Clear();
+            TxtHeroName.Focus();
             CheckSkillPoints();
             DisableMinus();
             TogglePlus(false);
@@ -75,23 +75,23 @@ namespace Sulimn
         /// <summary>Enables/disables buttons based on the Hero's available Skill Points.</summary>
         private void CheckSkillPoints()
         {
-            if (lstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints > 0)
+            if (LstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints > 0)
             {
                 if (_selectedClass.SkillPoints >= _compareClass.SkillPoints)
                     DisableMinus();
                 TogglePlus(true);
-                btnCreate.IsEnabled = false;
+                BtnCreate.IsEnabled = false;
             }
-            else if (lstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints == 0)
+            else if (LstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints == 0)
             {
                 TogglePlus(false);
-                btnCreate.IsEnabled = txtHeroName.Text.Length > 0 && pswdPassword.Password.Length > 0 &&
-                                      pswdConfirm.Password.Length > 0;
+                BtnCreate.IsEnabled = TxtHeroName.Text.Length > 0 && PswdPassword.Password.Length > 0 &&
+                                      PswdConfirm.Password.Length > 0;
             }
-            else if (lstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints < 0)
+            else if (LstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints < 0)
             {
-                new Notification("Somehow you have negative skill points. Please try creating your character again.",
-                "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                GameState.DisplayNotification("Somehow you have negative skill points. Please try creating your character again.",
+                "Sulimn", NotificationButtons.OK, this);
                 Clear();
             }
         }
@@ -102,19 +102,19 @@ namespace Sulimn
         /// <param name="enabled">Should the Buttons be enabled?</param>
         private void TogglePlus(bool enabled)
         {
-            btnDexterityPlus.IsEnabled = enabled;
-            btnStrengthPlus.IsEnabled = enabled;
-            btnWisdomPlus.IsEnabled = enabled;
-            btnVitalityPlus.IsEnabled = enabled;
+            BtnDexterityPlus.IsEnabled = enabled;
+            BtnStrengthPlus.IsEnabled = enabled;
+            BtnWisdomPlus.IsEnabled = enabled;
+            BtnVitalityPlus.IsEnabled = enabled;
         }
 
         /// <summary>Disables attribute Minus Buttons.</summary>
         private void DisableMinus()
         {
-            btnDexterityMinus.IsEnabled = false;
-            btnStrengthMinus.IsEnabled = false;
-            btnWisdomMinus.IsEnabled = false;
-            btnVitalityMinus.IsEnabled = false;
+            BtnDexterityMinus.IsEnabled = false;
+            BtnStrengthMinus.IsEnabled = false;
+            BtnWisdomMinus.IsEnabled = false;
+            BtnVitalityMinus.IsEnabled = false;
         }
 
         #endregion Toggle Buttons
@@ -123,36 +123,36 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private async void btnCreate_Click(object sender, RoutedEventArgs e)
+        private async void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
             Hero createHero = new Hero();
 
             try
             {
-                createHero = GameState.AllHeroes.Find(hero => hero.Name == txtHeroName.Text);
+                createHero = GameState.AllHeroes.Find(hero => hero.Name == TxtHeroName.Text);
             }
             catch (ArgumentNullException)
             {
             }
             if (!string.IsNullOrWhiteSpace(createHero?.Name))
             {
-                new Notification("This username has already been taken. Please choose another.", "Sulimn",
-                NotificationButtons.OK, this).ShowDialog();
-                txtHeroName.Focus();
+                GameState.DisplayNotification("This username has already been taken. Please choose another.", "Sulimn",
+                NotificationButtons.OK, this);
+                TxtHeroName.Focus();
             }
             else
             {
-                if (txtHeroName.Text.Length >= 4 && pswdPassword.Password.Length >= 4)
-                    if (pswdPassword.Password.Trim() == pswdConfirm.Password.Trim())
+                if (TxtHeroName.Text.Length >= 4 && PswdPassword.Password.Length >= 4)
+                    if (PswdPassword.Password.Trim() == PswdConfirm.Password.Trim())
                     {
                         Hero newHero = new Hero(
-                        txtHeroName.Text.Trim(),
-                        PasswordHash.HashPassword(pswdPassword.Password.Trim()),
+                        TxtHeroName.Text.Trim(),
+                        PasswordHash.HashPassword(PswdPassword.Password.Trim()),
                         _selectedClass,
                         1,
                         0,
@@ -188,15 +188,15 @@ namespace Sulimn
                     }
                     else
                     {
-                        new Notification("Please ensure that the passwords match.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                        GameState.DisplayNotification("Please ensure that the passwords match.", "Sulimn", NotificationButtons.OK, this);
                     }
                 else
-                    new Notification("Names and passwords have to be at least 4 characters.", "Sulimn",
-                    NotificationButtons.OK, this).ShowDialog();
+                    GameState.DisplayNotification("Names and passwords have to be at least 4 characters.", "Sulimn",
+                    NotificationButtons.OK, this);
             }
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             Clear();
         }
@@ -205,52 +205,52 @@ namespace Sulimn
 
         #region Plus/Minus Button Logic
 
-        private void btnStrengthMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnStrengthMinus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Strength = DecreaseAttribute(_selectedClass.Strength);
-            btnStrengthMinus.IsEnabled = _selectedClass.Strength == _compareClass.Strength;
+            BtnStrengthMinus.IsEnabled = _selectedClass.Strength != _compareClass.Strength;
         }
 
-        private void btnStrengthPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnStrengthPlus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Strength = IncreaseAttribute(_selectedClass.Strength);
-            btnStrengthMinus.IsEnabled = true;
+            BtnStrengthMinus.IsEnabled = true;
         }
 
-        private void btnVitalityMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnVitalityMinus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Vitality = DecreaseAttribute(_selectedClass.Vitality);
-            btnVitalityMinus.IsEnabled = _selectedClass.Vitality == _compareClass.Vitality;
+            BtnVitalityMinus.IsEnabled = _selectedClass.Vitality != _compareClass.Vitality;
         }
 
-        private void btnVitalityPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnVitalityPlus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Vitality = IncreaseAttribute(_selectedClass.Vitality);
-            btnVitalityMinus.IsEnabled = true;
+            BtnVitalityMinus.IsEnabled = true;
         }
 
-        private void btnDexterityMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnDexterityMinus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Dexterity = DecreaseAttribute(_selectedClass.Dexterity);
-            btnDexterityMinus.IsEnabled = _selectedClass.Dexterity == _compareClass.Dexterity;
+            BtnDexterityMinus.IsEnabled = _selectedClass.Dexterity != _compareClass.Dexterity;
         }
 
-        private void btnDexterityPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnDexterityPlus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Dexterity = IncreaseAttribute(_selectedClass.Dexterity);
-            btnDexterityMinus.IsEnabled = true;
+            BtnDexterityMinus.IsEnabled = true;
         }
 
-        private void btnWisdomMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnWisdomMinus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Wisdom = DecreaseAttribute(_selectedClass.Wisdom);
-            btnWisdomMinus.IsEnabled = _selectedClass.Wisdom == _compareClass.Wisdom;
+            BtnWisdomMinus.IsEnabled = _selectedClass.Wisdom != _compareClass.Wisdom;
         }
 
-        private void btnWisdomPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnWisdomPlus_Click(object sender, RoutedEventArgs e)
         {
             _selectedClass.Wisdom = IncreaseAttribute(_selectedClass.Wisdom);
-            btnWisdomMinus.IsEnabled = true;
+            BtnWisdomMinus.IsEnabled = true;
         }
 
         #endregion Plus/Minus Button Logic
@@ -267,53 +267,53 @@ namespace Sulimn
         {
             InitializeComponent();
             _classes.AddRange(GameState.AllClasses);
-            lstClasses.ItemsSource = _classes;
+            LstClasses.ItemsSource = _classes;
             DataContext = _selectedClass;
-            txtHeroName.Focus();
+            TxtHeroName.Focus();
         }
 
-        private void txtHeroName_Changed(object sender, TextChangedEventArgs e)
+        private void TxtHeroName_Changed(object sender, TextChangedEventArgs e)
         {
             Functions.TextBoxTextChanged(sender, KeyType.Letters);
             CheckSkillPoints();
         }
 
-        private void txtHeroName_GotFocus(object sender, RoutedEventArgs e)
+        private void TxtHeroName_GotFocus(object sender, RoutedEventArgs e)
         {
             Functions.TextBoxGotFocus(sender);
         }
 
-        private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Functions.PreviewKeyDown(e, KeyType.Letters);
         }
 
-        private void pswd_GotFocus(object sender, RoutedEventArgs e)
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
         {
             Functions.PasswordBoxGotFocus(sender);
         }
 
-        private void pswd_Changed(object sender, RoutedEventArgs e)
+        private void Pswd_Changed(object sender, RoutedEventArgs e)
         {
             CheckSkillPoints();
         }
 
-        private void lstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstClasses.SelectedIndex >= 0)
+            if (LstClasses.SelectedIndex >= 0)
             {
-                _selectedClass = new HeroClass((HeroClass)lstClasses.SelectedValue);
-                _compareClass = new HeroClass((HeroClass)lstClasses.SelectedValue);
+                _selectedClass = new HeroClass((HeroClass)LstClasses.SelectedValue);
+                _compareClass = new HeroClass((HeroClass)LstClasses.SelectedValue);
                 CheckSkillPoints();
             }
             else
                 Clear();
 
-            lstClasses.ItemsSource = _classes;
+            LstClasses.ItemsSource = _classes;
             DataContext = _selectedClass;
         }
 
-        private void windowNewHero_Closing(object sender, CancelEventArgs e)
+        private void WindowNewHero_Closing(object sender, CancelEventArgs e)
         {
             if (_startGame)
             {

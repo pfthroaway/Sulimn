@@ -84,11 +84,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Database\IDatabaseInteraction.cs" />
+    <Compile Include="Classes\Database\SQLiteDatabaseInteraction.cs" />
+    <Compile Include="Classes\Entities\ICharacter.cs" />
     <Compile Include="Classes\HeroParts\Attributes.cs" />
+    <Compile Include="Classes\HeroParts\Bank.cs" />
+    <Compile Include="Classes\Items\Armor.cs" />
     <Compile Include="Classes\Items\BodyArmor.cs" />
     <Compile Include="Classes\HeroParts\Equipment.cs" />
     <Compile Include="Classes\Items\HeadAmor.cs" />
     <Compile Include="Classes\Items\FeetArmor.cs" />
+    <Compile Include="Classes\Items\IItem.cs" />
     <Compile Include="Classes\Items\LegArmor.cs" />
     <Compile Include="Classes\Items\Ring.cs" />
     <Compile Include="Classes\HeroParts\Statistics.cs" />
@@ -369,9 +375,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Sulimn.sqlite">
+    <EmbeddedResource Include="Sulimn.sqlite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

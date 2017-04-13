@@ -8,7 +8,7 @@ namespace Sulimn
     {
         internal BattleWindow RefToBattleWindow { private get; set; }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -21,21 +21,21 @@ namespace Sulimn
         private void BindLabels()
         {
             DataContext = GameState.CurrentEnemy;
-            lblStrength.DataContext = GameState.CurrentEnemy.Attributes;
-            lblVitality.DataContext = GameState.CurrentEnemy.Attributes;
-            lblDexterity.DataContext = GameState.CurrentEnemy.Attributes;
-            lblHealth.DataContext = GameState.CurrentEnemy.Statistics;
-            lblGold.DataContext = GameState.CurrentEnemy.Inventory;
-            lblEquippedWeapon.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
-            lblEquippedWeaponDamage.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
-            lblEquippedHead.DataContext = GameState.CurrentEnemy.Equipment.Head;
-            lblEquippedHeadDefense.DataContext = GameState.CurrentEnemy.Equipment.Head;
-            lblEquippedBody.DataContext = GameState.CurrentEnemy.Equipment.Body;
-            lblEquippedBodyDefense.DataContext = GameState.CurrentEnemy.Equipment.Body;
-            lblEquippedLegs.DataContext = GameState.CurrentEnemy.Equipment.Legs;
-            lblEquippedLegsDefense.DataContext = GameState.CurrentEnemy.Equipment.Legs;
-            lblEquippedFeet.DataContext = GameState.CurrentEnemy.Equipment.Feet;
-            lblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Equipment.Feet;
+            LblStrength.DataContext = GameState.CurrentEnemy.Attributes;
+            LblVitality.DataContext = GameState.CurrentEnemy.Attributes;
+            LblDexterity.DataContext = GameState.CurrentEnemy.Attributes;
+            LblHealth.DataContext = GameState.CurrentEnemy.Statistics;
+            LblGold.DataContext = GameState.CurrentEnemy.Inventory;
+            LblEquippedWeapon.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
+            LblEquippedWeaponDamage.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
+            LblEquippedHead.DataContext = GameState.CurrentEnemy.Equipment.Head;
+            LblEquippedHeadDefense.DataContext = GameState.CurrentEnemy.Equipment.Head;
+            LblEquippedBody.DataContext = GameState.CurrentEnemy.Equipment.Body;
+            LblEquippedBodyDefense.DataContext = GameState.CurrentEnemy.Equipment.Body;
+            LblEquippedLegs.DataContext = GameState.CurrentEnemy.Equipment.Legs;
+            LblEquippedLegsDefense.DataContext = GameState.CurrentEnemy.Equipment.Legs;
+            LblEquippedFeet.DataContext = GameState.CurrentEnemy.Equipment.Feet;
+            LblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Equipment.Feet;
         }
 
         private void OnPropertyChanged(string property)
@@ -59,7 +59,7 @@ namespace Sulimn
             BindLabels();
         }
 
-        private void windowEnemyDetails_Closing(object sender, CancelEventArgs e)
+        private void WindowEnemyDetails_Closing(object sender, CancelEventArgs e)
         {
             RefToBattleWindow.Show();
         }

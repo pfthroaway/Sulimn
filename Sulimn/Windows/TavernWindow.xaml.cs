@@ -10,19 +10,19 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnBlackjack_Click(object sender, RoutedEventArgs e)
+        private void BtnBlackjack_Click(object sender, RoutedEventArgs e)
         {
             BlackjackWindow blackjackWindow = new BlackjackWindow { RefToTavernWindow = this };
             blackjackWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnFood_Click(object sender, RoutedEventArgs e)
+        private void BtnFood_Click(object sender, RoutedEventArgs e)
         {
             TheTavernBarWindow theTavernBarWindow = new TheTavernBarWindow { RefToTavernWindow = this };
             theTavernBarWindow.Show();
@@ -44,7 +44,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void windowTavern_Closing(object sender, CancelEventArgs e)
+        private void WindowTavern_Closing(object sender, CancelEventArgs e)
         {
             RefToCityWindow.Show();
         }

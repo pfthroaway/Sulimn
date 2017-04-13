@@ -1,11 +1,11 @@
-﻿<Window x:Name="windowCastSpell" x:Class="Sulimn.CastSpellWindow"
+﻿<Window x:Name="WindowCastSpell" x:Class="Sulimn.CastSpellWindow"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
 mc:Ignorable="d"
-Title="Cast Spell" SizeToContent="WidthAndHeight" Closing="windowCastSpell_Closing" ResizeMode="NoResize"
+Title="Cast Spell" SizeToContent="WidthAndHeight" Closing="WindowCastSpell_Closing" ResizeMode="NoResize"
 WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17" Icon="S.ico">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,24 +19,24 @@ WindowStartupLocation="CenterScreen" FontFamily="Segoe UI Semibold" FontSize="17
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListBox x:Name="lstSpells" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="250" Margin="10"
- Height="200" ItemsSource="{Binding}" SelectionChanged="lstSpells_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
-        <TextBlock x:Name="lblHealth" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+        <ListBox x:Name="LstSpells" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="250" Margin="10"
+ Height="200" ItemsSource="{Binding}" SelectionChanged="LstSpells_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        <TextBlock x:Name="LblHealth" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
  Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" VerticalAlignment="Center"
  HorizontalAlignment="Center" Margin="5" />
-        <TextBlock x:Name="lblMagic" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+        <TextBlock x:Name="LblMagic" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
  Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" VerticalAlignment="Center"
  HorizontalAlignment="Center" Margin="5" />
-        <Button x:Name="btnCastSpell" Grid.Column="0" Grid.Row="3" Content="_Cast Spell" Height="30" Margin="10"
-Click="btnCastSpell_Click" IsEnabled="False" IsDefault="True" />
-        <Button x:Name="btnBack" Grid.Column="1" Grid.Row="3" Content="_Back" Height="30" Margin="10"
-Click="btnBack_Click" IsCancel="True" />
+        <Button x:Name="BtnCastSpell" Grid.Column="0" Grid.Row="3" Content="_Cast Spell" Height="30" Margin="10"
+Click="BtnCastSpell_Click" IsEnabled="False" IsDefault="True" />
+        <Button x:Name="BtnBack" Grid.Column="1" Grid.Row="3" Content="_Back" Height="30" Margin="10"
+Click="BtnBack_Click" IsCancel="True" />
         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Width="275" Margin="5">
-            <TextBlock x:Name="lblDescription" Width="260" Height="110" Margin="5" TextWrapping="Wrap"
+            <TextBlock Width="260" Height="110" Margin="5" TextWrapping="Wrap"
  Text="{Binding Path=Description, Mode=TwoWay}" />
-            <TextBlock x:Name="lblMagicCost" Text="{Binding Path=MagicCostToString, Mode=OneWay}" Margin="5" />
-            <TextBlock x:Name="lblSpellType" Text="{Binding Path=TypeToString, Mode=OneWay}" Margin="5" />
-            <TextBlock x:Name="lblSpellDamage" Text="{Binding Path=TypeAmount, Mode=OneWay}" Margin="5" />
+            <TextBlock Text="{Binding Path=MagicCostToString, Mode=OneWay}" Margin="5" />
+            <TextBlock Text="{Binding Path=TypeToString, Mode=OneWay}" Margin="5" />
+            <TextBlock Text="{Binding Path=TypeAmount, Mode=OneWay}" Margin="5" />
         </StackPanel>
     </Grid>
 </Window>

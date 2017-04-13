@@ -1,5 +1,4 @@
 ﻿using Extensions;
-using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -8,22 +7,11 @@ namespace Sulimn
     /// <summary>Interaction logic for BattleWindow.xaml</summary>
     public partial class BattleWindow : INotifyPropertyChanged
     {
-        private readonly string _nl = Environment.NewLine;
         private BattleAction _enemyAction, _heroAction;
         private int _heroShield;
         private bool _battleEnded;
         private Spell _currentSpell = new Spell();
         private string _previousWindow;
-
-        /// <summary>Adds text to the txtBattle TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtBattle.Text += _nl + _nl + newText;
-            txtBattle.Focus();
-            txtBattle.CaretIndex = txtBattle.Text.Length;
-            txtBattle.ScrollToEnd();
-        }
 
         private enum BattleAction
         {
@@ -48,7 +36,7 @@ namespace Sulimn
 
         public int HeroShield
         {
-            get { return _heroShield; }
+            get => _heroShield;
             set
             {
                 _heroShield = value;
@@ -56,7 +44,7 @@ namespace Sulimn
             }
         }
 
-        public string HeroShieldToString => "Shield: " + _heroShield;
+        public string HeroShieldToString => $"Shield: {_heroShield}";
 
         #endregion Properties
 
@@ -67,12 +55,12 @@ namespace Sulimn
         /// <summary>Binds text to the labels.</summary>
         private void BindLabels()
         {
-            lblCharName.DataContext = GameState.CurrentHero;
-            lblCharHealth.DataContext = GameState.CurrentHero.Statistics;
-            lblCharMagic.DataContext = GameState.CurrentHero.Statistics;
-            lblShield.DataContext = this;
-            lblEnemyName.DataContext = GameState.CurrentEnemy;
-            lblEnemyHealth.DataContext = GameState.CurrentEnemy.Statistics;
+            LblCharName.DataContext = GameState.CurrentHero;
+            LblCharHealth.DataContext = GameState.CurrentHero.Statistics;
+            LblCharMagic.DataContext = GameState.CurrentHero.Statistics;
+            LblShield.DataContext = this;
+            LblEnemyName.DataContext = GameState.CurrentEnemy;
+            LblEnemyHealth.DataContext = GameState.CurrentEnemy.Statistics;
         }
 
         private void OnPropertyChanged(string property)
@@ -91,15 +79,14 @@ namespace Sulimn
             BindLabels();
             _previousWindow = prevWindow;
 
-            txtBattle.Text = "You encounter an enemy. The " + GameState.CurrentEnemy.Name +
-             " seems openly hostile to you. Prepare to defend yourself.";
+            TxtBattle.Text = $"You encounter an enemy. The {GameState.CurrentEnemy.Name} seems openly hostile to you. Prepare to defend yourself.";
         }
 
         /// <summary>Ends the battle and allows the user to exit the Window.</summary>
         private void EndBattle()
         {
             _battleEnded = true;
-            btnReturn.IsEnabled = true;
+            BtnReturn.IsEnabled = true;
         }
 
         #endregion Battle Management
@@ -158,7 +145,7 @@ namespace Sulimn
 
                 case BattleAction.Cast:
 
-                    AddTextTT("You cast " + _currentSpell.Name + ".");
+                    Functions.AddTextToTextBox(TxtBattle, $"You cast {_currentSpell.Name}.");
 
                     switch (_currentSpell.Type)
                     {
@@ -167,13 +154,12 @@ namespace Sulimn
                             break;
 
                         case SpellTypes.Healing:
-                            AddTextTT(GameState.CurrentHero.Heal(_currentSpell.Amount));
+                            Functions.AddTextToTextBox(TxtBattle, GameState.CurrentHero.Heal(_currentSpell.Amount));
                             break;
 
                         case SpellTypes.Shield:
                             HeroShield += _currentSpell.Amount;
-                            AddTextTT("You now have a magical shield which will help protect you from " + HeroShield +
-                                      " damage.");
+                            Functions.AddTextToTextBox(TxtBattle, $"You now have a magical shield which will help protect you from {HeroShield} damage.");
                             break;
                     }
 
@@ -185,10 +171,10 @@ namespace Sulimn
                     if (FleeAttempt(GameState.CurrentHero.TotalDexterity, GameState.CurrentEnemy.TotalDexterity))
                     {
                         EndBattle();
-                        AddTextTT("You successfully fled from the " + GameState.CurrentEnemy.Name + ".");
+                        Functions.AddTextToTextBox(TxtBattle, $"You successfully fled from the {GameState.CurrentEnemy.Name}.");
                     }
                     else
-                        AddTextTT("The " + GameState.CurrentEnemy.Name + " blocked your attempt to flee.");
+                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} blocked your attempt to flee.");
                     break;
             }
         }
@@ -213,26 +199,26 @@ namespace Sulimn
 
                 string absorb = "";
                 if (actualAbsorb > 0)
-                    absorb = "The " + GameState.CurrentEnemy.Name + "'s armor absorbed " + actualAbsorb + " damage. ";
+                    absorb = $"The {GameState.CurrentEnemy.Name}'s armor absorbed {actualAbsorb} damage. ";
 
                 if (actualDamage > actualAbsorb)
                 {
-                    AddTextTT("You attack for " + actualDamage + " damage. " + absorb +
-                    GameState.CurrentEnemy.TakeDamage(actualDamage - actualAbsorb));
+                    Functions.AddTextToTextBox(TxtBattle, $"You attack for {actualDamage} damage. {absorb}{GameState.CurrentEnemy.TakeDamage(actualDamage - actualAbsorb)}");
                     if (GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                     {
                         EndBattle();
-                        AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience));
+                        Functions.AddTextToTextBox(TxtBattle, GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience));
                         if (GameState.CurrentEnemy.Inventory.Gold > 0)
-                            AddTextTT("You find " + GameState.CurrentEnemy.Inventory.Gold + " gold on the body.");
+                            Functions.AddTextToTextBox(TxtBattle, $"You find {GameState.CurrentEnemy.Inventory.Gold} gold on the body.");
+
                         GameState.CurrentHero.Inventory.Gold += GameState.CurrentEnemy.Inventory.Gold;
                     }
                 }
                 else
-                    AddTextTT("You attack for " + actualDamage + ", but its armor absorbs all of it.");
+                    Functions.AddTextToTextBox(TxtBattle, $"You attack for {actualDamage}, but its armor absorbs all of it.");
             }
             else
-                AddTextTT("You miss.");
+                Functions.AddTextToTextBox(TxtBattle, "You miss.");
         }
 
         /// <summary>Sets the current Spell.</summary>
@@ -290,11 +276,11 @@ namespace Sulimn
                     if (FleeAttempt(GameState.CurrentEnemy.TotalDexterity, GameState.CurrentHero.TotalDexterity))
                     {
                         EndBattle();
-                        AddTextTT("The " + GameState.CurrentEnemy.Name + " fled from the battle.");
-                        AddTextTT(GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience / 2));
+                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} fled from the battle.");
+                        Functions.AddTextToTextBox(TxtBattle, GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience / 2));
                     }
                     else
-                        AddTextTT("You block the " + GameState.CurrentEnemy.Name + "'s attempt to flee.");
+                        Functions.AddTextToTextBox(TxtBattle, $"You block the {GameState.CurrentEnemy.Name}'s attempt to flee.");
                     break;
             }
         }
@@ -336,31 +322,26 @@ namespace Sulimn
                 string shield = "";
 
                 if (actualShieldAbsorb > 0)
-                    shield = " Your magical shield absorbs " + actualShieldAbsorb + " damage.";
+                    shield = $" Your magical shield absorbs {actualShieldAbsorb} damage.";
                 if (actualArmorAbsorb > 0)
-                    absorb = " Your armor absorbs " + actualArmorAbsorb + " damage. ";
+                    absorb = $" Your armor absorbs {actualArmorAbsorb} damage. ";
 
                 if (actualDamage > actualShieldAbsorb + actualArmorAbsorb) //the player actually takes damage
                 {
-                    AddTextTT("The " + GameState.CurrentEnemy.Name + " attacks you for " + actualDamage + " damage. " +
-                    shield + absorb +
-                    GameState.CurrentHero.TakeDamage(actualDamage - actualShieldAbsorb - actualArmorAbsorb));
+                    Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage} damage. {shield}{absorb}{GameState.CurrentHero.TakeDamage(actualDamage - actualShieldAbsorb - actualArmorAbsorb)}");
                 }
                 else
                 {
                     if (actualShieldAbsorb > 0 && actualArmorAbsorb > 0)
-                        AddTextTT("The " + GameState.CurrentEnemy.Name + " attacks you for " + actualDamage + ", but" +
-                        shield.ToLower() + absorb.ToLower());
+                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage}, but {shield.ToLower()}{absorb.ToLower()}");
                     else if (actualDamage == actualShieldAbsorb)
-                        AddTextTT("The " + GameState.CurrentEnemy.Name + " attacks you for " + actualDamage +
-                        ", but your shield absorbed all of it.");
+                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage}, but your shield absorbed all of it.");
                     else
-                        AddTextTT("The " + GameState.CurrentEnemy.Name + " attacks you for " + actualDamage +
-                        ", but your armor absorbed all of it.");
+                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage}, but your armor absorbed all of it.");
                 }
             }
             else
-                AddTextTT("The " + GameState.CurrentEnemy.Name + " misses.");
+                Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} misses.");
         }
 
         /// <summary>Determines whether a flight attempt is successful.</summary>
@@ -380,7 +361,7 @@ namespace Sulimn
         private void Fairy()
         {
             EndBattle();
-            AddTextTT(
+            Functions.AddTextToTextBox(TxtBattle,
             "A mysterious fairy appears, and, seeing your crumpled body on the ground, resurrects you. You have just enough health to make it back to town.");
             GameState.CurrentHero.Statistics.CurrentHealth = 1;
         }
@@ -399,21 +380,21 @@ namespace Sulimn
         /// <param name="enabled">Are the buttons enabled?</param>
         private void ToggleButtons(bool enabled)
         {
-            btnAttack.IsEnabled = enabled;
-            btnCastSpell.IsEnabled = enabled;
-            btnFlee.IsEnabled = enabled;
+            BtnAttack.IsEnabled = enabled;
+            BtnCastSpell.IsEnabled = enabled;
+            BtnFlee.IsEnabled = enabled;
         }
 
         #endregion Button Management
 
         #region Button-Click Methods
 
-        private void btnAttack_Click(object sender, RoutedEventArgs e)
+        private void BtnAttack_Click(object sender, RoutedEventArgs e)
         {
             NewRound(BattleAction.Attack);
         }
 
-        private void btnCharDetails_Click(object sender, RoutedEventArgs e)
+        private void BtnCharDetails_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow { RefToBattleWindow = this };
             characterWindow.SetupChar();
@@ -423,19 +404,19 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnEnemyDetails_Click(object sender, RoutedEventArgs e)
+        private void BtnEnemyDetails_Click(object sender, RoutedEventArgs e)
         {
             EnemyDetailsWindow enemyDetailsWindow = new EnemyDetailsWindow { RefToBattleWindow = this };
             enemyDetailsWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        private void BtnReturn_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void btnCastSpell_Click(object sender, RoutedEventArgs e)
+        private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
         {
             CastSpellWindow castSpellWindow = new CastSpellWindow { RefToBattleWindow = this };
             castSpellWindow.LoadWindow("Battle");
@@ -443,7 +424,7 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnFlee_Click(object sender, RoutedEventArgs e)
+        private void BtnFlee_Click(object sender, RoutedEventArgs e)
         {
             NewRound(BattleAction.Flee);
         }
@@ -457,7 +438,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private async void windowBattle_Closing(object sender, CancelEventArgs e)
+        private async void WindowBattle_Closing(object sender, CancelEventArgs e)
         {
             if (_battleEnded)
             {

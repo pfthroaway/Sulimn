@@ -1,5 +1,4 @@
 ﻿using Extensions;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Sulimn
     public partial class BlackjackWindow : INotifyPropertyChanged
     {
         private readonly List<Card> _cardList = new List<Card>();
-        private readonly string _nl = Environment.NewLine;
+
         private Hand _playerHand = new Hand(), _dealerHand = new Hand();
         private bool _handOver = true;
         private int _index, _bet, _totalWins, _totalLosses, _totalDraws, _totalBetWinnings, _totalBetLosses;
@@ -42,7 +41,7 @@ namespace Sulimn
         /// <summary>Total wins for the player.</summary>
         public int TotalWins
         {
-            get { return _totalWins; }
+            get => _totalWins;
             set
             {
                 _totalWins = value;
@@ -53,7 +52,7 @@ namespace Sulimn
         /// <summary>Total losses for the player.</summary>
         public int TotalLosses
         {
-            get { return _totalLosses; }
+            get => _totalLosses;
             set
             {
                 _totalLosses = value;
@@ -64,7 +63,7 @@ namespace Sulimn
         /// <summary>Total draws.</summary>
         public int TotalDraws
         {
-            get { return _totalDraws; }
+            get => _totalDraws;
             set
             {
                 _totalDraws = value;
@@ -75,7 +74,7 @@ namespace Sulimn
         /// <summary>Total bet winnings for the player.</summary>
         public int TotalBetWinnings
         {
-            get { return _totalBetWinnings; }
+            get => _totalBetWinnings;
             set
             {
                 _totalBetWinnings = value;
@@ -86,7 +85,7 @@ namespace Sulimn
         /// <summary>Total bet losses for the player.</summary>
         public int TotalBetLosses
         {
-            get { return _totalBetLosses; }
+            get => _totalBetLosses;
             set
             {
                 _totalBetLosses = value;
@@ -95,9 +94,11 @@ namespace Sulimn
         }
 
         /// <summary>Statistics about the player's games.</summary>
-        public string Statistics => "Wins: " + TotalWins.ToString("N0") + _nl + "Losses: " + TotalLosses.ToString("N0") + _nl +
-                                    "Draws: " + TotalDraws.ToString("N0") + _nl + "Gold Won: " + TotalBetWinnings.ToString("N0") + _nl +
-                                    "Gold Lost: " + TotalBetLosses.ToString("N0");
+        public string Statistics => $"Wins: {TotalWins:N0}\n" +
+            $"Losses: {TotalLosses:N0}\n" +
+            $"Draws: {TotalDraws:N0}\n" +
+            $"Gold Won: {TotalBetWinnings:N0}\n" +
+            $"Gold Lost: {TotalBetLosses:N0}";
 
         #endregion Properties
 
@@ -111,13 +112,13 @@ namespace Sulimn
         private void BindLabels()
         {
             DataContext = this;
-            lstPlayer.ItemsSource = _playerHand.CardList;
-            lstPlayer.Items.Refresh();
-            lstDealer.ItemsSource = _dealerHand.CardList;
-            lstDealer.Items.Refresh();
-            lblPlayerTotal.DataContext = _playerHand;
-            lblDealerTotal.DataContext = _dealerHand;
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
+            LstPlayer.ItemsSource = _playerHand.CardList;
+            LstPlayer.Items.Refresh();
+            LstDealer.ItemsSource = _dealerHand.CardList;
+            LstDealer.Items.Refresh();
+            LblPlayerTotal.DataContext = _playerHand;
+            LblDealerTotal.DataContext = _dealerHand;
+            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         private void OnPropertyChanged(string property)
@@ -273,7 +274,7 @@ namespace Sulimn
             _dealerHand = new Hand();
 
             _handOver = false;
-            txtBet.IsEnabled = false;
+            TxtBet.IsEnabled = false;
             ToggleNewGameExitButtons(false);
             if (_index >= _cardList.Count * 0.8)
             {
@@ -296,29 +297,29 @@ namespace Sulimn
         private void CheckButtons()
         {
             ToggleHitStay(_playerHand.TotalValue < 21);
-            btnConvertAce.IsEnabled = CheckHasAceEleven(_playerHand);
+            BtnConvertAce.IsEnabled = CheckHasAceEleven(_playerHand);
         }
 
-        /// <summary>Disables all the buttons on the Window except for btnNewHand.</summary>
+        /// <summary>Disables all the buttons on the Window except for BtnNewHand.</summary>
         private void DisablePlayButtons()
         {
             ToggleNewGameExitButtons(true);
             ToggleHitStay(false);
-            btnConvertAce.IsEnabled = false;
+            BtnConvertAce.IsEnabled = false;
         }
 
         private void ToggleNewGameExitButtons(bool enabled)
         {
-            btnNewHand.IsEnabled = enabled;
-            btnExit.IsEnabled = enabled;
+            BtnNewHand.IsEnabled = enabled;
+            BtnExit.IsEnabled = enabled;
         }
 
         /// <summary>Toggles the Hit and Stay Buttons' IsEnabled state.</summary>
         /// <param name="enabled">Should the Buttons be enabled?</param>
         private void ToggleHitStay(bool enabled)
         {
-            btnHit.IsEnabled = enabled;
-            btnStay.IsEnabled = enabled;
+            BtnHit.IsEnabled = enabled;
+            BtnStay.IsEnabled = enabled;
         }
 
         #endregion Button Management
@@ -329,8 +330,8 @@ namespace Sulimn
         private void DrawBlackjack()
         {
             EndHand();
-            AddTextTT("You reach a draw.");
-            TotalDraws += 1;
+            Functions.AddTextToTextBox(TxtBlackjack, "You reach a draw.");
+            TotalDraws++;
         }
 
         /// <summary>
@@ -339,7 +340,7 @@ namespace Sulimn
         private void EndHand()
         {
             _handOver = true;
-            txtBet.IsEnabled = true;
+            TxtBet.IsEnabled = true;
             DisplayDealerHand();
             DisablePlayButtons();
             DisplayStatistics();
@@ -350,9 +351,9 @@ namespace Sulimn
         /// <param name="betAmount">Amount the Player bet</param>
         private void LoseBlackjack(int betAmount)
         {
-            AddTextTT("You lose " + betAmount + ".");
+            Functions.AddTextToTextBox(TxtBlackjack, $"You lose {betAmount:N0}.");
             GameState.CurrentHero.Inventory.Gold -= betAmount;
-            TotalLosses += 1;
+            TotalLosses++;
             TotalBetLosses += betAmount;
             EndHand();
         }
@@ -379,8 +380,8 @@ namespace Sulimn
         private void WinBlackjack(int betAmount)
         {
             GameState.CurrentHero.Inventory.Gold += betAmount;
-            AddTextTT("You win " + betAmount + "!");
-            TotalWins += 1;
+            Functions.AddTextToTextBox(TxtBlackjack, $"You win {betAmount}!");
+            TotalWins++;
             TotalBetWinnings += betAmount;
             EndHand();
         }
@@ -388,16 +389,6 @@ namespace Sulimn
         #endregion Game Results
 
         #region Display Manipulation
-
-        /// <summary>Adds text to the txtBlackjack TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtBlackjack.Text += _nl + _nl + newText;
-            txtBlackjack.Focus();
-            txtBlackjack.CaretIndex = txtBlackjack.Text.Length;
-            txtBlackjack.ScrollToEnd();
-        }
 
         /// <summary>Displays the Dealer's Hand.</summary>
         private void DisplayDealerHand()
@@ -416,19 +407,19 @@ namespace Sulimn
                 CheckButtons();
             else if (CheckBust(_playerHand))
             {
-                AddTextTT("You bust!");
+                Functions.AddTextToTextBox(TxtBlackjack, "You bust!");
                 LoseBlackjack(_bet);
             }
             else if (CheckBlackjack(_playerHand))
             {
                 if (_playerHand.CardList.Count == 2)
                 {
-                    AddTextTT("You have a natural blackjack!");
+                    Functions.AddTextToTextBox(TxtBlackjack, "You have a natural blackjack!");
                     if (_dealerHand.TotalValue != 21)
                         WinBlackjack(Int32Helper.Parse(_bet * 1.5));
                     else
                     {
-                        AddTextTT("You and the dealer both have natural blackjacks.");
+                        Functions.AddTextToTextBox(TxtBlackjack, "You and the dealer both have natural blackjacks.");
                         DrawBlackjack();
                     }
                 }
@@ -450,26 +441,26 @@ namespace Sulimn
         /// <summary>Displays the game's statistics.</summary>
         private void DisplayStatistics()
         {
-            lblStatistics.Text = Statistics;
-            lblGold.Text = "Gold: " + GameState.CurrentHero.Inventory.Gold.ToString("N0");
+            LblStatistics.Text = Statistics;
+            LblGold.Text = $"Gold: {GameState.CurrentHero.Inventory.GoldToString}";
         }
 
         #endregion Display Manipulation
 
         #region Button-Click Methods
 
-        private void btnConvertAce_Click(object sender, RoutedEventArgs e)
+        private void BtnConvertAce_Click(object sender, RoutedEventArgs e)
         {
             ConvertAce(_playerHand);
             DisplayHand();
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnHit_Click(object sender, RoutedEventArgs e)
+        private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             DealCard(_playerHand);
             _index++;
@@ -479,7 +470,7 @@ namespace Sulimn
             {
                 if (_playerHand.TotalValue < 21 || CheckHasAceEleven(_playerHand) && _playerHand.TotalValue <= 31)
                 {
-                    AddTextTT("Five Card Charlie!");
+                    Functions.AddTextToTextBox(TxtBlackjack, "Five Card Charlie!");
                     DisplayPlayerHand();
                     WinBlackjack(_bet);
                 }
@@ -488,18 +479,18 @@ namespace Sulimn
             }
         }
 
-        private void btnNewHand_Click(object sender, RoutedEventArgs e)
+        private void BtnNewHand_Click(object sender, RoutedEventArgs e)
         {
-            _bet = Int32Helper.Parse(txtBet.Text);
+            _bet = Int32Helper.Parse(TxtBet.Text);
             if (_bet > 0 && _bet <= GameState.CurrentHero.Inventory.Gold)
                 NewHand();
             else if (_bet > GameState.CurrentHero.Inventory.Gold)
-                new Notification("You can't bet more gold than you have!", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                GameState.DisplayNotification("You can't bet more gold than you have!", "Sulimn", NotificationButtons.OK, this);
             else
-                new Notification("Please enter a valid bet.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                GameState.DisplayNotification("Please enter a valid bet.", "Sulimn", NotificationButtons.OK, this);
         }
 
-        private void btnStay_Click(object sender, RoutedEventArgs e)
+        private void BtnStay_Click(object sender, RoutedEventArgs e)
         {
             Stay();
         }
@@ -521,29 +512,29 @@ namespace Sulimn
             CreateDeck(6);
             _cardList.Shuffle();
             DisplayStatistics();
-            txtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat." + _nl + _nl +
+            TxtBlackjack.Text = "You approach a table where Blackjack is being played. You take a seat.\n\n" +
             "\"Care to place a bet?\" asks the dealer.";
-            txtBet.Focus();
+            TxtBet.Focus();
             BindLabels();
         }
 
-        private void txtBet_GotFocus(object sender, RoutedEventArgs e)
+        private void TxtBet_GotFocus(object sender, RoutedEventArgs e)
         {
             Functions.TextBoxGotFocus(sender);
         }
 
-        private void txtBet_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtBet_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Functions.PreviewKeyDown(e, KeyType.Numbers);
+            Functions.PreviewKeyDown(e, KeyType.Integers);
         }
 
-        private void txtBet_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtBet_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Functions.TextBoxTextChanged(sender, KeyType.Numbers);
-            btnNewHand.IsEnabled = txtBet.Text.Length > 0;
+            Functions.TextBoxTextChanged(sender, KeyType.Integers);
+            BtnNewHand.IsEnabled = TxtBet.Text.Length > 0;
         }
 
-        private async void windowBlackjack_Closing(object sender, CancelEventArgs e)
+        private async void WindowBlackjack_Closing(object sender, CancelEventArgs e)
         {
             if (_handOver)
             {

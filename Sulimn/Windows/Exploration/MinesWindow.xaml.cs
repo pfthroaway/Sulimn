@@ -1,5 +1,4 @@
 ﻿using Extensions;
-using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -9,17 +8,6 @@ namespace Sulimn
     public partial class MinesWindow
     {
         internal ExploreWindow RefToExploreWindow { private get; set; }
-
-        /// <summary>Adds text to the txtMines TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            string nl = Environment.NewLine;
-            txtMines.Text += nl + nl + newText;
-            txtMines.Focus();
-            txtMines.CaretIndex = txtMines.Text.Length;
-            txtMines.ScrollToEnd();
-        }
 
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
@@ -32,15 +20,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private async void btnOffices_Click(object sender, RoutedEventArgs e)
+        private async void BtnOffices_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(await GameState.EventFindGold(200, 600));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindGold(200, 600));
                 else if (result <= 40)
-                    AddTextTT(await GameState.EventFindItem(250, 650));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindItem(250, 650));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -53,18 +41,18 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtMines, "You need to heal before you can explore.");
         }
 
-        private async void btnOreBin_Click(object sender, RoutedEventArgs e)
+        private async void BtnOreBin_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(await GameState.EventFindGold(300, 700));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindGold(300, 700));
                 else if (result <= 40)
-                    AddTextTT(await GameState.EventFindItem(350, 750));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindItem(350, 750));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -77,18 +65,18 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtMines, "You need to heal before you can explore.");
         }
 
-        private async void btnPumpStation_Click(object sender, RoutedEventArgs e)
+        private async void BtnPumpStation_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(await GameState.EventFindGold(200, 600));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindGold(200, 600));
                 else if (result <= 30)
-                    AddTextTT(await GameState.EventFindItem(250, 650));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindItem(250, 650));
                 else if (result <= 75)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -101,18 +89,18 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtMines, "You need to heal before you can explore.");
         }
 
-        private async void btnWorkshop_Click(object sender, RoutedEventArgs e)
+        private async void BtnWorkshop_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(await GameState.EventFindGold(300, 700));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindGold(300, 700));
                 else if (result <= 30)
-                    AddTextTT(await GameState.EventFindItem(350, 750));
+                    Functions.AddTextToTextBox(TxtMines, await GameState.EventFindItem(350, 750));
                 else if (result <= 80)
                 {
                     GameState.EventEncounterEnemy("Giant Spider", "Lion", "Crazed Miner", "Giant Bat");
@@ -125,10 +113,10 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtMines, "You need to heal before you can explore.");
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -146,11 +134,11 @@ namespace Sulimn
         public MinesWindow()
         {
             InitializeComponent();
-            txtMines.Text =
+            TxtMines.Text =
             "You enter the abandoned mines. The path splits very near to the entrance, with paths leading south, east, and west. There are offices nearby. A crumbling, barely legible sign shows that the south path leads a shaft that goes to the ore bin, the east path leads to pump station, and the west path leads to the workshop.";
         }
 
-        private void windowMines_Closing(object sender, CancelEventArgs e)
+        private void WindowMines_Closing(object sender, CancelEventArgs e)
         {
             RefToExploreWindow.Show();
             RefToExploreWindow.CheckButtons();

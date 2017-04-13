@@ -48,7 +48,7 @@ namespace Sulimn
         private void CheckSkillPoints()
         {
             TogglePlus(GameState.CurrentHero.SkillPoints > 0);
-            btnReset.IsEnabled = GameState.CurrentHero.SkillPoints != _copyOfHero.SkillPoints;
+            BtnReset.IsEnabled = GameState.CurrentHero.SkillPoints != _copyOfHero.SkillPoints;
             GameState.CurrentHero.UpdateStatistics();
         }
 
@@ -73,13 +73,13 @@ namespace Sulimn
         internal void BindLabels()
         {
             DataContext = GameState.CurrentHero;
-            lblStrength.DataContext = GameState.CurrentHero;
-            lblVitality.DataContext = GameState.CurrentHero;
-            lblDexterity.DataContext = GameState.CurrentHero;
-            lblWisdom.DataContext = GameState.CurrentHero;
-            lblHealth.DataContext = GameState.CurrentHero.Statistics;
-            lblMagic.DataContext = GameState.CurrentHero.Statistics;
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblStrength.DataContext = GameState.CurrentHero;
+            LblVitality.DataContext = GameState.CurrentHero;
+            LblDexterity.DataContext = GameState.CurrentHero;
+            LblWisdom.DataContext = GameState.CurrentHero;
+            LblHealth.DataContext = GameState.CurrentHero.Statistics;
+            LblMagic.DataContext = GameState.CurrentHero.Statistics;
+            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -97,31 +97,31 @@ namespace Sulimn
         /// <param name="enabled">Should the Buttons be enabled?</param>
         private void TogglePlus(bool enabled)
         {
-            btnDexterityPlus.IsEnabled = enabled;
-            btnStrengthPlus.IsEnabled = enabled;
-            btnWisdomPlus.IsEnabled = enabled;
-            btnVitalityPlus.IsEnabled = enabled;
+            BtnDexterityPlus.IsEnabled = enabled;
+            BtnStrengthPlus.IsEnabled = enabled;
+            BtnWisdomPlus.IsEnabled = enabled;
+            BtnVitalityPlus.IsEnabled = enabled;
         }
 
         /// <summary>Disables attribute Minus Buttons.</summary>
         private void DisableMinus()
         {
-            btnDexterityMinus.IsEnabled = false;
-            btnStrengthMinus.IsEnabled = false;
-            btnWisdomMinus.IsEnabled = false;
-            btnVitalityMinus.IsEnabled = false;
+            BtnDexterityMinus.IsEnabled = false;
+            BtnStrengthMinus.IsEnabled = false;
+            BtnWisdomMinus.IsEnabled = false;
+            BtnVitalityMinus.IsEnabled = false;
         }
 
         #endregion Toggle Buttons
 
         #region Button-Click Methods
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnCastSpell_Click(object sender, RoutedEventArgs e)
+        private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
         {
             CastSpellWindow castSpellWindow = new CastSpellWindow { RefToCharacterWindow = this };
             castSpellWindow.LoadWindow("Character");
@@ -129,14 +129,14 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnInventory_Click(object sender, RoutedEventArgs e)
+        private void BtnInventory_Click(object sender, RoutedEventArgs e)
         {
             InventoryWindow inventoryWindow = new InventoryWindow { RefToCharacterWindow = this };
             inventoryWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             Reset();
         }
@@ -145,79 +145,79 @@ namespace Sulimn
 
         #region Plus/Minus Button Logic
 
-        private void btnStrengthMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnStrengthMinus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints++;
             GameState.CurrentHero.Attributes.Strength--;
 
-            btnStrengthMinus.IsEnabled = GameState.CurrentHero.Attributes.Strength == _copyOfHero.Attributes.Strength;
+            BtnStrengthMinus.IsEnabled = GameState.CurrentHero.Attributes.Strength != _copyOfHero.Attributes.Strength;
             CheckSkillPoints();
         }
 
-        private void btnStrengthPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnStrengthPlus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints--;
             GameState.CurrentHero.Attributes.Strength++;
-            btnStrengthMinus.IsEnabled = true;
+            BtnStrengthMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
-        private void btnVitalityMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnVitalityMinus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints++;
             GameState.CurrentHero.Attributes.Vitality--;
             GameState.CurrentHero.Statistics.CurrentHealth -= 5;
             GameState.CurrentHero.Statistics.MaximumHealth -= 5;
 
-            btnVitalityMinus.IsEnabled = GameState.CurrentHero.Attributes.Vitality == _copyOfHero.Attributes.Vitality;
+            BtnVitalityMinus.IsEnabled = GameState.CurrentHero.Attributes.Vitality != _copyOfHero.Attributes.Vitality;
             CheckSkillPoints();
         }
 
-        private void btnVitalityPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnVitalityPlus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints--;
             GameState.CurrentHero.Attributes.Vitality++;
             GameState.CurrentHero.Statistics.CurrentHealth += 5;
             GameState.CurrentHero.Statistics.MaximumHealth += 5;
-            btnVitalityMinus.IsEnabled = true;
+            BtnVitalityMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
-        private void btnDexterityMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnDexterityMinus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints++;
             GameState.CurrentHero.Attributes.Dexterity--;
 
-            btnDexterityMinus.IsEnabled = GameState.CurrentHero.Attributes.Dexterity == _copyOfHero.Attributes.Dexterity;
+            BtnDexterityMinus.IsEnabled = GameState.CurrentHero.Attributes.Dexterity != _copyOfHero.Attributes.Dexterity;
             CheckSkillPoints();
         }
 
-        private void btnDexterityPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnDexterityPlus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints--;
             GameState.CurrentHero.Attributes.Dexterity++;
-            btnDexterityMinus.IsEnabled = true;
+            BtnDexterityMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
-        private void btnWisdomMinus_Click(object sender, RoutedEventArgs e)
+        private void BtnWisdomMinus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints++;
             GameState.CurrentHero.Attributes.Wisdom--;
             GameState.CurrentHero.Statistics.CurrentMagic -= 5;
             GameState.CurrentHero.Statistics.MaximumMagic -= 5;
 
-            btnWisdomMinus.IsEnabled = GameState.CurrentHero.Attributes.Wisdom == _copyOfHero.Attributes.Wisdom;
+            BtnWisdomMinus.IsEnabled = GameState.CurrentHero.Attributes.Wisdom != _copyOfHero.Attributes.Wisdom;
             CheckSkillPoints();
         }
 
-        private void btnWisdomPlus_Click(object sender, RoutedEventArgs e)
+        private void BtnWisdomPlus_Click(object sender, RoutedEventArgs e)
         {
             GameState.CurrentHero.SkillPoints--;
             GameState.CurrentHero.Attributes.Wisdom++;
             GameState.CurrentHero.Statistics.CurrentMagic += 5;
             GameState.CurrentHero.Statistics.MaximumMagic += 5;
-            btnWisdomMinus.IsEnabled = true;
+            BtnWisdomMinus.IsEnabled = true;
             CheckSkillPoints();
         }
 
@@ -236,7 +236,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private async void windowCharacter_Closing(object sender, CancelEventArgs e)
+        private async void WindowCharacter_Closing(object sender, CancelEventArgs e)
         {
             switch (_previousWindow)
             {

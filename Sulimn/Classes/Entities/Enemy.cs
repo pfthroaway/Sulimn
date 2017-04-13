@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-
-namespace Sulimn
+﻿namespace Sulimn
 {
     /// <summary>Represents an Enemy who opposes the Hero.</summary>
-    internal class Enemy : Character, INotifyPropertyChanged
+    internal class Enemy : Character
     {
         private string _type;
 
@@ -16,9 +14,9 @@ namespace Sulimn
             if (Statistics.CurrentHealth <= 0)
             {
                 Statistics.CurrentHealth = 0;
-                return "The " + Name + " takes " + damage + " damage and has been slain!";
+                return $"The {Name} takes {damage} damage and has been slain!";
             }
-            return "The " + Name + " takes " + damage + " damage.";
+            return $"The Name takes {damage} damage.";
         }
 
         /// <summary>Overrides the ToString() method to return only Name.</summary>
@@ -27,34 +25,12 @@ namespace Sulimn
             return Name;
         }
 
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
-
         #region Modifying Properties
-
-        /// <summary>Name of the Enemy</summary>
-        public sealed override string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged("Name");
-            }
-        }
 
         /// <summary>Type of the Enemy</summary>
         public string Type
         {
-            get { return _type; }
+            get => _type;
             set
             {
                 _type = value;
@@ -62,98 +38,12 @@ namespace Sulimn
             }
         }
 
-        /// <summary>Level of the Enemy</summary>
-        public sealed override int Level
-        {
-            get { return _level; }
-            set
-            {
-                _level = value;
-                OnPropertyChanged("Level");
-                OnPropertyChanged("LevelAndClassToString");
-            }
-        }
-
-        /// <summary>Experience given to the Hero when the Enemy dies</summary>
-        public sealed override int Experience
-        {
-            get { return _experience; }
-            set
-            {
-                _experience = value;
-                OnPropertyChanged("ExperienceToString");
-                OnPropertyChanged("ExperienceToStringWithText");
-            }
-        }
-
-        /// <summary>Attributes of the Enemy</summary>
-        public sealed override Attributes Attributes
-        {
-            get { return _attributes; }
-            set
-            {
-                _attributes = value;
-                OnPropertyChanged("Attributes");
-            }
-        }
-
-        /// <summary>Statistics of the Enemy</summary>
-        public sealed override Statistics Statistics
-        {
-            get { return _statistics; }
-            set
-            {
-                _statistics = value;
-                OnPropertyChanged("Statistics");
-            }
-        }
-
-        /// <summary>Equpiment owned by the Enemy</summary>
-        public sealed override Equipment Equipment
-        {
-            get { return _equipment; }
-            set
-            {
-                _equipment = value;
-                OnPropertyChanged("Equipment");
-            }
-        }
-
-        /// <summary>Inventory of the Enemy</summary>
-        public sealed override Inventory Inventory
-        {
-            get { return _inventory; }
-            set
-            {
-                _inventory = value;
-                OnPropertyChanged("Inventory");
-            }
-        }
-
         #endregion Modifying Properties
 
         #region Helper Properties
 
-        /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalStrength => Attributes.Strength + Equipment.BonusStrength;
-
-        /// <summary>Returns the total Vitality attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalVitality => Attributes.Vitality + Equipment.BonusVitality;
-
-        /// <summary>Returns the total Dexterity attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalDexterity => Attributes.Dexterity + Equipment.BonusDexterity;
-
-        /// <summary>Returns the total Wisdom attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalWisdom => Attributes.Wisdom + Equipment.BonusWisdom;
-
         /// <summary>Returns the Enemy's level with preceding text.</summary>
-        public string LevelToString => "Level " + Level;
-
-        /// <summary>Returns the experience of the Enemy with thousand separators.</summary>
-        public string ExperienceToString => Experience.ToString("N0");
-
-        /// <summary>Returns the experience of the Enemy with thousand separators and preceding text.</summary>
-        public string ExperienceToStringWithText => "Experience: " + ExperienceToString;
+        public string LevelToString => $"Level {Level}";
 
         #endregion Helper Properties
 

@@ -12,21 +12,21 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (PasswordHash.ValidatePassword(pswdAdmin.Password, GameState.AdminPassword))
+            if (PasswordHash.ValidatePassword(PswdAdmin.Password, GameState.AdminPassword))
             {
                 _admin = true;
                 CloseWindow();
             }
             else
             {
-                new Notification("Invalid login.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
-                pswdAdmin.SelectAll();
+                GameState.DisplayNotification("Invalid login.", "Sulimn", NotificationButtons.OK, this);
+                PswdAdmin.SelectAll();
             }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -44,15 +44,15 @@ namespace Sulimn
         public AdminPasswordWindow()
         {
             InitializeComponent();
-            pswdAdmin.Focus();
+            PswdAdmin.Focus();
         }
 
-        private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        private void TxtPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            btnSubmit.IsEnabled = pswdAdmin.Password.Length > 0;
+            BtnSubmit.IsEnabled = PswdAdmin.Password.Length > 0;
         }
 
-        private void windowAdminPassword_Closing(object sender, CancelEventArgs e)
+        private void WindowAdminPassword_Closing(object sender, CancelEventArgs e)
         {
             if (!_admin)
                 RefToMainWindow.Show();

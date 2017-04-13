@@ -16,7 +16,7 @@ namespace Sulimn
         /// <summary>The name of the card.</summary>
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
                 _name = value;
@@ -27,7 +27,7 @@ namespace Sulimn
         /// <summary>The suit of the card.</summary>
         public CardSuit Suit
         {
-            get { return _suit; }
+            get => _suit;
             set
             {
                 _suit = value;
@@ -38,7 +38,7 @@ namespace Sulimn
         /// <summary>The value of the card.</summary>
         public int Value
         {
-            get { return _value; }
+            get => _value;
             set
             {
                 _value = value;
@@ -49,7 +49,7 @@ namespace Sulimn
         /// <summary>Should the Card be hidden from the player?</summary>
         public bool Hidden
         {
-            get { return _hidden; }
+            get => _hidden;
             set
             {
                 _hidden = value;
@@ -58,7 +58,7 @@ namespace Sulimn
         }
 
         /// <summary>Returns the name and suit of the card.</summary>
-        public string CardToString => Hidden ? "?? of ??" : Name + " of " + Suit;
+        public string CardToString => Hidden ? "?? of ??" : $"{Name} of {Suit}";
 
         #endregion Properties
 

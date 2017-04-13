@@ -30,7 +30,7 @@ namespace Sulimn
         /// <summary>The Weapon an entity is using.</summary>
         public Weapon Weapon
         {
-            get { return _weapon; }
+            get => _weapon;
             set
             {
                 _weapon = value;
@@ -41,7 +41,7 @@ namespace Sulimn
         /// <summary>The Head Armor an entity is wearing.</summary>
         public HeadArmor Head
         {
-            get { return _head; }
+            get => _head;
             set
             {
                 _head = value;
@@ -52,7 +52,7 @@ namespace Sulimn
         /// <summary>The Body Armor an entity is wearing.</summary>
         public BodyArmor Body
         {
-            get { return _body; }
+            get => _body;
             set
             {
                 _body = value;
@@ -63,7 +63,7 @@ namespace Sulimn
         /// <summary>The Hand Armor an entity is wearing.</summary>
         public HandArmor Hands
         {
-            get { return _hands; }
+            get => _hands;
             set
             {
                 _hands = value;
@@ -74,7 +74,7 @@ namespace Sulimn
         /// <summary>The Leg Armor an entity is wearing.</summary>
         public LegArmor Legs
         {
-            get { return _legs; }
+            get => _legs;
             set
             {
                 _legs = value;
@@ -85,7 +85,7 @@ namespace Sulimn
         /// <summary>The Feet Armor an entity is wearing.</summary>
         public FeetArmor Feet
         {
-            get { return _feet; }
+            get => _feet;
             set
             {
                 _feet = value;
@@ -96,7 +96,7 @@ namespace Sulimn
         /// <summary>The Ring an entity is wearing on its left hand.</summary>
         public Ring LeftRing
         {
-            get { return _leftRing; }
+            get => _leftRing;
             set
             {
                 _leftRing = value;
@@ -107,7 +107,7 @@ namespace Sulimn
         /// <summary>The Ring an entity is wearing on its right hand.</summary>
         public Ring RightRing
         {
-            get { return _rightRing; }
+            get => _rightRing;
             set
             {
                 _rightRing = value;
@@ -130,7 +130,7 @@ namespace Sulimn
         public string TotalDefenseToString => TotalDefense.ToString("N0");
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators and preceding text.</summary>
-        public string TotalDefenseToStringWithText => "Defense: " + TotalDefense.ToString("N0");
+        public string TotalDefenseToStringWithText => $"Defense: {TotalDefense:N0}";
 
         /// <summary>Returns the total Strength bonus produced by the current set of equipment.</summary>
         public int BonusStrength => LeftRing.Strength + RightRing.Strength;

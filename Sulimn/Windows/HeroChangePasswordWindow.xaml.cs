@@ -11,32 +11,32 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (PasswordHash.ValidatePassword(pswdCurrentPassword.Password, GameState.CurrentHero.Password))
-                if (pswdNewPassword.Password.Length >= 4 && pswdConfirmPassword.Password.Length >= 4)
-                    if (pswdNewPassword.Password == pswdConfirmPassword.Password)
-                        if (pswdCurrentPassword.Password != pswdNewPassword.Password)
+            if (PasswordHash.ValidatePassword(PswdCurrentPassword.Password, GameState.CurrentHero.Password))
+                if (PswdNewPassword.Password.Length >= 4 && PswdConfirmPassword.Password.Length >= 4)
+                    if (PswdNewPassword.Password == PswdConfirmPassword.Password)
+                        if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
-                            GameState.CurrentHero.Password = PasswordHash.HashPassword(pswdNewPassword.Password);
-                            GameState.SaveHeroPassword(GameState.CurrentHero);
-                            new Notification("Successfully changed password.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                            GameState.CurrentHero.Password = PasswordHash.HashPassword(PswdNewPassword.Password);
+                            await GameState.SaveHeroPassword(GameState.CurrentHero);
+                            GameState.DisplayNotification("Successfully changed password.", "Sulimn", NotificationButtons.OK, this);
                             CloseWindow();
                         }
                         else
                         {
-                            new Notification("The new password can't be the same as the current password.", "Sulimn",
-                            NotificationButtons.OK, this).ShowDialog();
+                            GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn",
+                            NotificationButtons.OK, this);
                         }
                     else
-                        new Notification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                        GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK, this);
                 else
-                    new Notification("Your password must be at least 4 characters.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                    GameState.DisplayNotification("Your password must be at least 4 characters.", "Sulimn", NotificationButtons.OK, this);
             else
-                new Notification("Invalid current password.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                GameState.DisplayNotification("Invalid current password.", "Sulimn", NotificationButtons.OK, this);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -54,21 +54,21 @@ namespace Sulimn
         public HeroChangePasswordWindow()
         {
             InitializeComponent();
-            pswdCurrentPassword.Focus();
+            PswdCurrentPassword.Focus();
         }
 
         private void PswdChanged(object sender, RoutedEventArgs e)
         {
-            btnSubmit.IsEnabled = pswdCurrentPassword.Password.Length > 0 && pswdNewPassword.Password.Length > 0 &&
-                                  pswdConfirmPassword.Password.Length > 0;
+            BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length > 0 && PswdNewPassword.Password.Length > 0 &&
+                                  PswdConfirmPassword.Password.Length > 0;
         }
 
-        private void pswd_GotFocus(object sender, RoutedEventArgs e)
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
         {
             Functions.PasswordBoxGotFocus(sender);
         }
 
-        private void windowHeroChangePassword_Closing(object sender, CancelEventArgs e)
+        private void WindowHeroChangePassword_Closing(object sender, CancelEventArgs e)
         {
             RefToCityWindow.Show();
         }

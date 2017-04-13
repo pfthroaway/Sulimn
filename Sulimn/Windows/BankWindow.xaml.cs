@@ -1,69 +1,16 @@
-﻿using Extensions;
-using System;
-using System.ComponentModel;
-using System.Data;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using Extensions;
 
 namespace Sulimn
 {
     /// <summary>Interaction logic for BankWindow.xaml</summary>
     public partial class BankWindow : INotifyPropertyChanged
     {
-        private readonly string _nl = Environment.NewLine;
-        private int _goldInBank, _loanAvailable, _loanTaken;
+        internal Bank HeroBank = new Bank();
 
         internal CityWindow RefToCityWindow { private get; set; }
-
-        #region Modifying Properties
-
-        /// <summary>Gold the Hero has in the bank.</summary>
-        public int GoldInBank
-        {
-            get { return _goldInBank; }
-            set
-            {
-                _goldInBank = value;
-                OnPropertyChanged("GoldInBankToString");
-            }
-        }
-
-        /// <summary>Gold the Hero has available on loan.</summary>
-        public int LoanAvailable
-        {
-            get { return _loanAvailable; }
-            set
-            {
-                _loanAvailable = value;
-                OnPropertyChanged("LoanAvailableToString");
-            }
-        }
-
-        /// <summary>Gold the Hero has taken out on loan.</summary>
-        public int LoanTaken
-        {
-            get { return _loanTaken; }
-            set
-            {
-                _loanTaken = value;
-                OnPropertyChanged("LoanTakenToString");
-            }
-        }
-
-        #endregion Modifying Properties
-
-        #region Helper Properties
-
-        /// <summary>Gold the Hero has in the bank, formatted.</summary>
-        public string GoldInBankToString => GoldInBank.ToString("N0");
-
-        /// <summary>Gold the Hero has available on loan, formatted.</summary>
-        public string LoanAvailableToString => LoanAvailable.ToString("N0");
-
-        /// <summary>Gold the Hero has taken out on loan, formatted.</summary>
-        public string LoanTakenToString => LoanTaken.ToString("N0");
-
-        #endregion Helper Properties
 
         #region Data-Binding
 
@@ -72,8 +19,8 @@ namespace Sulimn
         /// <summary>Binds text to the labels.</summary>
         private void BindLabels()
         {
-            DataContext = this;
-            lblGoldOnHand.DataContext = GameState.CurrentHero.Inventory;
+            DataContext = HeroBank;
+            LblGoldOnHand.DataContext = GameState.CurrentHero.Inventory;
         }
 
         private void OnPropertyChanged(string property)
@@ -85,23 +32,20 @@ namespace Sulimn
 
         #region Display Manipulation
 
-        /// <summary>Adds text to the txtBank Textbox.</summary>
+        /// <summary>Adds text to the TxtBank Textbox.</summary>
         /// <param name="newText">Text to be added</param>
-        internal void AddTextTT(string newText)
+        internal void AddTextToTextBox(string newText)
         {
-            txtBank.Text += _nl + _nl + newText;
-            txtBank.Focus();
-            txtBank.CaretIndex = txtBank.Text.Length;
-            txtBank.ScrollToEnd();
+            Functions.AddTextToTextBox(TxtBank, newText);
         }
 
         /// <summary>Checks what buttons should be enabled.</summary>
         internal void CheckButtons()
         {
-            btnDeposit.IsEnabled = GameState.CurrentHero.Inventory.Gold > 0;
-            btnWithdraw.IsEnabled = GoldInBank > 0;
-            btnTakeLoan.IsEnabled = LoanAvailable > 0;
-            btnRepayLoan.IsEnabled = LoanTaken > 0;
+            BtnDeposit.IsEnabled = GameState.CurrentHero.Inventory.Gold > 0;
+            BtnWithdraw.IsEnabled = HeroBank.GoldInBank > 0;
+            BtnTakeLoan.IsEnabled = HeroBank.LoanAvailable > 0;
+            BtnRepayLoan.IsEnabled = HeroBank.LoanTaken > 0;
         }
 
         /// <summary>Displays the Bank Dialog Window.</summary>
@@ -119,25 +63,11 @@ namespace Sulimn
         /// <summary>Loads the initial Bank state and Hero's Bank information..</summary>
         internal async void LoadBank()
         {
-            DataSet ds =
-            await GameState.FillDataSet(
-            "SELECT * FROM Bank WHERE [CharacterName]='" + GameState.CurrentHero.Name + "'", "Bank");
+            HeroBank = await GameState.LoadHeroBank(GameState.CurrentHero);
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                GoldInBank = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
-                LoanTaken = Int32Helper.Parse(ds.Tables[0].Rows[0]["LoanTaken"]);
-            }
-            else
-                new Notification("No such user exists in the bank.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
-
-            LoanAvailable = GameState.CurrentHero.Level * 250 - LoanTaken;
-
-            txtBank.Text =
-            "You enter the Bank. A teller beckons to you and you approach him. You tell him your name, and he rummages through a few papers. He finds one, and pulls it out." +
-            _nl + _nl + "You have " + GoldInBank.ToString("N0") +
-            " gold available to withdraw. You also have an open credit line of " + LoanAvailable.ToString("N0") +
-            " gold.";
+            TxtBank.Text =
+            "You enter the Bank. A teller beckons to you and you approach him. You tell him your name, and he rummages through a few papers. He finds one, and pulls it out.\n\n" +
+            $"You have {HeroBank.GoldInBankToString} gold available to withdraw. You also have an open credit line of { HeroBank.LoanAvailableToString} gold.";
             BindLabels();
             CheckButtons();
         }
@@ -146,29 +76,29 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnDeposit_Click(object sender, RoutedEventArgs e)
+        private void BtnDeposit_Click(object sender, RoutedEventArgs e)
         {
             DisplayBankDialog(GameState.CurrentHero.Inventory.Gold, BankAction.Deposit);
         }
 
-        private void btnRepayLoan_Click(object sender, RoutedEventArgs e)
+        private void BtnRepayLoan_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(LoanTaken, BankAction.Repay);
+            DisplayBankDialog(HeroBank.LoanTaken, BankAction.Repay);
         }
 
-        private void btnTakeLoan_Click(object sender, RoutedEventArgs e)
+        private void BtnTakeLoan_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(LoanAvailable, BankAction.Borrow);
+            DisplayBankDialog(HeroBank.LoanAvailable, BankAction.Borrow);
         }
 
-        private void btnWithdraw_Click(object sender, RoutedEventArgs e)
+        private void BtnWithdraw_Click(object sender, RoutedEventArgs e)
         {
-            DisplayBankDialog(GoldInBank, BankAction.Withdrawal);
+            DisplayBankDialog(HeroBank.GoldInBank, BankAction.Withdrawal);
         }
 
         #endregion Button-Click Methods
@@ -186,11 +116,11 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private async void windowBank_Closing(object sender, CancelEventArgs e)
+        private async void WindowBank_Closing(object sender, CancelEventArgs e)
         {
-            await Task.Factory.StartNew(() => GameState.SaveHero(GameState.CurrentHero));
-            await Task.Factory.StartNew(() => GameState.SaveHeroBank(GoldInBank, LoanTaken));
             RefToCityWindow.Show();
+            await Task.Run(() => GameState.SaveHero(GameState.CurrentHero));
+            await Task.Run(() => GameState.SaveHeroBank(HeroBank.GoldInBank, HeroBank.LoanTaken));
         }
 
         #endregion Window-Manipulation Methods

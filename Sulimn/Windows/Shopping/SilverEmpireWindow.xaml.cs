@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Extensions;
 
 namespace Sulimn
 {
     /// <summary>Interaction logic for SilverEmpireWindow.xaml</summary>
     public partial class SilverEmpireWindow : INotifyPropertyChanged
     {
-        private readonly string _nl = Environment.NewLine;
         private List<Ring> _purchaseRing = new List<Ring>();
         private Ring _selectedRingPurchase = new Ring();
         private Ring _selectedRingSell = new Ring();
         private List<Ring> _sellRing = new List<Ring>();
 
         internal MarketWindow RefToMarketWindow { private get; set; }
-
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtSilverEmpire.Text += _nl + _nl + newText;
-            txtSilverEmpire.Focus();
-            txtSilverEmpire.CaretIndex = txtSilverEmpire.Text.Length;
-            txtSilverEmpire.ScrollToEnd();
-        }
 
         #region Data-Binding
 
@@ -37,7 +26,7 @@ namespace Sulimn
             LoadAllPurchase();
             LoadAllSell();
 
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         private void BindRingPurchase(bool reload = true)
@@ -47,15 +36,15 @@ namespace Sulimn
                 _purchaseRing.Clear();
                 _purchaseRing.AddRange(GameState.GetItemsOfType<Ring>().Where(ring => ring.IsSold));
                 _purchaseRing = _purchaseRing.OrderBy(ring => ring.Value).ToList();
-                lstRingPurchase.ItemsSource = _purchaseRing;
-                lstRingPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
-                lstRingPurchase.Items.Refresh();
+                LstRingPurchase.ItemsSource = _purchaseRing;
+                LstRingPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+                LstRingPurchase.Items.Refresh();
             }
-            lblRingNamePurchase.DataContext = _selectedRingPurchase;
-            lblRingBonusPurchase.DataContext = _selectedRingPurchase;
-            lblRingDescriptionPurchase.DataContext = _selectedRingPurchase;
-            lblRingSellablePurchase.DataContext = _selectedRingPurchase;
-            lblRingValuePurchase.DataContext = _selectedRingPurchase;
+            LblRingNamePurchase.DataContext = _selectedRingPurchase;
+            LblRingBonusPurchase.DataContext = _selectedRingPurchase;
+            LblRingDescriptionPurchase.DataContext = _selectedRingPurchase;
+            LblRingSellablePurchase.DataContext = _selectedRingPurchase;
+            LblRingValuePurchase.DataContext = _selectedRingPurchase;
         }
 
         private void BindRingSell(bool reload = true)
@@ -65,15 +54,15 @@ namespace Sulimn
                 _sellRing.Clear();
                 _sellRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
                 _sellRing = _sellRing.OrderBy(ring => ring.Value).ToList();
-                lstRingSell.ItemsSource = _sellRing;
-                lstRingSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
-                lstRingSell.Items.Refresh();
+                LstRingSell.ItemsSource = _sellRing;
+                LstRingSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+                LstRingSell.Items.Refresh();
             }
-            lblRingNameSell.DataContext = _selectedRingSell;
-            lblRingBonusSell.DataContext = _selectedRingSell;
-            lblRingDescriptionSell.DataContext = _selectedRingSell;
-            lblRingSellableSell.DataContext = _selectedRingSell;
-            lblRingValueSell.DataContext = _selectedRingSell;
+            LblRingNameSell.DataContext = _selectedRingSell;
+            LblRingBonusSell.DataContext = _selectedRingSell;
+            LblRingDescriptionSell.DataContext = _selectedRingSell;
+            LblRingSellableSell.DataContext = _selectedRingSell;
+            LblRingValueSell.DataContext = _selectedRingSell;
         }
 
         private void OnPropertyChanged(string property)
@@ -113,7 +102,7 @@ namespace Sulimn
             GameState.CurrentHero.Inventory.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
-            return "You have purchased " + itmPurchase.Name + " for " + itmPurchase.ValueToString + " gold.";
+            return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
         /// <summary>Sells selected Item.</summary>
@@ -124,44 +113,44 @@ namespace Sulimn
             GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
             GameState.CurrentHero.Inventory.RemoveItem(itmSell);
             LoadAllSell();
-            return "You have sold your " + itmSell.Name + " for " + itmSell.SellValueToString + " gold.";
+            return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
         #endregion Transaction Methods
 
         #region Purchase/Sell Button-Click Methods
 
-        private void btnRingPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnRingPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedRingPurchase));
-            lstRingPurchase.UnselectAll();
+            Functions.AddTextToTextBox(TxtSilverEmpire, Purchase(_selectedRingPurchase));
+            LstRingPurchase.UnselectAll();
         }
 
-        private void btnRingSell_Click(object sender, RoutedEventArgs e)
+        private void BtnRingSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedRingSell));
-            lstRingSell.UnselectAll();
+            Functions.AddTextToTextBox(TxtSilverEmpire, Sell(_selectedRingSell));
+            LstRingSell.UnselectAll();
         }
 
         #endregion Purchase/Sell Button-Click Methods
 
         #region Purchase/Sell Selection Changed
 
-        private void lstRingPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstRingPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedRingPurchase = lstRingPurchase.SelectedIndex >= 0
-                ? (Ring)lstRingPurchase.SelectedValue
+            _selectedRingPurchase = LstRingPurchase.SelectedIndex >= 0
+                ? (Ring)LstRingPurchase.SelectedValue
                 : new Ring();
 
-            btnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindRingPurchase(false);
         }
 
-        private void lstRingSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstRingSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedRingSell = lstRingSell.SelectedIndex >= 0 ? (Ring)lstRingSell.SelectedValue : new Ring();
+            _selectedRingSell = LstRingSell.SelectedIndex >= 0 ? (Ring)LstRingSell.SelectedValue : new Ring();
 
-            btnRingSell.IsEnabled = _selectedRingSell.CanSell;
+            BtnRingSell.IsEnabled = _selectedRingSell.CanSell;
             BindRingSell(false);
         }
 
@@ -169,7 +158,7 @@ namespace Sulimn
 
         #region Window Button-Click Methods
 
-        private void btnCharacter_Click(object sender, RoutedEventArgs e)
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow { RefToSilverEmpireWindow = this };
             characterWindow.Show();
@@ -179,7 +168,7 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -197,12 +186,12 @@ namespace Sulimn
         public SilverEmpireWindow()
         {
             InitializeComponent();
-            txtSilverEmpire.Text =
+            TxtSilverEmpire.Text =
             "You enter the impressive establishment named 'Silver Empire'. You are immediately astounded by the glass display cases unlike any other shop in Sulimn. A tough-looking old man sitting behind the counter greets you.";
             BindLabels();
         }
 
-        private async void windowSilverEmpire_Closing(object sender, CancelEventArgs e)
+        private async void WindowSilverEmpire_Closing(object sender, CancelEventArgs e)
         {
             RefToMarketWindow.Show();
             await GameState.SaveHero(GameState.CurrentHero);

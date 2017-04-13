@@ -1,7 +1,5 @@
 ﻿using Extensions;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,8 +13,29 @@ namespace Sulimn
         private string _actionText = "";
         private int _maximum;
         private int _textAmount;
-
+        private string _dialogText = "";
         internal BankWindow RefToBankWindow { private get; set; }
+
+        public string DialogText
+        {
+            get => _dialogText;
+            set
+            {
+                _dialogText = value;
+                OnPropertyChanged("DialogText");
+            }
+        }
+
+        #region Data-Binding
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion Data-Binding
 
         /// <summary>Load the necessary data for the Window.</summary>
         /// <param name="maximum">Maximum amount of gold to be used.</param>
@@ -29,33 +48,28 @@ namespace Sulimn
             switch (_action)
             {
                 case BankAction.Deposit:
-                    lblDialog.Text = "How much gold would you like to deposit? You have " + _maximum.ToString("N0") +
-                     " gold with you.";
-                    btnAction.Content = "_Deposit";
+                    DialogText = $"How much gold would you like to deposit? You have {_maximum:N0} gold with you.";
+                    BtnAction.Content = "_Deposit";
                     break;
 
                 case BankAction.Withdrawal:
-                    lblDialog.Text = "How much gold would you like to withdraw? You have " + _maximum.ToString("N0") +
-                     " gold in your account.";
-                    btnAction.Content = "_Withdraw";
+                    DialogText = $"How much gold would you like to withdraw? You have {_maximum:N0} gold in your account.";
+                    BtnAction.Content = "_Withdraw";
                     break;
 
                 case BankAction.Repay:
-                    lblDialog.Text = "How much of your loan would you like to repay? You currently owe " +
-                     _maximum.ToString("N0") + " gold. You have " +
-                     GameState.CurrentHero.Inventory.Gold.ToString("N0") + " with you.";
-                    btnAction.Content = "_Repay";
+                    DialogText = $"How much of your loan would you like to repay? You currently owe {_maximum:N0} gold. You have {GameState.CurrentHero.Inventory.Gold:N0} with you.";
+                    BtnAction.Content = "_Repay";
                     break;
 
                 case BankAction.Borrow:
-                    lblDialog.Text =
-                    "How much gold would you like to take out on loan? Your credit deems you worthy of receiving up to " +
-                    maximum.ToString("N0") + " gold. Remember, we have a 5% loan fee.";
-                    btnAction.Content = "_Borrow";
+                    DialogText =
+                    $"How much gold would you like to take out on loan? Your credit deems you worthy of receiving up to {_maximum:N0} gold. Remember, we have a 5% loan fee.";
+                    BtnAction.Content = "_Borrow";
                     break;
 
                 default:
-                    new Notification("How did you break my game?", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                    GameState.DisplayNotification("How did you break my game?", "Sulimn", NotificationButtons.OK, this);
                     break;
             }
         }
@@ -65,44 +79,44 @@ namespace Sulimn
         /// <summary>Deposit money into the bank.</summary>
         private void Deposit()
         {
-            RefToBankWindow.GoldInBank += _textAmount;
+            RefToBankWindow.HeroBank.GoldInBank += _textAmount;
             GameState.CurrentHero.Inventory.Gold -= _textAmount;
-            CloseWindow("You deposit " + _textAmount.ToString("N0") + " gold.");
+            CloseWindow($"You deposit {_textAmount:N0} gold.");
         }
 
         /// <summary>Repay the loan.</summary>
         private void RepayLoan()
         {
-            RefToBankWindow.LoanTaken -= _textAmount;
-            RefToBankWindow.LoanAvailable += _textAmount;
+            RefToBankWindow.HeroBank.LoanTaken -= _textAmount;
+            RefToBankWindow.HeroBank.LoanAvailable += _textAmount;
             GameState.CurrentHero.Inventory.Gold -= _textAmount;
-            CloseWindow("You repay " + _textAmount.ToString("N0") + " gold on your loan.");
+            CloseWindow($"You repay {_textAmount:N0} gold on your loan.");
         }
 
         /// <summary>Take out a loan.</summary>
         private void TakeOutLoan()
         {
-            RefToBankWindow.LoanTaken += _textAmount + _textAmount / 20;
-            RefToBankWindow.LoanAvailable -= _textAmount + _textAmount / 20;
+            RefToBankWindow.HeroBank.LoanTaken += _textAmount + _textAmount / 20;
+            RefToBankWindow.HeroBank.LoanAvailable -= _textAmount + _textAmount / 20;
             GameState.CurrentHero.Inventory.Gold += _textAmount;
-            CloseWindow("You take out a loan for " + _textAmount.ToString("N0") + " gold.");
+            CloseWindow($"You take out a loan for {_textAmount:N0} gold.");
         }
 
         /// <summary>Withdraw money from the bank account.</summary>
         private void Withdrawal()
         {
-            RefToBankWindow.GoldInBank -= _textAmount;
+            RefToBankWindow.HeroBank.GoldInBank -= _textAmount;
             GameState.CurrentHero.Inventory.Gold += _textAmount;
-            CloseWindow("You withdraw " + _textAmount.ToString("N0") + " gold from your account.");
+            CloseWindow($"You withdraw {_textAmount:N0} gold from your account.");
         }
 
         #endregion Transaction Methods
 
         #region Button-Click Methods
 
-        private void btnAction_Click(object sender, RoutedEventArgs e)
+        private void BtnAction_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(txtBank.Text, out _textAmount);
+            int.TryParse(TxtBank.Text, out _textAmount);
 
             if (_textAmount <= _maximum && _textAmount > 0)
                 switch (_action)
@@ -111,9 +125,7 @@ namespace Sulimn
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                             Deposit();
                         else
-                            new Notification(
-                            "Please enter a value less than or equal to your current gold. You currently have " +
-                            GameState.CurrentHero.Inventory.GoldToString + " gold.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn", NotificationButtons.OK, this);
                         break;
 
                     case BankAction.Withdrawal:
@@ -124,10 +136,8 @@ namespace Sulimn
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                             RepayLoan();
                         else
-                            new Notification(
-                                "Please enter a value less than or equal to your current gold. You currently have " +
-                                GameState.CurrentHero.Inventory.GoldToString + " gold.", "Sulimn",
-                                NotificationButtons.OK, this).ShowDialog();
+                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn",
+                                NotificationButtons.OK, this);
                         break;
 
                     case BankAction.Borrow:
@@ -135,16 +145,14 @@ namespace Sulimn
                         break;
 
                     default:
-                        new Notification("How did you break my game?", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                        GameState.DisplayNotification("How did you break my game?", "Sulimn", NotificationButtons.OK, this);
                         break;
                 }
             else
-                new Notification(
-                "Please enter a positive value less than or equal to your current gold. You currently have " +
-                GameState.CurrentHero.Inventory.GoldToString + " gold.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                GameState.DisplayNotification($"Please enter a positive value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn", NotificationButtons.OK, this);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow("");
         }
@@ -164,30 +172,31 @@ namespace Sulimn
         public BankDialogWindow()
         {
             InitializeComponent();
-            txtBank.Focus();
+            TxtBank.Focus();
+            DataContext = this;
         }
 
-        private void txtBank_GotFocus(object sender, RoutedEventArgs e)
+        private void TxtBank_GotFocus(object sender, RoutedEventArgs e)
         {
             Functions.TextBoxGotFocus(sender);
         }
 
-        private void txtBank_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtBank_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Functions.PreviewKeyDown(e, KeyType.Numbers);
+            Functions.PreviewKeyDown(e, KeyType.Integers);
         }
 
-        private void txtBank_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtBank_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Functions.TextBoxTextChanged(sender, KeyType.Numbers);
-            btnAction.IsEnabled = txtBank.Text.Length > 0;
+            Functions.TextBoxTextChanged(sender, KeyType.Integers);
+            BtnAction.IsEnabled = TxtBank.Text.Length > 0;
         }
 
-        private void windowBankDialog_Closing(object sender, CancelEventArgs e)
+        private void WindowBankDialog_Closing(object sender, CancelEventArgs e)
         {
             RefToBankWindow.Show();
             if (_actionText.Length > 0)
-                RefToBankWindow.AddTextTT(_actionText);
+                RefToBankWindow.AddTextToTextBox(_actionText);
             RefToBankWindow.CheckButtons();
         }
 

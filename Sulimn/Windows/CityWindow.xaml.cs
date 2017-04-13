@@ -1,28 +1,17 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
+using Extensions;
 
 namespace Sulimn
 {
     /// <summary>Interaction logic for CityWindow.xaml</summary>
     public partial class CityWindow
     {
-        private readonly string _nl = Environment.NewLine;
         internal MainWindow RefToMainWindow { private get; set; }
-
-        /// <summary>Adds text to the txtCity TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtCity.Text += _nl + _nl + newText;
-            txtCity.Focus();
-            txtCity.CaretIndex = txtCity.Text.Length;
-            txtCity.ScrollToEnd();
-        }
 
         #region Button-Click Methods
 
-        private void btnBank_Click(object sender, RoutedEventArgs e)
+        private void BtnBank_Click(object sender, RoutedEventArgs e)
         {
             BankWindow bankWindow = new BankWindow { RefToCityWindow = this };
             bankWindow.LoadBank();
@@ -30,15 +19,15 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private async void btnChapel_Click(object sender, RoutedEventArgs e)
+        private async void BtnChapel_Click(object sender, RoutedEventArgs e)
         {
             if (
             decimal.Divide(GameState.CurrentHero.Statistics.CurrentHealth,
             GameState.CurrentHero.Statistics.MaximumHealth) <= 0.25M)
             {
-                AddTextTT("You enter a local chapel and approach the altar. A priest approaches you." + _nl +
-                "\"Let me heal your wounds. You look like you've been through a tough battle.\"" + _nl +
-                "The priest gives you a potion which heals you to full health!" + _nl +
+                Functions.AddTextToTextBox(TxtCity, "You enter a local chapel and approach the altar. A priest approaches you.\n" +
+                "\"Let me heal your wounds. You look like you've been through a tough battle.\"\n" +
+                "The priest gives you a potion which heals you to full health!\n" +
                 "You thank the priest and return to the streets.");
                 GameState.CurrentHero.Statistics.CurrentHealth = GameState.CurrentHero.Statistics.MaximumHealth;
 
@@ -46,13 +35,13 @@ namespace Sulimn
             }
             else
             {
-                AddTextTT("You enter a local chapel. A priest approaches you." + _nl +
-                "\"You look healthy to me. If you ever need healing, don't hesitate to come see me.\"" + _nl +
-                _nl + "You thank the priest and return to the streets.");
+                Functions.AddTextToTextBox(TxtCity, "You enter a local chapel. A priest approaches you.\n" +
+                "\"You look healthy to me. If you ever need healing, don't hesitate to come see me.\"\n\n" +
+                "You thank the priest and return to the streets.");
             }
         }
 
-        private void btnCharacter_Click(object sender, RoutedEventArgs e)
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow { RefToCityWindow = this };
             characterWindow.Show();
@@ -62,33 +51,33 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnExplore_Click(object sender, RoutedEventArgs e)
+        private void BtnExplore_Click(object sender, RoutedEventArgs e)
         {
             ExploreWindow exploreWindow = new ExploreWindow { RefToCityWindow = this };
             exploreWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnMarket_Click(object sender, RoutedEventArgs e)
+        private void BtnMarket_Click(object sender, RoutedEventArgs e)
         {
             MarketWindow marketWindow = new MarketWindow { RefToCityWindow = this };
             marketWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnOptions_Click(object sender, RoutedEventArgs e)
+        private void BtnOptions_Click(object sender, RoutedEventArgs e)
         {
             HeroChangePasswordWindow heroChangePasswordWindow = new HeroChangePasswordWindow { RefToCityWindow = this };
             heroChangePasswordWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnTavern_Click(object sender, RoutedEventArgs e)
+        private void BtnTavern_Click(object sender, RoutedEventArgs e)
         {
             TavernWindow tavernWindow = new TavernWindow { RefToCityWindow = this };
             tavernWindow.Show();
@@ -108,11 +97,11 @@ namespace Sulimn
         public CityWindow()
         {
             InitializeComponent();
-            txtCity.Text =
+            TxtCity.Text =
              "You are in the city of Sulimn. There is a bustling market in the center of the city, a dilapidated cathedral sprawling over the cityscape at the north end, an abandoned mining complex on the south side, crop fields to the east, and a forest to the west.";
         }
 
-        private void windowCity_Closing(object sender, CancelEventArgs e)
+        private void WindowCity_Closing(object sender, CancelEventArgs e)
         {
             RefToMainWindow.Show();
         }

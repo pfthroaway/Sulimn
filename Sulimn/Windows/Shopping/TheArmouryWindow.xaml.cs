@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Extensions;
 
 namespace Sulimn
 {
@@ -11,16 +11,6 @@ namespace Sulimn
     public partial class TheArmouryWindow : INotifyPropertyChanged
     {
         internal MarketWindow RefToMarketWindow { private get; set; }
-
-        /// <summary>Adds text to the txtTheArmoury TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtTheArmoury.Text += _nl + _nl + newText;
-            txtTheArmoury.Focus();
-            txtTheArmoury.CaretIndex = txtTheArmoury.Text.Length;
-            txtTheArmoury.ScrollToEnd();
-        }
 
         #region Local Variables
 
@@ -44,7 +34,6 @@ namespace Sulimn
         private LegArmor _selectedLegsSell = new LegArmor();
         private FeetArmor _selectedFeetPurchase = new FeetArmor();
         private FeetArmor _selectedFeetSell = new FeetArmor();
-        private readonly string _nl = Environment.NewLine;
 
         #endregion Local Variables
 
@@ -54,62 +43,62 @@ namespace Sulimn
 
         private void BindLabels()
         {
-            lblHeadNamePurchase.DataContext = _selectedHeadPurchase;
-            lblHeadDefensePurchase.DataContext = _selectedHeadPurchase;
-            lblHeadDescriptionPurchase.DataContext = _selectedHeadPurchase;
-            lblHeadSellablePurchase.DataContext = _selectedHeadPurchase;
-            lblHeadValuePurchase.DataContext = _selectedHeadPurchase;
-            lblHeadNameSell.DataContext = _selectedHeadSell;
-            lblHeadDefenseSell.DataContext = _selectedHeadSell;
-            lblHeadDescriptionSell.DataContext = _selectedHeadSell;
-            lblHeadSellableSell.DataContext = _selectedHeadSell;
-            lblHeadValueSell.DataContext = _selectedHeadSell;
+            LblHeadNamePurchase.DataContext = _selectedHeadPurchase;
+            LblHeadDefensePurchase.DataContext = _selectedHeadPurchase;
+            LblHeadDescriptionPurchase.DataContext = _selectedHeadPurchase;
+            LblHeadSellablePurchase.DataContext = _selectedHeadPurchase;
+            LblHeadValuePurchase.DataContext = _selectedHeadPurchase;
+            LblHeadNameSell.DataContext = _selectedHeadSell;
+            LblHeadDefenseSell.DataContext = _selectedHeadSell;
+            LblHeadDescriptionSell.DataContext = _selectedHeadSell;
+            LblHeadSellableSell.DataContext = _selectedHeadSell;
+            LblHeadValueSell.DataContext = _selectedHeadSell;
 
-            lblBodyNamePurchase.DataContext = _selectedBodyPurchase;
-            lblBodyDefensePurchase.DataContext = _selectedBodyPurchase;
-            lblBodyDescriptionPurchase.DataContext = _selectedBodyPurchase;
-            lblBodySellablePurchase.DataContext = _selectedBodyPurchase;
-            lblBodyValuePurchase.DataContext = _selectedBodyPurchase;
-            lblBodyNameSell.DataContext = _selectedBodySell;
-            lblBodyDefenseSell.DataContext = _selectedBodySell;
-            lblBodyDescriptionSell.DataContext = _selectedBodySell;
-            lblBodySellableSell.DataContext = _selectedBodySell;
-            lblBodyValueSell.DataContext = _selectedBodySell;
+            LblBodyNamePurchase.DataContext = _selectedBodyPurchase;
+            LblBodyDefensePurchase.DataContext = _selectedBodyPurchase;
+            LblBodyDescriptionPurchase.DataContext = _selectedBodyPurchase;
+            LblBodySellablePurchase.DataContext = _selectedBodyPurchase;
+            LblBodyValuePurchase.DataContext = _selectedBodyPurchase;
+            LblBodyNameSell.DataContext = _selectedBodySell;
+            LblBodyDefenseSell.DataContext = _selectedBodySell;
+            LblBodyDescriptionSell.DataContext = _selectedBodySell;
+            LblBodySellableSell.DataContext = _selectedBodySell;
+            LblBodyValueSell.DataContext = _selectedBodySell;
 
-            lblHandsNamePurchase.DataContext = _selectedHandsPurchase;
-            lblHandsDefensePurchase.DataContext = _selectedHandsPurchase;
-            lblHandsDescriptionPurchase.DataContext = _selectedHandsPurchase;
-            lblHandsSellablePurchase.DataContext = _selectedHandsPurchase;
-            lblHandsValuePurchase.DataContext = _selectedHandsPurchase;
-            lblHandsNameSell.DataContext = _selectedHandsSell;
-            lblHandsDefenseSell.DataContext = _selectedHandsSell;
-            lblHandsDescriptionSell.DataContext = _selectedHandsSell;
-            lblHandsSellableSell.DataContext = _selectedHandsSell;
-            lblHandsValueSell.DataContext = _selectedHandsSell;
+            LblHandsNamePurchase.DataContext = _selectedHandsPurchase;
+            LblHandsDefensePurchase.DataContext = _selectedHandsPurchase;
+            LblHandsDescriptionPurchase.DataContext = _selectedHandsPurchase;
+            LblHandsSellablePurchase.DataContext = _selectedHandsPurchase;
+            LblHandsValuePurchase.DataContext = _selectedHandsPurchase;
+            LblHandsNameSell.DataContext = _selectedHandsSell;
+            LblHandsDefenseSell.DataContext = _selectedHandsSell;
+            LblHandsDescriptionSell.DataContext = _selectedHandsSell;
+            LblHandsSellableSell.DataContext = _selectedHandsSell;
+            LblHandsValueSell.DataContext = _selectedHandsSell;
 
-            lblLegsNamePurchase.DataContext = _selectedLegsPurchase;
-            lblLegsDefensePurchase.DataContext = _selectedLegsPurchase;
-            lblLegsDescriptionPurchase.DataContext = _selectedLegsPurchase;
-            lblLegsSellablePurchase.DataContext = _selectedLegsPurchase;
-            lblLegsValuePurchase.DataContext = _selectedLegsPurchase;
-            lblLegsNameSell.DataContext = _selectedLegsSell;
-            lblLegsDefenseSell.DataContext = _selectedLegsSell;
-            lblLegsDescriptionSell.DataContext = _selectedLegsSell;
-            lblLegsSellableSell.DataContext = _selectedLegsSell;
-            lblLegsValueSell.DataContext = _selectedLegsSell;
+            LblLegsNamePurchase.DataContext = _selectedLegsPurchase;
+            LblLegsDefensePurchase.DataContext = _selectedLegsPurchase;
+            LblLegsDescriptionPurchase.DataContext = _selectedLegsPurchase;
+            LblLegsSellablePurchase.DataContext = _selectedLegsPurchase;
+            LblLegsValuePurchase.DataContext = _selectedLegsPurchase;
+            LblLegsNameSell.DataContext = _selectedLegsSell;
+            LblLegsDefenseSell.DataContext = _selectedLegsSell;
+            LblLegsDescriptionSell.DataContext = _selectedLegsSell;
+            LblLegsSellableSell.DataContext = _selectedLegsSell;
+            LblLegsValueSell.DataContext = _selectedLegsSell;
 
-            lblFeetNamePurchase.DataContext = _selectedFeetPurchase;
-            lblFeetDefensePurchase.DataContext = _selectedFeetPurchase;
-            lblFeetDescriptionPurchase.DataContext = _selectedFeetPurchase;
-            lblFeetSellablePurchase.DataContext = _selectedFeetPurchase;
-            lblFeetValuePurchase.DataContext = _selectedFeetPurchase;
-            lblFeetNameSell.DataContext = _selectedFeetSell;
-            lblFeetDefenseSell.DataContext = _selectedFeetSell;
-            lblFeetDescriptionSell.DataContext = _selectedFeetSell;
-            lblFeetSellableSell.DataContext = _selectedFeetSell;
-            lblFeetValueSell.DataContext = _selectedFeetSell;
+            LblFeetNamePurchase.DataContext = _selectedFeetPurchase;
+            LblFeetDefensePurchase.DataContext = _selectedFeetPurchase;
+            LblFeetDescriptionPurchase.DataContext = _selectedFeetPurchase;
+            LblFeetSellablePurchase.DataContext = _selectedFeetPurchase;
+            LblFeetValuePurchase.DataContext = _selectedFeetPurchase;
+            LblFeetNameSell.DataContext = _selectedFeetSell;
+            LblFeetDefenseSell.DataContext = _selectedFeetSell;
+            LblFeetDescriptionSell.DataContext = _selectedFeetSell;
+            LblFeetSellableSell.DataContext = _selectedFeetSell;
+            LblFeetValueSell.DataContext = _selectedFeetSell;
 
-            lblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         private void OnPropertyChanged(string property)
@@ -124,16 +113,16 @@ namespace Sulimn
         /// <summary>Loads everything for data binding.</summary>
         internal void LoadAll()
         {
-            lstHeadPurchase.ItemsSource = _purchaseHead;
-            lstHeadSell.ItemsSource = _sellHead;
-            lstBodyPurchase.ItemsSource = _purchaseBody;
-            lstBodySell.ItemsSource = _sellBody;
-            lstHandsPurchase.ItemsSource = _purchaseHands;
-            lstHandsSell.ItemsSource = _sellHands;
-            lstLegsPurchase.ItemsSource = _purchaseLegs;
-            lstLegsSell.ItemsSource = _sellLegs;
-            lstFeetPurchase.ItemsSource = _purchaseFeet;
-            lstFeetSell.ItemsSource = _sellFeet;
+            LstHeadPurchase.ItemsSource = _purchaseHead;
+            LstHeadSell.ItemsSource = _sellHead;
+            LstBodyPurchase.ItemsSource = _purchaseBody;
+            LstBodySell.ItemsSource = _sellBody;
+            LstHandsPurchase.ItemsSource = _purchaseHands;
+            LstHandsSell.ItemsSource = _sellHands;
+            LstLegsPurchase.ItemsSource = _purchaseLegs;
+            LstLegsSell.ItemsSource = _sellLegs;
+            LstFeetPurchase.ItemsSource = _purchaseFeet;
+            LstFeetSell.ItemsSource = _sellFeet;
             LoadAllPurchase();
             LoadAllSell();
             BindLabels();
@@ -145,27 +134,27 @@ namespace Sulimn
             _purchaseHead.Clear();
             _purchaseHead.AddRange(GameState.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold));
             _purchaseHead = _purchaseHead.OrderBy(armor => armor.Value).ToList();
-            lstHeadPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+            LstHeadPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             _purchaseBody.Clear();
             _purchaseBody.AddRange(GameState.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold));
             _purchaseBody = _purchaseBody.OrderBy(armor => armor.Value).ToList();
-            lstBodyPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+            LstBodyPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             _purchaseHands.Clear();
             _purchaseHands.AddRange(GameState.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold));
             _purchaseHands = _purchaseHands.OrderBy(armor => armor.Value).ToList();
-            lstHandsPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+            LstHandsPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             _purchaseLegs.Clear();
             _purchaseLegs.AddRange(GameState.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold));
             _purchaseLegs = _purchaseLegs.OrderBy(armor => armor.Value).ToList();
-            lstLegsPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+            LstLegsPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             _purchaseFeet.Clear();
             _purchaseFeet.AddRange(GameState.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold));
             _purchaseFeet = _purchaseFeet.OrderBy(armor => armor.Value).ToList();
-            lstFeetPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+            LstFeetPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
 
             LoadAllSell();
         }
@@ -176,38 +165,38 @@ namespace Sulimn
             _sellHead.Clear();
             _sellHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold));
             _sellHead = _sellHead.OrderBy(armor => armor.Value).ToList();
-            lstHeadSell.ItemsSource = _sellHead;
-            lstHeadSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+            LstHeadSell.ItemsSource = _sellHead;
+            LstHeadSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellBody.Clear();
             _sellBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold));
             _sellBody = _sellBody.OrderBy(armor => armor.Value).ToList();
-            lstBodySell.ItemsSource = _sellBody;
-            lstBodySell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+            LstBodySell.ItemsSource = _sellBody;
+            LstBodySell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellHands.Clear();
             _sellHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold));
             _sellHands = _sellHands.OrderBy(armor => armor.Value).ToList();
-            lstHandsSell.ItemsSource = _sellHands;
-            lstHandsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+            LstHandsSell.ItemsSource = _sellHands;
+            LstHandsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellLegs.Clear();
             _sellLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold));
             _sellLegs = _sellLegs.OrderBy(armor => armor.Value).ToList();
-            lstLegsSell.ItemsSource = _sellLegs;
-            lstLegsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+            LstLegsSell.ItemsSource = _sellLegs;
+            LstLegsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellFeet.Clear();
             _sellFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold));
             _sellFeet = _sellFeet.OrderBy(armor => armor.Value).ToList();
-            lstFeetSell.ItemsSource = _sellFeet;
-            lstFeetSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
+            LstFeetSell.ItemsSource = _sellFeet;
+            LstFeetSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
-            lstHeadSell.Items.Refresh();
-            lstBodySell.Items.Refresh();
-            lstHandsSell.Items.Refresh();
-            lstLegsSell.Items.Refresh();
-            lstFeetSell.Items.Refresh();
+            LstHeadSell.Items.Refresh();
+            LstBodySell.Items.Refresh();
+            LstHandsSell.Items.Refresh();
+            LstLegsSell.Items.Refresh();
+            LstFeetSell.Items.Refresh();
         }
 
         #endregion Load Methods
@@ -222,7 +211,7 @@ namespace Sulimn
             GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
             GameState.CurrentHero.Inventory.AddItem(itmPurchase);
             LoadAllSell();
-            return "You have purchased " + itmPurchase.Name + " for " + itmPurchase.ValueToString + " gold.";
+            return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
         /// <summary>Sells selected Item.</summary>
@@ -233,88 +222,88 @@ namespace Sulimn
             GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
             GameState.CurrentHero.Inventory.RemoveItem(itmSell);
             LoadAllSell();
-            return "You have sold your " + itmSell.Name + " for " + itmSell.SellValueToString + " gold.";
+            return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
         #endregion Transaction Methods
 
         #region Purchase/Sell Button-Click Methods
 
-        private void btnHeadPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnHeadPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedHeadPurchase));
+            Functions.AddTextToTextBox(TxtTheArmoury, Purchase(_selectedHeadPurchase));
             LoadAllPurchase();
-            lstHeadPurchase.UnselectAll();
+            LstHeadPurchase.UnselectAll();
         }
 
-        private void btnHeadSell_Click(object sender, RoutedEventArgs e)
+        private void BtnHeadSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedHeadSell));
+            Functions.AddTextToTextBox(TxtTheArmoury, Sell(_selectedHeadSell));
             LoadAllSell();
-            lstHeadSell.UnselectAll();
+            LstHeadSell.UnselectAll();
         }
 
-        private void btnBodyPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnBodyPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedBodyPurchase));
+            Functions.AddTextToTextBox(TxtTheArmoury, Purchase(_selectedBodyPurchase));
             LoadAllPurchase();
-            lstBodyPurchase.UnselectAll();
+            LstBodyPurchase.UnselectAll();
         }
 
-        private void btnBodySell_Click(object sender, RoutedEventArgs e)
+        private void BtnBodySell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedBodySell));
+            Functions.AddTextToTextBox(TxtTheArmoury, Sell(_selectedBodySell));
             LoadAllSell();
-            lstBodySell.UnselectAll();
+            LstBodySell.UnselectAll();
         }
 
-        private void btnHandsPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnHandsPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedHandsPurchase));
+            Functions.AddTextToTextBox(TxtTheArmoury, Purchase(_selectedHandsPurchase));
             LoadAllPurchase();
-            lstHandsPurchase.UnselectAll();
+            LstHandsPurchase.UnselectAll();
         }
 
-        private void btnHandsSell_Click(object sender, RoutedEventArgs e)
+        private void BtnHandsSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedHandsSell));
+            Functions.AddTextToTextBox(TxtTheArmoury, Sell(_selectedHandsSell));
             LoadAllSell();
-            lstHandsSell.UnselectAll();
+            LstHandsSell.UnselectAll();
         }
 
-        private void btnLegsPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnLegsPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedLegsPurchase));
+            Functions.AddTextToTextBox(TxtTheArmoury, Purchase(_selectedLegsPurchase));
             LoadAllPurchase();
-            lstLegsPurchase.UnselectAll();
+            LstLegsPurchase.UnselectAll();
         }
 
-        private void btnLegsSell_Click(object sender, RoutedEventArgs e)
+        private void BtnLegsSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedLegsSell));
+            Functions.AddTextToTextBox(TxtTheArmoury, Sell(_selectedLegsSell));
             LoadAllSell();
-            lstLegsSell.UnselectAll();
+            LstLegsSell.UnselectAll();
         }
 
-        private void btnFeetPurchase_Click(object sender, RoutedEventArgs e)
+        private void BtnFeetPurchase_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Purchase(_selectedFeetPurchase));
+            Functions.AddTextToTextBox(TxtTheArmoury, Purchase(_selectedFeetPurchase));
             LoadAllPurchase();
-            lstFeetPurchase.UnselectAll();
+            LstFeetPurchase.UnselectAll();
         }
 
-        private void btnFeetSell_Click(object sender, RoutedEventArgs e)
+        private void BtnFeetSell_Click(object sender, RoutedEventArgs e)
         {
-            AddTextTT(Sell(_selectedFeetSell));
+            Functions.AddTextToTextBox(TxtTheArmoury, Sell(_selectedFeetSell));
             LoadAllSell();
-            lstFeetSell.UnselectAll();
+            LstFeetSell.UnselectAll();
         }
 
         #endregion Purchase/Sell Button-Click Methods
 
         #region Button-Click Methods
 
-        private void btnCharacter_Click(object sender, RoutedEventArgs e)
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
             CharacterWindow characterWindow = new CharacterWindow { RefToTheArmouryWindow = this };
             characterWindow.Show();
@@ -324,7 +313,7 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -333,95 +322,95 @@ namespace Sulimn
 
         #region Purchase/Sell Selection Changed
 
-        private void lstHeadPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstHeadPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedHeadPurchase = lstHeadPurchase.SelectedIndex >= 0
-                ? (HeadArmor)lstHeadPurchase.SelectedValue
+            _selectedHeadPurchase = LstHeadPurchase.SelectedIndex >= 0
+                ? (HeadArmor)LstHeadPurchase.SelectedValue
                 : new HeadArmor();
 
-            btnHeadPurchase.IsEnabled = _selectedHeadPurchase.Value > 0 && _selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnHeadPurchase.IsEnabled = _selectedHeadPurchase.Value > 0 && _selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
         }
 
-        private void lstHeadSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstHeadSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedHeadSell = lstHeadSell.SelectedIndex >= 0 ? (HeadArmor)lstHeadSell.SelectedValue : new HeadArmor();
+            _selectedHeadSell = LstHeadSell.SelectedIndex >= 0 ? (HeadArmor)LstHeadSell.SelectedValue : new HeadArmor();
 
-            btnHeadSell.IsEnabled = _selectedHeadSell.CanSell;
+            BtnHeadSell.IsEnabled = _selectedHeadSell.CanSell;
             BindLabels();
         }
 
-        private void lstBodyPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstBodyPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedBodyPurchase = lstBodyPurchase.SelectedIndex >= 0
-                ? (BodyArmor)lstBodyPurchase.SelectedValue
+            _selectedBodyPurchase = LstBodyPurchase.SelectedIndex >= 0
+                ? (BodyArmor)LstBodyPurchase.SelectedValue
                 : new BodyArmor();
 
-            btnBodyPurchase.IsEnabled = _selectedBodyPurchase.Value > 0 && _selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnBodyPurchase.IsEnabled = _selectedBodyPurchase.Value > 0 && _selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
         }
 
-        private void lstBodySell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstBodySell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedBodySell = lstBodySell.SelectedIndex >= 0 ? (BodyArmor)lstBodySell.SelectedValue : new BodyArmor();
+            _selectedBodySell = LstBodySell.SelectedIndex >= 0 ? (BodyArmor)LstBodySell.SelectedValue : new BodyArmor();
 
-            btnBodySell.IsEnabled = _selectedBodySell.CanSell;
+            BtnBodySell.IsEnabled = _selectedBodySell.CanSell;
             BindLabels();
         }
 
-        private void lstHandsPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstHandsPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedHandsPurchase = lstHandsPurchase.SelectedIndex >= 0
-                ? (HandArmor)lstHandsPurchase.SelectedValue
+            _selectedHandsPurchase = LstHandsPurchase.SelectedIndex >= 0
+                ? (HandArmor)LstHandsPurchase.SelectedValue
                 : new HandArmor();
 
-            btnHandsPurchase.IsEnabled = _selectedHandsPurchase.Value > 0 && _selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnHandsPurchase.IsEnabled = _selectedHandsPurchase.Value > 0 && _selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
         }
 
-        private void lstHandsSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstHandsSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedHandsSell = lstHandsSell.SelectedIndex >= 0
-                ? (HandArmor)lstHandsSell.SelectedValue
+            _selectedHandsSell = LstHandsSell.SelectedIndex >= 0
+                ? (HandArmor)LstHandsSell.SelectedValue
                 : new HandArmor();
 
-            btnHandsSell.IsEnabled = _selectedHandsSell.CanSell;
+            BtnHandsSell.IsEnabled = _selectedHandsSell.CanSell;
             BindLabels();
         }
 
-        private void lstLegsPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstLegsPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedLegsPurchase = lstLegsPurchase.SelectedIndex >= 0
-                ? (LegArmor)lstLegsPurchase.SelectedValue
+            _selectedLegsPurchase = LstLegsPurchase.SelectedIndex >= 0
+                ? (LegArmor)LstLegsPurchase.SelectedValue
                 : new LegArmor();
 
-            btnLegsPurchase.IsEnabled = _selectedLegsPurchase.Value > 0 && _selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnLegsPurchase.IsEnabled = _selectedLegsPurchase.Value > 0 && _selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
         }
 
-        private void lstLegsSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstLegsSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedLegsSell = lstLegsSell.SelectedIndex >= 0 ? (LegArmor)lstLegsSell.SelectedValue : new LegArmor();
+            _selectedLegsSell = LstLegsSell.SelectedIndex >= 0 ? (LegArmor)LstLegsSell.SelectedValue : new LegArmor();
 
-            btnLegsSell.IsEnabled = _selectedLegsSell.CanSell;
+            BtnLegsSell.IsEnabled = _selectedLegsSell.CanSell;
             BindLabels();
         }
 
-        private void lstFeetPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstFeetPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedFeetPurchase = lstFeetPurchase.SelectedIndex >= 0
-                ? (FeetArmor)lstFeetPurchase.SelectedValue
+            _selectedFeetPurchase = LstFeetPurchase.SelectedIndex >= 0
+                ? (FeetArmor)LstFeetPurchase.SelectedValue
                 : new FeetArmor();
 
-            btnFeetPurchase.IsEnabled = _selectedFeetPurchase.Value > 0 && _selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnFeetPurchase.IsEnabled = _selectedFeetPurchase.Value > 0 && _selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
         }
 
-        private void lstFeetSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstFeetSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedFeetSell = lstFeetSell.SelectedIndex >= 0 ? (FeetArmor)lstFeetSell.SelectedValue : new FeetArmor();
+            _selectedFeetSell = LstFeetSell.SelectedIndex >= 0 ? (FeetArmor)LstFeetSell.SelectedValue : new FeetArmor();
 
-            btnFeetSell.IsEnabled = _selectedFeetSell.CanSell;
+            BtnFeetSell.IsEnabled = _selectedFeetSell.CanSell;
             BindLabels();
         }
 
@@ -439,11 +428,11 @@ namespace Sulimn
         {
             InitializeComponent();
             LoadAll();
-            txtTheArmoury.Text =
+            TxtTheArmoury.Text =
             "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
         }
 
-        private async void windowTheArmoury_Closing(object sender, CancelEventArgs e)
+        private async void WindowTheArmoury_Closing(object sender, CancelEventArgs e)
         {
             RefToMarketWindow.Show();
             await GameState.SaveHero(GameState.CurrentHero);

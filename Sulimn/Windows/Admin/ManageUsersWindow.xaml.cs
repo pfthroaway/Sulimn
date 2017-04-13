@@ -28,31 +28,31 @@ namespace Sulimn
         /// <summary>Toggles certain buttons.</summary>
         private void ToggleButtons(bool enabled)
         {
-            btnManageUser.IsEnabled = enabled;
-            btnDeleteUser.IsEnabled = enabled;
+            BtnManageUser.IsEnabled = enabled;
+            BtnDeleteUser.IsEnabled = enabled;
         }
 
         #endregion Button Manipulation
 
         #region Button-Click Methods
 
-        private void btnNewUser_Click(object sender, RoutedEventArgs e)
+        private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnManageUser_Click(object sender, RoutedEventArgs e)
+        private void BtnManageUser_Click(object sender, RoutedEventArgs e)
         {
             ManageUserWindow manageUserWindow = new ManageUserWindow { RefToManageUsersWindow = this };
-            manageUserWindow.LoadWindow((Hero)lstUsers.SelectedValue);
+            manageUserWindow.LoadWindow((Hero)LstUsers.SelectedValue);
             manageUserWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -70,15 +70,15 @@ namespace Sulimn
         public ManageUsersWindow()
         {
             InitializeComponent();
-            lstUsers.ItemsSource = _allHeroes;
+            LstUsers.ItemsSource = _allHeroes;
         }
 
-        private void lstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ToggleButtons(lstUsers.SelectedIndex >= 0);
+            ToggleButtons(LstUsers.SelectedIndex >= 0);
         }
 
-        private void windowManageUsers_Closing(object sender, CancelEventArgs e)
+        private void WindowManageUsers_Closing(object sender, CancelEventArgs e)
         {
             RefToAdminWindow.Show();
         }

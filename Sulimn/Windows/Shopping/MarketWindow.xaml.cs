@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn
@@ -7,43 +6,32 @@ namespace Sulimn
     /// <summary>Interaction logic for MarketWindow.xaml</summary>
     public partial class MarketWindow
     {
-        private readonly string _nl = Environment.NewLine;
         internal CityWindow RefToCityWindow { private get; set; }
-
-        /// <summary>Adds text to the TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtMarket.Text += _nl + _nl + newText;
-            txtMarket.Focus();
-            txtMarket.CaretIndex = txtMarket.Text.Length;
-            txtMarket.ScrollToEnd();
-        }
 
         #region Button-Click Methods
 
-        private void btnWeaponShop_Click(object sender, RoutedEventArgs e)
+        private void BtnWeaponShop_Click(object sender, RoutedEventArgs e)
         {
             WeaponsRUsWindow weaponsRUsWindow = new WeaponsRUsWindow { RefToMarketWindow = this };
             weaponsRUsWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnArmorShop_Click(object sender, RoutedEventArgs e)
+        private void BtnArmorShop_Click(object sender, RoutedEventArgs e)
         {
             TheArmouryWindow theArmouryWindow = new TheArmouryWindow { RefToMarketWindow = this };
             theArmouryWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnGeneralStore_Click(object sender, RoutedEventArgs e)
+        private void BtnGeneralStore_Click(object sender, RoutedEventArgs e)
         {
             TheGeneralStoreWindow theGeneralStoreWindow = new TheGeneralStoreWindow { RefToMarketWindow = this };
             theGeneralStoreWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnMagicShop_Click(object sender, RoutedEventArgs e)
+        private void BtnMagicShop_Click(object sender, RoutedEventArgs e)
         {
             MagickShoppeWindow magickShoppeWindow = new MagickShoppeWindow { RefToMarketWindow = this };
             magickShoppeWindow.LoadAll();
@@ -51,14 +39,14 @@ namespace Sulimn
             Visibility = Visibility.Hidden;
         }
 
-        private void btnSilverEmpire_Click(object sender, RoutedEventArgs e)
+        private void BtnSilverEmpire_Click(object sender, RoutedEventArgs e)
         {
             SilverEmpireWindow silverEmpireWindow = new SilverEmpireWindow { RefToMarketWindow = this };
             silverEmpireWindow.Show();
             Visibility = Visibility.Hidden;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -76,14 +64,15 @@ namespace Sulimn
         public MarketWindow()
         {
             InitializeComponent();
-            txtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:" + _nl +
-             _nl + "Weapons 'R' Us - A weapons shop." + _nl + _nl + "The Armoury - An armor shop." + _nl +
-             _nl + "The General Store - A shop supplying general goods like potions." + _nl + _nl +
-             "Ye Old Magick Shoppe - A shop selling magical spells and equipment." + _nl + _nl +
-             "Silver Empire - A smithery selling the finest jewelry.";
+            TxtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:\n\n" +
+                "Weapons 'R' Us - A weapons shop.\n\n" +
+                 "The Armoury - An armor shop.\n\n" +
+                "The General Store - A shop supplying general goods like potions.\n\n" +
+                "Ye Old Magick Shoppe - A shop selling magical spells and equipment.\n\n" +
+                "Silver Empire - A smithery selling the finest jewelry.";
         }
 
-        private void windowMarket_Closing(object sender, CancelEventArgs e)
+        private void WindowMarket_Closing(object sender, CancelEventArgs e)
         {
             RefToCityWindow.Show();
         }

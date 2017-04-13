@@ -1,64 +1,19 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Sulimn
 {
     /// <summary>Represents a Ring worn on an entity's finger.</summary>
-    internal class Ring : Item, IEquatable<Ring>, INotifyPropertyChanged
+    internal class Ring : Item, IEquatable<Ring>
     {
         private int _damage, _defense, _strength, _vitality, _dexterity, _wisdom;
 
-        #region Data-Binding
-
-        public sealed override event PropertyChangedEventHandler PropertyChanged;
-
-        protected sealed override void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
-
         #region Modifying Properties
-
-        /// <summary>Name of the Ring</summary>
-        public sealed override string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        /// <summary>Type of the Ring</summary>
-        public sealed override ItemTypes Type
-        {
-            get { return _type; }
-            set
-            {
-                _type = value;
-                OnPropertyChanged("Type");
-            }
-        }
-
-        /// <summary>Description of the Ring</summary>
-        public sealed override string Description
-        {
-            get { return _description; }
-            set
-            {
-                _description = value;
-                OnPropertyChanged("Description");
-            }
-        }
 
         /// <summary>How much bonus damage the Ring inflicts</summary>
         public int Damage
         {
-            get { return _damage; }
+            get => _damage;
             private set
             {
                 _damage = value;
@@ -70,7 +25,7 @@ namespace Sulimn
         /// <summary>How much bonus damage the Ring can defend against</summary>
         public int Defense
         {
-            get { return _defense; }
+            get => _defense;
             private set
             {
                 _defense = value;
@@ -82,7 +37,7 @@ namespace Sulimn
         /// <summary>How much bonus Strength the Ring grants</summary>
         public int Strength
         {
-            get { return _strength; }
+            get => _strength;
             private set
             {
                 _strength = value;
@@ -93,7 +48,7 @@ namespace Sulimn
         /// <summary>How much bonus Vitality the Ring grants</summary>
         public int Vitality
         {
-            get { return _vitality; }
+            get => _vitality;
             private set
             {
                 _vitality = value;
@@ -104,7 +59,7 @@ namespace Sulimn
         /// <summary>How much bonus Dexterity the Ring grants</summary>
         public int Dexterity
         {
-            get { return _dexterity; }
+            get => _dexterity;
             private set
             {
                 _dexterity = value;
@@ -115,7 +70,7 @@ namespace Sulimn
         /// <summary>How much bonus Wisdom the Ring grants</summary>
         public int Wisdom
         {
-            get { return _wisdom; }
+            get => _wisdom;
             private set
             {
                 _wisdom = value;
@@ -123,98 +78,9 @@ namespace Sulimn
             }
         }
 
-        /// <summary>How much the Ring weighs</summary>
-        public sealed override int Weight
-        {
-            get { return _weight; }
-            set
-            {
-                _weight = value;
-                OnPropertyChanged("Weight");
-            }
-        }
-
-        /// <summary>How much the Ring is worth</summary>
-        public sealed override int Value
-        {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged("Value");
-            }
-        }
-
-        /// <summary>Can the Ring be sold to a shop?</summary>
-        public sealed override bool CanSell
-        {
-            get { return _canSell; }
-            set
-            {
-                _canSell = value;
-                OnPropertyChanged("CanSell");
-            }
-        }
-
-        /// <summary>Can the Ring be sold in a shop?</summary>
-        public sealed override bool IsSold
-        {
-            get { return _isSold; }
-            set
-            {
-                _isSold = value;
-                OnPropertyChanged("IsSold");
-            }
-        }
-
         #endregion Modifying Properties
 
         #region Helper Properties
-
-        /// <summary>The value of the Ring with thousands separators</summary>
-        public sealed override string ValueToString => Value.ToString("N0");
-
-        /// <summary>The value of the Ring with thousands separators and preceding text</summary>
-        public sealed override string ValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>The value of the Ring</summary>
-        public sealed override int SellValue => Value / 2;
-
-        /// <summary>The value of the Ring with thousands separators</summary>
-        public sealed override string SellValueToString => SellValue.ToString("N0");
-
-        /// <summary>The value of the Ring with thousands separators with preceding text</summary>
-        public sealed override string SellValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return "Sell Value: " + SellValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>Returns text relating to the sellability of the Ring</summary>
-        public sealed override string CanSellToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                {
-                    if (CanSell)
-                        return "Sellable";
-                    return "Not Sellable";
-                }
-                return "";
-            }
-        }
 
         /// <summary>Returns the damage with a comma separating thousands.</summary>
         public string DamageToString => Damage.ToString("N0");
@@ -225,7 +91,7 @@ namespace Sulimn
             get
             {
                 if (Damage > 0)
-                    return "Damage: " + DamageToString;
+                    return $"Damage: {DamageToString}";
                 return "";
             }
         }
@@ -239,7 +105,7 @@ namespace Sulimn
             get
             {
                 if (Defense > 0)
-                    return "Defense: " + DefenseToString;
+                    return $"Defense: {DefenseToString}";
                 return "";
             }
         }
@@ -250,7 +116,7 @@ namespace Sulimn
             get
             {
                 if (Strength > 0)
-                    return "Strength: " + Strength;
+                    return $"Strength: {Strength}";
                 return "";
             }
         }
@@ -261,7 +127,7 @@ namespace Sulimn
             get
             {
                 if (Vitality > 0)
-                    return "Vitality: " + Vitality;
+                    return $"Vitality: {Vitality}";
                 return "";
             }
         }
@@ -272,7 +138,7 @@ namespace Sulimn
             get
             {
                 if (Dexterity > 0)
-                    return "Dexterity: " + Dexterity;
+                    return $"Dexterity: {Dexterity}";
                 return "";
             }
         }
@@ -283,7 +149,7 @@ namespace Sulimn
             get
             {
                 if (Wisdom > 0)
-                    return "Wisdom: " + Wisdom;
+                    return $"Wisdom: {Wisdom}";
                 return "";
             }
         }

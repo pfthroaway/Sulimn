@@ -26,7 +26,7 @@ namespace Sulimn
         /// <summary>Name of the Class.</summary>
         public string Name
         {
-            get { return _name; }
+            get => _name;
             private set
             {
                 _name = value;
@@ -37,7 +37,7 @@ namespace Sulimn
         /// <summary>Description of the Class.</summary>
         public string Description
         {
-            get { return _description; }
+            get => _description;
             set
             {
                 _description = value;
@@ -48,7 +48,7 @@ namespace Sulimn
         /// <summary>Maximum number of skill points a Class can have when initially being assigned.</summary>
         public int SkillPoints
         {
-            get { return _skillPoints; }
+            get => _skillPoints;
             set
             {
                 _skillPoints = value;
@@ -57,20 +57,13 @@ namespace Sulimn
         }
 
         /// <summary>Maximum number of skill points a Class can have when initially being assigned, with thousands separator.</summary>
-        public string SkillPointsToString
-        {
-            get
-            {
-                if (SkillPoints != 1)
-                    return SkillPoints.ToString("N0") + " Skill Points Available";
-                return SkillPoints.ToString("N0") + " Skill Point Available";
-            }
-        }
+        /// <summary>The amount of skill points the Hero has available to spend</summary>
+        public string SkillPointsToString => SkillPoints != 1 ? $"{SkillPoints:N0} Skill Points Available" : $"{SkillPoints:N0} Skill Point Available";
 
         /// <summary>Amount of Strength the Class has by default.</summary>
         public int Strength
         {
-            get { return _strength; }
+            get => _strength;
             set
             {
                 _strength = value;
@@ -81,7 +74,7 @@ namespace Sulimn
         /// <summary>Amount of Vitality the Class has by default.</summary>
         public int Vitality
         {
-            get { return _vitality; }
+            get => _vitality;
             set
             {
                 _vitality = value;
@@ -94,7 +87,7 @@ namespace Sulimn
         /// <summary>Amount of Dexterity the Class has by default.</summary>
         public int Dexterity
         {
-            get { return _dexterity; }
+            get => _dexterity;
             set
             {
                 _dexterity = value;
@@ -105,7 +98,7 @@ namespace Sulimn
         /// <summary>Amount of Wisdom the Class has by default.</summary>
         public int Wisdom
         {
-            get { return _wisdom; }
+            get => _wisdom;
             set
             {
                 _wisdom = value;
@@ -118,7 +111,7 @@ namespace Sulimn
         /// <summary>Amount of current health the Class has.</summary>
         public int CurrentHealth
         {
-            get { return _currentHealth; }
+            get => _currentHealth;
             private set
             {
                 _currentHealth = value;
@@ -129,7 +122,7 @@ namespace Sulimn
         /// <summary>Amount of maximum health the Class has.</summary>
         public int MaximumHealth
         {
-            get { return _maximumHealth; }
+            get => _maximumHealth;
             private set
             {
                 _maximumHealth = value;
@@ -140,7 +133,7 @@ namespace Sulimn
         /// <summary>Amount of current magic the Class has.</summary>
         public int CurrentMagic
         {
-            get { return _currentMagic; }
+            get => _currentMagic;
             private set
             {
                 _currentMagic = value;
@@ -151,7 +144,7 @@ namespace Sulimn
         /// <summary>Amount of maximum magic the Class has.</summary>
         public int MaximumMagic
         {
-            get { return _maximumMagic; }
+            get => _maximumMagic;
             private set
             {
                 _maximumMagic = value;
@@ -160,10 +153,10 @@ namespace Sulimn
         }
 
         /// <summary>Amount of health the Class has, formatted.</summary>
-        public string HealthToString => CurrentHealth.ToString("N0") + " / " + MaximumHealth.ToString("N0");
+        public string HealthToString => $"{CurrentHealth:N0} / {MaximumHealth:N0}";
 
         /// <summary>Amount of magic the Class has, formatted.</summary>
-        public string MagicToString => CurrentMagic.ToString("N0") + " / " + MaximumMagic.ToString("N0");
+        public string MagicToString => $"{CurrentMagic:N0} / {MaximumMagic:N0}";
 
         #endregion Properties
 

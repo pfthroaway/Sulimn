@@ -37,7 +37,7 @@ namespace Sulimn
         /// <summary>Amount of gold in the inventory.</summary>
         public int Gold
         {
-            get { return _gold; }
+            get => _gold;
             set
             {
                 _gold = value;
@@ -55,7 +55,7 @@ namespace Sulimn
         public string GoldToString => Gold.ToString("N0");
 
         /// <summary>Amount of gold in the inventory, with thousands separator and preceding text.</summary>
-        public string GoldToStringWithText => "Gold: " + GoldToString;
+        public string GoldToStringWithText => $"Gold: {GoldToString}";
 
         #endregion Helper Properties
 

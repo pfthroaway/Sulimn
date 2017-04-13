@@ -1,48 +1,37 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
+using Extensions;
 
 namespace Sulimn
 {
     /// <summary>Interaction logic for ExploreWindow.xaml</summary>
     public partial class ExploreWindow
     {
-        private readonly string _nl = Environment.NewLine;
         internal CityWindow RefToCityWindow { private get; set; }
-
-        /// <summary>Adds text to the txtExplore TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            txtExplore.Text += _nl + _nl + newText;
-            txtExplore.Focus();
-            txtExplore.CaretIndex = txtExplore.Text.Length;
-            txtExplore.ScrollToEnd();
-        }
 
         #region Button Manipulation
 
         /// <summary>Checks the player's level to determine which buttons to allow to be enabled.</summary>
         internal void CheckButtons()
         {
-            btnBack.IsEnabled = true;
-            btnFields.IsEnabled = true;
-            btnForest.IsEnabled = GameState.CurrentHero.Level >= 5;
-            btnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10;
-            btnMines.IsEnabled = GameState.CurrentHero.Level >= 15;
-            btnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20;
+            BtnBack.IsEnabled = true;
+            BtnFields.IsEnabled = true;
+            BtnForest.IsEnabled = GameState.CurrentHero.Level >= 5;
+            BtnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10;
+            BtnMines.IsEnabled = GameState.CurrentHero.Level >= 15;
+            BtnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20;
         }
 
         #endregion Button Manipulation
 
         #region Button-Click Methods
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
 
-        private void btnCatacombs_Click(object sender, RoutedEventArgs e)
+        private void BtnCatacombs_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
@@ -51,10 +40,10 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
-        private void btnCathedral_Click(object sender, RoutedEventArgs e)
+        private void BtnCathedral_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
@@ -63,10 +52,10 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
-        private void btnFields_Click(object sender, RoutedEventArgs e)
+        private void BtnFields_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
@@ -75,10 +64,10 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
-        private void btnForest_Click(object sender, RoutedEventArgs e)
+        private void BtnForest_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
@@ -87,10 +76,10 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
-        private void btnMines_Click(object sender, RoutedEventArgs e)
+        private void BtnMines_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
@@ -99,7 +88,7 @@ namespace Sulimn
                 Visibility = Visibility.Hidden;
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
         #endregion Button-Click Methods
@@ -114,20 +103,16 @@ namespace Sulimn
         public ExploreWindow()
         {
             InitializeComponent();
-            txtExplore.Text =
-            "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth." +
-            _nl + _nl +
-            "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers." +
-            _nl + _nl +
-            "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow." +
-            _nl + _nl +
-            "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years." +
-            _nl + _nl +
+            TxtExplore.Text =
+            "There are some safe-looking farms and crop fields to the east where many adventurers have gone to prove their worth.\n\n" +
+            "There is a dark forest to the west, which looks like it has devoured its fair share of adventurers.\n\n" +
+            "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow.\n\n" +
+            "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years.\n\n" +
             "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
             CheckButtons();
         }
 
-        private void windowExplore_Closing(object sender, CancelEventArgs e)
+        private void WindowExplore_Closing(object sender, CancelEventArgs e)
         {
             RefToCityWindow.Show();
         }

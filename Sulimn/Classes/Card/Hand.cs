@@ -22,7 +22,7 @@ namespace Sulimn
         /// <summary>List of cards in the hand.</summary>
         public List<Card> CardList
         {
-            get { return _cardList; }
+            get => _cardList;
             private set
             {
                 _cardList = value;
@@ -31,7 +31,7 @@ namespace Sulimn
         }
 
         /// <summary>Current value of the Hand.</summary>
-        public string Value => "Total: " + TotalValue;
+        public string Value => $"Total: {TotalValue}";
 
         #endregion Properties
 

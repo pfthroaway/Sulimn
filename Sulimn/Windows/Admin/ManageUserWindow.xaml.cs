@@ -1,7 +1,6 @@
 ﻿using Extensions;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,14 +12,14 @@ namespace Sulimn
     /// </summary>
     public partial class ManageUserWindow : INotifyPropertyChanged
     {
-        private readonly List<BodyArmor> AllBodyArmor = GameState.GetItemsOfType<BodyArmor>();
-        private readonly List<HeroClass> AllClasses = new List<HeroClass>(GameState.AllClasses);
-        private readonly List<FeetArmor> AllFeetArmor = GameState.GetItemsOfType<FeetArmor>();
-        private readonly List<HeadArmor> AllHeadArmor = GameState.GetItemsOfType<HeadArmor>();
-        private readonly List<LegArmor> AllLegsArmor = GameState.GetItemsOfType<LegArmor>();
-        private readonly List<Weapon> AllWeapons = new List<Weapon>(GameState.GetItemsOfType<Weapon>());
-        private Hero modifyHero = new Hero();
-        private Hero originalHero = new Hero();
+        private readonly List<BodyArmor> _allBodyArmor = GameState.GetItemsOfType<BodyArmor>();
+        private readonly List<HeroClass> _allClasses = new List<HeroClass>(GameState.AllClasses);
+        private readonly List<FeetArmor> _allFeetArmor = GameState.GetItemsOfType<FeetArmor>();
+        private readonly List<HeadArmor> _allHeadArmor = GameState.GetItemsOfType<HeadArmor>();
+        private readonly List<LegArmor> _allLegsArmor = GameState.GetItemsOfType<LegArmor>();
+        private readonly List<Weapon> _allWeapons = new List<Weapon>(GameState.GetItemsOfType<Weapon>());
+        private Hero _modifyHero = new Hero();
+        private Hero _originalHero = new Hero();
 
         internal ManageUsersWindow RefToManageUsersWindow { private get; set; }
 
@@ -31,25 +30,25 @@ namespace Sulimn
         /// </summary>
         private void DisplayOriginalHero()
         {
-            txtHeroName.Text = originalHero.Name;
-            txtLevel.Text = originalHero.Level.ToString();
-            txtExperience.Text = originalHero.Experience.ToString();
-            txtSkillPoints.Text = originalHero.SkillPoints.ToString();
-            txtStrength.Text = originalHero.Attributes.Strength.ToString();
-            txtVitality.Text = originalHero.Attributes.Vitality.ToString();
-            txtDexterity.Text = originalHero.Attributes.Dexterity.ToString();
-            txtWisdom.Text = originalHero.Attributes.Wisdom.ToString();
-            txtGold.Text = originalHero.Inventory.Gold.ToString();
-            txtCurrentHealth.Text = originalHero.Statistics.CurrentHealth.ToString();
-            txtMaximumHealth.Text = originalHero.Statistics.MaximumHealth.ToString();
-            txtCurrentMagic.Text = originalHero.Statistics.CurrentMagic.ToString();
-            txtMaximumMagic.Text = originalHero.Statistics.MaximumMagic.ToString();
-            cmbHead.SelectedValue = originalHero.Equipment.Head;
-            cmbBody.SelectedValue = originalHero.Equipment.Body;
-            cmbLegs.SelectedValue = originalHero.Equipment.Legs;
-            cmbFeet.SelectedValue = originalHero.Equipment.Feet;
-            cmbWeapon.SelectedValue = originalHero.Equipment.Weapon;
-            cmbClass.SelectedValue = originalHero.Class;
+            TxtHeroName.Text = _originalHero.Name;
+            TxtLevel.Text = _originalHero.Level.ToString();
+            TxtExperience.Text = _originalHero.Experience.ToString();
+            TxtSkillPoints.Text = _originalHero.SkillPoints.ToString();
+            TxtStrength.Text = _originalHero.Attributes.Strength.ToString();
+            TxtVitality.Text = _originalHero.Attributes.Vitality.ToString();
+            TxtDexterity.Text = _originalHero.Attributes.Dexterity.ToString();
+            TxtWisdom.Text = _originalHero.Attributes.Wisdom.ToString();
+            TxtGold.Text = _originalHero.Inventory.Gold.ToString();
+            TxtCurrentHealth.Text = _originalHero.Statistics.CurrentHealth.ToString();
+            TxtMaximumHealth.Text = _originalHero.Statistics.MaximumHealth.ToString();
+            TxtCurrentMagic.Text = _originalHero.Statistics.CurrentMagic.ToString();
+            TxtMaximumMagic.Text = _originalHero.Statistics.MaximumMagic.ToString();
+            CmbHead.SelectedValue = _originalHero.Equipment.Head;
+            CmbBody.SelectedValue = _originalHero.Equipment.Body;
+            CmbLegs.SelectedValue = _originalHero.Equipment.Legs;
+            CmbFeet.SelectedValue = _originalHero.Equipment.Feet;
+            CmbWeapon.SelectedValue = _originalHero.Equipment.Weapon;
+            CmbClass.SelectedValue = _originalHero.Class;
         }
 
         #endregion Display Manipulation
@@ -63,12 +62,12 @@ namespace Sulimn
         /// </summary>
         private void BindControls()
         {
-            cmbClass.ItemsSource = AllClasses;
-            cmbWeapon.ItemsSource = AllWeapons;
-            cmbHead.ItemsSource = AllHeadArmor;
-            cmbBody.ItemsSource = AllBodyArmor;
-            cmbLegs.ItemsSource = AllLegsArmor;
-            cmbFeet.ItemsSource = AllFeetArmor;
+            CmbClass.ItemsSource = _allClasses;
+            CmbWeapon.ItemsSource = _allWeapons;
+            CmbHead.ItemsSource = _allHeadArmor;
+            CmbBody.ItemsSource = _allBodyArmor;
+            CmbLegs.ItemsSource = _allLegsArmor;
+            CmbFeet.ItemsSource = _allFeetArmor;
 
             DisplayOriginalHero();
         }
@@ -82,31 +81,31 @@ namespace Sulimn
 
         #region Input Manipulation
 
-        private void txtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Functions.PreviewKeyDown(e, KeyType.Letters);
         }
 
-        private void txtNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TxtNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Functions.PreviewKeyDown(e, KeyType.Numbers);
+            Functions.PreviewKeyDown(e, KeyType.Integers);
         }
 
         #endregion Input Manipulation
 
         #region Button-Click Methods
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             DisplayOriginalHero();
-            modifyHero = new Hero(originalHero);
+            _modifyHero = new Hero(_originalHero);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -125,8 +124,8 @@ namespace Sulimn
 
         internal void LoadWindow(Hero manageHero)
         {
-            modifyHero = new Hero(manageHero);
-            originalHero = new Hero(manageHero);
+            _modifyHero = new Hero(manageHero);
+            _originalHero = new Hero(manageHero);
             BindControls();
         }
 
@@ -135,13 +134,13 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void txtHeroName_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtHeroName_TextChanged(object sender, TextChangedEventArgs e)
         {
             Functions.TextBoxTextChanged(sender, KeyType.Letters);
-            txtHeroName.CaretIndex = txtHeroName.Text.Length;
+            TxtHeroName.CaretIndex = TxtHeroName.Text.Length;
         }
 
-        private void windowManageUsers_Closing(object sender, CancelEventArgs e)
+        private void WindowManageUsers_Closing(object sender, CancelEventArgs e)
         {
             RefToManageUsersWindow.Show();
         }

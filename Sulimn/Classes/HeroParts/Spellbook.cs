@@ -17,7 +17,7 @@ namespace Sulimn
         internal string LearnSpell(Spell newSpell)
         {
             _spells.Add(newSpell);
-            return "You learn " + newSpell.Name + ".";
+            return $"You learn {newSpell.Name}.";
         }
 
         public sealed override string ToString()

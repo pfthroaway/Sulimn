@@ -1,5 +1,4 @@
 ﻿using Extensions;
-using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -9,17 +8,6 @@ namespace Sulimn
     public partial class CathedralWindow
     {
         internal ExploreWindow RefToExploreWindow { private get; set; }
-
-        /// <summary>Adds text to the txtCathedral TextBox.</summary>
-        /// <param name="newText">Text to be added</param>
-        private void AddTextTT(string newText)
-        {
-            string nl = Environment.NewLine;
-            txtCathedral.Text += nl + nl + newText;
-            txtCathedral.Focus();
-            txtCathedral.CaretIndex = txtCathedral.Text.Length;
-            txtCathedral.ScrollToEnd();
-        }
 
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
@@ -32,15 +20,15 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private async void btnBasilica_Click(object sender, RoutedEventArgs e)
+        private async void BtnBasilica_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(await GameState.EventFindGold(150, 400));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindGold(150, 400));
                 else if (result <= 40)
-                    AddTextTT(await GameState.EventFindItem(150, 400));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindItem(150, 400));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -58,18 +46,18 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtCathedral, "You need to heal before you can explore.");
         }
 
-        private async void btnSanctuary_Click(object sender, RoutedEventArgs e)
+        private async void BtnSanctuary_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 10)
-                    AddTextTT(await GameState.EventFindGold(150, 450));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindGold(150, 450));
                 else if (result <= 20)
-                    AddTextTT(await GameState.EventFindItem(150, 450));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindItem(150, 450));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -87,18 +75,18 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtCathedral, "You need to heal before you can explore.");
         }
 
-        private async void btnEpiscopium_Click(object sender, RoutedEventArgs e)
+        private async void BtnEpiscopium_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(await GameState.EventFindGold(200, 500));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindGold(200, 500));
                 else if (result <= 40)
-                    AddTextTT(await GameState.EventFindItem(200, 500));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindItem(200, 500));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -116,18 +104,18 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtCathedral, "You need to heal before you can explore.");
         }
 
-        private async void btnTower_Click(object sender, RoutedEventArgs e)
+        private async void BtnTower_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (result <= 20)
-                    AddTextTT(await GameState.EventFindGold(200, 600));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindGold(200, 600));
                 else if (result <= 40)
-                    AddTextTT(await GameState.EventFindItem(200, 600));
+                    Functions.AddTextToTextBox(TxtCathedral, await GameState.EventFindItem(200, 600));
                 else if (result <= 90)
                 {
                     GameState.EventEncounterEnemy("Priest", "Squire", "Monk", "Giant Spider");
@@ -145,10 +133,10 @@ namespace Sulimn
                 }
             }
             else
-                AddTextTT("You need to heal before you can explore.");
+                Functions.AddTextToTextBox(TxtCathedral, "You need to heal before you can explore.");
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -166,11 +154,11 @@ namespace Sulimn
         public CathedralWindow()
         {
             InitializeComponent();
-            txtCathedral.Text =
+            TxtCathedral.Text =
             "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the Windower bishop's basilica, the public sanctuary, the Windower clergymen's espiscopium, and the looming tower.";
         }
 
-        private void windowCathedral_Closing(object sender, CancelEventArgs e)
+        private void WindowCathedral_Closing(object sender, CancelEventArgs e)
         {
             RefToExploreWindow.Show();
             RefToExploreWindow.CheckButtons();

@@ -49,10 +49,10 @@ namespace Sulimn
         /// <summary>Binds text to the labels.</summary>
         private void BindLabels()
         {
-            lstSpells.DataContext = _availableSpells;
+            LstSpells.DataContext = _availableSpells;
             DataContext = _selectedSpell;
-            lblHealth.DataContext = GameState.CurrentHero.Statistics;
-            lblMagic.DataContext = GameState.CurrentHero.Statistics;
+            LblHealth.DataContext = GameState.CurrentHero.Statistics;
+            LblMagic.DataContext = GameState.CurrentHero.Statistics;
         }
 
         private void OnPropertyChanged(string property)
@@ -85,12 +85,12 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnCastSpell_Click(object sender, RoutedEventArgs e)
+        private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
         {
             CastSpell(_selectedSpell);
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -105,18 +105,18 @@ namespace Sulimn
             Close();
         }
 
-        private void lstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lstSpells.SelectedIndex >= 0)
+            if (LstSpells.SelectedIndex >= 0)
             {
                 List<Spell> spells = new List<Spell>();
                 spells.AddRange(GameState.CurrentHero.Spellbook.Spells);
-                _selectedSpell = spells.Find(spl => spl.Name == lstSpells.SelectedItem.ToString());
+                _selectedSpell = spells.Find(spl => spl.Name == LstSpells.SelectedItem.ToString());
             }
             else
                 _selectedSpell = new Spell();
 
-            btnCastSpell.IsEnabled = lstSpells.SelectedIndex >= 0 && _selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic;
+            BtnCastSpell.IsEnabled = LstSpells.SelectedIndex >= 0 && _selectedSpell.MagicCost <= GameState.CurrentHero.Statistics.CurrentMagic;
             DataContext = _selectedSpell;
         }
 
@@ -125,7 +125,7 @@ namespace Sulimn
             InitializeComponent();
         }
 
-        private void windowCastSpell_Closing(object sender, CancelEventArgs e)
+        private void WindowCastSpell_Closing(object sender, CancelEventArgs e)
         {
             switch (_previousWindow)
             {

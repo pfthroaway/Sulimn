@@ -11,37 +11,37 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 &&
-                pswdConfirmPassword.Password.Length >= 1)
+            if (PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
+                PswdConfirmPassword.Password.Length >= 1)
             {
-                if (PasswordHash.ValidatePassword(pswdCurrentPassword.Password, GameState.AdminPassword))
-                    if (pswdNewPassword.Password == pswdConfirmPassword.Password)
-                        if (pswdCurrentPassword.Password != pswdNewPassword.Password)
+                if (PasswordHash.ValidatePassword(PswdCurrentPassword.Password, GameState.AdminPassword))
+                    if (PswdNewPassword.Password == PswdConfirmPassword.Password)
+                        if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
-                            GameState.AdminPassword = PasswordHash.HashPassword(pswdNewPassword.Password);
-                            new Notification("Successfully changed administrator password.", "Sulimn",
-                                NotificationButtons.OK, this).ShowDialog();
+                            GameState.AdminPassword = PasswordHash.HashPassword(PswdNewPassword.Password);
+                            GameState.DisplayNotification("Successfully changed administrator password.", "Sulimn",
+                                NotificationButtons.OK, this);
                             CloseWindow();
                         }
                         else
                         {
-                            new Notification("The new password can't be the same as the current password.", "Sulimn",
-                                NotificationButtons.OK, this).ShowDialog();
+                            GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn",
+                                NotificationButtons.OK, this);
                         }
                     else
-                        new Notification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK,
-                            this).ShowDialog();
+                        GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK,
+                            this);
                 else
-                    new Notification("Invalid current administrator password.", "Sulimn", NotificationButtons.OK, this)
-                        .ShowDialog();
+                    GameState.DisplayNotification("Invalid current administrator password.", "Sulimn", NotificationButtons.OK, this)
+                        ;
             }
             else
-                new Notification("The old and new passwords must be at least 4 characters in length.", "Sulimn", NotificationButtons.OK, this).ShowDialog();
+                GameState.DisplayNotification("The old and new passwords must be at least 4 characters in length.", "Sulimn", NotificationButtons.OK, this);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
         }
@@ -59,21 +59,21 @@ namespace Sulimn
         public AdminChangePasswordWindow()
         {
             InitializeComponent();
-            pswdCurrentPassword.Focus();
+            PswdCurrentPassword.Focus();
         }
 
         private void PswdChanged(object sender, RoutedEventArgs e)
         {
-            btnSubmit.IsEnabled = pswdCurrentPassword.Password.Length >= 1 && pswdNewPassword.Password.Length >= 1 &&
-                                  pswdConfirmPassword.Password.Length >= 1;
+            BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
+                                  PswdConfirmPassword.Password.Length >= 1;
         }
 
-        private void pswd_GotFocus(object sender, RoutedEventArgs e)
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
         {
             Functions.PasswordBoxGotFocus(sender);
         }
 
-        private void windowAdminChangePassword_Closing(object sender, CancelEventArgs e)
+        private void WindowAdminChangePassword_Closing(object sender, CancelEventArgs e)
         {
             RefToAdminWindow.Show();
         }

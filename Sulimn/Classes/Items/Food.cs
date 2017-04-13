@@ -2,122 +2,18 @@
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Represents a Food which the Hero can consume.
-    /// </summary>
+    /// <summary>Represents a Food which the Hero can consume.</summary>
     internal class Food : Item, IEquatable<Food>
     {
-        private FoodTypes _foodType;
-        private int _amount;
-
         #region Properties
 
-        public sealed override string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public FoodTypes FoodType { get; }
 
-        public sealed override ItemTypes Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-
-        public FoodTypes FoodType
-        {
-            get { return _foodType; }
-            private set { _foodType = value; }
-        }
-
-        public sealed override string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-
-        public int Amount
-        {
-            get { return _amount; }
-            private set { _amount = value; }
-        }
-
-        public sealed override int Weight
-        {
-            get { return _weight; }
-            set { _weight = value; }
-        }
-
-        public sealed override int Value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
-
-        public sealed override bool CanSell
-        {
-            get { return _canSell; }
-            set { _canSell = value; }
-        }
-
-        public sealed override bool IsSold
-        {
-            get { return _isSold; }
-            set
-            {
-                _isSold = value;
-                OnPropertyChanged("IsSold");
-            }
-        }
+        public int Amount { get; }
 
         #endregion Properties
 
         #region Helper Properties
-
-        /// <summary>The value of the Food with thousands separators</summary>
-        public sealed override string ValueToString => Value.ToString("N0");
-
-        /// <summary>The value of the Food with thousands separators and preceding text</summary>
-        public sealed override string ValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name)) return "Value: " + ValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>The value of the Food</summary>
-        public sealed override int SellValue => Value / 2;
-
-        /// <summary>The value of the Food with thousands separators</summary>
-        public sealed override string SellValueToString => SellValue.ToString("N0");
-
-        /// <summary>The value of the Food with thousands separators with preceding text</summary>
-        public sealed override string SellValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return "Sell Value: " + SellValueToString;
-                return "";
-            }
-        }
-
-        /// <summary>Returns text relating to the sellability of the Food</summary>
-        public sealed override string CanSellToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                {
-                    if (CanSell)
-                        return "Sellable";
-                    return "Not Sellable";
-                }
-                return "";
-            }
-        }
 
         /// <summary>Returns text relating to the type and amount of the Potion</summary>
         public string TypeAmount
@@ -126,9 +22,9 @@ namespace Sulimn
             {
                 if (!string.IsNullOrWhiteSpace(Name))
                     if (FoodType == FoodTypes.Food)
-                        return "Restores " + Amount + " Health.";
+                        return $"Restores {Amount:N0} Health.";
                     else
-                        return "Restores " + Amount + " Magic.";
+                        return $"Restores {Amount:N0} Magic.";
                 return "";
             }
         }
@@ -182,16 +78,12 @@ namespace Sulimn
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Food.
-        /// </summary>
+        /// <summary>/// Initializes a default instance of Food./// </summary>
         internal Food()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Food by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of Food by assigning Properties.</summary>
         /// <param name="name">Name of Food</param>
         /// <param name="foodType">Type of Food</param>
         /// <param name="description">Description of Food</param>

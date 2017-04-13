@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-
-namespace Sulimn
+﻿namespace Sulimn
 {
     /// <summary>Represents a Hero from Sulimn.</summary>
-    internal class Hero : Character, INotifyPropertyChanged
+    internal class Hero : Character
     {
         private HeroClass _class;
         private int _skillPoints;
@@ -39,29 +37,7 @@ namespace Sulimn
             return Name;
         }
 
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        #endregion Data-Binding
-
         #region Properties
-
-        /// <summary>The name of the Hero</summary>
-        public sealed override string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged("Name");
-            }
-        }
 
         /// <summary>The hashed password of the Hero</summary>
         public string Password { get; set; }
@@ -69,7 +45,7 @@ namespace Sulimn
         /// <summary>The HeroClass of the Hero</summary>
         public HeroClass Class
         {
-            get { return _class; }
+            get => _class;
             private set
             {
                 _class = value;
@@ -77,34 +53,10 @@ namespace Sulimn
             }
         }
 
-        /// <summary>The level of the Hero</summary>
-        public sealed override int Level
-        {
-            get { return _level; }
-            set
-            {
-                _level = value;
-                OnPropertyChanged("Level");
-                OnPropertyChanged("LevelAndClassToString");
-            }
-        }
-
-        /// <summary>The amount of experience the Hero has gained this level</summary>
-        public sealed override int Experience
-        {
-            get { return _experience; }
-            set
-            {
-                _experience = value;
-                OnPropertyChanged("ExperienceToString");
-                OnPropertyChanged("ExperienceToStringWithText");
-            }
-        }
-
         /// <summary>The amount of available skill points the Hero has</summary>
         public int SkillPoints
         {
-            get { return _skillPoints; }
+            get => _skillPoints;
             set
             {
                 _skillPoints = value;
@@ -113,58 +65,14 @@ namespace Sulimn
             }
         }
 
-        /// <summary>The attributes of the Hero</summary>
-        public sealed override Attributes Attributes
-        {
-            get { return _attributes; }
-            set
-            {
-                _attributes = value;
-                OnPropertyChanged("Attributes");
-            }
-        }
-
-        /// <summary>The statistics of the Hero</summary>
-        public sealed override Statistics Statistics
-        {
-            get { return _statistics; }
-            set
-            {
-                _statistics = value;
-                OnPropertyChanged("Statistics");
-            }
-        }
-
-        /// <summary>The equipment the Hero is currently using</summary>
-        public sealed override Equipment Equipment
-        {
-            get { return _equipment; }
-            set
-            {
-                _equipment = value;
-                OnPropertyChanged("Equipment");
-            }
-        }
-
         /// <summary>The list of Spells the Hero currently knows</summary>
         public Spellbook Spellbook
         {
-            get { return _spellbook; }
+            get => _spellbook;
             private set
             {
                 _spellbook = value;
                 OnPropertyChanged("KnownSpells");
-            }
-        }
-
-        /// <summary>The list of Items the Hero is currently carrying</summary>
-        public sealed override Inventory Inventory
-        {
-            get { return _inventory; }
-            set
-            {
-                _inventory = value;
-                OnPropertyChanged("Inventory");
             }
         }
 
@@ -173,36 +81,10 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>The level and class of the Hero</summary>
-        public string LevelAndClassToString => "Level " + Level + " " + Class.Name;
-
-        /// <summary>The experience the Hero has gained this level alongside how much is needed to level up</summary>
-        public string ExperienceToString => Experience.ToString("N0") + " / " + (_level * 100).ToString("N0");
-
-        /// <summary>The experience the Hero has gained this level alongside how much is needed to level up with preceding text</summary>
-        public string ExperienceToStringWithText => "Experience: " + ExperienceToString;
+        public string LevelAndClassToString => $"Level {Level} {Class.Name}";
 
         /// <summary>The amount of skill points the Hero has available to spend</summary>
-        public string SkillPointsToString
-        {
-            get
-            {
-                if (SkillPoints != 1)
-                    return SkillPoints.ToString("N0") + " Skill Points Available";
-                return SkillPoints.ToString("N0") + " Skill Point Available";
-            }
-        }
-
-        /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalStrength => Attributes.Strength + Equipment.BonusStrength;
-
-        /// <summary>Returns the total Vitality attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalVitality => Attributes.Vitality + Equipment.BonusVitality;
-
-        /// <summary>Returns the total Dexterity attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalDexterity => Attributes.Dexterity + Equipment.BonusDexterity;
-
-        /// <summary>Returns the total Wisdom attribute and bonus produced by the current set of equipment.</summary>
-        public int TotalWisdom => Attributes.Wisdom + Equipment.BonusWisdom;
+        public string SkillPointsToString => SkillPoints != 1 ? $"{SkillPoints:N0} Skill Points Available" : $"{SkillPoints:N0} Skill Point Available";
 
         #endregion Helper Properties
 
@@ -214,7 +96,7 @@ namespace Sulimn
         internal string GainExperience(int exp)
         {
             Experience += exp;
-            return "You gained " + exp + " experience!" + CheckLevelUp();
+            return $"You gained {exp} experience!{CheckLevelUp()}";
         }
 
         /// <summary>Checks where a Hero has leveled up.</summary>
@@ -229,7 +111,7 @@ namespace Sulimn
         private string LevelUp()
         {
             Experience -= Level * 100;
-            Level += 1;
+            Level++;
             SkillPoints += 5;
             Statistics.CurrentHealth += 5;
             Statistics.MaximumHealth += 5;
@@ -249,8 +131,8 @@ namespace Sulimn
         {
             Statistics.CurrentHealth -= damage;
             return Statistics.CurrentHealth <= 0
-                ? "You have taken " + damage + " damage and have been slain."
-                : "You have taken " + damage + " damage.";
+                ? $"You have taken {damage} damage and have been slain."
+                : $"You have taken {damage} damage.";
         }
 
         /// <summary>Heals the Hero for a specified amount.</summary>
@@ -264,7 +146,7 @@ namespace Sulimn
                 Statistics.CurrentHealth = Statistics.MaximumHealth;
                 return "You heal to your maximum health.";
             }
-            return "You heal for " + healAmount + " health.";
+            return $"You heal for {healAmount:N0} health.";
         }
 
         #endregion Health Manipulation

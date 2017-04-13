@@ -18,7 +18,7 @@ namespace Sulimn
                 CurrentMagic = MaximumMagic;
                 return "You restore your magic to its maximum.";
             }
-            return "You restore " + restoreAmount + " magic.";
+            return $"You restore {restoreAmount:N0} magic.";
         }
 
         #region Data-Binding
@@ -37,7 +37,7 @@ namespace Sulimn
         /// <summary>Amount of current health the Class has.</summary>
         public int CurrentHealth
         {
-            get { return _currentHealth; }
+            get => _currentHealth;
             set
             {
                 _currentHealth = value;
@@ -49,7 +49,7 @@ namespace Sulimn
         /// <summary>Amount of maximum health the Class has.</summary>
         public int MaximumHealth
         {
-            get { return _maximumHealth; }
+            get => _maximumHealth;
             set
             {
                 _maximumHealth = value;
@@ -61,7 +61,7 @@ namespace Sulimn
         /// <summary>Amount of current magic the Class has.</summary>
         public int CurrentMagic
         {
-            get { return _currentMagic; }
+            get => _currentMagic;
             set
             {
                 _currentMagic = value;
@@ -73,7 +73,7 @@ namespace Sulimn
         /// <summary>Amount of maximum magic the Class has.</summary>
         public int MaximumMagic
         {
-            get { return _maximumMagic; }
+            get => _maximumMagic;
             set
             {
                 _maximumMagic = value;
@@ -87,16 +87,16 @@ namespace Sulimn
         #region Helper Properties
 
         /// <summary>Amount of health the Class has, formatted.</summary>
-        public string HealthToString => CurrentHealth.ToString("N0") + " / " + MaximumHealth.ToString("N0");
+        public string HealthToString => $"{CurrentHealth:N0} / {MaximumHealth:N0}";
 
         /// <summary>Amount of health the Class has, formatted.</summary>
-        public string HealthToStringWithText => "Health: " + HealthToString;
+        public string HealthToStringWithText => $"Health: {HealthToString}";
 
         /// <summary>Amount of magic the Class has, formatted with preceding text.</summary>
-        public string MagicToString => CurrentMagic.ToString("N0") + " / " + MaximumMagic.ToString("N0");
+        public string MagicToString => $"{CurrentMagic:N0} / {MaximumMagic:N0}";
 
         /// <summary>Amount of magic the Class has, formatted with preceding text.</summary>
-        public string MagicToStringWithText => "Magic: " + MagicToString;
+        public string MagicToStringWithText => $"Magic: {MagicToString}";
 
         #endregion Helper Properties
 
