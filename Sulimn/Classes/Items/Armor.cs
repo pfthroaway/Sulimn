@@ -28,15 +28,7 @@ namespace Sulimn
         public string DefenseToString => Defense.ToString("N0");
 
         /// <summary>Returns the defense with a comma separating thousands and preceding text.</summary>
-        public string DefenseToStringWithText
-        {
-            get
-            {
-                if (Defense > 0)
-                    return $"Defense: {DefenseToString}";
-                return "";
-            }
-        }
+        public string DefenseToStringWithText => Defense > 0 ? $"Defense: {DefenseToString}" : "";
 
         #endregion Helper Properties
 

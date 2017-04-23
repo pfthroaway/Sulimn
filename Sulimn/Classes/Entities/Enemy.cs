@@ -16,7 +16,7 @@
                 Statistics.CurrentHealth = 0;
                 return $"The {Name} takes {damage} damage and has been slain!";
             }
-            return $"The Name takes {damage} damage.";
+            return $"The {Name} takes {damage} damage.";
         }
 
         /// <summary>Overrides the ToString() method to return only Name.</summary>

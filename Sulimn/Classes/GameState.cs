@@ -381,8 +381,4 @@ namespace Sulimn
 
         #endregion Notification Management
     }
-
-    public static class MyExtensions
-    {
-    }
 }

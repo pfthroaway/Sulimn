@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sulimn
 {
+    /// <summary>Represents database interaction covered by SQLite.</summary>
     internal class SQLiteDatabaseInteraction : IDatabaseInteraction
     {
         private readonly SQLiteConnection _con = new SQLiteConnection { ConnectionString = $"Data Source = {_DATABASENAME};Version=3" };
@@ -240,14 +241,14 @@ namespace Sulimn
                 try
                 {
                     ds = new DataSet();
-                    da = new SQLiteDataAdapter("SELECT * FROM Bank", _con);
+                    da = new SQLiteDataAdapter($"SELECT * FROM Bank WHERE [CharacterName] = '{bankHero.Name}'", _con);
                     da.Fill(ds, "Bank");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         heroBank.GoldInBank = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
                         heroBank.LoanTaken = Int32Helper.Parse(ds.Tables[0].Rows[0]["LoanTaken"]);
-                        heroBank.LoanAvailable = bankHero.Level * 250 - heroBank.LoanTaken;
+                        heroBank.LoanAvailable = (bankHero.Level * 250) - heroBank.LoanTaken;
                     }
                     else
                         GameState.DisplayNotification("No such user exists in the bank.", "Sulimn", NotificationButtons.OK);

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace Sulimn
 {
+    /// <summary>Represents required interactions for implementations of databases.</summary>
     internal interface IDatabaseInteraction
     {
         bool VerifyDatabaseIntegrity();

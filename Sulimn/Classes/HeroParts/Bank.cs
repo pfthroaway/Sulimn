@@ -2,6 +2,7 @@
 
 namespace Sulimn
 {
+    /// <summary>Represents an account at the Bank.</summary>
     public class Bank : INotifyPropertyChanged
     {
         private int _goldInBank, _loanAvailable, _loanTaken;
