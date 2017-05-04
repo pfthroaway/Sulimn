@@ -1,8 +1,6 @@
 ﻿namespace Sulimn
 {
-    /// <summary>
-    /// Represents a piece of Armor worn on the head.
-    /// </summary>
+    /// <summary>Represents a piece of Armor worn on the hands.</summary>
     internal class HandArmor : Armor
     {
         #region Constructors

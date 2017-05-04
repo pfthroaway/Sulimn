@@ -249,12 +249,12 @@ namespace Sulimn
             {
                 int result = Functions.GenerateRandomNumber(1, 100);
                 if (GameState.CurrentEnemy.Statistics.CurrentHealth >
-                GameState.CurrentEnemy.Statistics.MaximumHealth / 3)
+                GameState.CurrentEnemy.Statistics.MaximumHealth / 3) //one third or more health, no chance to want to flee.
                     _enemyAction = BattleAction.Attack;
                 else if (GameState.CurrentEnemy.Statistics.CurrentHealth >
-                 GameState.CurrentEnemy.Statistics.MaximumHealth / 5)
+                 GameState.CurrentEnemy.Statistics.MaximumHealth / 5) //20% or more health, 2% chance to want to flee.
                     _enemyAction = result <= 98 ? BattleAction.Attack : BattleAction.Flee;
-                else
+                else //20% or less health, 5% chance to want to flee.
                     _enemyAction = result <= 95 ? BattleAction.Attack : BattleAction.Flee;
             }
         }

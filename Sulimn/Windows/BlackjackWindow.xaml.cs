@@ -485,9 +485,9 @@ namespace Sulimn
             if (_bet > 0 && _bet <= GameState.CurrentHero.Inventory.Gold)
                 NewHand();
             else if (_bet > GameState.CurrentHero.Inventory.Gold)
-                GameState.DisplayNotification("You can't bet more gold than you have!", "Sulimn", NotificationButtons.OK, this);
+                GameState.DisplayNotification("You can't bet more gold than you have!", "Sulimn", this);
             else
-                GameState.DisplayNotification("Please enter a valid bet.", "Sulimn", NotificationButtons.OK, this);
+                GameState.DisplayNotification("Please enter a valid bet.", "Sulimn", this);
         }
 
         private void BtnStay_Click(object sender, RoutedEventArgs e)

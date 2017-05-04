@@ -69,7 +69,7 @@ namespace Sulimn
                     break;
 
                 default:
-                    GameState.DisplayNotification("How did you break my game?", "Sulimn", NotificationButtons.OK, this);
+                    GameState.DisplayNotification("How did you break my game?", "Sulimn", this);
                     break;
             }
         }
@@ -125,7 +125,7 @@ namespace Sulimn
                         if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
                             Deposit();
                         else
-                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn", NotificationButtons.OK, this);
+                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn", this);
                         break;
 
                     case BankAction.Withdrawal:
@@ -137,7 +137,7 @@ namespace Sulimn
                             RepayLoan();
                         else
                             GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn",
-                                NotificationButtons.OK, this);
+                                this);
                         break;
 
                     case BankAction.Borrow:
@@ -145,11 +145,11 @@ namespace Sulimn
                         break;
 
                     default:
-                        GameState.DisplayNotification("How did you break my game?", "Sulimn", NotificationButtons.OK, this);
+                        GameState.DisplayNotification("How did you break my game?", "Sulimn", this);
                         break;
                 }
             else
-                GameState.DisplayNotification($"Please enter a positive value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn", NotificationButtons.OK, this);
+                GameState.DisplayNotification($"Please enter a positive value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn", this);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

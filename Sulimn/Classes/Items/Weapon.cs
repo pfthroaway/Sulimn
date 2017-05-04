@@ -2,7 +2,7 @@
 
 namespace Sulimn
 {
-    /// <summary>Represents a Weapon a Hero can attack with.</summary>
+    /// <summary>Represents a Weapon an entity can attack with.</summary>
     internal class Weapon : Item, IEquatable<Weapon>
     {
         private int _damage;

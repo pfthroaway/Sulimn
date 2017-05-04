@@ -10,12 +10,18 @@ namespace Sulimn
     {
         #region Login
 
-        /// <summary>Logs the Hero in.</summary>
-        private void Login()
+        /// <summary>Clears the input boxes.</summary>
+        internal void ClearInput()
         {
             TxtHeroName.Text = "";
             PswdPassword.Password = "";
             TxtHeroName.Focus();
+        }
+
+        /// <summary>Logs the Hero in.</summary>
+        private void Login()
+        {
+            ClearInput();
             CityWindow cityWindow = new CityWindow { RefToMainWindow = this };
             cityWindow.Show();
             Visibility = Visibility.Hidden;

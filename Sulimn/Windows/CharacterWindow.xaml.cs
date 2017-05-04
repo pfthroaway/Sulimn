@@ -3,9 +3,7 @@ using System.Windows;
 
 namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for CharacterWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for CharacterWindow.xaml</summary>
     public partial class CharacterWindow : INotifyPropertyChanged
     {
         private Hero _copyOfHero = new Hero();

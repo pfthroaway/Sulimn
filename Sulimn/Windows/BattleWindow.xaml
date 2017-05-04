@@ -54,8 +54,7 @@ Content="_Details" Click="BtnEnemyDetails_Click" />
         <TextBox x:Name="TxtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="513" Height="190"
  Margin="0,0,0,10" TextWrapping="Wrap" BorderBrush="Black" Padding="5" BorderThickness="1"
  ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-        <Button x:Name="BtnAttack" Grid.Column="0" Grid.Row="6" Content="_Attack" Height="30" Width="125"
-Margin="0,0,0,10" Click="BtnAttack_Click" />
+        <Button x:Name="BtnAttack" Grid.Column="0" Grid.Row="6" Content="_Attack" Height="30" Width="125" Click="BtnAttack_Click" IsDefault="True" Margin="0,0,0,10" />
         <Button x:Name="BtnCastSpell" Grid.Column="1" Grid.Row="6" Content="_Cast Spell" Height="30" Width="125"
 Margin="0,0,0,10" Click="BtnCastSpell_Click" />
         <Button x:Name="BtnFlee" Grid.Column="2" Grid.Row="6" Content="_Flee" Height="30" Width="125" Margin="0,0,0,10"

@@ -11,34 +11,41 @@ namespace Sulimn
 
         #region Button-Click Methods
 
-        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
                 PswdConfirmPassword.Password.Length >= 1)
             {
-                if (PasswordHash.ValidatePassword(PswdCurrentPassword.Password, GameState.AdminPassword))
+                if (Argon2.ValidatePassword(GameState.AdminPassword, PswdCurrentPassword.Password))
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
-                            GameState.AdminPassword = PasswordHash.HashPassword(PswdNewPassword.Password);
-                            GameState.DisplayNotification("Successfully changed administrator password.", "Sulimn",
-                                NotificationButtons.OK, this);
-                            CloseWindow();
+                            string newPassword = Argon2.HashPassword(PswdNewPassword.Password);
+
+                            if (await GameState.ChangeAdminPassword(newPassword))
+                            {
+                                GameState.AdminPassword = newPassword;
+                                GameState.DisplayNotification("Successfully changed administrator password.", "Sulimn",
+                                    this);
+                                CloseWindow();
+                            }
+                            else
+                                GameState.DisplayNotification("Unable to change administrator password.", "Sulimn",
+                                    this);
                         }
                         else
                         {
                             GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn",
-                                NotificationButtons.OK, this);
+                                this);
                         }
                     else
-                        GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK,
-                            this);
+                        GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", this);
                 else
-                    GameState.DisplayNotification("Invalid current administrator password.", "Sulimn", NotificationButtons.OK, this)
+                    GameState.DisplayNotification("Invalid current administrator password.", "Sulimn", this)
                         ;
             }
             else
-                GameState.DisplayNotification("The old and new passwords must be at least 4 characters in length.", "Sulimn", NotificationButtons.OK, this);
+                GameState.DisplayNotification("The old and new passwords must be at least 4 characters in length.", "Sulimn", this);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

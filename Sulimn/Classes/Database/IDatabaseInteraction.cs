@@ -6,7 +6,7 @@ namespace Sulimn
     /// <summary>Represents required interactions for implementations of databases.</summary>
     internal interface IDatabaseInteraction
     {
-        bool VerifyDatabaseIntegrity();
+        void VerifyDatabaseIntegrity();
 
         #region Load
 
@@ -41,6 +41,8 @@ namespace Sulimn
         #endregion Load
 
         #region Administrator Management
+
+        Task<bool> ChangeAdminPassword(string newPassword);
 
         Task<string> LoadAdminPassword();
 

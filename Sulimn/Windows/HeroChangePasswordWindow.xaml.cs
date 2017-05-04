@@ -13,27 +13,27 @@ namespace Sulimn
 
         private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (PasswordHash.ValidatePassword(PswdCurrentPassword.Password, GameState.CurrentHero.Password))
+            if (Argon2.ValidatePassword(GameState.CurrentHero.Password, PswdCurrentPassword.Password))
                 if (PswdNewPassword.Password.Length >= 4 && PswdConfirmPassword.Password.Length >= 4)
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
-                            GameState.CurrentHero.Password = PasswordHash.HashPassword(PswdNewPassword.Password);
+                            GameState.CurrentHero.Password = Argon2.HashPassword(PswdNewPassword.Password);
                             await GameState.SaveHeroPassword(GameState.CurrentHero);
-                            GameState.DisplayNotification("Successfully changed password.", "Sulimn", NotificationButtons.OK, this);
+                            GameState.DisplayNotification("Successfully changed password.", "Sulimn", this);
                             CloseWindow();
                         }
                         else
                         {
                             GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn",
-                            NotificationButtons.OK, this);
+                            this);
                         }
                     else
-                        GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", NotificationButtons.OK, this);
+                        GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", this);
                 else
-                    GameState.DisplayNotification("Your password must be at least 4 characters.", "Sulimn", NotificationButtons.OK, this);
+                    GameState.DisplayNotification("Your password must be at least 4 characters.", "Sulimn", this);
             else
-                GameState.DisplayNotification("Invalid current password.", "Sulimn", NotificationButtons.OK, this);
+                GameState.DisplayNotification("Invalid current password.", "Sulimn", this);
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

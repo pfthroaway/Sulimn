@@ -37,6 +37,14 @@ namespace Sulimn
 
         internal static SQLiteDatabaseInteraction DatabaseInteraction = new SQLiteDatabaseInteraction();
 
+        /// <summary>Changes the administrator password in the database.</summary>
+        /// <param name="newPassword">New administrator password</param>
+        /// <returns>Returns true if password successfully updated</returns>
+        internal static async Task<bool> ChangeAdminPassword(string newPassword)
+        {
+            return await DatabaseInteraction.ChangeAdminPassword(newPassword);
+        }
+
         /// <summary>Determines whether a Hero's credentials are authentic.</summary>
         /// <param name="username">Hero's name</param>
         /// <param name="password">Hero's password</param>
@@ -46,17 +54,18 @@ namespace Sulimn
             try
             {
                 Hero checkHero = AllHeroes.Find(hero => hero.Name == username);
-                if (PasswordHash.ValidatePassword(password, checkHero.Password))
-                {
-                    CurrentHero = new Hero(checkHero);
-                    return true;
-                }
-                DisplayNotification("Invalid login.", "Sulimn", NotificationButtons.OK);
+                if (checkHero != null && checkHero != new Hero())
+                    if (Argon2.ValidatePassword(checkHero.Password, password))
+                    {
+                        CurrentHero = new Hero(checkHero);
+                        return true;
+                    }
+                DisplayNotification("Invalid login.", "Sulimn");
                 return false;
             }
             catch (Exception ex)
             {
-                DisplayNotification(ex.Message, "Sulimn", NotificationButtons.OK);
+                DisplayNotification(ex.Message, "Sulimn");
                 return false;
             }
         }
@@ -64,38 +73,37 @@ namespace Sulimn
         /// <summary>Loads almost everything from the database.</summary>
         internal static async Task LoadAll()
         {
-            if (DatabaseInteraction.VerifyDatabaseIntegrity())
-            {
-                AdminPassword = await DatabaseInteraction.LoadAdminPassword();
-                AllClasses = await DatabaseInteraction.LoadClasses();
-                AllHeadArmor = await DatabaseInteraction.LoadHeadArmor();
-                AllBodyArmor = await DatabaseInteraction.LoadBodyArmor();
-                AllHandArmor = await DatabaseInteraction.LoadHandArmor();
-                AllLegArmor = await DatabaseInteraction.LoadLegArmor();
-                AllFeetArmor = await DatabaseInteraction.LoadFeetArmor();
-                AllRings = await DatabaseInteraction.LoadRings();
-                AllFood = await DatabaseInteraction.LoadFood();
-                AllPotions = await DatabaseInteraction.LoadPotions();
-                AllSpells = await DatabaseInteraction.LoadSpells();
-                AllWeapons = await DatabaseInteraction.LoadWeapons();
-                AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllPotions, AllWeapons);
-                AllEnemies = await DatabaseInteraction.LoadEnemies();
-                AllHeroes = await DatabaseInteraction.LoadHeroes();
-                MaximumStatsHero = await DatabaseInteraction.LoadMaxHeroStats();
+            DatabaseInteraction.VerifyDatabaseIntegrity();
 
-                AllItems = AllItems.OrderBy(item => item.Name).ToList();
-                AllEnemies = AllEnemies.OrderBy(enemy => enemy.Name).ToList();
-                AllSpells = AllSpells.OrderBy(spell => spell.Name).ToList();
-                AllClasses = AllClasses.OrderBy(heroClass => heroClass.Name).ToList();
-                AllRings = AllRings.OrderBy(ring => ring.Name).ToList();
+            AdminPassword = await DatabaseInteraction.LoadAdminPassword();
+            AllClasses = await DatabaseInteraction.LoadClasses();
+            AllHeadArmor = await DatabaseInteraction.LoadHeadArmor();
+            AllBodyArmor = await DatabaseInteraction.LoadBodyArmor();
+            AllHandArmor = await DatabaseInteraction.LoadHandArmor();
+            AllLegArmor = await DatabaseInteraction.LoadLegArmor();
+            AllFeetArmor = await DatabaseInteraction.LoadFeetArmor();
+            AllRings = await DatabaseInteraction.LoadRings();
+            AllFood = await DatabaseInteraction.LoadFood();
+            AllPotions = await DatabaseInteraction.LoadPotions();
+            AllSpells = await DatabaseInteraction.LoadSpells();
+            AllWeapons = await DatabaseInteraction.LoadWeapons();
+            AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllPotions, AllWeapons);
+            AllEnemies = await DatabaseInteraction.LoadEnemies();
+            AllHeroes = await DatabaseInteraction.LoadHeroes();
+            MaximumStatsHero = await DatabaseInteraction.LoadMaxHeroStats();
 
-                DefaultWeapon = AllWeapons.Find(weapon => weapon.Name == "Fists");
-                DefaultHead = AllHeadArmor.Find(armor => armor.Name == "Cloth Helmet");
-                DefaultBody = AllBodyArmor.Find(armor => armor.Name == "Cloth Shirt");
-                DefaultHands = AllHandArmor.Find(armor => armor.Name == "Cloth Gloves");
-                DefaultLegs = AllLegArmor.Find(armor => armor.Name == "Cloth Pants");
-                DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
-            }
+            AllItems = AllItems.OrderBy(item => item.Name).ToList();
+            AllEnemies = AllEnemies.OrderBy(enemy => enemy.Name).ToList();
+            AllSpells = AllSpells.OrderBy(spell => spell.Name).ToList();
+            AllClasses = AllClasses.OrderBy(heroClass => heroClass.Name).ToList();
+            AllRings = AllRings.OrderBy(ring => ring.Name).ToList();
+
+            DefaultWeapon = AllWeapons.Find(weapon => weapon.Name == "Fists");
+            DefaultHead = AllHeadArmor.Find(armor => armor.Name == "Cloth Helmet");
+            DefaultBody = AllBodyArmor.Find(armor => armor.Name == "Cloth Shirt");
+            DefaultHands = AllHandArmor.Find(armor => armor.Name == "Cloth Gloves");
+            DefaultLegs = AllLegArmor.Find(armor => armor.Name == "Cloth Pants");
+            DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
         }
 
         internal static async Task<Bank> LoadHeroBank(Hero bankHero)
@@ -354,29 +362,43 @@ namespace Sulimn
 
         #region Notification Management
 
-        /// <summary>Displays a GameState.DisplayNotification in a thread-safe way.</summary>
+        /// <summary>Displays a new Notification in a thread-safe way.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification Window</param>
-        /// <param name="buttons">Button type to be displayed on the Window</param>
-        internal static void DisplayNotification(string message, string title, NotificationButtons buttons)
+        internal static void DisplayNotification(string message, string title)
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                new Notification(message, title, buttons).ShowDialog();
+                new Notification(message, title, NotificationButtons.OK).ShowDialog();
             });
         }
 
         /// <summary>Displays a new Notification in a thread-safe way.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification Window</param>
-        /// <param name="buttons">Button type to be displayed on the Window</param>
         /// <param name="window">Window being referenced</param>
-        internal static void DisplayNotification(string message, string title, NotificationButtons buttons, Window window)
+        internal static void DisplayNotification(string message, string title, Window window)
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                new Notification(message, title, buttons, window).ShowDialog();
+                new Notification(message, title, NotificationButtons.OK, window).ShowDialog();
             });
+        }
+
+        /// <summary>Displays a new Notification in a thread-safe way and retrieves a boolean result upon its closing.</summary>
+        /// <param name="message">Message to be displayed</param>
+        /// <param name="title">Title of the Notification Window</param>
+        /// <param name="window">Window being referenced</param>
+        /// <returns>Returns value of clicked button on Notification.</returns>
+        internal static bool YesNoNotification(string message, string title, Window window)
+        {
+            bool result = false;
+            Application.Current.Dispatcher.Invoke(delegate
+            {
+                if (new Notification(message, title, NotificationButtons.YesNo, window).ShowDialog() == true)
+                    result = true;
+            });
+            return result;
         }
 
         #endregion Notification Management

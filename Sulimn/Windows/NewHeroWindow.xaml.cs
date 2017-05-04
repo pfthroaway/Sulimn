@@ -91,7 +91,7 @@ namespace Sulimn
             else if (LstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints < 0)
             {
                 GameState.DisplayNotification("Somehow you have negative skill points. Please try creating your character again.",
-                "Sulimn", NotificationButtons.OK, this);
+                "Sulimn", this);
                 Clear();
             }
         }
@@ -142,7 +142,7 @@ namespace Sulimn
             if (!string.IsNullOrWhiteSpace(createHero?.Name))
             {
                 GameState.DisplayNotification("This username has already been taken. Please choose another.", "Sulimn",
-                NotificationButtons.OK, this);
+                this);
                 TxtHeroName.Focus();
             }
             else
@@ -152,7 +152,7 @@ namespace Sulimn
                     {
                         Hero newHero = new Hero(
                         TxtHeroName.Text.Trim(),
-                        PasswordHash.HashPassword(PswdPassword.Password.Trim()),
+                        Argon2.HashPassword(PswdPassword.Password.Trim()),
                         _selectedClass,
                         1,
                         0,
@@ -188,11 +188,11 @@ namespace Sulimn
                     }
                     else
                     {
-                        GameState.DisplayNotification("Please ensure that the passwords match.", "Sulimn", NotificationButtons.OK, this);
+                        GameState.DisplayNotification("Please ensure that the passwords match.", "Sulimn", this);
                     }
                 else
                     GameState.DisplayNotification("Names and passwords have to be at least 4 characters.", "Sulimn",
-                    NotificationButtons.OK, this);
+                    this);
             }
         }
 
@@ -317,6 +317,7 @@ namespace Sulimn
         {
             if (_startGame)
             {
+                RefToMainWindow.ClearInput();
                 CityWindow cityWindow = new CityWindow { RefToMainWindow = RefToMainWindow };
                 cityWindow.Show();
                 Visibility = Visibility.Hidden;

@@ -14,14 +14,14 @@ namespace Sulimn
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (PasswordHash.ValidatePassword(PswdAdmin.Password, GameState.AdminPassword))
+            if (Argon2.ValidatePassword(GameState.AdminPassword, PswdAdmin.Password))
             {
                 _admin = true;
                 CloseWindow();
             }
             else
             {
-                GameState.DisplayNotification("Invalid login.", "Sulimn", NotificationButtons.OK, this);
+                GameState.DisplayNotification("Invalid login.", "Sulimn", this);
                 PswdAdmin.SelectAll();
             }
         }
