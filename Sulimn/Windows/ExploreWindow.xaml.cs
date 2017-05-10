@@ -8,6 +8,7 @@ namespace Sulimn
     public partial class ExploreWindow
     {
         internal CityWindow RefToCityWindow { private get; set; }
+        private bool _hardcoreDeath = false;
 
         #region Button Manipulation
 
@@ -20,6 +21,13 @@ namespace Sulimn
             BtnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10;
             BtnMines.IsEnabled = GameState.CurrentHero.Level >= 15;
             BtnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20;
+        }
+
+        /// <summary>Handles closing the Window when a Hardcore character has died.</summary>
+        internal void HardcoreDeath()
+        {
+            _hardcoreDeath = true;
+            CloseWindow();
         }
 
         #endregion Button Manipulation
@@ -114,7 +122,10 @@ namespace Sulimn
 
         private void WindowExplore_Closing(object sender, CancelEventArgs e)
         {
-            RefToCityWindow.Show();
+            if (!_hardcoreDeath)
+                RefToCityWindow.Show();
+            else
+                RefToCityWindow.HardcoreDeath();
         }
 
         #endregion Window-Generated Methods

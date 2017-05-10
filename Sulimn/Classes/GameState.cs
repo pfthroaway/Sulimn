@@ -57,7 +57,7 @@ namespace Sulimn
                 if (checkHero != null && checkHero != new Hero())
                     if (Argon2.ValidatePassword(checkHero.Password, password))
                     {
-                        CurrentHero = new Hero(checkHero);
+                        CurrentHero = checkHero;
                         return true;
                     }
                 DisplayNotification("Invalid login.", "Sulimn");
@@ -104,11 +104,6 @@ namespace Sulimn
             DefaultHands = AllHandArmor.Find(armor => armor.Name == "Cloth Gloves");
             DefaultLegs = AllLegArmor.Find(armor => armor.Name == "Cloth Pants");
             DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
-        }
-
-        internal static async Task<Bank> LoadHeroBank(Hero bankHero)
-        {
-            return await DatabaseInteraction.LoadBank(bankHero);
         }
 
         /// <summary>Gets a specific Enemy based on its name.</summary>
@@ -175,7 +170,30 @@ namespace Sulimn
 
         #endregion Item Management
 
-        #region Hero Saving
+        #region Hero Management
+
+        /// <summary>Deletes a Hero from the game and database.</summary>
+        /// <param name="deleteHero">Hero to be deleted</param>
+        /// <returns>Whether deletion was successful</returns>
+        internal static async Task<bool> DeleteHero(Hero deleteHero)
+        {
+            bool success = false;
+            if (await DatabaseInteraction.DeleteHero(deleteHero))
+            {
+                AllHeroes.Remove(deleteHero);
+                if (CurrentHero == deleteHero)
+                    CurrentHero = new Hero();
+            }
+            return success;
+        }
+
+        /// <summary>Loads a Hero's Bank.</summary>
+        /// <param name="bankHero">Hero whose Bank is to be loaded.</param>
+        /// <returns>Hero's Bank</returns>
+        internal static async Task<Bank> LoadHeroBank(Hero bankHero)
+        {
+            return await DatabaseInteraction.LoadBank(bankHero);
+        }
 
         /// <summary>Creates a new Hero and adds it to the database.</summary>
         /// <param name="newHero">New Hero</param>
@@ -235,7 +253,7 @@ namespace Sulimn
             if (await DatabaseInteraction.SaveHero(saveHero))
             {
                 int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
-                AllHeroes[index] = new Hero(saveHero);
+                AllHeroes[index] = saveHero;
                 success = true;
             }
             return success;
@@ -257,13 +275,13 @@ namespace Sulimn
             if (await DatabaseInteraction.SaveHeroPassword(saveHero))
             {
                 int index = AllHeroes.FindIndex(hero => hero.Name == CurrentHero.Name);
-                AllHeroes[index] = new Hero(CurrentHero);
+                AllHeroes[index] = CurrentHero;
                 success = true;
             }
             return success;
         }
 
-        #endregion Hero Saving
+        #endregion Hero Management
 
         #region Exploration Events
 

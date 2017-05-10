@@ -9,6 +9,12 @@ namespace Sulimn
     {
         internal MainWindow RefToMainWindow { private get; set; }
 
+        internal async void HardcoreDeath()
+        {
+            await GameState.DeleteHero(GameState.CurrentHero);
+            CloseWindow();
+        }
+
         #region Button-Click Methods
 
         private void BtnBank_Click(object sender, RoutedEventArgs e)

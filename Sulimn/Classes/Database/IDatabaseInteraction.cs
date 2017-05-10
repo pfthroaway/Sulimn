@@ -50,6 +50,8 @@ namespace Sulimn
 
         #region Hero Management
 
+        Task<bool> DeleteHero(Hero deleteHero);
+
         Task<bool> NewHero(Hero newHero);
 
         Task<bool> SaveHero(Hero saveHero);

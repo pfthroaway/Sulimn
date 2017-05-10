@@ -8,6 +8,7 @@ namespace Sulimn
     public partial class CatacombsWindow
     {
         internal ExploreWindow RefToExploreWindow { private get; set; }
+        private bool _hardcoreDeath = false;
 
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
@@ -16,6 +17,13 @@ namespace Sulimn
             battleWindow.PrepareBattle("Catacombs");
             battleWindow.Show();
             Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>Handles closing the Window when a Hardcore character has died.</summary>
+        internal void HardcoreDeath()
+        {
+            _hardcoreDeath = true;
+            CloseWindow();
         }
 
         #region Button-Click Methods
@@ -124,8 +132,13 @@ namespace Sulimn
 
         private void WindowCatacombs_Closing(object sender, CancelEventArgs e)
         {
-            RefToExploreWindow.Show();
-            RefToExploreWindow.CheckButtons();
+            if (!_hardcoreDeath)
+            {
+                RefToExploreWindow.Show();
+                RefToExploreWindow.CheckButtons();
+            }
+            else
+                RefToExploreWindow.HardcoreDeath();
         }
 
         #endregion Window-Manipulation Methods

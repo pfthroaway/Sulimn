@@ -10,6 +10,14 @@ namespace Sulimn
     public partial class ForestWindow
     {
         internal ExploreWindow RefToExploreWindow { private get; set; }
+        private bool _hardcoreDeath = false;
+
+        /// <summary>Handles closing the Window when a Hardcore character has died.</summary>
+        internal void HardcoreDeath()
+        {
+            _hardcoreDeath = true;
+            CloseWindow();
+        }
 
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
@@ -141,8 +149,13 @@ namespace Sulimn
 
         private void WindowForest_Closing(object sender, CancelEventArgs e)
         {
-            RefToExploreWindow.Show();
-            RefToExploreWindow.CheckButtons();
+            if (!_hardcoreDeath)
+            {
+                RefToExploreWindow.Show();
+                RefToExploreWindow.CheckButtons();
+            }
+            else
+                RefToExploreWindow.HardcoreDeath();
         }
 
         #endregion Window-Manipulation Methods

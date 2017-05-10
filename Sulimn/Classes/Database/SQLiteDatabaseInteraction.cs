@@ -29,6 +29,21 @@ namespace Sulimn
 
         #region Hero Management
 
+        /// <summary>Deletes a Hero from the game and database.</summary>
+        /// <param name="deleteHero">Hero to be deleted</param>
+        /// <returns>Whether deletion was successful</returns>
+        public async Task<bool> DeleteHero(Hero deleteHero)
+        {
+            SQLiteCommand cmd = new SQLiteCommand()
+            {
+                CommandText =
+            "DELETE FROM Players WHERE [CharacterName] = @name;DELETE FROM Bank WHERE [CharacterName] = @name;DELETE FROM Equipment WHERE [CharacterName] = @name"
+            };
+            cmd.Parameters.AddWithValue("@name", deleteHero.Name);
+
+            return await SQLite.ExecuteCommand(_con, cmd);
+        }
+
         /// <summary>Creates a new Hero and adds it to the database.</summary>
         /// <param name="newHero">New Hero</param>
         /// <returns>Returns true if successfully created</returns>
@@ -37,7 +52,8 @@ namespace Sulimn
             SQLiteCommand cmd = new SQLiteCommand
             {
                 CommandText =
-                    $"INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrentHealth],[MaximumHealth],[CurrentMagic],[MaximumMagic],[KnownSpells],[Inventory])VALUES('{newHero.Name}','{newHero.Password.Replace("\0", "")}','{newHero.Class.Name}','{newHero.Level}','{newHero.Experience}','{newHero.SkillPoints}','{newHero.Attributes.Strength}','{newHero.Attributes.Vitality}','{newHero.Attributes.Dexterity}','{newHero.Attributes.Wisdom}','{newHero.Inventory.Gold}','{newHero.Statistics.CurrentHealth}','{newHero.Statistics.MaximumHealth}','{newHero.Statistics.CurrentMagic}','{newHero.Statistics.MaximumMagic}','{newHero.Spellbook}','{newHero.Inventory}');INSERT INTO Bank([CharacterName],[Gold],[LoanTaken])Values('{newHero.Name}',0,0);" +
+                    $"INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrentHealth],[MaximumHealth],[CurrentMagic],[MaximumMagic],[KnownSpells],[Inventory],[Hardcore])VALUES('{newHero.Name}','{newHero.Password.Replace("\0", "")}','{newHero.Class.Name}','{newHero.Level}','{newHero.Experience}','{newHero.SkillPoints}','{newHero.Attributes.Strength}','{newHero.Attributes.Vitality}','{newHero.Attributes.Dexterity}','{newHero.Attributes.Wisdom}','{newHero.Inventory.Gold}','{newHero.Statistics.CurrentHealth}','{newHero.Statistics.MaximumHealth}','{newHero.Statistics.CurrentMagic}','{newHero.Statistics.MaximumMagic}','{newHero.Spellbook}','{newHero.Inventory}','{Int32Helper.Parse(newHero.Hardcore)}');" +
+                    $"INSERT INTO Bank([CharacterName],[Gold],[LoanTaken])Values('{newHero.Name}',0,0);" +
                     $"INSERT INTO Equipment([CharacterName],[Weapon],[Head],[Body],[Hands],[Legs],[Feet])Values('{newHero.Name}','{newHero.Equipment.Weapon.Name}','{newHero.Equipment.Head.Name}','{newHero.Equipment.Body.Name}','{newHero.Equipment.Hands.Name}','{newHero.Equipment.Legs.Name}','{newHero.Equipment.Feet.Name}')"
             };
 
@@ -52,7 +68,7 @@ namespace Sulimn
             SQLiteCommand cmd = new SQLiteCommand()
             {
                 CommandText =
-            "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory WHERE [CharacterName] = @name;" +
+            "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [CharacterName] = @name;" +
             "UPDATE Equipment SET[Weapon] = @weapon,[Head] = @head,[Body] = @body,[Hands] = hands,[Legs] = @legs,[Feet] = @feet,[LeftRing] = @leftRing,[RightRing] = @rightRing WHERE[CharacterName] = @name"
             };
             cmd.Parameters.AddWithValue("@level", saveHero.Level);
@@ -69,6 +85,7 @@ namespace Sulimn
             cmd.Parameters.AddWithValue("@maximumMagic", saveHero.Statistics.MaximumMagic.ToString());
             cmd.Parameters.AddWithValue("@spells", saveHero.Spellbook.ToString());
             cmd.Parameters.AddWithValue("@inventory", saveHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@hardcore", Int32Helper.Parse(saveHero.Hardcore));
             cmd.Parameters.AddWithValue("@name", saveHero.Name);
             cmd.Parameters.AddWithValue("@weapon", saveHero.Equipment.Weapon.Name);
             cmd.Parameters.AddWithValue("@head", saveHero.Equipment.Head.Name);
@@ -335,7 +352,8 @@ namespace Sulimn
         rightRing),
         GameState.SetSpellbook(ds.Tables[0].Rows[i]["KnownSpells"].ToString()),
         GameState.SetInventory(ds.Tables[0].Rows[i]["Inventory"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"])));
+        Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"])),
+        BoolHelper.Parse(ds.Tables[0].Rows[i]["Hardcore"]));
 
                     allHeroes.Add(newHero);
                 }

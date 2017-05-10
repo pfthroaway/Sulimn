@@ -12,6 +12,7 @@ namespace Sulimn
         private bool _battleEnded;
         private Spell _currentSpell = new Spell();
         private string _previousWindow;
+        private bool _blnHardcoreDeath = false;
 
         private enum BattleAction
         {
@@ -116,7 +117,7 @@ namespace Sulimn
                 {
                     EnemyTurn();
                     if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
-                        Fairy();
+                        Death();
                 }
             }
             else
@@ -125,7 +126,7 @@ namespace Sulimn
                 if (GameState.CurrentHero.Statistics.CurrentHealth > 0 && !_battleEnded)
                     HeroTurn();
                 else if (GameState.CurrentHero.Statistics.CurrentHealth <= 0)
-                    Fairy();
+                    Death();
             }
 
             CheckButtons();
@@ -350,7 +351,7 @@ namespace Sulimn
         /// <returns>Returns true if the flight attempt is successful</returns>
         private static bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
         {
-            int chanceToFlee = Functions.GenerateRandomNumber(20 + fleeAttemptDexterity - blockAttemptDexterity, 90, 1,
+            int chanceToFlee = Functions.GenerateRandomNumber(1, 20 + fleeAttemptDexterity - blockAttemptDexterity, 1,
             90);
             int flee = Functions.GenerateRandomNumber(1, 100);
 
@@ -358,12 +359,20 @@ namespace Sulimn
         }
 
         /// <summary>A fairy is summoned to resurrect the Hero.</summary>
-        private void Fairy()
+        private void Death()
         {
             EndBattle();
-            Functions.AddTextToTextBox(TxtBattle,
-            "A mysterious fairy appears, and, seeing your crumpled body on the ground, resurrects you. You have just enough health to make it back to town.");
-            GameState.CurrentHero.Statistics.CurrentHealth = 1;
+            if (!GameState.CurrentHero.Hardcore)
+            {
+                Functions.AddTextToTextBox(TxtBattle,
+              "A mysterious fairy appears, and, seeing your crumpled body on the ground, resurrects you. You have just enough health to make it back to town.");
+                GameState.CurrentHero.Statistics.CurrentHealth = 1;
+            }
+            else
+            {
+                Functions.AddTextToTextBox(TxtBattle, "Your Hardcore Hero has been killed. This character will be deleted when you click Return.");
+                _blnHardcoreDeath = true;
+            }
         }
 
         #endregion Battle Logic
@@ -445,31 +454,52 @@ namespace Sulimn
                 switch (_previousWindow)
                 {
                     case "Explore":
-                        RefToExploreWindow.Show();
-                        RefToExploreWindow.CheckButtons();
+                        if (_blnHardcoreDeath)
+                            RefToExploreWindow.HardcoreDeath();
+                        else
+                        {
+                            RefToExploreWindow.Show();
+                            RefToExploreWindow.CheckButtons();
+                        }
                         break;
 
                     case "Fields":
-                        RefToFieldsWindow.Show();
+                        if (_blnHardcoreDeath)
+                            RefToFieldsWindow.HardcoreDeath();
+                        else
+                            RefToFieldsWindow.Show();
                         break;
 
                     case "Forest":
-                        RefToForestWindow.Show();
+                        if (_blnHardcoreDeath)
+                            RefToForestWindow.HardcoreDeath();
+                        else
+                            RefToForestWindow.Show();
                         break;
 
                     case "Cathedral":
-                        RefToCathedralWindow.Show();
+                        if (_blnHardcoreDeath)
+                            RefToCathedralWindow.HardcoreDeath();
+                        else
+                            RefToCathedralWindow.Show();
                         break;
 
                     case "Mines":
-                        RefToMinesWindow.Show();
+                        if (_blnHardcoreDeath)
+                            RefToMinesWindow.HardcoreDeath();
+                        else
+                            RefToMinesWindow.Show();
                         break;
 
                     case "Catacombs":
-                        RefToCatacombsWindow.Show();
+                        if (_blnHardcoreDeath)
+                            RefToCatacombsWindow.HardcoreDeath();
+                        else
+                            RefToCatacombsWindow.Show();
                         break;
                 }
-                await GameState.SaveHero(GameState.CurrentHero);
+                if (!_blnHardcoreDeath)
+                    await GameState.SaveHero(GameState.CurrentHero);
             }
             else
             {

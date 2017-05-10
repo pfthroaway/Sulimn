@@ -6,6 +6,7 @@
         private HeroClass _class;
         private int _skillPoints;
         private Spellbook _spellbook = new Spellbook();
+        private bool _hardcore;
 
         /// <summary>Updates the Hero's Statistics.</summary>
         internal void UpdateStatistics()
@@ -37,7 +38,7 @@
             return Name;
         }
 
-        #region Properties
+        #region Modifying Properties
 
         /// <summary>The hashed password of the Hero</summary>
         public string Password { get; set; }
@@ -76,9 +77,23 @@
             }
         }
 
-        #endregion Properties
+        /// <summary>Will the player be deleted on death?</summary>
+        public bool Hardcore
+        {
+            get => _hardcore; set
+            {
+                _hardcore = value;
+                OnPropertyChanged("Hardcore");
+                OnPropertyChanged("HardcoreToString");
+            }
+        }
+
+        #endregion Modifying Properties
 
         #region Helper Properties
+
+        /// <summary>Will the player be deleted on death?</summary>
+        public string HardcoreToString => Hardcore ? "Hardcore" : "Softcore";
 
         /// <summary>The level and class of the Hero</summary>
         public string LevelAndClassToString => $"Level {Level} {Class.Name}";
@@ -170,8 +185,9 @@
         /// <param name="equipment">Equipment of Hero</param>
         /// <param name="spellbook">Spellbook of Hero</param>
         /// <param name="inventory">Inventory of Hero</param>
+        /// <param name="hardcore">Will the character be deleted on death?</param>
         internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints,
-        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory)
+        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory, bool hardcore)
         {
             Name = name;
             Password = password;
@@ -184,6 +200,7 @@
             Equipment = equipment;
             Spellbook = spellbook;
             Inventory = inventory;
+            Hardcore = hardcore;
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
@@ -201,6 +218,7 @@
             Equipment = new Equipment(otherHero.Equipment);
             Spellbook = new Spellbook(otherHero.Spellbook);
             Inventory = new Inventory(otherHero.Inventory);
+            Hardcore = otherHero.Hardcore;
         }
 
         #endregion Constructors

@@ -177,7 +177,8 @@ namespace Sulimn
                         new Ring(),
                         new Ring()),
                         new Spellbook(),
-                        new Inventory(new List<Item>(), 250));
+                        new Inventory(new List<Item>(), 250),
+                        ChkHardcore.IsChecked != null ? ChkHardcore.IsChecked.Value : false);
 
                         if (await GameState.NewHero(newHero))
                         {
