@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.HeroParts;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Extensions;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for YeOldeMagickShoppeWindow.xaml</summary>
     public partial class MagickShoppeWindow : INotifyPropertyChanged
@@ -64,7 +66,7 @@ namespace Sulimn
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow { RefToMagickShoppeWindow = this };
+            Characters.CharacterWindow characterWindow = new Characters.CharacterWindow { RefToMagickShoppeWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("Magick Shoppe");
@@ -100,7 +102,7 @@ namespace Sulimn
             _selectedSpell = LstSpells.SelectedIndex >= 0 ? (Spell)LstSpells.SelectedValue : new Spell();
 
             BtnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
-                                        _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
+            _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
             BindLabels();
         }
 

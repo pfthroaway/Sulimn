@@ -1,8 +1,9 @@
 ﻿using Extensions;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Exploration
 {
     /// <summary>Interaction logic for MinesWindow.xaml</summary>
     public partial class MinesWindow
@@ -20,7 +21,7 @@ namespace Sulimn
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
-            BattleWindow battleWindow = new BattleWindow { RefToMinesWindow = this };
+            Battle.BattleWindow battleWindow = new Battle.BattleWindow { RefToMinesWindow = this };
             battleWindow.PrepareBattle("Mines");
             battleWindow.Show();
             Visibility = Visibility.Hidden;

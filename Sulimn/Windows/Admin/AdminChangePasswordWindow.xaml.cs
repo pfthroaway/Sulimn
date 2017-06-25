@@ -1,8 +1,10 @@
 ﻿using Extensions;
+using Extensions.Encryption;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Admin
 {
     /// <summary>Interaction logic for AdminChangePasswordWindow.xaml</summary>
     public partial class AdminChangePasswordWindow
@@ -14,7 +16,7 @@ namespace Sulimn
         private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
-                PswdConfirmPassword.Password.Length >= 1)
+            PswdConfirmPassword.Password.Length >= 1)
             {
                 if (Argon2.ValidatePassword(GameState.AdminPassword, PswdCurrentPassword.Password))
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
@@ -26,23 +28,23 @@ namespace Sulimn
                             {
                                 GameState.AdminPassword = newPassword;
                                 GameState.DisplayNotification("Successfully changed administrator password.", "Sulimn",
-                                    this);
+                                this);
                                 CloseWindow();
                             }
                             else
                                 GameState.DisplayNotification("Unable to change administrator password.", "Sulimn",
-                                    this);
+                                this);
                         }
                         else
                         {
                             GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn",
-                                this);
+                            this);
                         }
                     else
                         GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn", this);
                 else
                     GameState.DisplayNotification("Invalid current administrator password.", "Sulimn", this)
-                        ;
+                    ;
             }
             else
                 GameState.DisplayNotification("The old and new passwords must be at least 4 characters in length.", "Sulimn", this);
@@ -72,7 +74,7 @@ namespace Sulimn
         private void PswdChanged(object sender, RoutedEventArgs e)
         {
             BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
-                                  PswdConfirmPassword.Password.Length >= 1;
+            PswdConfirmPassword.Password.Length >= 1;
         }
 
         private void Pswd_GotFocus(object sender, RoutedEventArgs e)

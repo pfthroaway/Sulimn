@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Sulimn.Classes.Entities;
+using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Sulimn
+namespace Sulimn.Classes.Database
 {
     /// <summary>Represents required interactions for implementations of databases.</summary>
     internal interface IDatabaseInteraction

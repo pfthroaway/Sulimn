@@ -1,4 +1,6 @@
-﻿namespace Sulimn
+﻿using Sulimn.Classes.HeroParts;
+
+namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents an Enemy who opposes the Hero.</summary>
     internal class Enemy : Character

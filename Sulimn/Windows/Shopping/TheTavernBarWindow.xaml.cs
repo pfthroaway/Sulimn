@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.Enums;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Extensions;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for TheTavernBarWindow.xaml</summary>
     public partial class TheTavernBarWindow : INotifyPropertyChanged
@@ -19,7 +22,7 @@ namespace Sulimn
         private List<Food> _sellDrink = new List<Food>();
         private List<Food> _sellFood = new List<Food>();
 
-        internal TavernWindow RefToTavernWindow { private get; set; }
+        internal Exploration.TavernWindow RefToTavernWindow { private get; set; }
 
         #region Data-Binding
 
@@ -199,8 +202,8 @@ namespace Sulimn
         private void LstFoodPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFoodPurchase = LstFoodPurchase.SelectedIndex >= 0
-                ? (Food)LstFoodPurchase.SelectedValue
-                : new Food();
+            ? (Food)LstFoodPurchase.SelectedValue
+            : new Food();
 
             BtnFoodPurchase.IsEnabled = _selectedFoodPurchase.Value > 0 && _selectedFoodPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindFoodPurchase(false);
@@ -217,8 +220,8 @@ namespace Sulimn
         private void LstDrinkPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedDrinkPurchase = LstDrinkPurchase.SelectedIndex >= 0
-                ? (Food)LstDrinkPurchase.SelectedValue
-                : new Food();
+            ? (Food)LstDrinkPurchase.SelectedValue
+            : new Food();
 
             BtnDrinkPurchase.IsEnabled = _selectedDrinkPurchase.Value > 0 && _selectedDrinkPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindDrinkPurchase(false);
@@ -238,7 +241,7 @@ namespace Sulimn
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow { RefToTheTavernBarWindow = this };
+            Characters.CharacterWindow characterWindow = new Characters.CharacterWindow { RefToTheTavernBarWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("The Tavern Bar");

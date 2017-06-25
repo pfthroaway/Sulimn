@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Sulimn.Classes.Enums;
+using System;
 
-namespace Sulimn
+namespace Sulimn.Classes.Items
 {
     /// <summary>Represents a Potion which can be consumed by a Hero.</summary>
     internal class Potion : Item, IEquatable<Potion>
@@ -45,10 +46,10 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-             left.PotionType == right.PotionType &&
-             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-             left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
-             left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            left.PotionType == right.PotionType &&
+            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+            left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
+            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the attributes an entity has.</summary>
     internal class Attributes : INotifyPropertyChanged

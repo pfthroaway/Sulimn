@@ -1,4 +1,6 @@
-﻿namespace Sulimn
+﻿using Sulimn.Classes.Enums;
+
+namespace Sulimn.Classes.Items
 {
     /// <summary>Represents a piece of Armor worn on the feet.</summary>
     internal class FeetArmor : Armor

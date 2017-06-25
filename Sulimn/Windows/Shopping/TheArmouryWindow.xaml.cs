@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Extensions;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for TabbedShopping.xaml</summary>
     public partial class TheArmouryWindow : INotifyPropertyChanged
@@ -305,7 +307,7 @@ namespace Sulimn
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow { RefToTheArmouryWindow = this };
+            Characters.CharacterWindow characterWindow = new Characters.CharacterWindow { RefToTheArmouryWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("The Armoury");
@@ -325,8 +327,8 @@ namespace Sulimn
         private void LstHeadPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedHeadPurchase = LstHeadPurchase.SelectedIndex >= 0
-                ? (HeadArmor)LstHeadPurchase.SelectedValue
-                : new HeadArmor();
+            ? (HeadArmor)LstHeadPurchase.SelectedValue
+            : new HeadArmor();
 
             BtnHeadPurchase.IsEnabled = _selectedHeadPurchase.Value > 0 && _selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
@@ -343,8 +345,8 @@ namespace Sulimn
         private void LstBodyPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedBodyPurchase = LstBodyPurchase.SelectedIndex >= 0
-                ? (BodyArmor)LstBodyPurchase.SelectedValue
-                : new BodyArmor();
+            ? (BodyArmor)LstBodyPurchase.SelectedValue
+            : new BodyArmor();
 
             BtnBodyPurchase.IsEnabled = _selectedBodyPurchase.Value > 0 && _selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
@@ -361,8 +363,8 @@ namespace Sulimn
         private void LstHandsPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedHandsPurchase = LstHandsPurchase.SelectedIndex >= 0
-                ? (HandArmor)LstHandsPurchase.SelectedValue
-                : new HandArmor();
+            ? (HandArmor)LstHandsPurchase.SelectedValue
+            : new HandArmor();
 
             BtnHandsPurchase.IsEnabled = _selectedHandsPurchase.Value > 0 && _selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
@@ -371,8 +373,8 @@ namespace Sulimn
         private void LstHandsSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedHandsSell = LstHandsSell.SelectedIndex >= 0
-                ? (HandArmor)LstHandsSell.SelectedValue
-                : new HandArmor();
+            ? (HandArmor)LstHandsSell.SelectedValue
+            : new HandArmor();
 
             BtnHandsSell.IsEnabled = _selectedHandsSell.CanSell;
             BindLabels();
@@ -381,8 +383,8 @@ namespace Sulimn
         private void LstLegsPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedLegsPurchase = LstLegsPurchase.SelectedIndex >= 0
-                ? (LegArmor)LstLegsPurchase.SelectedValue
-                : new LegArmor();
+            ? (LegArmor)LstLegsPurchase.SelectedValue
+            : new LegArmor();
 
             BtnLegsPurchase.IsEnabled = _selectedLegsPurchase.Value > 0 && _selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();
@@ -399,8 +401,8 @@ namespace Sulimn
         private void LstFeetPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFeetPurchase = LstFeetPurchase.SelectedIndex >= 0
-                ? (FeetArmor)LstFeetPurchase.SelectedValue
-                : new FeetArmor();
+            ? (FeetArmor)LstFeetPurchase.SelectedValue
+            : new FeetArmor();
 
             BtnFeetPurchase.IsEnabled = _selectedFeetPurchase.Value > 0 && _selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindLabels();

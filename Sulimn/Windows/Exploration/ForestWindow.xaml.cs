@@ -1,8 +1,9 @@
 ﻿using Extensions;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Exploration
 {
     /// <summary>
     /// Interaction logic for ForestWindow.xaml
@@ -22,7 +23,7 @@ namespace Sulimn
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
-            BattleWindow battleWindow = new BattleWindow { RefToForestWindow = this };
+            Battle.BattleWindow battleWindow = new Battle.BattleWindow { RefToForestWindow = this };
             battleWindow.PrepareBattle("Forest");
             battleWindow.Show();
             Visibility = Visibility.Hidden;

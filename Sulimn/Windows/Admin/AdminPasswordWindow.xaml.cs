@@ -1,8 +1,9 @@
-﻿using Extensions;
+﻿using Extensions.Encryption;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Admin
 {
     /// <summary>Interaction logic for AdminPasswordWindow.xaml</summary>
     public partial class AdminPasswordWindow

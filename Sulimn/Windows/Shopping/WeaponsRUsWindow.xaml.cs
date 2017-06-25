@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Extensions;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for WeaponsRUsWindow.xaml</summary>
     public partial class WeaponsRUsWindow : INotifyPropertyChanged
@@ -141,8 +143,8 @@ namespace Sulimn
         private void LstWeaponPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedWeaponPurchase = LstWeaponPurchase.SelectedIndex >= 0
-                ? (Weapon)LstWeaponPurchase.SelectedValue
-                : new Weapon();
+            ? (Weapon)LstWeaponPurchase.SelectedValue
+            : new Weapon();
 
             BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindWeaponPurchase(false);
@@ -162,7 +164,7 @@ namespace Sulimn
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow { RefToWeaponsRUsWindow = this };
+            Characters.CharacterWindow characterWindow = new Characters.CharacterWindow { RefToWeaponsRUsWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("Weapons 'R' Us");

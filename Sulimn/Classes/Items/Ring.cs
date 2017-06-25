@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Sulimn.Classes.Enums;
+using System;
 using System.Linq;
 
-namespace Sulimn
+namespace Sulimn.Classes.Items
 {
     /// <summary>Represents a Ring worn on an entity's finger.</summary>
     internal class Ring : Item, IEquatable<Ring>
@@ -177,11 +178,11 @@ DexterityToString, WisdomToString
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-             left.Damage == right.Damage && left.Defense == right.Defense && left.Strength == right.Strength &&
-             left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom &&
-             left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell &&
-             left.IsSold == right.IsSold;
+            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+            left.Damage == right.Damage && left.Defense == right.Defense && left.Strength == right.Strength &&
+            left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom &&
+            left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell &&
+            left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)

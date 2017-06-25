@@ -1,8 +1,9 @@
 ﻿using Extensions;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Exploration
 {
     /// <summary>Interaction logic for CatacombsWindow.xaml</summary>
     public partial class CatacombsWindow
@@ -13,7 +14,7 @@ namespace Sulimn
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
-            BattleWindow battleWindow = new BattleWindow { RefToCatacombsWindow = this };
+            Battle.BattleWindow battleWindow = new Battle.BattleWindow { RefToCatacombsWindow = this };
             battleWindow.PrepareBattle("Catacombs");
             battleWindow.Show();
             Visibility = Visibility.Hidden;

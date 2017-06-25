@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents an account at the Bank.</summary>
     public class Bank : INotifyPropertyChanged

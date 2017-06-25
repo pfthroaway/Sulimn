@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extensions.ListViewHelp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Extensions
 {
@@ -39,10 +41,7 @@ namespace Extensions
         /// <summary>Turns several Keyboard.Keys into a list of Keys which can be tested using List.Any.</summary>
         /// <param name="keys">Array of Keys</param>
         /// <returns>Returns list of Keys' IsKeyDown state</returns>
-        private static IEnumerable<bool> GetListOfKeys(params Key[] keys)
-        {
-            return keys.Select(Keyboard.IsKeyDown).ToList();
-        }
+        private static IEnumerable<bool> GetListOfKeys(params Key[] keys) => keys.Select(Keyboard.IsKeyDown).ToList();
 
         #region Control Manipulation
 
@@ -51,7 +50,7 @@ namespace Extensions
         /// <param name="newText">Text to be added</param>
         public static void AddTextToTextBox(TextBox tb, string newText)
         {
-            tb.Text += $"\n\n{newText}";
+            tb.Text = string.IsNullOrWhiteSpace(tb.Text) ? newText : $"{tb.Text}\n\n{newText}";
             tb.Focus();
             tb.CaretIndex = tb.Text.Length;
             tb.ScrollToEnd();
@@ -61,8 +60,13 @@ namespace Extensions
         /// <param name="sender">Passed column</param>
         /// <param name="sort">Class containing current column and adorner sort</param>
         /// <param name="currentListView">ListView needing modification</param>
-        public static ListViewSort ListViewColumnHeaderClick(object sender, ListViewSort sort, ListView currentListView)
+        /// <param name="color">Color for the adorner</param>
+        public static ListViewSort ListViewColumnHeaderClick(object sender, ListViewSort sort, ListView currentListView,
+            string color)
         {
+            Color selectedColor = Colors.Black;
+            if (!string.IsNullOrEmpty(color))
+                selectedColor = (Color)ColorConverter.ConvertFromString(color);
             GridViewColumnHeader column = (sender as GridViewColumnHeader);
             if (column != null)
             {
@@ -78,7 +82,7 @@ namespace Extensions
                     newDir = ListSortDirection.Descending;
 
                 sort.Column = column;
-                sort.Adorner = new SortAdorner(sort.Column, newDir);
+                sort.Adorner = new SortAdorner(sort.Column, newDir, selectedColor);
                 AdornerLayer.GetAdornerLayer(sort.Column).Add(sort.Adorner);
                 currentListView.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
             }
@@ -123,7 +127,8 @@ namespace Extensions
 
                 case KeyType.NegativeDecimals:
                     e.Handled = !keys.Any(key => key) && (Key.D0 > k || k > Key.D9) &&
-                                (Key.NumPad0 > k || k > Key.NumPad9) && k != Key.Decimal && k != Key.Subtract && k != Key.OemPeriod && k != Key.OemMinus;
+                                (Key.NumPad0 > k || k > Key.NumPad9) && k != Key.Decimal && k != Key.Subtract &&
+                                k != Key.OemPeriod && k != Key.OemMinus;
                     break;
 
                 case KeyType.NegativeIntegers:
@@ -162,7 +167,8 @@ namespace Extensions
                                            select c).ToArray());
 
                     if (txt.Text.Substring(txt.Text.IndexOf(".", StringComparison.Ordinal) + 1).Contains("."))
-                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf(".", StringComparison.Ordinal) + 1) + txt.Text.Substring(txt.Text.IndexOf(".", StringComparison.Ordinal) + 1).Replace(".", "");
+                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf(".", StringComparison.Ordinal) + 1) + txt.Text
+                                       .Substring(txt.Text.IndexOf(".", StringComparison.Ordinal) + 1).Replace(".", "");
                     break;
 
                 case KeyType.Integers:
@@ -183,10 +189,12 @@ namespace Extensions
                                            select c).ToArray());
 
                     if (txt.Text.Substring(txt.Text.IndexOf(".", StringComparison.Ordinal) + 1).Contains("."))
-                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf(".", StringComparison.Ordinal) + 1) + txt.Text.Substring(txt.Text.IndexOf(".", StringComparison.Ordinal) + 1).Replace(".", "");
+                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf(".", StringComparison.Ordinal) + 1) + txt.Text
+                                       .Substring(txt.Text.IndexOf(".", StringComparison.Ordinal) + 1).Replace(".", "");
 
                     if (txt.Text.Substring(txt.Text.IndexOf("-", StringComparison.Ordinal) + 1).Contains("-"))
-                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf("-", StringComparison.Ordinal) + 1) + txt.Text.Substring(txt.Text.IndexOf("-", StringComparison.Ordinal) + 1).Replace("-", "");
+                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf("-", StringComparison.Ordinal) + 1) + txt.Text
+                                       .Substring(txt.Text.IndexOf("-", StringComparison.Ordinal) + 1).Replace("-", "");
                     break;
 
                 case KeyType.NegativeIntegers:
@@ -195,7 +203,8 @@ namespace Extensions
                                            select c).ToArray());
 
                     if (txt.Text.Substring(txt.Text.IndexOf("-", StringComparison.Ordinal) + 1).Contains("-"))
-                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf("-", StringComparison.Ordinal) + 1) + txt.Text.Substring(txt.Text.IndexOf("-", StringComparison.Ordinal) + 1).Replace("-", "");
+                        txt.Text = txt.Text.Substring(0, txt.Text.IndexOf("-", StringComparison.Ordinal) + 1) + txt.Text
+                                       .Substring(txt.Text.IndexOf("-", StringComparison.Ordinal) + 1).Replace("-", "");
                     break;
 
                 default:

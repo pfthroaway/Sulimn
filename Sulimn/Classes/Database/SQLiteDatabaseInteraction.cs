@@ -1,4 +1,10 @@
 ﻿using Extensions;
+using Extensions.DatabaseHelp;
+using Extensions.DataTypeHelpers;
+using Sulimn.Classes.Entities;
+using Sulimn.Classes.Enums;
+using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +12,7 @@ using System.Data.SQLite;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Sulimn
+namespace Sulimn.Classes.Database
 {
     /// <summary>Represents database interaction covered by SQLite.</summary>
     internal class SQLiteDatabaseInteraction : IDatabaseInteraction
@@ -22,7 +28,7 @@ namespace Sulimn
         public void VerifyDatabaseIntegrity()
         {
             Functions.VerifyFileIntegrity(
-                Assembly.GetExecutingAssembly().GetManifestResourceStream($"Sulimn.{_DATABASENAME}"), _DATABASENAME);
+            Assembly.GetExecutingAssembly().GetManifestResourceStream($"Sulimn.{_DATABASENAME}"), _DATABASENAME);
         }
 
         #endregion Database Interaction
@@ -52,10 +58,34 @@ namespace Sulimn
             SQLiteCommand cmd = new SQLiteCommand
             {
                 CommandText =
-                    $"INSERT INTO Players([CharacterName],[CharacterPassword],[Class],[Level],[Experience],[SkillPoints],[Strength],[Vitality],[Dexterity],[Wisdom],[Gold],[CurrentHealth],[MaximumHealth],[CurrentMagic],[MaximumMagic],[KnownSpells],[Inventory],[Hardcore])VALUES('{newHero.Name}','{newHero.Password.Replace("\0", "")}','{newHero.Class.Name}','{newHero.Level}','{newHero.Experience}','{newHero.SkillPoints}','{newHero.Attributes.Strength}','{newHero.Attributes.Vitality}','{newHero.Attributes.Dexterity}','{newHero.Attributes.Wisdom}','{newHero.Inventory.Gold}','{newHero.Statistics.CurrentHealth}','{newHero.Statistics.MaximumHealth}','{newHero.Statistics.CurrentMagic}','{newHero.Statistics.MaximumMagic}','{newHero.Spellbook}','{newHero.Inventory}','{Int32Helper.Parse(newHero.Hardcore)}');" +
-                    $"INSERT INTO Bank([CharacterName],[Gold],[LoanTaken])Values('{newHero.Name}',0,0);" +
-                    $"INSERT INTO Equipment([CharacterName],[Weapon],[Head],[Body],[Hands],[Legs],[Feet])Values('{newHero.Name}','{newHero.Equipment.Weapon.Name}','{newHero.Equipment.Head.Name}','{newHero.Equipment.Body.Name}','{newHero.Equipment.Hands.Name}','{newHero.Equipment.Legs.Name}','{newHero.Equipment.Feet.Name}')"
+            "INSERT INTO Players([CharacterName], [CharacterPassword], [Class], [Level], [Experience], [SkillPoints], [Strength], [Vitality], [Dexterity], [Wisdom], [Gold], [CurrentHealth], [MaximumHealth], [CurrentMagic], [MaximumMagic], [KnownSpells], [Inventory], [Hardcore])VALUES(@name, @password, @class, @level, @experience, @skillPoints, @strength, @vitality, @dexterity, @wisdom, @gold, @currentHealth, @maximumHealth, @maximumMagic, @maximumMagic, @spells, @inventory, @hardcore);" +
+            "INSERT INTO Bank([CharacterName], [Gold], [LoanTaken])Values(@name, 0, 0);" +
+            "INSERT INTO Equipment([CharacterName], [Weapon], [Head], [Body], [Hands], [Legs], [Feet])Values(@name, @weapon, @head, @body, @hands, @legs, @feet)"
             };
+            cmd.Parameters.AddWithValue("@name", newHero.Name);
+            cmd.Parameters.AddWithValue("@password", newHero.Password.Replace("\0", ""));
+            cmd.Parameters.AddWithValue("@class", newHero.Class.Name);
+            cmd.Parameters.AddWithValue("@level", newHero.Level);
+            cmd.Parameters.AddWithValue("@experience", newHero.Experience);
+            cmd.Parameters.AddWithValue("@skillPoints", newHero.SkillPoints);
+            cmd.Parameters.AddWithValue("@strength", newHero.Attributes.Strength);
+            cmd.Parameters.AddWithValue("@vitality", newHero.Attributes.Vitality);
+            cmd.Parameters.AddWithValue("@dexterity", newHero.Attributes.Dexterity);
+            cmd.Parameters.AddWithValue("@wisdom", newHero.Attributes.Wisdom);
+            cmd.Parameters.AddWithValue("@gold", newHero.Inventory.Gold);
+            cmd.Parameters.AddWithValue("@currentHealth", newHero.Statistics.CurrentHealth);
+            cmd.Parameters.AddWithValue("@maximumHealth", newHero.Statistics.MaximumHealth);
+            cmd.Parameters.AddWithValue("@currentMagic", newHero.Statistics.CurrentMagic);
+            cmd.Parameters.AddWithValue("@maximumMagic", newHero.Statistics.MaximumMagic);
+            cmd.Parameters.AddWithValue("@spells", newHero.Spellbook.ToString());
+            cmd.Parameters.AddWithValue("@inventory", newHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@hardcore", Int32Helper.Parse(newHero.Hardcore));
+            cmd.Parameters.AddWithValue("@weapon", newHero.Equipment.Weapon.Name);
+            cmd.Parameters.AddWithValue("@head", newHero.Equipment.Head.Name);
+            cmd.Parameters.AddWithValue("@body", newHero.Equipment.Body.Name);
+            cmd.Parameters.AddWithValue("@hands", newHero.Equipment.Hands.Name);
+            cmd.Parameters.AddWithValue("@legs", newHero.Equipment.Legs.Name);
+            cmd.Parameters.AddWithValue("@feet", newHero.Equipment.Feet.Name);
 
             return await SQLite.ExecuteCommand(_con, cmd);
         }
@@ -69,7 +99,7 @@ namespace Sulimn
             {
                 CommandText =
             "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [CharacterName] = @name;" +
-            "UPDATE Equipment SET[Weapon] = @weapon,[Head] = @head,[Body] = @body,[Hands] = hands,[Legs] = @legs,[Feet] = @feet,[LeftRing] = @leftRing,[RightRing] = @rightRing WHERE[CharacterName] = @name"
+            "UPDATE Equipment SET[Weapon] = @weapon,[Head] = @head,[Body] = @body,[Hands] = hands,[Legs] = @legs,[Feet] = @feet,[LeftRing] = @leftRing,[RightRing] = @rightRing WHERE [CharacterName] = @name"
             };
             cmd.Parameters.AddWithValue("@level", saveHero.Level);
             cmd.Parameters.AddWithValue("@experience", saveHero.Experience.ToString());
@@ -170,7 +200,13 @@ namespace Sulimn
         {
             Bank heroBank = new Bank();
 
-            DataSet ds = await SQLite.FillDataSet($"SELECT * FROM Bank WHERE [CharacterName] = '{bankHero.Name}'", _con);
+            SQLiteCommand cmd = new SQLiteCommand
+            {
+                CommandText = "SELECT * FROM Bank WHERE[CharacterName] = @name"
+            };
+
+            cmd.Parameters.AddWithValue("@name", bankHero.Name);
+            DataSet ds = await SQLite.FillDataSet(cmd, _con);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -194,13 +230,13 @@ namespace Sulimn
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 HeroClass newClass = new HeroClass(
-                    name: ds.Tables[0].Rows[i]["ClassName"].ToString(),
-                    description: ds.Tables[0].Rows[i]["ClassDescription"].ToString(),
-                    skillPoints: Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
-                    strength: Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-                    vitality: Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-                    dexterity: Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-                    wisdom: Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]));
+                name: ds.Tables[0].Rows[i]["ClassName"].ToString(),
+                description: ds.Tables[0].Rows[i]["ClassDescription"].ToString(),
+                skillPoints: Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
+                strength: Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
+                vitality: Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
+                dexterity: Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
+                wisdom: Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]));
 
                 allClasses.Add(newClass);
             }
@@ -224,73 +260,73 @@ namespace Sulimn
                     Weapon weapon = new Weapon();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Weapon"].ToString()))
                         weapon =
-            new Weapon(
-            GameState.AllWeapons.Find(wpn => wpn.Name == dr["Weapon"].ToString()));
+                        new Weapon(
+                        GameState.AllWeapons.Find(wpn => wpn.Name == dr["Weapon"].ToString()));
                     HeadArmor head = new HeadArmor();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Head"].ToString()))
                         head =
-            new HeadArmor(
-            GameState.AllHeadArmor.Find(armr => armr.Name == dr["Head"].ToString()));
+                        new HeadArmor(
+                        GameState.AllHeadArmor.Find(armr => armr.Name == dr["Head"].ToString()));
                     BodyArmor body = new BodyArmor();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Body"].ToString()))
                         body =
-            new BodyArmor(
-            GameState.AllBodyArmor.Find(armr => armr.Name == dr["Body"].ToString()));
+                        new BodyArmor(
+                        GameState.AllBodyArmor.Find(armr => armr.Name == dr["Body"].ToString()));
                     HandArmor hands = new HandArmor();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Hands"].ToString()))
                         hands =
-            new HandArmor(
-            GameState.AllHandArmor.Find(armr => armr.Name == dr["Hands"].ToString()));
+                        new HandArmor(
+                        GameState.AllHandArmor.Find(armr => armr.Name == dr["Hands"].ToString()));
                     LegArmor legs = new LegArmor();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Legs"].ToString()))
                         legs =
-            new LegArmor(
-            GameState.AllLegArmor.Find(armr => armr.Name == dr["Legs"].ToString()));
+                        new LegArmor(
+                        GameState.AllLegArmor.Find(armr => armr.Name == dr["Legs"].ToString()));
                     FeetArmor feet = new FeetArmor();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Feet"].ToString()))
                         feet =
-            new FeetArmor(
-            GameState.AllFeetArmor.Find(armr => armr.Name == dr["Feet"].ToString()));
+                        new FeetArmor(
+                        GameState.AllFeetArmor.Find(armr => armr.Name == dr["Feet"].ToString()));
                     Ring leftRing = new Ring();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["LeftRing"].ToString()))
                         leftRing =
-            new Ring(
-            GameState.AllRings.Find(ring => ring.Name == dr["LeftRing"].ToString()));
+                        new Ring(
+                        GameState.AllRings.Find(ring => ring.Name == dr["LeftRing"].ToString()));
                     Ring rightRing = new Ring();
                     if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["RightRing"].ToString()))
                         rightRing =
-            new Ring(
-            GameState.AllRings.Find(ring => ring.Name == dr["RightRing"].ToString()));
+                        new Ring(
+                        GameState.AllRings.Find(ring => ring.Name == dr["RightRing"].ToString()));
 
                     int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
 
                     Enemy newEnemy = new Enemy(
-        ds.Tables[0].Rows[i]["EnemyName"].ToString(),
-        ds.Tables[0].Rows[i]["EnemyType"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]),
-        new Attributes(
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"])),
-        new Statistics(
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"])),
-        new Equipment(
-        weapon,
-        head,
-        body,
-        hands,
-        legs,
-        feet,
-        leftRing,
-        rightRing),
-        new Inventory(
-        new List<Item>(),
-        gold));
+                    ds.Tables[0].Rows[i]["EnemyName"].ToString(),
+                    ds.Tables[0].Rows[i]["EnemyType"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]),
+                    new Attributes(
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"])),
+                    new Statistics(
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"])),
+                    new Equipment(
+                    weapon,
+                    head,
+                    body,
+                    hands,
+                    legs,
+                    feet,
+                    leftRing,
+                    rightRing),
+                    new Inventory(
+                    new List<Item>(),
+                    gold));
 
                     allEnemies.Add(newEnemy);
                 }
@@ -309,7 +345,9 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     string name = ds.Tables[0].Rows[i]["CharacterName"].ToString();
-                    DataSet equipmentDS = await SQLite.FillDataSet($"SELECT * FROM Equipment WHERE [CharacterName]='{name}'", _con);
+                    SQLiteCommand cmd = new SQLiteCommand { CommandText = "SELECT * FROM Equipment WHERE [CharacterName] = @name" };
+                    cmd.Parameters.AddWithValue("@name", name);
+                    DataSet equipmentDS = await SQLite.FillDataSet(cmd, _con);
 
                     string leftRingText = equipmentDS.Tables[0].Rows[0]["LeftRing"].ToString();
                     string rightRingText = equipmentDS.Tables[0].Rows[0]["RightRing"].ToString();
@@ -323,37 +361,37 @@ namespace Sulimn
 
                     string className = ds.Tables[0].Rows[i]["Class"].ToString();
                     Hero newHero = new Hero(
-        name,
-        ds.Tables[0].Rows[i]["CharacterPassword"].ToString(),
-        new HeroClass(
-        GameState.AllClasses.Find(
-        heroClass => heroClass.Name == className)),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
-        new Attributes(
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"])),
-        new Statistics(
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"])),
-        new Equipment(
-        GameState.AllWeapons.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Weapon"].ToString()),
-        GameState.AllHeadArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Head"].ToString()),
-        GameState.AllBodyArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Body"].ToString()),
-        GameState.AllHandArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Hands"].ToString()),
-        GameState.AllLegArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Legs"].ToString()),
-        GameState.AllFeetArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Feet"].ToString()),
-        leftRing,
-        rightRing),
-        GameState.SetSpellbook(ds.Tables[0].Rows[i]["KnownSpells"].ToString()),
-        GameState.SetInventory(ds.Tables[0].Rows[i]["Inventory"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"])),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["Hardcore"]));
+                    name,
+                    ds.Tables[0].Rows[i]["CharacterPassword"].ToString(),
+                    new HeroClass(
+                    GameState.AllClasses.Find(
+                    heroClass => heroClass.Name == className)),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
+                    new Attributes(
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"])),
+                    new Statistics(
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"])),
+                    new Equipment(
+                    GameState.AllWeapons.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Weapon"].ToString()),
+                    GameState.AllHeadArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Head"].ToString()),
+                    GameState.AllBodyArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Body"].ToString()),
+                    GameState.AllHandArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Hands"].ToString()),
+                    GameState.AllLegArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Legs"].ToString()),
+                    GameState.AllFeetArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Feet"].ToString()),
+                    leftRing,
+                    rightRing),
+                    GameState.SetSpellbook(ds.Tables[0].Rows[i]["KnownSpells"].ToString()),
+                    GameState.SetInventory(ds.Tables[0].Rows[i]["Inventory"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"])),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["Hardcore"]));
 
                     allHeroes.Add(newHero);
                 }
@@ -379,13 +417,13 @@ namespace Sulimn
                 maximumStatsHero.Attributes.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"]);
                 maximumStatsHero.Inventory.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
                 maximumStatsHero.Statistics.CurrentHealth =
-    Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentHealth"]);
+                Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentHealth"]);
                 maximumStatsHero.Statistics.MaximumHealth =
-    Int32Helper.Parse(ds.Tables[0].Rows[0]["MaximumHealth"]);
+                Int32Helper.Parse(ds.Tables[0].Rows[0]["MaximumHealth"]);
                 maximumStatsHero.Statistics.CurrentMagic =
-    Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentMagic"]);
+                Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentMagic"]);
                 maximumStatsHero.Statistics.MaximumMagic =
-    Int32Helper.Parse(ds.Tables[0].Rows[0]["MaximumMagic"]);
+                Int32Helper.Parse(ds.Tables[0].Rows[0]["MaximumMagic"]);
             }
 
             return maximumStatsHero;
@@ -411,13 +449,13 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     HeadArmor newHeadArmor = new HeadArmor(
-        ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-        ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
+                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allHeadArmor.Add(newHeadArmor);
                 }
@@ -436,13 +474,13 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     BodyArmor newBodyArmor = new BodyArmor(
-        ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-        ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
+                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allBodyArmor.Add(newBodyArmor);
                 }
@@ -461,13 +499,13 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     HandArmor newHandArmor = new HandArmor(
-        ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-        ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
+                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allHandArmor.Add(newHandArmor);
                 }
@@ -486,13 +524,13 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     LegArmor newLegArmor = new LegArmor(
-        ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-        ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
+                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allLegArmor.Add(newLegArmor);
                 }
@@ -511,13 +549,13 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     FeetArmor newFeetArmor = new FeetArmor(
-        ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-        ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
+                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allFeetArmor.Add(newFeetArmor);
                 }
@@ -538,19 +576,19 @@ namespace Sulimn
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     Ring newRing = new Ring(
-        ds.Tables[0].Rows[i]["Name"].ToString(),
-        ItemTypes.Ring,
-        ds.Tables[0].Rows[i]["Description"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Damage"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Defense"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Weight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["Value"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["Name"].ToString(),
+                    ItemTypes.Ring,
+                    ds.Tables[0].Rows[i]["Description"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Damage"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Defense"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Weight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Value"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allRings.Add(newRing);
                 }
@@ -570,14 +608,14 @@ namespace Sulimn
                 {
                     Enum.TryParse(ds.Tables[0].Rows[i]["WeaponType"].ToString(), out WeaponTypes currentWeaponType);
                     Weapon newWeapon = new Weapon(
-        ds.Tables[0].Rows[i]["WeaponName"].ToString(),
-        currentWeaponType,
-        ds.Tables[0].Rows[i]["WeaponDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["WeaponName"].ToString(),
+                    currentWeaponType,
+                    ds.Tables[0].Rows[i]["WeaponDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allWeapons.Add(newWeapon);
                 }
@@ -599,13 +637,13 @@ namespace Sulimn
                 {
                     Enum.TryParse(ds.Tables[0].Rows[i]["PotionType"].ToString(), out PotionTypes currentPotionType);
                     Potion newPotion = new Potion(
-        ds.Tables[0].Rows[i]["PotionName"].ToString(),
-        currentPotionType,
-        ds.Tables[0].Rows[i]["PotionDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["PotionName"].ToString(),
+                    currentPotionType,
+                    ds.Tables[0].Rows[i]["PotionDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allPotions.Add(newPotion);
                 }
@@ -625,14 +663,14 @@ namespace Sulimn
                 {
                     Enum.TryParse(ds.Tables[0].Rows[i]["FoodType"].ToString(), out FoodTypes currentFoodType);
                     Food newFood = new Food(
-        ds.Tables[0].Rows[i]["FoodName"].ToString(),
-        currentFoodType,
-        ds.Tables[0].Rows[i]["FoodDescription"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-        BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    ds.Tables[0].Rows[i]["FoodName"].ToString(),
+                    currentFoodType,
+                    ds.Tables[0].Rows[i]["FoodDescription"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
+                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
 
                     allFood.Add(newFood);
                 }
@@ -652,13 +690,13 @@ namespace Sulimn
                 {
                     Enum.TryParse(ds.Tables[0].Rows[i]["SpellType"].ToString(), out SpellTypes currentSpellType);
                     Spell newSpell = new Spell(
-        ds.Tables[0].Rows[i]["SpellName"].ToString(),
-        currentSpellType,
-        ds.Tables[0].Rows[i]["SpellDescription"].ToString(),
-        ds.Tables[0].Rows[i]["RequiredClass"].ToString(),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["RequiredLevel"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]),
-        Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
+                    ds.Tables[0].Rows[i]["SpellName"].ToString(),
+                    currentSpellType,
+                    ds.Tables[0].Rows[i]["SpellDescription"].ToString(),
+                    ds.Tables[0].Rows[i]["RequiredClass"].ToString(),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["RequiredLevel"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]),
+                    Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
 
                     allSpells.Add(newSpell);
                 }

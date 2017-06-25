@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the statistics of an entity.</summary>
     internal class Statistics : INotifyPropertyChanged

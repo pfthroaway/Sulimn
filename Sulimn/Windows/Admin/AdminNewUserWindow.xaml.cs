@@ -1,4 +1,4 @@
-﻿namespace Sulimn
+﻿namespace Sulimn.Windows.Admin
 {
     /// <summary>
     /// Interaction logic for AdminNewUserWindow.xaml

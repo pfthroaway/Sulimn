@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Sulimn.Classes.Enums;
+using System;
 
-namespace Sulimn
+namespace Sulimn.Classes.Items
 {
     /// <summary>Represents a Weapon an entity can attack with.</summary>
     internal class Weapon : Item, IEquatable<Weapon>
@@ -57,10 +58,10 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-             left.WeaponType == right.WeaponType &&
-             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-             left.Damage == right.Damage && left.Weight == right.Weight && left.Value == right.Value &&
-             left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            left.WeaponType == right.WeaponType &&
+            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+            left.Damage == right.Damage && left.Weight == right.Weight && left.Value == right.Value &&
+            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)

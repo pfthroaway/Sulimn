@@ -1,4 +1,6 @@
-﻿namespace Sulimn
+﻿using Sulimn.Classes.HeroParts;
+
+namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents a Hero from Sulimn.</summary>
     internal class Hero : Character
@@ -146,8 +148,8 @@
         {
             Statistics.CurrentHealth -= damage;
             return Statistics.CurrentHealth <= 0
-                ? $"You have taken {damage} damage and have been slain."
-                : $"You have taken {damage} damage.";
+            ? $"You have taken {damage} damage and have been slain."
+            : $"You have taken {damage} damage.";
         }
 
         /// <summary>Heals the Hero for a specified amount.</summary>

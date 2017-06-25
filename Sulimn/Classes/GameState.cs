@@ -1,11 +1,17 @@
 ﻿using Extensions;
+using Extensions.Encryption;
+using Extensions.Enums;
+using Sulimn.Classes.Database;
+using Sulimn.Classes.Entities;
+using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Classes
 {
     /// <summary>Represents the current state of the game.</summary>
     internal static class GameState

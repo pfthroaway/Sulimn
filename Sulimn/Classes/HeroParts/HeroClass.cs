@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the Class of a Hero.</summary>
     internal class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
@@ -167,9 +167,9 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-             left.SkillPoints == right.SkillPoints && left.Strength == right.Strength &&
-             left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom;
+            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+            left.SkillPoints == right.SkillPoints && left.Strength == right.Strength &&
+            left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom;
         }
 
         public sealed override bool Equals(object obj)

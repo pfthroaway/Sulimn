@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using Sulimn.Classes.Items;
+using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents pieces of equipment an entity is using.</summary>
     internal class Equipment : INotifyPropertyChanged
@@ -124,7 +125,7 @@ namespace Sulimn
 
         /// <summary>Returns the total defense produced by the current set of equipment.</summary>
         public int TotalDefense => Head.Defense + Body.Defense + Hands.Defense + Legs.Defense + Feet.Defense + LeftRing.Defense +
-                                   RightRing.Defense;
+        RightRing.Defense;
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators.</summary>
         public string TotalDefenseToString => TotalDefense.ToString("N0");

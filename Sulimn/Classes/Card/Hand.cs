@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace Sulimn
+namespace Sulimn.Classes.Card
 {
     /// <summary>Represents a hand of playing cards.</summary>
     internal class Hand : INotifyPropertyChanged

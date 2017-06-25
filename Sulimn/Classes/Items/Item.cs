@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Sulimn.Classes.Enums;
+using System;
 using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.Items
 {
     internal class Item : IItem, INotifyPropertyChanged
     {
@@ -139,9 +140,9 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-              left.Weight == right.Weight && left.Value == right.Value &&
-             left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+            left.Weight == right.Weight && left.Value == right.Value &&
+            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public override bool Equals(object obj)

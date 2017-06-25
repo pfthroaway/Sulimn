@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Sulimn.Classes;
+using Sulimn.Classes.Entities;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Sulimn
+namespace Sulimn.Windows.Admin
 {
     /// <summary>Interaction logic for ManageUsersWindow.xaml</summary>
     public partial class ManageUsersWindow : INotifyPropertyChanged

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Sulimn.Classes.Enums;
+using System;
 
-namespace Sulimn
+namespace Sulimn.Classes.Items
 {
     /// <summary>Represents a Food which the Hero can consume.</summary>
     internal class Food : Item, IEquatable<Food>
@@ -38,10 +39,10 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-             left.FoodType == right.FoodType &&
-             string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-             left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
-             left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            left.FoodType == right.FoodType &&
+            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+            left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
+            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)
@@ -114,7 +115,7 @@ namespace Sulimn
             Type = ItemTypes.Food;
             FoodType = otherFood.FoodType;
             Description = otherFood.Description;
-            Weight = 0;
+            Weight = otherFood.Weight;
             Value = otherFood.Value;
             Amount = otherFood.Amount;
             CanSell = otherFood.CanSell;

@@ -1,9 +1,10 @@
 ﻿using Extensions;
+using Sulimn.Classes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Sulimn
+namespace Sulimn.Windows
 {
     /// <summary>Interaction logic for MainWindow.xaml</summary>
     public partial class MainWindow
@@ -22,7 +23,7 @@ namespace Sulimn
         private void Login()
         {
             ClearInput();
-            CityWindow cityWindow = new CityWindow { RefToMainWindow = this };
+            Exploration.CityWindow cityWindow = new Exploration.CityWindow { RefToMainWindow = this };
             cityWindow.Show();
             Visibility = Visibility.Hidden;
         }
@@ -33,7 +34,7 @@ namespace Sulimn
 
         private void BtnNewHero_Click(object sender, RoutedEventArgs e)
         {
-            NewHeroWindow newHeroWindow = new NewHeroWindow { RefToMainWindow = this };
+            Characters.NewHeroWindow newHeroWindow = new Characters.NewHeroWindow { RefToMainWindow = this };
             newHeroWindow.Show();
             Visibility = Visibility.Hidden;
         }
@@ -46,7 +47,7 @@ namespace Sulimn
 
         private void MnuAdmin_Click(object sender, RoutedEventArgs e)
         {
-            AdminPasswordWindow adminPasswordWindow = new AdminPasswordWindow { RefToMainWindow = this };
+            Admin.AdminPasswordWindow adminPasswordWindow = new Admin.AdminPasswordWindow { RefToMainWindow = this };
             adminPasswordWindow.Show();
             Visibility = Visibility.Hidden;
         }

@@ -1,0 +1,12 @@
+Weapon proficiencies
+Challenges - Gambling Addiction, Hardcore, etc.
+Poker, Craps, Roulette
+No armor challenge - magic shield still works.
+No weapon challenge - only magic and fists.
+Tooltips on stats
+More stats
+Priest go away
+Dodge based on dexterity and armor, light armor gets 100%, 0.05% per level of dex
+Berserk mode, dual-wield
+Add potion/food button on battle
+Add cast spell repetitive

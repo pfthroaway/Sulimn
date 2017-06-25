@@ -1,11 +1,15 @@
 ﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.Entities;
+using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Sulimn
+namespace Sulimn.Windows.Admin
 {
     /// <summary>
     /// Interaction logic for ManageUserWindow.xaml

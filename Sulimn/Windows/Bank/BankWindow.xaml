@@ -1,0 +1,65 @@
+﻿<Window x:Name="WindowBank" x:Class="Sulimn.Windows.Bank.BankWindow"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+mc:Ignorable="d"
+Style="{StaticResource WindowStyle}"
+Title="Bank" WindowStartupLocation="CenterScreen" Closing="WindowBank_Closing">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="145" />
+            <ColumnDefinition Width="145" />
+            <ColumnDefinition Width="145" />
+            <ColumnDefinition Width="145" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <TextBox x:Name="TxtBank" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Height="190" Padding="5" IsReadOnly="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
+        <Button x:Name="BtnDeposit" Grid.Column="2" Grid.Row="1" Width="135" Click="BtnDeposit_Click">
+            <AccessText>_Deposit</AccessText>
+        </Button>
+        <Button x:Name="BtnTakeLoan" Grid.Column="3" Grid.Row="1" Width="135" Click="BtnTakeLoan_Click">
+            <AccessText>_Take Out Loan</AccessText>
+        </Button>
+        <Button x:Name="BtnWithdraw" Grid.Column="2" Width="135" Grid.Row="2" Click="BtnWithdraw_Click">
+            <AccessText>_Withdraw</AccessText>
+        </Button>
+        <Button x:Name="BtnRepayLoan" Grid.Column="3" Width="135" Grid.Row="2" Click="BtnRepayLoan_Click">
+            <AccessText>_Repay Loan</AccessText>
+        </Button>
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"  Width="135" Click="BtnBack_Click" IsCancel="True">
+            <AccessText>_Back</AccessText>
+        </Button>
+        <Border Grid.Column="0" Grid.Row="1" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
+            <TextBlock Text="Gold On Hand" VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
+            <TextBlock x:Name="LblGoldOnHand" Text="{Binding Path=GoldToString, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
+            <TextBlock Text="Gold In Bank" VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="1" Grid.Row="2" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
+            <TextBlock x:Name="GoldBank" Text="{Binding Path=GoldInBankToString, Mode=OneWay}"  VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="0" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
+            <TextBlock Text="Available Loan" VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="1" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
+            <TextBlock x:Name="LblAvailable" Text="{Binding Path=LoanAvailableToString, Mode=OneWay}"  VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="0" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,0,1" Margin="10,0,0,0">
+            <TextBlock Text="Loan Owed" VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+        <Border Grid.Column="1" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,1,1" Margin="0,0,5,0">
+            <TextBlock x:Name="LblLoanOwed" Text="{Binding Path=LoanTakenToString, Mode=OneWay}"
+ VerticalAlignment="Center" TextAlignment="Center" />
+        </Border>
+    </Grid>
+</Window>

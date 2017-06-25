@@ -1,8 +1,9 @@
 ﻿using Extensions;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Exploration
 {
     /// <summary>Interaction logic for CathedralWindow.xaml</summary>
     public partial class CathedralWindow
@@ -20,7 +21,7 @@ namespace Sulimn
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
-            BattleWindow battleWindow = new BattleWindow { RefToCathedralWindow = this };
+            Battle.BattleWindow battleWindow = new Battle.BattleWindow { RefToCathedralWindow = this };
             battleWindow.PrepareBattle("Cathedral");
             battleWindow.Show();
             Visibility = Visibility.Hidden;
@@ -163,7 +164,7 @@ namespace Sulimn
         {
             InitializeComponent();
             TxtCathedral.Text =
-            "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the Windower bishop's basilica, the public sanctuary, the Windower clergymen's espiscopium, and the looming tower.";
+            "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the former bishop's basilica, the public sanctuary, the former clergymen's espiscopium, and the looming tower.";
         }
 
         private void WindowCathedral_Closing(object sender, CancelEventArgs e)

@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for MarketWindow.xaml</summary>
     public partial class MarketWindow
     {
-        internal CityWindow RefToCityWindow { private get; set; }
+        internal Exploration.CityWindow RefToCityWindow { private get; set; }
 
         #region Button-Click Methods
 
@@ -65,11 +65,11 @@ namespace Sulimn
         {
             InitializeComponent();
             TxtMarket.Text = "You enter a bustling market.There are many shops here, the most interesting being:\n\n" +
-                "Weapons 'R' Us - A weapons shop.\n\n" +
-                 "The Armoury - An armor shop.\n\n" +
-                "The General Store - A shop supplying general goods like potions.\n\n" +
-                "Ye Old Magick Shoppe - A shop selling magical spells and equipment.\n\n" +
-                "Silver Empire - A smithery selling the finest jewelry.";
+            "Weapons 'R' Us - A weapons shop.\n\n" +
+            "The Armoury - An armor shop.\n\n" +
+            "The General Store - A shop supplying general goods like potions.\n\n" +
+            "Ye Old Magick Shoppe - A shop selling magical spells and equipment.\n\n" +
+            "Silver Empire - A smithery selling the finest jewelry.";
         }
 
         private void WindowMarket_Closing(object sender, CancelEventArgs e)

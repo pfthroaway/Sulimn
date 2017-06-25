@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Windows.Exploration
 {
     /// <summary>Interaction logic for SpecialEncounterWindow.xaml</summary>
     public partial class SpecialEncounterWindow

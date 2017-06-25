@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Extensions;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for SilverEmpireWindow.xaml</summary>
     public partial class SilverEmpireWindow : INotifyPropertyChanged
@@ -139,8 +141,8 @@ namespace Sulimn
         private void LstRingPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedRingPurchase = LstRingPurchase.SelectedIndex >= 0
-                ? (Ring)LstRingPurchase.SelectedValue
-                : new Ring();
+            ? (Ring)LstRingPurchase.SelectedValue
+            : new Ring();
 
             BtnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindRingPurchase(false);
@@ -160,7 +162,7 @@ namespace Sulimn
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow { RefToSilverEmpireWindow = this };
+            Characters.CharacterWindow characterWindow = new Characters.CharacterWindow { RefToSilverEmpireWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("Silver Empire");

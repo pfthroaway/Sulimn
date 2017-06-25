@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Sulimn.Classes.Enums;
+using System;
 using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.Card
 {
     /// <summary>Represents a playing card.</summary>
     internal class Card : INotifyPropertyChanged, IEquatable<Card>
@@ -80,7 +81,7 @@ namespace Sulimn
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Suit == right.Suit &&
-             left.Value == right.Value && left.Hidden == right.Hidden;
+            left.Value == right.Value && left.Hidden == right.Hidden;
         }
 
         public sealed override bool Equals(object obj)

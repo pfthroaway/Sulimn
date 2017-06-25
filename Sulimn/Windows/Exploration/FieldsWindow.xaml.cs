@@ -1,8 +1,9 @@
 ﻿using Extensions;
+using Sulimn.Classes;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Exploration
 {
     /// <summary>Interaction logic for FieldsWindow.xaml</summary>
     public partial class FieldsWindow
@@ -20,7 +21,7 @@ namespace Sulimn
         /// <summary>Starts a battle.</summary>
         private void StartBattle()
         {
-            BattleWindow battleWindow = new BattleWindow { RefToFieldsWindow = this };
+            Battle.BattleWindow battleWindow = new Battle.BattleWindow { RefToFieldsWindow = this };
             battleWindow.PrepareBattle("Fields");
             battleWindow.Show();
             Visibility = Visibility.Hidden;

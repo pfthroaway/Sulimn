@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Extensions;
+using Sulimn.Classes;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Extensions;
 
-namespace Sulimn
+namespace Sulimn.Windows.Shopping
 {
     /// <summary>Interaction logic for TheGeneralStoreWindow.xaml</summary>
     public partial class TheGeneralStoreWindow : INotifyPropertyChanged
@@ -139,8 +141,8 @@ namespace Sulimn
         private void LstPotionPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedPotionPurchase = LstPotionPurchase.SelectedIndex >= 0
-                ? (Potion)LstPotionPurchase.SelectedValue
-                : new Potion();
+            ? (Potion)LstPotionPurchase.SelectedValue
+            : new Potion();
 
             BtnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value > 0 && _selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
             BindPotionPurchase(false);
@@ -160,7 +162,7 @@ namespace Sulimn
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterWindow characterWindow = new CharacterWindow { RefToTheGeneralStoreWindow = this };
+            Characters.CharacterWindow characterWindow = new Characters.CharacterWindow { RefToTheGeneralStoreWindow = this };
             characterWindow.Show();
             characterWindow.SetupChar();
             characterWindow.SetPreviousWindow("The General Store");

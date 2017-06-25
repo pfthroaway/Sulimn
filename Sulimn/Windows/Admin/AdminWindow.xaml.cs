@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace Sulimn
+namespace Sulimn.Windows.Admin
 {
     /// <summary>Interaction logic for AdminWindow.xaml</summary>
     public partial class AdminWindow

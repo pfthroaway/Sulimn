@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using Sulimn.Classes.HeroParts;
+using System.ComponentModel;
 
-namespace Sulimn
+namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents living entities in Sulimn.</summary>
     internal abstract class Character : ICharacter, INotifyPropertyChanged

@@ -1,4 +1,6 @@
-﻿namespace Sulimn
+﻿using Sulimn.Classes.HeroParts;
+
+namespace Sulimn.Classes.Entities
 {
     internal interface ICharacter
     {
