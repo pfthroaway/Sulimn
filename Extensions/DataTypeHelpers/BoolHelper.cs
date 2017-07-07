@@ -31,5 +31,10 @@ namespace Extensions.DataTypeHelpers
             }
             return temp;
         }
+
+        /// <summary>Converts an Integer to Boolean.</summary>
+        /// <param name="num">Integer to be converted</param>
+        /// <returns>Converted Boolean</returns>
+        public static bool Parse(int num) => num != 0;
     }
 }

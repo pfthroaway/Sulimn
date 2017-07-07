@@ -49,8 +49,8 @@ Title="New Hero" WindowStartupLocation="CenterScreen" Closing="WindowNewHero_Clo
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select a Class" Margin="5,5,5,0" />
-            <ListBox x:Name="LstClasses" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="140" Margin="5" SelectionChanged="LstClasses_SelectionChanged" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible" />
-            <Border Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5" BorderThickness="1" BorderBrush="#BDC7C1">
+            <ListBox x:Name="LstClasses" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="140" Margin="5" SelectionChanged="LstClasses_SelectionChanged" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible" AlternationCount="2" />
+            <Border Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5" BorderThickness="1" BorderBrush="#BDC7C1" Background="#000066">
                 <TextBlock Text="{Binding Path=Description, Mode=TwoWay}" TextWrapping="Wrap" Margin="5" />
             </Border>
         </Grid>

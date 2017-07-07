@@ -5,6 +5,15 @@
     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
     StartupUri="Windows\MainWindow.xaml">
     <Application.Resources>
+        <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="#000033" />
+            <Setter Property="FontFamily" Value="Segoe UI Semibold" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+            <Setter Property="Foreground" Value="#BDC7C1" />
+            <Setter Property="ResizeMode" Value="NoResize" />
+            <Setter Property="Icon" Value="Windows/S.ico" />
+        </Style>
         <!--Control colors.-->
         <Color x:Key="WindowColor">#FFE8EDF9</Color>
         <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
@@ -433,7 +442,7 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Rectangle Margin="-2" StrokeThickness="1" Stroke="#BDC7C1" StrokeDashArray="1 1" />
+                        <Rectangle Margin="-2" StrokeThickness="1" Stroke="#BDC7C1" StrokeDashArray="1" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -595,6 +604,12 @@
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                                <Setter Property="Background" Value="#000033" />
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                                <Setter Property="Background" Value="#000066" />
+                            </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Foreground" Value="#000033" />
                                 <Setter Property="Background" Value="#BDC7C1" />
@@ -615,37 +630,102 @@
             </Setter>
         </Style>
 
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3" />
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA" />
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5" />
+
         <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Foreground" Value="#BDC7C1" />
+            <Setter Property="Background" Value="#000066" />
             <Setter Property="BorderBrush" Value="#BDC7C1" />
+            <Setter Property="Foreground" Value="#BDC7C1" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Background" Value="#000033" />
             <Setter Property="Padding" Value="5" />
             <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="AllowDrop" Value="true" />
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56" />
+                                <Setter Property="TextAlignment" Value="Left" />
+                                <Setter Property="IsTabStop" Value="False" />
+                            </Trigger>
+                            <Trigger Property="IsReadOnly" Value="true">
+                                <Setter Property="TextAlignment" Value="Left" />
+                                <Setter Property="IsTabStop" Value="False" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
-                <Trigger Property="IsReadOnly" Value="True">
-                    <Setter Property="TextAlignment" Value="Left" />
-                    <Setter Property="IsTabStop" Value="False" />
-                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
+                        <Condition Property="IsSelectionActive" Value="false" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                </MultiTrigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="{x:Type PasswordBox}">
-            <Setter Property="Foreground" Value="#BDC7C1" />
-            <Setter Property="BorderBrush" Value="#BDC7C1" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Background" Value="#000033" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-        </Style>
 
-        <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
-            <Setter Property="Background" Value="#000033" />
-            <Setter Property="FontFamily" Value="Segoe UI Semibold" />
-            <Setter Property="FontSize" Value="17" />
-            <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="PasswordChar" Value="●" />
+            <Setter Property="Background" Value="#000066" />
+            <Setter Property="BorderBrush" Value="#BDC7C1" />
             <Setter Property="Foreground" Value="#BDC7C1" />
-            <Setter Property="ResizeMode" Value="NoResize" />
-            <Setter Property="Icon" Value="Windows/S.ico" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="AllowDrop" Value="true" />
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
+                        <Condition Property="IsSelectionActive" Value="false" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                </MultiTrigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="FocusVisual">
@@ -947,7 +1027,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#BDC7C1" />
+                                <Setter Property="BorderBrush" TargetName="border" Value="#0094FF" />
+                            </Trigger>
+                            <Trigger Property="IsCancel" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#660000"></Setter>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="#0000CC" />
@@ -974,7 +1057,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Border x:Name="checkBoxBorder" BorderBrush="#BCD7C1" BorderThickness="{TemplateBinding BorderThickness}" Background="#0000CC" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                <Border x:Name="checkBoxBorder" BorderBrush="#BDC7C1" BorderThickness="{TemplateBinding BorderThickness}" Background="#0000CC" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                     <Grid x:Name="markGrid">
                         <Path x:Name="optionMark" Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z" Fill="#BDC7C1" Margin="1" Opacity="0" Stretch="None" />
                         <Rectangle x:Name="indeterminateMark" Fill="#FF212121" Margin="2" Opacity="0" />
@@ -984,6 +1067,7 @@
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="HasContent" Value="True">
+                    <Setter Property="Foreground" Value="#BDC7C1" />
                     <Setter Property="FocusVisualStyle">
                         <Setter.Value>
                             <Style>

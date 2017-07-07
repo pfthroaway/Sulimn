@@ -17,7 +17,7 @@ namespace Sulimn.Classes.Database
     /// <summary>Represents database interaction covered by SQLite.</summary>
     internal class SQLiteDatabaseInteraction : IDatabaseInteraction
     {
-        private readonly string _con = $"Data Source = {_DATABASENAME};Version=3";
+        private readonly string _con = $"Data Source = {_DATABASENAME}; Version = 3; PRAGMA foreign_keys = ON";
 
         // ReSharper disable once InconsistentNaming
         private const string _DATABASENAME = "Sulimn.sqlite";
@@ -60,7 +60,7 @@ namespace Sulimn.Classes.Database
                 CommandText =
             "INSERT INTO Players([CharacterName], [CharacterPassword], [Class], [Level], [Experience], [SkillPoints], [Strength], [Vitality], [Dexterity], [Wisdom], [Gold], [CurrentHealth], [MaximumHealth], [CurrentMagic], [MaximumMagic], [KnownSpells], [Inventory], [Hardcore])VALUES(@name, @password, @class, @level, @experience, @skillPoints, @strength, @vitality, @dexterity, @wisdom, @gold, @currentHealth, @maximumHealth, @maximumMagic, @maximumMagic, @spells, @inventory, @hardcore);" +
             "INSERT INTO Bank([CharacterName], [Gold], [LoanTaken])Values(@name, 0, 0);" +
-            "INSERT INTO Equipment([CharacterName], [Weapon], [Head], [Body], [Hands], [Legs], [Feet])Values(@name, @weapon, @head, @body, @hands, @legs, @feet)"
+            "INSERT INTO Equipment([CharacterName], [Weapon], [Head], [Body], [Hands], [Legs], [Feet])VALUES(@name, @weapon, @head, @body, @hands, @legs, @feet)"
             };
             cmd.Parameters.AddWithValue("@name", newHero.Name);
             cmd.Parameters.AddWithValue("@password", newHero.Password.Replace("\0", ""));
@@ -227,16 +227,16 @@ namespace Sulimn.Classes.Database
             List<HeroClass> allClasses = new List<HeroClass>();
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Classes", _con);
 
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 HeroClass newClass = new HeroClass(
-                name: ds.Tables[0].Rows[i]["ClassName"].ToString(),
-                description: ds.Tables[0].Rows[i]["ClassDescription"].ToString(),
-                skillPoints: Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
-                strength: Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-                vitality: Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-                dexterity: Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-                wisdom: Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]));
+                name: dr["ClassName"].ToString(),
+                description: dr["ClassDescription"].ToString(),
+                skillPoints: Int32Helper.Parse(dr["SkillPoints"]),
+                strength: Int32Helper.Parse(dr["Strength"]),
+                vitality: Int32Helper.Parse(dr["Vitality"]),
+                dexterity: Int32Helper.Parse(dr["Dexterity"]),
+                wisdom: Int32Helper.Parse(dr["Wisdom"]));
 
                 allClasses.Add(newClass);
             }
@@ -254,67 +254,66 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Enemies", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    DataRow dr = ds.Tables[0].Rows[i];
                     Weapon weapon = new Weapon();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Weapon"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["Weapon"].ToString()))
                         weapon =
                         new Weapon(
                         GameState.AllWeapons.Find(wpn => wpn.Name == dr["Weapon"].ToString()));
                     HeadArmor head = new HeadArmor();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Head"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["Head"].ToString()))
                         head =
                         new HeadArmor(
                         GameState.AllHeadArmor.Find(armr => armr.Name == dr["Head"].ToString()));
                     BodyArmor body = new BodyArmor();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Body"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["Body"].ToString()))
                         body =
                         new BodyArmor(
                         GameState.AllBodyArmor.Find(armr => armr.Name == dr["Body"].ToString()));
                     HandArmor hands = new HandArmor();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Hands"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["Hands"].ToString()))
                         hands =
                         new HandArmor(
                         GameState.AllHandArmor.Find(armr => armr.Name == dr["Hands"].ToString()));
                     LegArmor legs = new LegArmor();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Legs"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["Legs"].ToString()))
                         legs =
                         new LegArmor(
                         GameState.AllLegArmor.Find(armr => armr.Name == dr["Legs"].ToString()));
                     FeetArmor feet = new FeetArmor();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["Feet"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["Feet"].ToString()))
                         feet =
                         new FeetArmor(
                         GameState.AllFeetArmor.Find(armr => armr.Name == dr["Feet"].ToString()));
                     Ring leftRing = new Ring();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["LeftRing"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["LeftRing"].ToString()))
                         leftRing =
                         new Ring(
                         GameState.AllRings.Find(ring => ring.Name == dr["LeftRing"].ToString()));
                     Ring rightRing = new Ring();
-                    if (!string.IsNullOrWhiteSpace(ds.Tables[0].Rows[i]["RightRing"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["RightRing"].ToString()))
                         rightRing =
                         new Ring(
                         GameState.AllRings.Find(ring => ring.Name == dr["RightRing"].ToString()));
 
-                    int gold = Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"]);
+                    int gold = Int32Helper.Parse(dr["Gold"]);
 
                     Enemy newEnemy = new Enemy(
-                    ds.Tables[0].Rows[i]["EnemyName"].ToString(),
-                    ds.Tables[0].Rows[i]["EnemyType"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]),
+                    dr["EnemyName"].ToString(),
+                    dr["EnemyType"].ToString(),
+                    Int32Helper.Parse(dr["Level"]),
+                    Int32Helper.Parse(dr["Experience"]),
                     new Attributes(
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"])),
+                    Int32Helper.Parse(dr["Strength"]),
+                    Int32Helper.Parse(dr["Vitality"]),
+                    Int32Helper.Parse(dr["Dexterity"]),
+                    Int32Helper.Parse(dr["Wisdom"])),
                     new Statistics(
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"])),
+                    Int32Helper.Parse(dr["CurrentHealth"]),
+                    Int32Helper.Parse(dr["MaximumHealth"]),
+                    Int32Helper.Parse(dr["CurrentMagic"]),
+                    Int32Helper.Parse(dr["MaximumMagic"])),
                     new Equipment(
                     weapon,
                     head,
@@ -342,15 +341,15 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Players", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    string name = ds.Tables[0].Rows[i]["CharacterName"].ToString();
+                    string name = dr["CharacterName"].ToString();
                     SQLiteCommand cmd = new SQLiteCommand { CommandText = "SELECT * FROM Equipment WHERE [CharacterName] = @name" };
                     cmd.Parameters.AddWithValue("@name", name);
                     DataSet equipmentDS = await SQLite.FillDataSet(cmd, _con);
-
-                    string leftRingText = equipmentDS.Tables[0].Rows[0]["LeftRing"].ToString();
-                    string rightRingText = equipmentDS.Tables[0].Rows[0]["RightRing"].ToString();
+                    DataRow eDR = equipmentDS.Tables[0].Rows[0];
+                    string leftRingText = eDR["LeftRing"].ToString();
+                    string rightRingText = eDR["RightRing"].ToString();
 
                     Ring leftRing = new Ring();
                     Ring rightRing = new Ring();
@@ -359,39 +358,39 @@ namespace Sulimn.Classes.Database
                     if (!string.IsNullOrWhiteSpace(rightRingText))
                         rightRing = GameState.AllRings.Find(x => x.Name == rightRingText);
 
-                    string className = ds.Tables[0].Rows[i]["Class"].ToString();
+                    string className = dr["Class"].ToString();
                     Hero newHero = new Hero(
                     name,
-                    ds.Tables[0].Rows[i]["CharacterPassword"].ToString(),
+                    dr["CharacterPassword"].ToString(),
                     new HeroClass(
                     GameState.AllClasses.Find(
                     heroClass => heroClass.Name == className)),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Level"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Experience"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["SkillPoints"]),
+                    Int32Helper.Parse(dr["Level"]),
+                    Int32Helper.Parse(dr["Experience"]),
+                    Int32Helper.Parse(dr["SkillPoints"]),
                     new Attributes(
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"])),
+                    Int32Helper.Parse(dr["Strength"]),
+                    Int32Helper.Parse(dr["Vitality"]),
+                    Int32Helper.Parse(dr["Dexterity"]),
+                    Int32Helper.Parse(dr["Wisdom"])),
                     new Statistics(
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentHealth"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumHealth"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["CurrentMagic"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MaximumMagic"])),
+                    Int32Helper.Parse(dr["CurrentHealth"]),
+                    Int32Helper.Parse(dr["MaximumHealth"]),
+                    Int32Helper.Parse(dr["CurrentMagic"]),
+                    Int32Helper.Parse(dr["MaximumMagic"])),
                     new Equipment(
-                    GameState.AllWeapons.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Weapon"].ToString()),
-                    GameState.AllHeadArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Head"].ToString()),
-                    GameState.AllBodyArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Body"].ToString()),
-                    GameState.AllHandArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Hands"].ToString()),
-                    GameState.AllLegArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Legs"].ToString()),
-                    GameState.AllFeetArmor.Find(x => x.Name == equipmentDS.Tables[0].Rows[0]["Feet"].ToString()),
+                    GameState.AllWeapons.Find(x => x.Name == eDR["Weapon"].ToString()),
+                    GameState.AllHeadArmor.Find(x => x.Name == eDR["Head"].ToString()),
+                    GameState.AllBodyArmor.Find(x => x.Name == eDR["Body"].ToString()),
+                    GameState.AllHandArmor.Find(x => x.Name == eDR["Hands"].ToString()),
+                    GameState.AllLegArmor.Find(x => x.Name == eDR["Legs"].ToString()),
+                    GameState.AllFeetArmor.Find(x => x.Name == eDR["Feet"].ToString()),
                     leftRing,
                     rightRing),
-                    GameState.SetSpellbook(ds.Tables[0].Rows[i]["KnownSpells"].ToString()),
-                    GameState.SetInventory(ds.Tables[0].Rows[i]["Inventory"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Gold"])),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["Hardcore"]));
+                    GameState.SetSpellbook(dr["KnownSpells"].ToString()),
+                    GameState.SetInventory(dr["Inventory"].ToString(),
+                    Int32Helper.Parse(dr["Gold"])),
+                    BoolHelper.Parse(dr["Hardcore"]));
 
                     allHeroes.Add(newHero);
                 }
@@ -446,16 +445,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM HeadArmor", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     HeadArmor newHeadArmor = new HeadArmor(
-                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["ArmorName"].ToString(),
+                    dr["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(dr["ArmorDefense"]),
+                    Int32Helper.Parse(dr["ArmorWeight"]),
+                    Int32Helper.Parse(dr["ArmorValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allHeadArmor.Add(newHeadArmor);
                 }
@@ -471,16 +470,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM BodyArmor", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     BodyArmor newBodyArmor = new BodyArmor(
-                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["ArmorName"].ToString(),
+                    dr["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(dr["ArmorDefense"]),
+                    Int32Helper.Parse(dr["ArmorWeight"]),
+                    Int32Helper.Parse(dr["ArmorValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allBodyArmor.Add(newBodyArmor);
                 }
@@ -496,16 +495,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM HandArmor", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     HandArmor newHandArmor = new HandArmor(
-                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["ArmorName"].ToString(),
+                    dr["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(dr["ArmorDefense"]),
+                    Int32Helper.Parse(dr["ArmorWeight"]),
+                    Int32Helper.Parse(dr["ArmorValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allHandArmor.Add(newHandArmor);
                 }
@@ -521,16 +520,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM LegArmor", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     LegArmor newLegArmor = new LegArmor(
-                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["ArmorName"].ToString(),
+                    dr["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(dr["ArmorDefense"]),
+                    Int32Helper.Parse(dr["ArmorWeight"]),
+                    Int32Helper.Parse(dr["ArmorValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allLegArmor.Add(newLegArmor);
                 }
@@ -546,16 +545,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM FeetArmor", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     FeetArmor newFeetArmor = new FeetArmor(
-                    ds.Tables[0].Rows[i]["ArmorName"].ToString(),
-                    ds.Tables[0].Rows[i]["ArmorDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorDefense"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["ArmorValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["ArmorName"].ToString(),
+                    dr["ArmorDescription"].ToString(),
+                    Int32Helper.Parse(dr["ArmorDefense"]),
+                    Int32Helper.Parse(dr["ArmorWeight"]),
+                    Int32Helper.Parse(dr["ArmorValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allFeetArmor.Add(newFeetArmor);
                 }
@@ -573,22 +572,22 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Rings", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     Ring newRing = new Ring(
-                    ds.Tables[0].Rows[i]["Name"].ToString(),
+                    dr["Name"].ToString(),
                     ItemTypes.Ring,
-                    ds.Tables[0].Rows[i]["Description"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Damage"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Defense"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Strength"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Vitality"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Dexterity"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Wisdom"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Weight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["Value"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["Description"].ToString(),
+                    Int32Helper.Parse(dr["Damage"]),
+                    Int32Helper.Parse(dr["Defense"]),
+                    Int32Helper.Parse(dr["Strength"]),
+                    Int32Helper.Parse(dr["Vitality"]),
+                    Int32Helper.Parse(dr["Dexterity"]),
+                    Int32Helper.Parse(dr["Wisdom"]),
+                    Int32Helper.Parse(dr["Weight"]),
+                    Int32Helper.Parse(dr["Value"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allRings.Add(newRing);
                 }
@@ -604,18 +603,17 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Weapons", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    Enum.TryParse(ds.Tables[0].Rows[i]["WeaponType"].ToString(), out WeaponTypes currentWeaponType);
                     Weapon newWeapon = new Weapon(
-                    ds.Tables[0].Rows[i]["WeaponName"].ToString(),
-                    currentWeaponType,
-                    ds.Tables[0].Rows[i]["WeaponDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponDamage"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["WeaponValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["WeaponName"].ToString(),
+                    EnumHelper.Parse<WeaponTypes>(dr["WeaponType"].ToString()),
+                    dr["WeaponDescription"].ToString(),
+                    Int32Helper.Parse(dr["WeaponDamage"]),
+                    Int32Helper.Parse(dr["WeaponWeight"]),
+                    Int32Helper.Parse(dr["WeaponValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allWeapons.Add(newWeapon);
                 }
@@ -633,17 +631,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Potions", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    Enum.TryParse(ds.Tables[0].Rows[i]["PotionType"].ToString(), out PotionTypes currentPotionType);
                     Potion newPotion = new Potion(
-                    ds.Tables[0].Rows[i]["PotionName"].ToString(),
-                    currentPotionType,
-                    ds.Tables[0].Rows[i]["PotionDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionAmount"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["PotionValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["PotionName"].ToString(),
+                    EnumHelper.Parse<PotionTypes>(dr["PotionType"].ToString()),
+                    dr["PotionDescription"].ToString(),
+                    Int32Helper.Parse(dr["PotionAmount"]),
+                    Int32Helper.Parse(dr["PotionValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allPotions.Add(newPotion);
                 }
@@ -659,18 +656,17 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Food", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    Enum.TryParse(ds.Tables[0].Rows[i]["FoodType"].ToString(), out FoodTypes currentFoodType);
                     Food newFood = new Food(
-                    ds.Tables[0].Rows[i]["FoodName"].ToString(),
-                    currentFoodType,
-                    ds.Tables[0].Rows[i]["FoodDescription"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodAmount"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodWeight"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["FoodValue"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["CanSell"]),
-                    BoolHelper.Parse(ds.Tables[0].Rows[i]["IsSold"]));
+                    dr["FoodName"].ToString(),
+                    EnumHelper.Parse<FoodTypes>(dr["FoodType"].ToString()),
+                    dr["FoodDescription"].ToString(),
+                    Int32Helper.Parse(dr["FoodAmount"]),
+                    Int32Helper.Parse(dr["FoodWeight"]),
+                    Int32Helper.Parse(dr["FoodValue"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
 
                     allFood.Add(newFood);
                 }
@@ -686,17 +682,16 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Spells", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    Enum.TryParse(ds.Tables[0].Rows[i]["SpellType"].ToString(), out SpellTypes currentSpellType);
                     Spell newSpell = new Spell(
-                    ds.Tables[0].Rows[i]["SpellName"].ToString(),
-                    currentSpellType,
-                    ds.Tables[0].Rows[i]["SpellDescription"].ToString(),
-                    ds.Tables[0].Rows[i]["RequiredClass"].ToString(),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["RequiredLevel"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["MagicCost"]),
-                    Int32Helper.Parse(ds.Tables[0].Rows[i]["SpellAmount"]));
+                    dr["SpellName"].ToString(),
+                    EnumHelper.Parse<SpellTypes>(dr["SpellType"].ToString()),
+                    dr["SpellDescription"].ToString(),
+                    dr["RequiredClass"].ToString(),
+                    Int32Helper.Parse(dr["RequiredLevel"]),
+                    Int32Helper.Parse(dr["MagicCost"]),
+                    Int32Helper.Parse(dr["SpellAmount"]));
 
                     allSpells.Add(newSpell);
                 }

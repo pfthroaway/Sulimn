@@ -1,5 +1,6 @@
 ﻿using Extensions;
 using Extensions.Encryption;
+using Extensions.Enums;
 using Sulimn.Classes;
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.HeroParts;

@@ -20,14 +20,7 @@ namespace Sulimn.Classes.HeroParts
             return $"You learn {newSpell.Name}.";
         }
 
-        public sealed override string ToString()
-        {
-            string[] arrSpellNames = new string[Spells.Count];
-            for (int i = 0; i < Spells.Count; i++)
-                arrSpellNames[i] = Spells[i].Name;
-
-            return string.Join(",", arrSpellNames);
-        }
+        public sealed override string ToString() => string.Join(",", Spells);
 
         #region Constructors
 

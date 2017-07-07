@@ -21,14 +21,7 @@ namespace Sulimn.Classes.HeroParts
             return Items.OfType<T>().ToList();
         }
 
-        public sealed override string ToString()
-        {
-            string[] arrInventoryNames = new string[Items.Count];
-            for (int i = 0; i < Items.Count; i++)
-                arrInventoryNames[i] = Items[i].Name;
-
-            return string.Join(",", arrInventoryNames);
-        }
+        public sealed override string ToString() => string.Join(",", Items);
 
         #region Modifying Properties
 

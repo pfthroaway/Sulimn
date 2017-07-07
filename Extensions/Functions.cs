@@ -1,4 +1,5 @@
-﻿using Extensions.ListViewHelp;
+﻿using Extensions.Enums;
+using Extensions.ListViewHelp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 
 namespace Extensions
 {
+    /// <summary>Represents a collection of useful reusable methods.</summary>
     public class Functions
     {
         /// <summary>Verifies that the requested file exists and that its file size is greater than zero. If not, it extracts the embedded file to the local output folder.</summary>
@@ -210,7 +212,6 @@ namespace Extensions
                 default:
                     throw new ArgumentOutOfRangeException(nameof(keyType), keyType, null);
             }
-            txt.CaretIndex = txt.Text.Length;
         }
 
         #endregion Control Manipulation

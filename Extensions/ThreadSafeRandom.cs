@@ -8,7 +8,7 @@ namespace Extensions
     {
         [ThreadStatic] private static Random _local;
 
-        /// <summary>Returns a Random based on this thread.</summary>
+        /// <summary>Returns a Functions.GenerateRandomNumber based on this thread.</summary>
         public static Random ThisThreadsRandom => _local ??
                                                   (_local = new Random(
                                                       unchecked(Environment.TickCount * 31 +

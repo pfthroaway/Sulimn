@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,18 @@ namespace Extensions
         /// <returns>Returns true if character is a hyphen</returns>
         public static bool IsHyphen(this char c) => c.Equals('-');
 
+        /// <summary>Determines if a List is empty.</summary>
+        /// <typeparam name="T">Type of List</typeparam>
+        /// <param name="list">List being checked</param>
+        /// <returns>Returns true if empty</returns>
+        public static bool IsNullOrEmpty<T>(this IList<T> list) => (list == null || list.Count < 1);
+
+        /// <summary>Determines if a Dictionary is empty.</summary>
+        /// <typeparam name="T">Type of Dictionary</typeparam>
+        /// <param name="dictionary">Dictionary being checked</param>
+        /// <returns>Returns true if empty</returns>
+        public static bool IsNullOrEmpty<T, U>(this IDictionary<T, U> dictionary) => (dictionary == null || dictionary.Count < 1);
+
         /// <summary>Determines if this character is a period.</summary>
         /// <param name="c">Character to be evaluated</param>
         /// <returns>Returns true if character is a period</returns>
@@ -31,6 +44,23 @@ namespace Extensions
         /// <param name="c">Character to be evaluated</param>
         /// <returns>Returns true if character is a period or comma</returns>
         public static bool IsPeriodOrComma(this char c) => c.Equals('.') | c.Equals(',');
+
+        /// <summary>Formats DateTime.Now to my desired string format</summary>
+        /// <param name="dt">DateTime</param>
+        /// <returns>Formatted DateTime.Now</returns>
+        public static string NowToString(this DateTime dt) => DateTime.Now.ToString(@"yyyy\/MM\/dd hh\:mm\:ss tt");
+
+        /// <summary>Replaces an item in a List.</summary>
+        /// <typeparam name="T">Type of object being replaced</typeparam>
+        /// <param name="list">List</param>
+        /// <param name="original">Original item</param>
+        /// <param name="replacement">Replacement item</param>
+        public static void Replace<T>(this IList<T> list, T original, T replacement)
+        {
+            int index = list.IndexOf(original);
+            if (index >= 0)
+                list[index] = replacement;
+        }
 
         /// <summary>Shuffles a List.</summary>
         /// <typeparam name="T">Generic Type</typeparam>

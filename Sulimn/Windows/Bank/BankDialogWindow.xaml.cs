@@ -1,4 +1,5 @@
 ﻿using Extensions;
+using Extensions.Enums;
 using Sulimn.Classes;
 using Sulimn.Classes.Enums;
 using System.ComponentModel;
