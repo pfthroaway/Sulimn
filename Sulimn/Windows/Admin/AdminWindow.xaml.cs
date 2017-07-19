@@ -18,6 +18,7 @@ namespace Sulimn.Windows.Admin
         private void BtnManageUsers_Click(object sender, RoutedEventArgs e)
         {
             ManageUsersWindow manageUsersWindow = new ManageUsersWindow { RefToAdminWindow = this };
+            manageUsersWindow.RefreshItemsSource();
             manageUsersWindow.Show();
             Visibility = Visibility.Hidden;
         }

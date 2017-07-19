@@ -36,6 +36,12 @@ namespace Sulimn.Windows.Admin
 
         #endregion Button Manipulation
 
+        internal void RefreshItemsSource()
+        {
+            LstUsers.ItemsSource = _allHeroes;
+            LstUsers.Items.Refresh();
+        }
+
         #region Button-Click Methods
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
@@ -48,7 +54,7 @@ namespace Sulimn.Windows.Admin
 
         private void BtnManageUser_Click(object sender, RoutedEventArgs e)
         {
-            ManageUserWindow manageUserWindow = new ManageUserWindow { RefToManageUsersWindow = this };
+            ManageUserWindow manageUserWindow = new ManageUserWindow { PreviousWindow = this };
             manageUserWindow.LoadWindow((Hero)LstUsers.SelectedValue);
             manageUserWindow.Show();
             Visibility = Visibility.Hidden;
@@ -72,7 +78,6 @@ namespace Sulimn.Windows.Admin
         public ManageUsersWindow()
         {
             InitializeComponent();
-            LstUsers.ItemsSource = _allHeroes;
         }
 
         private void LstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)

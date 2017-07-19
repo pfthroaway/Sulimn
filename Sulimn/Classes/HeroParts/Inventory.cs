@@ -115,12 +115,26 @@ namespace Sulimn.Classes.HeroParts
             Gold = gold;
         }
 
-        /// <summary>Replaces this instance of Inventory with another instance.</summary>
-        /// <param name="otherInventory">Instance of Inventory to replace this instance</param>
-        public Inventory(Inventory otherInventory)
+        /// <summary>Initializes an instance of Inventory by assigning the Inventory.</summary>
+        /// <param name="itemList">List of Items in Inventory</param>
+        /// <param name="gold">Gold</param>
+        public Inventory(string itemList, int gold)
         {
-            _items = new List<Item>(otherInventory.Items);
-            Gold = otherInventory.Gold;
+            List<Item> newItems = new List<Item>();
+            if (itemList.Length > 0)
+            {
+                string[] items = itemList.Split(',');
+                foreach (string str in items)
+                    newItems.Add(GameState.AllItems.Find(item => item.Name == str.Trim()));
+            }
+            _items = newItems;
+            Gold = gold;
+        }
+
+        /// <summary>Replaces this instance of Inventory with another instance.</summary>
+        /// <param name="other">Instance of Inventory to replace this instance</param>
+        public Inventory(Inventory other) : this(new List<Item>(other.Items), other.Gold)
+        {
         }
 
         #endregion Constructors

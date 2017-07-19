@@ -8,9 +8,9 @@ Style="{StaticResource WindowStyle}"
 Title="New Hero" WindowStartupLocation="CenterScreen" Closing="WindowNewHero_Closing">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -30,13 +30,13 @@ Title="New Hero" WindowStartupLocation="CenterScreen" Closing="WindowNewHero_Clo
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="Hero Name:" HorizontalAlignment="Center" Margin="0,0,0,5" />
+            <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Text="Hero Name:" HorizontalAlignment="Center" Margin="0,0,0,5" />
             <TextBox x:Name="TxtHeroName" Grid.Column="0" Grid.Row="1" Width="200" TextChanged="TxtHeroName_Changed" TextAlignment="Center" MaxLength="20" PreviewKeyDown="TxtHeroName_PreviewKeyDown" Margin="0,0,0,10" Padding="5" GotFocus="TxtHeroName_GotFocus" />
             <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Text="Password:" HorizontalAlignment="Center" Margin="0,0,0,5" />
             <PasswordBox x:Name="PswdPassword" Grid.Column="0" Grid.Row="3" Width="200" PasswordChanged="Pswd_Changed" HorizontalContentAlignment="Center" GotFocus="Pswd_GotFocus" Margin="0,0,0,10" Padding="5" />
             <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Text="Confirm Password:" HorizontalAlignment="Center" Margin="0,0,0,5" />
-            <PasswordBox x:Name="PswdConfirm" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Width="200" PasswordChanged="Pswd_Changed" HorizontalContentAlignment="Center" GotFocus="Pswd_GotFocus" Margin="0,0,0,10" Padding="5" />
-            <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="Hardcore:" HorizontalAlignment="Center" Margin="5,5,5,0" />
+            <PasswordBox x:Name="PswdConfirm" Grid.Column="0" Grid.Row="5" Width="200" PasswordChanged="Pswd_Changed" HorizontalContentAlignment="Center" GotFocus="Pswd_GotFocus" Margin="0,0,0,10" Padding="5" />
+            <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Text="Hardcore:" HorizontalAlignment="Center" Margin="5,5,5,0" />
             <CheckBox x:Name="ChkHardcore" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{DynamicResource CheckBoxControlTemplate}" />
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,10,10">
@@ -50,7 +50,7 @@ Title="New Hero" WindowStartupLocation="CenterScreen" Closing="WindowNewHero_Clo
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select a Class" Margin="5,5,5,0" />
             <ListBox x:Name="LstClasses" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="140" Margin="5" SelectionChanged="LstClasses_SelectionChanged" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Visible" AlternationCount="2" />
-            <Border Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5" BorderThickness="1" BorderBrush="#BDC7C1" Background="#000066">
+            <Border Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="130" Width="300" Margin="10,5" BorderThickness="1" BorderBrush="#CCCCCC">
                 <TextBlock Text="{Binding Path=Description, Mode=TwoWay}" TextWrapping="Wrap" Margin="5" />
             </Border>
         </Grid>

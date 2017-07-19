@@ -178,6 +178,24 @@ namespace Sulimn.Classes
 
         #region Hero Management
 
+        /// <summary>Modifies a Hero's details in the database.</summary>
+        /// <param name="oldHero">Hero whose details need to be modified</param>
+        /// <param name="newHero">Hero with new details</param>
+        /// <returns>True if successful</returns>
+        internal static async Task<bool> ChangeHeroDetails(Hero oldHero, Hero newHero)
+        {
+            bool success = false;
+            if (await DatabaseInteraction.ChangeHeroDetails(oldHero, newHero))
+            {
+                Hero currentHero = AllHeroes.Find(hero => hero.Name == oldHero.Name);
+                currentHero.Name = newHero.Name;
+                currentHero.Password = newHero.Password;
+                //AllHeroes.Replace(oldHero, currentHero);
+                success = true;
+            }
+            return success;
+        }
+
         /// <summary>Deletes a Hero from the game and database.</summary>
         /// <param name="deleteHero">Hero to be deleted</param>
         /// <returns>Whether deletion was successful</returns>

@@ -184,7 +184,7 @@ namespace Sulimn.Windows.Characters
                         new Ring()),
                         new Spellbook(),
                         new Inventory(new List<Item>(), 250),
-                        ChkHardcore.IsChecked != null ? ChkHardcore.IsChecked.Value : false);
+                        ChkHardcore.IsChecked ?? false);
 
                         if (await GameState.NewHero(newHero))
                         {

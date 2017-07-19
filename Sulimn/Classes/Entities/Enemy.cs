@@ -9,7 +9,7 @@ namespace Sulimn.Classes.Entities
 
         /// <summary>The Enemy takes Damage.</summary>
         /// <param name="damage">Amount damaged</param>
-        /// <returns>Text saying the Enemy took damageJesus</returns>
+        /// <returns>Text saying the Enemy took damage</returns>
         internal string TakeDamage(int damage)
         {
             Statistics.CurrentHealth -= damage;

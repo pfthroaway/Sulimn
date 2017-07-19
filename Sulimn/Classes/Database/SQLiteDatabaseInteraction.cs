@@ -17,7 +17,7 @@ namespace Sulimn.Classes.Database
     /// <summary>Represents database interaction covered by SQLite.</summary>
     internal class SQLiteDatabaseInteraction : IDatabaseInteraction
     {
-        private readonly string _con = $"Data Source = {_DATABASENAME}; Version = 3; PRAGMA foreign_keys = ON";
+        private readonly string _con = $"Data Source = {_DATABASENAME}; foreign keys = TRUE;Version = 3; ";
 
         // ReSharper disable once InconsistentNaming
         private const string _DATABASENAME = "Sulimn.sqlite";
@@ -34,6 +34,20 @@ namespace Sulimn.Classes.Database
         #endregion Database Interaction
 
         #region Hero Management
+
+        /// <summary>Modifies a Hero's details in the database.</summary>
+        /// <param name="oldHero">Hero whose details need to be modified</param>
+        /// <param name="newHero">Hero with new details</param>
+        /// <returns>True if successful</returns>
+        public async Task<bool> ChangeHeroDetails(Hero oldHero, Hero newHero)
+        {
+            SQLiteCommand cmd = new SQLiteCommand { CommandText = "UPDATE Players Set [CharacterName] = @name, [CharacterPassword] = @password WHERE [CharacterName] = @oldName" };
+            cmd.Parameters.AddWithValue("name", newHero.Name);
+            cmd.Parameters.AddWithValue("password", newHero.Password);
+            cmd.Parameters.AddWithValue("oldName", oldHero.Name);
+
+            return await SQLite.ExecuteCommand(_con, cmd);
+        }
 
         /// <summary>Deletes a Hero from the game and database.</summary>
         /// <param name="deleteHero">Hero to be deleted</param>
@@ -195,8 +209,8 @@ namespace Sulimn.Classes.Database
 
         #region Load
 
-        /// <summary>Loads the initial Bank state and Hero's Bank information..</summary>
-        internal async Task<Bank> LoadBank(Hero bankHero)
+        /// <summary>Loads the initial Bank state and Hero's Bank information.</summary>
+        public async Task<Bank> LoadBank(Hero bankHero)
         {
             Bank heroBank = new Bank();
 

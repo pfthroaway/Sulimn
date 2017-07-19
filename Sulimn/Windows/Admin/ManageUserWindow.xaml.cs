@@ -9,51 +9,94 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Extensions.DataTypeHelpers;
+using Extensions.Encryption;
 
 namespace Sulimn.Windows.Admin
 {
-    /// <summary>
-    /// Interaction logic for ManageUserWindow.xaml
-    /// </summary>
+    /// <summary>Interaction logic for ManageUserWindow.xaml</summary>
     public partial class ManageUserWindow : INotifyPropertyChanged
     {
-        private readonly List<BodyArmor> _allBodyArmor = GameState.GetItemsOfType<BodyArmor>();
-        private readonly List<HeroClass> _allClasses = new List<HeroClass>(GameState.AllClasses);
-        private readonly List<FeetArmor> _allFeetArmor = GameState.GetItemsOfType<FeetArmor>();
-        private readonly List<HeadArmor> _allHeadArmor = GameState.GetItemsOfType<HeadArmor>();
-        private readonly List<LegArmor> _allLegsArmor = GameState.GetItemsOfType<LegArmor>();
-        private readonly List<Weapon> _allWeapons = new List<Weapon>(GameState.GetItemsOfType<Weapon>());
-        private Hero _modifyHero = new Hero();
         private Hero _originalHero = new Hero();
 
-        internal ManageUsersWindow RefToManageUsersWindow { private get; set; }
+        internal ManageUsersWindow PreviousWindow { private get; set; }
 
         #region Display Manipulation
 
-        /// <summary>
-        /// Displays the Hero as it was when the Window was loaded.
-        /// </summary>
+        /// <summary>Determines if buttons should be enabled.</summary>
+        private void CheckInput()
+        {
+            //bool enabled = TxtHeroName.Text.Length > 0 && CmbClass.SelectedIndex >= 0 && TxtLevel.Text.Length > 0 &&
+            //               TxtExperience.Text.Length > 0 && TxtSkillPoints.Text.Length > 0 &&
+            //               TxtStrength.Text.Length > 0 && TxtVitality.Text.Length > 0 && TxtDexterity.Text.Length > 0 &&
+            //               TxtWisdom.Text.Length > 0 && TxtCurrentHealth.Text.Length > 0 &&
+            //               TxtMaximumHealth.Text.Length > 0 && TxtCurrentMagic.Text.Length > 0 &&
+            //               TxtMaximumMagic.Text.Length > 0 && TxtGold.Text.Length > 0 && CmbWeapon.SelectedIndex >= 0 &&
+            //               CmbHead.SelectedIndex >= 0 && CmbBody.SelectedIndex >= 0 && CmbHands.SelectedIndex >= 0 &&
+            //               CmbLegs.SelectedIndex >= 0 && CmbFeet.SelectedIndex >= 0 &&
+            //               TxtHeroName.Text != _originalHero.Name |
+            //               (HeroClass)CmbClass.SelectedValue != _originalHero.Class |
+            //               TxtLevel.Text != _originalHero.Level.ToString() |
+            //               TxtExperience.Text != _originalHero.Experience.ToString() |
+            //               TxtSkillPoints.Text != _originalHero.SkillPoints.ToString() |
+            //               TxtStrength.Text != _originalHero.TotalStrength.ToString() |
+            //               TxtVitality.Text != _originalHero.TotalVitality.ToString() |
+            //               TxtDexterity.Text != _originalHero.TotalDexterity.ToString() |
+            //               TxtWisdom.Text != _originalHero.TotalWisdom.ToString() |
+            //               TxtCurrentHealth.Text != _originalHero.Statistics.CurrentHealth.ToString() |
+            //               TxtCurrentMagic.Text != _originalHero.Statistics.CurrentMagic.ToString() |
+            //               TxtMaximumHealth.Text != _originalHero.Statistics.MaximumHealth.ToString() |
+            //               TxtMaximumMagic.Text != _originalHero.Statistics.MaximumMagic.ToString() |
+            //               TxtGold.Text != _originalHero.Inventory.Gold.ToString() |
+            //               TxtInventory.Text != _originalHero.Inventory.ToString() |
+            //               (Weapon)CmbWeapon.SelectedValue != _originalHero.Equipment.Weapon |
+            //               (HeadArmor)CmbHead.SelectedValue != _originalHero.Equipment.Head |
+            //               (BodyArmor)CmbBody.SelectedValue != _originalHero.Equipment.Body |
+            //               (HandArmor)CmbHands.SelectedValue != _originalHero.Equipment.Hands |
+            //               (LegArmor)CmbLegs.SelectedValue != _originalHero.Equipment.Legs |
+            //               (FeetArmor)CmbFeet.SelectedValue != _originalHero.Equipment.Feet |
+            //               (CmbLeftRing.SelectedIndex >= 0 && (Ring)CmbLeftRing.SelectedValue !=
+            //                _originalHero.Equipment.LeftRing) |
+            //               (CmbRightRing.SelectedIndex >= 0 && (Ring)CmbRightRing.SelectedValue !=
+            //                _originalHero.Equipment.RightRing) |
+            //               (PswdPassword.Password.Length > 0 && PswdConfirm.Password.Length > 0);
+            //BtnSave.IsEnabled = enabled;
+            //BtnReset.IsEnabled = enabled;
+        }
+
+        /// <summary>Displays the Hero as it was when the Window was loaded.</summary>
         private void DisplayOriginalHero()
         {
             TxtHeroName.Text = _originalHero.Name;
+            ChkHardcore.IsChecked = _originalHero.Hardcore;
             TxtLevel.Text = _originalHero.Level.ToString();
             TxtExperience.Text = _originalHero.Experience.ToString();
             TxtSkillPoints.Text = _originalHero.SkillPoints.ToString();
-            TxtStrength.Text = _originalHero.Attributes.Strength.ToString();
-            TxtVitality.Text = _originalHero.Attributes.Vitality.ToString();
-            TxtDexterity.Text = _originalHero.Attributes.Dexterity.ToString();
-            TxtWisdom.Text = _originalHero.Attributes.Wisdom.ToString();
+            TxtStrength.Text = _originalHero.TotalStrength.ToString();
+            TxtVitality.Text = _originalHero.TotalVitality.ToString();
+            TxtDexterity.Text = _originalHero.TotalDexterity.ToString();
+            TxtWisdom.Text = _originalHero.TotalWisdom.ToString();
             TxtGold.Text = _originalHero.Inventory.Gold.ToString();
+            TxtInventory.Text = _originalHero.Inventory.ToString();
             TxtCurrentHealth.Text = _originalHero.Statistics.CurrentHealth.ToString();
             TxtMaximumHealth.Text = _originalHero.Statistics.MaximumHealth.ToString();
             TxtCurrentMagic.Text = _originalHero.Statistics.CurrentMagic.ToString();
             TxtMaximumMagic.Text = _originalHero.Statistics.MaximumMagic.ToString();
             CmbHead.SelectedValue = _originalHero.Equipment.Head;
             CmbBody.SelectedValue = _originalHero.Equipment.Body;
+            CmbHands.SelectedValue = _originalHero.Equipment.Hands;
             CmbLegs.SelectedValue = _originalHero.Equipment.Legs;
             CmbFeet.SelectedValue = _originalHero.Equipment.Feet;
+            CmbLeftRing.SelectedValue = _originalHero.Equipment.LeftRing;
+            CmbRightRing.SelectedValue = _originalHero.Equipment.RightRing;
             CmbWeapon.SelectedValue = _originalHero.Equipment.Weapon;
             CmbClass.SelectedValue = _originalHero.Class;
+        }
+
+        private void Reset()
+        {
+            DisplayOriginalHero();
+            BindControls();
         }
 
         #endregion Display Manipulation
@@ -62,17 +105,18 @@ namespace Sulimn.Windows.Admin
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Binds information to controls.
-        /// </summary>
+        /// <summary>Binds information to controls.</summary>
         private void BindControls()
         {
-            CmbClass.ItemsSource = _allClasses;
-            CmbWeapon.ItemsSource = _allWeapons;
-            CmbHead.ItemsSource = _allHeadArmor;
-            CmbBody.ItemsSource = _allBodyArmor;
-            CmbLegs.ItemsSource = _allLegsArmor;
-            CmbFeet.ItemsSource = _allFeetArmor;
+            CmbClass.ItemsSource = GameState.AllClasses;
+            CmbWeapon.ItemsSource = GameState.AllWeapons;
+            CmbHead.ItemsSource = GameState.AllHeadArmor;
+            CmbBody.ItemsSource = GameState.AllBodyArmor;
+            CmbHands.ItemsSource = GameState.AllHandArmor;
+            CmbLegs.ItemsSource = GameState.AllLegArmor;
+            CmbFeet.ItemsSource = GameState.AllFeetArmor;
+            CmbLeftRing.ItemsSource = GameState.AllRings;
+            CmbRightRing.ItemsSource = GameState.AllRings;
 
             DisplayOriginalHero();
         }
@@ -86,7 +130,7 @@ namespace Sulimn.Windows.Admin
 
         #region Input Manipulation
 
-        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void Txt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Functions.PreviewKeyDown(e, KeyType.Letters);
         }
@@ -96,18 +140,78 @@ namespace Sulimn.Windows.Admin
             Functions.PreviewKeyDown(e, KeyType.Integers);
         }
 
+        private void Txt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Functions.TextBoxTextChanged(sender, KeyType.Letters);
+        }
+
+        private void Integers_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Functions.TextBoxTextChanged(sender, KeyType.Integers);
+        }
+
+        private void Txt_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Functions.TextBoxGotFocus(sender);
+        }
+
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Functions.PasswordBoxGotFocus(sender);
+        }
+
+        private void TxtInventory_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            Functions.PreviewKeyDown(e, KeyType.LettersSpaceComma);
+        }
+
+        private void TxtInventory_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Functions.TextBoxTextChanged(sender, KeyType.LettersSpaceComma);
+        }
+
         #endregion Input Manipulation
 
         #region Button-Click Methods
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (TxtHeroName.Text.Length >= 4 &&
+                (PswdPassword.Password.Length == 0 && PswdConfirm.Password.Length == 0 ||
+                 PswdPassword.Password.Length >= 4 && PswdConfirm.Password.Length >= 4) &&
+                PswdPassword.Password == PswdConfirm.Password)
+            {
+                string password = PswdPassword.Password.Length >= 0
+                    ? Argon2.HashPassword(PswdPassword.Password)
+                    : _originalHero.Password;
+
+                if (TxtHeroName.Text != _originalHero.Name || PswdPassword.Password.Length >= 4)
+                    await GameState.ChangeHeroDetails(_originalHero,
+                        new Hero { Name = TxtHeroName.Text, Password = password });
+                Hero newHero = new Hero(TxtHeroName.Text, password, (HeroClass)CmbClass.SelectedItem,
+                    Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
+                    Int32Helper.Parse(TxtSkillPoints.Text),
+                    new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text),
+                        Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
+                    new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text),
+                        Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem, (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem, (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(), CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
+                    new Spellbook(_originalHero.Spellbook), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)), ChkHardcore.IsChecked ?? false);
+
+                if (await GameState.SaveHero(newHero))
+                    CloseWindow();
+            }
+            else if (PswdPassword.Password.Length != 0 && PswdConfirm.Password.Length != 0 &&
+                     PswdPassword.Password.Length < 4 && PswdConfirm.Password.Length < 4)
+                GameState.DisplayNotification("Please ensure the new password is 4 or more characters in length.", "Sulimn", this);
+            else if (PswdPassword.Password != PswdConfirm.Password)
+                GameState.DisplayNotification("Please ensure the passwords match.", "Sulimn", this);
+            else if (TxtHeroName.Text.Length < 4)
+                GameState.DisplayNotification("Please ensure the hero name and password are at least 4 characters long.", "Sulimn", this);
         }
 
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
-            DisplayOriginalHero();
-            _modifyHero = new Hero(_originalHero);
+            Reset();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -119,9 +223,7 @@ namespace Sulimn.Windows.Admin
 
         #region Window-Manipulation Methods
 
-        /// <summary>
-        /// Closes the Window.
-        /// </summary>
+        /// <summary>Closes the Window.</summary>
         private void CloseWindow()
         {
             Close();
@@ -129,7 +231,6 @@ namespace Sulimn.Windows.Admin
 
         internal void LoadWindow(Hero manageHero)
         {
-            _modifyHero = new Hero(manageHero);
             _originalHero = new Hero(manageHero);
             BindControls();
         }
@@ -139,15 +240,10 @@ namespace Sulimn.Windows.Admin
             InitializeComponent();
         }
 
-        private void TxtHeroName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Functions.TextBoxTextChanged(sender, KeyType.Letters);
-            TxtHeroName.CaretIndex = TxtHeroName.Text.Length;
-        }
-
         private void WindowManageUsers_Closing(object sender, CancelEventArgs e)
         {
-            RefToManageUsersWindow.Show();
+            PreviousWindow.RefreshItemsSource();
+            PreviousWindow.Show();
         }
 
         #endregion Window-Manipulation Methods

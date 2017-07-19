@@ -8,7 +8,7 @@ namespace Extensions.DataTypeHelpers
     {
         /// <summary>Utilizes int.TryParse to easily Parse an Integer.</summary>
         /// <param name="text">Text to be parsed</param>
-        /// <returns></returns>
+        /// <returns>Parsed integer</returns>
         public static int Parse(string text)
         {
             int.TryParse(text, out int temp);

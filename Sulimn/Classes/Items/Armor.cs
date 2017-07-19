@@ -2,6 +2,7 @@
 
 namespace Sulimn.Classes.Items
 {
+    /// <summary>Represents a piece of Armor.</summary>
     internal class Armor : Item, IEquatable<Armor>
     {
         private int _defense;

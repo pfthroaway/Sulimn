@@ -75,7 +75,7 @@ namespace Sulimn.Classes.Entities
             private set
             {
                 _spellbook = value;
-                OnPropertyChanged("KnownSpells");
+                OnPropertyChanged("Spellbook");
             }
         }
 
