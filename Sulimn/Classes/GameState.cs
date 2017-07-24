@@ -5,11 +5,13 @@ using Sulimn.Classes.Database;
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
+using Sulimn.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sulimn.Classes
 {
@@ -42,6 +44,18 @@ namespace Sulimn.Classes
         internal static FeetArmor DefaultFeet = new FeetArmor();
 
         internal static SQLiteDatabaseInteraction DatabaseInteraction = new SQLiteDatabaseInteraction();
+
+        internal static MainWindow MainWindow { get; set; }
+
+        internal static double CurrentPageWidth { get; set; }
+        internal static double CurrentPageHeight { get; set; }
+
+        internal static void CalculateScale(Grid grid)
+        {
+            CurrentPageHeight = grid.ActualHeight;
+            CurrentPageWidth = grid.ActualWidth;
+            MainWindow.CalculateScale();
+        }
 
         /// <summary>Changes the administrator password in the database.</summary>
         /// <param name="newPassword">New administrator password</param>
@@ -406,38 +420,26 @@ namespace Sulimn.Classes
 
         /// <summary>Displays a new Notification in a thread-safe way.</summary>
         /// <param name="message">Message to be displayed</param>
-        /// <param name="title">Title of the Notification Window</param>
+        /// <param name="title">Title of the Notification window</param>
         internal static void DisplayNotification(string message, string title)
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                new Notification(message, title, NotificationButtons.OK).ShowDialog();
-            });
-        }
-
-        /// <summary>Displays a new Notification in a thread-safe way.</summary>
-        /// <param name="message">Message to be displayed</param>
-        /// <param name="title">Title of the Notification Window</param>
-        /// <param name="window">Window being referenced</param>
-        internal static void DisplayNotification(string message, string title, Window window)
-        {
-            Application.Current.Dispatcher.Invoke(delegate
-            {
-                new Notification(message, title, NotificationButtons.OK, window).ShowDialog();
+                new Notification(message, title, NotificationButtons.OK, MainWindow).ShowDialog();
             });
         }
 
         /// <summary>Displays a new Notification in a thread-safe way and retrieves a boolean result upon its closing.</summary>
         /// <param name="message">Message to be displayed</param>
-        /// <param name="title">Title of the Notification Window</param>
-        /// <param name="window">Window being referenced</param>
+        /// <param name="title">Title of the Notification window</param>
+        /// <param name="window">window being referenced</param>
         /// <returns>Returns value of clicked button on Notification.</returns>
-        internal static bool YesNoNotification(string message, string title, Window window)
+        internal static bool YesNoNotification(string message, string title)
         {
             bool result = false;
             Application.Current.Dispatcher.Invoke(delegate
             {
-                if (new Notification(message, title, NotificationButtons.YesNo, window).ShowDialog() == true)
+                if (new Notification(message, title, NotificationButtons.YesNo, MainWindow).ShowDialog() == true)
                     result = true;
             });
             return result;

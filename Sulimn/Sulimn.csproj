@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Windows\S.ico</ApplicationIcon>
+    <ApplicationIcon>Pages\S.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -118,209 +118,216 @@
     <Compile Include="Classes\Items\Ring.cs" />
     <Compile Include="Classes\HeroParts\Statistics.cs" />
     <Compile Include="Classes\Items\HandArmor.cs" />
-    <Compile Include="EncounterWindow.xaml.cs">
-      <DependentUpon>EncounterWindow.xaml</DependentUpon>
+    <Compile Include="EncounterPage.xaml.cs">
+      <DependentUpon>EncounterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Characters\InventoryWindow.xaml.cs">
-      <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Characters\InventoryPage.xaml.cs">
+      <DependentUpon>InventoryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shopping\SilverEmpireWindow.xaml.cs">
-      <DependentUpon>SilverEmpireWindow.xaml</DependentUpon>
+    <Compile Include="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shopping\TheGeneralStoreWindow.xaml.cs">
-      <DependentUpon>TheGeneralStoreWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\SilverEmpirePage.xaml.cs">
+      <DependentUpon>SilverEmpirePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shopping\TheTavernBarWindow.xaml.cs">
-      <DependentUpon>TheTavernBarWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\TheGeneralStorePage.xaml.cs">
+      <DependentUpon>TheGeneralStorePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shopping\WeaponsRUsWindow.xaml.cs">
-      <DependentUpon>WeaponsRUsWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\TheTavernBarPage.xaml.cs">
+      <DependentUpon>TheTavernBarPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Admin\AdminNewUserWindow.xaml.cs">
-      <DependentUpon>AdminNewUserWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\WeaponsRUsPage.xaml.cs">
+      <DependentUpon>WeaponsRUsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shopping\TheArmouryWindow.xaml.cs">
-      <DependentUpon>TheArmouryWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Admin\AdminNewUserPage.xaml.cs">
+      <DependentUpon>AdminNewUserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Admin\AdminChangePasswordWindow.xaml.cs">
-      <DependentUpon>AdminChangePasswordWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\TheArmouryPage.xaml.cs">
+      <DependentUpon>TheArmouryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Admin\AdminPasswordWindow.xaml.cs">
-      <DependentUpon>AdminPasswordWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Admin\AdminChangePasswordPage.xaml.cs">
+      <DependentUpon>AdminChangePasswordPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Admin\AdminWindow.xaml.cs">
-      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Admin\AdminPasswordPage.xaml.cs">
+      <DependentUpon>AdminPasswordPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Bank\BankDialogWindow.xaml.cs">
-      <DependentUpon>BankDialogWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Admin\AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Bank\BankWindow.xaml.cs">
-      <DependentUpon>BankWindow.xaml</DependentUpon>
+    <Compile Include="Pages\BankPages\BankDialogPage.xaml.cs">
+      <DependentUpon>BankDialogPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Battle\BattleWindow.xaml.cs">
-      <DependentUpon>BattleWindow.xaml</DependentUpon>
+    <Compile Include="Pages\BankPages\BankPage.xaml.cs">
+      <DependentUpon>BankPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Gambling\BlackjackWindow.xaml.cs">
-      <DependentUpon>BlackjackWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Battle\BattlePage.xaml.cs">
+      <DependentUpon>BattlePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Characters\CastSpellWindow.xaml.cs">
-      <DependentUpon>CastSpellWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Gambling\BlackjackPage.xaml.cs">
+      <DependentUpon>BlackjackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\CatacombsWindow.xaml.cs">
-      <DependentUpon>CatacombsWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Characters\CastSpellPage.xaml.cs">
+      <DependentUpon>CastSpellPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\CathedralWindow.xaml.cs">
-      <DependentUpon>CathedralWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\CatacombsPage.xaml.cs">
+      <DependentUpon>CatacombsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Characters\CharacterWindow.xaml.cs">
-      <DependentUpon>CharacterWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\CathedralPage.xaml.cs">
+      <DependentUpon>CathedralPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\CityWindow.xaml.cs">
-      <DependentUpon>CityWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Characters\CharacterPage.xaml.cs">
+      <DependentUpon>CharacterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Battle\EnemyDetailsWindow.xaml.cs">
-      <DependentUpon>EnemyDetailsWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\CityPage.xaml.cs">
+      <DependentUpon>CityPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\ExploreWindow.xaml.cs">
-      <DependentUpon>ExploreWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Battle\EnemyDetailsPage.xaml.cs">
+      <DependentUpon>EnemyDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\FieldsWindow.xaml.cs">
-      <DependentUpon>FieldsWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\ExplorePage.xaml.cs">
+      <DependentUpon>ExplorePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\ForestWindow.xaml.cs">
-      <DependentUpon>ForestWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\FieldsPage.xaml.cs">
+      <DependentUpon>FieldsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Options\HeroChangePasswordWindow.xaml.cs">
-      <DependentUpon>HeroChangePasswordWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\ForestPage.xaml.cs">
+      <DependentUpon>ForestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Admin\ManageUsersWindow.xaml.cs">
-      <DependentUpon>ManageUsersWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Options\HeroChangePasswordPage.xaml.cs">
+      <DependentUpon>HeroChangePasswordPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Admin\ManageUserWindow.xaml.cs">
-      <DependentUpon>ManageUserWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Admin\ManageUsersPage.xaml.cs">
+      <DependentUpon>ManageUsersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shopping\MarketWindow.xaml.cs">
-      <DependentUpon>MarketWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Admin\ManageUserPage.xaml.cs">
+      <DependentUpon>ManageUserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\MinesWindow.xaml.cs">
-      <DependentUpon>MinesWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\MarketPage.xaml.cs">
+      <DependentUpon>MarketPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Characters\NewHeroWindow.xaml.cs">
-      <DependentUpon>NewHeroWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\MinesPage.xaml.cs">
+      <DependentUpon>MinesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Exploration\SpecialEncounterWindow.xaml.cs">
-      <DependentUpon>SpecialEncounterWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Characters\NewHeroPage.xaml.cs">
+      <DependentUpon>NewHeroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exploration\SpecialEncounterPage.xaml.cs">
+      <DependentUpon>SpecialEncounterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\HeroParts\Spell.cs" />
     <Compile Include="Classes\HeroParts\Spellbook.cs" />
-    <Compile Include="Windows\Exploration\TavernWindow.xaml.cs">
-      <DependentUpon>TavernWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Exploration\TavernPage.xaml.cs">
+      <DependentUpon>TavernPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Items\Weapon.cs" />
-    <Compile Include="Windows\Shopping\MagickShoppeWindow.xaml.cs">
-      <DependentUpon>MagickShoppeWindow.xaml</DependentUpon>
+    <Compile Include="Pages\Shopping\MagickShoppePage.xaml.cs">
+      <DependentUpon>MagickShoppePage.xaml</DependentUpon>
     </Compile>
-    <Page Include="EncounterWindow.xaml">
+    <Page Include="EncounterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Characters\InventoryWindow.xaml">
+    <Page Include="Pages\Characters\InventoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\SilverEmpireWindow.xaml">
+    <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\TheGeneralStoreWindow.xaml">
+    <Page Include="Pages\Shopping\SilverEmpirePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\TheTavernBarWindow.xaml">
+    <Page Include="Pages\Shopping\TheGeneralStorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\WeaponsRUsWindow.xaml">
+    <Page Include="Pages\Shopping\TheTavernBarPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Admin\AdminNewUserWindow.xaml">
+    <Page Include="Pages\Shopping\WeaponsRUsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\TheArmouryWindow.xaml">
+    <Page Include="Pages\Admin\AdminNewUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Admin\AdminChangePasswordWindow.xaml">
+    <Page Include="Pages\Shopping\TheArmouryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Admin\AdminPasswordWindow.xaml">
+    <Page Include="Pages\Admin\AdminChangePasswordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Admin\AdminWindow.xaml">
+    <Page Include="Pages\Admin\AdminPasswordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Bank\BankDialogWindow.xaml">
+    <Page Include="Pages\Admin\AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Bank\BankWindow.xaml">
+    <Page Include="Pages\BankPages\BankDialogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Battle\BattleWindow.xaml">
+    <Page Include="Pages\BankPages\BankPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Gambling\BlackjackWindow.xaml">
+    <Page Include="Pages\Battle\BattlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Characters\CastSpellWindow.xaml">
+    <Page Include="Pages\Gambling\BlackjackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\CatacombsWindow.xaml">
+    <Page Include="Pages\Characters\CastSpellPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\CathedralWindow.xaml">
+    <Page Include="Pages\Exploration\CatacombsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Characters\CharacterWindow.xaml">
+    <Page Include="Pages\Exploration\CathedralPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\CityWindow.xaml">
+    <Page Include="Pages\Characters\CharacterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Battle\EnemyDetailsWindow.xaml">
+    <Page Include="Pages\Exploration\CityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\ExploreWindow.xaml">
+    <Page Include="Pages\Battle\EnemyDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\FieldsWindow.xaml">
+    <Page Include="Pages\Exploration\ExplorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\ForestWindow.xaml">
+    <Page Include="Pages\Exploration\FieldsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Options\HeroChangePasswordWindow.xaml">
+    <Page Include="Pages\Exploration\ForestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\MainWindow.xaml">
+    <Page Include="Pages\Options\HeroChangePasswordPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -338,39 +345,39 @@
     <Compile Include="Classes\HeroParts\HeroClass.cs" />
     <Compile Include="Classes\HeroParts\Inventory.cs" />
     <Compile Include="Classes\Items\Item.cs" />
-    <Compile Include="Windows\MainWindow.xaml.cs">
+    <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\Admin\ManageUsersWindow.xaml">
+    <Page Include="Pages\Admin\ManageUsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Admin\ManageUserWindow.xaml">
+    <Page Include="Pages\Admin\ManageUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\MarketWindow.xaml">
+    <Page Include="Pages\Shopping\MarketPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\MinesWindow.xaml">
+    <Page Include="Pages\Exploration\MinesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Characters\NewHeroWindow.xaml">
+    <Page Include="Pages\Characters\NewHeroPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\SpecialEncounterWindow.xaml">
+    <Page Include="Pages\Exploration\SpecialEncounterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Exploration\TavernWindow.xaml">
+    <Page Include="Pages\Exploration\TavernPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Shopping\MagickShoppeWindow.xaml">
+    <Page Include="Pages\Shopping\MagickShoppePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -406,7 +413,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Windows\S.ico" />
+    <Resource Include="Pages\S.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
