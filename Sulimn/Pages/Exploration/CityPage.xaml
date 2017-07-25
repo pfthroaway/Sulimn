@@ -19,7 +19,7 @@ Title="City of Sulimn">
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtCity" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="350" Padding="5" TextWrapping="Wrap" TextAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" IsReadOnly="True" Width="530" />
+        <TextBox x:Name="TxtCity" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="350" TextWrapping="Wrap" TextAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" IsReadOnly="True" Width="530" />
         <Button x:Name="BtnExplore" Grid.Column="0" Grid.Row="1" Margin="0,0,10,10" Click="BtnExplore_Click" Width="125">
             <AccessText>_Explore</AccessText>
         </Button>

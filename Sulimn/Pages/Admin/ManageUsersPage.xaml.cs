@@ -55,7 +55,7 @@ namespace Sulimn.Pages.Admin
         {
             ManageUserPage manageUserPage = new ManageUserPage { PreviousPage = this };
             manageUserPage.LoadPage((Hero)LstUsers.SelectedValue);
-            GameState.MainWindow.MainFrame.Navigate(manageUserPage);
+            GameState.Navigate(manageUserPage);
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -70,7 +70,7 @@ namespace Sulimn.Pages.Admin
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public ManageUsersPage()

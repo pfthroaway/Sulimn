@@ -130,12 +130,12 @@ namespace Sulimn.Pages.Characters
         {
             CastSpellPage castSpellPage = new CastSpellPage { RefToCharacterPage = this };
             castSpellPage.LoadPage("Character");
-            GameState.MainWindow.MainFrame.Navigate(castSpellPage);
+            GameState.Navigate(castSpellPage);
         }
 
         private void BtnInventory_Click(object sender, RoutedEventArgs e)
         {
-            GameState.MainWindow.MainFrame.Navigate(new InventoryPage { RefToCharacterPage = this });
+            GameState.Navigate(new InventoryPage { RefToCharacterPage = this });
         }
 
         private void BtnReset_Click(object sender, RoutedEventArgs e)
@@ -258,7 +258,7 @@ namespace Sulimn.Pages.Characters
             }
             await GameState.SaveHero(GameState.CurrentHero);
 
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public CharacterPage()

@@ -653,7 +653,7 @@ Margin="0,0,0,10">
             <TextBlock x:Name="LblGold" Width="281" Text="{Binding Path=GoldToStringWithText}" TextAlignment="Center" />
         </StackPanel>
         <TextBox x:Name="TxtInventory" Grid.Row="2" Margin="0,0,0,10" Height="120" Width="863" IsReadOnly="True"
- TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" />
+ TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         <Button x:Name="BtnBack" Grid.Row="3" Width="125" Click="BtnBack_Click"
 Margin="10,0,0,0" IsCancel="True">
             <AccessText>_Back</AccessText>

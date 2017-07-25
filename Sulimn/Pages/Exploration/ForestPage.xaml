@@ -20,7 +20,7 @@ Title="Forest">
         </Grid.RowDefinitions>
         <TextBox x:Name="TxtForest" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415"
  Margin="10" TextWrapping="Wrap"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" IsReadOnly="True" />
+ ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
         <Button x:Name="BtnClearing" Grid.Column="0" Grid.Row="1" Width="125" Margin="10" Click="BtnClearing_Click">
             <AccessText>_Clearing</AccessText>
         </Button>

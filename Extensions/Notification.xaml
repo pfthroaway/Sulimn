@@ -6,13 +6,13 @@
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
         Title="Notification" WindowStartupLocation="CenterScreen" Icon="Resources/Information.png">
-    <Window.Resources>
+    <!--<Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionaries/Default.xaml" />
+                <ResourceDictionary Source="Dictionaries/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </Window.Resources>-->
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />

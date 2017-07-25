@@ -37,11 +37,11 @@ namespace Sulimn.Pages.Admin
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.NavigationService.GoBack();
+            GameState.GoBack();
             if (_admin)
-            {
-                GameState.MainWindow.LoadAdmin();
-            }
+                GameState.Navigate(new AdminPage());
+            else
+                GameState.MainWindow.MnuAdmin.IsEnabled = true;
         }
 
         public AdminPasswordPage()

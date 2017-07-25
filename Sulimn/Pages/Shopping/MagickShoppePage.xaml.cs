@@ -70,7 +70,7 @@ namespace Sulimn.Pages.Shopping
             characterPage.SetupChar();
             characterPage.SetPreviousPage("Magick Shoppe");
             characterPage.BindLabels();
-            GameState.MainWindow.MainFrame.Navigate(characterPage);
+            GameState.Navigate(characterPage);
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -86,7 +86,7 @@ namespace Sulimn.Pages.Shopping
         private async void ClosePage()
         {
             await GameState.SaveHero(GameState.CurrentHero);
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public MagickShoppePage()

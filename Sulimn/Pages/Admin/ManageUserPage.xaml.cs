@@ -226,7 +226,7 @@ namespace Sulimn.Pages.Admin
         private void ClosePage()
         {
             PreviousPage.RefreshItemsSource();
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         internal void LoadPage(Hero manageHero)

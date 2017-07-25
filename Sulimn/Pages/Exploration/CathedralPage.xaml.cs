@@ -25,7 +25,7 @@ namespace Sulimn.Pages.Exploration
         {
             BattlePage battlePage = new BattlePage { RefToCathedralPage = this };
             battlePage.PrepareBattle("Cathedral");
-            GameState.MainWindow.MainFrame.Navigate(battlePage);
+            GameState.Navigate(battlePage);
         }
 
         #region Button-Click Methods
@@ -163,7 +163,7 @@ namespace Sulimn.Pages.Exploration
             else
                 RefToExplorePage.HardcoreDeath();
 
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public CathedralPage()

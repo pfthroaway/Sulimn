@@ -49,7 +49,7 @@ namespace Sulimn.Pages.Battle
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public EnemyDetailsPage()

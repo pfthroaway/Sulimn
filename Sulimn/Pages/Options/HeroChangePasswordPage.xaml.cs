@@ -44,7 +44,7 @@ namespace Sulimn.Pages.Options
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public HeroChangePasswordPage()

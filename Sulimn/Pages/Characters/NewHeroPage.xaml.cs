@@ -267,10 +267,10 @@ namespace Sulimn.Pages.Characters
             if (_startGame)
             {
                 PreviousPage.ClearInput();
-                GameState.MainWindow.MainFrame.Navigate(new CityPage());
+                GameState.Navigate(new CityPage());
             }
             else
-                GameState.MainWindow.MainFrame.GoBack();
+                GameState.GoBack();
         }
 
         public NewHeroPage()

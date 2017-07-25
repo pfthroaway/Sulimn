@@ -17,12 +17,12 @@ namespace Sulimn.Pages.Admin
         {
             ManageUsersPage manageUsersPage = new ManageUsersPage();
             manageUsersPage.RefreshItemsSource();
-            GameState.MainWindow.MainFrame.Navigate(manageUsersPage);
+            GameState.Navigate(manageUsersPage);
         }
 
         private void BtnChangeAdminPassword_Click(object sender, RoutedEventArgs e)
         {
-            GameState.MainWindow.MainFrame.Navigate(new AdminChangePasswordPage());
+            GameState.Navigate(new AdminChangePasswordPage());
         }
 
         private void BtnManageArmor_Click(object sender, RoutedEventArgs e)
@@ -56,8 +56,9 @@ namespace Sulimn.Pages.Admin
         /// <summary>Closes the Page.</summary>
         private static void ClosePage()
         {
-            GameState.MainWindow.MainFrame.NavigationService.RemoveBackEntry();
-            GameState.MainWindow.MainFrame.NavigationService.GoBack();
+            GameState.MainWindow.MainFrame.RemoveBackEntry();
+            GameState.GoBack();
+            GameState.MainWindow.MnuAdmin.IsEnabled = true;
         }
 
         public AdminPage()

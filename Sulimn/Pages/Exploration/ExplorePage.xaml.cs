@@ -43,7 +43,7 @@ namespace Sulimn.Pages.Exploration
         private void BtnCatacombs_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
-                GameState.MainWindow.MainFrame.Navigate(new CatacombsPage { RefToExplorePage = this });
+                GameState.Navigate(new CatacombsPage { RefToExplorePage = this });
             else
                 Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
@@ -51,7 +51,7 @@ namespace Sulimn.Pages.Exploration
         private void BtnCathedral_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
-                GameState.MainWindow.MainFrame.Navigate(new CathedralPage { RefToExplorePage = this });
+                GameState.Navigate(new CathedralPage { RefToExplorePage = this });
             else
                 Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
@@ -59,7 +59,7 @@ namespace Sulimn.Pages.Exploration
         private void BtnFields_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
-                GameState.MainWindow.MainFrame.Navigate(new FieldsPage { RefToExplorePage = this });
+                GameState.Navigate(new FieldsPage { RefToExplorePage = this });
             else
                 Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
@@ -67,7 +67,7 @@ namespace Sulimn.Pages.Exploration
         private void BtnForest_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
-                GameState.MainWindow.MainFrame.Navigate(new ForestPage { RefToExplorePage = this });
+                GameState.Navigate(new ForestPage { RefToExplorePage = this });
             else
                 Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
@@ -75,7 +75,7 @@ namespace Sulimn.Pages.Exploration
         private void BtnMines_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
-                GameState.MainWindow.MainFrame.Navigate(new MinesPage { RefToExplorePage = this });
+                GameState.Navigate(new MinesPage { RefToExplorePage = this });
             else
                 Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
@@ -88,7 +88,7 @@ namespace Sulimn.Pages.Exploration
         {
             if (_hardcoreDeath)
                 RefToCityPage.HardcoreDeath();
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public ExplorePage()

@@ -26,7 +26,7 @@ namespace Sulimn.Pages
         private void Login()
         {
             ClearInput();
-            GameState.MainWindow.MainFrame.Navigate(new CityPage());
+            GameState.Navigate(new CityPage());
         }
 
         #endregion Login
@@ -35,7 +35,7 @@ namespace Sulimn.Pages
 
         private void BtnNewHero_Click(object sender, RoutedEventArgs e)
         {
-            GameState.MainWindow.MainFrame.Navigate(new NewHeroPage());
+            GameState.Navigate(new NewHeroPage { PreviousPage = this });
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)

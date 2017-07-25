@@ -25,7 +25,7 @@ namespace Sulimn.Pages.Exploration
         {
             Battle.BattlePage battlePage = new Battle.BattlePage { RefToForestPage = this };
             battlePage.PrepareBattle("Forest");
-            GameState.MainWindow.MainFrame.Navigate(battlePage);
+            GameState.Navigate(battlePage);
         }
 
         /// <summary>Special encounter.</summary>
@@ -142,7 +142,7 @@ namespace Sulimn.Pages.Exploration
             else
                 RefToExplorePage.HardcoreDeath();
 
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public ForestPage()

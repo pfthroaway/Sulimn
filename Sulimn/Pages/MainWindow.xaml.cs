@@ -2,6 +2,8 @@
 using Sulimn.Pages.Admin;
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace Sulimn.Pages
 {
@@ -57,17 +59,76 @@ namespace Sulimn.Pages
             ScaleValue = (double)OnCoerceScaleValue(WindowMain, value);
         }
 
-        internal void LoadAdmin()
+        /// <summary>Updates the current theme.</summary>
+        /// <param name="theme">Theme name</param>
+        /// <param name="update">Write to database?</param>
+        private async void UpdateTheme(string theme, bool update = true)
         {
-            MainFrame.Navigate(new AdminPage());
+            Application.Current.Resources.Source = new Uri($"pack://application:,,,/Extensions;component/Dictionaries/{theme}.xaml", UriKind.RelativeOrAbsolute);
+            MainFrame.Style = (Style)FindResource(typeof(Frame));
+            Page newPage = MainFrame.Content as Page;
+            if (newPage != null)
+                newPage.Style = (Style)FindResource("PageStyle");
+            Style = (Style)FindResource("WindowStyle");
+            Menu.Style = (Style)FindResource(typeof(Menu));
+            switch (theme)
+            {
+                case "Dark":
+                    MnuOptionsChangeThemeDark.IsChecked = true;
+                    MnuOptionsChangeThemeDefault.IsChecked = false;
+                    MnuOptionsChangeThemeGrey.IsChecked = false;
+                    break;
+
+                case "Grey":
+                    MnuOptionsChangeThemeDark.IsChecked = false;
+                    MnuOptionsChangeThemeDefault.IsChecked = false;
+                    MnuOptionsChangeThemeGrey.IsChecked = true;
+                    break;
+
+                case "Default":
+                    MnuOptionsChangeThemeDark.IsChecked = false;
+                    MnuOptionsChangeThemeDefault.IsChecked = true;
+                    MnuOptionsChangeThemeGrey.IsChecked = false;
+                    break;
+
+                default:
+
+                    MnuOptionsChangeThemeDark.IsChecked = false;
+                    MnuOptionsChangeThemeDefault.IsChecked = false;
+                    MnuOptionsChangeThemeGrey.IsChecked = false;
+                    break;
+            }
+
+            if (update)
+                await GameState.ChangeTheme(theme);
         }
+
+        #region Menu Click
 
         private void MnuAdmin_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new AdminPasswordPage());
+            MnuAdmin.IsEnabled = false;
         }
 
         private void MnuFileExit_Click(object sender, RoutedEventArgs e) => Close();
+
+        private void MnuOptionsChangeThemeDark_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateTheme("Dark");
+        }
+
+        private void MnuOptionsChangeThemeGrey_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateTheme("Grey");
+        }
+
+        private void MnuOptionsChangeThemeDefault_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateTheme("Default");
+        }
+
+        #endregion Menu Click
 
         public MainWindow()
         {
@@ -77,22 +138,8 @@ namespace Sulimn.Pages
         private async void WindowMain_Loaded(object sender, RoutedEventArgs e)
         {
             GameState.MainWindow = this;
+            UpdateTheme(await GameState.LoadTheme(), false);
             await GameState.LoadAll();
-        }
-
-        private void MnuOptionsChangeThemeDark_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Resources.Source = new Uri("pack://application:,,,/Extensions;component/Dictionaries/Dark.xaml", UriKind.RelativeOrAbsolute);
-        }
-
-        private void MnuOptionsChangeThemeGrey_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Resources.Source = new Uri("pack://application:,,,/Extensions;component/Dictionaries/Grey.xaml", UriKind.RelativeOrAbsolute);
-        }
-
-        private void MnuOptionsChangeThemeDefault_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Resources.Source = new Uri("pack://application:,,,/Extensions;component/Dictionaries/Default.xaml", UriKind.RelativeOrAbsolute);
         }
 
         private void MainFrame_OnSizeChanged(object sender, SizeChangedEventArgs e)

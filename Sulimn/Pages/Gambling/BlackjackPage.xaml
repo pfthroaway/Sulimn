@@ -19,7 +19,7 @@ Style="{StaticResource PageStyle}"
                 <TextBlock x:Name="LblPlayerTotal" Text="{Binding Path=Value, Mode=OneWay}" TextAlignment="Center" Margin="5" />
             </StackPanel>
             <TextBox x:Name="TxtBlackjack" Width="326" Height="215" Margin="5" IsReadOnly="True"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Padding="5" TextWrapping="Wrap" />
+ ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" />
             <StackPanel Width="185">
                 <TextBlock Text="Dealer's Cards" TextAlignment="Center" Margin="5" />
                 <ListBox x:Name="LstDealer" ItemsSource="{Binding}" Margin="5" Height="149" />
@@ -48,7 +48,7 @@ Style="{StaticResource PageStyle}"
                 <TextBlock Text="Bet:" TextAlignment="Center" Margin="5" />
                 <TextBox x:Name="TxtBet" TextAlignment="Center" Margin="5" Width="105"
  PreviewKeyDown="TxtBet_PreviewKeyDown" TextChanged="TxtBet_TextChanged" MaxLength="6"
- Padding="5" GotFocus="TxtBet_GotFocus" />
+ GotFocus="TxtBet_GotFocus" />
                 <TextBlock x:Name="LblGold" Width="105" Text="{Binding Path=GoldToStringWithText}" TextAlignment="Center" Margin="5" />
             </StackPanel>
             <StackPanel VerticalAlignment="Center">

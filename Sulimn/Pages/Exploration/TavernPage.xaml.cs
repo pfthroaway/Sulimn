@@ -12,11 +12,11 @@ namespace Sulimn.Pages.Exploration
 
         #region Button-Click Methods
 
-        private void BtnBlackjack_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new BlackjackPage());
+        private void BtnBlackjack_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new BlackjackPage());
 
         private void BtnExit_Click(object sender, RoutedEventArgs e) => ClosePage();
 
-        private void BtnFood_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new TheTavernBarPage());
+        private void BtnFood_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheTavernBarPage());
 
         #endregion Button-Click Methods
 
@@ -25,7 +25,7 @@ namespace Sulimn.Pages.Exploration
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public TavernPage()

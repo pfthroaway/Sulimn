@@ -57,7 +57,7 @@ namespace Sulimn.Pages.BankPages
             BankDialogPage bankDialogPage = new BankDialogPage();
             bankDialogPage.LoadPage(maximum, type);
             bankDialogPage.RefToBankPage = this;
-            GameState.MainWindow.MainFrame.Navigate(bankDialogPage);
+            GameState.Navigate(bankDialogPage);
         }
 
         /// <summary>Loads the initial Bank state and Hero's Bank information..</summary>
@@ -110,7 +110,7 @@ namespace Sulimn.Pages.BankPages
         {
             await Task.Run(() => GameState.SaveHero(GameState.CurrentHero));
             await Task.Run(() => GameState.SaveHeroBank(HeroBank.GoldInBank, HeroBank.LoanTaken));
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public BankPage()

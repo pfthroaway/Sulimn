@@ -11,23 +11,23 @@ namespace Sulimn.Pages.Shopping
 
         #region Button-Click Methods
 
-        private void BtnWeaponShop_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(
+        private void BtnWeaponShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(
             new WeaponsRUsPage { RefToMarketPage = this });
 
-        private void BtnArmorShop_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(
+        private void BtnArmorShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(
             new TheArmouryPage { RefToMarketPage = this });
 
-        private void BtnGeneralStore_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new TheGeneralStorePage { RefToMarketPage = this });
+        private void BtnGeneralStore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheGeneralStorePage { RefToMarketPage = this });
 
         private void BtnMagicShop_Click(object sender, RoutedEventArgs e)
         {
             MagickShoppePage magickShoppePage = new MagickShoppePage { RefToMarketPage = this };
             magickShoppePage.LoadAll();
-            GameState.MainWindow.MainFrame.Navigate(magickShoppePage);
+            GameState.Navigate(magickShoppePage);
         }
 
         private void BtnSilverEmpire_Click(object sender, RoutedEventArgs e) =>
-            GameState.MainWindow.MainFrame.Navigate(new SilverEmpirePage { RefToMarketPage = this });
+            GameState.Navigate(new SilverEmpirePage { RefToMarketPage = this });
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -41,7 +41,7 @@ namespace Sulimn.Pages.Shopping
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public MarketPage()

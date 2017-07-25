@@ -22,7 +22,7 @@ namespace Sulimn.Pages.Exploration
         {
             BankPage bankPage = new BankPage();
             bankPage.LoadBank();
-            GameState.MainWindow.MainFrame.Navigate(bankPage);
+            GameState.Navigate(bankPage);
         }
 
         private async void BtnChapel_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace Sulimn.Pages.Exploration
             characterPage.SetupChar();
             characterPage.SetPreviousPage("City");
             characterPage.BindLabels();
-            GameState.MainWindow.MainFrame.Navigate(characterPage);
+            GameState.Navigate(characterPage);
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
@@ -62,13 +62,13 @@ namespace Sulimn.Pages.Exploration
                 ClosePage();
         }
 
-        private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new ExplorePage());
+        private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ExplorePage());
 
-        private void BtnMarket_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new MarketPage());
+        private void BtnMarket_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new MarketPage());
 
-        private void BtnOptions_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new HeroChangePasswordPage());
+        private void BtnOptions_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new HeroChangePasswordPage());
 
-        private void BtnTavern_Click(object sender, RoutedEventArgs e) => GameState.MainWindow.MainFrame.Navigate(new TavernPage());
+        private void BtnTavern_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TavernPage());
 
         #endregion Button-Click Methods
 
@@ -77,7 +77,7 @@ namespace Sulimn.Pages.Exploration
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public CityPage()

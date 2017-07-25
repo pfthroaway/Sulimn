@@ -122,5 +122,18 @@ namespace Sulimn.Classes.Database
         Task<bool> SaveHeroPassword(Hero saveHero);
 
         #endregion Hero Management
+
+        #region Theme Management
+
+        /// <summary>Loads the current theme from the database.</summary>
+        /// <returns>Current theme</returns>
+        Task<string> LoadTheme();
+
+        /// <summary>Changes the current theme in the database.</summary>
+        /// <param name="theme">Current theme</param>
+        /// <returns>True if successful</returns>
+        Task<bool> ChangeTheme(string theme);
+
+        #endregion Theme Management
     }
 }

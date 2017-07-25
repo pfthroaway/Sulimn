@@ -17,7 +17,7 @@ namespace Sulimn.Pages.Exploration
         {
             Battle.BattlePage battlePage = new Battle.BattlePage { RefToCatacombsPage = this, };
             battlePage.PrepareBattle("Catacombs");
-            GameState.MainWindow.MainFrame.Navigate(battlePage);
+            GameState.Navigate(battlePage);
         }
 
         /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
@@ -126,7 +126,7 @@ namespace Sulimn.Pages.Exploration
             else
                 RefToExplorePage.HardcoreDeath();
 
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public CatacombsPage()

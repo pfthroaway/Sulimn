@@ -409,12 +409,12 @@ namespace Sulimn.Pages.Battle
             characterPage.SetupChar();
             characterPage.BindLabels();
             characterPage.SetPreviousPage("Battle");
-            GameState.MainWindow.MainFrame.Navigate(characterPage);
+            GameState.Navigate(characterPage);
         }
 
         private void BtnEnemyDetails_Click(object sender, RoutedEventArgs e)
         {
-            GameState.MainWindow.MainFrame.Navigate(new EnemyDetailsPage());
+            GameState.Navigate(new EnemyDetailsPage());
         }
 
         private async void BtnReturn_Click(object sender, RoutedEventArgs e)
@@ -459,14 +459,14 @@ namespace Sulimn.Pages.Battle
                 if (!_blnHardcoreDeath)
                     await GameState.SaveHero(GameState.CurrentHero);
             }
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
         {
             Characters.CastSpellPage castSpellPage = new Characters.CastSpellPage { RefToBattlePage = this };
             castSpellPage.LoadPage("Battle");
-            GameState.MainWindow.MainFrame.Navigate(castSpellPage);
+            GameState.Navigate(castSpellPage);
         }
 
         private void BtnFlee_Click(object sender, RoutedEventArgs e)

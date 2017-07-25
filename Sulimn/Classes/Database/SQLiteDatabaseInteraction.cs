@@ -715,5 +715,31 @@ namespace Sulimn.Classes.Database
         #endregion Items
 
         #endregion Load
+
+        #region Theme Management
+
+        /// <summary>Changes the current theme in the database.</summary>
+        /// <param name="theme">Current theme</param>
+        /// <returns>True if successful</returns>
+        public async Task<bool> ChangeTheme(string theme)
+        {
+            SQLiteCommand cmd = new SQLiteCommand { CommandText = "UPDATE Settings SET [Theme] = @theme" };
+            cmd.Parameters.AddWithValue("@theme", theme);
+            return await SQLite.ExecuteCommand(_con, cmd);
+        }
+
+        /// <summary>Loads the current theme from the database.</summary>
+        /// <returns>Current theme</returns>
+        public async Task<string> LoadTheme()
+        {
+            string theme = "Dark";
+            SQLiteCommand cmd = new SQLiteCommand { CommandText = "SELECT * FROM Settings" };
+            DataSet ds = await SQLite.FillDataSet(cmd, _con);
+            if (ds.Tables[0].Rows.Count > 0)
+                theme = ds.Tables[0].Rows[0]["Theme"].ToString();
+            return theme;
+        }
+
+        #endregion Theme Management
     }
 }

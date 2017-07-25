@@ -55,6 +55,21 @@ namespace Sulimn.Classes
             CurrentPageHeight = grid.ActualHeight;
             CurrentPageWidth = grid.ActualWidth;
             MainWindow.CalculateScale();
+
+            Page newPage = MainWindow.MainFrame.Content as Page;
+            if (newPage != null)
+                newPage.Style = (Style)MainWindow.FindResource("PageStyle");
+        }
+
+        internal static void Navigate(Page newPage)
+        {
+            MainWindow.MainFrame.Navigate(newPage);
+        }
+
+        internal static void GoBack()
+        {
+            if (MainWindow.MainFrame.CanGoBack)
+                MainWindow.MainFrame.GoBack();
         }
 
         /// <summary>Changes the administrator password in the database.</summary>
@@ -88,6 +103,21 @@ namespace Sulimn.Classes
                 DisplayNotification(ex.Message, "Sulimn");
                 return false;
             }
+        }
+
+        /// <summary>Loads the current theme from the database.</summary>
+        /// <returns>Current theme</returns>
+        internal static async Task<string> LoadTheme()
+        {
+            return await DatabaseInteraction.LoadTheme();
+        }
+
+        /// <summary>Changes the current theme in the database.</summary>
+        /// <param name="theme">Current theme</param>
+        /// <returns>True if successful</returns>
+        internal static async Task<bool> ChangeTheme(string theme)
+        {
+            return await DatabaseInteraction.ChangeTheme(theme);
         }
 
         /// <summary>Loads almost everything from the database.</summary>
@@ -432,7 +462,6 @@ namespace Sulimn.Classes
         /// <summary>Displays a new Notification in a thread-safe way and retrieves a boolean result upon its closing.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
-        /// <param name="window">window being referenced</param>
         /// <returns>Returns value of clicked button on Notification.</returns>
         internal static bool YesNoNotification(string message, string title)
         {

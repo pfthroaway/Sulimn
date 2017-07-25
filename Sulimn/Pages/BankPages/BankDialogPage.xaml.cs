@@ -171,7 +171,7 @@ namespace Sulimn.Pages.BankPages
             if (_actionText.Length > 0)
                 RefToBankPage.AddTextToTextBox(_actionText);
             RefToBankPage.CheckButtons();
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public BankDialogPage()

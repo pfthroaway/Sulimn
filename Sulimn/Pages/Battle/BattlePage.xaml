@@ -54,7 +54,7 @@ Title="Battle">
             <AccessText>_Details</AccessText>
         </Button>
         <TextBox x:Name="TxtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="513" Height="190"
- Margin="0,0,0,10" TextWrapping="Wrap" Padding="5"
+ Margin="0,0,0,10" TextWrapping="Wrap"
  ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
         <Button x:Name="BtnAttack" Grid.Column="0" Grid.Row="6" Width="125" Click="BtnAttack_Click" IsDefault="True" Margin="0,0,0,10">
             <AccessText>_Attack</AccessText>

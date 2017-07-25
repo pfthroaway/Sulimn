@@ -4,10 +4,12 @@
         <ResourceDictionary Source="Default/CheckBox.xaml" />
         <ResourceDictionary Source="Default/ComboBox.xaml" />
         <ResourceDictionary Source="Default/DatePicker.xaml" />
+        <ResourceDictionary Source="Default/Frame.xaml" />
         <ResourceDictionary Source="Default/GridView.xaml" />
         <ResourceDictionary Source="Default/GroupBox.xaml" />
         <ResourceDictionary Source="Default/ListBox.xaml" />
         <ResourceDictionary Source="Default/ListView.xaml" />
+        <ResourceDictionary Source="Default/Menu.xaml" />
         <ResourceDictionary Source="Default/Page.xaml" />
         <ResourceDictionary Source="Default/PasswordBox.xaml" />
         <ResourceDictionary Source="Default/TextBlock.xaml" />

@@ -509,7 +509,7 @@ namespace Sulimn.Pages.Gambling
             if (_handOver)
             {
                 await GameState.SaveHero(GameState.CurrentHero);
-                GameState.MainWindow.MainFrame.GoBack();
+                GameState.GoBack();
             }
         }
 

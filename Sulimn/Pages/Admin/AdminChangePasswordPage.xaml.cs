@@ -56,7 +56,7 @@ namespace Sulimn.Pages.Admin
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public AdminChangePasswordPage()

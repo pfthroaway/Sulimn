@@ -7,10 +7,11 @@ mc:Ignorable="d"
 Style="{StaticResource WindowStyle}"
 Title="Sulimn"
         WindowState="Maximized"
+        ResizeMode="CanResize"
         SizeToContent="Manual"
         Loaded="WindowMain_Loaded">
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu x:Name="Menu" DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <Separator />
                 <MenuItem x:Name="MnuFileExit" Header="_Exit" Click="MnuFileExit_Click" />
@@ -24,8 +25,7 @@ Title="Sulimn"
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ScrollViewer>
-            <Frame
+        <Frame
                 x:Name="MainFrame"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -35,14 +35,13 @@ Title="Sulimn"
                 Source="LoginPage.xaml"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch">
-                <Frame.LayoutTransform>
-                    <ScaleTransform x:Name="ApplicationScaleTransform"
+            <Frame.LayoutTransform>
+                <ScaleTransform x:Name="ApplicationScaleTransform"
                                     CenterX="0"
                                     CenterY="0"
                                     ScaleX="{Binding ElementName=WindowMain, Path=ScaleValue}"
                                     ScaleY="{Binding ElementName=WindowMain, Path=ScaleValue}" />
-                </Frame.LayoutTransform>
-            </Frame>
-        </ScrollViewer>
+            </Frame.LayoutTransform>
+        </Frame>
     </DockPanel>
 </Window>

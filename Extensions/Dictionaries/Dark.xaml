@@ -21,4 +21,13 @@
 
     <Color x:Key="AwesomeBlueColor">#0292FC</Color>
     <SolidColorBrush x:Key="AwesomeBlueBrush" Color="#0292FC" />
+
+    <!--
+    Background: #000033
+    Foreground: #CCCCCC
+    Control   : #000066, DarkBlue
+    HoverPress: #000099, #0000CC
+    Bright    : #0000CC
+    Border    : #0292FC
+    -->
 </ResourceDictionary>

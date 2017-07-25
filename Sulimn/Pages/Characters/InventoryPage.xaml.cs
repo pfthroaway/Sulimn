@@ -683,7 +683,7 @@ namespace Sulimn.Pages.Characters
         private async void ClosePage()
         {
             await GameState.SaveHero(GameState.CurrentHero);
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         public InventoryPage()

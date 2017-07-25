@@ -106,7 +106,7 @@ namespace Sulimn.Pages.Characters
         /// <summary>Closes the Page.</summary>
         private void ClosePage()
         {
-            GameState.MainWindow.MainFrame.GoBack();
+            GameState.GoBack();
         }
 
         private void LstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -20,7 +20,7 @@ Title="Market">
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBox x:Name="TxtMarket" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="680" Height="262"
- Padding="5" IsReadOnly="True"
+ IsReadOnly="True"
  ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
         <Button x:Name="BtnWeaponShop" Grid.Column="0" Grid.Row="1" Width="200" Click="BtnWeaponShop_Click" Margin="0,0,0,10">
             <AccessText>_Weapons 'R' Us</AccessText>

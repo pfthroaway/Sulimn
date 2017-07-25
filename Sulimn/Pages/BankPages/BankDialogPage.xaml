@@ -18,7 +18,7 @@ Title="Bank">
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="345" Height="100" Text="{Binding DialogText}" TextWrapping="Wrap" Margin="0,0,0,10" />
-        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="TxtBank" Width="125" Padding="5"
+        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="TxtBank" Width="125"
  Margin="0,0,0,10" TextAlignment="Center" MaxLength="6"
  PreviewKeyDown="TxtBank_PreviewKeyDown" GotFocus="TxtBank_GotFocus" TextChanged="TxtBank_TextChanged" />
         <Button x:Name="BtnAction" Grid.Column="0" Grid.Row="2" Width="125" Click="BtnAction_Click"

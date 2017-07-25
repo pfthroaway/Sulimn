@@ -21,7 +21,7 @@ Title="Bank">
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtBank" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Height="190" Padding="5" IsReadOnly="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
+        <TextBox x:Name="TxtBank" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Height="190" IsReadOnly="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
         <Button x:Name="BtnDeposit" Grid.Column="2" Grid.Row="1" Width="135" Click="BtnDeposit_Click">
             <AccessText>_Deposit</AccessText>
         </Button>

@@ -28,7 +28,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="#0094FF" />
+                            <Setter Property="BorderBrush" TargetName="border" Value="#0292FC" />
                         </Trigger>
                         <Trigger Property="IsCancel" Value="True">
                             <Setter Property="BorderBrush" TargetName="border" Value="#660000" />
