@@ -1,6 +1,5 @@
 ﻿using Extensions;
 using Sulimn.Classes;
-using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn.Pages.Exploration
@@ -134,10 +133,6 @@ namespace Sulimn.Pages.Exploration
             InitializeComponent();
             TxtCatacombs.Text =
             "You find the entrance to the catacombs, a long series of underground passages created throughout the last several hundred years. Thousands of people were buried here in crypts. You've heard of a shantytown down here, a place for the less fortunate to sleep at night. There is also supposed to be a large ravine down here to explore. Also, an ancient aqueduct system runs beneath the city, transporting water all over the city.";
-        }
-
-        private void PageCatacombs_Closing(object sender, CancelEventArgs e)
-        {
         }
 
         #endregion Page-Manipulation Methods

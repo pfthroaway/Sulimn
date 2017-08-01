@@ -2,6 +2,7 @@
 using Sulimn.Classes;
 using Sulimn.Classes.Enums;
 using Sulimn.Classes.Items;
+using Sulimn.Pages.Characters;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,8 +22,6 @@ namespace Sulimn.Pages.Shopping
         private Food _selectedFoodSell = new Food();
         private List<Food> _sellDrink = new List<Food>();
         private List<Food> _sellFood = new List<Food>();
-
-        internal Exploration.TavernPage RefToTavernPage { private get; set; }
 
         #region Data-Binding
 
@@ -241,11 +240,7 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage { RefToTheTavernBarPage = this };
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("The Tavern Bar");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

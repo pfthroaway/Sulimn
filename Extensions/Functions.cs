@@ -67,7 +67,7 @@ namespace Extensions
             string color)
         {
             Color selectedColor = Colors.Black;
-            if (!string.IsNullOrEmpty(color))
+            if (!string.IsNullOrWhiteSpace(color))
                 selectedColor = (Color)ColorConverter.ConvertFromString(color);
             GridViewColumnHeader column = (sender as GridViewColumnHeader);
             if (column != null)

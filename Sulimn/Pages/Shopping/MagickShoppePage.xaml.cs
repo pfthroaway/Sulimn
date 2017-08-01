@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Classes.HeroParts;
+using Sulimn.Pages.Characters;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,8 +15,6 @@ namespace Sulimn.Pages.Shopping
     {
         private List<Spell> _purchasableSpells = new List<Spell>();
         private Spell _selectedSpell = new Spell();
-
-        internal MarketPage RefToMarketPage { private get; set; }
 
         /// <summary>Loads all the required data.</summary>
         internal void LoadAll()
@@ -66,11 +65,7 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage { RefToMagickShoppePage = this };
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("Magick Shoppe");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

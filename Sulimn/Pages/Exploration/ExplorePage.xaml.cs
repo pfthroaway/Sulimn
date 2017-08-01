@@ -1,6 +1,5 @@
 ﻿using Extensions;
 using Sulimn.Classes;
-using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn.Pages.Exploration
@@ -101,10 +100,6 @@ namespace Sulimn.Pages.Exploration
             "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years.\n\n" +
             "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
             CheckButtons();
-        }
-
-        private void PageExplore_Closing(object sender, CancelEventArgs e)
-        {
         }
 
         #endregion Page-Generated Methods

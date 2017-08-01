@@ -1,11 +1,7 @@
-﻿using System.Windows.Controls;
-
-namespace Sulimn
+﻿namespace Sulimn
 {
-    /// <summary>
-    /// Interaction logic for EncounterPage.xaml
-    /// </summary>
-    public partial class EncounterPage : Page
+    /// <summary>Interaction logic for EncounterPage.xaml</summary>
+    public partial class EncounterPage
     {
         public EncounterPage()
         {

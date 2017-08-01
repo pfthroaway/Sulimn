@@ -18,8 +18,6 @@ namespace Sulimn.Pages.Shopping
         private Potion _selectedPotionSell = new Potion();
         private List<Potion> _sellPotion = new List<Potion>();
 
-        internal MarketPage RefToMarketPage { private get; set; }
-
         #region Data-Binding
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -163,11 +161,7 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            CharacterPage characterPage = new CharacterPage { RefToTheGeneralStorePage = this };
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("The General Store");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

@@ -47,9 +47,13 @@ namespace Sulimn.Classes
 
         internal static MainWindow MainWindow { get; set; }
 
+        #region Navigation
+
         internal static double CurrentPageWidth { get; set; }
         internal static double CurrentPageHeight { get; set; }
 
+        /// <summary>Calculates the scale needed for the MainWindow.</summary>
+        /// <param name="grid">Grid of current Page</param>
         internal static void CalculateScale(Grid grid)
         {
             CurrentPageHeight = grid.ActualHeight;
@@ -61,16 +65,21 @@ namespace Sulimn.Classes
                 newPage.Style = (Style)MainWindow.FindResource("PageStyle");
         }
 
+        /// <summary>Navigates to selected Page.</summary>
+        /// <param name="newPage">Page to navigate to.</param>
         internal static void Navigate(Page newPage)
         {
             MainWindow.MainFrame.Navigate(newPage);
         }
 
+        /// <summary>Navigates to the previous Page.</summary>
         internal static void GoBack()
         {
             if (MainWindow.MainFrame.CanGoBack)
                 MainWindow.MainFrame.GoBack();
         }
+
+        #endregion Navigation
 
         /// <summary>Changes the administrator password in the database.</summary>
         /// <param name="newPassword">New administrator password</param>
@@ -251,6 +260,7 @@ namespace Sulimn.Classes
                 AllHeroes.Remove(deleteHero);
                 if (CurrentHero == deleteHero)
                     CurrentHero = new Hero();
+                success = true;
             }
             return success;
         }
@@ -269,39 +279,51 @@ namespace Sulimn.Classes
         internal static async Task<bool> NewHero(Hero newHero)
         {
             bool success = false;
-            newHero.Equipment.Head = AllHeadArmor.Find(armr => armr.Name == DefaultHead.Name);
-            newHero.Equipment.Body = AllBodyArmor.Find(armr => armr.Name == DefaultBody.Name);
-            newHero.Equipment.Hands = AllHandArmor.Find(armr => armr.Name == DefaultHands.Name);
-            newHero.Equipment.Legs = AllLegArmor.Find(armr => armr.Name == DefaultLegs.Name);
-            newHero.Equipment.Feet = AllFeetArmor.Find(armr => armr.Name == DefaultFeet.Name);
-
-            switch (newHero.Class.Name)
+            if (newHero.Equipment.Head == null || newHero.Equipment.Head == new HeadArmor())
+                newHero.Equipment.Head = AllHeadArmor.Find(armr => armr.Name == DefaultHead.Name);
+            if (newHero.Equipment.Body == null || newHero.Equipment.Body == new BodyArmor())
+                newHero.Equipment.Body = AllBodyArmor.Find(armr => armr.Name == DefaultBody.Name);
+            if (newHero.Equipment.Hands == null || newHero.Equipment.Hands == new HandArmor())
+                newHero.Equipment.Hands = AllHandArmor.Find(armr => armr.Name == DefaultHands.Name);
+            if (newHero.Equipment.Legs == null || newHero.Equipment.Legs == new LegArmor())
+                newHero.Equipment.Legs = AllLegArmor.Find(armr => armr.Name == DefaultLegs.Name);
+            if (newHero.Equipment.Feet == null || newHero.Equipment.Feet == new FeetArmor())
+                newHero.Equipment.Feet = AllFeetArmor.Find(armr => armr.Name == DefaultFeet.Name);
+            if (newHero.Equipment.Weapon == null || newHero.Equipment.Weapon == new Weapon())
             {
-                case "Wizard":
-                    newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
-                    newHero.Spellbook.LearnSpell(AllSpells.Find(spell => spell.Name == "Fire Bolt"));
-                    break;
+                switch (newHero.Class.Name)
+                {
+                    case "Wizard":
+                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
+                        if (newHero.Spellbook == null || newHero.Spellbook == new Spellbook())
+                            newHero.Spellbook?.LearnSpell(AllSpells.Find(spell => spell.Name == "Fire Bolt"));
+                        break;
 
-                case "Cleric":
-                    newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
-                    newHero.Spellbook.LearnSpell(AllSpells.Find(spell => spell.Name == "Heal Self"));
-                    break;
+                    case "Cleric":
+                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
+                        if (newHero.Spellbook == null || newHero.Spellbook == new Spellbook())
+                            newHero.Spellbook?.LearnSpell(AllSpells.Find(spell => spell.Name == "Heal Self"));
+                        break;
 
-                case "Warrior":
-                    newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
-                    break;
+                    case "Warrior":
+                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
+                        break;
 
-                case "Rogue":
-                    newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Bow");
-                    break;
+                    case "Rogue":
+                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Bow");
+                        break;
 
-                default:
-                    newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
-                    break;
+                    default:
+                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
+                        break;
+                }
             }
 
-            for (int i = 0; i < 3; i++)
-                newHero.Inventory.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
+            if (newHero.Inventory == null || newHero.Inventory == new Inventory())
+            {
+                for (int i = 0; i < 3; i++)
+                    newHero.Inventory?.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
+            }
 
             if (await DatabaseInteraction.NewHero(newHero))
             {

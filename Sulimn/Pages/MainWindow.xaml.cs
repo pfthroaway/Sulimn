@@ -3,7 +3,6 @@ using Sulimn.Pages.Admin;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace Sulimn.Pages
 {
@@ -47,6 +46,7 @@ namespace Sulimn.Pages
 
         #endregion ScaleValue Depdency Property
 
+        /// <summary>Calculates the scale for the Window.</summary>
         internal void CalculateScale()
         {
             double yScale = ActualHeight / GameState.CurrentPageHeight;

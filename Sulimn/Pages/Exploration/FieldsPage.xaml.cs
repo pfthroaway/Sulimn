@@ -1,7 +1,6 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Pages.Battle;
-using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn.Pages.Exploration
@@ -150,10 +149,6 @@ namespace Sulimn.Pages.Exploration
             InitializeComponent();
             TxtFields.Text =
             "You enter the farmlands and head toward the crop fields. On the way, you see an abandoned farmhouse that is overgrown with weeds and vines. You stop at a crumbling stone wall that used to be its property line and see an overgrown door to a root cellar. In the distance, you see an orchard.";
-        }
-
-        private void PageFields_Closing(object sender, CancelEventArgs e)
-        {
         }
 
         #endregion Page-Manipulation Methods

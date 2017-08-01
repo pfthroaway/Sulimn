@@ -1,5 +1,4 @@
 ﻿using Sulimn.Classes;
-using Sulimn.Pages.Exploration;
 using System.Windows;
 
 namespace Sulimn.Pages.Shopping
@@ -7,27 +6,20 @@ namespace Sulimn.Pages.Shopping
     /// <summary>Interaction logic for MarketPage.xaml</summary>
     public partial class MarketPage
     {
-        internal CityPage RefToCityPage { private get; set; }
-
         #region Button-Click Methods
 
-        private void BtnWeaponShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(
-            new WeaponsRUsPage { RefToMarketPage = this });
+        private void BtnWeaponShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new WeaponsRUsPage());
 
-        private void BtnArmorShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(
-            new TheArmouryPage { RefToMarketPage = this });
+        private void BtnArmorShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheArmouryPage());
 
-        private void BtnGeneralStore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheGeneralStorePage { RefToMarketPage = this });
+        private void BtnGeneralStore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheGeneralStorePage());
 
         private void BtnMagicShop_Click(object sender, RoutedEventArgs e)
         {
-            MagickShoppePage magickShoppePage = new MagickShoppePage { RefToMarketPage = this };
-            magickShoppePage.LoadAll();
-            GameState.Navigate(magickShoppePage);
+            GameState.Navigate(new MagickShoppePage());
         }
 
-        private void BtnSilverEmpire_Click(object sender, RoutedEventArgs e) =>
-            GameState.Navigate(new SilverEmpirePage { RefToMarketPage = this });
+        private void BtnSilverEmpire_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new SilverEmpirePage());
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -55,11 +47,11 @@ namespace Sulimn.Pages.Shopping
             "Silver Empire - A smithery selling the finest jewelry.";
         }
 
-        #endregion Page-Manipulation Methods
-
         private void MarketPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             GameState.CalculateScale(Grid);
         }
+
+        #endregion Page-Manipulation Methods
     }
 }

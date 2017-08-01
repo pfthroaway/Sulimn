@@ -2,9 +2,6 @@
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.Enums;
 using Sulimn.Classes.HeroParts;
-using Sulimn.Pages.Battle;
-using Sulimn.Pages.Exploration;
-using Sulimn.Pages.Shopping;
 using System.ComponentModel;
 using System.Windows;
 
@@ -15,15 +12,6 @@ namespace Sulimn.Pages.Characters
     {
         private Hero _copyOfHero = new Hero();
         private string _previousPage;
-
-        internal BattlePage RefToBattlePage { private get; set; }
-        internal CityPage RefToCityPage { private get; set; }
-        internal TheTavernBarPage RefToTheTavernBarPage { private get; set; }
-        internal TheArmouryPage RefToTheArmouryPage { private get; set; }
-        internal MagickShoppePage RefToMagickShoppePage { private get; set; }
-        internal SilverEmpirePage RefToSilverEmpirePage { private get; set; }
-        internal WeaponsRUsPage RefToWeaponsRUsPage { private get; set; }
-        internal TheGeneralStorePage RefToTheGeneralStorePage { private get; set; }
 
         /// <summary>Casts a Spell.</summary>
         /// <param name="spell">Spell to be cast</param>
@@ -135,7 +123,7 @@ namespace Sulimn.Pages.Characters
 
         private void BtnInventory_Click(object sender, RoutedEventArgs e)
         {
-            GameState.Navigate(new InventoryPage { RefToCharacterPage = this });
+            GameState.Navigate(new InventoryPage());
         }
 
         private void BtnReset_Click(object sender, RoutedEventArgs e)
@@ -230,34 +218,7 @@ namespace Sulimn.Pages.Characters
         /// <summary>Closes the Page.</summary>
         private async void ClosePage()
         {
-            switch (_previousPage)
-            {
-                case "The Tavern Bar":
-                    RefToTheTavernBarPage.LoadAll();
-                    break;
-
-                case "The Armoury":
-                    RefToTheArmouryPage.LoadAll();
-                    break;
-
-                case "Magick Shoppe":
-                    RefToMagickShoppePage.LoadAll();
-                    break;
-
-                case "Silver Empire":
-                    RefToSilverEmpirePage.LoadAll();
-                    break;
-
-                case "Weapons 'R' Us":
-                    RefToWeaponsRUsPage.LoadAll();
-                    break;
-
-                case "The General Store":
-                    RefToTheGeneralStorePage.LoadAll();
-                    break;
-            }
             await GameState.SaveHero(GameState.CurrentHero);
-
             GameState.GoBack();
         }
 
@@ -266,11 +227,13 @@ namespace Sulimn.Pages.Characters
             InitializeComponent();
         }
 
-        #endregion Page-Generated Methods
-
         private void CharacterPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             GameState.CalculateScale(Grid);
+            SetupChar();
+            BindLabels();
         }
+
+        #endregion Page-Generated Methods
     }
 }

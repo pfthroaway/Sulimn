@@ -31,7 +31,6 @@ namespace Sulimn.Pages.Characters
         private Potion _selectedPotion = new Potion();
         private Ring _selectedRing = new Ring();
         private Weapon _selectedWeapon = new Weapon();
-        internal CharacterPage RefToCharacterPage { private get; set; }
 
         /// <summary>Determines if the Hero really wants to drop an Item.</summary>
         /// <param name="dropItem">Item to be dropped</param>

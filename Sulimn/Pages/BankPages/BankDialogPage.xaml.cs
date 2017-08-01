@@ -197,10 +197,6 @@ namespace Sulimn.Pages.BankPages
             BtnAction.IsEnabled = TxtBank.Text.Length > 0;
         }
 
-        private void PageBankDialog_Closing(object sender, CancelEventArgs e)
-        {
-        }
-
         #endregion Page-Manipulation Methods
 
         private void BankDialogPage_OnLoaded(object sender, RoutedEventArgs e)

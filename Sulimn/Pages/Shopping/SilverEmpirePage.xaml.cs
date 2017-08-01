@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Classes.Items;
+using Sulimn.Pages.Characters;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,8 +17,6 @@ namespace Sulimn.Pages.Shopping
         private Ring _selectedRingPurchase = new Ring();
         private Ring _selectedRingSell = new Ring();
         private List<Ring> _sellRing = new List<Ring>();
-
-        internal MarketPage RefToMarketPage { private get; set; }
 
         #region Data-Binding
 
@@ -162,11 +161,7 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage { RefToSilverEmpirePage = this };
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("Silver Empire");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

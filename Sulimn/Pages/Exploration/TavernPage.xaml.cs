@@ -8,8 +8,6 @@ namespace Sulimn.Pages.Exploration
     /// <summary>Interaction logic for TavernPage.xaml</summary>
     public partial class TavernPage
     {
-        internal CityPage RefToCityPage { private get; set; }
-
         #region Button-Click Methods
 
         private void BtnBlackjack_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new BlackjackPage());

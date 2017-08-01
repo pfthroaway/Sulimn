@@ -3,6 +3,7 @@ using Extensions.DataTypeHelpers;
 using Sulimn.Classes;
 using Sulimn.Classes.Enums;
 using Sulimn.Classes.HeroParts;
+using Sulimn.Pages.Characters;
 using Sulimn.Pages.Exploration;
 using System.ComponentModel;
 using System.Windows;
@@ -405,11 +406,7 @@ namespace Sulimn.Pages.Battle
 
         private void BtnCharDetails_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage { RefToBattlePage = this };
-            characterPage.SetupChar();
-            characterPage.BindLabels();
-            characterPage.SetPreviousPage("Battle");
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnEnemyDetails_Click(object sender, RoutedEventArgs e)

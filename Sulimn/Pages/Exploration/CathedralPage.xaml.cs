@@ -1,7 +1,6 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Pages.Battle;
-using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn.Pages.Exploration
@@ -171,10 +170,6 @@ namespace Sulimn.Pages.Exploration
             InitializeComponent();
             TxtCathedral.Text =
             "You approach the abandoned cathedral which casts dread and despair over the city. It has multiple places you can explore, including the former bishop's basilica, the public sanctuary, the former clergymen's espiscopium, and the looming tower.";
-        }
-
-        private void PageCathedral_Closing(object sender, CancelEventArgs e)
-        {
         }
 
         #endregion Page-Manipulation Methods

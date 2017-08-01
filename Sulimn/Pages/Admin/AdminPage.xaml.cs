@@ -15,9 +15,7 @@ namespace Sulimn.Pages.Admin
 
         private void BtnManageUsers_Click(object sender, RoutedEventArgs e)
         {
-            ManageUsersPage manageUsersPage = new ManageUsersPage();
-            manageUsersPage.RefreshItemsSource();
-            GameState.Navigate(manageUsersPage);
+            GameState.Navigate(new ManageUsersPage());
         }
 
         private void BtnChangeAdminPassword_Click(object sender, RoutedEventArgs e)

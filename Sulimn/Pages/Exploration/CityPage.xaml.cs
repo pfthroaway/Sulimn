@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Pages.BankPages;
+using Sulimn.Pages.Characters;
 using Sulimn.Pages.Options;
 using Sulimn.Pages.Shopping;
 using System.Windows;
@@ -49,11 +50,7 @@ namespace Sulimn.Pages.Exploration
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage();
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("City");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)

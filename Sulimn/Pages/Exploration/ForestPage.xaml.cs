@@ -1,6 +1,5 @@
 ﻿using Extensions;
 using Sulimn.Classes;
-using System.ComponentModel;
 using System.Windows;
 
 namespace Sulimn.Pages.Exploration
@@ -150,10 +149,6 @@ namespace Sulimn.Pages.Exploration
             InitializeComponent();
             TxtForest.Text =
             "You travel west along a beaten path into the dark forest. After a short while, you come to a \"T\" fork in the path. You can see the faint silhouette of a cottage to your left, and the sun pouring into a clearing to your right. Ahead of you, through the trees, you see a small cave entrance. Suddenly, you hear the distinct sound of a stick snapping close behind you.";
-        }
-
-        private void PageForest_Closing(object sender, CancelEventArgs e)
-        {
         }
 
         #endregion Page-Manipulation Methods

@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Classes.Items;
+using Sulimn.Pages.Characters;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,8 +17,6 @@ namespace Sulimn.Pages.Shopping
         private Weapon _selectedWeaponPurchase = new Weapon();
         private Weapon _selectedWeaponSell = new Weapon();
         private List<Weapon> _sellWeapon = new List<Weapon>();
-
-        internal MarketPage RefToMarketPage { private get; set; }
 
         #region Data-Binding
 
@@ -164,11 +163,7 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage { RefToWeaponsRUsPage = this };
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("Weapons 'R' Us");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

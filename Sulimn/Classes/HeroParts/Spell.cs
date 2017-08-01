@@ -123,7 +123,7 @@ namespace Sulimn.Classes.HeroParts
         {
             get
             {
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrWhiteSpace(Name))
                     return Type.ToString();
                 return "";
             }

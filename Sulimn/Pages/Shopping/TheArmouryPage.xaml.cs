@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Classes.Items;
+using Sulimn.Pages.Characters;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,8 +13,6 @@ namespace Sulimn.Pages.Shopping
     /// <summary>Interaction logic for TabbedShopping.xaml</summary>
     public partial class TheArmouryPage : INotifyPropertyChanged
     {
-        internal MarketPage RefToMarketPage { private get; set; }
-
         #region Local Variables
 
         private List<HeadArmor> _purchaseHead = new List<HeadArmor>();
@@ -307,11 +306,7 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CharacterPage characterPage = new Characters.CharacterPage { RefToTheArmouryPage = this };
-            characterPage.SetupChar();
-            characterPage.SetPreviousPage("The Armoury");
-            characterPage.BindLabels();
-            GameState.Navigate(characterPage);
+            GameState.Navigate(new CharacterPage());
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

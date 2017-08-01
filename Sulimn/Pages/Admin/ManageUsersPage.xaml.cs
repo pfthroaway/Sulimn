@@ -11,7 +11,6 @@ namespace Sulimn.Pages.Admin
     public partial class ManageUsersPage : INotifyPropertyChanged
     {
         private readonly List<Hero> _allHeroes = new List<Hero>(GameState.AllHeroes);
-        private Hero _selectedHero = new Hero();
 
         #region Data Binding
 
@@ -45,6 +44,7 @@ namespace Sulimn.Pages.Admin
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
+            GameState.Navigate(new AdminNewUserPage());
         }
 
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
@@ -88,6 +88,7 @@ namespace Sulimn.Pages.Admin
         private void ManageUsersPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             GameState.CalculateScale(Grid);
+            RefreshItemsSource();
         }
     }
 }
