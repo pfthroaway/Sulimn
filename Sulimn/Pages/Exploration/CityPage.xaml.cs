@@ -11,6 +11,9 @@ namespace Sulimn.Pages.Exploration
     /// <summary>Interaction logic for CityPage.xaml</summary>
     public partial class CityPage
     {
+        internal bool NewHero { get; set; }
+
+        /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
         internal async void HardcoreDeath()
         {
             await GameState.DeleteHero(GameState.CurrentHero);
@@ -48,10 +51,7 @@ namespace Sulimn.Pages.Exploration
             }
         }
 
-        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
@@ -72,10 +72,7 @@ namespace Sulimn.Pages.Exploration
         #region Page-Generated Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
         public CityPage()
         {
@@ -84,11 +81,16 @@ namespace Sulimn.Pages.Exploration
             "You are in the city of Sulimn. There is a bustling market in the center of the city, a dilapidated cathedral sprawling over the cityscape at the north end, an abandoned mining complex on the south side, crop fields to the east, and a forest to the west.";
         }
 
-        #endregion Page-Generated Methods
-
         private void CityPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             GameState.CalculateScale(Grid);
+            if (NewHero)
+            {
+                GameState.MainWindow.MainFrame.RemoveBackEntry();
+                NewHero = false;
+            }
         }
+
+        #endregion Page-Generated Methods
     }
 }

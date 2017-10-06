@@ -21,18 +21,15 @@ namespace Sulimn.Pages.Admin
         #region Display Manipulation
 
         /// <summary>Determines if buttons should be enabled.</summary>
-        private void CheckInput()
-        {
-            bool enabled = TxtHeroName.Text.Length > 0 && CmbClass.SelectedIndex >= 0 && TxtLevel.Text.Length > 0 &&
-                           TxtExperience.Text.Length > 0 && TxtSkillPoints.Text.Length > 0 &&
-                           TxtStrength.Text.Length > 0 && TxtVitality.Text.Length > 0 && TxtDexterity.Text.Length > 0 &&
-                           TxtWisdom.Text.Length > 0 && TxtCurrentHealth.Text.Length > 0 &&
-                           TxtMaximumHealth.Text.Length > 0 && TxtCurrentMagic.Text.Length > 0 &&
-                           TxtMaximumMagic.Text.Length > 0 && TxtGold.Text.Length > 0 && CmbWeapon.SelectedIndex >= 0 &&
-                           CmbHead.SelectedIndex >= 0 && CmbBody.SelectedIndex >= 0 && CmbHands.SelectedIndex >= 0 &&
-                           CmbLegs.SelectedIndex >= 0 && CmbFeet.SelectedIndex >= 0;
-            BtnSave.IsEnabled = enabled;
-        }
+        private void CheckInput() => BtnSave.IsEnabled =
+            TxtHeroName.Text.Length > 0 && CmbClass.SelectedIndex >= 0 && TxtLevel.Text.Length > 0 &&
+            TxtExperience.Text.Length > 0 && TxtSkillPoints.Text.Length > 0 &&
+            TxtStrength.Text.Length > 0 && TxtVitality.Text.Length > 0 && TxtDexterity.Text.Length > 0 &&
+            TxtWisdom.Text.Length > 0 && TxtCurrentHealth.Text.Length > 0 &&
+            TxtMaximumHealth.Text.Length > 0 && TxtCurrentMagic.Text.Length > 0 &&
+            TxtMaximumMagic.Text.Length > 0 && TxtGold.Text.Length > 0 && CmbWeapon.SelectedIndex >= 0 &&
+            CmbHead.SelectedIndex >= 0 && CmbBody.SelectedIndex >= 0 && CmbHands.SelectedIndex >= 0 &&
+            CmbLegs.SelectedIndex >= 0 && CmbFeet.SelectedIndex >= 0;
 
         /// <summary>Displays the Hero as it was when the Page was loaded.</summary>
         private void DisplayOriginalHero()
@@ -91,24 +88,17 @@ namespace Sulimn.Pages.Admin
             DisplayOriginalHero();
         }
 
-        protected virtual void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
         #region Input Manipulation
 
-        private void Txt_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Letters);
-        }
+        private void Txt_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.Letters);
 
-        private void TxtNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Integers);
-        }
+        private void TxtNumbers_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e,
+            KeyType.Integers);
 
         private void Txt_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -122,20 +112,12 @@ namespace Sulimn.Pages.Admin
             CheckInput();
         }
 
-        private void Txt_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.TextBoxGotFocus(sender);
-        }
+        private void Txt_GotFocus(object sender, RoutedEventArgs e) => Functions.TextBoxGotFocus(sender);
 
-        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.PasswordBoxGotFocus(sender);
-        }
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 
-        private void TxtInventory_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.LettersSpaceComma);
-        }
+        private void TxtInventory_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e,
+            KeyType.LettersSpaceComma);
 
         private void TxtInventory_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -196,27 +178,16 @@ namespace Sulimn.Pages.Admin
             }
         }
 
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
-        {
-            Reset();
-        }
+        private void BtnReset_Click(object sender, RoutedEventArgs e) => Reset();
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
-
-        #endregion Page-Manipulation Methods
+        private void ClosePage() => GameState.GoBack();
 
         public AdminNewUserPage()
         {
@@ -229,5 +200,7 @@ namespace Sulimn.Pages.Admin
             GameState.CalculateScale(Grid);
             Reset();
         }
+
+        #endregion Page-Manipulation Methods
     }
 }

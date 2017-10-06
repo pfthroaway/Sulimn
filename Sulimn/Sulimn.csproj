@@ -101,7 +101,6 @@
     <Compile Include="Classes\Enums\BankAction.cs" />
     <Compile Include="Classes\Enums\CardSuit.cs" />
     <Compile Include="Classes\Enums\FoodTypes.cs" />
-    <Compile Include="Classes\Enums\ItemTypes.cs" />
     <Compile Include="Classes\Enums\PotionTypes.cs" />
     <Compile Include="Classes\Enums\SpellTypes.cs" />
     <Compile Include="Classes\Enums\Status.cs" />

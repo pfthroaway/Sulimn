@@ -25,10 +25,7 @@ namespace Sulimn.Pages.Admin
             }
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
@@ -50,16 +47,10 @@ namespace Sulimn.Pages.Admin
             PswdAdmin.Focus();
         }
 
-        private void TxtPassword_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            BtnSubmit.IsEnabled = PswdAdmin.Password.Length > 0;
-        }
+        private void AdminPasswordPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
+
+        private void TxtPassword_PasswordChanged(object sender, RoutedEventArgs e) => BtnSubmit.IsEnabled = PswdAdmin.Password.Length > 0;
 
         #endregion Page-Manipulation Methods
-
-        private void AdminPasswordPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }

@@ -61,19 +61,22 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
         #region Constructors
 
+        /// <summary>Initializes a default instance of Bank.</summary>
         public Bank()
         {
         }
 
+        /// <summary>Initializes an instance of Bank by assigning Properties.</summary>
+        /// <param name="goldInBank">Gold in the bank</param>
+        /// <param name="loanTaken">Loan already taken out</param>
+        /// <param name="loanAvailable">Loan available to be taken out</param>
         public Bank(int goldInBank, int loanTaken, int loanAvailable)
         {
             GoldInBank = goldInBank;
@@ -81,11 +84,10 @@ namespace Sulimn.Classes.HeroParts
             LoanAvailable = loanAvailable;
         }
 
-        public Bank(Bank otherBank)
+        /// <summary>Replaces this instance of Bank with another instance.</summary>
+        /// <param name="other">Instance of Bank to replace this instance</param>
+        public Bank(Bank other) : this(other.GoldInBank, other.LoanTaken, other.LoanAvailable)
         {
-            GoldInBank = otherBank.GoldInBank;
-            LoanTaken = otherBank.LoanTaken;
-            LoanAvailable = otherBank.LoanAvailable;
         }
 
         #endregion Constructors

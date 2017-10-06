@@ -65,10 +65,7 @@ namespace Sulimn.Pages.Battle
             LblEnemyHealth.DataContext = GameState.CurrentEnemy.Statistics;
         }
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 

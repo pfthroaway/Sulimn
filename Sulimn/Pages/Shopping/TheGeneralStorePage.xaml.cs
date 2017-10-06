@@ -66,10 +66,7 @@ namespace Sulimn.Pages.Shopping
             LblPotionValueSell.DataContext = _selectedPotionSell;
         }
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 

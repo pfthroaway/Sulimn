@@ -23,8 +23,6 @@ namespace Sulimn.Pages.Characters
         private HeroClass _selectedClass = new HeroClass();
         private bool _startGame;
 
-        internal LoginPage PreviousPage { get; set; }
-
         #region Display Manipulation
 
         /// <summary>Clears all text from the labels and resets the Page to default.</summary>
@@ -46,10 +44,7 @@ namespace Sulimn.Pages.Characters
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        protected void OnPropertyChanged(string property)=>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -130,10 +125,7 @@ namespace Sulimn.Pages.Characters
 
         #region Button-Click Methods
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         private async void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
@@ -183,7 +175,7 @@ namespace Sulimn.Pages.Characters
                         new Ring(),
                         new Ring()),
                         new Spellbook(),
-                        new Inventory(new List<Item>(), 250),
+                        new Inventory(),
                         ChkHardcore.IsChecked ?? false);
 
                         if (await GameState.NewHero(newHero))
@@ -200,10 +192,7 @@ namespace Sulimn.Pages.Characters
             }
         }
 
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
-        {
-            Clear();
-        }
+        private void BtnReset_Click(object sender, RoutedEventArgs e) => Clear();
 
         #endregion Button-Click Methods
 
@@ -265,10 +254,7 @@ namespace Sulimn.Pages.Characters
         private void ClosePage()
         {
             if (_startGame)
-            {
-                PreviousPage.ClearInput();
-                GameState.Navigate(new CityPage());
-            }
+                GameState.Navigate(new CityPage { NewHero = true });
             else
                 GameState.GoBack();
         }
@@ -282,31 +268,22 @@ namespace Sulimn.Pages.Characters
             TxtHeroName.Focus();
         }
 
+        private void NewHeroPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
+
         private void TxtHeroName_Changed(object sender, TextChangedEventArgs e)
         {
             Functions.TextBoxTextChanged(sender, KeyType.Letters);
             CheckSkillPoints();
         }
 
-        private void TxtHeroName_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.TextBoxGotFocus(sender);
-        }
+        private void TxtHeroName_GotFocus(object sender, RoutedEventArgs e) => Functions.TextBoxGotFocus(sender);
 
-        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Letters);
-        }
+        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e,
+            KeyType.Letters);
 
-        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.PasswordBoxGotFocus(sender);
-        }
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 
-        private void Pswd_Changed(object sender, RoutedEventArgs e)
-        {
-            CheckSkillPoints();
-        }
+        private void Pswd_Changed(object sender, RoutedEventArgs e) => CheckSkillPoints();
 
         private void LstClasses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -324,10 +301,5 @@ namespace Sulimn.Pages.Characters
         }
 
         #endregion Page-Manipulation Methods
-
-        private void NewHeroPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }

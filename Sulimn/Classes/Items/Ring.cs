@@ -87,83 +87,36 @@ namespace Sulimn.Classes.Items
         public string DamageToString => Damage.ToString("N0");
 
         /// <summary>Returns the damage with a comma separating thousands and preceding text.</summary>
-        public string DamageToStringWithText
-        {
-            get
-            {
-                if (Damage > 0)
-                    return $"Damage: {DamageToString}";
-                return "";
-            }
-        }
+        public string DamageToStringWithText => Damage > 0 ? $"Damage: {DamageToString}" : "";
 
         /// <summary>Returns the defense with a comma separating thousands.</summary>
         public string DefenseToString => Defense.ToString("N0");
 
         /// <summary>Returns the defense with a comma separating thousands and preceding text.</summary>
-        public string DefenseToStringWithText
-        {
-            get
-            {
-                if (Defense > 0)
-                    return $"Defense: {DefenseToString}";
-                return "";
-            }
-        }
+        public string DefenseToStringWithText => Defense > 0 ? $"Defense: {DefenseToString}" : "";
 
         /// <summary>Returns the Strength and preceding text.</summary>
-        public string StrengthToString
-        {
-            get
-            {
-                if (Strength > 0)
-                    return $"Strength: {Strength}";
-                return "";
-            }
-        }
+        public string StrengthToString => Strength > 0 ? $"Strength: {Strength}" : "";
 
         /// <summary>Returns the Vitality and preceding text.</summary>
-        public string VitalityToString
-        {
-            get
-            {
-                if (Vitality > 0)
-                    return $"Vitality: {Vitality}";
-                return "";
-            }
-        }
+        public string VitalityToString => Vitality > 0 ? $"Vitality: {Vitality}" : "";
 
         /// <summary>Returns the Dexterity and preceding text.</summary>
-        public string DexterityToString
-        {
-            get
-            {
-                if (Dexterity > 0)
-                    return $"Dexterity: {Dexterity}";
-                return "";
-            }
-        }
+        public string DexterityToString => Dexterity > 0 ? $"Dexterity: {Dexterity}" : "";
 
         /// <summary>Returns the Wisdom and preceding text.</summary>
-        public string WisdomToString
-        {
-            get
-            {
-                if (Wisdom > 0)
-                    return $"Wisdom: {Wisdom}";
-                return "";
-            }
-        }
+        public string WisdomToString => Wisdom > 0 ? $"Wisdom: {Wisdom}" : "";
 
+        /// <summary>Returns all bonuses in string format.</summary>
         public string BonusToString
         {
             get
             {
                 string[] bonuses =
                 {
-DamageToStringWithText, DefenseToStringWithText, StrengthToString, VitalityToString,
-DexterityToString, WisdomToString
-};
+                    DamageToStringWithText, DefenseToStringWithText, StrengthToString, VitalityToString,
+                    DexterityToString, WisdomToString
+                };
 
                 return string.Join(", ", bonuses.Where(bonus => bonus.Length > 0));
             }
@@ -177,43 +130,26 @@ DexterityToString, WisdomToString
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-            left.Damage == right.Damage && left.Defense == right.Defense && left.Strength == right.Strength &&
-            left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom &&
-            left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell &&
-            left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+                   left.Damage == right.Damage && left.Defense == right.Defense && left.Strength == right.Strength &&
+                   left.Vitality == right.Vitality && left.Dexterity == right.Dexterity &&
+                   left.Wisdom == right.Wisdom &&
+                   left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell &&
+                   left.IsSold == right.IsSold;
         }
 
-        public sealed override bool Equals(object obj)
-        {
-            return Equals(this, obj as Ring);
-        }
+        public sealed override bool Equals(object obj) => Equals(this, obj as Ring);
 
-        public bool Equals(Ring otherArmor)
-        {
-            return Equals(this, otherArmor);
-        }
+        public bool Equals(Ring otherRing) => Equals(this, otherRing);
 
-        public static bool operator ==(Ring left, Ring right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Ring left, Ring right) => Equals(left, right);
 
-        public static bool operator !=(Ring left, Ring right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Ring left, Ring right) => !Equals(left, right);
 
-        public sealed override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public sealed override string ToString()
-        {
-            return Name;
-        }
+        public sealed override string ToString() => Name;
 
         #endregion Override Operators
 
@@ -238,11 +174,10 @@ DexterityToString, WisdomToString
         /// <param name="value">Value of Ring</param>
         /// <param name="canSell">Can Sell Ring?</param>
         /// <param name="isSold">Is Ring Sold?</param>
-        internal Ring(string name, ItemTypes itemType, string description, int damage, int defense, int strength,
+        internal Ring(string name, string description, int damage, int defense, int strength,
         int vitality, int dexterity, int wisdom, int weight, int value, bool canSell, bool isSold)
         {
             Name = name;
-            Type = itemType;
             Description = description;
             Damage = damage;
             Defense = defense;
@@ -258,21 +193,10 @@ DexterityToString, WisdomToString
 
         /// <summary>Replaces this instance of Ring with another instance.</summary>
         /// <param name="otherRing">Instance of Ring to replace this one</param>
-        internal Ring(Ring otherRing)
+        internal Ring(Ring otherRing) : this(otherRing.Name, otherRing.Description, otherRing.Damage,
+            otherRing.Defense, otherRing.Strength, otherRing.Vitality, otherRing.Dexterity, otherRing.Wisdom,
+            otherRing.Weight, otherRing.Value, otherRing.CanSell, otherRing.IsSold)
         {
-            Name = otherRing.Name;
-            Type = otherRing.Type;
-            Description = otherRing.Description;
-            Damage = otherRing.Damage;
-            Defense = otherRing.Defense;
-            Strength = otherRing.Strength;
-            Vitality = otherRing.Vitality;
-            Dexterity = otherRing.Dexterity;
-            Wisdom = otherRing.Wisdom;
-            Weight = otherRing.Weight;
-            Value = otherRing.Value;
-            CanSell = otherRing.CanSell;
-            IsSold = otherRing.IsSold;
         }
 
         #endregion Constructors

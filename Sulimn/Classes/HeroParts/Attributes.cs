@@ -11,10 +11,8 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -66,6 +64,27 @@ namespace Sulimn.Classes.HeroParts
 
         #endregion Modifying Properties
 
+        #region Override Operators
+
+        private static bool Equals(Attributes left, Attributes right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return left.Strength == right.Strength && left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom;
+        }
+
+        public sealed override bool Equals(object obj) => Equals(this, obj as Attributes);
+
+        public bool Equals(Attributes otherAttributes) => Equals(this, otherAttributes);
+
+        public static bool operator ==(Attributes left, Attributes right) => Equals(left, right);
+
+        public static bool operator !=(Attributes left, Attributes right) => !Equals(left, right);
+
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
+
+        #endregion Override Operators
+
         #region Constructors
 
         /// <summary>Initializes a default instance of Attributes.</summary>
@@ -87,13 +106,9 @@ namespace Sulimn.Classes.HeroParts
         }
 
         /// <summary>Replaces this instance of Attributes with another instance.</summary>
-        /// <param name="otherAttributes">Instance to replace this instance</param>
-        public Attributes(Attributes otherAttributes)
+        /// <param name="other">Instance to replace this instance</param>
+        public Attributes(Attributes other) : this(other.Strength, other.Vitality, other.Dexterity, other.Wisdom)
         {
-            Strength = otherAttributes.Strength;
-            Vitality = otherAttributes.Vitality;
-            Dexterity = otherAttributes.Dexterity;
-            Wisdom = otherAttributes.Wisdom;
         }
 
         #endregion Constructors

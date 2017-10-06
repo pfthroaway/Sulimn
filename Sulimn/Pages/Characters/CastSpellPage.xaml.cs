@@ -59,10 +59,7 @@ namespace Sulimn.Pages.Characters
             LblMagic.DataContext = GameState.CurrentHero.Statistics;
         }
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -79,8 +76,8 @@ namespace Sulimn.Pages.Characters
 
                 case "Character":
                     _availableSpells =
-                    new BindingList<Spell>(
-                    GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellTypes.Healing).ToList());
+                        new BindingList<Spell>(
+                            GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellTypes.Healing).ToList());
                     break;
             }
         }

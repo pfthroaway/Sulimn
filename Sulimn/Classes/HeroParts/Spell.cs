@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents a Spell a Hero can cast.</summary>
-    internal class Spell : IEquatable<Spell>, INotifyPropertyChanged
+    internal class Spell : INotifyPropertyChanged, IEquatable<Spell>
     {
         private string _name, _description, _requiredClass;
         private int _requiredLevel, _magicCost, _amount;
@@ -15,10 +15,8 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -108,59 +106,19 @@ namespace Sulimn.Classes.HeroParts
         #region Helper Properties
 
         /// <summary>Required Class of the Spell, with preceding text.</summary>
-        public string RequiredClassToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return $"Required Class: {RequiredClass}";
-                return "";
-            }
-        }
+        public string RequiredClassToString => !string.IsNullOrWhiteSpace(Name) ? $"Required Class: {RequiredClass}" : "";
 
         /// <summary>Type of the Spell, in string format.</summary>
-        public string TypeToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return Type.ToString();
-                return "";
-            }
-        }
+        public string TypeToString => !string.IsNullOrWhiteSpace(Name) ? Type.ToString() : "";
 
         /// <summary>Type and amount of the Spell.</summary>
-        public string TypeAmount
-        {
-            get
-            {
-                if (Amount > 0)
-                    return $"{Type}: {Amount}";
-                return "";
-            }
-        }
+        public string TypeAmount => Amount > 0 ? $"{Type}: {Amount}" : "";
 
         /// <summary>Magic cost of the Spell, with preceding text.</summary>
-        public string MagicCostToString
-        {
-            get
-            {
-                if (MagicCost > 0)
-                    return $"Magic Cost: {MagicCost:N0}";
-                return "";
-            }
-        }
+        public string MagicCostToString => MagicCost > 0 ? $"Magic Cost: {MagicCost:N0}" : "";
 
         /// <summary>Required Level of the Spell, with preceding text.</summary>
-        public string RequiredLevelToString
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return $"Required Level: {RequiredLevel}";
-                return "";
-            }
-        }
+        public string RequiredLevelToString => !string.IsNullOrWhiteSpace(Name) ? $"Required Level: {RequiredLevel}" : "";
 
         /// <summary>Value of the Spell.</summary>
         public int Value => RequiredLevel * 200;
@@ -169,15 +127,7 @@ namespace Sulimn.Classes.HeroParts
         public string ValueToString => Value.ToString("N0");
 
         /// <summary>Value of the Spell, with thousands separator and preceding text.</summary>
-        public string ValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return $"Value: {ValueToString}";
-                return "";
-            }
-        }
+        public string ValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Value: {ValueToString}" : "";
 
         #endregion Helper Properties
 
@@ -187,42 +137,25 @@ namespace Sulimn.Classes.HeroParts
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase) &&
-            left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost &&
-            left.Amount == right.Amount;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+                   left.Type == right.Type &&
+                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase) &&
+                   left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost &&
+                   left.Amount == right.Amount;
         }
 
-        public sealed override bool Equals(object obj)
-        {
-            return Equals(this, obj as Spell);
-        }
+        public sealed override bool Equals(object obj) => Equals(this, obj as Spell);
 
-        public bool Equals(Spell otherSpell)
-        {
-            return Equals(this, otherSpell);
-        }
+        public bool Equals(Spell otherSpell) => Equals(this, otherSpell);
 
-        public static bool operator ==(Spell left, Spell right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Spell left, Spell right) => Equals(left, right);
 
-        public static bool operator !=(Spell left, Spell right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Spell left, Spell right) => !Equals(left, right);
 
-        public sealed override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public sealed override string ToString()
-        {
-            return Name;
-        }
+        public sealed override string ToString() => Name;
 
         #endregion Override Operators
 

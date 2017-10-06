@@ -1,4 +1,5 @@
-﻿using Sulimn.Classes.HeroParts;
+﻿using System;
+using Sulimn.Classes.HeroParts;
 
 namespace Sulimn.Classes.Entities
 {
@@ -33,11 +34,6 @@ namespace Sulimn.Classes.Entities
             OnPropertyChanged("TotalVitality");
             OnPropertyChanged("TotalDexterity");
             OnPropertyChanged("TotalWisdom");
-        }
-
-        public sealed override string ToString()
-        {
-            return Name;
         }
 
         #region Modifying Properties
@@ -118,10 +114,7 @@ namespace Sulimn.Classes.Entities
 
         /// <summary>Checks where a Hero has leveled up.</summary>
         /// <returns>Returns null if Hero doesn't level up</returns>
-        private string CheckLevelUp()
-        {
-            return Experience >= Level * 100 ? LevelUp() : null;
-        }
+        private string CheckLevelUp() => Experience >= Level * 100 ? LevelUp() : null;
 
         /// <summary>Levels up a Hero.</summary>
         /// <returns>Returns text about the Hero leveling up</returns>
@@ -168,6 +161,29 @@ namespace Sulimn.Classes.Entities
 
         #endregion Health Manipulation
 
+        #region Override Operators
+
+        private static bool Equals(Hero left, Hero right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.SkillPoints == right.SkillPoints && left.Hardcore == right.Hardcore && left.Spellbook == right.Spellbook && left.Class == right.Class && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Inventory == right.Inventory && left.Statistics == right.Statistics;
+        }
+
+        public sealed override bool Equals(object obj) => Equals(this, obj as Hero);
+
+        public bool Equals(Hero otherHero) => Equals(this, otherHero);
+
+        public static bool operator ==(Hero left, Hero right) => Equals(left, right);
+
+        public static bool operator !=(Hero left, Hero right) => !Equals(left, right);
+
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
+
+        public sealed override string ToString() => Name;
+
+        #endregion Override Operators
+
         #region Constructors
 
         /// <summary>Initializes a default instance of Hero.</summary>
@@ -206,21 +222,9 @@ namespace Sulimn.Classes.Entities
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
-        /// <param name="otherHero">Instance of Hero to replace this one</param>
-        internal Hero(Hero otherHero)
+        /// <param name="other">Instance of Hero to replace this one</param>
+        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), new Inventory(other.Inventory), other.Hardcore)
         {
-            Name = otherHero.Name;
-            Password = otherHero.Password;
-            Class = otherHero.Class;
-            Level = otherHero.Level;
-            Experience = otherHero.Experience;
-            SkillPoints = otherHero.SkillPoints;
-            Attributes = new Attributes(otherHero.Attributes);
-            Statistics = new Statistics(otherHero.Statistics);
-            Equipment = new Equipment(otherHero.Equipment);
-            Spellbook = new Spellbook(otherHero.Spellbook);
-            Inventory = new Inventory(otherHero.Inventory);
-            Hardcore = otherHero.Hardcore;
         }
 
         #endregion Constructors

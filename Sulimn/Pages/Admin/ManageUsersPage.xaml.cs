@@ -16,10 +16,8 @@ namespace Sulimn.Pages.Admin
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data Binding
 
@@ -34,6 +32,7 @@ namespace Sulimn.Pages.Admin
 
         #endregion Button Manipulation
 
+        /// <summary>Refreshed the LstUsers ItemSource.</summary>
         internal void RefreshItemsSource()
         {
             LstUsers.ItemsSource = _allHeroes;
@@ -42,53 +41,44 @@ namespace Sulimn.Pages.Admin
 
         #region Button-Click Methods
 
-        private void BtnNewUser_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new AdminNewUserPage());
-        }
+        private void BtnNewUser_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new AdminNewUserPage());
 
-        private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
+        private async void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
+            Hero selectedHero = (Hero)LstUsers.SelectedItem;
+            if (GameState.YesNoNotification(
+                $"Are you sure you want to delete {selectedHero.Name}? This action cannot be undone.", "Sulimn"))
+                if (await GameState.DeleteHero(selectedHero))
+                    RefreshItemsSource();
         }
 
         private void BtnManageUser_Click(object sender, RoutedEventArgs e)
         {
             ManageUserPage manageUserPage = new ManageUserPage { PreviousPage = this };
-            manageUserPage.LoadPage((Hero)LstUsers.SelectedValue);
+            manageUserPage.LoadPage((Hero)LstUsers.SelectedItem);
             GameState.Navigate(manageUserPage);
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
         #region Page Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
-        public ManageUsersPage()
-        {
-            InitializeComponent();
-        }
-
-        private void LstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ToggleButtons(LstUsers.SelectedIndex >= 0);
-        }
-
-        #endregion Page Manipulation Methods
+        public ManageUsersPage() => InitializeComponent();
 
         private void ManageUsersPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             GameState.CalculateScale(Grid);
             RefreshItemsSource();
         }
+
+        private void LstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e) => ToggleButtons(
+            LstUsers.SelectedIndex >= 0);
+
+        #endregion Page Manipulation Methods
     }
 }

@@ -79,17 +79,9 @@ namespace Sulimn.Classes.Entities
         }
 
         /// <summary>Replaces this instance of Enemy with another instance.</summary>
-        /// <param name="otherEnemy">Instance of Enemy that replaces this one</param>
-        internal Enemy(Enemy otherEnemy)
+        /// <param name="other">Instance of Enemy that replaces this one</param>
+        internal Enemy(Enemy other) : this(other.Name, other.Type, other.Level, other.Experience, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Inventory(other.Inventory))
         {
-            Name = otherEnemy.Name;
-            Type = otherEnemy.Type;
-            Level = otherEnemy.Level;
-            Experience = otherEnemy.Experience;
-            Attributes = new Attributes(otherEnemy.Attributes);
-            Statistics = new Statistics(otherEnemy.Statistics);
-            Equipment = new Equipment(otherEnemy.Equipment);
-            Inventory = new Inventory(otherEnemy.Inventory);
         }
 
         #endregion Constructors

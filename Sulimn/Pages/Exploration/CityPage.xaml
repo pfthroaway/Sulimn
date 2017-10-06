@@ -1,12 +1,12 @@
 ﻿<Page x:Name="PageCity" x:Class="Sulimn.Pages.Exploration.CityPage"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-mc:Ignorable="d"
-Style="{StaticResource PageStyle}"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Style="{StaticResource PageStyle}"
       Loaded="CityPage_OnLoaded"
-Title="City of Sulimn">
+      Title="City of Sulimn">
     <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

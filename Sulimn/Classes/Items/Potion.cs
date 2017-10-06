@@ -45,11 +45,11 @@ namespace Sulimn.Classes.Items
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-            left.PotionType == right.PotionType &&
-            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-            left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
-            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+                   left.PotionType == right.PotionType &&
+                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+                   left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
+                   left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj)
@@ -103,7 +103,6 @@ namespace Sulimn.Classes.Items
         bool isSold)
         {
             Name = name;
-            Type = ItemTypes.Potion;
             PotionType = potionType;
             Description = description;
             Weight = 0;
@@ -118,7 +117,6 @@ namespace Sulimn.Classes.Items
         internal Potion(Potion otherPotion)
         {
             Name = otherPotion.Name;
-            Type = ItemTypes.Potion;
             PotionType = otherPotion.PotionType;
             Description = otherPotion.Description;
             Weight = 0;

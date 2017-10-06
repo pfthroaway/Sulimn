@@ -19,10 +19,8 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -177,17 +175,11 @@ namespace Sulimn.Classes.HeroParts
         }
 
         /// <summary>Replaces this instance of Equipment with another instance.</summary>
-        /// <param name="otherEquipment">Instance of Equipment to replace this instance</param>
-        public Equipment(Equipment otherEquipment)
+        /// <param name="other">Instance of Equipment to replace this instance</param>
+        public Equipment(Equipment other) : this(new Weapon(other.Weapon), new HeadArmor(other.Head),
+            new BodyArmor(other.Body), new HandArmor(other.Hands), new LegArmor(other.Legs), new FeetArmor(other.Feet),
+            new Ring(other.LeftRing), new Ring(other.RightRing))
         {
-            Weapon = new Weapon(otherEquipment.Weapon);
-            Head = new HeadArmor(otherEquipment.Head);
-            Body = new BodyArmor(otherEquipment.Body);
-            Hands = new HandArmor(otherEquipment.Hands);
-            Legs = new LegArmor(otherEquipment.Legs);
-            Feet = new FeetArmor(otherEquipment.Feet);
-            LeftRing = new Ring(otherEquipment.LeftRing);
-            RightRing = new Ring(otherEquipment.RightRing);
         }
 
         #endregion Constructors

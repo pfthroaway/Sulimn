@@ -1,12 +1,12 @@
 ﻿<Page x:Name="PageMarket" x:Class="Sulimn.Pages.Shopping.MarketPage"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-mc:Ignorable="d"
-Style="{StaticResource PageStyle}"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Style="{StaticResource PageStyle}"
       Loaded="MarketPage_OnLoaded"
-Title="Market">
+      Title="Market">
     <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -20,8 +20,8 @@ Title="Market">
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBox x:Name="TxtMarket" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="680" Height="262"
- IsReadOnly="True"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
+                 IsReadOnly="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
         <Button x:Name="BtnWeaponShop" Grid.Column="0" Grid.Row="1" Width="200" Click="BtnWeaponShop_Click" Margin="0,0,0,10">
             <AccessText>_Weapons 'R' Us</AccessText>
         </Button>

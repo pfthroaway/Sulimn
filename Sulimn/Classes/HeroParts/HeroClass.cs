@@ -14,14 +14,12 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
-        #region Properties
+        #region Modifying Properties
 
         /// <summary>Name of the Class.</summary>
         public string Name
@@ -55,10 +53,6 @@ namespace Sulimn.Classes.HeroParts
                 OnPropertyChanged("SkillPointsToString");
             }
         }
-
-        /// <summary>Maximum number of skill points a Class can have when initially being assigned, with thousands separator.</summary>
-        /// <summary>The amount of skill points the Hero has available to spend</summary>
-        public string SkillPointsToString => SkillPoints != 1 ? $"{SkillPoints:N0} Skill Points Available" : $"{SkillPoints:N0} Skill Point Available";
 
         /// <summary>Amount of Strength the Class has by default.</summary>
         public int Strength
@@ -152,13 +146,21 @@ namespace Sulimn.Classes.HeroParts
             }
         }
 
+        #endregion Modifying Properties
+
+        #region Helper Properties
+
+        /// <summary>Maximum number of skill points a Class can have when initially being assigned, with thousands separator.</summary>
+        /// <summary>The amount of skill points the Hero has available to spend</summary>
+        public string SkillPointsToString => SkillPoints != 1 ? $"{SkillPoints:N0} Skill Points Available" : $"{SkillPoints:N0} Skill Point Available";
+
         /// <summary>Amount of health the Class has, formatted.</summary>
         public string HealthToString => $"{CurrentHealth:N0} / {MaximumHealth:N0}";
 
         /// <summary>Amount of magic the Class has, formatted.</summary>
         public string MagicToString => $"{CurrentMagic:N0} / {MaximumMagic:N0}";
 
-        #endregion Properties
+        #endregion Helper Properties
 
         #region Override Operators
 
@@ -167,40 +169,20 @@ namespace Sulimn.Classes.HeroParts
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-            left.SkillPoints == right.SkillPoints && left.Strength == right.Strength &&
-            left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom;
+                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.SkillPoints == right.SkillPoints && left.Strength == right.Strength && left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom && left.CurrentHealth == right.CurrentHealth && left.MaximumHealth == right.MaximumHealth && left.CurrentMagic == right.CurrentMagic && left.MaximumMagic == right.MaximumMagic;
         }
 
-        public sealed override bool Equals(object obj)
-        {
-            return Equals(this, obj as HeroClass);
-        }
+        public sealed override bool Equals(object obj) => Equals(this, obj as HeroClass);
 
-        public bool Equals(HeroClass otherClass)
-        {
-            return Equals(this, otherClass);
-        }
+        public bool Equals(HeroClass otherHeroClass) => Equals(this, otherHeroClass);
 
-        public static bool operator ==(HeroClass left, HeroClass right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(HeroClass left, HeroClass right) => Equals(left, right);
 
-        public static bool operator !=(HeroClass left, HeroClass right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(HeroClass left, HeroClass right) => !Equals(left, right);
 
-        public sealed override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public sealed override string ToString()
-        {
-            return Name;
-        }
+        public sealed override string ToString() => Name;
 
         #endregion Override Operators
 
@@ -232,16 +214,10 @@ namespace Sulimn.Classes.HeroParts
         }
 
         /// <summary>Replaces this instance of HeroClass with another instance.</summary>
-        /// <param name="otherClass">Instance of HeroClass to replace this instance</param>
-        internal HeroClass(HeroClass otherClass)
+        /// <param name="other">Instance of HeroClass to replace this instance</param>
+        internal HeroClass(HeroClass other) : this(other.Name, other.Description, other.SkillPoints, other.Strength,
+            other.Vitality, other.Dexterity, other.Wisdom)
         {
-            Name = otherClass.Name;
-            Description = otherClass.Description;
-            SkillPoints = otherClass.SkillPoints;
-            Strength = otherClass.Strength;
-            Vitality = otherClass.Vitality;
-            Dexterity = otherClass.Dexterity;
-            Wisdom = otherClass.Wisdom;
         }
 
         #endregion Constructors

@@ -15,6 +15,7 @@ namespace Sulimn.Classes.Entities
 
         #region Modifying Properties
 
+        /// <summary>Name of character</summary>
         public string Name
         {
             get => _name;
@@ -25,6 +26,7 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Level of character</summary>
         public int Level
         {
             get => _level;
@@ -36,6 +38,7 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Name of character</summary>
         public int Experience
         {
             get => _experience;
@@ -47,6 +50,7 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Attributes of character</summary>
         public Attributes Attributes
         {
             get => _attributes;
@@ -57,6 +61,7 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Statistics of character</summary>
         public Statistics Statistics
         {
             get => _statistics;
@@ -67,6 +72,7 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Equipment of character</summary>
         public Equipment Equipment
         {
             get => _equipment;
@@ -77,6 +83,7 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Inventory of character</summary>
         public Inventory Inventory
         {
             get => _inventory;
@@ -115,10 +122,8 @@ namespace Sulimn.Classes.Entities
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
     }

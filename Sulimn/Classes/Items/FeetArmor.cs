@@ -24,7 +24,6 @@ namespace Sulimn.Classes.Items
         bool canSell, bool isSold)
         {
             Name = name;
-            Type = ItemTypes.Feet;
             Description = description;
             Defense = defense;
             Weight = weight;
@@ -34,17 +33,10 @@ namespace Sulimn.Classes.Items
         }
 
         /// <summary>Replaces this instance of FeetArmor with another instance.</summary>
-        /// <param name="otherArmor">Instance of FeetArmor to replace this one</param>
-        internal FeetArmor(FeetArmor otherArmor)
+        /// <param name="other">Instance of FeetArmor to replace this one</param>
+        internal FeetArmor(FeetArmor other) : this(other.Name, other.Description, other.Defense, other.Weight, other.Value,
+            other.CanSell, other.IsSold)
         {
-            Name = otherArmor.Name;
-            Type = ItemTypes.Feet;
-            Description = otherArmor.Description;
-            Defense = otherArmor.Defense;
-            Weight = otherArmor.Weight;
-            Value = otherArmor.Value;
-            CanSell = otherArmor.CanSell;
-            IsSold = otherArmor.IsSold;
         }
 
         #endregion Constructors

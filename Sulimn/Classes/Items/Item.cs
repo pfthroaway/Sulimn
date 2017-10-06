@@ -4,27 +4,24 @@ using System.ComponentModel;
 
 namespace Sulimn.Classes.Items
 {
-    internal class Item : IItem, INotifyPropertyChanged
+    internal class Item : INotifyPropertyChanged, IItem
     {
         private bool _canSell, _isSold;
         private string _name, _description;
-        private ItemTypes _type;
         private int _weight, _value;
 
         #region Data-Binding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
         #region Modifying Properties
 
-        /// <summary>Name of the armor</summary>
+        /// <summary>Name of the Item</summary>
         public string Name
         {
             get => _name;
@@ -35,18 +32,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>Type of the armor</summary>
-        public ItemTypes Type
-        {
-            get => _type;
-            set
-            {
-                _type = value;
-                OnPropertyChanged("Type");
-            }
-        }
-
-        /// <summary>Description of the armor</summary>
+        /// <summary>Description of the Item</summary>
         public string Description
         {
             get => _description;
@@ -57,7 +43,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>How much the armor weighs</summary>
+        /// <summary>How much the Item weighs</summary>
         public int Weight
         {
             get => _weight;
@@ -68,7 +54,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>How much the armor is worth</summary>
+        /// <summary>How much the Item is worth</summary>
         public int Value
         {
             get => _value;
@@ -79,7 +65,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>Can the armor be sold to a shop?</summary>
+        /// <summary>Can the Item be sold to a shop?</summary>
         public bool CanSell
         {
             get => _canSell;
@@ -90,7 +76,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>Can the armor be sold in a shop?</summary>
+        /// <summary>Can the Item be sold in a shop?</summary>
         public bool IsSold
         {
             get => _isSold;
@@ -105,30 +91,22 @@ namespace Sulimn.Classes.Items
 
         #region Helper Properties
 
-        /// <summary>The value of the armor with thousands separators</summary>
+        /// <summary>The value of the Item with thousands separators</summary>
         public string ValueToString => Value.ToString("N0");
 
-        /// <summary>The value of the armor with thousands separators and preceding text</summary>
-        public string ValueToStringWithText
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    return $"Value: {ValueToString}";
-                return "";
-            }
-        }
+        /// <summary>The value of the Item with thousands separators and preceding text</summary>
+        public string ValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Value: {ValueToString}" : "";
 
-        /// <summary>The value of the armor</summary>
+        /// <summary>The value of the Item</summary>
         public int SellValue => Value / 2;
 
-        /// <summary>The value of the armor with thousands separators</summary>
+        /// <summary>The value of the Item with thousands separators</summary>
         public string SellValueToString => SellValue.ToString("N0");
 
-        /// <summary>The value of the armor with thousands separators with preceding text</summary>
+        /// <summary>The value of the Item with thousands separators with preceding text</summary>
         public string SellValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Sell Value: {SellValueToString}" : "";
 
-        /// <summary>Returns text relating to the sellability of the armor</summary>
+        /// <summary>Returns text relating to the sellability of the Item</summary>
         public string CanSellToString => !string.IsNullOrWhiteSpace(Name) ? (CanSell ? "Sellable" : "Not Sellable") : "";
 
         #endregion Helper Properties
@@ -139,41 +117,23 @@ namespace Sulimn.Classes.Items
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-            left.Weight == right.Weight && left.Value == right.Value &&
-            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+                   left.Weight == right.Weight && left.Value == right.Value &&
+                   left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
-        public override bool Equals(object obj)
-        {
-            return Equals(this, obj as Item);
-        }
+        public override bool Equals(object obj) => Equals(this, obj as Item);
 
-        public bool Equals(Item otherItem)
-        {
-            return Equals(this, otherItem);
-        }
+        public bool Equals(Item otherItem) => Equals(this, otherItem);
 
-        public static bool operator ==(Item left, Item right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Item left, Item right) => Equals(left, right);
 
-        public static bool operator !=(Item left, Item right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Item left, Item right) => !Equals(left, right);
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() => Name;
 
         #endregion Override Operators
     }

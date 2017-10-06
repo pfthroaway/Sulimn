@@ -37,10 +37,7 @@ namespace Sulimn.Pages.Battle
             LblEquippedFeetDefense.DataContext = GameState.CurrentEnemy.Equipment.Feet;
         }
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 

@@ -8,20 +8,11 @@ namespace Sulimn.Pages.Admin
     {
         #region Button-Click Methods
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
-        private void BtnManageUsers_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new ManageUsersPage());
-        }
+        private void BtnManageUsers_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ManageUsersPage());
 
-        private void BtnChangeAdminPassword_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new AdminChangePasswordPage());
-        }
+        private void BtnChangeAdminPassword_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new AdminChangePasswordPage());
 
         private void BtnManageArmor_Click(object sender, RoutedEventArgs e)
         {
@@ -59,16 +50,10 @@ namespace Sulimn.Pages.Admin
             GameState.MainWindow.MnuAdmin.IsEnabled = true;
         }
 
-        public AdminPage()
-        {
-            InitializeComponent();
-        }
+        public AdminPage() => InitializeComponent();
+
+        private void AdminPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
         #endregion Page-Manipulation Methods
-
-        private void AdminPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }

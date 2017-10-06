@@ -63,8 +63,8 @@ namespace Sulimn.Pages.Admin
             //BtnReset.IsEnabled = enabled;
         }
 
-        /// <summary>Displays the Hero as it was when the Page was loaded.</summary>
-        private void DisplayOriginalHero()
+        /// <summary>Resets input to default values.</summary>
+        private void Reset()
         {
             TxtHeroName.Text = _originalHero.Name;
             ChkHardcore.IsChecked = _originalHero.Hardcore;
@@ -92,12 +92,6 @@ namespace Sulimn.Pages.Admin
             CmbClass.SelectedValue = _originalHero.Class;
         }
 
-        private void Reset()
-        {
-            DisplayOriginalHero();
-            BindControls();
-        }
-
         #endregion Display Manipulation
 
         #region Data-Binding
@@ -117,57 +111,31 @@ namespace Sulimn.Pages.Admin
             CmbLeftRing.ItemsSource = GameState.AllRings;
             CmbRightRing.ItemsSource = GameState.AllRings;
 
-            DisplayOriginalHero();
+            Reset();
         }
 
-        protected virtual void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
         #region Input Manipulation
 
-        private void Txt_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Letters);
-        }
+        private void Txt_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.Letters);
 
-        private void TxtNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Integers);
-        }
+        private void TxtNumbers_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.Integers);
 
-        private void Txt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Functions.TextBoxTextChanged(sender, KeyType.Letters);
-        }
+        private void Txt_TextChanged(object sender, TextChangedEventArgs e) => Functions.TextBoxTextChanged(sender, KeyType.Letters);
 
-        private void Integers_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Functions.TextBoxTextChanged(sender, KeyType.Integers);
-        }
+        private void Integers_TextChanged(object sender, TextChangedEventArgs e) => Functions.TextBoxTextChanged(sender, KeyType.Integers);
 
-        private void Txt_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.TextBoxGotFocus(sender);
-        }
+        private void Txt_GotFocus(object sender, RoutedEventArgs e) => Functions.TextBoxGotFocus(sender);
 
-        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.PasswordBoxGotFocus(sender);
-        }
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 
-        private void TxtInventory_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.LettersSpaceComma);
-        }
+        private void TxtInventory_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.LettersSpaceComma);
 
-        private void TxtInventory_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Functions.TextBoxTextChanged(sender, KeyType.LettersSpaceComma);
-        }
+        private void TxtInventory_TextChanged(object sender, TextChangedEventArgs e) => Functions.TextBoxTextChanged(sender, KeyType.LettersSpaceComma);
 
         #endregion Input Manipulation
 
@@ -208,15 +176,9 @@ namespace Sulimn.Pages.Admin
                 GameState.DisplayNotification("Please ensure the hero name and password are at least 4 characters long.", "Sulimn");
         }
 
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
-        {
-            Reset();
-        }
+        private void BtnReset_Click(object sender, RoutedEventArgs e) => Reset();
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
@@ -235,16 +197,10 @@ namespace Sulimn.Pages.Admin
             BindControls();
         }
 
-        public ManageUserPage()
-        {
-            InitializeComponent();
-        }
+        public ManageUserPage() => InitializeComponent();
+
+        private void ManageUserPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
         #endregion Page-Manipulation Methods
-
-        private void ManageUserPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }

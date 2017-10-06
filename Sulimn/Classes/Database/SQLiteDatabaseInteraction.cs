@@ -16,19 +16,16 @@ namespace Sulimn.Classes.Database
     /// <summary>Represents database interaction covered by SQLite.</summary>
     internal class SQLiteDatabaseInteraction : IDatabaseInteraction
     {
-        private readonly string _con = $"Data Source = {_DATABASENAME}; foreign keys = TRUE;Version = 3; ";
-
         // ReSharper disable once InconsistentNaming
         private const string _DATABASENAME = "Sulimn.sqlite";
+
+        private readonly string _con = $"Data Source = {_DATABASENAME}; foreign keys = TRUE; Version = 3;";
 
         #region Database Interaction
 
         /// <summary>Verifies that the requested database exists and that its file size is greater than zero. If not, it extracts the embedded database file to the local output folder.</summary>
-        public void VerifyDatabaseIntegrity()
-        {
-            Functions.VerifyFileIntegrity(
+        public void VerifyDatabaseIntegrity() => Functions.VerifyFileIntegrity(
             Assembly.GetExecutingAssembly().GetManifestResourceStream($"Sulimn.{_DATABASENAME}"), _DATABASENAME);
-        }
 
         #endregion Database Interaction
 
@@ -581,7 +578,6 @@ namespace Sulimn.Classes.Database
                 {
                     Ring newRing = new Ring(
                     dr["Name"].ToString(),
-                    ItemTypes.Ring,
                     dr["Description"].ToString(),
                     Int32Helper.Parse(dr["Damage"]),
                     Int32Helper.Parse(dr["Defense"]),

@@ -10,23 +10,15 @@ namespace Sulimn.Classes.HeroParts
     /// <summary>Represents a Hero's inventory.</summary>
     internal class Inventory : IEnumerable<Item>, INotifyPropertyChanged
     {
-        private readonly List<Item> _items = new List<Item>();
+        private List<Item> _items = new List<Item>();
         private int _gold;
 
         /// <summary>Gets all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
         /// <returns>Items of specified Type</returns>
-        internal List<T> GetItemsOfType<T>()
-        {
-            return Items.OfType<T>().ToList();
-        }
-
-        public sealed override string ToString() => string.Join(",", Items);
+        internal List<T> GetItemsOfType<T>() => Items.OfType<T>().ToList();
 
         #region Modifying Properties
-
-        /// <summary>List of Items in the inventory.</summary>
-        private ReadOnlyCollection<Item> Items => new ReadOnlyCollection<Item>(_items);
 
         /// <summary>Amount of gold in the inventory.</summary>
         public int Gold
@@ -45,6 +37,9 @@ namespace Sulimn.Classes.HeroParts
 
         #region Helper Properties
 
+        /// <summary>List of Items in the inventory.</summary>
+        private ReadOnlyCollection<Item> Items => new ReadOnlyCollection<Item>(_items);
+
         /// <summary>Amount of gold in the inventory, with thousands separator.</summary>
         public string GoldToString => Gold.ToString("N0");
 
@@ -57,10 +52,8 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -71,6 +64,8 @@ namespace Sulimn.Classes.HeroParts
         internal void AddItem(Item item)
         {
             _items.Add(item);
+            _items = Items.OrderBy(itm => itm.Name).ToList();
+            OnPropertyChanged("Items");
         }
 
         /// <summary>Removes an Item from the inventory.</summary>
@@ -78,23 +73,41 @@ namespace Sulimn.Classes.HeroParts
         internal void RemoveItem(Item item)
         {
             _items.Remove(item);
+            OnPropertyChanged("Items");
         }
 
         #endregion Inventory Management
 
         #region Enumerator
 
-        public IEnumerator<Item> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
+        public IEnumerator<Item> GetEnumerator() => Items.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion Enumerator
+
+        #region Override Operators
+
+        private static bool Equals(Inventory left, Inventory right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return left.Gold == right.Gold && !left.Items.Except(right.Items).Any(); ;
+        }
+
+        public sealed override bool Equals(object obj) => Equals(this, obj as Inventory);
+
+        public bool Equals(Inventory otherInventory) => Equals(this, otherInventory);
+
+        public static bool operator ==(Inventory left, Inventory right) => Equals(left, right);
+
+        public static bool operator !=(Inventory left, Inventory right) => !Equals(left, right);
+
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
+
+        public sealed override string ToString() => string.Join(",", Items);
+
+        #endregion Override Operators
 
         #region Constructors
 
@@ -124,8 +137,7 @@ namespace Sulimn.Classes.HeroParts
             if (itemList.Length > 0)
             {
                 string[] items = itemList.Split(',');
-                foreach (string str in items)
-                    newItems.Add(GameState.AllItems.Find(item => item.Name == str.Trim()));
+                newItems.AddRange(items.Select(str => GameState.AllItems.Find(item => item.Name == str.Trim())));
             }
             _items = newItems;
             Gold = gold;
@@ -133,7 +145,7 @@ namespace Sulimn.Classes.HeroParts
 
         /// <summary>Replaces this instance of Inventory with another instance.</summary>
         /// <param name="other">Instance of Inventory to replace this instance</param>
-        public Inventory(Inventory other) : this(new List<Item>(other.Items), other.Gold)
+        public Inventory(Inventory other) : this(other.Items, other.Gold)
         {
         }
 

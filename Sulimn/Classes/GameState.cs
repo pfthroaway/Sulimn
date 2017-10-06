@@ -45,11 +45,15 @@ namespace Sulimn.Classes
 
         internal static SQLiteDatabaseInteraction DatabaseInteraction = new SQLiteDatabaseInteraction();
 
-        internal static MainWindow MainWindow { get; set; }
-
         #region Navigation
 
+        /// <summary>Instance of MainWindow currently loaded</summary>
+        internal static MainWindow MainWindow { get; set; }
+
+        /// <summary>Width of the Page currently being displayed in the MainWindow</summary>
         internal static double CurrentPageWidth { get; set; }
+
+        /// <summary>Height of the Page currently being displayed in the MainWindow</summary>
         internal static double CurrentPageHeight { get; set; }
 
         /// <summary>Calculates the scale needed for the MainWindow.</summary>
@@ -67,10 +71,7 @@ namespace Sulimn.Classes
 
         /// <summary>Navigates to selected Page.</summary>
         /// <param name="newPage">Page to navigate to.</param>
-        internal static void Navigate(Page newPage)
-        {
-            MainWindow.MainFrame.Navigate(newPage);
-        }
+        internal static void Navigate(Page newPage) => MainWindow.MainFrame.Navigate(newPage);
 
         /// <summary>Navigates to the previous Page.</summary>
         internal static void GoBack()
@@ -84,10 +85,8 @@ namespace Sulimn.Classes
         /// <summary>Changes the administrator password in the database.</summary>
         /// <param name="newPassword">New administrator password</param>
         /// <returns>Returns true if password successfully updated</returns>
-        internal static async Task<bool> ChangeAdminPassword(string newPassword)
-        {
-            return await DatabaseInteraction.ChangeAdminPassword(newPassword);
-        }
+        internal static async Task<bool> ChangeAdminPassword(string newPassword) => await DatabaseInteraction
+            .ChangeAdminPassword(newPassword);
 
         /// <summary>Determines whether a Hero's credentials are authentic.</summary>
         /// <param name="username">Hero's name</param>
@@ -116,18 +115,12 @@ namespace Sulimn.Classes
 
         /// <summary>Loads the current theme from the database.</summary>
         /// <returns>Current theme</returns>
-        internal static async Task<string> LoadTheme()
-        {
-            return await DatabaseInteraction.LoadTheme();
-        }
+        internal static async Task<string> LoadTheme() => await DatabaseInteraction.LoadTheme();
 
         /// <summary>Changes the current theme in the database.</summary>
         /// <param name="theme">Current theme</param>
         /// <returns>True if successful</returns>
-        internal static async Task<bool> ChangeTheme(string theme)
-        {
-            return await DatabaseInteraction.ChangeTheme(theme);
-        }
+        internal static async Task<bool> ChangeTheme(string theme) => await DatabaseInteraction.ChangeTheme(theme);
 
         /// <summary>Loads almost everything from the database.</summary>
         internal static async Task LoadAll()
@@ -168,29 +161,19 @@ namespace Sulimn.Classes
         /// <summary>Gets a specific Enemy based on its name.</summary>
         /// <param name="name">Name of Enemy</param>
         /// <returns>Enemy</returns>
-        private static Enemy GetEnemy(string name)
-        {
-            return new Enemy(AllEnemies.Find(enemy => enemy.Name == name));
-        }
+        private static Enemy GetEnemy(string name) => new Enemy(AllEnemies.Find(enemy => enemy.Name == name));
 
         /// <summary>Gets a specific Item based on its name.</summary>
         /// <param name="name">Item name</param>
         /// <returns>Item</returns>
-        private static Item GetItem(string name)
-        {
-            return AllItems.Find(itm => itm.Name == name);
-        }
+        private static Item GetItem(string name) => AllItems.Find(itm => itm.Name == name);
 
         #region Item Management
 
         /// <summary>Retrieves a List of all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
         /// <returns>List of specified Type.</returns>
-        public static List<T> GetItemsOfType<T>()
-        {
-            List<T> newList = AllItems.OfType<T>().ToList();
-            return newList;
-        }
+        public static List<T> GetItemsOfType<T>() => AllItems.OfType<T>().ToList();
 
         /// <summary>Sets the Hero's inventory.</summary>
         /// <param name="inventory">Inventory to be converted</param>
@@ -268,10 +251,7 @@ namespace Sulimn.Classes
         /// <summary>Loads a Hero's Bank.</summary>
         /// <param name="bankHero">Hero whose Bank is to be loaded.</param>
         /// <returns>Hero's Bank</returns>
-        internal static async Task<Bank> LoadHeroBank(Hero bankHero)
-        {
-            return await DatabaseInteraction.LoadBank(bankHero);
-        }
+        internal static async Task<Bank> LoadHeroBank(Hero bankHero) => await DatabaseInteraction.LoadBank(bankHero);
 
         /// <summary>Creates a new Hero and adds it to the database.</summary>
         /// <param name="newHero">New Hero</param>
@@ -280,47 +260,48 @@ namespace Sulimn.Classes
         {
             bool success = false;
             if (newHero.Equipment.Head == null || newHero.Equipment.Head == new HeadArmor())
-                newHero.Equipment.Head = AllHeadArmor.Find(armr => armr.Name == DefaultHead.Name);
+                newHero.Equipment.Head = AllHeadArmor.Find(armor => armor.Name == DefaultHead.Name);
             if (newHero.Equipment.Body == null || newHero.Equipment.Body == new BodyArmor())
-                newHero.Equipment.Body = AllBodyArmor.Find(armr => armr.Name == DefaultBody.Name);
+                newHero.Equipment.Body = AllBodyArmor.Find(armor => armor.Name == DefaultBody.Name);
             if (newHero.Equipment.Hands == null || newHero.Equipment.Hands == new HandArmor())
-                newHero.Equipment.Hands = AllHandArmor.Find(armr => armr.Name == DefaultHands.Name);
+                newHero.Equipment.Hands = AllHandArmor.Find(armor => armor.Name == DefaultHands.Name);
             if (newHero.Equipment.Legs == null || newHero.Equipment.Legs == new LegArmor())
-                newHero.Equipment.Legs = AllLegArmor.Find(armr => armr.Name == DefaultLegs.Name);
+                newHero.Equipment.Legs = AllLegArmor.Find(armor => armor.Name == DefaultLegs.Name);
             if (newHero.Equipment.Feet == null || newHero.Equipment.Feet == new FeetArmor())
-                newHero.Equipment.Feet = AllFeetArmor.Find(armr => armr.Name == DefaultFeet.Name);
+                newHero.Equipment.Feet = AllFeetArmor.Find(armor => armor.Name == DefaultFeet.Name);
             if (newHero.Equipment.Weapon == null || newHero.Equipment.Weapon == new Weapon())
             {
                 switch (newHero.Class.Name)
                 {
                     case "Wizard":
-                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
+                        newHero.Equipment.Weapon = AllWeapons.Find(wpn => wpn.Name == "Starter Staff");
                         if (newHero.Spellbook == null || newHero.Spellbook == new Spellbook())
                             newHero.Spellbook?.LearnSpell(AllSpells.Find(spell => spell.Name == "Fire Bolt"));
                         break;
 
                     case "Cleric":
-                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Staff");
+                        newHero.Equipment.Weapon = AllWeapons.Find(wpn => wpn.Name == "Starter Staff");
                         if (newHero.Spellbook == null || newHero.Spellbook == new Spellbook())
                             newHero.Spellbook?.LearnSpell(AllSpells.Find(spell => spell.Name == "Heal Self"));
                         break;
 
                     case "Warrior":
-                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
+                        newHero.Equipment.Weapon = AllWeapons.Find(wpn => wpn.Name == "Stone Dagger");
                         break;
 
                     case "Rogue":
-                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Starter Bow");
+                        newHero.Equipment.Weapon = AllWeapons.Find(wpn => wpn.Name == "Starter Bow");
                         break;
 
                     default:
-                        newHero.Equipment.Weapon = (Weapon)AllItems.Find(wpn => wpn.Name == "Stone Dagger");
+                        newHero.Equipment.Weapon = AllWeapons.Find(wpn => wpn.Name == "Stone Dagger");
                         break;
                 }
             }
 
             if (newHero.Inventory == null || newHero.Inventory == new Inventory())
             {
+                newHero.Inventory = new Inventory { Gold = 250 };
                 for (int i = 0; i < 3; i++)
                     newHero.Inventory?.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
             }
@@ -352,10 +333,8 @@ namespace Sulimn.Classes
         /// <summary>Saves the Hero's bank information.</summary>
         /// <param name="goldInBank">Gold in the bank</param>
         /// <param name="loanTaken">Loan taken out</param>
-        internal static async Task<bool> SaveHeroBank(int goldInBank, int loanTaken)
-        {
-            return await DatabaseInteraction.SaveHeroBank(CurrentHero, goldInBank, loanTaken);
-        }
+        internal static async Task<bool> SaveHeroBank(int goldInBank, int loanTaken) => await DatabaseInteraction
+            .SaveHeroBank(CurrentHero, goldInBank, loanTaken);
 
         /// <summary>Saves the Hero's password to the database.</summary>
         /// <param name="saveHero">Hero whose password needs to be saved</param>
@@ -473,28 +452,13 @@ namespace Sulimn.Classes
         /// <summary>Displays a new Notification in a thread-safe way.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
-        internal static void DisplayNotification(string message, string title)
-        {
-            Application.Current.Dispatcher.Invoke(delegate
-            {
-                new Notification(message, title, NotificationButtons.OK, MainWindow).ShowDialog();
-            });
-        }
+        internal static void DisplayNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => { new Notification(message, title, NotificationButtons.OK, MainWindow).ShowDialog(); });
 
         /// <summary>Displays a new Notification in a thread-safe way and retrieves a boolean result upon its closing.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
         /// <returns>Returns value of clicked button on Notification.</returns>
-        internal static bool YesNoNotification(string message, string title)
-        {
-            bool result = false;
-            Application.Current.Dispatcher.Invoke(delegate
-            {
-                if (new Notification(message, title, NotificationButtons.YesNo, MainWindow).ShowDialog() == true)
-                    result = true;
-            });
-            return result;
-        }
+        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => { return (new Notification(message, title, NotificationButtons.YesNo, MainWindow).ShowDialog() == true); });
 
         #endregion Notification Management
     }

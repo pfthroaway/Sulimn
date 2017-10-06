@@ -25,10 +25,8 @@ namespace Sulimn.Classes.HeroParts
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -100,6 +98,27 @@ namespace Sulimn.Classes.HeroParts
 
         #endregion Helper Properties
 
+        #region Override Operators
+
+        private static bool Equals(Statistics left, Statistics right)
+        {
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
+            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            return left.CurrentHealth == right.CurrentHealth && left.MaximumHealth == right.MaximumHealth && left.CurrentMagic == right.CurrentMagic && left.MaximumMagic == right.MaximumMagic;
+        }
+
+        public sealed override bool Equals(object obj) => Equals(this, obj as Statistics);
+
+        public bool Equals(Statistics otherStatistics) => Equals(this, otherStatistics);
+
+        public static bool operator ==(Statistics left, Statistics right) => Equals(left, right);
+
+        public static bool operator !=(Statistics left, Statistics right) => !Equals(left, right);
+
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
+
+        #endregion Override Operators
+
         #region Constructors
 
         /// <summary>Initializes a default instance of Statistics.</summary>
@@ -121,13 +140,10 @@ namespace Sulimn.Classes.HeroParts
         }
 
         /// <summary>Replaces this instance of Statistics with another instance.</summary>
-        /// <param name="otherStatistics">Instance to replace this instance</param>
-        public Statistics(Statistics otherStatistics)
+        /// <param name="other">Instance to replace this instance</param>
+        public Statistics(Statistics other) : this(other.CurrentHealth, other.MaximumHealth, other.CurrentMagic,
+            other.MaximumMagic)
         {
-            CurrentHealth = otherStatistics.CurrentHealth;
-            MaximumHealth = otherStatistics.MaximumHealth;
-            CurrentMagic = otherStatistics.CurrentMagic;
-            MaximumMagic = otherStatistics.MaximumMagic;
         }
 
         #endregion Constructors

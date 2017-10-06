@@ -37,7 +37,7 @@ namespace Sulimn.Pages.Characters
         /// <returns>Returns true if the Item is dropped</returns>
         private bool DropItem(Item dropItem)
         {
-            if (GameState.YesNoNotification($"Are you sure you really want to drop Window {dropItem.Name}? You won't be able to get it back.", "Sulimn"))
+            if (GameState.YesNoNotification($"Are you sure you really want to drop {dropItem.Name}? You won't be able to get it back.", "Sulimn"))
             {
                 GameState.CurrentHero.Inventory.RemoveItem(dropItem);
                 Functions.AddTextToTextBox(TxtInventory, $"You drop the {dropItem.Name}.");
@@ -294,10 +294,7 @@ namespace Sulimn.Pages.Characters
             LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -691,11 +688,8 @@ namespace Sulimn.Pages.Characters
             BindLabels();
         }
 
-        #endregion Page-Manipulation Methods
+        private void InventoryPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
-        private void InventoryPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        #endregion Page-Manipulation Methods
     }
 }

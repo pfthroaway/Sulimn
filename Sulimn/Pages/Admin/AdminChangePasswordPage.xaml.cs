@@ -44,20 +44,14 @@ namespace Sulimn.Pages.Admin
                 GameState.DisplayNotification("The old and new passwords must be at least 4 characters in length.", "Sulimn");
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
         public AdminChangePasswordPage()
         {
@@ -65,22 +59,16 @@ namespace Sulimn.Pages.Admin
             PswdCurrentPassword.Focus();
         }
 
+        private void AdminChangePasswordPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
+
         private void PswdChanged(object sender, RoutedEventArgs e)
         {
             BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
             PswdConfirmPassword.Password.Length >= 1;
         }
 
-        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.PasswordBoxGotFocus(sender);
-        }
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 
         #endregion Page-Manipulation Methods
-
-        private void AdminChangePasswordPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }

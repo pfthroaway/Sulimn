@@ -7,11 +7,12 @@ namespace Sulimn.Classes.Items
     internal class Weapon : Item, IEquatable<Weapon>
     {
         private int _damage;
-        private WeaponTypes? _weaponType;
+        private WeaponTypes _weaponType;
 
         #region Properties
 
-        public WeaponTypes? WeaponType
+        /// <summary>Type of Weapon</summary>
+        public WeaponTypes WeaponType
         {
             get => _weaponType;
             private set
@@ -22,6 +23,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
+        /// <summary>Damage the weapon inflicts</summary>
         public int Damage
         {
             get => _damage;
@@ -37,17 +39,14 @@ namespace Sulimn.Classes.Items
 
         #region Helper Properties
 
+        /// <summary>Damage the weapon inflicts, formatted.</summary>
         public string DamageToString => Damage.ToString("N0");
 
-        public string DamageToStringWithText
-        {
-            get
-            {
-                if (Damage > 0)
-                    return $"Damage: {DamageToString}";
-                return "";
-            }
-        }
+        /// <summary>Damage the weapon inflicts, formatted, with preceding text.</summary>
+        public string DamageToStringWithText => Damage > 0 ? $"Damage: {DamageToString}" : "";
+
+        /// <summary>Type of Weapon to string.</summary>
+        public string WeaponTypeToString => !string.IsNullOrWhiteSpace(Name) ? WeaponType.ToString() : "";
 
         #endregion Helper Properties
 
@@ -57,57 +56,35 @@ namespace Sulimn.Classes.Items
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Type == right.Type &&
-            left.WeaponType == right.WeaponType &&
-            string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-            left.Damage == right.Damage && left.Weight == right.Weight && left.Value == right.Value &&
-            left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+                   left.WeaponType == right.WeaponType &&
+                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
+                   left.Damage == right.Damage && left.Weight == right.Weight && left.Value == right.Value &&
+                   left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
-        public sealed override bool Equals(object obj)
-        {
-            return Equals(this, obj as Weapon);
-        }
+        public sealed override bool Equals(object obj) => Equals(this, obj as Weapon);
 
-        public bool Equals(Weapon otherWeapon)
-        {
-            return Equals(this, otherWeapon);
-        }
+        public bool Equals(Weapon otherWeapon) => Equals(this, otherWeapon);
 
-        public static bool operator ==(Weapon left, Weapon right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Weapon left, Weapon right) => Equals(left, right);
 
-        public static bool operator !=(Weapon left, Weapon right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Weapon left, Weapon right) => !Equals(left, right);
 
-        public sealed override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public sealed override string ToString()
-        {
-            return Name;
-        }
+        public sealed override string ToString() => Name;
 
         #endregion Override Operators
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a default instance of Weapon.
-        /// </summary>
+        /// <summary>Initializes a default instance of Weapon.</summary>
         internal Weapon()
         {
         }
 
-        /// <summary>
-        /// Initializes an instance of Weapon by assigning Properties.
-        /// </summary>
+        /// <summary>Initializes an instance of Weapon by assigning Properties.</summary>
         /// <param name="name">Name of Weapon</param>
         /// <param name="weaponType">Type of Weapon</param>
         /// <param name="description">Description of Weapon</param>
@@ -120,7 +97,6 @@ namespace Sulimn.Classes.Items
         bool canSell, bool isSold)
         {
             Name = name;
-            Type = ItemTypes.Weapon;
             WeaponType = weaponType;
             Description = description;
             Damage = damage;
@@ -130,22 +106,10 @@ namespace Sulimn.Classes.Items
             IsSold = isSold;
         }
 
-        /// <summary>
-        /// Replaces this instance of Weapon with another instance.
-        /// </summary>
-        /// <param name="otherWeapon">Instance to replace this instance</param>
-        internal Weapon(Weapon otherWeapon)
-        {
-            Name = otherWeapon.Name;
-            Type = otherWeapon.Type;
-            WeaponType = otherWeapon.WeaponType;
-            Description = otherWeapon.Description;
-            Damage = otherWeapon.Damage;
-            Weight = otherWeapon.Weight;
-            Value = otherWeapon.Value;
-            CanSell = otherWeapon.CanSell;
-            IsSold = otherWeapon.IsSold;
-        }
+        /// <summary>Replaces this instance of Weapon with another instance.</summary>
+        /// <param name="other">Instance to replace this instance</param>
+        internal Weapon(Weapon other) : this(other.Name, other.WeaponType, other.Description, other.Damage, other.Weight, other.Value, other.CanSell, other.IsSold)
+        { }
 
         #endregion Constructors
     }

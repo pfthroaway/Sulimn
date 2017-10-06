@@ -35,7 +35,8 @@ namespace Sulimn.Pages
 
         private void BtnNewHero_Click(object sender, RoutedEventArgs e)
         {
-            GameState.Navigate(new NewHeroPage { PreviousPage = this });
+            GameState.Navigate(new NewHeroPage());
+            ClearInput();
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
@@ -48,26 +49,22 @@ namespace Sulimn.Pages
 
         #region Page-Manipulation Methods
 
-        private void TxtHeroName_GotFocus(object sender, RoutedEventArgs e)
+        public LoginPage()
         {
-            Functions.TextBoxGotFocus(sender);
+            InitializeComponent();
+            TxtHeroName.Focus();
         }
 
-        private void PswdPassword_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.PasswordBoxGotFocus(sender);
-        }
+        private void LoginPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
-        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Letters);
-        }
+        private void TxtHeroName_GotFocus(object sender, RoutedEventArgs e) => Functions.TextBoxGotFocus(sender);
+
+        private void PswdPassword_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
+
+        private void TxtHeroName_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.Letters);
 
         /// <summary>Manages TextBox/PasswordBox text being changed.</summary>
-        private void TextChanged()
-        {
-            BtnLogin.IsEnabled = TxtHeroName.Text.Length > 0 && PswdPassword.Password.Length > 0;
-        }
+        private void TextChanged() => BtnLogin.IsEnabled = TxtHeroName.Text.Length > 0 && PswdPassword.Password.Length > 0;
 
         private void TxtHeroName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -75,22 +72,8 @@ namespace Sulimn.Pages
             TextChanged();
         }
 
-        private void PswdPassword_TextChanged(object sender, RoutedEventArgs e)
-        {
-            TextChanged();
-        }
+        private void PswdPassword_TextChanged(object sender, RoutedEventArgs e) => TextChanged();
 
         #endregion Page-Manipulation Methods
-
-        public LoginPage()
-        {
-            InitializeComponent();
-            TxtHeroName.Focus();
-        }
-
-        private void LoginPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }

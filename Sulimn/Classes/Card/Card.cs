@@ -32,7 +32,7 @@ namespace Sulimn.Classes.Card
             set
             {
                 _suit = value;
-                OnPropertyChanged("CardSuit");
+                OnPropertyChanged("Suit");
             }
         }
 
@@ -67,10 +67,8 @@ namespace Sulimn.Classes.Card
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
+        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+            new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -80,39 +78,22 @@ namespace Sulimn.Classes.Card
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Suit == right.Suit &&
-            left.Value == right.Value && left.Hidden == right.Hidden;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
+                   left.Suit == right.Suit &&
+                   left.Value == right.Value && left.Hidden == right.Hidden;
         }
 
-        public sealed override bool Equals(object obj)
-        {
-            return Equals(this, obj as Card);
-        }
+        public sealed override bool Equals(object obj) => Equals(this, obj as Card);
 
-        public bool Equals(Card otherCard)
-        {
-            return Equals(this, otherCard);
-        }
+        public bool Equals(Card otherCard) => Equals(this, otherCard);
 
-        public static bool operator ==(Card left, Card right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Card left, Card right) => Equals(left, right);
 
-        public static bool operator !=(Card left, Card right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Card left, Card right) => !Equals(left, right);
 
-        public sealed override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public sealed override string ToString()
-        {
-            return CardToString;
-        }
+        public sealed override string ToString() => CardToString;
 
         #endregion Override Operators
 
@@ -137,24 +118,16 @@ namespace Sulimn.Classes.Card
         }
 
         /// <summary>Replaces this instance of Card with another instance.</summary>
-        /// <param name="otherCard">Instance to replace this instance</param>
-        internal Card(Card otherCard)
+        /// <param name="other">Instance to replace this instance</param>
+        internal Card(Card other) : this(other.Name, other.Suit, other.Value, other.Hidden)
         {
-            Name = otherCard.Name;
-            Suit = otherCard.Suit;
-            Value = otherCard.Value;
-            Hidden = otherCard.Hidden;
         }
 
         /// <summary>Replaces this instance of Card with another instance.</summary>
-        /// <param name="otherCard">Instance to replace this instance</param>
+        /// <param name="other">Instance to replace this instance</param>
         /// <param name="hidden">Should the Card be hidden from the player?</param>
-        internal Card(Card otherCard, bool hidden)
+        internal Card(Card other, bool hidden) : this(other.Name, other.Suit, other.Value, hidden)
         {
-            Name = otherCard.Name;
-            Suit = otherCard.Suit;
-            Value = otherCard.Value;
-            Hidden = hidden;
         }
 
         #endregion Constructors

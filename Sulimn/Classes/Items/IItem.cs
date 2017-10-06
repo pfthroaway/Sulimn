@@ -2,15 +2,12 @@
 
 namespace Sulimn.Classes.Items
 {
-    /// <summary>
-    /// Represents an Item.
-    /// </summary>
+    /// <summary>Blueprint of an Item.</summary>
     internal interface IItem
     {
         #region Modifying Properties
 
         string Name { get; set; }
-        ItemTypes Type { get; set; }
         string Description { get; set; }
         int Weight { get; set; }
         int Value { get; set; }

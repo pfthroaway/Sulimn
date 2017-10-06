@@ -64,7 +64,9 @@ namespace Sulimn.Pages
         /// <param name="update">Write to database?</param>
         private async void UpdateTheme(string theme, bool update = true)
         {
-            Application.Current.Resources.Source = new Uri($"pack://application:,,,/Extensions;component/Dictionaries/{theme}.xaml", UriKind.RelativeOrAbsolute);
+            Application.Current.Resources.Source =
+                new Uri($"pack://application:,,,/Extensions;component/Dictionaries/{theme}.xaml",
+                    UriKind.RelativeOrAbsolute);
             MainFrame.Style = (Style)FindResource(typeof(Frame));
             Page newPage = MainFrame.Content as Page;
             if (newPage != null)
@@ -113,27 +115,17 @@ namespace Sulimn.Pages
 
         private void MnuFileExit_Click(object sender, RoutedEventArgs e) => Close();
 
-        private void MnuOptionsChangeThemeDark_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateTheme("Dark");
-        }
+        private void MnuOptionsChangeThemeDark_Click(object sender, RoutedEventArgs e) => UpdateTheme("Dark");
 
-        private void MnuOptionsChangeThemeGrey_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateTheme("Grey");
-        }
+        private void MnuOptionsChangeThemeGrey_Click(object sender, RoutedEventArgs e) => UpdateTheme("Grey");
 
-        private void MnuOptionsChangeThemeDefault_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateTheme("Default");
-        }
+        private void MnuOptionsChangeThemeDefault_Click(object sender, RoutedEventArgs e) => UpdateTheme("Default");
 
         #endregion Menu Click
 
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        #region Window-Manipulation Methods
+
+        public MainWindow() => InitializeComponent();
 
         private async void WindowMain_Loaded(object sender, RoutedEventArgs e)
         {
@@ -142,9 +134,8 @@ namespace Sulimn.Pages
             await GameState.LoadAll();
         }
 
-        private void MainFrame_OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            CalculateScale();
-        }
+        private void MainFrame_OnSizeChanged(object sender, SizeChangedEventArgs e) => CalculateScale();
+
+        #endregion Window-Manipulation Methods
     }
 }

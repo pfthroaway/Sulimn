@@ -1,12 +1,12 @@
 ﻿<Page x:Name="PageInventory" x:Class="Sulimn.Pages.Characters.InventoryPage"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-mc:Ignorable="d"
-Style="{StaticResource PageStyle}"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Style="{StaticResource PageStyle}"
       Loaded="InventoryPage_OnLoaded"
-Title="Inventory">
+      Title="Inventory">
     <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -26,7 +26,7 @@ Title="Inventory">
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Equipped Weapon" Margin="5">
+                              Height="340" Header="Equipped Weapon" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -38,17 +38,17 @@ Height="340" Header="Equipped Weapon" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblEquippedWeapon" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblEquippedWeaponDamage" Grid.Row="1" Margin="5"
- Text="{Binding Path=DamageToStringWithText}" />
+                                       Text="{Binding Path=DamageToStringWithText}" />
                             <TextBlock x:Name="LblEquippedWeaponValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblEquippedWeaponType" Grid.Row="3" Text="{Binding Path=WeaponType}"
- Margin="5" />
+                                       Margin="5" />
                             <TextBlock x:Name="LblEquippedWeaponSellable" Grid.Row="4"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblEquippedWeaponDescription" Grid.Row="5" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblEquippedWeaponDescription" Grid.Row="5"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Button x:Name="BtnUnequipWeapon" Grid.Row="6" VerticalAlignment="Bottom" Width="100" Click="BtnUnequipWeapon_Click" IsEnabled="False" Margin="5">
                                 <AccessText>_Unequip</AccessText>
                             </Button>
@@ -56,11 +56,11 @@ Height="340" Header="Equipped Weapon" Margin="5">
                     </GroupBox>
                     <GroupBox Grid.Column="1" Grid.Row="0" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstWeaponInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstWeaponInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstWeaponInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Selected Weapon" Margin="5">
+                              Height="340" Header="Selected Weapon" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -72,19 +72,19 @@ Height="340" Header="Selected Weapon" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedWeapon" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedWeaponDamage" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=DamageToStringWithText}" />
+                                       Text="{Binding Path=DamageToStringWithText}" />
                             <TextBlock x:Name="LblSelectedWeaponValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedWeaponType" Grid.Row="3" Text="{Binding Path=WeaponType}"
- Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedWeaponType" Grid.Row="3" Text="{Binding Path=WeaponTypeToString}"
+                                       Margin="5" />
                             <TextBlock x:Name="LblSelectedWeaponSellable" Grid.Row="4"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedWeaponDescription" Grid.Row="5" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedWeaponDescription" Grid.Row="5"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnEquipSelectedWeapon" Width="100" Click="BtnEquipSelectedWeapon_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Equip</AccessText>
                                 </Button>
@@ -104,7 +104,7 @@ HorizontalAlignment="Center">
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Equipped Head" Margin="5">
+                              Height="340" Header="Equipped Head" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -115,15 +115,15 @@ Height="340" Header="Equipped Head" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblEquippedHead" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblEquippedHeadDefense" Grid.Row="1" Margin="5"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblEquippedHeadValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblEquippedHeadSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblEquippedHeadDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblEquippedHeadDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Button x:Name="BtnUnequipHead" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipHead_Click" IsEnabled="False" Margin="5">
                                 <AccessText>_Unequip</AccessText>
                             </Button>
@@ -131,11 +131,11 @@ Height="340" Header="Equipped Head" Margin="5">
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstHeadInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstHeadInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstHeadInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Selected Head" Margin="5">
+                              Height="340" Header="Selected Head" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -146,17 +146,17 @@ Height="340" Header="Selected Head" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedHead" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedHeadDefense" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblSelectedHeadValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedHeadSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedHeadDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedHeadDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnEquipSelectedHead" Width="100" Click="BtnEquipSelectedHead_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Equip</AccessText>
                                 </Button>
@@ -176,7 +176,7 @@ HorizontalAlignment="Center">
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Equipped Body" Margin="5">
+                              Height="340" Header="Equipped Body" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -187,15 +187,15 @@ Height="340" Header="Equipped Body" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblEquippedBody" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblEquippedBodyDefense" Grid.Row="1" Margin="5"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblEquippedBodyValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblEquippedBodySellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblEquippedBodyDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblEquippedBodyDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Button x:Name="BtnUnequipBody" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipBody_Click" IsEnabled="False" Margin="5">
                                 <AccessText>_Unequip</AccessText>
                             </Button>
@@ -203,11 +203,11 @@ Height="340" Header="Equipped Body" Margin="5">
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstBodyInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstBodyInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstBodyInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Selected Body" Margin="5">
+                              Height="340" Header="Selected Body" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -218,17 +218,17 @@ Height="340" Header="Selected Body" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedBody" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedBodyDefense" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblSelectedBodyValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedBodySellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedBodyDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedBodyDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnEquipSelectedBody" Width="100" Click="BtnEquipSelectedBody_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Equip</AccessText>
                                 </Button>
@@ -248,7 +248,7 @@ HorizontalAlignment="Center">
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Equipped Hands" Margin="5">
+                              Height="340" Header="Equipped Hands" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -259,15 +259,15 @@ Height="340" Header="Equipped Hands" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblEquippedHands" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblEquippedHandsDefense" Grid.Row="1" Margin="5"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblEquippedHandsValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblEquippedHandsSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblEquippedHandsDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblEquippedHandsDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Button x:Name="BtnUnequipHands" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipHands_Click" IsEnabled="False" Margin="5">
                                 <AccessText>_Unequip</AccessText>
                             </Button>
@@ -275,11 +275,11 @@ Height="340" Header="Equipped Hands" Margin="5">
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstHandsInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstHandsInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstHandsInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Selected Hands" Margin="5">
+                              Height="340" Header="Selected Hands" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -290,17 +290,17 @@ Height="340" Header="Selected Hands" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedHands" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedHandsDefense" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblSelectedHandsValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedHandsSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedHandsDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedHandsDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnEquipSelectedHands" Width="100" Click="BtnEquipSelectedHands_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Equip</AccessText>
                                 </Button>
@@ -320,7 +320,7 @@ HorizontalAlignment="Center">
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Equipped Legs" Margin="5">
+                              Height="340" Header="Equipped Legs" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -331,15 +331,15 @@ Height="340" Header="Equipped Legs" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblEquippedLegs" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblEquippedLegsDefense" Grid.Row="1" Margin="5"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblEquippedLegsValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblEquippedLegsSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblEquippedLegsDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblEquippedLegsDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Button x:Name="BtnUnequipLegs" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipLegs_Click" IsEnabled="False" Margin="5">
                                 <AccessText>_Unequip</AccessText>
                             </Button>
@@ -347,11 +347,11 @@ Height="340" Header="Equipped Legs" Margin="5">
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstLegsInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstLegsInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstLegsInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Selected Legs" Margin="5">
+                              Height="340" Header="Selected Legs" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -362,17 +362,17 @@ Height="340" Header="Selected Legs" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedLegs" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedLegsDefense" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblSelectedLegsValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedLegsSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedLegsDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedLegsDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnEquipSelectedLegs" Width="100" Click="BtnEquipSelectedLegs_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Equip</AccessText>
                                 </Button>
@@ -392,7 +392,7 @@ HorizontalAlignment="Center">
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Equipped Feet" Margin="5">
+                              Height="340" Header="Equipped Feet" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -403,15 +403,15 @@ Height="340" Header="Equipped Feet" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblEquippedFeet" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblEquippedFeetDefense" Grid.Row="1" Margin="5"
- Text="{Binding Path=DefenseToStringWithText}" />
+                                       Text="{Binding Path=DefenseToStringWithText}" />
                             <TextBlock x:Name="LblEquippedFeetValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblEquippedFeetSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblEquippedFeetDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblEquippedFeetDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Button x:Name="BtnUnequipFeet" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipFeet_Click" IsEnabled="False" Margin="5">
                                 <AccessText>_Unequip</AccessText>
                             </Button>
@@ -419,11 +419,11 @@ Height="340" Header="Equipped Feet" Margin="5">
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstFeetInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstFeetInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstFeetInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="270"
-Height="340" Header="Selected Feet" Margin="5">
+                              Height="340" Header="Selected Feet" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -434,14 +434,14 @@ Height="340" Header="Selected Feet" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedFeet" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedFeetDefense" Grid.Row="1" Width="250" Text="{Binding Path=DefenseToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedFeetValue" Grid.Row="2" Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedFeetSellable" Grid.Row="3" Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedFeetDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                            <TextBlock x:Name="LblSelectedFeetDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnEquipSelectedFeet" Width="100" Click="BtnEquipSelectedFeet_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Equip</AccessText>
                                 </Button>
@@ -462,7 +462,7 @@ HorizontalAlignment="Center">
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0">
                         <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="270" Height="170"
-Header="Equipped Left Ring" Margin="5,5,5,0">
+                                  Header="Equipped Left Ring" Margin="5,5,5,0">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -481,7 +481,7 @@ Header="Equipped Left Ring" Margin="5,5,5,0">
                             </Grid>
                         </GroupBox>
                         <GroupBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="270" Height="170"
-Header="Equipped Right Ring" Margin="5,0">
+                                  Header="Equipped Right Ring" Margin="5,0">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -502,11 +502,11 @@ Header="Equipped Right Ring" Margin="5,0">
                     </StackPanel>
                     <GroupBox Grid.Column="1" Grid.Row="0" Margin="5" Header="Inventory">
                         <ListBox x:Name="LstRingInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstRingInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstRingInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"
-Width="270" Height="340" Header="Selected Ring" Margin="5">
+                              Width="270" Height="340" Header="Selected Ring" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -517,15 +517,15 @@ Width="270" Height="340" Header="Selected Ring" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedRing" Grid.Row="0" Width="250" Margin="5"
- Text="{Binding Path=Name}" />
+                                       Text="{Binding Path=Name}" />
                             <TextBlock x:Name="LblSelectedRingBonus" Grid.Row="1" Margin="5" Width="250"
- Text="{Binding Path=BonusToString}" />
+                                       Text="{Binding Path=BonusToString}" />
                             <TextBlock x:Name="LblSelectedRingValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedRingSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedRingDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedRingDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <Grid Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -542,8 +542,8 @@ Width="270" Height="340" Header="Selected Ring" Margin="5">
                                     <AccessText>_Equip Right</AccessText>
                                 </Button>
                                 <Button x:Name="BtnDropSelectedRing" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-Width="100"
-Click="BtnDropSelectedRing_Click" IsEnabled="False" Margin="5">
+                                        Width="100"
+                                        Click="BtnDropSelectedRing_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Drop</AccessText>
                                 </Button>
                             </Grid>
@@ -559,11 +559,11 @@ Click="BtnDropSelectedRing_Click" IsEnabled="False" Margin="5">
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Grid.Row="0" Header="Inventory" Margin="0,5,5,5">
                         <ListBox x:Name="LstPotionInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstPotionInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstPotionInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"
-Width="270" Height="340" Header="Selected Potion" Margin="5">
+                              Width="270" Height="340" Header="Selected Potion" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -574,17 +574,17 @@ Width="270" Height="340" Header="Selected Potion" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedPotion" Grid.Row="0" Width="250" Text="{Binding Path=Name}"
- Margin="5" />
+                                       Margin="5" />
                             <TextBlock x:Name="LblSelectedPotionTypeAmount" Grid.Row="1" Width="250"
- Text="{Binding Path=TypeAmount}" Margin="5" />
+                                       Text="{Binding Path=TypeAmount}" Margin="5" />
                             <TextBlock x:Name="LblSelectedPotionValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedPotionSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedPotionDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedPotionDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnConsumeSelectedPotion" Width="100" Click="BtnConsumeSelectedPotion_Click"  IsEnabled="False" Margin="5">
                                     <AccessText>_Consume</AccessText>
                                 </Button>
@@ -604,11 +604,11 @@ HorizontalAlignment="Center">
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Grid.Row="0" Header="Inventory" Margin="5">
                         <ListBox x:Name="LstFoodInventory" Width="265" Height="300" ItemsSource="{Binding}"
- SelectionChanged="LstFoodInventory_SelectionChanged"
- ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                                 SelectionChanged="LstFoodInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
                     </GroupBox>
                     <GroupBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"
-Width="270" Height="340" Header="Selected Food" Margin="5">
+                              Width="270" Height="340" Header="Selected Food" Margin="5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -619,23 +619,23 @@ Width="270" Height="340" Header="Selected Food" Margin="5">
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedFood" Grid.Row="0" Width="250" Text="{Binding Path=Name}"
- Margin="5" />
+                                       Margin="5" />
                             <TextBlock x:Name="LblSelectedFoodTypeAmount" Grid.Row="1" Width="250"
- Text="{Binding Path=TypeAmount}" Margin="5" />
+                                       Text="{Binding Path=TypeAmount}" Margin="5" />
                             <TextBlock x:Name="LblSelectedFoodValue" Grid.Row="2"
- Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedFoodSellable" Grid.Row="3"
- Text="{Binding Path=CanSellToString}" Margin="5" />
-                            <TextBlock x:Name="LblSelectedFoodDescription" Grid.Row="4" Height="67"
- Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedFoodDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
-HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center">
                                 <Button x:Name="BtnConsumeSelectedFood" Width="100"
-Click="BtnConsumeSelectedFood_Click" IsEnabled="False" Margin="5">
+                                        Click="BtnConsumeSelectedFood_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Consume</AccessText>
                                 </Button>
                                 <Button x:Name="BtnDropSelectedFood" Width="100"
-Click="BtnDropSelectedFood_Click" IsEnabled="False" Margin="5">
+                                        Click="BtnDropSelectedFood_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Drop</AccessText>
                                 </Button>
                             </StackPanel>
@@ -645,17 +645,17 @@ Click="BtnDropSelectedFood_Click" IsEnabled="False" Margin="5">
             </TabItem>
         </TabControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"
-Margin="0,0,0,10">
+                    Margin="0,0,0,10">
             <TextBlock x:Name="LblHealth" Width="281" Text="{Binding Path=HealthToStringWithText}"
- TextAlignment="Center" Margin="0,0,10,0" />
+                       TextAlignment="Center" Margin="0,0,10,0" />
             <TextBlock x:Name="LblMagic" Width="281" Text="{Binding Path=MagicToStringWithText}" TextAlignment="Center"
- Margin="0,0,10,0" />
+                       Margin="0,0,10,0" />
             <TextBlock x:Name="LblGold" Width="281" Text="{Binding Path=GoldToStringWithText}" TextAlignment="Center" />
         </StackPanel>
         <TextBox x:Name="TxtInventory" Grid.Row="2" Margin="0,0,0,10" Height="120" Width="863" IsReadOnly="True"
- TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+                 TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         <Button x:Name="BtnBack" Grid.Row="3" Width="125" Click="BtnBack_Click"
-Margin="10,0,0,0" IsCancel="True">
+                Margin="10,0,0,0" IsCancel="True">
             <AccessText>_Back</AccessText>
         </Button>
     </Grid>

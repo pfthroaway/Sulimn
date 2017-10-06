@@ -1,12 +1,12 @@
 ﻿<Page x:Name="PageBank" x:Class="Sulimn.Pages.BankPages.BankPage"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-mc:Ignorable="d"
-Style="{StaticResource PageStyle}"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Style="{StaticResource PageStyle}"
       Loaded="BankPage_OnLoaded"
-Title="Bank">
+      Title="Bank">
     <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="145" />
@@ -60,7 +60,7 @@ Title="Bank">
         </Border>
         <Border Grid.Column="1" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,1,1" Margin="0,0,5,0">
             <TextBlock x:Name="LblLoanOwed" Text="{Binding Path=LoanTakenToString, Mode=OneWay}"
- VerticalAlignment="Center" TextAlignment="Center" />
+                       VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
     </Grid>
 </Page>
