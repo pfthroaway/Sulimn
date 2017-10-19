@@ -130,8 +130,8 @@ namespace Sulimn.Pages
         private async void WindowMain_Loaded(object sender, RoutedEventArgs e)
         {
             GameState.MainWindow = this;
-            UpdateTheme(await GameState.LoadTheme(), false);
             await GameState.LoadAll();
+            UpdateTheme(await GameState.LoadTheme(), false);
         }
 
         private void MainFrame_OnSizeChanged(object sender, SizeChangedEventArgs e) => CalculateScale();

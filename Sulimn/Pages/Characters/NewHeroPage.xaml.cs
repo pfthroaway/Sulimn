@@ -44,7 +44,7 @@ namespace Sulimn.Pages.Characters
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property)=>PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -176,6 +176,7 @@ namespace Sulimn.Pages.Characters
                         new Ring()),
                         new Spellbook(),
                         new Inventory(),
+                        new Progression(),
                         ChkHardcore.IsChecked ?? false);
 
                         if (await GameState.NewHero(newHero))

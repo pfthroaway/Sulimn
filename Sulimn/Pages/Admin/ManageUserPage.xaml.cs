@@ -162,7 +162,7 @@ namespace Sulimn.Pages.Admin
                         Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
                     new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text),
                         Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem, (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem, (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(), CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
-                    new Spellbook(_originalHero.Spellbook), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)), ChkHardcore.IsChecked ?? false);
+                    new Spellbook(_originalHero.Spellbook), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
 
                 if (await GameState.SaveHero(newHero))
                     ClosePage();

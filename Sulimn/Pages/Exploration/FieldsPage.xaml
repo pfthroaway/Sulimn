@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="FieldsPage_OnLoaded"
       Title="Fields">
-    <Grid x:Name="Grid">
+    <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -18,23 +18,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtFields" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415"
-                 Margin="10" TextWrapping="Wrap"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-        <Button x:Name="BtnFarm" Grid.Column="0" Grid.Row="1" Width="125" Margin="10" Click="BtnFarm_Click">
-            <AccessText>_Farm</AccessText>
-        </Button>
-        <Button x:Name="BtnCellar" Grid.Column="1" Grid.Row="1" Width="125" Margin="10" Click="BtnCellar_Click">
-            <AccessText>_Root Cellar</AccessText>
-        </Button>
-        <Button x:Name="BtnCropFields" Grid.Column="2" Grid.Row="1" Width="125" Margin="10" Click="BtnCropFields_Click">
-            <AccessText>_Crop Fields</AccessText>
-        </Button>
-        <Button x:Name="BtnOrchard" Grid.Column="1" Grid.Row="2" Width="125" Margin="10" Click="BtnOrchard_Click">
-            <AccessText>_Orchard</AccessText>
-        </Button>
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Margin="10" Click="BtnBack_Click" IsCancel="True">
-            <AccessText>_Back</AccessText>
-        </Button>
+        <TextBox x:Name="TxtFields" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
+        <Button x:Name="BtnFarm" Grid.Column="0" Grid.Row="1" Width="125" Content="_Farm" Click="BtnFarm_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnCellar" Grid.Column="1" Grid.Row="1" Width="125" Content="_Root Cellar" Click="BtnCellar_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnCropFields" Grid.Column="2" Grid.Row="1" Width="125" Content="_Crop Fields" Click="BtnCropFields_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnOrchard" Grid.Column="0" Grid.Row="2" Width="125" Content="_Orchard" Click="BtnOrchard_Click" />
+        <Button x:Name="BtnProgress" Grid.Column="1" Grid.Row="2" Width="125" Content="_Progress" Click="BtnProgress_Click" IsEnabled="False" />
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Content="_Back" Click="BtnBack_Click" IsCancel="True" />
     </Grid>
 </Page>

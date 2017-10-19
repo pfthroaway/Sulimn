@@ -151,7 +151,7 @@ namespace Sulimn.Pages.Admin
                             (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem,
                             CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(),
                             CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
-                        new Spellbook(), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)),
+                        new Spellbook(), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)), new Progression(),
                         ChkHardcore.IsChecked ?? false));
                     ClosePage();
                 }

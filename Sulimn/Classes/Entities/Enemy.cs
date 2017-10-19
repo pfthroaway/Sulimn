@@ -22,10 +22,7 @@ namespace Sulimn.Classes.Entities
         }
 
         /// <summary>Overrides the ToString() method to return only Name.</summary>
-        public sealed override string ToString()
-        {
-            return Name;
-        }
+        public sealed override string ToString() => Name;
 
         #region Modifying Properties
 

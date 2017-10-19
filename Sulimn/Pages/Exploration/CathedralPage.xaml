@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="CathedralPage_OnLoaded"
       Title="Cathedral">
-    <Grid x:Name="Grid">
+    <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -18,23 +18,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtCathedral" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415"
-                 Margin="10" TextWrapping="Wrap"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-        <Button x:Name="BtnBasilica" Grid.Column="0" Grid.Row="1" Width="125" Margin="10" Click="BtnBasilica_Click">
-            <AccessText>_Basilica</AccessText>
-        </Button>
-        <Button x:Name="BtnSanctuary" Grid.Column="1" Grid.Row="1" Width="125" Margin="10" Click="BtnSanctuary_Click">
-            <AccessText>_Sanctuary</AccessText>
-        </Button>
-        <Button x:Name="BtnEpiscopium" Grid.Column="2" Grid.Row="1" Width="125" Margin="10" Click="BtnEpiscopium_Click">
-            <AccessText>_Episcopium</AccessText>
-        </Button>
-        <Button x:Name="BtnTower" Grid.Column="1" Grid.Row="2" Width="125" Margin="10" Click="BtnTower_Click">
-            <AccessText>_Tower</AccessText>
-        </Button>
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Margin="10" Click="BtnBack_Click" IsCancel="True">
-            <AccessText>_Back</AccessText>
-        </Button>
+        <TextBox x:Name="TxtCathedral" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
+        <Button x:Name="BtnBasilica" Grid.Column="0" Grid.Row="1" Width="125" Content="_Basilica" Click="BtnBasilica_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnSanctuary" Grid.Column="1" Grid.Row="1" Width="125" Content="_Sanctuary" Click="BtnSanctuary_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnEpiscopium" Grid.Column="2" Grid.Row="1" Width="125" Content="_Episcopium" Click="BtnEpiscopium_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnTower" Grid.Column="0" Grid.Row="2" Width="125" Content="_Tower" Click="BtnTower_Click" />
+        <Button x:Name="BtnProgress" Grid.Column="1" Grid.Row="2" Width="125" Content="_Progress" Click="BtnProgress_Click" IsEnabled="False" />
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Content="B_ack" Click="BtnBack_Click" IsCancel="True" />
     </Grid>
 </Page>

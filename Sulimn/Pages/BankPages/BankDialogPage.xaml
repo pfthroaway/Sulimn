@@ -25,6 +25,6 @@
                 IsDefault="True" IsEnabled="False">
             <AccessText></AccessText>
         </Button>
-        <Button x:Name="BtnCancel" Grid.Column="1" Grid.Row="2" Width="125" IsCancel="True" Content="_Cancel"  Click="BtnCancel_Click" />
+        <Button x:Name="BtnCancel" Grid.Column="1" Grid.Row="2" Width="125" IsCancel="True" Content="_Cancel" Click="BtnCancel_Click" />
     </Grid>
 </Page>

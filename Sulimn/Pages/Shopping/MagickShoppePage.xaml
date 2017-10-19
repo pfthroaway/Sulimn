@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="MagickShoppePage_OnLoaded"
       Title="Ye Olde Magick Shoppe">
-    <Grid x:Name="Grid"  Margin="10">
+    <Grid x:Name="Grid" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

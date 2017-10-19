@@ -19,14 +19,8 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="TxtTavern" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="420"
                  Text="You enter a local tavern. Several patrons are in the tavern, enjoying a drink. There is a bar at the north end of the room, and an open doorway beside it leads to a backroom gambling venue." Margin="0,0,0,10" IsReadOnly="True" TextWrapping="Wrap" />
-        <Button x:Name="BtnBlackjack" Grid.Column="0" Grid.Row="1" Width="125" Click="BtnBlackjack_Click">
-            <AccessText>_Blackjack</AccessText>
-        </Button>
-        <Button x:Name="BtnDrink" Grid.Column="1" Grid.Row="1" Width="125" Click="BtnFood_Click">
-            <AccessText>Buy _Drink</AccessText>
-        </Button>
-        <Button x:Name="BtnExit" Grid.Column="2" Grid.Row="1" Width="125" Click="BtnExit_Click" IsCancel="True">
-            <AccessText>_Exit</AccessText>
-        </Button>
+        <Button x:Name="BtnBlackjack" Grid.Column="0" Grid.Row="1" Width="125" Content="_Blackjack" Click="BtnBlackjack_Click" />
+        <Button x:Name="BtnDrink" Grid.Column="1" Grid.Row="1" Width="125" Content="Buy _Drink" Click="BtnFood_Click" />
+        <Button x:Name="BtnExit" Grid.Column="2" Grid.Row="1" Width="125" Content="_Exit" Click="BtnExit_Click" IsCancel="True" />
     </Grid>
 </Page>

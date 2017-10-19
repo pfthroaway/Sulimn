@@ -34,7 +34,7 @@
         <Button x:Name="BtnRepayLoan" Grid.Column="3" Width="135" Grid.Row="2" Click="BtnRepayLoan_Click">
             <AccessText>_Repay Loan</AccessText>
         </Button>
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"  Width="135" Click="BtnBack_Click" IsCancel="True">
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Width="135" Click="BtnBack_Click" IsCancel="True">
             <AccessText>_Back</AccessText>
         </Button>
         <Border Grid.Column="0" Grid.Row="1" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
@@ -47,13 +47,13 @@
             <TextBlock Text="Gold In Bank" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="1" Grid.Row="2" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
-            <TextBlock x:Name="GoldBank" Text="{Binding Path=GoldInBankToString, Mode=OneWay}"  VerticalAlignment="Center" TextAlignment="Center" />
+            <TextBlock x:Name="GoldBank" Text="{Binding Path=GoldInBankToString, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="0" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
             <TextBlock Text="Available Loan" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="1" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
-            <TextBlock x:Name="LblAvailable" Text="{Binding Path=LoanAvailableToString, Mode=OneWay}"  VerticalAlignment="Center" TextAlignment="Center" />
+            <TextBlock x:Name="LblAvailable" Text="{Binding Path=LoanAvailableToString, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="0" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,0,1" Margin="10,0,0,0">
             <TextBlock Text="Loan Owed" VerticalAlignment="Center" TextAlignment="Center" />

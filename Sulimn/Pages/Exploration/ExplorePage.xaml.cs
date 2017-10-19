@@ -8,19 +8,20 @@ namespace Sulimn.Pages.Exploration
     public partial class ExplorePage
     {
         internal CityPage RefToCityPage { private get; set; }
-        private bool _hardcoreDeath = false;
+        private bool _hardcoreDeath;
 
         #region Button Manipulation
 
         /// <summary>Checks the player's level to determine which buttons to allow to be enabled.</summary>
-        internal void CheckButtons()
+        private void CheckButtons()
         {
             BtnBack.IsEnabled = true;
             BtnFields.IsEnabled = true;
-            BtnForest.IsEnabled = GameState.CurrentHero.Level >= 5;
-            BtnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10;
-            BtnMines.IsEnabled = GameState.CurrentHero.Level >= 15;
-            BtnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20;
+            BtnForest.IsEnabled = GameState.CurrentHero.Level >= 5 && GameState.CurrentHero.Progression.Fields;
+            BtnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10 && GameState.CurrentHero.Progression.Forest;
+            BtnMines.IsEnabled = GameState.CurrentHero.Level >= 15 && GameState.CurrentHero.Progression.Cathedral;
+            BtnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20 && GameState.CurrentHero.Progression.Mines;
+            BtnCastle.IsEnabled = false; //GameState.CurrentHero.Level >= 25 && GameState.CurrentHero.Progression.Catacombs;
         }
 
         /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
@@ -30,53 +31,55 @@ namespace Sulimn.Pages.Exploration
             ClosePage();
         }
 
+        /// <summary>Does the Hero have more than zero health?</summary>
+        /// <returns>Whether the Hero has more than zero health</returns>
+        private bool Healthy()
+        {
+            if (GameState.CurrentHero.Statistics.CurrentHealth > 0) return true;
+            Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
+            return false;
+        }
+
         #endregion Button Manipulation
 
         #region Button-Click Methods
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         private void BtnCatacombs_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
+            if (Healthy())
                 GameState.Navigate(new CatacombsPage { RefToExplorePage = this });
-            else
-                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
+        }
+
+        private void BtnCastle_Click(object sender, RoutedEventArgs e)
+        {
+            if (Healthy())
+                GameState.Navigate(new CastlePage { RefToExplorePage = this });
         }
 
         private void BtnCathedral_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
+            if (Healthy())
                 GameState.Navigate(new CathedralPage { RefToExplorePage = this });
-            else
-                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
         private void BtnFields_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
+            if (Healthy())
                 GameState.Navigate(new FieldsPage { RefToExplorePage = this });
-            else
-                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
         private void BtnForest_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
+            if (Healthy())
                 GameState.Navigate(new ForestPage { RefToExplorePage = this });
-            else
-                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
         private void BtnMines_Click(object sender, RoutedEventArgs e)
         {
-            if (GameState.CurrentHero.Statistics.CurrentHealth > 0)
+            if (Healthy())
                 GameState.Navigate(new MinesPage { RefToExplorePage = this });
-            else
-                Functions.AddTextToTextBox(TxtExplore, "You need to heal before you can explore.");
         }
 
         #endregion Button-Click Methods
@@ -99,14 +102,14 @@ namespace Sulimn.Pages.Exploration
             "There is a dilapidated cathedral at the north end of the city, spreading fear and hopelessness to everyone in its shadow.\n\n" +
             "There is an abandoned mining complex on the south side of the city, which looks like no one has entered or come out of it for years.\n\n" +
             "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
-            CheckButtons();
         }
-
-        #endregion Page-Generated Methods
 
         private void ExplorePage_OnLoaded(object sender, RoutedEventArgs e)
         {
             GameState.CalculateScale(Grid);
+            CheckButtons();
         }
+
+        #endregion Page-Generated Methods
     }
 }

@@ -8,6 +8,7 @@ namespace Sulimn.Classes.Entities
     {
         private HeroClass _class;
         private int _skillPoints;
+        private Progression progression;
         private Spellbook _spellbook = new Spellbook();
         private bool _hardcore;
 
@@ -63,6 +64,9 @@ namespace Sulimn.Classes.Entities
                 OnPropertyChanged("SkillPointsToString");
             }
         }
+
+        /// <summary>The progress the Hero has made.</summary>
+        public Progression Progression { get; set; }
 
         /// <summary>The list of Spells the Hero currently knows</summary>
         public Spellbook Spellbook
@@ -167,7 +171,7 @@ namespace Sulimn.Classes.Entities
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.SkillPoints == right.SkillPoints && left.Hardcore == right.Hardcore && left.Spellbook == right.Spellbook && left.Class == right.Class && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Inventory == right.Inventory && left.Statistics == right.Statistics;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.SkillPoints == right.SkillPoints && left.Hardcore == right.Hardcore && left.Spellbook == right.Spellbook && left.Class == right.Class && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Inventory == right.Inventory && left.Statistics == right.Statistics && left.Progression == right.Progression;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Hero);
@@ -203,9 +207,10 @@ namespace Sulimn.Classes.Entities
         /// <param name="equipment">Equipment of Hero</param>
         /// <param name="spellbook">Spellbook of Hero</param>
         /// <param name="inventory">Inventory of Hero</param>
+        /// <param name="progression">The progress the Hero has made</param>
         /// <param name="hardcore">Will the character be deleted on death?</param>
         internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints,
-        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory, bool hardcore)
+        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory, Progression progression, bool hardcore)
         {
             Name = name;
             Password = password;
@@ -218,12 +223,13 @@ namespace Sulimn.Classes.Entities
             Equipment = equipment;
             Spellbook = spellbook;
             Inventory = inventory;
+            Progression = progression;
             Hardcore = hardcore;
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
         /// <param name="other">Instance of Hero to replace this one</param>
-        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), new Inventory(other.Inventory), other.Hardcore)
+        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), new Inventory(other.Inventory), other.Progression, other.Hardcore)
         {
         }
 

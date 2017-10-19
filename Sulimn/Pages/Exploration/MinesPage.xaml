@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="MinesPage_OnLoaded"
       Title="Mines">
-    <Grid x:Name="Grid">
+    <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -21,20 +21,11 @@
         <TextBox x:Name="TxtMines" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415"
                  Margin="10" TextWrapping="Wrap"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-        <Button x:Name="BtnOffices" Grid.Column="0" Grid.Row="1" Width="125" Margin="10" Click="BtnOffices_Click">
-            <AccessText>_Offices</AccessText>
-        </Button>
-        <Button x:Name="BtnOreBin" Grid.Column="1" Grid.Row="1" Width="125" Margin="10" Click="BtnOreBin_Click">
-            <AccessText>_Ore Bin</AccessText>
-        </Button>
-        <Button x:Name="BtnPumpStation" Grid.Column="2" Grid.Row="1" Width="125" Margin="10" Click="BtnPumpStation_Click">
-            <AccessText>_Pump Station</AccessText>
-        </Button>
-        <Button x:Name="BtnWorkshop" Grid.Column="1" Grid.Row="2" Width="125" Margin="10" Click="BtnWorkshop_Click">
-            <AccessText>_Workshop</AccessText>
-        </Button>
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Margin="10" Click="BtnBack_Click" IsCancel="True">
-            <AccessText>_Back</AccessText>
-        </Button>
+        <Button x:Name="BtnOffices" Grid.Column="0" Grid.Row="1" Width="125" Content="_Offices" Click="BtnOffices_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnOreBin" Grid.Column="1" Grid.Row="1" Width="125" Content="_Ore Bin" Click="BtnOreBin_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnPumpStation" Grid.Column="2" Grid.Row="1" Width="125" Content="_Pump Station" Click="BtnPumpStation_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnWorkshop" Grid.Column="0" Grid.Row="2" Width="125" Content="_Workshop" Click="BtnWorkshop_Click" />
+        <Button x:Name="BtnProgress" Grid.Column="1" Grid.Row="2" Width="125" Content="_Progress" Click="BtnProgress_Click" IsEnabled="False" />
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Content="_Back" Click="BtnBack_Click" IsCancel="True" />
     </Grid>
 </Page>

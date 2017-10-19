@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="CatacombsPage_OnLoaded"
       Title="Catacombs">
-    <Grid x:Name="Grid">
+    <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -18,23 +18,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtCatacombs" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415"
-                 Margin="10" TextWrapping="Wrap"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-        <Button x:Name="BtnCrypts" Grid.Column="0" Grid.Row="1" Width="125" Margin="10" Click="BtnCrypts_Click">
-            <AccessText>_Crypts</AccessText>
-        </Button>
-        <Button x:Name="BtnShantytown" Grid.Column="1" Grid.Row="1" Width="125" Margin="10" Click="BtnShantytown_Click">
-            <AccessText>_Shantytown</AccessText>
-        </Button>
-        <Button x:Name="BtnRavine" Grid.Column="2" Grid.Row="1" Width="125" Margin="10" Click="BtnRavine_Click">
-            <AccessText>_Ravine</AccessText>
-        </Button>
-        <Button x:Name="BtnAqueduct" Grid.Column="1" Grid.Row="2" Width="125" Margin="10" Click="BtnAqueduct_Click">
-            <AccessText>_Aqueduct</AccessText>
-        </Button>
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Margin="10" Click="BtnBack_Click" IsCancel="True">
-            <AccessText>_Back</AccessText>
-        </Button>
+        <TextBox x:Name="TxtCatacombs" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
+        <Button x:Name="BtnCrypts" Grid.Column="0" Grid.Row="1" Width="125" Content="_Crypts" Click="BtnCrypts_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnShantytown" Grid.Column="1" Grid.Row="1" Width="125" Content="_Shantytown" Click="BtnShantytown_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnRavine" Grid.Column="2" Grid.Row="1" Width="125" Content="_Ravine" Click="BtnRavine_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnAqueduct" Grid.Column="0" Grid.Row="2" Width="125" Content="_Aqueduct" Click="BtnAqueduct_Click" />
+        <Button x:Name="BtnProgress" Grid.Column="1" Grid.Row="2" Width="125" Content="_Progress" Click="BtnProgress_Click" IsEnabled="False" />
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Content="_Back" Click="BtnBack_Click" IsCancel="True" />
     </Grid>
 </Page>

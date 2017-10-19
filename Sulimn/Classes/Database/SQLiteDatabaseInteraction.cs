@@ -10,6 +10,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Reflection;
 using System.Threading.Tasks;
+using Sulimn.Pages.Exploration;
 
 namespace Sulimn.Classes.Database
 {
@@ -105,7 +106,8 @@ namespace Sulimn.Classes.Database
             {
                 CommandText =
             "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [Name] = @name;" +
-            "UPDATE Equipment SET [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Hands] = @hands, [Legs] = @legs, [Feet] = @feet, [LeftRing] = @leftRing, [RightRing] = @rightRing WHERE [Name] = @name"
+            "UPDATE Equipment SET [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Hands] = @hands, [Legs] = @legs, [Feet] = @feet, [LeftRing] = @leftRing, [RightRing] = @rightRing WHERE [Name] = @name;" +
+            "UPDATE PROGRESSION SET [Fields] = @fields, [Forest] = @forest, [Cathedral] = @cathedral, [Mines] = @mines, [Catacombs] = @catacombs, [Courtyard] = @courtyard, [Battlements] = @battlements, [Armoury] = @armoury, [Spire] = @spire, [ThroneRoom] = @throneRoom WHERE [Name] = @name"
             };
             cmd.Parameters.AddWithValue("@level", saveHero.Level);
             cmd.Parameters.AddWithValue("@experience", saveHero.Experience.ToString());
@@ -131,6 +133,16 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@feet", saveHero.Equipment.Feet.Name);
             cmd.Parameters.AddWithValue("@leftRing", saveHero.Equipment.LeftRing.Name);
             cmd.Parameters.AddWithValue("@rightRing", saveHero.Equipment.RightRing.Name);
+            cmd.Parameters.AddWithValue("@fields", saveHero.Progression.Fields);
+            cmd.Parameters.AddWithValue("@forest", saveHero.Progression.Forest);
+            cmd.Parameters.AddWithValue("@cathedral", saveHero.Progression.Cathedral);
+            cmd.Parameters.AddWithValue("@mines", saveHero.Progression.Mines);
+            cmd.Parameters.AddWithValue("@catacombs", saveHero.Progression.Catacombs);
+            cmd.Parameters.AddWithValue("@courtyard", saveHero.Progression.Courtyard);
+            cmd.Parameters.AddWithValue("@battlements", saveHero.Progression.Battlements);
+            cmd.Parameters.AddWithValue("@armoury", saveHero.Progression.Armoury);
+            cmd.Parameters.AddWithValue("@spire", saveHero.Progression.Spire);
+            cmd.Parameters.AddWithValue("@throneRoom", saveHero.Progression.ThroneRoom);
 
             return await SQLite.ExecuteCommand(_con, cmd);
         }
@@ -344,7 +356,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Hero>> LoadHeroes()
         {
             List<Hero> allHeroes = new List<Hero>();
-            DataSet ds = await SQLite.FillDataSet("SELECT Players.*, Equipment.* FROM Players INNER JOIN Equipment ON Players.Name = Equipment.Name", _con);
+            DataSet ds = await SQLite.FillDataSet("SELECT Players.*, Equipment.*, Progression.* FROM Players INNER JOIN Equipment ON Players.Name = Equipment.Name INNER JOIN Progression ON Players.Name = Progression.Name", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -392,6 +404,7 @@ namespace Sulimn.Classes.Database
                     GameState.SetSpellbook(dr["KnownSpells"].ToString()),
                     GameState.SetInventory(dr["Inventory"].ToString(),
                     Int32Helper.Parse(dr["Gold"])),
+                    new Progression(BoolHelper.Parse(dr["Fields"]), BoolHelper.Parse(dr["Forest"]), BoolHelper.Parse(dr["Cathedral"]), BoolHelper.Parse(dr["Mines"]), BoolHelper.Parse(dr["Catacombs"]), BoolHelper.Parse(dr["Courtyard"]), BoolHelper.Parse(dr["Battlements"]), BoolHelper.Parse(dr["Armoury"]), BoolHelper.Parse(dr["Spire"]), BoolHelper.Parse(dr["ThroneRoom"])),
                     BoolHelper.Parse(dr["Hardcore"]));
 
                     allHeroes.Add(newHero);

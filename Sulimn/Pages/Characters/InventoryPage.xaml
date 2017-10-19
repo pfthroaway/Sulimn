@@ -474,7 +474,7 @@
                                 <TextBlock x:Name="LblEquippedLeftRingBonus" Grid.Row="1" Height="55" Text="{Binding Path=BonusToString}" TextWrapping="Wrap" Margin="5" />
                                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                                     <TextBlock x:Name="LblEquippedLeftRingValue" Width="138" Text="{Binding Path=ValueToStringWithText}" VerticalAlignment="Center" Margin="5" />
-                                    <Button x:Name="BtnUnequipLeftRing" Width="100" Click="BtnUnequipLeftRing_Click"  IsEnabled="False">
+                                    <Button x:Name="BtnUnequipLeftRing" Width="100" Click="BtnUnequipLeftRing_Click" IsEnabled="False">
                                         <AccessText>_Unequip</AccessText>
                                     </Button>
                                 </StackPanel>
@@ -493,7 +493,7 @@
                                 <TextBlock x:Name="LblEquippedRightRingBonus" Grid.Row="1" Height="55" Text="{Binding Path=BonusToString}" TextWrapping="Wrap" Margin="5" />
                                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                                     <TextBlock x:Name="LblEquippedRightRingValue" Width="138" Text="{Binding Path=ValueToStringWithText}" VerticalAlignment="Center" Margin="5" />
-                                    <Button x:Name="BtnUnequipRightRing" Width="100" Click="BtnUnequipRightRing_Click"  IsEnabled="False">
+                                    <Button x:Name="BtnUnequipRightRing" Width="100" Click="BtnUnequipRightRing_Click" IsEnabled="False">
                                         <AccessText>_Unequip</AccessText>
                                     </Button>
                                 </StackPanel>
@@ -585,7 +585,7 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnConsumeSelectedPotion" Width="100" Click="BtnConsumeSelectedPotion_Click"  IsEnabled="False" Margin="5">
+                                <Button x:Name="BtnConsumeSelectedPotion" Width="100" Click="BtnConsumeSelectedPotion_Click" IsEnabled="False" Margin="5">
                                     <AccessText>_Consume</AccessText>
                                 </Button>
                                 <Button x:Name="BtnDropSelectedPotion" Width="100" Click="BtnDropSelectedPotion_Click" IsEnabled="False" Margin="5">

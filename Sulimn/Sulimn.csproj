@@ -107,6 +107,7 @@
     <Compile Include="Classes\Enums\WeaponTypes.cs" />
     <Compile Include="Classes\HeroParts\Attributes.cs" />
     <Compile Include="Classes\HeroParts\Bank.cs" />
+    <Compile Include="Classes\HeroParts\Progression.cs" />
     <Compile Include="Classes\Items\Armor.cs" />
     <Compile Include="Classes\Items\BodyArmor.cs" />
     <Compile Include="Classes\HeroParts\Equipment.cs" />
@@ -122,6 +123,9 @@
     </Compile>
     <Compile Include="Pages\Characters\InventoryPage.xaml.cs">
       <DependentUpon>InventoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exploration\CastlePage.xaml.cs">
+      <DependentUpon>CastlePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -227,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Characters\InventoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Exploration\CastlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -360,7 +360,7 @@ namespace Sulimn.Classes
         /// <returns>Returns text regarding gold found</returns>
         internal static async Task<string> EventFindGold(int minGold, int maxGold)
         {
-            int foundGold = Functions.GenerateRandomNumber(minGold, maxGold);
+            int foundGold = minGold == maxGold ? minGold : Functions.GenerateRandomNumber(minGold, maxGold);
             CurrentHero.Inventory.Gold += foundGold;
             await SaveHero(CurrentHero);
             return $"You find {foundGold:N0} gold!";
@@ -397,6 +397,22 @@ namespace Sulimn.Classes
             return $"You find a {availableItems[item].Name}!";
         }
 
+        /// <summary>Event where the Hero finds an item.</summary>
+        /// <typeparam name="T">Type of Item to be found</typeparam>
+        /// <param name="minValue">Minimum value of Item</param>
+        /// <param name="maxValue">Maximum value of Item</param>
+        /// <param name="canSell">Can the item be sold?</param>
+        /// <returns>Returns text about found Item</returns>
+        internal static async Task<string> EventFindItem<T>(int minValue, int maxValue, bool canSell = true) where T : Item
+        {
+            List<T> availableItems = new List<T>(GetItemsOfType<T>());
+            availableItems = availableItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue).ToList();
+            int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
+            CurrentHero.Inventory.AddItem(availableItems[item]);
+            await SaveHero(CurrentHero);
+            return $"You find a {availableItems[item].Name}!";
+        }
+
         /// <summary>Event where the Hero encounters a hostile animal.</summary>
         /// <param name="minLevel">Minimum level of animal</param>
         /// <param name="maxLevel">Maximum level of animal</param>
@@ -412,7 +428,7 @@ namespace Sulimn.Classes
         /// <param name="maxLevel">Maximum level of Enemy.</param>
         internal static void EventEncounterEnemy(int minLevel, int maxLevel)
         {
-            List<Enemy> availableEnemies = AllEnemies.Where(enemy => enemy.Level >= minLevel && enemy.Level <= maxLevel).ToList();
+            List<Enemy> availableEnemies = AllEnemies.Where(enemy => enemy.Level >= minLevel && enemy.Level <= maxLevel && enemy.Type != "Boss").ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             if (CurrentEnemy.Inventory.Gold > 0)
@@ -424,9 +440,7 @@ namespace Sulimn.Classes
         /// <param name="names">Array of names</param>
         internal static void EventEncounterEnemy(params string[] names)
         {
-            List<Enemy> availableEnemies = new List<Enemy>();
-            foreach (string name in names)
-                availableEnemies.Add(GetEnemy(name));
+            List<Enemy> availableEnemies = names.Select(GetEnemy).ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             if (CurrentEnemy.Inventory.Gold > 0)

@@ -7,6 +7,7 @@ using Sulimn.Pages.Characters;
 using Sulimn.Pages.Exploration;
 using System.ComponentModel;
 using System.Windows;
+using Sulimn.Classes.Items;
 
 namespace Sulimn.Pages.Battle
 {
@@ -18,7 +19,8 @@ namespace Sulimn.Pages.Battle
         private bool _battleEnded;
         private Spell _currentSpell = new Spell();
         private string _previousPage;
-        private bool _blnHardcoreDeath = false;
+        private bool _blnHardcoreDeath;
+        private bool _progress;
 
         private enum BattleAction
         {
@@ -73,12 +75,13 @@ namespace Sulimn.Pages.Battle
 
         /// <summary>Sets up the battle engine.</summary>
         /// <param name="prevPage">Previous Page</param>
-        internal void PrepareBattle(string prevPage)
+        /// <param name="progress">Will this battle be for progression?</param>
+        internal void PrepareBattle(string prevPage, bool progress = false)
         {
             BindLabels();
             _previousPage = prevPage;
-
-            TxtBattle.Text = $"You encounter an enemy. The {GameState.CurrentEnemy.Name} seems openly hostile to you. Prepare to defend yourself.";
+            _progress = progress;
+            TxtBattle.Text = progress ? $"{GameState.CurrentEnemy.Name} rushes at you in the {_previousPage}. You defend yourself. " : $"You encounter an enemy. The {GameState.CurrentEnemy.Name} seems openly hostile to you. Prepare to defend yourself.";
         }
 
         /// <summary>Ends the battle and allows the user to exit the Page.</summary>
@@ -232,29 +235,33 @@ namespace Sulimn.Pages.Battle
         private void SetEnemyAction()
         {
             _enemyAction = BattleAction.Attack;
-            if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 20)
+            if (!_progress)
             {
-                int flee = Functions.GenerateRandomNumber(1, 100);
-                if (flee <= 5)
-                    _enemyAction = BattleAction.Flee;
-            }
-            else if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 10)
-            {
-                int flee = Functions.GenerateRandomNumber(1, 100);
-                if (flee <= 2)
-                    _enemyAction = BattleAction.Flee;
-            }
-            if (_enemyAction != BattleAction.Flee)
-            {
-                int result = Functions.GenerateRandomNumber(1, 100);
-                if (GameState.CurrentEnemy.Statistics.CurrentHealth >
-                GameState.CurrentEnemy.Statistics.MaximumHealth / 3) //one third or more health, no chance to want to flee.
-                    _enemyAction = BattleAction.Attack;
-                else if (GameState.CurrentEnemy.Statistics.CurrentHealth >
-                GameState.CurrentEnemy.Statistics.MaximumHealth / 5) //20% or more health, 2% chance to want to flee.
-                    _enemyAction = result <= 98 ? BattleAction.Attack : BattleAction.Flee;
-                else //20% or less health, 5% chance to want to flee.
-                    _enemyAction = result <= 95 ? BattleAction.Attack : BattleAction.Flee;
+                if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 20)
+                {
+                    int flee = Functions.GenerateRandomNumber(1, 100);
+                    if (flee <= 5)
+                        _enemyAction = BattleAction.Flee;
+                }
+                else if (GameState.CurrentHero.Level - GameState.CurrentEnemy.Level >= 10)
+                {
+                    int flee = Functions.GenerateRandomNumber(1, 100);
+                    if (flee <= 2)
+                        _enemyAction = BattleAction.Flee;
+                }
+
+                if (_enemyAction != BattleAction.Flee)
+                {
+                    int result = Functions.GenerateRandomNumber(1, 100);
+                    if (GameState.CurrentEnemy.Statistics.CurrentHealth >
+                        GameState.CurrentEnemy.Statistics.MaximumHealth / 3) //one third or more health, no chance to want to flee.
+                        _enemyAction = BattleAction.Attack;
+                    else if (GameState.CurrentEnemy.Statistics.CurrentHealth >
+                             GameState.CurrentEnemy.Statistics.MaximumHealth / 5) //20% or more health, 2% chance to want to flee.
+                        _enemyAction = result <= 98 ? BattleAction.Attack : BattleAction.Flee;
+                    else //20% or less health, 5% chance to want to flee.
+                        _enemyAction = result <= 95 ? BattleAction.Attack : BattleAction.Flee;
+                }
             }
         }
 
@@ -284,9 +291,7 @@ namespace Sulimn.Pages.Battle
             }
         }
 
-        /// <summary>
-        /// The Enemy attacks the Hero.
-        /// </summary>
+        /// <summary>The Enemy attacks the Hero.</summary>
         private void EnemyAttack(int statModifier, int damage)
         {
             int chanceEnemyHits =
@@ -347,14 +352,7 @@ namespace Sulimn.Pages.Battle
         /// <param name="fleeAttemptDexterity">Whoever is attempting to flee's Dexterity</param>
         /// <param name="blockAttemptDexterity">Whoever is not attempting to flee's Dexterity</param>
         /// <returns>Returns true if the flight attempt is successful</returns>
-        private static bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity)
-        {
-            int chanceToFlee = Functions.GenerateRandomNumber(1, 20 + fleeAttemptDexterity - blockAttemptDexterity, 1,
-            90);
-            int flee = Functions.GenerateRandomNumber(1, 100);
-
-            return flee <= chanceToFlee;
-        }
+        private static bool FleeAttempt(int fleeAttemptDexterity, int blockAttemptDexterity) => Functions.GenerateRandomNumber(1, 100) <= Functions.GenerateRandomNumber(1, 20 + fleeAttemptDexterity - blockAttemptDexterity, 1, 90);
 
         /// <summary>A fairy is summoned to resurrect the Hero.</summary>
         private void Death()
@@ -378,10 +376,7 @@ namespace Sulimn.Pages.Battle
         #region Button Management
 
         /// <summary>Checks whether to enable/disable battle buttons.</summary>
-        private void CheckButtons()
-        {
-            ToggleButtons(!_battleEnded);
-        }
+        private void CheckButtons() => ToggleButtons(!_battleEnded);
 
         /// <summary>Toggles whether the Page's Buttons are enabled.</summary>
         /// <param name="enabled">Are the buttons enabled?</param>
@@ -396,23 +391,17 @@ namespace Sulimn.Pages.Battle
 
         #region Button-Click Methods
 
-        private void BtnAttack_Click(object sender, RoutedEventArgs e)
-        {
-            NewRound(BattleAction.Attack);
-        }
+        private void BtnAttack_Click(object sender, RoutedEventArgs e) => NewRound(BattleAction.Attack);
 
-        private void BtnCharDetails_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharDetails_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
-        private void BtnEnemyDetails_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new EnemyDetailsPage());
-        }
+        private void BtnEnemyDetails_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new EnemyDetailsPage());
 
         private async void BtnReturn_Click(object sender, RoutedEventArgs e)
         {
+            //if the battle is over, return to where you came from
+            //if you were fight a progression battle and you killed the enemy,
+            //add progression to the character and set to display after progression screens
             if (_battleEnded)
             {
                 switch (_previousPage)
@@ -420,34 +409,61 @@ namespace Sulimn.Pages.Battle
                     case "Explore":
                         if (_blnHardcoreDeath)
                             RefToExplorePage.HardcoreDeath();
-                        else
-                            RefToExplorePage.CheckButtons();
                         break;
 
                     case "Fields":
                         if (_blnHardcoreDeath)
                             RefToFieldsPage.HardcoreDeath();
-
+                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        {
+                            GameState.CurrentHero.Progression.Fields = true;
+                            await GameState.EventFindGold(250, 250);
+                            RefToFieldsPage.Progress = true;
+                        }
                         break;
 
                     case "Forest":
                         if (_blnHardcoreDeath)
                             RefToForestPage.HardcoreDeath();
+                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        {
+                            GameState.CurrentHero.Progression.Forest = true;
+                            await GameState.EventFindGold(1000, 1000);
+                            RefToForestPage.Progress = true;
+                        }
                         break;
 
                     case "Cathedral":
                         if (_blnHardcoreDeath)
                             RefToCathedralPage.HardcoreDeath();
+                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        {
+                            GameState.CurrentHero.Progression.Cathedral = true;
+                            await GameState.EventFindItem<Ring>(1, 5000);
+                            RefToCathedralPage.Progress = true;
+                        }
                         break;
 
                     case "Mines":
                         if (_blnHardcoreDeath)
                             RefToMinesPage.HardcoreDeath();
+                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        {
+                            GameState.CurrentHero.Progression.Mines = true;
+                            await GameState.EventFindGold(5000, 5000);
+                            RefToMinesPage.Progress = true;
+                        }
                         break;
 
                     case "Catacombs":
                         if (_blnHardcoreDeath)
                             RefToCatacombsPage.HardcoreDeath();
+                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        {
+                            GameState.CurrentHero.Progression.Catacombs = true;
+                            await GameState.EventFindItem<Ring>(15000, 20000);
+                            RefToCatacombsPage.Progress = true;
+                        }
                         break;
                 }
                 if (!_blnHardcoreDeath)
@@ -463,25 +479,16 @@ namespace Sulimn.Pages.Battle
             GameState.Navigate(castSpellPage);
         }
 
-        private void BtnFlee_Click(object sender, RoutedEventArgs e)
-        {
-            NewRound(BattleAction.Flee);
-        }
+        private void BtnFlee_Click(object sender, RoutedEventArgs e) => NewRound(BattleAction.Flee);
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
-        public BattlePage()
-        {
-            InitializeComponent();
-        }
+        public BattlePage() => InitializeComponent();
+
+        private void BattlePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
         #endregion Page-Manipulation Methods
-
-        private void BattlePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
     }
 }
