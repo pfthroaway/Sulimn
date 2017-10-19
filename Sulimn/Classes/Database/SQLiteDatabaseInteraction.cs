@@ -67,7 +67,8 @@ namespace Sulimn.Classes.Database
                 CommandText =
             "INSERT INTO Players([Name], [Password], [Class], [Level], [Experience], [SkillPoints], [Strength], [Vitality], [Dexterity], [Wisdom], [Gold], [CurrentHealth], [MaximumHealth], [CurrentMagic], [MaximumMagic], [KnownSpells], [Inventory], [Hardcore])VALUES(@name, @password, @class, @level, @experience, @skillPoints, @strength, @vitality, @dexterity, @wisdom, @gold, @currentHealth, @maximumHealth, @maximumMagic, @maximumMagic, @spells, @inventory, @hardcore);" +
             "INSERT INTO Bank([Name], [Gold], [LoanTaken])VALUES(@name, 0, 0);" +
-            "INSERT INTO Equipment([Name], [Weapon], [Head], [Body], [Hands], [Legs], [Feet])VALUES(@name, @weapon, @head, @body, @hands, @legs, @feet)"
+            "INSERT INTO Equipment([Name], [Weapon], [Head], [Body], [Hands], [Legs], [Feet])VALUES(@name, @weapon, @head, @body, @hands, @legs, @feet);" +
+            "INSERT INTO Progression([Name], [Fields], [Forest], [Cathedral], [Mines], [Catacombs], [Courtyard], [Battlements], [Armoury], [Spire], [ThroneRoom])VALUES(@name, @fields, @forest, @cathedral, @mines, @catacombs, @courtyard, @battlements, @armoury, @spire, @throneRoom)"
             };
             cmd.Parameters.AddWithValue("@name", newHero.Name);
             cmd.Parameters.AddWithValue("@password", newHero.Password.Replace("\0", ""));
@@ -93,6 +94,16 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@hands", newHero.Equipment.Hands.Name);
             cmd.Parameters.AddWithValue("@legs", newHero.Equipment.Legs.Name);
             cmd.Parameters.AddWithValue("@feet", newHero.Equipment.Feet.Name);
+            cmd.Parameters.AddWithValue("@fields", newHero.Progression.Fields);
+            cmd.Parameters.AddWithValue("@forest", newHero.Progression.Forest);
+            cmd.Parameters.AddWithValue("@cathedral", newHero.Progression.Cathedral);
+            cmd.Parameters.AddWithValue("@mines", newHero.Progression.Mines);
+            cmd.Parameters.AddWithValue("@catacombs", newHero.Progression.Catacombs);
+            cmd.Parameters.AddWithValue("@courtyard", newHero.Progression.Courtyard);
+            cmd.Parameters.AddWithValue("@battlements", newHero.Progression.Battlements);
+            cmd.Parameters.AddWithValue("@armoury", newHero.Progression.Armoury);
+            cmd.Parameters.AddWithValue("@spire", newHero.Progression.Spire);
+            cmd.Parameters.AddWithValue("@throneRoom", newHero.Progression.ThroneRoom);
 
             return await SQLite.ExecuteCommand(_con, cmd);
         }
