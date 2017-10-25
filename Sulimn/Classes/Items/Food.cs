@@ -85,8 +85,7 @@ namespace Sulimn.Classes.Items
 
         /// <summary>Replaces this instance of Food with another instance.</summary>
         /// <param name="otherFood">Instance of Food to replace this instance</param>
-        internal Food(Food otherFood) : this(otherFood.Name, otherFood.FoodType, otherFood.Description,
-                    otherFood.Weight, otherFood.Value, otherFood.Amount, otherFood.CanSell, otherFood.IsSold)
+        internal Food(Food otherFood) : this(otherFood.Name, otherFood.FoodType, otherFood.Description, otherFood.Amount, otherFood.Weight, otherFood.Value, otherFood.CanSell, otherFood.IsSold)
         {
         }
 
