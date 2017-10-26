@@ -53,7 +53,7 @@ namespace Sulimn.Pages.Shopping
             if (reload)
             {
                 _sellRing.Clear();
-                _sellRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
+                _sellRing.AddRange(GameState.CurrentHero.GetItemsOfType<Ring>());
                 _sellRing = _sellRing.OrderBy(ring => ring.Value).ToList();
                 LstRingSell.ItemsSource = _sellRing;
                 LstRingSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -72,20 +72,11 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll()
-        {
-            BindLabels();
-        }
+        internal void LoadAll() => BindLabels();
 
-        private void LoadAllPurchase()
-        {
-            BindRingPurchase();
-        }
+        private void LoadAllPurchase() => BindRingPurchase();
 
-        private void LoadAllSell()
-        {
-            BindRingSell();
-        }
+        private void LoadAllSell() => BindRingSell();
 
         #endregion Load
 
@@ -96,8 +87,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns>Returns text regarding purchase</returns>
         private string Purchase(Item itmPurchase)
         {
-            GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
-            GameState.CurrentHero.Inventory.AddItem(itmPurchase);
+            GameState.CurrentHero.Gold -= itmPurchase.Value;
+            GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
@@ -108,8 +99,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns>Returns text regarding sale</returns>
         private string Sell(Item itmSell)
         {
-            GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
-            GameState.CurrentHero.Inventory.RemoveItem(itmSell);
+            GameState.CurrentHero.Gold += itmSell.SellValue;
+            GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
@@ -140,7 +131,7 @@ namespace Sulimn.Pages.Shopping
             ? (Ring)LstRingPurchase.SelectedValue
             : new Ring();
 
-            BtnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Gold;
             BindRingPurchase(false);
         }
 
@@ -156,15 +147,9 @@ namespace Sulimn.Pages.Shopping
 
         #region Page Button-Click Methods
 
-        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Page Button-Click Methods
 
@@ -187,9 +172,6 @@ namespace Sulimn.Pages.Shopping
 
         #endregion Page-Manipulation
 
-        private void SilverEmpirePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void SilverEmpirePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

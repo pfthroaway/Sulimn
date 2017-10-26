@@ -60,7 +60,7 @@ namespace Sulimn.Pages.Shopping
             {
                 _sellFood.Clear();
                 _sellFood.AddRange(
-                GameState.CurrentHero.Inventory.GetItemsOfType<Food>()
+                GameState.CurrentHero.GetItemsOfType<Food>()
                 .Where(food => food.FoodType == FoodTypes.Food));
                 _sellFood = _sellFood.OrderBy(food => food.Value).ToList();
                 LstFoodSell.ItemsSource = _sellFood;
@@ -99,7 +99,7 @@ namespace Sulimn.Pages.Shopping
             {
                 _sellDrink.Clear();
                 _sellDrink.AddRange(
-                GameState.CurrentHero.Inventory.GetItemsOfType<Food>()
+                GameState.CurrentHero.GetItemsOfType<Food>()
                 .Where(drink => drink.FoodType == FoodTypes.Drink));
                 _sellDrink = _sellDrink.OrderBy(drink => drink.Value).ToList();
                 LstDrinkSell.ItemsSource = _sellDrink;
@@ -119,10 +119,7 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll()
-        {
-            BindLabels();
-        }
+        internal void LoadAll() => BindLabels();
 
         private void LoadAllPurchase()
         {
@@ -145,8 +142,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns>Returns text about the purchase</returns>
         private string Purchase(Item itmPurchase)
         {
-            GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
-            GameState.CurrentHero.Inventory.AddItem(itmPurchase);
+            GameState.CurrentHero.Gold -= itmPurchase.Value;
+            GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
@@ -157,8 +154,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns>Returns text about the sale</returns>
         private string Sell(Item itmSell)
         {
-            GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
-            GameState.CurrentHero.Inventory.RemoveItem(itmSell);
+            GameState.CurrentHero.Gold += itmSell.SellValue;
+            GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
@@ -201,7 +198,7 @@ namespace Sulimn.Pages.Shopping
             ? (Food)LstFoodPurchase.SelectedValue
             : new Food();
 
-            BtnFoodPurchase.IsEnabled = _selectedFoodPurchase.Value > 0 && _selectedFoodPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnFoodPurchase.IsEnabled = _selectedFoodPurchase.Value > 0 && _selectedFoodPurchase.Value <= GameState.CurrentHero.Gold;
             BindFoodPurchase(false);
         }
 
@@ -219,7 +216,7 @@ namespace Sulimn.Pages.Shopping
             ? (Food)LstDrinkPurchase.SelectedValue
             : new Food();
 
-            BtnDrinkPurchase.IsEnabled = _selectedDrinkPurchase.Value > 0 && _selectedDrinkPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnDrinkPurchase.IsEnabled = _selectedDrinkPurchase.Value > 0 && _selectedDrinkPurchase.Value <= GameState.CurrentHero.Gold;
             BindDrinkPurchase(false);
         }
 
@@ -235,15 +232,9 @@ namespace Sulimn.Pages.Shopping
 
         #region Page Button-Click Methods
 
-        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Page Button-Click Methods
 
@@ -266,9 +257,6 @@ namespace Sulimn.Pages.Shopping
 
         #endregion Page-Manipulation
 
-        private void TheTavernBarPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void TheTavernBarPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

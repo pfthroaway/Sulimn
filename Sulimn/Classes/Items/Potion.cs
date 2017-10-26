@@ -52,15 +52,9 @@ namespace Sulimn.Classes.Items
                    left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
-        public sealed override bool Equals(object obj)
-        {
-            return Equals(this, obj as Potion);
-        }
+        public sealed override bool Equals(object obj) => Equals(this, obj as Potion);
 
-        public bool Equals(Potion otherPotion)
-        {
-            return Equals(this, otherPotion);
-        }
+        public bool Equals(Potion otherPotion) => Equals(this, otherPotion);
 
         public static bool operator ==(Potion left, Potion right)
         {
@@ -72,15 +66,9 @@ namespace Sulimn.Classes.Items
             return !Equals(left, right);
         }
 
-        public sealed override int GetHashCode()
-        {
-            return base.GetHashCode() ^ 17;
-        }
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 
-        public sealed override string ToString()
-        {
-            return Name;
-        }
+        public sealed override string ToString() => Name;
 
         #endregion Override Operators
 

@@ -32,20 +32,14 @@ namespace Sulimn.Pages.Options
                 GameState.DisplayNotification("Invalid current password.", "Sulimn");
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
         public HeroChangePasswordPage()
         {
@@ -53,22 +47,13 @@ namespace Sulimn.Pages.Options
             PswdCurrentPassword.Focus();
         }
 
-        private void PswdChanged(object sender, RoutedEventArgs e)
-        {
-            BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length > 0 && PswdNewPassword.Password.Length > 0 &&
+        private void PswdChanged(object sender, RoutedEventArgs e) => BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length > 0 && PswdNewPassword.Password.Length > 0 &&
             PswdConfirmPassword.Password.Length > 0;
-        }
 
-        private void Pswd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.PasswordBoxGotFocus(sender);
-        }
+        private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 
         #endregion Page-Manipulation Methods
 
-        private void HeroChangePasswordPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void HeroChangePasswordPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

@@ -155,6 +155,7 @@ namespace Sulimn.Pages.Characters
                         1,
                         0,
                         0,
+                        250,
                         new Attributes(
                         _selectedClass.Strength,
                         _selectedClass.Vitality,
@@ -175,7 +176,7 @@ namespace Sulimn.Pages.Characters
                         new Ring(),
                         new Ring()),
                         new Spellbook(),
-                        new Inventory(),
+                        new List<Item>(),
                         new Progression(),
                         ChkHardcore.IsChecked ?? false);
 

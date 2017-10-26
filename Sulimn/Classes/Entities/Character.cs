@@ -8,8 +8,7 @@ namespace Sulimn.Classes.Entities
     {
         private Attributes _attributes = new Attributes();
         private Equipment _equipment = new Equipment();
-        private Inventory _inventory = new Inventory();
-        private int _level, _experience;
+        private int _level, _experience, _gold;
         private string _name;
         private Statistics _statistics = new Statistics();
 
@@ -50,6 +49,19 @@ namespace Sulimn.Classes.Entities
             }
         }
 
+        /// <summary>Amount of Gold in the inventory.</summary>
+        public int Gold
+        {
+            get => _gold;
+            set
+            {
+                _gold = value;
+                OnPropertyChanged("Gold");
+                OnPropertyChanged("GoldToString");
+                OnPropertyChanged("GoldToStringWithText");
+            }
+        }
+
         /// <summary>Attributes of character</summary>
         public Attributes Attributes
         {
@@ -83,17 +95,6 @@ namespace Sulimn.Classes.Entities
             }
         }
 
-        /// <summary>Inventory of character</summary>
-        public Inventory Inventory
-        {
-            get => _inventory;
-            set
-            {
-                _inventory = value;
-                OnPropertyChanged("Inventory");
-            }
-        }
-
         #endregion Modifying Properties
 
         #region Helper Properties
@@ -103,6 +104,12 @@ namespace Sulimn.Classes.Entities
 
         /// <summary>The experience the Hero has gained this level alongside how much is needed to level up with preceding text</summary>
         public string ExperienceToStringWithText => $"Experience: {ExperienceToString}";
+
+        /// <summary>Amount of Gold in the inventory, with thousands separator.</summary>
+        public string GoldToString => Gold.ToString("N0");
+
+        /// <summary>Amount of Gold in the inventory, with thousands separator and preceding text.</summary>
+        public string GoldToStringWithText => $"Gold: {GoldToString}";
 
         /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
         public int TotalStrength => Attributes.Strength + Equipment.BonusStrength;

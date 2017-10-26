@@ -86,25 +86,16 @@ namespace Sulimn.Pages.Characters
 
         #region Button-Click Methods
 
-        private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
-        {
-            CastSpell(_selectedSpell);
-        }
+        private void BtnCastSpell_Click(object sender, RoutedEventArgs e) => CastSpell(_selectedSpell);
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
         private void LstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -121,16 +112,10 @@ namespace Sulimn.Pages.Characters
             DataContext = _selectedSpell;
         }
 
-        public CastSpellPage()
-        {
-            InitializeComponent();
-        }
+        public CastSpellPage() => InitializeComponent();
 
         #endregion Page-Manipulation Methods
 
-        private void CastSpellPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void CastSpellPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

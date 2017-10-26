@@ -14,27 +14,18 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnGeneralStore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheGeneralStorePage());
 
-        private void BtnMagicShop_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new MagickShoppePage());
-        }
+        private void BtnMagicShop_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new MagickShoppePage());
 
         private void BtnSilverEmpire_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new SilverEmpirePage());
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
         public MarketPage()
         {
@@ -47,10 +38,7 @@ namespace Sulimn.Pages.Shopping
             "Silver Empire - A smithery selling the finest jewelry.";
         }
 
-        private void MarketPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void MarketPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
         #endregion Page-Manipulation Methods
     }

@@ -101,8 +101,8 @@ namespace Sulimn.Pages.Gambling
         public string Statistics => $"Wins: {TotalWins:N0}\n" +
         $"Losses: {TotalLosses:N0}\n" +
         $"Draws: {TotalDraws:N0}\n" +
-        $"Gold Won: {TotalBetWinnings:N0}\n" +
-        $"Gold Lost: {TotalBetLosses:N0}";
+        "Gold Won: {TotalBetWinnings:N0}\n" +
+        "Gold Lost: {TotalBetLosses:N0}";
 
         #endregion Properties
 
@@ -122,7 +122,7 @@ namespace Sulimn.Pages.Gambling
             LstDealer.Items.Refresh();
             LblPlayerTotal.DataContext = _playerHand;
             LblDealerTotal.DataContext = _dealerHand;
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero;
         }
 
         public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -134,53 +134,35 @@ namespace Sulimn.Pages.Gambling
         /// <summary>Checks whether a Hand has reached Blackjack.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <returns>Returns true if the Hand's value is 21.</returns>
-        private static bool CheckBlackjack(Hand checkHand)
-        {
-            return checkHand.TotalValue == 21;
-        }
+        private static bool CheckBlackjack(Hand checkHand) => checkHand.TotalValue == 21;
 
         /// <summary>Checks whether the current Hand has gone Bust.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <returns>Returns true if Hand has gone Bust.</returns>
-        private bool CheckBust(Hand checkHand)
-        {
-            return !CheckHasAceEleven(checkHand) && checkHand.TotalValue > 21;
-        }
+        private bool CheckBust(Hand checkHand) => !CheckHasAceEleven(checkHand) && checkHand.TotalValue > 21;
 
         /// <summary>Checks whether the Player can Double Down with Window Hand.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <param name="checkSplit">Hand the Hand could be split into</param>
         /// <returns>Returns true if Hand can Double Down.</returns>
-        private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit)
-        {
-            return checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
+        private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
             (checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11);
-        }
 
         /// <summary>Checks whether the Player can split a specific Hand.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <param name="checkSplit">Hand it could be spilt into</param>
         /// <returns>Returns true if Hand can be Split.</returns>
-        private bool CheckCanHandSplit(Hand checkHand, Hand checkSplit)
-        {
-            return checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
+        private bool CheckCanHandSplit(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
             checkHand.CardList[0].Value == checkHand.CardList[1].Value;
-        }
 
         /// <summary>Checks whether a Hand has an Ace valued at eleven in it.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <returns>Returns true if Hand has an Ace valued at eleven in it.</returns>
-        private static bool CheckHasAceEleven(Hand checkHand)
-        {
-            return checkHand.CardList.Any(card => card.Value == 11);
-        }
+        private static bool CheckHasAceEleven(Hand checkHand) => checkHand.CardList.Any(card => card.Value == 11);
 
         /// <summary>Checks whether the Dealer has an Ace face up.</summary>
         /// <returns>Returns true if the Dealer has an Ace face up.</returns>
-        private bool CheckInsurance()
-        {
-            return !_handOver && _dealerHand.CardList[0].Value == 11 && _sidePot == 0;
-        }
+        private bool CheckInsurance() => !_handOver && _dealerHand.CardList[0].Value == 11 && _sidePot == 0;
 
         #endregion Check Logic
 
@@ -353,7 +335,7 @@ namespace Sulimn.Pages.Gambling
         private void LoseBlackjack(int betAmount)
         {
             Functions.AddTextToTextBox(TxtBlackjack, $"You lose {betAmount:N0}.");
-            GameState.CurrentHero.Inventory.Gold -= betAmount;
+            GameState.CurrentHero.Gold -= betAmount;
             TotalLosses++;
             TotalBetLosses += betAmount;
             EndHand();
@@ -380,7 +362,7 @@ namespace Sulimn.Pages.Gambling
         /// <param name="betAmount">Amount the Player bet</param>
         private void WinBlackjack(int betAmount)
         {
-            GameState.CurrentHero.Inventory.Gold += betAmount;
+            GameState.CurrentHero.Gold += betAmount;
             Functions.AddTextToTextBox(TxtBlackjack, $"You win {betAmount}!");
             TotalWins++;
             TotalBetWinnings += betAmount;
@@ -434,16 +416,13 @@ namespace Sulimn.Pages.Gambling
         }
 
         /// <summary>Displays the Player's Hand.</summary>
-        private void DisplayPlayerHand()
-        {
-            BindLabels();
-        }
+        private void DisplayPlayerHand() => BindLabels();
 
         /// <summary>Displays the game's statistics.</summary>
         private void DisplayStatistics()
         {
             LblStatistics.Text = Statistics;
-            LblGold.Text = $"Gold: {GameState.CurrentHero.Inventory.GoldToString}";
+            LblGold.Text = $"Gold: { GameState.CurrentHero.GoldToString}";
         }
 
         #endregion Display Manipulation
@@ -456,10 +435,7 @@ namespace Sulimn.Pages.Gambling
             DisplayHand();
         }
 
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnExit_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
@@ -483,18 +459,15 @@ namespace Sulimn.Pages.Gambling
         private void BtnNewHand_Click(object sender, RoutedEventArgs e)
         {
             _bet = Int32Helper.Parse(TxtBet.Text);
-            if (_bet > 0 && _bet <= GameState.CurrentHero.Inventory.Gold)
+            if (_bet > 0 && _bet <= GameState.CurrentHero.Gold)
                 NewHand();
-            else if (_bet > GameState.CurrentHero.Inventory.Gold)
-                GameState.DisplayNotification("You can't bet more gold than you have!", "Sulimn");
+            else if (_bet > GameState.CurrentHero.Gold)
+                GameState.DisplayNotification("You can't bet mor.Gold than you have!", "Sulimn");
             else
                 GameState.DisplayNotification("Please enter a valid bet.", "Sulimn");
         }
 
-        private void BtnStay_Click(object sender, RoutedEventArgs e)
-        {
-            Stay();
-        }
+        private void BtnStay_Click(object sender, RoutedEventArgs e) => Stay();
 
         #endregion Button-Click Methods
 
@@ -522,15 +495,9 @@ namespace Sulimn.Pages.Gambling
             BindLabels();
         }
 
-        private void TxtBet_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.TextBoxGotFocus(sender);
-        }
+        private void TxtBet_GotFocus(object sender, RoutedEventArgs e) => Functions.TextBoxGotFocus(sender);
 
-        private void TxtBet_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Integers);
-        }
+        private void TxtBet_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.Integers);
 
         private void TxtBet_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -540,9 +507,6 @@ namespace Sulimn.Pages.Gambling
 
         #endregion Page-Manipulation Methods
 
-        private void BlackjackPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void BlackjackPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

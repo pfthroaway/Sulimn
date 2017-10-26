@@ -43,7 +43,7 @@ namespace Sulimn.Classes
         internal static LegArmor DefaultLegs = new LegArmor();
         internal static FeetArmor DefaultFeet = new FeetArmor();
 
-        internal static SQLiteDatabaseInteraction DatabaseInteraction = new SQLiteDatabaseInteraction();
+        internal static SqLiteDatabaseInteraction DatabaseInteraction = new SqLiteDatabaseInteraction();
 
         #region Navigation
 
@@ -177,20 +177,17 @@ namespace Sulimn.Classes
 
         /// <summary>Sets the Hero's inventory.</summary>
         /// <param name="inventory">Inventory to be converted</param>
-        /// <param name="gold">Gold in the inventory</param>
         /// <returns>Inventory List</returns>
-        internal static Inventory SetInventory(string inventory, int gold)
+        internal static List<Item> SetInventory(string inventory)
         {
-            List<Item> itemList = new List<Item>();
+            List<Item> newInventory = new List<Item>();
 
             if (inventory.Length > 0)
             {
                 string[] arrInventory = inventory.Split(',');
-
-                foreach (string str in arrInventory)
-                    itemList.Add(AllItems.Find(x => x.Name == str.Trim()));
+                newInventory.AddRange(arrInventory.Select(str => AllItems.Find(x => x.Name == str.Trim())));
             }
-            return new Inventory(itemList, gold);
+            return newInventory;
         }
 
         /// <summary>Sets the list of the Hero's known spells.</summary>
@@ -299,12 +296,9 @@ namespace Sulimn.Classes
                 }
             }
 
-            if (newHero.Inventory == null || newHero.Inventory == new Inventory())
-            {
-                newHero.Inventory = new Inventory { Gold = 250 };
-                for (int i = 0; i < 3; i++)
-                    newHero.Inventory?.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
-            }
+            newHero.Gold = 250;
+            for (int i = 0; i < 3; i++)
+                newHero.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
 
             if (await DatabaseInteraction.NewHero(newHero))
             {
@@ -361,7 +355,7 @@ namespace Sulimn.Classes
         internal static async Task<string> EventFindGold(int minGold, int maxGold)
         {
             int foundGold = minGold == maxGold ? minGold : Functions.GenerateRandomNumber(minGold, maxGold);
-            CurrentHero.Inventory.Gold += foundGold;
+            CurrentHero.Gold += foundGold;
             await SaveHero(CurrentHero);
             return $"You find {foundGold:N0} gold!";
         }
@@ -376,7 +370,7 @@ namespace Sulimn.Classes
             List<Item> availableItems = AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
-            CurrentHero.Inventory.AddItem(availableItems[item]);
+            CurrentHero.AddItem(availableItems[item]);
             await SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
         }
@@ -391,7 +385,7 @@ namespace Sulimn.Classes
                 availableItems.Add(GetItem(name));
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
-            CurrentHero.Inventory.AddItem(availableItems[item]);
+            CurrentHero.AddItem(availableItems[item]);
 
             await SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
@@ -408,7 +402,7 @@ namespace Sulimn.Classes
             List<T> availableItems = new List<T>(GetItemsOfType<T>());
             availableItems = availableItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
-            CurrentHero.Inventory.AddItem(availableItems[item]);
+            CurrentHero.AddItem(availableItems[item]);
             await SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
         }
@@ -431,9 +425,9 @@ namespace Sulimn.Classes
             List<Enemy> availableEnemies = AllEnemies.Where(enemy => enemy.Level >= minLevel && enemy.Level <= maxLevel && enemy.Type != "Boss").ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
-            if (CurrentEnemy.Inventory.Gold > 0)
-                CurrentEnemy.Inventory.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Inventory.Gold / 2,
-                CurrentEnemy.Inventory.Gold);
+            if (CurrentEnemy.Gold > 0)
+                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2,
+                CurrentEnemy.Gold);
         }
 
         /// <summary>Event where the Hero encounters a hostile Enemy.</summary>
@@ -443,9 +437,9 @@ namespace Sulimn.Classes
             List<Enemy> availableEnemies = names.Select(GetEnemy).ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
-            if (CurrentEnemy.Inventory.Gold > 0)
-                CurrentEnemy.Inventory.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Inventory.Gold / 2,
-                CurrentEnemy.Inventory.Gold);
+            if (CurrentEnemy.Gold > 0)
+                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2,
+                CurrentEnemy.Gold);
         }
 
         /// <summary>Event where the Hero encounters a water stream and restores health and magic.</summary>

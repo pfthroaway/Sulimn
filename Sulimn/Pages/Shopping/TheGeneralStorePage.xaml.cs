@@ -53,7 +53,7 @@ namespace Sulimn.Pages.Shopping
             if (reload)
             {
                 _sellPotion.Clear();
-                _sellPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
+                _sellPotion.AddRange(GameState.CurrentHero.GetItemsOfType<Potion>());
                 _sellPotion = _sellPotion.OrderBy(potion => potion.Value).ToList();
                 LstPotionSell.ItemsSource = _sellPotion;
                 LstPotionSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -72,20 +72,11 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll()
-        {
-            BindLabels();
-        }
+        internal void LoadAll() => BindLabels();
 
-        private void LoadAllPurchase()
-        {
-            BindPotionPurchase();
-        }
+        private void LoadAllPurchase() => BindPotionPurchase();
 
-        private void LoadAllSell()
-        {
-            BindPotionSell();
-        }
+        private void LoadAllSell() => BindPotionSell();
 
         #endregion Load
 
@@ -96,8 +87,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns>Returns text regarding purchase</returns>
         private string Purchase(Item itmPurchase)
         {
-            GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
-            GameState.CurrentHero.Inventory.AddItem(itmPurchase);
+            GameState.CurrentHero.Gold -= itmPurchase.Value;
+            GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
@@ -108,8 +99,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns>Returns text regarding sale</returns>
         private string Sell(Item itmSell)
         {
-            GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
-            GameState.CurrentHero.Inventory.RemoveItem(itmSell);
+            GameState.CurrentHero.Gold += itmSell.SellValue;
+            GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
@@ -140,7 +131,7 @@ namespace Sulimn.Pages.Shopping
             ? (Potion)LstPotionPurchase.SelectedValue
             : new Potion();
 
-            BtnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value > 0 && _selectedPotionPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value > 0 && _selectedPotionPurchase.Value <= GameState.CurrentHero.Gold;
             BindPotionPurchase(false);
         }
 
@@ -156,15 +147,9 @@ namespace Sulimn.Pages.Shopping
 
         #region Page Button-Click Methods
 
-        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Page Button-Click Methods
 
@@ -187,9 +172,6 @@ namespace Sulimn.Pages.Shopping
 
         #endregion Page-Manipulation
 
-        private void TheGeneralStorePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void TheGeneralStorePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

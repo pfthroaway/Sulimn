@@ -7,10 +7,7 @@ namespace Sulimn.Pages.Battle
     /// <summary>Interaction logic for EnemyDetailsPage.xaml</summary>
     public partial class EnemyDetailsPage : INotifyPropertyChanged
     {
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #region Data-Binding
 
@@ -24,7 +21,7 @@ namespace Sulimn.Pages.Battle
             LblVitality.DataContext = GameState.CurrentEnemy.Attributes;
             LblDexterity.DataContext = GameState.CurrentEnemy.Attributes;
             LblHealth.DataContext = GameState.CurrentEnemy.Statistics;
-            LblGold.DataContext = GameState.CurrentEnemy.Inventory;
+            LblGold.DataContext = GameState.CurrentEnemy;
             LblEquippedWeapon.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
             LblEquippedWeaponDamage.DataContext = GameState.CurrentEnemy.Equipment.Weapon;
             LblEquippedHead.DataContext = GameState.CurrentEnemy.Equipment.Head;
@@ -44,10 +41,7 @@ namespace Sulimn.Pages.Battle
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
         public EnemyDetailsPage()
         {
@@ -57,9 +51,6 @@ namespace Sulimn.Pages.Battle
 
         #endregion Page-Manipulation Methods
 
-        private void EnemyDetailsPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void EnemyDetailsPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
 
 namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents a Hero from Sulimn.</summary>
-    internal class Hero : Character
+    internal class Hero : Character, IEnumerable<Item>
     {
         private HeroClass _class;
         private int _skillPoints;
-        private Progression progression;
         private Spellbook _spellbook = new Spellbook();
+        private List<Item> _inventory;
         private bool _hardcore;
 
         /// <summary>Updates the Hero's Statistics.</summary>
@@ -94,6 +99,12 @@ namespace Sulimn.Classes.Entities
 
         #region Helper Properties
 
+        /// <summary>List of Items in the inventory.</summary>
+        public ReadOnlyCollection<Item> Inventory => new ReadOnlyCollection<Item>(_inventory);
+
+        /// <summary>List of Items in the inventory, formatted.</summary>
+        public string InventoryToString => string.Join(",", Inventory);
+
         /// <summary>Will the player be deleted on death?</summary>
         public string HardcoreToString => Hardcore ? "Hardcore" : "Softcore";
 
@@ -165,13 +176,47 @@ namespace Sulimn.Classes.Entities
 
         #endregion Health Manipulation
 
+        #region Inventory Management
+
+        /// <summary>Adds an Item to the inventory.</summary>
+        /// <param name="item">Item to be removed</param>
+        internal void AddItem(Item item)
+        {
+            _inventory.Add(item);
+            _inventory = Inventory.OrderBy(itm => itm.Name).ToList();
+            OnPropertyChanged("Inventory");
+        }
+
+        /// <summary>Removes an Item from the inventory.</summary>
+        /// <param name="item">Item to be removed</param>
+        internal void RemoveItem(Item item)
+        {
+            _inventory.Remove(item);
+            OnPropertyChanged("Inventory");
+        }
+
+        /// <summary>Gets all Items of specified Type.</summary>
+        /// <typeparam name="T">Type</typeparam>
+        /// <returns>Items of specified Type</returns>
+        internal List<T> GetItemsOfType<T>() => Inventory.OfType<T>().ToList();
+
+        #endregion Inventory Management
+
+        #region Enumerator
+
+        public IEnumerator<Item> GetEnumerator() => Inventory.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        #endregion Enumerator
+
         #region Override Operators
 
         private static bool Equals(Hero left, Hero right)
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.SkillPoints == right.SkillPoints && left.Hardcore == right.Hardcore && left.Spellbook == right.Spellbook && left.Class == right.Class && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Inventory == right.Inventory && left.Statistics == right.Statistics && left.Progression == right.Progression;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.SkillPoints == right.SkillPoints && left.Hardcore == right.Hardcore && left.Spellbook == right.Spellbook && left.Class == right.Class && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Gold == right.Gold && left.Statistics == right.Statistics && left.Progression == right.Progression && !left.Inventory.Except(right.Inventory).Any();
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Hero);
@@ -202,6 +247,7 @@ namespace Sulimn.Classes.Entities
         /// <param name="level">Level of Hero</param>
         /// <param name="experience">Experience of Hero</param>
         /// <param name="skillPoints">Skill Points of Hero</param>
+        /// <param name="gold">Gold of Hero</param>
         /// <param name="attributes">Attributes of Hero</param>
         /// <param name="statistics">Statistics of Hero</param>
         /// <param name="equipment">Equipment of Hero</param>
@@ -209,27 +255,30 @@ namespace Sulimn.Classes.Entities
         /// <param name="inventory">Inventory of Hero</param>
         /// <param name="progression">The progress the Hero has made</param>
         /// <param name="hardcore">Will the character be deleted on death?</param>
-        internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints,
-        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, Inventory inventory, Progression progression, bool hardcore)
+        internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints, int gold,
+        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, IEnumerable<Item> inventory, Progression progression, bool hardcore)
         {
             Name = name;
             Password = password;
             Class = heroClass;
             Level = level;
             Experience = experience;
+            Gold = gold;
             SkillPoints = skillPoints;
             Attributes = attributes;
             Statistics = statistics;
             Equipment = equipment;
             Spellbook = spellbook;
-            Inventory = inventory;
+            List<Item> items = new List<Item>();
+            items.AddRange(inventory);
+            _inventory = items;
             Progression = progression;
             Hardcore = hardcore;
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
         /// <param name="other">Instance of Hero to replace this one</param>
-        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), new Inventory(other.Inventory), other.Progression, other.Hardcore)
+        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.Gold, other.SkillPoints, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), other.Inventory, other.Progression, other.Hardcore)
         {
         }
 

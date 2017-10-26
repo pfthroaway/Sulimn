@@ -21,7 +21,7 @@ namespace Sulimn.Pages.BankPages
         private void BindLabels()
         {
             DataContext = HeroBank;
-            LblGoldOnHand.DataContext = GameState.CurrentHero.Inventory;
+            LblGoldOnHand.DataContext = GameState.CurrentHero;
         }
 
         public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -32,22 +32,19 @@ namespace Sulimn.Pages.BankPages
 
         /// <summary>Adds text to the TxtBank Textbox.</summary>
         /// <param name="newText">Text to be added</param>
-        internal void AddTextToTextBox(string newText)
-        {
-            Functions.AddTextToTextBox(TxtBank, newText);
-        }
+        internal void AddTextToTextBox(string newText) => Functions.AddTextToTextBox(TxtBank, newText);
 
         /// <summary>Checks what buttons should be enabled.</summary>
         internal void CheckButtons()
         {
-            BtnDeposit.IsEnabled = GameState.CurrentHero.Inventory.Gold > 0;
+            BtnDeposit.IsEnabled = GameState.CurrentHero.Gold > 0;
             BtnWithdraw.IsEnabled = HeroBank.GoldInBank > 0;
             BtnTakeLoan.IsEnabled = HeroBank.LoanAvailable > 0;
             BtnRepayLoan.IsEnabled = HeroBank.LoanTaken > 0;
         }
 
         /// <summary>Displays the Bank Dialog Page.</summary>
-        /// <param name="maximum">Maximum amount of gold permitted</param>
+        /// <param name="maximum">Maximum amount of Gold permitted</param>
         /// <param name="type">Type of Page information to be displayed</param>
         private void DisplayBankDialog(int maximum, BankAction type)
         {
@@ -73,30 +70,15 @@ namespace Sulimn.Pages.BankPages
 
         #region Button-Click Methods
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
-        private void BtnDeposit_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayBankDialog(GameState.CurrentHero.Inventory.Gold, BankAction.Deposit);
-        }
+        private void BtnDeposit_Click(object sender, RoutedEventArgs e) => DisplayBankDialog(GameState.CurrentHero.Gold, BankAction.Deposit);
 
-        private void BtnRepayLoan_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayBankDialog(HeroBank.LoanTaken, BankAction.Repay);
-        }
+        private void BtnRepayLoan_Click(object sender, RoutedEventArgs e) => DisplayBankDialog(HeroBank.LoanTaken, BankAction.Repay);
 
-        private void BtnTakeLoan_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayBankDialog(HeroBank.LoanAvailable, BankAction.Borrow);
-        }
+        private void BtnTakeLoan_Click(object sender, RoutedEventArgs e) => DisplayBankDialog(HeroBank.LoanAvailable, BankAction.Borrow);
 
-        private void BtnWithdraw_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayBankDialog(HeroBank.GoldInBank, BankAction.Withdrawal);
-        }
+        private void BtnWithdraw_Click(object sender, RoutedEventArgs e) => DisplayBankDialog(HeroBank.GoldInBank, BankAction.Withdrawal);
 
         #endregion Button-Click Methods
 
@@ -110,16 +92,10 @@ namespace Sulimn.Pages.BankPages
             GameState.GoBack();
         }
 
-        public BankPage()
-        {
-            InitializeComponent();
-        }
+        public BankPage() => InitializeComponent();
 
         #endregion Page-Manipulation Methods
 
-        private void BankPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void BankPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

@@ -39,7 +39,7 @@ namespace Sulimn.Pages.Characters
         {
             if (GameState.YesNoNotification($"Are you sure you really want to drop {dropItem.Name}? You won't be able to get it back.", "Sulimn"))
             {
-                GameState.CurrentHero.Inventory.RemoveItem(dropItem);
+                GameState.CurrentHero.RemoveItem(dropItem);
                 Functions.AddTextToTextBox(TxtInventory, $"You drop the {dropItem.Name}.");
                 return true;
             }
@@ -48,10 +48,7 @@ namespace Sulimn.Pages.Characters
 
         #region Page Button-Click Methods
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Page Button-Click Methods
 
@@ -64,7 +61,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryWeapon.Clear();
-                _inventoryWeapon.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Weapon>());
+                _inventoryWeapon.AddRange(GameState.CurrentHero.GetItemsOfType<Weapon>());
                 _inventoryWeapon = _inventoryWeapon.OrderBy(weapon => weapon.Value).ToList();
                 LstWeaponInventory.UnselectAll();
                 LstWeaponInventory.ItemsSource = _inventoryWeapon;
@@ -91,7 +88,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryHead.Clear();
-                _inventoryHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>());
+                _inventoryHead.AddRange(GameState.CurrentHero.GetItemsOfType<HeadArmor>());
                 _inventoryHead = _inventoryHead.OrderBy(armor => armor.Value).ToList();
                 LstHeadInventory.UnselectAll();
                 LstHeadInventory.ItemsSource = _inventoryHead;
@@ -116,7 +113,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryBody.Clear();
-                _inventoryBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>());
+                _inventoryBody.AddRange(GameState.CurrentHero.GetItemsOfType<BodyArmor>());
                 _inventoryBody = _inventoryBody.OrderBy(armor => armor.Value).ToList();
                 LstBodyInventory.UnselectAll();
                 LstBodyInventory.ItemsSource = _inventoryBody;
@@ -141,7 +138,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryHands.Clear();
-                _inventoryHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>());
+                _inventoryHands.AddRange(GameState.CurrentHero.GetItemsOfType<HandArmor>());
                 _inventoryHands = _inventoryHands.OrderBy(armor => armor.Value).ToList();
                 LstHandsInventory.UnselectAll();
                 LstHandsInventory.ItemsSource = _inventoryHands;
@@ -166,7 +163,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryLegs.Clear();
-                _inventoryLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>());
+                _inventoryLegs.AddRange(GameState.CurrentHero.GetItemsOfType<LegArmor>());
                 _inventoryLegs = _inventoryLegs.OrderBy(armor => armor.Value).ToList();
                 LstLegsInventory.UnselectAll();
                 LstLegsInventory.ItemsSource = _inventoryLegs;
@@ -191,7 +188,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryFeet.Clear();
-                _inventoryFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>());
+                _inventoryFeet.AddRange(GameState.CurrentHero.GetItemsOfType<FeetArmor>());
                 _inventoryFeet = _inventoryFeet.OrderBy(armor => armor.Value).ToList();
                 LstFeetInventory.UnselectAll();
                 LstFeetInventory.ItemsSource = _inventoryFeet;
@@ -216,7 +213,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryRing.Clear();
-                _inventoryRing.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Ring>());
+                _inventoryRing.AddRange(GameState.CurrentHero.GetItemsOfType<Ring>());
                 _inventoryRing = _inventoryRing.OrderBy(ring => ring.Value).ToList();
                 LstRingInventory.UnselectAll();
                 LstRingInventory.ItemsSource = _inventoryRing;
@@ -243,7 +240,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryPotion.Clear();
-                _inventoryPotion.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Potion>());
+                _inventoryPotion.AddRange(GameState.CurrentHero.GetItemsOfType<Potion>());
                 _inventoryPotion = _inventoryPotion.OrderBy(potion => potion.Value).ToList();
                 LstPotionInventory.UnselectAll();
                 LstPotionInventory.ItemsSource = _inventoryPotion;
@@ -262,7 +259,7 @@ namespace Sulimn.Pages.Characters
             if (reload)
             {
                 _inventoryFood.Clear();
-                _inventoryFood.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<Food>());
+                _inventoryFood.AddRange(GameState.CurrentHero.GetItemsOfType<Food>());
                 _inventoryFood = _inventoryFood.OrderBy(food => food.Value).ToList();
                 LstFoodInventory.UnselectAll();
                 LstFoodInventory.ItemsSource = _inventoryFood;
@@ -304,7 +301,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Weapon.Name}.");
             if (GameState.CurrentHero.Equipment.Weapon != GameState.DefaultWeapon)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Weapon);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Weapon);
             GameState.CurrentHero.Equipment.Weapon =
             (Weapon)GameState.AllItems.Find(x => x.Name == GameState.DefaultWeapon.Name);
             BindWeapon();
@@ -313,9 +310,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedWeapon_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedWeapon.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedWeapon);
+            GameState.CurrentHero.RemoveItem(_selectedWeapon);
             if (GameState.CurrentHero.Equipment.Weapon != GameState.DefaultWeapon)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Weapon);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Weapon);
             GameState.CurrentHero.Equipment.Weapon = _selectedWeapon;
             BindWeapon();
         }
@@ -343,7 +340,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Head.Name}.");
             if (GameState.CurrentHero.Equipment.Head != GameState.DefaultHead)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Head);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Head);
             GameState.CurrentHero.Equipment.Head =
             (HeadArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultHead.Name);
             BindHead();
@@ -352,9 +349,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedHead_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedHead.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedHead);
+            GameState.CurrentHero.RemoveItem(_selectedHead);
             if (GameState.CurrentHero.Equipment.Head != GameState.DefaultHead)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Head);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Head);
             GameState.CurrentHero.Equipment.Head = _selectedHead;
             BindHead();
         }
@@ -382,7 +379,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Body.Name}.");
             if (GameState.CurrentHero.Equipment.Body != GameState.DefaultBody)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Body);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Body);
             GameState.CurrentHero.Equipment.Body =
             (BodyArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultBody.Name);
             BindBody();
@@ -391,9 +388,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedBody_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedBody.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedBody);
+            GameState.CurrentHero.RemoveItem(_selectedBody);
             if (GameState.CurrentHero.Equipment.Body != GameState.DefaultBody)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Body);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Body);
             GameState.CurrentHero.Equipment.Body = _selectedBody;
             BindBody();
         }
@@ -421,7 +418,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Hands.Name}.");
             if (GameState.CurrentHero.Equipment.Hands != GameState.DefaultHands)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Hands);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Hands);
             GameState.CurrentHero.Equipment.Hands =
             (HandArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultHands.Name);
             BindHands();
@@ -430,9 +427,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedHands_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedHands.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedHands);
+            GameState.CurrentHero.RemoveItem(_selectedHands);
             if (GameState.CurrentHero.Equipment.Hands != GameState.DefaultHands)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Hands);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Hands);
             GameState.CurrentHero.Equipment.Hands = _selectedHands;
             BindHands();
         }
@@ -460,7 +457,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Legs.Name}.");
             if (GameState.CurrentHero.Equipment.Legs != GameState.DefaultLegs)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Legs);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Legs);
             GameState.CurrentHero.Equipment.Legs =
             (LegArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultLegs.Name);
             BindLegs();
@@ -469,9 +466,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedLegs_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedLegs.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedLegs);
+            GameState.CurrentHero.RemoveItem(_selectedLegs);
             if (GameState.CurrentHero.Equipment.Legs != GameState.DefaultLegs)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Legs);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Legs);
             GameState.CurrentHero.Equipment.Legs = _selectedLegs;
             BindLegs();
         }
@@ -499,7 +496,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Feet.Name}.");
             if (GameState.CurrentHero.Equipment.Feet != GameState.DefaultFeet)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Feet);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Feet);
             GameState.CurrentHero.Equipment.Feet =
             (FeetArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultFeet.Name);
             BindFeet();
@@ -508,9 +505,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedFeet_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedFeet.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedFeet);
+            GameState.CurrentHero.RemoveItem(_selectedFeet);
             if (GameState.CurrentHero.Equipment.Feet != GameState.DefaultFeet)
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.Feet);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Feet);
             GameState.CurrentHero.Equipment.Feet = _selectedFeet;
             BindFeet();
         }
@@ -538,7 +535,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.LeftRing.Name}.");
             if (GameState.CurrentHero.Equipment.LeftRing != new Ring())
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.LeftRing);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.LeftRing);
             GameState.CurrentHero.Equipment.LeftRing = new Ring();
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
@@ -548,7 +545,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.RightRing.Name}.");
             if (GameState.CurrentHero.Equipment.RightRing != new Ring())
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.RightRing);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.RightRing);
             GameState.CurrentHero.Equipment.RightRing = new Ring();
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
@@ -557,9 +554,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedRingLeft_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedRing.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedRing);
+            GameState.CurrentHero.RemoveItem(_selectedRing);
             if (GameState.CurrentHero.Equipment.LeftRing != new Ring())
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.LeftRing);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.LeftRing);
             GameState.CurrentHero.Equipment.LeftRing = _selectedRing;
             BtnEquipSelectedRingLeft.IsEnabled = false;
             GameState.CurrentHero.UpdateStatistics();
@@ -569,9 +566,9 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedRingRight_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedRing.Name}.");
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedRing);
+            GameState.CurrentHero.RemoveItem(_selectedRing);
             if (GameState.CurrentHero.Equipment.RightRing != new Ring())
-                GameState.CurrentHero.Inventory.AddItem(GameState.CurrentHero.Equipment.RightRing);
+                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.RightRing);
             GameState.CurrentHero.Equipment.RightRing = _selectedRing;
             BtnEquipSelectedRingRight.IsEnabled = false;
             GameState.CurrentHero.UpdateStatistics();
@@ -616,7 +613,7 @@ namespace Sulimn.Pages.Characters
                     break;
             }
 
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedPotion);
+            GameState.CurrentHero.RemoveItem(_selectedPotion);
             BindPotion();
         }
 
@@ -652,7 +649,7 @@ namespace Sulimn.Pages.Characters
                     break;
             }
 
-            GameState.CurrentHero.Inventory.RemoveItem(_selectedFood);
+            GameState.CurrentHero.RemoveItem(_selectedFood);
             BindFood();
         }
 

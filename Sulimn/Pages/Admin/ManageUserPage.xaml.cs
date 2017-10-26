@@ -46,7 +46,7 @@ namespace Sulimn.Pages.Admin
             //               TxtCurrentMagic.Text != _originalHero.Statistics.CurrentMagic.ToString() |
             //               TxtMaximumHealth.Text != _originalHero.Statistics.MaximumHealth.ToString() |
             //               TxtMaximumMagic.Text != _originalHero.Statistics.MaximumMagic.ToString() |
-            //               TxtGold.Text != _originalHero.Inventory.Gold.ToString() |
+            //               TxtGold.Text != _originalHero.Gold.ToString() |
             //               TxtInventory.Text != _originalHero.Inventory.ToString() |
             //               (Weapon)CmbWeapon.SelectedValue != _originalHero.Equipment.Weapon |
             //               (HeadArmor)CmbHead.SelectedValue != _originalHero.Equipment.Head |
@@ -75,7 +75,7 @@ namespace Sulimn.Pages.Admin
             TxtVitality.Text = _originalHero.TotalVitality.ToString();
             TxtDexterity.Text = _originalHero.TotalDexterity.ToString();
             TxtWisdom.Text = _originalHero.TotalWisdom.ToString();
-            TxtGold.Text = _originalHero.Inventory.Gold.ToString();
+            TxtGold.Text = _originalHero.Gold.ToString();
             TxtInventory.Text = _originalHero.Inventory.ToString();
             TxtCurrentHealth.Text = _originalHero.Statistics.CurrentHealth.ToString();
             TxtMaximumHealth.Text = _originalHero.Statistics.MaximumHealth.ToString();
@@ -157,12 +157,12 @@ namespace Sulimn.Pages.Admin
                         new Hero { Name = TxtHeroName.Text, Password = password });
                 Hero newHero = new Hero(TxtHeroName.Text, password, (HeroClass)CmbClass.SelectedItem,
                     Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
-                    Int32Helper.Parse(TxtSkillPoints.Text),
+                    Int32Helper.Parse(TxtSkillPoints.Text), Int32Helper.Parse(TxtGold.Text),
                     new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text),
                         Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
                     new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text),
                         Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem, (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem, (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(), CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
-                    new Spellbook(_originalHero.Spellbook), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
+                    new Spellbook(_originalHero.Spellbook), GameState.SetInventory(TxtInventory.Text), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
 
                 if (await GameState.SaveHero(newHero))
                     ClosePage();

@@ -99,7 +99,7 @@ namespace Sulimn.Pages.Shopping
             LblFeetSellableSell.DataContext = _selectedFeetSell;
             LblFeetValueSell.DataContext = _selectedFeetSell;
 
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero;
         }
 
         public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -161,31 +161,31 @@ namespace Sulimn.Pages.Shopping
         private void LoadAllSell()
         {
             _sellHead.Clear();
-            _sellHead.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold));
+            _sellHead.AddRange(GameState.CurrentHero.GetItemsOfType<HeadArmor>().Where(armor => armor.IsSold));
             _sellHead = _sellHead.OrderBy(armor => armor.Value).ToList();
             LstHeadSell.ItemsSource = _sellHead;
             LstHeadSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellBody.Clear();
-            _sellBody.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold));
+            _sellBody.AddRange(GameState.CurrentHero.GetItemsOfType<BodyArmor>().Where(armor => armor.IsSold));
             _sellBody = _sellBody.OrderBy(armor => armor.Value).ToList();
             LstBodySell.ItemsSource = _sellBody;
             LstBodySell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellHands.Clear();
-            _sellHands.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold));
+            _sellHands.AddRange(GameState.CurrentHero.GetItemsOfType<HandArmor>().Where(armor => armor.IsSold));
             _sellHands = _sellHands.OrderBy(armor => armor.Value).ToList();
             LstHandsSell.ItemsSource = _sellHands;
             LstHandsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellLegs.Clear();
-            _sellLegs.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold));
+            _sellLegs.AddRange(GameState.CurrentHero.GetItemsOfType<LegArmor>().Where(armor => armor.IsSold));
             _sellLegs = _sellLegs.OrderBy(armor => armor.Value).ToList();
             LstLegsSell.ItemsSource = _sellLegs;
             LstLegsSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
 
             _sellFeet.Clear();
-            _sellFeet.AddRange(GameState.CurrentHero.Inventory.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold));
+            _sellFeet.AddRange(GameState.CurrentHero.GetItemsOfType<FeetArmor>().Where(armor => armor.IsSold));
             _sellFeet = _sellFeet.OrderBy(armor => armor.Value).ToList();
             LstFeetSell.ItemsSource = _sellFeet;
             LstFeetSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -206,8 +206,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns></returns>
         private string Purchase(Item itmPurchase)
         {
-            GameState.CurrentHero.Inventory.Gold -= itmPurchase.Value;
-            GameState.CurrentHero.Inventory.AddItem(itmPurchase);
+            GameState.CurrentHero.Gold -= itmPurchase.Value;
+            GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllSell();
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
@@ -217,8 +217,8 @@ namespace Sulimn.Pages.Shopping
         /// <returns></returns>
         private string Sell(Item itmSell)
         {
-            GameState.CurrentHero.Inventory.Gold += itmSell.SellValue;
-            GameState.CurrentHero.Inventory.RemoveItem(itmSell);
+            GameState.CurrentHero.Gold += itmSell.SellValue;
+            GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
@@ -301,15 +301,9 @@ namespace Sulimn.Pages.Shopping
 
         #region Button-Click Methods
 
-        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
@@ -321,7 +315,7 @@ namespace Sulimn.Pages.Shopping
             ? (HeadArmor)LstHeadPurchase.SelectedValue
             : new HeadArmor();
 
-            BtnHeadPurchase.IsEnabled = _selectedHeadPurchase.Value > 0 && _selectedHeadPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnHeadPurchase.IsEnabled = _selectedHeadPurchase.Value > 0 && _selectedHeadPurchase.Value <= GameState.CurrentHero.Gold;
             BindLabels();
         }
 
@@ -339,7 +333,7 @@ namespace Sulimn.Pages.Shopping
             ? (BodyArmor)LstBodyPurchase.SelectedValue
             : new BodyArmor();
 
-            BtnBodyPurchase.IsEnabled = _selectedBodyPurchase.Value > 0 && _selectedBodyPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnBodyPurchase.IsEnabled = _selectedBodyPurchase.Value > 0 && _selectedBodyPurchase.Value <= GameState.CurrentHero.Gold;
             BindLabels();
         }
 
@@ -357,7 +351,7 @@ namespace Sulimn.Pages.Shopping
             ? (HandArmor)LstHandsPurchase.SelectedValue
             : new HandArmor();
 
-            BtnHandsPurchase.IsEnabled = _selectedHandsPurchase.Value > 0 && _selectedHandsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnHandsPurchase.IsEnabled = _selectedHandsPurchase.Value > 0 && _selectedHandsPurchase.Value <= GameState.CurrentHero.Gold;
             BindLabels();
         }
 
@@ -377,7 +371,7 @@ namespace Sulimn.Pages.Shopping
             ? (LegArmor)LstLegsPurchase.SelectedValue
             : new LegArmor();
 
-            BtnLegsPurchase.IsEnabled = _selectedLegsPurchase.Value > 0 && _selectedLegsPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnLegsPurchase.IsEnabled = _selectedLegsPurchase.Value > 0 && _selectedLegsPurchase.Value <= GameState.CurrentHero.Gold;
             BindLabels();
         }
 
@@ -395,7 +389,7 @@ namespace Sulimn.Pages.Shopping
             ? (FeetArmor)LstFeetPurchase.SelectedValue
             : new FeetArmor();
 
-            BtnFeetPurchase.IsEnabled = _selectedFeetPurchase.Value > 0 && _selectedFeetPurchase.Value <= GameState.CurrentHero.Inventory.Gold;
+            BtnFeetPurchase.IsEnabled = _selectedFeetPurchase.Value > 0 && _selectedFeetPurchase.Value <= GameState.CurrentHero.Gold;
             BindLabels();
         }
 
@@ -428,9 +422,6 @@ namespace Sulimn.Pages.Shopping
 
         #endregion Page-Manipulation Methods
 
-        private void TheArmouryPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void TheArmouryPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

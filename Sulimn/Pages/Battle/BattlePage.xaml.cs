@@ -210,10 +210,10 @@ namespace Sulimn.Pages.Battle
                     {
                         EndBattle();
                         Functions.AddTextToTextBox(TxtBattle, GameState.CurrentHero.GainExperience(GameState.CurrentEnemy.Experience));
-                        if (GameState.CurrentEnemy.Inventory.Gold > 0)
-                            Functions.AddTextToTextBox(TxtBattle, $"You find {GameState.CurrentEnemy.Inventory.Gold} gold on the body.");
+                        if (GameState.CurrentEnemy.Gold > 0)
+                            Functions.AddTextToTextBox(TxtBattle, $"You find {GameState.CurrentEnemy.Gold} gold on the body.");
 
-                        GameState.CurrentHero.Inventory.Gold += GameState.CurrentEnemy.Inventory.Gold;
+                        GameState.CurrentHero.Gold += GameState.CurrentEnemy.Gold;
                     }
                 }
                 else

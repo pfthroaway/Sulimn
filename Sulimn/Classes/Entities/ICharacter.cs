@@ -9,10 +9,10 @@ namespace Sulimn.Classes.Entities
         string Name { get; set; }
         int Level { get; set; }
         int Experience { get; set; }
+        int Gold { get; set; }
         Attributes Attributes { get; set; }
         Statistics Statistics { get; set; }
         Equipment Equipment { get; set; }
-        Inventory Inventory { get; set; }
 
         #endregion Modifying Properties
 

@@ -21,21 +21,12 @@ namespace Sulimn.Pages.Exploration
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            GameState.GoBack();
-        }
+        private void ClosePage() => GameState.GoBack();
 
-        public TavernPage()
-        {
-            InitializeComponent();
-        }
+        public TavernPage() => InitializeComponent();
 
         #endregion Page-Manipulation Methods
 
-        private void TavernPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void TavernPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

@@ -32,10 +32,7 @@ namespace Sulimn.Pages.Characters
 
         /// <summary>Sets the previous Page.</summary>
         /// <param name="prevPage">Previous Page</param>
-        internal void SetPreviousPage(string prevPage)
-        {
-            _previousPage = prevPage;
-        }
+        internal void SetPreviousPage(string prevPage) => _previousPage = prevPage;
 
         /// <summary>Displays the Hero's information.</summary>
         private void CheckSkillPoints()
@@ -106,10 +103,7 @@ namespace Sulimn.Pages.Characters
 
         #region Button-Click Methods
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
         {
@@ -118,15 +112,9 @@ namespace Sulimn.Pages.Characters
             GameState.Navigate(castSpellPage);
         }
 
-        private void BtnInventory_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new InventoryPage());
-        }
+        private void BtnInventory_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new InventoryPage());
 
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
-        {
-            Reset();
-        }
+        private void BtnReset_Click(object sender, RoutedEventArgs e) => Reset();
 
         #endregion Button-Click Methods
 
@@ -219,10 +207,7 @@ namespace Sulimn.Pages.Characters
             GameState.GoBack();
         }
 
-        public CharacterPage()
-        {
-            InitializeComponent();
-        }
+        public CharacterPage() => InitializeComponent();
 
         private void CharacterPage_OnLoaded(object sender, RoutedEventArgs e)
         {

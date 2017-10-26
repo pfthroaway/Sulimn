@@ -93,10 +93,7 @@ namespace Sulimn.Classes.Card
 
         /// <summary>Initializes an instance of Hand by assigning the list of Cards.</summary>
         /// <param name="cardList">List of Cards</param>
-        internal Hand(List<Card> cardList)
-        {
-            CardList = cardList;
-        }
+        internal Hand(List<Card> cardList) => CardList = cardList;
 
         #endregion Constructors
     }

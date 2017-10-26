@@ -44,7 +44,7 @@ namespace Sulimn.Pages.Shopping
         private void BindLabels()
         {
             DataContext = _selectedSpell;
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
+            LblGold.DataContext = GameState.CurrentHero;
         }
 
         public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -55,20 +55,14 @@ namespace Sulimn.Pages.Shopping
 
         private void BtnPurchase_Click(object sender, RoutedEventArgs e)
         {
-            GameState.CurrentHero.Inventory.Gold -= _selectedSpell.Value;
+            GameState.CurrentHero.Gold -= _selectedSpell.Value;
             Functions.AddTextToTextBox(TxtMagickShoppe, $"{GameState.CurrentHero.Spellbook.LearnSpell(_selectedSpell)} It cost {_selectedSpell.ValueToString} gold.");
             LoadAll();
         }
 
-        private void BtnCharacter_Click(object sender, RoutedEventArgs e)
-        {
-            GameState.Navigate(new CharacterPage());
-        }
+        private void BtnCharacter_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new CharacterPage());
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage();
-        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
 
         #endregion Button-Click Methods
 
@@ -93,16 +87,13 @@ namespace Sulimn.Pages.Shopping
         {
             _selectedSpell = LstSpells.SelectedIndex >= 0 ? (Spell)LstSpells.SelectedValue : new Spell();
 
-            BtnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Inventory.Gold &&
+            BtnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Gold &&
             _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
             BindLabels();
         }
 
         #endregion Page-Manipulation Methods
 
-        private void MagickShoppePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void MagickShoppePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

@@ -15,7 +15,7 @@ using Sulimn.Pages.Exploration;
 namespace Sulimn.Classes.Database
 {
     /// <summary>Represents database interaction covered by SQLite.</summary>
-    internal class SQLiteDatabaseInteraction : IDatabaseInteraction
+    internal class SqLiteDatabaseInteraction : IDatabaseInteraction
     {
         // ReSharper disable once InconsistentNaming
         private const string _DATABASENAME = "Sulimn.sqlite";
@@ -80,13 +80,13 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@vitality", newHero.Attributes.Vitality);
             cmd.Parameters.AddWithValue("@dexterity", newHero.Attributes.Dexterity);
             cmd.Parameters.AddWithValue("@wisdom", newHero.Attributes.Wisdom);
-            cmd.Parameters.AddWithValue("@gold", newHero.Inventory.Gold);
+            cmd.Parameters.AddWithValue("@gold", newHero.Gold);
             cmd.Parameters.AddWithValue("@currentHealth", newHero.Statistics.CurrentHealth);
             cmd.Parameters.AddWithValue("@maximumHealth", newHero.Statistics.MaximumHealth);
             cmd.Parameters.AddWithValue("@currentMagic", newHero.Statistics.CurrentMagic);
             cmd.Parameters.AddWithValue("@maximumMagic", newHero.Statistics.MaximumMagic);
             cmd.Parameters.AddWithValue("@spells", newHero.Spellbook.ToString());
-            cmd.Parameters.AddWithValue("@inventory", newHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@inventory", newHero.InventoryToString);
             cmd.Parameters.AddWithValue("@hardcore", Int32Helper.Parse(newHero.Hardcore));
             cmd.Parameters.AddWithValue("@weapon", newHero.Equipment.Weapon.Name);
             cmd.Parameters.AddWithValue("@head", newHero.Equipment.Head.Name);
@@ -116,24 +116,24 @@ namespace Sulimn.Classes.Database
             SQLiteCommand cmd = new SQLiteCommand()
             {
                 CommandText =
-            "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [Name] = @name;" +
+            "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = Gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [Name] = @name;" +
             "UPDATE Equipment SET [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Hands] = @hands, [Legs] = @legs, [Feet] = @feet, [LeftRing] = @leftRing, [RightRing] = @rightRing WHERE [Name] = @name;" +
             "UPDATE PROGRESSION SET [Fields] = @fields, [Forest] = @forest, [Cathedral] = @cathedral, [Mines] = @mines, [Catacombs] = @catacombs, [Courtyard] = @courtyard, [Battlements] = @battlements, [Armoury] = @armoury, [Spire] = @spire, [ThroneRoom] = @throneRoom WHERE [Name] = @name"
             };
             cmd.Parameters.AddWithValue("@level", saveHero.Level);
-            cmd.Parameters.AddWithValue("@experience", saveHero.Experience.ToString());
-            cmd.Parameters.AddWithValue("@skillPoints", saveHero.SkillPoints.ToString());
-            cmd.Parameters.AddWithValue("@strength", saveHero.Attributes.Strength.ToString());
-            cmd.Parameters.AddWithValue("@vitality", saveHero.Attributes.Vitality.ToString());
-            cmd.Parameters.AddWithValue("@dexterity", saveHero.Attributes.Dexterity.ToString());
-            cmd.Parameters.AddWithValue("@wisdom", saveHero.Attributes.Wisdom.ToString());
-            cmd.Parameters.AddWithValue("@gold", saveHero.Inventory.Gold.ToString());
-            cmd.Parameters.AddWithValue("@currentHealth", saveHero.Statistics.CurrentHealth.ToString());
-            cmd.Parameters.AddWithValue("@maximumHealth", saveHero.Statistics.MaximumHealth.ToString());
-            cmd.Parameters.AddWithValue("@currentMagic", saveHero.Statistics.CurrentMagic.ToString());
-            cmd.Parameters.AddWithValue("@maximumMagic", saveHero.Statistics.MaximumMagic.ToString());
+            cmd.Parameters.AddWithValue("@experience", saveHero.Experience);
+            cmd.Parameters.AddWithValue("@skillPoints", saveHero.SkillPoints);
+            cmd.Parameters.AddWithValue("@strength", saveHero.Attributes.Strength);
+            cmd.Parameters.AddWithValue("@vitality", saveHero.Attributes.Vitality);
+            cmd.Parameters.AddWithValue("@dexterity", saveHero.Attributes.Dexterity);
+            cmd.Parameters.AddWithValue("@wisdom", saveHero.Attributes.Wisdom);
+            cmd.Parameters.AddWithValue("@gold", saveHero.GoldToString);
+            cmd.Parameters.AddWithValue("@currentHealth", saveHero.Statistics.CurrentHealth);
+            cmd.Parameters.AddWithValue("@maximumHealth", saveHero.Statistics.MaximumHealth);
+            cmd.Parameters.AddWithValue("@currentMagic", saveHero.Statistics.CurrentMagic);
+            cmd.Parameters.AddWithValue("@maximumMagic", saveHero.Statistics.MaximumMagic);
             cmd.Parameters.AddWithValue("@spells", saveHero.Spellbook.ToString());
-            cmd.Parameters.AddWithValue("@inventory", saveHero.Inventory.ToString());
+            cmd.Parameters.AddWithValue("@inventory", saveHero.InventoryToString);
             cmd.Parameters.AddWithValue("@hardcore", Int32Helper.Parse(saveHero.Hardcore));
             cmd.Parameters.AddWithValue("@name", saveHero.Name);
             cmd.Parameters.AddWithValue("@weapon", saveHero.Equipment.Weapon.Name);
@@ -160,13 +160,13 @@ namespace Sulimn.Classes.Database
 
         /// <summary>Saves the Hero's bank information.</summary>
         /// <param name="saveHero">Hero whose Bank needs to be saved</param>
-        /// <param name="goldInBank">Gold in the bank</param>
+        /// <param name="goldInBank.Gold in the bank</param>
         /// <param name="loanTaken">Loan taken out</param>
         public async Task<bool> SaveHeroBank(Hero saveHero, int goldInBank, int loanTaken)
         {
             SQLiteCommand cmd = new SQLiteCommand
             {
-                CommandText = "UPDATE Bank SET [Gold] = @gold, [LoanTaken] = @loanTaken WHERE [Name] = @name"
+                CommandText = "UPDATE Bank SETxtGold] = Gold, [LoanTaken] = @loanTaken WHERE [Name] = @name"
             };
             cmd.Parameters.AddWithValue("@gold", goldInBank);
             cmd.Parameters.AddWithValue("@loanTaken", loanTaken);
@@ -326,13 +326,12 @@ namespace Sulimn.Classes.Database
                         new Ring(
                         GameState.AllRings.Find(ring => ring.Name == dr["RightRing"].ToString()));
 
-                    int gold = Int32Helper.Parse(dr["Gold"]);
-
                     Enemy newEnemy = new Enemy(
                     dr["Name"].ToString(),
                     dr["Type"].ToString(),
                     Int32Helper.Parse(dr["Level"]),
                     Int32Helper.Parse(dr["Experience"]),
+                    Int32Helper.Parse(dr["Gold"]),
                     new Attributes(
                     Int32Helper.Parse(dr["Strength"]),
                     Int32Helper.Parse(dr["Vitality"]),
@@ -351,10 +350,7 @@ namespace Sulimn.Classes.Database
                     legs,
                     feet,
                     leftRing,
-                    rightRing),
-                    new Inventory(
-                    new List<Item>(),
-                    gold));
+                    rightRing));
 
                     allEnemies.Add(newEnemy);
                 }
@@ -393,6 +389,7 @@ namespace Sulimn.Classes.Database
                     Int32Helper.Parse(dr["Level"]),
                     Int32Helper.Parse(dr["Experience"]),
                     Int32Helper.Parse(dr["SkillPoints"]),
+                    Int32Helper.Parse(dr["Gold"]),
                     new Attributes(
                     Int32Helper.Parse(dr["Strength"]),
                     Int32Helper.Parse(dr["Vitality"]),
@@ -413,8 +410,7 @@ namespace Sulimn.Classes.Database
                     leftRing,
                     rightRing),
                     GameState.SetSpellbook(dr["KnownSpells"].ToString()),
-                    GameState.SetInventory(dr["Inventory"].ToString(),
-                    Int32Helper.Parse(dr["Gold"])),
+                    GameState.SetInventory(dr["Inventory"].ToString()),
                     new Progression(BoolHelper.Parse(dr["Fields"]), BoolHelper.Parse(dr["Forest"]), BoolHelper.Parse(dr["Cathedral"]), BoolHelper.Parse(dr["Mines"]), BoolHelper.Parse(dr["Catacombs"]), BoolHelper.Parse(dr["Courtyard"]), BoolHelper.Parse(dr["Battlements"]), BoolHelper.Parse(dr["Armoury"]), BoolHelper.Parse(dr["Spire"]), BoolHelper.Parse(dr["ThroneRoom"])),
                     BoolHelper.Parse(dr["Hardcore"]));
 
@@ -440,7 +436,7 @@ namespace Sulimn.Classes.Database
                 maximumStatsHero.Attributes.Vitality = Int32Helper.Parse(ds.Tables[0].Rows[0]["Vitality"]);
                 maximumStatsHero.Attributes.Dexterity = Int32Helper.Parse(ds.Tables[0].Rows[0]["Dexterity"]);
                 maximumStatsHero.Attributes.Wisdom = Int32Helper.Parse(ds.Tables[0].Rows[0]["Wisdom"]);
-                maximumStatsHero.Inventory.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
+                maximumStatsHero.Gold = Int32Helper.Parse(ds.Tables[0].Rows[0]["Gold"]);
                 maximumStatsHero.Statistics.CurrentHealth =
                 Int32Helper.Parse(ds.Tables[0].Rows[0]["CurrentHealth"]);
                 maximumStatsHero.Statistics.MaximumHealth =

@@ -58,7 +58,7 @@ namespace Sulimn.Pages.BankPages
                     break;
 
                 case BankAction.Repay:
-                    DialogText = $"How much of your loan would you like to repay? You currently owe {_maximum:N0} gold. You have {GameState.CurrentHero.Inventory.Gold:N0} with you.";
+                    DialogText = $"How much of your loan would you like to repay? You currently owe {_maximum:N0} gold. You have {GameState.CurrentHero.Gold:N0} with you.";
                     BtnAction.Content = "_Repay";
                     break;
 
@@ -80,7 +80,7 @@ namespace Sulimn.Pages.BankPages
         private void Deposit()
         {
             RefToBankPage.HeroBank.GoldInBank += _textAmount;
-            GameState.CurrentHero.Inventory.Gold -= _textAmount;
+            GameState.CurrentHero.Gold -= _textAmount;
             ClosePage($"You deposit {_textAmount:N0} gold.");
         }
 
@@ -89,7 +89,7 @@ namespace Sulimn.Pages.BankPages
         {
             RefToBankPage.HeroBank.LoanTaken -= _textAmount;
             RefToBankPage.HeroBank.LoanAvailable += _textAmount;
-            GameState.CurrentHero.Inventory.Gold -= _textAmount;
+            GameState.CurrentHero.Gold -= _textAmount;
             ClosePage($"You repay {_textAmount:N0} gold on your loan.");
         }
 
@@ -98,7 +98,7 @@ namespace Sulimn.Pages.BankPages
         {
             RefToBankPage.HeroBank.LoanTaken += _textAmount + _textAmount / 20;
             RefToBankPage.HeroBank.LoanAvailable -= _textAmount + _textAmount / 20;
-            GameState.CurrentHero.Inventory.Gold += _textAmount;
+            GameState.CurrentHero.Gold += _textAmount;
             ClosePage($"You take out a loan for {_textAmount:N0} gold.");
         }
 
@@ -106,7 +106,7 @@ namespace Sulimn.Pages.BankPages
         private void Withdrawal()
         {
             RefToBankPage.HeroBank.GoldInBank -= _textAmount;
-            GameState.CurrentHero.Inventory.Gold += _textAmount;
+            GameState.CurrentHero.Gold += _textAmount;
             ClosePage($"You withdraw {_textAmount:N0} gold from your account.");
         }
 
@@ -122,10 +122,10 @@ namespace Sulimn.Pages.BankPages
                 switch (_action)
                 {
                     case BankAction.Deposit:
-                        if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
+                        if (_textAmount <= GameState.CurrentHero.Gold)
                             Deposit();
                         else
-                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn");
+                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.GoldToString} gold.", "Sulimn");
                         break;
 
                     case BankAction.Withdrawal:
@@ -133,10 +133,10 @@ namespace Sulimn.Pages.BankPages
                         break;
 
                     case BankAction.Repay:
-                        if (_textAmount <= GameState.CurrentHero.Inventory.Gold)
+                        if (_textAmount <= GameState.CurrentHero.Gold)
                             RepayLoan();
                         else
-                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn");
+                            GameState.DisplayNotification($"Please enter a value less than or equal to your current gold. You currently have {GameState.CurrentHero.GoldToString} gold.", "Sulimn");
                         break;
 
                     case BankAction.Borrow:
@@ -148,13 +148,10 @@ namespace Sulimn.Pages.BankPages
                         break;
                 }
             else
-                GameState.DisplayNotification($"Please enter a positive value less than or equal to your current gold. You currently have {GameState.CurrentHero.Inventory.GoldToString} gold.", "Sulimn");
+                GameState.DisplayNotification($"Please enter a positive value less than or equal to your current gold. You currently have {GameState.CurrentHero.GoldToString} gold.", "Sulimn");
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            ClosePage("");
-        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage("");
 
         #endregion Button-Click Methods
 
@@ -178,15 +175,9 @@ namespace Sulimn.Pages.BankPages
             DataContext = this;
         }
 
-        private void TxtBank_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Functions.TextBoxGotFocus(sender);
-        }
+        private void TxtBank_GotFocus(object sender, RoutedEventArgs e) => Functions.TextBoxGotFocus(sender);
 
-        private void TxtBank_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            Functions.PreviewKeyDown(e, KeyType.Integers);
-        }
+        private void TxtBank_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e, KeyType.Integers);
 
         private void TxtBank_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -196,9 +187,6 @@ namespace Sulimn.Pages.BankPages
 
         #endregion Page-Manipulation Methods
 
-        private void BankDialogPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            GameState.CalculateScale(Grid);
-        }
+        private void BankDialogPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

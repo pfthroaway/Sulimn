@@ -141,6 +141,7 @@ namespace Sulimn.Pages.Admin
                         (HeroClass)CmbClass.SelectedItem,
                         Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
                         Int32Helper.Parse(TxtSkillPoints.Text),
+                        Int32Helper.Parse(TxtGold.Text),
                         new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text),
                             Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
                         new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text),
@@ -151,7 +152,7 @@ namespace Sulimn.Pages.Admin
                             (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem,
                             CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(),
                             CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
-                        new Spellbook(), new Inventory(TxtInventory.Text, Int32Helper.Parse(TxtGold.Text)), new Progression(),
+                        new Spellbook(), GameState.SetInventory(TxtInventory.Text), new Progression(),
                         ChkHardcore.IsChecked ?? false));
                     ClosePage();
                 }

@@ -171,7 +171,7 @@ namespace Sulimn.Pages.Exploration
                 GameState.DisplayNotification(
                     "You have defeated Theon the Squire. You enter the hut and look at the table. It's another map! This one is incomplete, but looks like it might be part of a map of the catacombs beneath the city. You raise the map to put it in your inventory, and notice another piece of paper underneath it. It's a note that reads,\n\n" +
                     "\"Theon,\n\nCome see me at the cathedral when you have obtained another piece of the map. Our proprietor is getting impatient.\n\n- John\"\n\n" +
-                    "You tuck the note and map away and search for anything of value. You step on a creaky floorboard and realize it's loose. You pull it away and find a pouch of 1,000 gold coins inside!", "Sulimn");
+                    "You tuck the note and map away and search for anything of value. You step on a creaky floorboard and realize it's loose. You pull it away and find a pouch of 1,00.Gold coins inside!", "Sulimn");
             }
             BtnProgress.IsEnabled = GameState.CurrentHero.Level >= 10 && !GameState.CurrentHero.Progression.Forest;
         }
