@@ -22,14 +22,6 @@ namespace Sulimn.Pages.Shopping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void BindLabels()
-        {
-            LoadAllPurchase();
-            LoadAllSell();
-
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
-        }
-
         private void BindPotionPurchase(bool reload = true)
         {
             if (reload)
@@ -72,7 +64,14 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll() => BindLabels();
+        /// <summary>Loads all the required data.</summary>
+        private void LoadAll()
+        {
+            LoadAllPurchase();
+            LoadAllSell();
+
+            LblGold.DataContext = GameState.CurrentHero;
+        }
 
         private void LoadAllPurchase() => BindPotionPurchase();
 
@@ -167,11 +166,14 @@ namespace Sulimn.Pages.Shopping
             InitializeComponent();
             TxtTheGeneralStore.Text =
             "You enter The General Store, a solid wooden building near the center of the market. A beautiful young woman is standing behind a counter, smiling at you. You approach her and examine her wares.";
-            BindLabels();
+        }
+
+        private void TheGeneralStorePage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            GameState.CalculateScale(Grid);
+            LoadAll();
         }
 
         #endregion Page-Manipulation
-
-        private void TheGeneralStorePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

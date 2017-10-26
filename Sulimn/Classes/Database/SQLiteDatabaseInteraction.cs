@@ -10,7 +10,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.Reflection;
 using System.Threading.Tasks;
-using Sulimn.Pages.Exploration;
 
 namespace Sulimn.Classes.Database
 {
@@ -160,7 +159,7 @@ namespace Sulimn.Classes.Database
 
         /// <summary>Saves the Hero's bank information.</summary>
         /// <param name="saveHero">Hero whose Bank needs to be saved</param>
-        /// <param name="goldInBank.Gold in the bank</param>
+        /// <param name="goldInBank">Gold in the bank</param>
         /// <param name="loanTaken">Loan taken out</param>
         public async Task<bool> SaveHeroBank(Hero saveHero, int goldInBank, int loanTaken)
         {
@@ -225,6 +224,7 @@ namespace Sulimn.Classes.Database
         #region Load
 
         /// <summary>Loads the initial Bank state and Hero's Bank information.</summary>
+        /// <param name="bankHero">Hero whose Bank is being loaded</param>
         public async Task<Bank> LoadBank(Hero bankHero)
         {
             Bank heroBank = new Bank();
@@ -283,6 +283,7 @@ namespace Sulimn.Classes.Database
             DataSet ds = await SQLite.FillDataSet("SELECT * FROM Enemies", _con);
 
             if (ds.Tables[0].Rows.Count > 0)
+            {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     Weapon weapon = new Weapon();
@@ -354,6 +355,7 @@ namespace Sulimn.Classes.Database
 
                     allEnemies.Add(newEnemy);
                 }
+            }
 
             return allEnemies;
         }

@@ -350,7 +350,6 @@
     <Compile Include="Classes\Card\Hand.cs" />
     <Compile Include="Classes\Entities\Hero.cs" />
     <Compile Include="Classes\HeroParts\HeroClass.cs" />
-    <Compile Include="Classes\HeroParts\Inventory.cs" />
     <Compile Include="Classes\Items\Item.cs" />
     <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

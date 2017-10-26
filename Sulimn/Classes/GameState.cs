@@ -426,8 +426,7 @@ namespace Sulimn.Classes
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             if (CurrentEnemy.Gold > 0)
-                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2,
-                CurrentEnemy.Gold);
+                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2, CurrentEnemy.Gold);
         }
 
         /// <summary>Event where the Hero encounters a hostile Enemy.</summary>
@@ -438,8 +437,7 @@ namespace Sulimn.Classes
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             if (CurrentEnemy.Gold > 0)
-                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2,
-                CurrentEnemy.Gold);
+                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2, CurrentEnemy.Gold);
         }
 
         /// <summary>Event where the Hero encounters a water stream and restores health and magic.</summary>
@@ -460,13 +458,13 @@ namespace Sulimn.Classes
         /// <summary>Displays a new Notification in a thread-safe way.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
-        internal static void DisplayNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => { new Notification(message, title, NotificationButtons.OK, MainWindow).ShowDialog(); });
+        internal static void DisplayNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => new Notification(message, title, NotificationButtons.OK, MainWindow).ShowDialog());
 
         /// <summary>Displays a new Notification in a thread-safe way and retrieves a boolean result upon its closing.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
         /// <returns>Returns value of clicked button on Notification.</returns>
-        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => { return (new Notification(message, title, NotificationButtons.YesNo, MainWindow).ShowDialog() == true); });
+        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => (new Notification(message, title, NotificationButtons.YesNo, MainWindow).ShowDialog() == true));
 
         #endregion Notification Management
     }

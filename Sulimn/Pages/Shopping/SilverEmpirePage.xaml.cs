@@ -22,14 +22,6 @@ namespace Sulimn.Pages.Shopping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void BindLabels()
-        {
-            LoadAllPurchase();
-            LoadAllSell();
-
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
-        }
-
         private void BindRingPurchase(bool reload = true)
         {
             if (reload)
@@ -72,7 +64,14 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll() => BindLabels();
+        /// <summary>Loads all the required data.</summary>
+        private void LoadAll()
+        {
+            LoadAllPurchase();
+            LoadAllSell();
+
+            LblGold.DataContext = GameState.CurrentHero;
+        }
 
         private void LoadAllPurchase() => BindRingPurchase();
 
@@ -167,11 +166,14 @@ namespace Sulimn.Pages.Shopping
             InitializeComponent();
             TxtSilverEmpire.Text =
             "You enter the impressive establishment named 'Silver Empire'. You are immediately astounded by the glass display cases unlike any other shop in Sulimn. A tough-looking old man sitting behind the counter greets you.";
-            BindLabels();
+        }
+
+        private void SilverEmpirePage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            GameState.CalculateScale(Grid);
+            LoadAll();
         }
 
         #endregion Page-Manipulation
-
-        private void SilverEmpirePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

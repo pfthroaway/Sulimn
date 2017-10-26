@@ -22,14 +22,6 @@ namespace Sulimn.Pages.Shopping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void BindLabels()
-        {
-            LoadAllPurchase();
-            LoadAllSell();
-
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
-        }
-
         private void BindWeaponPurchase(bool reload = true)
         {
             if (reload)
@@ -74,7 +66,14 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll() => BindLabels();
+        /// <summary>Loads all the required data.</summary>
+        internal void LoadAll()
+        {
+            LoadAllPurchase();
+            LoadAllSell();
+
+            LblGold.DataContext = GameState.CurrentHero;
+        }
 
         private void LoadAllPurchase() => BindWeaponPurchase();
 
@@ -169,11 +168,14 @@ namespace Sulimn.Pages.Shopping
             InitializeComponent();
             TxtWeaponsRUs.Text =
             "You enter Weapons 'R' Us, the finest weaponsmith shop in the city of Sulimn. You approach the shopkeeper and he shows you his wares.";
-            BindLabels();
+        }
+
+        private void WeaponsRUsPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            GameState.CalculateScale(Grid);
+            LoadAll();
         }
 
         #endregion Page-Manipulation
-
-        private void WeaponsRUsPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

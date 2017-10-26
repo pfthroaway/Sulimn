@@ -3,11 +3,11 @@ using Extensions.DataTypeHelpers;
 using Sulimn.Classes;
 using Sulimn.Classes.Enums;
 using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
 using Sulimn.Pages.Characters;
 using Sulimn.Pages.Exploration;
 using System.ComponentModel;
 using System.Windows;
-using Sulimn.Classes.Items;
 
 namespace Sulimn.Pages.Battle
 {
@@ -194,7 +194,7 @@ namespace Sulimn.Pages.Battle
 
             if (heroHits <= chanceHeroHits)
             {
-                int maximumHeroDamage = Int32Helper.Parse(statModifier * 0.2 + damage);
+                int maximumHeroDamage = Int32Helper.Parse((statModifier * 0.2) + damage);
                 int maximumEnemyAbsorb = GameState.CurrentEnemy.Equipment.TotalDefense;
                 int actualDamage = Functions.GenerateRandomNumber(maximumHeroDamage / 10, maximumHeroDamage, 1);
                 int actualAbsorb = Functions.GenerateRandomNumber(maximumEnemyAbsorb / 10, maximumEnemyAbsorb);
@@ -253,11 +253,9 @@ namespace Sulimn.Pages.Battle
                 if (_enemyAction != BattleAction.Flee)
                 {
                     int result = Functions.GenerateRandomNumber(1, 100);
-                    if (GameState.CurrentEnemy.Statistics.CurrentHealth >
-                        GameState.CurrentEnemy.Statistics.MaximumHealth / 3) //one third or more health, no chance to want to flee.
+                    if (GameState.CurrentEnemy.Statistics.CurrentHealth > GameState.CurrentEnemy.Statistics.MaximumHealth / 3) //one third or more health, no chance to want to flee.
                         _enemyAction = BattleAction.Attack;
-                    else if (GameState.CurrentEnemy.Statistics.CurrentHealth >
-                             GameState.CurrentEnemy.Statistics.MaximumHealth / 5) //20% or more health, 2% chance to want to flee.
+                    else if (GameState.CurrentEnemy.Statistics.CurrentHealth > GameState.CurrentEnemy.Statistics.MaximumHealth / 5) //20% or more health, 2% chance to want to flee.
                         _enemyAction = result <= 98 ? BattleAction.Attack : BattleAction.Flee;
                     else //20% or less health, 5% chance to want to flee.
                         _enemyAction = result <= 95 ? BattleAction.Attack : BattleAction.Flee;
@@ -292,6 +290,8 @@ namespace Sulimn.Pages.Battle
         }
 
         /// <summary>The Enemy attacks the Hero.</summary>
+        /// <param name="statModifier">Stat to be given 20% bonus to damage</param>
+        /// <param name="damage">Current damage</param>
         private void EnemyAttack(int statModifier, int damage)
         {
             int chanceEnemyHits =
@@ -303,7 +303,7 @@ namespace Sulimn.Pages.Battle
             if (heroHits <= chanceEnemyHits)
             {
                 int maximumDamage =
-                Int32Helper.Parse(statModifier * 0.2 + damage);
+                Int32Helper.Parse((statModifier * 0.2) + damage);
                 int heroDefense = GameState.CurrentHero.Equipment.TotalDefense;
                 int actualDamage = Functions.GenerateRandomNumber(maximumDamage / 10, maximumDamage, 1);
                 int maximumShieldAbsorb = Functions.GenerateRandomNumber(HeroShield / 10, HeroShield);

@@ -27,14 +27,6 @@ namespace Sulimn.Pages.Shopping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void BindLabels()
-        {
-            LoadAllPurchase();
-            LoadAllSell();
-
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
-        }
-
         private void BindFoodPurchase(bool reload = true)
         {
             if (reload)
@@ -119,7 +111,14 @@ namespace Sulimn.Pages.Shopping
 
         #region Load
 
-        internal void LoadAll() => BindLabels();
+        /// <summary>Loads all the required data.</summary>
+        private void LoadAll()
+        {
+            LoadAllPurchase();
+            LoadAllSell();
+
+            LblGold.DataContext = GameState.CurrentHero;
+        }
 
         private void LoadAllPurchase()
         {
@@ -252,11 +251,14 @@ namespace Sulimn.Pages.Shopping
             InitializeComponent();
             TxtTheTavernBar.Text =
             "You approach the bar at The Tavern. The barkeeper asks you if you'd like a drink or a bite to eat.";
-            BindLabels();
+        }
+
+        private void TheTavernBarPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            GameState.CalculateScale(Grid);
+            LoadAll();
         }
 
         #endregion Page-Manipulation
-
-        private void TheTavernBarPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
     }
 }

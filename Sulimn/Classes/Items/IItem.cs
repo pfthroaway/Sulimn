@@ -1,6 +1,4 @@
-﻿using Sulimn.Classes.Enums;
-
-namespace Sulimn.Classes.Items
+﻿namespace Sulimn.Classes.Items
 {
     /// <summary>Blueprint of an Item.</summary>
     internal interface IItem

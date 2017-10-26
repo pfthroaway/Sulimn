@@ -1,5 +1,5 @@
-﻿using System;
-using Sulimn.Classes.HeroParts;
+﻿using Sulimn.Classes.HeroParts;
+using System;
 
 namespace Sulimn.Classes.Entities
 {

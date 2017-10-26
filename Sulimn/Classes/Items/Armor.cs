@@ -39,10 +39,7 @@ namespace Sulimn.Classes.Items
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-                   left.Defense == right.Defense && left.Weight == right.Weight && left.Value == right.Value &&
-                   left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Defense == right.Defense && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Armor);

@@ -33,16 +33,12 @@ namespace Sulimn.Classes.Items
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-                   left.FoodType == right.FoodType &&
-                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-                   left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
-                   left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.FoodType == right.FoodType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Food);
 
-        public bool Equals(Food otherFood) => Equals(this, otherFood);
+        public bool Equals(Food other) => Equals(this, other);
 
         public static bool operator ==(Food left, Food right) => Equals(left, right);
 

@@ -58,7 +58,7 @@ namespace Sulimn.Pages.BankPages
                     break;
 
                 case BankAction.Repay:
-                    DialogText = $"How much of your loan would you like to repay? You currently owe {_maximum:N0} gold. You have {GameState.CurrentHero.Gold:N0} with you.";
+                    DialogText = $"How much of your loan would you like to repay? You currently owe {_maximum:N0} gold. You have {GameState.CurrentHero.GoldToString} with you.";
                     BtnAction.Content = "_Repay";
                     break;
 

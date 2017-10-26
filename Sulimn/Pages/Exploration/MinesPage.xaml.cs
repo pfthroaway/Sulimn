@@ -176,7 +176,7 @@ namespace Sulimn.Pages.Exploration
             {
                 Progress = false;
                 GameState.DisplayNotification(
-                    "You have defeated Tennyson the Dark Priest. You return to the chest and open it. Inside is another piece of the map. Next to it is a very full bag of coins, totalling some 5,00.Gold!\n\n" +
+                    "You have defeated Tennyson the Dark Priest. You return to the chest and open it. Inside is another piece of the map. Next to it is a very full bag of coins, totalling some 5,000 gold!\n\n" +
                     "You return to the body of the dark priest and examine him. Some have said that dark priests cast spells on themselves before death so that their corpses can be effectively \"booby-trapped\", but you see no evidence of that with this one. You find a small diary with the name \"Tennyson\" emblazoned on it. His blood stained most of the pages, but one page is legible.\n\n" +
                     $"\"The proprietor wishes me to follow this new adventurer, {GameState.CurrentHero.Name}, and see if he can find the last piece of the map. I will take the other pieces from him and bring them back to the proprietor for my reward.\"\n\n" +
                     "Whoever this \"proprietor\" is, he's sure getting on your nerves.", "Sulimn");

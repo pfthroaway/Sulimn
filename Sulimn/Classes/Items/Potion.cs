@@ -8,9 +8,9 @@ namespace Sulimn.Classes.Items
     {
         #region Properties
 
-        public PotionTypes PotionType { get; private set; }
+        public PotionTypes PotionType { get; }
 
-        public int Amount { get; private set; }
+        public int Amount { get; }
 
         #endregion Properties
 
@@ -45,16 +45,12 @@ namespace Sulimn.Classes.Items
         {
             if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
             if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-                   left.PotionType == right.PotionType &&
-                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-                   left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value &&
-                   left.CanSell == right.CanSell && left.IsSold == right.IsSold;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Potion);
 
-        public bool Equals(Potion otherPotion) => Equals(this, otherPotion);
+        public bool Equals(Potion other) => Equals(this, other);
 
         public static bool operator ==(Potion left, Potion right)
         {

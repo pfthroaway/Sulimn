@@ -288,7 +288,6 @@ namespace Sulimn.Pages.Characters
             DataContext = GameState.CurrentHero;
             LblHealth.DataContext = GameState.CurrentHero.Statistics;
             LblMagic.DataContext = GameState.CurrentHero.Statistics;
-            LblGold.DataContext = GameState.CurrentHero.Inventory;
         }
 
         public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));

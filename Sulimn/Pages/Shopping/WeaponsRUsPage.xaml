@@ -78,7 +78,7 @@
                                                    Text="{Binding Path=DamageToStringWithText}" Margin="5" />
                                         <TextBlock x:Name="LblWeaponValueSell"
                                                    Text="{Binding Path=SellValueToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="LblWeaponTypeSell" Text="{Binding Path=WeaponType}"
+                                        <TextBlock x:Name="LblWeaponTypeSell" Text="{Binding Path=WeaponTypeToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblWeaponSellableSell" Text="{Binding Path=CanSellToString}"
                                                    Margin="5" />

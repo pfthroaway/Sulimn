@@ -108,8 +108,8 @@ namespace Sulimn.Pages.Shopping
 
         #region Load Methods
 
-        /// <summary>Loads everything for data binding.</summary>
-        internal void LoadAll()
+        /// <summary>Loads all the required data.</summary>
+        private void LoadAll()
         {
             LstHeadPurchase.ItemsSource = _purchaseHead;
             LstHeadSell.ItemsSource = _sellHead;
@@ -415,13 +415,16 @@ namespace Sulimn.Pages.Shopping
         public TheArmouryPage()
         {
             InitializeComponent();
-            LoadAll();
             TxtTheArmoury.Text =
             "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
         }
 
-        #endregion Page-Manipulation Methods
+        private void TheArmouryPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            GameState.CalculateScale(Grid);
+            LoadAll();
+        }
 
-        private void TheArmouryPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
+        #endregion Page-Manipulation Methods
     }
 }
