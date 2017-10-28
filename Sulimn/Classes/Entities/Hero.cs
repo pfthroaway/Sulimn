@@ -1,4 +1,5 @@
-﻿using Sulimn.Classes.HeroParts;
+﻿using Sulimn.Classes.Enums;
+using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
 using System;
 using System.Collections;
@@ -22,7 +23,7 @@ namespace Sulimn.Classes.Entities
         {
             if (Statistics.MaximumHealth != (TotalVitality + Level - 1) * 5)
             {
-                int diff = (TotalVitality + Level - 1) * 5 - Statistics.MaximumHealth;
+                int diff = ((TotalVitality + Level - 1) * 5) - Statistics.MaximumHealth;
 
                 Statistics.CurrentHealth += diff;
                 Statistics.MaximumHealth += diff;
@@ -30,7 +31,7 @@ namespace Sulimn.Classes.Entities
 
             if (Statistics.MaximumMagic != (TotalWisdom + Level - 1) * 5)
             {
-                int diff = (TotalWisdom + Level - 1) * 5 - Statistics.MaximumMagic;
+                int diff = ((TotalWisdom + Level - 1) * 5) - Statistics.MaximumMagic;
 
                 Statistics.CurrentMagic += diff;
                 Statistics.MaximumMagic += diff;
@@ -195,6 +196,134 @@ namespace Sulimn.Classes.Entities
             OnPropertyChanged("Inventory");
         }
 
+        /// <summary>Equips an Item into a Hero's Equipment.</summary>
+        /// <param name="item">Item to be equipped</param>
+        /// <param name="side">If Item is a Ring, which side is it?</param>
+        internal void Equip(Item item, RingHand side = RingHand.Left)
+        {
+            switch (item)
+            {
+                case Weapon weapon:
+                    if (Equipment.Weapon != GameState.DefaultWeapon)
+                        AddItem(Equipment.Weapon);
+                    Equipment.Weapon = new Weapon(weapon);
+                    break;
+
+                case HeadArmor headArmor:
+                    if (Equipment.Head != GameState.DefaultHead)
+                        AddItem(Equipment.Head);
+                    Equipment.Head = new HeadArmor(headArmor);
+                    break;
+
+                case BodyArmor bodyArmor:
+                    if (Equipment.Body != GameState.DefaultBody)
+                        AddItem(Equipment.Body);
+                    Equipment.Body = new BodyArmor(bodyArmor);
+                    break;
+
+                case HandArmor handArmor:
+                    if (Equipment.Hands != GameState.DefaultHands)
+                        AddItem(Equipment.Hands);
+                    Equipment.Hands = new HandArmor(handArmor);
+                    break;
+
+                case LegArmor legArmor:
+                    if (Equipment.Legs != GameState.DefaultLegs)
+                        AddItem(Equipment.Legs);
+                    Equipment.Legs = new LegArmor(legArmor);
+                    break;
+
+                case FeetArmor feetArmor:
+                    if (Equipment.Feet != GameState.DefaultFeet)
+                        AddItem(Equipment.Feet);
+                    Equipment.Feet = new FeetArmor(feetArmor);
+                    break;
+
+                case Ring ring:
+                    switch (side)
+                    {
+                        case RingHand.Left:
+                            if (Equipment.LeftRing != new Ring())
+                                AddItem(Equipment.LeftRing);
+                            Equipment.LeftRing = new Ring(ring);
+                            break;
+
+                        case RingHand.Right:
+                            if (Equipment.RightRing != new Ring())
+                                AddItem(Equipment.RightRing);
+                            Equipment.RightRing = new Ring(ring);
+                            break;
+                    }
+                    break;
+
+                default:
+                    GameState.DisplayNotification("You have attempted to equip an Item which doesn't fit a current type of item to be equipped.", "Sulimn");
+                    break;
+            }
+
+            RemoveItem(item);
+        }
+
+        /// <summary>Unequips an Item from a Hero's Equipment.</summary>
+        /// <param name="item">Item to be unequipped</param>
+        /// <param name="side">If Item is a Ring, which side is it?</param>
+        internal void Unequip(Item item, RingHand side = RingHand.Left)
+        {
+            switch (item)
+            {
+                case Weapon weapon:
+                    if (weapon != GameState.DefaultWeapon)
+                        AddItem(weapon);
+                    Equipment.Weapon = new Weapon(GameState.DefaultWeapon);
+                    break;
+
+                case HeadArmor headArmor:
+                    if (headArmor != GameState.DefaultHead)
+                        AddItem(headArmor);
+                    Equipment.Head = new HeadArmor(GameState.DefaultHead);
+                    break;
+
+                case BodyArmor bodyArmor:
+                    if (bodyArmor != GameState.DefaultBody)
+                        AddItem(bodyArmor);
+                    Equipment.Body = new BodyArmor(GameState.DefaultBody);
+                    break;
+
+                case HandArmor handArmor:
+                    if (handArmor != GameState.DefaultHands)
+                        AddItem(handArmor);
+                    Equipment.Hands = new HandArmor(GameState.DefaultHands);
+                    break;
+
+                case LegArmor legArmor:
+                    if (legArmor != GameState.DefaultLegs)
+                        AddItem(legArmor);
+                    Equipment.Legs = new LegArmor(GameState.DefaultLegs);
+                    break;
+
+                case FeetArmor feetArmor:
+                    if (feetArmor != GameState.DefaultFeet)
+                        AddItem(feetArmor);
+                    Equipment.Feet = new FeetArmor(GameState.DefaultFeet);
+                    break;
+
+                case Ring ring:
+                    if (ring != new Ring())
+                        AddItem(ring);
+                    switch (side)
+                    {
+                        case RingHand.Left:
+                            Equipment.LeftRing = new Ring();
+                            break;
+
+                        case RingHand.Right:
+                            Equipment.RightRing = new Ring();
+                            break;
+                    }
+                    break;
+            }
+        }
+
         /// <summary>Gets all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
         /// <returns>Items of specified Type</returns>
@@ -278,7 +407,7 @@ namespace Sulimn.Classes.Entities
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
         /// <param name="other">Instance of Hero to replace this one</param>
-        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.Gold, other.SkillPoints, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), other.Inventory, other.Progression, other.Hardcore)
+        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, other.Gold, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), other.Inventory, other.Progression, other.Hardcore)
         {
         }
 

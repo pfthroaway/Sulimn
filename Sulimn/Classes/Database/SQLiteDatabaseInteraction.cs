@@ -115,7 +115,7 @@ namespace Sulimn.Classes.Database
             SQLiteCommand cmd = new SQLiteCommand()
             {
                 CommandText =
-            "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = Gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [Name] = @name;" +
+            "UPDATE Players SET [Level] = @level, [Experience] = @experience, [SkillPoints] = @skillPoints, [Strength] = @strength, [Vitality] = @vitality, [Dexterity] = @dexterity, [Wisdom] = @wisdom, [Gold] = @gold, [CurrentHealth] = @currentHealth, [MaximumHealth] = @maximumHealth, [CurrentMagic] = @currentMagic, [MaximumMagic] = @maximumMagic, [KnownSpells] = @spells, [Inventory] = @inventory, [HardCore] = @hardcore WHERE [Name] = @name;" +
             "UPDATE Equipment SET [Weapon] = @weapon, [Head] = @head, [Body] = @body, [Hands] = @hands, [Legs] = @legs, [Feet] = @feet, [LeftRing] = @leftRing, [RightRing] = @rightRing WHERE [Name] = @name;" +
             "UPDATE PROGRESSION SET [Fields] = @fields, [Forest] = @forest, [Cathedral] = @cathedral, [Mines] = @mines, [Catacombs] = @catacombs, [Courtyard] = @courtyard, [Battlements] = @battlements, [Armoury] = @armoury, [Spire] = @spire, [ThroneRoom] = @throneRoom WHERE [Name] = @name"
             };
@@ -165,7 +165,7 @@ namespace Sulimn.Classes.Database
         {
             SQLiteCommand cmd = new SQLiteCommand
             {
-                CommandText = "UPDATE Bank SETxtGold] = Gold, [LoanTaken] = @loanTaken WHERE [Name] = @name"
+                CommandText = "UPDATE Bank SET [Gold] = @gold, [LoanTaken] = @loanTaken WHERE [Name] = @name"
             };
             cmd.Parameters.AddWithValue("@gold", goldInBank);
             cmd.Parameters.AddWithValue("@loanTaken", loanTaken);

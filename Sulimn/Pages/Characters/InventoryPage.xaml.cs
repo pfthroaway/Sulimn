@@ -299,20 +299,14 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipWeapon_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Weapon.Name}.");
-            if (GameState.CurrentHero.Equipment.Weapon != GameState.DefaultWeapon)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Weapon);
-            GameState.CurrentHero.Equipment.Weapon =
-            (Weapon)GameState.AllItems.Find(x => x.Name == GameState.DefaultWeapon.Name);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.Weapon);
             BindWeapon();
         }
 
         private void BtnEquipSelectedWeapon_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedWeapon.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedWeapon);
-            if (GameState.CurrentHero.Equipment.Weapon != GameState.DefaultWeapon)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Weapon);
-            GameState.CurrentHero.Equipment.Weapon = _selectedWeapon;
+            GameState.CurrentHero.Equip(_selectedWeapon);
             BindWeapon();
         }
 
@@ -338,20 +332,14 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipHead_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Head.Name}.");
-            if (GameState.CurrentHero.Equipment.Head != GameState.DefaultHead)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Head);
-            GameState.CurrentHero.Equipment.Head =
-            (HeadArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultHead.Name);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.Head);
             BindHead();
         }
 
         private void BtnEquipSelectedHead_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedHead.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedHead);
-            if (GameState.CurrentHero.Equipment.Head != GameState.DefaultHead)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Head);
-            GameState.CurrentHero.Equipment.Head = _selectedHead;
+            GameState.CurrentHero.Equip(_selectedHead);
             BindHead();
         }
 
@@ -377,10 +365,7 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipBody_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Body.Name}.");
-            if (GameState.CurrentHero.Equipment.Body != GameState.DefaultBody)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Body);
-            GameState.CurrentHero.Equipment.Body =
-            (BodyArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultBody.Name);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.Body);
             BindBody();
         }
 
@@ -388,9 +373,7 @@ namespace Sulimn.Pages.Characters
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedBody.Name}.");
             GameState.CurrentHero.RemoveItem(_selectedBody);
-            if (GameState.CurrentHero.Equipment.Body != GameState.DefaultBody)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Body);
-            GameState.CurrentHero.Equipment.Body = _selectedBody;
+            GameState.CurrentHero.Equip(_selectedBody);
             BindBody();
         }
 
@@ -416,20 +399,14 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipHands_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Hands.Name}.");
-            if (GameState.CurrentHero.Equipment.Hands != GameState.DefaultHands)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Hands);
-            GameState.CurrentHero.Equipment.Hands =
-            (HandArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultHands.Name);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.Hands);
             BindHands();
         }
 
         private void BtnEquipSelectedHands_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedHands.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedHands);
-            if (GameState.CurrentHero.Equipment.Hands != GameState.DefaultHands)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Hands);
-            GameState.CurrentHero.Equipment.Hands = _selectedHands;
+            GameState.CurrentHero.Equip(_selectedHands);
             BindHands();
         }
 
@@ -455,20 +432,14 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipLegs_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Legs.Name}.");
-            if (GameState.CurrentHero.Equipment.Legs != GameState.DefaultLegs)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Legs);
-            GameState.CurrentHero.Equipment.Legs =
-            (LegArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultLegs.Name);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.Legs);
             BindLegs();
         }
 
         private void BtnEquipSelectedLegs_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedLegs.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedLegs);
-            if (GameState.CurrentHero.Equipment.Legs != GameState.DefaultLegs)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Legs);
-            GameState.CurrentHero.Equipment.Legs = _selectedLegs;
+            GameState.CurrentHero.Equip(_selectedLegs);
             BindLegs();
         }
 
@@ -494,20 +465,14 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipFeet_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.Feet.Name}.");
-            if (GameState.CurrentHero.Equipment.Feet != GameState.DefaultFeet)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Feet);
-            GameState.CurrentHero.Equipment.Feet =
-            (FeetArmor)GameState.AllItems.Find(x => x.Name == GameState.DefaultFeet.Name);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.Feet);
             BindFeet();
         }
 
         private void BtnEquipSelectedFeet_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedFeet.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedFeet);
-            if (GameState.CurrentHero.Equipment.Feet != GameState.DefaultFeet)
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.Feet);
-            GameState.CurrentHero.Equipment.Feet = _selectedFeet;
+            GameState.CurrentHero.Equip(_selectedFeet);
             BindFeet();
         }
 
@@ -533,9 +498,7 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipLeftRing_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.LeftRing.Name}.");
-            if (GameState.CurrentHero.Equipment.LeftRing != new Ring())
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.LeftRing);
-            GameState.CurrentHero.Equipment.LeftRing = new Ring();
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.LeftRing, RingHand.Left);
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }
@@ -543,9 +506,7 @@ namespace Sulimn.Pages.Characters
         private void BtnUnequipRightRing_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.RightRing.Name}.");
-            if (GameState.CurrentHero.Equipment.RightRing != new Ring())
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.RightRing);
-            GameState.CurrentHero.Equipment.RightRing = new Ring();
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.LeftRing, RingHand.Left);
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }
@@ -553,10 +514,7 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedRingLeft_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedRing.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedRing);
-            if (GameState.CurrentHero.Equipment.LeftRing != new Ring())
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.LeftRing);
-            GameState.CurrentHero.Equipment.LeftRing = _selectedRing;
+            GameState.CurrentHero.Equip(_selectedRing, RingHand.Left);
             BtnEquipSelectedRingLeft.IsEnabled = false;
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
@@ -565,10 +523,7 @@ namespace Sulimn.Pages.Characters
         private void BtnEquipSelectedRingRight_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You equip your {_selectedRing.Name}.");
-            GameState.CurrentHero.RemoveItem(_selectedRing);
-            if (GameState.CurrentHero.Equipment.RightRing != new Ring())
-                GameState.CurrentHero.AddItem(GameState.CurrentHero.Equipment.RightRing);
-            GameState.CurrentHero.Equipment.RightRing = _selectedRing;
+            GameState.CurrentHero.Equip(_selectedRing, RingHand.Right);
             BtnEquipSelectedRingRight.IsEnabled = false;
             GameState.CurrentHero.UpdateStatistics();
             BindRing();

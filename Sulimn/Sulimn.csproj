@@ -102,6 +102,7 @@
     <Compile Include="Classes\Enums\CardSuit.cs" />
     <Compile Include="Classes\Enums\FoodTypes.cs" />
     <Compile Include="Classes\Enums\PotionTypes.cs" />
+    <Compile Include="Classes\Enums\RingHand.cs" />
     <Compile Include="Classes\Enums\SpellTypes.cs" />
     <Compile Include="Classes\Enums\Status.cs" />
     <Compile Include="Classes\Enums\WeaponTypes.cs" />
