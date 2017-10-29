@@ -118,6 +118,10 @@ namespace Sulimn.Classes.HeroParts
 
         #region Helper Properties
 
+        /// <summary>Weight of all the Equipment currently equipped.</summary>
+        public int TotalWeight => Weapon.Weight + Body.Weight + Head.Weight + Body.Weight + Hands.Weight + Legs.Weight +
+                                  Feet.Weight;
+
         /// <summary>Returns the total damage produced by the current set of equipment.</summary>
         public int TotalDamage => Weapon.Damage + LeftRing.Damage + RightRing.Damage;
 

@@ -50,6 +50,18 @@ namespace Sulimn.Pages.Battle
 
         public string HeroShieldToString => $"Shield: {_heroShield}";
 
+        /// <summary>Currently selected Spell</summary>
+        public Spell CurrentSpell
+        {
+            get => _currentSpell;
+            set
+            {
+                _currentSpell = value;
+                OnPropertyChanged("CurrentSpell");
+                LblSpell.DataContext = CurrentSpell;
+            }
+        }
+
         #endregion Properties
 
         #region Data-Binding
@@ -65,6 +77,7 @@ namespace Sulimn.Pages.Battle
             LblShield.DataContext = this;
             LblEnemyName.DataContext = GameState.CurrentEnemy;
             LblEnemyHealth.DataContext = GameState.CurrentEnemy.Statistics;
+            LblWeapon.DataContext = GameState.CurrentHero.Equipment.Weapon;
         }
 
         public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
@@ -227,8 +240,8 @@ namespace Sulimn.Pages.Battle
         /// <param name="spell">Spell to be set</param>
         internal void SetSpell(Spell spell)
         {
-            _currentSpell = spell;
-            NewRound(BattleAction.Cast);
+            CurrentSpell = spell;
+            BtnCastSpell.IsEnabled = true;
         }
 
         /// <summary>Sets the Enemy's action for the round.</summary>
@@ -384,6 +397,7 @@ namespace Sulimn.Pages.Battle
         {
             BtnAttack.IsEnabled = enabled;
             BtnCastSpell.IsEnabled = enabled;
+            BtnChooseSpell.IsEnabled = enabled && CurrentSpell != new Spell();
             BtnFlee.IsEnabled = enabled;
         }
 
@@ -472,9 +486,11 @@ namespace Sulimn.Pages.Battle
             GameState.GoBack();
         }
 
-        private void BtnCastSpell_Click(object sender, RoutedEventArgs e)
+        private void BtnCastSpell_Click(object sender, RoutedEventArgs e) => NewRound(BattleAction.Cast);
+
+        private void BtnChooseSpell_Click(object sender, RoutedEventArgs e)
         {
-            Characters.CastSpellPage castSpellPage = new Characters.CastSpellPage { RefToBattlePage = this };
+            CastSpellPage castSpellPage = new CastSpellPage { RefToBattlePage = this };
             castSpellPage.LoadPage("Battle");
             GameState.Navigate(castSpellPage);
         }

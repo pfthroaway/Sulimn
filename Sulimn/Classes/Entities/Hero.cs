@@ -103,6 +103,18 @@ namespace Sulimn.Classes.Entities
         /// <summary>List of Items in the inventory.</summary>
         public ReadOnlyCollection<Item> Inventory => new ReadOnlyCollection<Item>(_inventory);
 
+        /// <summary>Combined weight of all Items in a Hero's Inventory.</summary>
+        public int CarryingWeight => Inventory.Sum(itm => itm.Weight);
+
+        /// <summary>Combined weight of all Items in a Hero's Inventory and all the Equipment currently equipped.</summary>
+        public int TotalWeight => CarryingWeight + Equipment.TotalWeight;
+
+        /// <summary>Maximum weight a Hero can carry.</summary>
+        public int MaximumWeight => TotalStrength * 10;
+
+        /// <summary>Is the Hero carrying more than they should be able to?</summary>
+        public bool Overweight => TotalWeight > MaximumWeight;
+
         /// <summary>List of Items in the inventory, formatted.</summary>
         public string InventoryToString => string.Join(",", Inventory);
 

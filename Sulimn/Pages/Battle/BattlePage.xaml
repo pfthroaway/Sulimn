@@ -49,10 +49,33 @@
         </Border>
         <Button x:Name="BtnCharacter" Grid.Column="0" Grid.Row="4" Width="150" Content="C_haracter" Click="BtnCharDetails_Click" Margin="0,0,0,10" />
         <Button x:Name="BtnEnemyDetails" Grid.Column="2" Grid.Row="4" Content="_Enemy Details" Width="150" Click="BtnEnemyDetails_Click" Margin="0,0,0,10" />
-        <TextBox x:Name="TxtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="599" Height="190" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
-        <Button x:Name="BtnAttack" Grid.Column="0" Grid.Row="6" Width="125" Content="_Attack" Click="BtnAttack_Click" IsDefault="True" Margin="0,0,0,10" />
-        <Button x:Name="BtnCastSpell" Grid.Column="1" Grid.Row="6" Width="125" Content="_Cast Spell" Click="BtnCastSpell_Click" Margin="0,0,0,10" />
-        <Button x:Name="BtnFlee" Grid.Column="2" Grid.Row="6" Width="125" Content="_Flee" Click="BtnFlee_Click" Margin="0,0,0,10" />
-        <Button x:Name="BtnReturn" Grid.Column="2" Grid.Row="7" Width="125" Content="_Return" Click="BtnReturn_Click" IsEnabled="False" IsCancel="True" />
+        <TextBox x:Name="TxtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="750" Height="190" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
+        <GroupBox Grid.Column="0" Grid.Row="6" Header="Battle Actions" Margin="0,0,0,10" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="LblWeapon" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"
+                           Text="{Binding Path=Name, Mode=OneWay}" Margin="0,0,0,10" />
+                <Button x:Name="BtnAttack" Grid.Row="1" Width="125" Content="_Attack" Click="BtnAttack_Click" IsDefault="True" Margin="0,0,0,10" />
+                <Button x:Name="BtnFlee" Grid.Row="2" Width="125" Content="_Flee" Click="BtnFlee_Click" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="2" Grid.Row="6" Header="Magic" Margin="0,0,0,10" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="LblSpell" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"
+                       Text="{Binding Path=Name, Mode=OneWay}" Margin="0,0,0,10" />
+                <Button x:Name="BtnChooseSpell" Grid.Row="1" Width="125" Content="Choose _Spell" Click="BtnChooseSpell_Click" Margin="0,0,0,10" />
+                <Button x:Name="BtnCastSpell"  Grid.Row="2" Width="125" Content="_Cast Spell" Click="BtnCastSpell_Click" IsEnabled="False" />
+            </Grid>
+        </GroupBox>
+        <Button x:Name="BtnReturn" Grid.Column="1" Grid.Row="7" Width="125" Content="_Return" Click="BtnReturn_Click" IsEnabled="False" IsCancel="True" />
     </Grid>
 </Page>

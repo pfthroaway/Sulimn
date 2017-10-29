@@ -1,7 +1,7 @@
 ﻿namespace Sulimn.Classes.Enums
 {
     /// <summary>Represents the types of Spells which exist.</summary>
-    internal enum SpellTypes
+    public enum SpellTypes
     {
         /// <summary>This spell type causes damage.</summary>
         Damage,

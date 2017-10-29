@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents a Spell a Hero can cast.</summary>
-    internal class Spell : INotifyPropertyChanged, IEquatable<Spell>
+    public class Spell : INotifyPropertyChanged, IEquatable<Spell>
     {
         private string _name, _description, _requiredClass;
         private int _requiredLevel, _magicCost, _amount;
