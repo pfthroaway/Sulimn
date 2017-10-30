@@ -91,7 +91,6 @@ namespace Sulimn.Pages.Battle
         /// <param name="progress">Will this battle be for progression?</param>
         internal void PrepareBattle(string prevPage, bool progress = false)
         {
-            BindLabels();
             _previousPage = prevPage;
             _progress = progress;
             TxtBattle.Text = progress ? $"{GameState.CurrentEnemy.Name} rushes at you in the {_previousPage}. You defend yourself. " : $"You encounter an enemy. The {GameState.CurrentEnemy.Name} seems openly hostile to you. Prepare to defend yourself.";
@@ -503,7 +502,11 @@ namespace Sulimn.Pages.Battle
 
         public BattlePage() => InitializeComponent();
 
-        private void BattlePage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
+        private void BattlePage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            GameState.CalculateScale(Grid);
+            BindLabels();
+        }
 
         #endregion Page-Manipulation Methods
     }
