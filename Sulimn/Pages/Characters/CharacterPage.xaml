@@ -1,4 +1,4 @@
-﻿<Page x:Name="PageCharacter" x:Class="Sulimn.Pages.Characters.CharacterPage"
+﻿<Page x:Class="Sulimn.Pages.Characters.CharacterPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,9 +9,9 @@
       Title="Character">
     <Grid x:Name="Grid" Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="125" />
-            <ColumnDefinition Width="125" />
-            <ColumnDefinition Width="125" />
+            <ColumnDefinition Width="140" />
+            <ColumnDefinition Width="140" />
+            <ColumnDefinition Width="140" />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -32,7 +32,6 @@
         <TextBlock x:Name="LblGold" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=GoldToString, Mode=OneWay}" />
         <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">Skill Points</TextBlock>
         <TextBlock x:Name="LblSkillPoints" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=SkillPoints, Mode=OneWay}" />
-
         <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">Strength</TextBlock>
         <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0">
             <Button x:Name="BtnStrengthMinus" Width="40" Margin="5" Click="BtnStrengthMinus_Click" IsEnabled="False" Content="-" />
@@ -62,18 +61,10 @@
         <TextBlock Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">Magic</TextBlock>
         <TextBlock x:Name="LblMagic" Grid.Column="3" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=MagicToString, Mode=OneWay}" />
         <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
-            <Button x:Name="BtnInventory" Width="125" Margin="0,0,20,0" Click="BtnInventory_Click">
-                <AccessText>_Inventory</AccessText>
-            </Button>
-            <Button x:Name="BtnCastSpell" Width="125" Margin="0,0,20,0" Click="BtnCastSpell_Click">
-                <AccessText>_Cast Spell</AccessText>
-            </Button>
-            <Button x:Name="BtnReset" Width="125" Margin="0,0,20,0" Click="BtnReset_Click">
-                <AccessText>_Reset</AccessText>
-            </Button>
-            <Button x:Name="BtnBack" Width="125" Click="BtnBack_Click" IsCancel="True">
-                <AccessText>_Back</AccessText>
-            </Button>
+            <Button x:Name="BtnInventory" Width="140" Content="_Inventory" Click="BtnInventory_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnCastSpell" Width="140" Content="_Cast Spell" Click="BtnCastSpell_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnReset" Width="140" Content="_Reset" Click="BtnReset_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnBack" Width="140" Content="_Back" Click="BtnBack_Click" IsCancel="True" />
         </StackPanel>
     </Grid>
 </Page>

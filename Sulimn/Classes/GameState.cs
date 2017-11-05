@@ -410,30 +410,20 @@ namespace Sulimn.Classes
         /// <summary>Event where the Hero encounters a hostile animal.</summary>
         /// <param name="minLevel">Minimum level of animal</param>
         /// <param name="maxLevel">Maximum level of animal</param>
-        internal static void EventEncounterAnimal(int minLevel, int maxLevel)
-        {
-            List<Enemy> availableEnemies = AllEnemies.Where(o => o.Level >= minLevel && o.Level <= maxLevel).ToList();
-            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
-            CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
-        }
+        internal static void EventEncounterAnimal(int minLevel, int maxLevel) => EventEncounterEnemy(AllEnemies.Where(enemy => enemy.Level >= minLevel && enemy.Level <= maxLevel && enemy.Type == "Animal").ToList());
 
         /// <summary>Event where the Hero encounters a hostile Enemy.</summary>
         /// <param name="minLevel">Minimum level of Enemy.</param>
         /// <param name="maxLevel">Maximum level of Enemy.</param>
-        internal static void EventEncounterEnemy(int minLevel, int maxLevel)
-        {
-            List<Enemy> availableEnemies = AllEnemies.Where(enemy => enemy.Level >= minLevel && enemy.Level <= maxLevel && enemy.Type != "Boss").ToList();
-            int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
-            CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
-            if (CurrentEnemy.Gold > 0)
-                CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2, CurrentEnemy.Gold);
-        }
+        internal static void EventEncounterEnemy(int minLevel, int maxLevel) => EventEncounterEnemy(AllEnemies.Where(enemy => enemy.Level >= minLevel && enemy.Level <= maxLevel && enemy.Type != "Boss").ToList());
 
         /// <summary>Event where the Hero encounters a hostile Enemy.</summary>
         /// <param name="names">Array of names</param>
-        internal static void EventEncounterEnemy(params string[] names)
+        internal static void EventEncounterEnemy(params string[] names) =>
+            EventEncounterEnemy(names.Select(GetEnemy).ToList());
+
+        internal static void EventEncounterEnemy(List<Enemy> availableEnemies)
         {
-            List<Enemy> availableEnemies = names.Select(GetEnemy).ToList();
             int enemyNum = Functions.GenerateRandomNumber(0, availableEnemies.Count - 1);
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             if (CurrentEnemy.Gold > 0)

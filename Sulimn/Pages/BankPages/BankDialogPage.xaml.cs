@@ -3,6 +3,7 @@ using Extensions.Enums;
 using Sulimn.Classes;
 using Sulimn.Classes.Enums;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -116,7 +117,7 @@ namespace Sulimn.Pages.BankPages
 
         private void BtnAction_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(TxtBank.Text, out _textAmount);
+            int.TryParse(TxtBank.Text, NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out _textAmount);
 
             if (_textAmount <= _maximum && _textAmount > 0)
                 switch (_action)

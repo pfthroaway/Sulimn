@@ -395,8 +395,8 @@ namespace Sulimn.Pages.Battle
         private void ToggleButtons(bool enabled)
         {
             BtnAttack.IsEnabled = enabled;
-            BtnCastSpell.IsEnabled = enabled;
-            BtnChooseSpell.IsEnabled = enabled && CurrentSpell != new Spell();
+            BtnCastSpell.IsEnabled = enabled && CurrentSpell != new Spell();
+            BtnChooseSpell.IsEnabled = enabled;
             BtnFlee.IsEnabled = enabled;
         }
 

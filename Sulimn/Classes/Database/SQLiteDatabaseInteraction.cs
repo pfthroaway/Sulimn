@@ -126,7 +126,7 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@vitality", saveHero.Attributes.Vitality);
             cmd.Parameters.AddWithValue("@dexterity", saveHero.Attributes.Dexterity);
             cmd.Parameters.AddWithValue("@wisdom", saveHero.Attributes.Wisdom);
-            cmd.Parameters.AddWithValue("@gold", saveHero.GoldToString);
+            cmd.Parameters.AddWithValue("@gold", saveHero.Gold);
             cmd.Parameters.AddWithValue("@currentHealth", saveHero.Statistics.CurrentHealth);
             cmd.Parameters.AddWithValue("@maximumHealth", saveHero.Statistics.MaximumHealth);
             cmd.Parameters.AddWithValue("@currentMagic", saveHero.Statistics.CurrentMagic);
@@ -211,7 +211,7 @@ namespace Sulimn.Classes.Database
         public async Task<string> LoadAdminPassword()
         {
             string adminPassword = "";
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Admin", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Admin");
 
             if (ds.Tables[0].Rows.Count > 0)
                 adminPassword = ds.Tables[0].Rows[0]["Password"].ToString();
@@ -235,7 +235,7 @@ namespace Sulimn.Classes.Database
             };
 
             cmd.Parameters.AddWithValue("@name", bankHero.Name);
-            DataSet ds = await SQLite.FillDataSet(cmd, _con);
+            DataSet ds = await SQLite.FillDataSet(_con, cmd);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -254,7 +254,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<HeroClass>> LoadClasses()
         {
             List<HeroClass> allClasses = new List<HeroClass>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Classes", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Classes");
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
@@ -280,7 +280,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Enemy>> LoadEnemies()
         {
             List<Enemy> allEnemies = new List<Enemy>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Enemies", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Enemies");
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -365,7 +365,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Hero>> LoadHeroes()
         {
             List<Hero> allHeroes = new List<Hero>();
-            DataSet ds = await SQLite.FillDataSet("SELECT Players.*, Equipment.*, Progression.* FROM Players INNER JOIN Equipment ON Players.Name = Equipment.Name INNER JOIN Progression ON Players.Name = Progression.Name", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT Players.*, Equipment.*, Progression.* FROM Players INNER JOIN Equipment ON Players.Name = Equipment.Name INNER JOIN Progression ON Players.Name = Progression.Name");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -427,7 +427,7 @@ namespace Sulimn.Classes.Database
         public async Task<Hero> LoadMaxHeroStats()
         {
             Hero maximumStatsHero = new Hero();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM MaxHeroStats", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM MaxHeroStats");
 
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -466,7 +466,7 @@ namespace Sulimn.Classes.Database
         {
             List<HeadArmor> allHeadArmor = new List<HeadArmor>();
 
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM HeadArmor", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM HeadArmor");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -491,7 +491,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<BodyArmor>> LoadBodyArmor()
         {
             List<BodyArmor> allBodyArmor = new List<BodyArmor>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM BodyArmor", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM BodyArmor");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -516,7 +516,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<HandArmor>> LoadHandArmor()
         {
             List<HandArmor> allHandArmor = new List<HandArmor>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM HandArmor", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM HandArmor");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -541,7 +541,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<LegArmor>> LoadLegArmor()
         {
             List<LegArmor> allLegArmor = new List<LegArmor>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM LegArmor", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM LegArmor");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -566,7 +566,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<FeetArmor>> LoadFeetArmor()
         {
             List<FeetArmor> allFeetArmor = new List<FeetArmor>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM FeetArmor", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM FeetArmor");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -593,7 +593,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Ring>> LoadRings()
         {
             List<Ring> allRings = new List<Ring>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Rings", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Rings");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -623,7 +623,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Weapon>> LoadWeapons()
         {
             List<Weapon> allWeapons = new List<Weapon>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Weapons", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Weapons");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -651,7 +651,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Potion>> LoadPotions()
         {
             List<Potion> allPotions = new List<Potion>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Potions", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Potions");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -676,7 +676,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Food>> LoadFood()
         {
             List<Food> allFood = new List<Food>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Food", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Food");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -702,7 +702,7 @@ namespace Sulimn.Classes.Database
         public async Task<List<Spell>> LoadSpells()
         {
             List<Spell> allSpells = new List<Spell>();
-            DataSet ds = await SQLite.FillDataSet("SELECT * FROM Spells", _con);
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Spells");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -742,9 +742,9 @@ namespace Sulimn.Classes.Database
         /// <returns>Current theme</returns>
         public async Task<string> LoadTheme()
         {
-            string theme = "Dark";
+            string theme = "Grey";
             SQLiteCommand cmd = new SQLiteCommand { CommandText = "SELECT * FROM Settings" };
-            DataSet ds = await SQLite.FillDataSet(cmd, _con);
+            DataSet ds = await SQLite.FillDataSet(_con, cmd);
             if (ds.Tables[0].Rows.Count > 0)
                 theme = ds.Tables[0].Rows[0]["Theme"].ToString();
             return theme;

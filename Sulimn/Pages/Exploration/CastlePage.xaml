@@ -18,12 +18,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtCastle" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="415" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
-        <Button x:Name="BtnCourtyard" Grid.Column="0" Grid.Row="1" Width="125" Content="_Courtyard" Click="BtnCourtyard_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnBattlements" Grid.Column="1" Grid.Row="1" Width="125" Content="B_attlements" IsEnabled="False" Click="BtnBattlements_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnArmoury" Grid.Column="2" Grid.Row="1" Width="125" Content="_Armoury" IsEnabled="False" Click="BtnArmoury_Click" Margin="0,0,0,10" />
-        <Button x:Name="BtnSpire" Grid.Column="0" Grid.Row="2" Width="125" Content="_Spire" IsEnabled="False" Click="BtnSpire_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnThroneRoom" Grid.Column="1" Grid.Row="2" Width="125" Content="_Throne Room" IsEnabled="False" Click="BtnThroneRoom_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="125" Content="_Back" Click="BtnBack_Click" Margin="0,0,0,0" />
+        <TextBox x:Name="TxtCastle" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="440" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
+        <Button x:Name="BtnCourtyard" Grid.Column="0" Grid.Row="1" Width="140" Content="_Courtyard" Click="BtnCourtyard_Click" Margin="0,0,10,10" />
+        <Button x:Name="BtnBattlements" Grid.Column="1" Grid.Row="1" Width="140" Content="B_attlements" Click="BtnBattlements_Click" IsEnabled="False" Margin="0,0,10,10" />
+        <Button x:Name="BtnArmoury" Grid.Column="2" Grid.Row="1" Width="140" Content="A_rmoury" Click="BtnArmoury_Click" IsEnabled="False" Margin="0,0,0,10" />
+        <Button x:Name="BtnSpire" Grid.Column="0" Grid.Row="2" Width="140" Content="_Spire" Click="BtnSpire_Click" IsEnabled="False" Margin="0,0,10,0" />
+        <Button x:Name="BtnThroneRoom" Grid.Column="1" Grid.Row="2" Width="140" Content="_Throne Room" Click="BtnThroneRoom_Click" IsEnabled="False" Margin="0,0,10,0" />
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="140" Content="_Back" Click="BtnBack_Click" Margin="0,0,0,0" />
     </Grid>
 </Page>
