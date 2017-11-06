@@ -164,10 +164,8 @@ namespace Sulimn.Pages.Exploration
         {
             InitializeComponent();
             TxtMines.Text =
-            "You enter the abandoned mines. The path splits very near to the entrance, with paths leading south, east, and west. There are offices nearby. A crumbling, barely legible sign shows that the south path leads a shaft that goes to the ore bin, the east path leads to pump station, and the west path leads to the workshop.";
+            "You enter the abandoned mines. The path splits very near to the entrance, with paths leading south, east, and west. There are offices nearby. A crumbling, barely legible sign shows that the south path leads to a shaft that goes to the ore bin, the east path leads to the pump station, and the west path leads to the workshop.";
         }
-
-        #endregion Page-Manipulation Methods
 
         private void MinesPage_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -183,5 +181,7 @@ namespace Sulimn.Pages.Exploration
             }
             BtnProgress.IsEnabled = GameState.CurrentHero.Level >= 20 && !GameState.CurrentHero.Progression.Mines;
         }
+
+        #endregion Page-Manipulation Methods
     }
 }

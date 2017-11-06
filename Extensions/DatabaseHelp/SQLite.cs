@@ -14,8 +14,7 @@ namespace Extensions.DatabaseHelp
         /// <param name="con">Connection information</param>
         /// <param name="sql">SQL query to be executed</param>
         /// <returns>Returns DataSet with queried results</returns>
-        public static async Task<DataSet> FillDataSet(string con, string sql) => await FillDataSet(con,
-            new SQLiteCommand { CommandText = sql });
+        public static async Task<DataSet> FillDataSet(string con, string sql) => await FillDataSet(con, new SQLiteCommand { CommandText = sql });
 
         /// <summary>This method fills a DataSet with data from a table.</summary>
         /// <param name="con">Connection information</param>

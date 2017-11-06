@@ -28,15 +28,9 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
             <StackPanel VerticalAlignment="Center" Width="135" Margin="27,0,0,0">
-                <Button x:Name="BtnHit" Click="BtnHit_Click" IsEnabled="False" Margin="5">
-                    <AccessText>_Hit</AccessText>
-                </Button>
-                <Button x:Name="BtnStay" Click="BtnStay_Click" IsEnabled="False" Margin="5">
-                    <AccessText>_Stay</AccessText>
-                </Button>
-                <Button x:Name="BtnConvertAce" Click="BtnConvertAce_Click" IsEnabled="False" Margin="5">
-                    <AccessText>_Convert Ace</AccessText>
-                </Button>
+                <Button x:Name="BtnHit" Content="_Hit" Click="BtnHit_Click" IsEnabled="False" Margin="5" />
+                <Button x:Name="BtnStay" Content="_Stay" Click="BtnStay_Click" IsEnabled="False" Margin="5" />
+                <Button x:Name="BtnConvertAce" Content="_Convert Ace" Click="BtnConvertAce_Click" IsEnabled="False" Margin="5" />
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
@@ -52,12 +46,8 @@
                 <TextBlock x:Name="LblGold" Width="105" Text="{Binding Path=GoldToStringWithText}" TextAlignment="Center" Margin="5" />
             </StackPanel>
             <StackPanel VerticalAlignment="Center">
-                <Button x:Name="BtnNewHand" Width="125" Click="BtnNewHand_Click" Margin="5" IsEnabled="False">
-                    <AccessText>_New Hand</AccessText>
-                </Button>
-                <Button x:Name="BtnExit" Width="125" Click="BtnExit_Click" Margin="5" IsCancel="True">
-                    <AccessText>_Exit</AccessText>
-                </Button>
+                <Button x:Name="BtnNewHand" Width="125" Content="_New Hand" Click="BtnNewHand_Click" Margin="5" IsEnabled="False" />
+                <Button x:Name="BtnExit" Width="125" Content="_Exit" Click="BtnExit_Click" Margin="5" IsCancel="True" />
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -16,44 +16,26 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="User Management" Margin="0,0,5,10">
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Entity Management" Margin="0,0,10,5" Padding="10">
             <StackPanel>
-                <Button x:Name="BtnManageUsers" Width="175" Margin="10,10,10,5" Click="BtnManageUsers_Click">
-                    <AccessText>Manage _Users</AccessText>
-                </Button>
-                <Button x:Name="BtnManageHeroClass" Width="175" Margin="10,5,10,5" Click="BtnManageHeroClass_Click">
-                    <AccessText>Manage _Hero Classes</AccessText>
-                </Button>
-                <Button x:Name="BtnManageEnemies" Width="175" Margin="10,5,10,5" Click="BtnManageEnemies_Click">
-                    <AccessText>Manage _Enemies</AccessText>
-                </Button>
+                <Button x:Name="BtnManageUsers" Width="200" Content="Manage _Users" Click="BtnManageUsers_Click" Margin="0,0,0,10" />
+                <Button x:Name="BtnManageHeroClass" Width="200" Content="Manage _Hero Classes" Click="BtnManageHeroClass_Click" Margin="0,0,0,10" />
+                <Button x:Name="BtnManageEnemies" Width="200" Content="Manage _Enemies" Click="BtnManageEnemies_Click" />
             </StackPanel>
         </GroupBox>
-        <GroupBox Grid.Row="0" Grid.Column="1" Header="Item Management" Margin="5,0,0,10">
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="Item Management" Margin="0,0,0,5" Padding="10">
             <StackPanel>
-                <Button x:Name="BtnManageArmor" Width="175" Margin="10,10,10,5" Click="BtnManageArmor_Click">
-                    <AccessText>Manage _Armor</AccessText>
-                </Button>
-                <Button x:Name="BtnManageFood" Width="175" Margin="10,5,10,5" Click="BtnManageFood_Click">
-                    <AccessText>Manage _Food</AccessText>
-                </Button>
-                <Button x:Name="BtnManagePotion" Width="175" Margin="10,5,10,5" Click="BtnManagePotion_Click">
-                    <AccessText>Manage _Potions</AccessText>
-                </Button>
-                <Button x:Name="BtnManageWeapons" Width="175" Margin="10,5,10,10" Click="BtnManageWeapons_Click">
-                    <AccessText>Manage _Weapons</AccessText>
-                </Button>
+                <Button x:Name="BtnManageArmor" Width="200" Content="Manage _Armor" Click="BtnManageArmor_Click" Margin="0,0,0,10" />
+                <Button x:Name="BtnManageFood" Width="200" Content="Manage _Food" Click="BtnManageFood_Click" Margin="0,0,0,10" />
+                <Button x:Name="BtnManagePotion" Width="200" Content="Manage _Potions" Click="BtnManagePotion_Click" Margin="0,0,0,10" />
+                <Button x:Name="BtnManageWeapons" Width="200" Content="Manage _Weapons" Click="BtnManageWeapons_Click" />
             </StackPanel>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Admin" Margin="0,0,5,0">
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Admin" Margin="0,0,10,0" Padding="10">
             <StackPanel>
-                <Button x:Name="BtnChangeAdminPassword" Width="150" Margin="0,5" Click="BtnChangeAdminPassword_Click">
-                    <AccessText>_Change Password</AccessText>
-                </Button>
+                <Button x:Name="BtnChangeAdminPassword" Width="200" Content="_Change Password" Click="BtnChangeAdminPassword_Click" />
             </StackPanel>
         </GroupBox>
-        <Button x:Name="BtnBack" Grid.Column="1" Grid.Row="1" Width="150" Margin="0,18,0,0" Click="BtnBack_Click" IsCancel="True">
-            <AccessText>_Back</AccessText>
-        </Button>
+        <Button x:Name="BtnBack" Grid.Column="1" Grid.Row="1" Width="200" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="0,18,0,0" />
     </Grid>
 </Page>

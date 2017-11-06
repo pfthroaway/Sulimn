@@ -49,9 +49,7 @@
                                        Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="LblEquippedWeaponDescription" Grid.Row="5"
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
-                            <Button x:Name="BtnUnequipWeapon" Grid.Row="6" VerticalAlignment="Bottom" Width="100" Click="BtnUnequipWeapon_Click" IsEnabled="False" Margin="5">
-                                <AccessText>_Unequip</AccessText>
-                            </Button>
+                            <Button x:Name="BtnUnequipWeapon" Grid.Row="6" Width="100" Content="_Unequip" VerticalAlignment="Bottom" Click="BtnUnequipWeapon_Click" IsEnabled="False" Margin="5" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Grid.Row="0" Margin="5" Header="Inventory">
@@ -85,12 +83,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnEquipSelectedWeapon" Width="100" Click="BtnEquipSelectedWeapon_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedWeapon" Width="100" Click="BtnDropSelectedWeapon_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedWeapon" Width="100" Content="_Equip" Click="BtnEquipSelectedWeapon_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedWeapon" Width="100" Content="_Drop" Click="BtnDropSelectedWeapon_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -124,9 +118,7 @@
                                        Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="LblEquippedHeadDescription" Grid.Row="4"
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
-                            <Button x:Name="BtnUnequipHead" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipHead_Click" IsEnabled="False" Margin="5">
-                                <AccessText>_Unequip</AccessText>
-                            </Button>
+                            <Button x:Name="BtnUnequipHead" Grid.Row="5" Width="100" Content="_Unequip" VerticalAlignment="Bottom" Click="BtnUnequipHead_Click" IsEnabled="False" Margin="5" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
@@ -157,12 +149,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnEquipSelectedHead" Width="100" Click="BtnEquipSelectedHead_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedHead" Width="100" Click="BtnDropSelectedHead_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedHead" Width="100" Content="_Equip" Click="BtnEquipSelectedHead_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedHead" Width="100" Content="_Drop" Click="BtnDropSelectedHead_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -196,9 +184,7 @@
                                        Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="LblEquippedBodyDescription" Grid.Row="4"
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
-                            <Button x:Name="BtnUnequipBody" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipBody_Click" IsEnabled="False" Margin="5">
-                                <AccessText>_Unequip</AccessText>
-                            </Button>
+                            <Button x:Name="BtnUnequipBody" Grid.Row="5" Width="100" Content="_Unequip" VerticalAlignment="Bottom" Click="BtnUnequipBody_Click" IsEnabled="False" Margin="5" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
@@ -229,12 +215,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnEquipSelectedBody" Width="100" Click="BtnEquipSelectedBody_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedBody" Width="100" Click="BtnDropSelectedBody_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedBody" Width="100" Content="_Equip" Click="BtnEquipSelectedBody_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedBody" Width="100" Content="_Drop" Click="BtnDropSelectedBody_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -268,9 +250,7 @@
                                        Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="LblEquippedHandsDescription" Grid.Row="4"
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
-                            <Button x:Name="BtnUnequipHands" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipHands_Click" IsEnabled="False" Margin="5">
-                                <AccessText>_Unequip</AccessText>
-                            </Button>
+                            <Button x:Name="BtnUnequipHands" Grid.Row="5" Width="100" Content="_Unequip" VerticalAlignment="Bottom" Click="BtnUnequipHands_Click" IsEnabled="False" Margin="5" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
@@ -301,12 +281,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnEquipSelectedHands" Width="100" Click="BtnEquipSelectedHands_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedHands" Width="100" Click="BtnDropSelectedHands_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedHands" Width="100" Content="_Equip" Click="BtnEquipSelectedHands_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedHands" Width="100" Content="_Drop" Click="BtnDropSelectedHands_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -340,9 +316,7 @@
                                        Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="LblEquippedLegsDescription" Grid.Row="4"
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
-                            <Button x:Name="BtnUnequipLegs" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipLegs_Click" IsEnabled="False" Margin="5">
-                                <AccessText>_Unequip</AccessText>
-                            </Button>
+                            <Button x:Name="BtnUnequipLegs" Grid.Row="5" Width="100" Content="_Unequip" VerticalAlignment="Bottom" Click="BtnUnequipLegs_Click" IsEnabled="False" Margin="5" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
@@ -373,12 +347,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnEquipSelectedLegs" Width="100" Click="BtnEquipSelectedLegs_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedLegs" Width="100" Click="BtnDropSelectedLegs_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedLegs" Width="100" Content="_Equip" Click="BtnEquipSelectedLegs_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedLegs" Width="100" Content="_Drop" Click="BtnDropSelectedLegs_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -412,9 +382,7 @@
                                        Text="{Binding Path=CanSellToString}" Margin="5" />
                             <TextBlock x:Name="LblEquippedFeetDescription" Grid.Row="4"
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
-                            <Button x:Name="BtnUnequipFeet" Grid.Row="5" Width="100" VerticalAlignment="Bottom" Click="BtnUnequipFeet_Click" IsEnabled="False" Margin="5">
-                                <AccessText>_Unequip</AccessText>
-                            </Button>
+                            <Button x:Name="BtnUnequipFeet" Grid.Row="5" Width="100" Content="_Unequip" VerticalAlignment="Bottom" Click="BtnUnequipFeet_Click" IsEnabled="False" Margin="5" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Margin="5" Header="Inventory">
@@ -442,12 +410,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnEquipSelectedFeet" Width="100" Click="BtnEquipSelectedFeet_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedFeet" Width="100" Click="BtnDropSelectedFeet_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedFeet" Width="100" Content="_Equip" Click="BtnEquipSelectedFeet_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedFeet" Width="100" Content="_Drop" Click="BtnDropSelectedFeet_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -474,9 +438,7 @@
                                 <TextBlock x:Name="LblEquippedLeftRingBonus" Grid.Row="1" Height="55" Text="{Binding Path=BonusToString}" TextWrapping="Wrap" Margin="5" />
                                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                                     <TextBlock x:Name="LblEquippedLeftRingValue" Width="138" Text="{Binding Path=ValueToStringWithText}" VerticalAlignment="Center" Margin="5" />
-                                    <Button x:Name="BtnUnequipLeftRing" Width="100" Click="BtnUnequipLeftRing_Click" IsEnabled="False">
-                                        <AccessText>_Unequip</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnUnequipLeftRing" Width="100" Content="_Unequip" Click="BtnUnequipLeftRing_Click" IsEnabled="False" />
                                 </StackPanel>
                             </Grid>
                         </GroupBox>
@@ -493,9 +455,7 @@
                                 <TextBlock x:Name="LblEquippedRightRingBonus" Grid.Row="1" Height="55" Text="{Binding Path=BonusToString}" TextWrapping="Wrap" Margin="5" />
                                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                                     <TextBlock x:Name="LblEquippedRightRingValue" Width="138" Text="{Binding Path=ValueToStringWithText}" VerticalAlignment="Center" Margin="5" />
-                                    <Button x:Name="BtnUnequipRightRing" Width="100" Click="BtnUnequipRightRing_Click" IsEnabled="False">
-                                        <AccessText>_Unequip</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnUnequipRightRing" Width="100" Content="U_nequip" Click="BtnUnequipRightRing_Click" IsEnabled="False" />
                                 </StackPanel>
                             </Grid>
                         </GroupBox>
@@ -535,17 +495,9 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Button x:Name="BtnEquipSelectedRingLeft" Grid.Column="0" Grid.Row="0" Width="110" Click="BtnEquipSelectedRingLeft_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip Left</AccessText>
-                                </Button>
-                                <Button x:Name="BtnEquipSelectedRingRight" Grid.Column="1" Grid.Row="0" Width="110" Click="BtnEquipSelectedRingRight_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Equip Right</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedRing" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-                                        Width="100"
-                                        Click="BtnDropSelectedRing_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnEquipSelectedRingLeft" Grid.Column="0" Grid.Row="0" Width="110" Content="Equip _Left" Click="BtnEquipSelectedRingLeft_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnEquipSelectedRingRight" Grid.Column="1" Grid.Row="0" Width="110" Content="Equip _Right" Click="BtnEquipSelectedRingRight_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedRing" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="100"  Content="_Drop" Click="BtnDropSelectedRing_Click" IsEnabled="False" Margin="5" />
                             </Grid>
                         </Grid>
                     </GroupBox>
@@ -585,12 +537,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnConsumeSelectedPotion" Width="100" Click="BtnConsumeSelectedPotion_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Consume</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedPotion" Width="100" Click="BtnDropSelectedPotion_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnConsumeSelectedPotion" Width="100" Content="_Consume" Click="BtnConsumeSelectedPotion_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedPotion" Width="100" Content="_Drop" Click="BtnDropSelectedPotion_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -630,14 +578,8 @@
                                        Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
                             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center">
-                                <Button x:Name="BtnConsumeSelectedFood" Width="100"
-                                        Click="BtnConsumeSelectedFood_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Consume</AccessText>
-                                </Button>
-                                <Button x:Name="BtnDropSelectedFood" Width="100"
-                                        Click="BtnDropSelectedFood_Click" IsEnabled="False" Margin="5">
-                                    <AccessText>_Drop</AccessText>
-                                </Button>
+                                <Button x:Name="BtnConsumeSelectedFood" Width="100" Content="_Consume" Click="BtnConsumeSelectedFood_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedFood" Width="100" Content="_Drop" Click="BtnDropSelectedFood_Click" IsEnabled="False" Margin="5" />
                             </StackPanel>
                         </Grid>
                     </GroupBox>

@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TabControl Height="500" Width="750">
+        <TabControl Height="500" Width="750" Margin="0,0,0,10">
             <TabItem Header="Details">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
@@ -26,14 +26,12 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center" Text="Hero Name:"
                                Margin="10" />
-                    <TextBox x:Name="TxtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="200" MaxLength="20" PreviewKeyDown="Txt_PreviewKeyDown" TextChanged="Txt_TextChanged" GotFocus="Txt_GotFocus" Margin="10" />
-                    <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Text="Password:"
-                               Margin="10" />
-                    <PasswordBox x:Name="PswdPassword" Grid.Column="1" Grid.Row="1" Width="200" HorizontalContentAlignment="Center"
+                    <TextBox x:Name="TxtHeroName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Width="300" PreviewKeyDown="Txt_PreviewKeyDown" TextChanged="Txt_TextChanged" GotFocus="Txt_GotFocus" Margin="10" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Text="Password:" Margin="10" />
+                    <PasswordBox x:Name="PswdPassword" Grid.Column="1" Grid.Row="1" Width="300" HorizontalContentAlignment="Center"
                                  VerticalAlignment="Center" GotFocus="Pswd_GotFocus" Margin="10" />
-                    <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center"
-                               Text="Confirm Password:" Margin="10" />
-                    <PasswordBox x:Name="PswdConfirm" Grid.Column="1" Grid.Row="2" Width="200" HorizontalContentAlignment="Center"
+                    <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Text="Confirm Password:" Margin="10" />
+                    <PasswordBox x:Name="PswdConfirm" Grid.Column="1" Grid.Row="2" Width="300" HorizontalContentAlignment="Center"
                                  VerticalAlignment="Center" GotFocus="Pswd_GotFocus" Margin="10" />
                 </Grid>
             </TabItem>
@@ -178,17 +176,10 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
         <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button x:Name="BtnSave" Width="125" Margin="10" IsDefault="True" Click="BtnSave_Click">
-                <AccessText>_Save</AccessText>
-            </Button>
-            <Button x:Name="BtnReset" Width="125" Margin="10" Click="BtnReset_Click">
-                <AccessText>_Reset</AccessText>
-            </Button>
-            <Button x:Name="BtnCancel" Width="125" Margin="10" IsCancel="True" Click="BtnCancel_Click">
-                <AccessText>_Cancel</AccessText>
-            </Button>
+            <Button x:Name="BtnSave" Width="140" Content="_Save" Click="BtnSave_Click" IsDefault="True" Margin="0,0,10,0" />
+            <Button x:Name="BtnReset" Width="140" Content="_Reset" Click="BtnReset_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnCancel" Width="140" Content="_Cancel" Click="BtnCancel_Click" IsCancel="True" />
         </StackPanel>
     </Grid>
 </Page>

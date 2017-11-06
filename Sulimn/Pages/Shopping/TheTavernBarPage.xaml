@@ -36,9 +36,7 @@
                                              ItemsSource="{Binding}"
                                              Margin="10" SelectionChanged="LstFoodPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnFoodPurchase" Width="125" Click="BtnFoodPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnFoodPurchase" Width="125" Content="_Purchase" Click="BtnFoodPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Food" Margin="0,0,10,10">
                                     <StackPanel>
@@ -65,9 +63,7 @@
                                     <ListBox x:Name="LstFoodSell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstFoodSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnFoodSell" Width="125" Click="BtnFoodSell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnFoodSell" Width="125" Content="_Sell" Click="BtnFoodSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -107,9 +103,7 @@
                                              ItemsSource="{Binding}"
                                              Margin="10" SelectionChanged="LstDrinkPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnDrinkPurchase" Width="125" Click="BtnDrinkPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnDrinkPurchase" Width="125" Content="_Purchase" Click="BtnDrinkPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Drink" Margin="0,0,10,10">
                                     <StackPanel>
@@ -136,9 +130,7 @@
                                     <ListBox x:Name="LstDrinkSell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstDrinkSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnDrinkSell" Width="125" Click="BtnDrinkSell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnDrinkSell" Width="125" Content="_Sell" Click="BtnDrinkSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -164,12 +156,8 @@
         <TextBox x:Name="TxtTheTavernBar" Grid.Row="2" Height="176" Width="736" IsReadOnly="True" TextWrapping="Wrap"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="BtnCharacter" Width="125" Click="BtnCharacter_Click" Margin="0,0,10,0">
-                <AccessText>_Character</AccessText>
-            </Button>
-            <Button x:Name="BtnBack" Width="125" Click="BtnBack_Click" IsCancel="True" Margin="10,0,0,0">
-                <AccessText>_Back</AccessText>
-            </Button>
+            <Button x:Name="BtnCharacter" Width="125" Content="_Character" Click="BtnCharacter_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnBack" Width="125" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="10,0,0,0" />
         </StackPanel>
     </Grid>
 </Page>

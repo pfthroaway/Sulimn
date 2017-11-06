@@ -32,9 +32,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <ListBox x:Name="LstHeadPurchase" VerticalAlignment="Top" HorizontalAlignment="Left" Width="277" Height="277" ItemsSource="{Binding}" Margin="10" SelectionChanged="LstHeadPurchase_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnHeadPurchase" Width="125" Click="BtnHeadPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnHeadPurchase" Width="125" Content="_Purchase" Click="BtnHeadPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Head Armor" Margin="0,0,10,10">
                                     <StackPanel>
@@ -61,9 +59,7 @@
                                     <ListBox x:Name="LstHeadSell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstHeadSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnHeadSell" Width="125" Click="BtnHeadSell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnHeadSell" Width="125" Content="_Sell" Click="BtnHeadSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -102,9 +98,7 @@
                                              HorizontalAlignment="Left" Width="277" Height="277" Margin="10"
                                              SelectionChanged="LstBodyPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnBodyPurchase" Width="125" Click="BtnBodyPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnBodyPurchase" Width="125" Content="_Purchase" Click="BtnBodyPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Body Armor" Margin="0,0,10,10">
                                     <StackPanel>
@@ -132,9 +126,7 @@
                                     <ListBox x:Name="LstBodySell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstBodySell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnBodySell" Width="125" Click="BtnBodySell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnBodySell" Width="125" Content="_Sell" Click="BtnBodySell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -173,9 +165,7 @@
                                              HorizontalAlignment="Left" Width="277" Height="277" Margin="10"
                                              SelectionChanged="LstHandsPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnHandsPurchase" Width="125" Click="BtnHandsPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnHandsPurchase" Width="125" Content="_Purchase" Click="BtnHandsPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Hand Armor" Margin="0,0,10,10">
                                     <StackPanel>
@@ -203,9 +193,7 @@
                                     <ListBox x:Name="LstHandsSell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstHandsSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnHandsSell" Width="125" Click="BtnHandsSell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnHandsSell" Width="125" Content="_Sell" Click="BtnHandsSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -244,9 +232,7 @@
                                              HorizontalAlignment="Left" Width="277" Height="277" Margin="10"
                                              SelectionChanged="LstLegsPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnLegsPurchase" Width="125" Click="BtnLegsPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnLegsPurchase" Width="125" Content="_Purchase" Click="BtnLegsPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Leg Armor" Margin="0,0,10,10">
                                     <StackPanel>
@@ -274,9 +260,7 @@
                                     <ListBox x:Name="LstLegsSell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstLegsSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnLegsSell" Width="125" Click="BtnLegsSell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnLegsSell" Width="125" Content="_Sell" Click="BtnLegsSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -315,9 +299,7 @@
                                              HorizontalAlignment="Left" Width="277" Height="277" Margin="10"
                                              SelectionChanged="LstFeetPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnFeetPurchase" Width="125" Click="BtnFeetPurchase_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Purchase</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnFeetPurchase" Width="125" Content="_Purchase" Click="BtnFeetPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Feet Armor" Margin="0,0,10,10">
                                     <StackPanel>
@@ -344,9 +326,7 @@
                                     <ListBox x:Name="LstFeetSell" VerticalAlignment="Top" HorizontalAlignment="Left"
                                              Width="277" Height="277" SelectionChanged="LstFeetSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnFeetSell" Width="125" Click="BtnFeetSell_Click" IsEnabled="False" Margin="0,0,0,10">
-                                        <AccessText>_Sell</AccessText>
-                                    </Button>
+                                    <Button x:Name="BtnFeetSell" Width="125" Content="_Sell" Click="BtnFeetSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
@@ -372,12 +352,8 @@
         <TextBox x:Name="TxtTheArmoury" Grid.Row="2" Margin="10" Height="176" Width="736" IsReadOnly="True"
                  TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="BtnCharacter" Width="125" Click="BtnCharacter_Click" Margin="0,0,10,0">
-                <AccessText>_Character</AccessText>
-            </Button>
-            <Button x:Name="BtnBack" Width="125" Click="BtnBack_Click" Margin="10,0,0,0" IsCancel="True">
-                <AccessText>_Back</AccessText>
-            </Button>
+            <Button x:Name="BtnCharacter" Width="125" Content="_Character" Click="BtnCharacter_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnBack" Width="125" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="10,0,0,0" />
         </StackPanel>
     </Grid>
 </Page>

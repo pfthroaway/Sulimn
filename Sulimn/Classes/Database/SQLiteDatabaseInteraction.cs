@@ -27,6 +27,11 @@ namespace Sulimn.Classes.Database
         public void VerifyDatabaseIntegrity() => Functions.VerifyFileIntegrity(
             Assembly.GetExecutingAssembly().GetManifestResourceStream($"Sulimn.{_DATABASENAME}"), _DATABASENAME);
 
+        /// <summary>This method fills a DataSet with data from a table.</summary>
+        /// <param name="sql">SQL query to be executed</param>
+        /// <returns>Returns DataSet with queried results</returns>
+        internal async Task<DataSet> FillDataSet(string sql) => await SQLite.FillDataSet(_con, new SQLiteCommand { CommandText = sql });
+
         #endregion Database Interaction
 
         #region Hero Management

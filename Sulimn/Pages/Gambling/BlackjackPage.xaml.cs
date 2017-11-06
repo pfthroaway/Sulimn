@@ -101,8 +101,8 @@ namespace Sulimn.Pages.Gambling
         public string Statistics => $"Wins: {TotalWins:N0}\n" +
         $"Losses: {TotalLosses:N0}\n" +
         $"Draws: {TotalDraws:N0}\n" +
-        "Gold Won: {TotalBetWinnings:N0}\n" +
-        "Gold Lost: {TotalBetLosses:N0}";
+        $"Gold Won: {TotalBetWinnings:N0}\n" +
+        $"Gold Lost: {TotalBetLosses:N0}";
 
         #endregion Properties
 

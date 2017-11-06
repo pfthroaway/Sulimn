@@ -50,7 +50,7 @@ namespace Sulimn.Pages.BankPages
             {
                 case BankAction.Deposit:
                     DialogText = $"How much gold would you like to deposit? You have {_maximum:N0} gold with you.";
-                    BtnAction.Content = new AccessText { Text = "_Deposit" };
+                    BtnAction.Content = "_Deposit";
                     break;
 
                 case BankAction.Withdrawal:
