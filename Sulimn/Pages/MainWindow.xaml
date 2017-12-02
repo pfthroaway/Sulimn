@@ -6,10 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
-        Title="Sulimn"
+        Title="{Binding Path=Content.Title, ElementName=MainFrame}"
         WindowState="Maximized"
-        ResizeMode="CanResize"
-        SizeToContent="Manual"
         Loaded="WindowMain_Loaded">
     <DockPanel>
         <Menu x:Name="Menu" DockPanel.Dock="Top">

@@ -47,13 +47,12 @@ namespace Sulimn.Pages.Options
             PswdCurrentPassword.Focus();
         }
 
-        private void PswdChanged(object sender, RoutedEventArgs e) => BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length > 0 && PswdNewPassword.Password.Length > 0 &&
-            PswdConfirmPassword.Password.Length > 0;
+        private void PswdChanged(object sender, RoutedEventArgs e) => BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length > 0 && PswdNewPassword.Password.Length > 0 && PswdConfirmPassword.Password.Length > 0;
 
         private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 
-        #endregion Page-Manipulation Methods
-
         private void HeroChangePasswordPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
+
+        #endregion Page-Manipulation Methods
     }
 }
