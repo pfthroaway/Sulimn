@@ -97,8 +97,8 @@ namespace Sulimn.Pages.BankPages
         /// <summary>Take out a loan.</summary>
         private void TakeOutLoan()
         {
-            RefToBankPage.HeroBank.LoanTaken += _textAmount + _textAmount / 20;
-            RefToBankPage.HeroBank.LoanAvailable -= _textAmount + _textAmount / 20;
+            RefToBankPage.HeroBank.LoanTaken += _textAmount + (_textAmount / 20);
+            RefToBankPage.HeroBank.LoanAvailable -= _textAmount + (_textAmount / 20);
             GameState.CurrentHero.Gold += _textAmount;
             ClosePage($"You take out a loan for {_textAmount:N0} gold.");
         }

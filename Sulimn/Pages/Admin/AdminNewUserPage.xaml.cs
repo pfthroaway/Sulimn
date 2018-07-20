@@ -22,14 +22,14 @@ namespace Sulimn.Pages.Admin
 
         /// <summary>Determines if buttons should be enabled.</summary>
         private void CheckInput() => BtnSave.IsEnabled =
-            TxtHeroName.Text.Length > 0 && CmbClass.SelectedIndex >= 0 && TxtLevel.Text.Length > 0 &&
-            TxtExperience.Text.Length > 0 && TxtSkillPoints.Text.Length > 0 &&
-            TxtStrength.Text.Length > 0 && TxtVitality.Text.Length > 0 && TxtDexterity.Text.Length > 0 &&
-            TxtWisdom.Text.Length > 0 && TxtCurrentHealth.Text.Length > 0 &&
-            TxtMaximumHealth.Text.Length > 0 && TxtCurrentMagic.Text.Length > 0 &&
-            TxtMaximumMagic.Text.Length > 0 && TxtGold.Text.Length > 0 && CmbWeapon.SelectedIndex >= 0 &&
-            CmbHead.SelectedIndex >= 0 && CmbBody.SelectedIndex >= 0 && CmbHands.SelectedIndex >= 0 &&
-            CmbLegs.SelectedIndex >= 0 && CmbFeet.SelectedIndex >= 0;
+            TxtHeroName.Text.Length > 0 && CmbClass.SelectedIndex >= 0 && TxtLevel.Text.Length > 0
+            && TxtExperience.Text.Length > 0 && TxtSkillPoints.Text.Length > 0
+            && TxtStrength.Text.Length > 0 && TxtVitality.Text.Length > 0 && TxtDexterity.Text.Length > 0
+            && TxtWisdom.Text.Length > 0 && TxtCurrentHealth.Text.Length > 0
+            && TxtMaximumHealth.Text.Length > 0 && TxtCurrentMagic.Text.Length > 0
+            && TxtMaximumMagic.Text.Length > 0 && TxtGold.Text.Length > 0 && CmbWeapon.SelectedIndex >= 0
+            && CmbHead.SelectedIndex >= 0 && CmbBody.SelectedIndex >= 0 && CmbHands.SelectedIndex >= 0
+            && CmbLegs.SelectedIndex >= 0 && CmbFeet.SelectedIndex >= 0;
 
         /// <summary>Displays the Hero as it was when the Page was loaded.</summary>
         private void DisplayOriginalHero()
@@ -131,8 +131,8 @@ namespace Sulimn.Pages.Admin
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (TxtHeroName.Text.Length >= 4 && PswdPassword.Password.Length >= 4 && PswdConfirm.Password.Length >= 4 &&
-                 PswdPassword.Password == PswdConfirm.Password)
+            if (TxtHeroName.Text.Length >= 4 && PswdPassword.Password.Length >= 4 && PswdConfirm.Password.Length >= 4
+                 && PswdPassword.Password == PswdConfirm.Password)
             {
                 Hero checkHero = GameState.AllHeroes.Find(hero => hero.Name == TxtHeroName.Text);
                 if (checkHero == null || checkHero == new Hero())

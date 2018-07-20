@@ -100,7 +100,7 @@ namespace Sulimn.Classes.Entities
         #region Helper Properties
 
         /// <summary>The experience the Hero has gained this level alongside how much is needed to level up</summary>
-        public string ExperienceToString => $"{Experience:N0} / {(_level * 100):N0}";
+        public string ExperienceToString => $"{Experience:N0} / {_level * 100:N0}";
 
         /// <summary>The experience the Hero has gained this level alongside how much is needed to level up with preceding text</summary>
         public string ExperienceToStringWithText => $"Experience: {ExperienceToString}";

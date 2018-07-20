@@ -48,8 +48,8 @@ namespace Sulimn.Classes.Entities
 
         private static bool Equals(Enemy left, Enemy right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.Gold == right.Gold && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Gold == right.Gold && left.Statistics == right.Statistics && left.Type == right.Type;
         }
 
@@ -80,6 +80,7 @@ namespace Sulimn.Classes.Entities
         /// <param name="type">Type of Enemy</param>
         /// <param name="level">Level of Enemy</param>
         /// <param name="experience">Experience Enemy can provide</param>
+        /// <param name="gold">Gold carried by Enemy</param>
         /// <param name="attributes">Attributes of Enemy</param>
         /// <param name="statistics">Statistics of Enemy</param>
         /// <param name="equipment">Equipment of Enemy</param>

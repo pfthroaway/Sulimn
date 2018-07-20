@@ -25,14 +25,7 @@ namespace Sulimn.Pages
             mainWindow?.OnScaleValueChanged((double)e.OldValue, (double)e.NewValue);
         }
 
-        protected virtual double OnCoerceScaleValue(double value)
-        {
-            if (double.IsNaN(value))
-                return 1.0f;
-
-            value = Math.Max(0.1, value);
-            return value;
-        }
+        protected virtual double OnCoerceScaleValue(double value) => double.IsNaN(value) ? 1.0f : Math.Max(0.1, value);
 
         protected virtual void OnScaleValueChanged(double oldValue, double newValue)
         {
@@ -130,7 +123,9 @@ namespace Sulimn.Pages
         private async void WindowMain_Loaded(object sender, RoutedEventArgs e)
         {
             GameState.MainWindow = this;
+            GameState.VerifyFolders();
             await GameState.LoadAll();
+            Classes.Database.XMLInteraction.WriteAll();
             UpdateTheme(await GameState.LoadTheme(), false);
         }
 

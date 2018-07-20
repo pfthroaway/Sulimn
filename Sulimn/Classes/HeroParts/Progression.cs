@@ -41,8 +41,8 @@
 
         private static bool Equals(Progression left, Progression right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
             return left.Fields == right.Fields && left.Forest == right.Forest && left.Cathedral == right.Cathedral && left.Mines == right.Mines && left.Catacombs == right.Catacombs && left.Courtyard == right.Courtyard && left.Battlements == right.Battlements && left.Armoury == right.Armoury && left.Spire == right.Spire && left.ThroneRoom == right.ThroneRoom;
         }
 

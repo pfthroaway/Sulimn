@@ -143,12 +143,12 @@ namespace Sulimn.Pages.Admin
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (TxtHeroName.Text.Length >= 4 &&
-                (PswdPassword.Password.Length == 0 && PswdConfirm.Password.Length == 0 ||
-                 PswdPassword.Password.Length >= 4 && PswdConfirm.Password.Length >= 4) &&
-                PswdPassword.Password == PswdConfirm.Password)
+            if (TxtHeroName.Text.Length >= 4
+                && ((PswdPassword.Password.Length == 0 && PswdConfirm.Password.Length == 0)
+                 || (PswdPassword.Password.Length >= 4 && PswdConfirm.Password.Length >= 4))
+                && PswdPassword.Password == PswdConfirm.Password)
             {
-                string password = PswdPassword.Password.Length >= 0
+                string password = PswdPassword.Password.Length > 0
                     ? Argon2.HashPassword(PswdPassword.Password)
                     : _originalHero.Password;
 
@@ -167,8 +167,8 @@ namespace Sulimn.Pages.Admin
                 if (await GameState.SaveHero(newHero))
                     ClosePage();
             }
-            else if (PswdPassword.Password.Length != 0 && PswdConfirm.Password.Length != 0 &&
-                     PswdPassword.Password.Length < 4 && PswdConfirm.Password.Length < 4)
+            else if (PswdPassword.Password.Length != 0 && PswdConfirm.Password.Length != 0
+                     && PswdPassword.Password.Length < 4 && PswdConfirm.Password.Length < 4)
                 GameState.DisplayNotification("Please ensure the new password is 4 or more characters in length.", "Sulimn");
             else if (PswdPassword.Password != PswdConfirm.Password)
                 GameState.DisplayNotification("Please ensure the passwords match.", "Sulimn");

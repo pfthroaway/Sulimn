@@ -8,6 +8,7 @@ using Sulimn.Classes.Items;
 using Sulimn.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -85,7 +86,7 @@ namespace Sulimn.Classes
         /// <summary>Changes the administrator password in the database.</summary>
         /// <param name="newPassword">New administrator password</param>
         /// <returns>Returns true if password successfully updated</returns>
-        internal static async Task<bool> ChangeAdminPassword(string newPassword) => await DatabaseInteraction
+        internal static Task<bool> ChangeAdminPassword(string newPassword) => DatabaseInteraction
             .ChangeAdminPassword(newPassword);
 
         /// <summary>Determines whether a Hero's credentials are authentic.</summary>
@@ -115,12 +116,12 @@ namespace Sulimn.Classes
 
         /// <summary>Loads the current theme from the database.</summary>
         /// <returns>Current theme</returns>
-        internal static async Task<string> LoadTheme() => await DatabaseInteraction.LoadTheme();
+        internal static Task<string> LoadTheme() => DatabaseInteraction.LoadTheme();
 
         /// <summary>Changes the current theme in the database.</summary>
         /// <param name="theme">Current theme</param>
         /// <returns>True if successful</returns>
-        internal static async Task<bool> ChangeTheme(string theme) => await DatabaseInteraction.ChangeTheme(theme);
+        internal static Task<bool> ChangeTheme(string theme) => DatabaseInteraction.ChangeTheme(theme);
 
         /// <summary>Loads almost everything from the database.</summary>
         internal static async Task LoadAll()
@@ -156,6 +157,69 @@ namespace Sulimn.Classes
             DefaultHands = AllHandArmor.Find(armor => armor.Name == "Cloth Gloves");
             DefaultLegs = AllLegArmor.Find(armor => armor.Name == "Cloth Pants");
             DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
+        }
+
+        internal static async Task WriteAll()
+        {
+            DatabaseInteraction.VerifyDatabaseIntegrity();
+
+            AdminPassword = await DatabaseInteraction.LoadAdminPassword();
+            AllClasses = await DatabaseInteraction.LoadClasses();
+            AllHeadArmor = await DatabaseInteraction.LoadHeadArmor();
+            AllBodyArmor = await DatabaseInteraction.LoadBodyArmor();
+            AllHandArmor = await DatabaseInteraction.LoadHandArmor();
+            AllLegArmor = await DatabaseInteraction.LoadLegArmor();
+            AllFeetArmor = await DatabaseInteraction.LoadFeetArmor();
+            AllRings = await DatabaseInteraction.LoadRings();
+            AllFood = await DatabaseInteraction.LoadFood();
+            AllPotions = await DatabaseInteraction.LoadPotions();
+            AllSpells = await DatabaseInteraction.LoadSpells();
+            AllWeapons = await DatabaseInteraction.LoadWeapons();
+            AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllPotions, AllWeapons);
+            AllEnemies = await DatabaseInteraction.LoadEnemies();
+            AllHeroes = await DatabaseInteraction.LoadHeroes();
+            MaximumStatsHero = await DatabaseInteraction.LoadMaxHeroStats();
+
+            AllItems = AllItems.OrderBy(item => item.Name).ToList();
+            AllEnemies = AllEnemies.OrderBy(enemy => enemy.Name).ToList();
+            AllSpells = AllSpells.OrderBy(spell => spell.Name).ToList();
+            AllClasses = AllClasses.OrderBy(heroClass => heroClass.Name).ToList();
+            AllRings = AllRings.OrderBy(ring => ring.Name).ToList();
+
+            DefaultWeapon = AllWeapons.Find(weapon => weapon.Name == "Fists");
+            DefaultHead = AllHeadArmor.Find(armor => armor.Name == "Cloth Helmet");
+            DefaultBody = AllBodyArmor.Find(armor => armor.Name == "Cloth Shirt");
+            DefaultHands = AllHandArmor.Find(armor => armor.Name == "Cloth Gloves");
+            DefaultLegs = AllLegArmor.Find(armor => armor.Name == "Cloth Pants");
+            DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
+        }
+
+        /// <summary>Ensures all necessary folders are created.</summary>
+        internal static void VerifyFolders()
+        {
+            Directory.CreateDirectory("Data");
+            Directory.CreateDirectory("Data/Armor");
+            Directory.CreateDirectory("Data/Classes");
+            Directory.CreateDirectory("Data/Drinks");
+            Directory.CreateDirectory("Data/Enemies");
+            Directory.CreateDirectory("Data/Food");
+            Directory.CreateDirectory("Data/Heroes");
+            Directory.CreateDirectory("Data/Potions");
+            Directory.CreateDirectory("Data/Rings");
+            Directory.CreateDirectory("Data/Spells");
+            Directory.CreateDirectory("Data/StatusEffects");
+            Directory.CreateDirectory("Data/Weapons");
+            Directory.CreateDirectory("Mods");
+            Directory.CreateDirectory("Mods/Armor");
+            Directory.CreateDirectory("Mods/Classes");
+            Directory.CreateDirectory("Mods/Drinks");
+            Directory.CreateDirectory("Mods/Enemies");
+            Directory.CreateDirectory("Mods/Food");
+            Directory.CreateDirectory("Mods/Potions");
+            Directory.CreateDirectory("Mods/Rings");
+            Directory.CreateDirectory("Mods/Spells");
+            Directory.CreateDirectory("Mods/StatusEffects");
+            Directory.CreateDirectory("Mods/Weapons");
         }
 
         /// <summary>Gets a specific Enemy based on its name.</summary>
@@ -248,7 +312,7 @@ namespace Sulimn.Classes
         /// <summary>Loads a Hero's Bank.</summary>
         /// <param name="bankHero">Hero whose Bank is to be loaded.</param>
         /// <returns>Hero's Bank</returns>
-        internal static async Task<Bank> LoadHeroBank(Hero bankHero) => await DatabaseInteraction.LoadBank(bankHero);
+        internal static Task<Bank> LoadHeroBank(Hero bankHero) => DatabaseInteraction.LoadBank(bankHero);
 
         /// <summary>Creates a new Hero and adds it to the database.</summary>
         /// <param name="newHero">New Hero</param>
@@ -327,7 +391,7 @@ namespace Sulimn.Classes
         /// <summary>Saves the Hero's bank information.</summary>
         /// <param name="goldInBank">Gold in the bank</param>
         /// <param name="loanTaken">Loan taken out</param>
-        internal static async Task<bool> SaveHeroBank(int goldInBank, int loanTaken) => await DatabaseInteraction
+        internal static Task<bool> SaveHeroBank(int goldInBank, int loanTaken) => DatabaseInteraction
             .SaveHeroBank(CurrentHero, goldInBank, loanTaken);
 
         /// <summary>Saves the Hero's password to the database.</summary>

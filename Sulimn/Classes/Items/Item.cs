@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Sulimn.Classes.Entities;
+using Sulimn.Classes.HeroParts;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Sulimn.Classes.Items
 {
     internal class Item : INotifyPropertyChanged, IItem
     {
-        private bool _canSell, _isSold;
         private string _name, _description;
-        private int _weight, _value;
+        private bool _canSell, _isSold;
+        private int _currentDurability, _maximumDurability, _minimumLevel, _value, _weight;
+        private List<HeroClass> _allowedClasses = new List<HeroClass>();
+        //TODO Implement durability and other new features, maybe weapon/armor smiths.
 
         #region Data-Binding
 
@@ -20,7 +25,7 @@ namespace Sulimn.Classes.Items
 
         #region Modifying Properties
 
-        /// <summary>Name of the Item</summary>
+        /// <summary>Name of the <see cref="Item"/></summary>
         public string Name
         {
             get => _name;
@@ -31,7 +36,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>Description of the Item</summary>
+        /// <summary>Description of the <see cref="Item"/></summary>
         public string Description
         {
             get => _description;
@@ -42,7 +47,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>How much the Item weighs</summary>
+        /// <summary>How much the <see cref="Item"/> weighs.</summary>
         public int Weight
         {
             get => _weight;
@@ -53,7 +58,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>How much the Item is worth</summary>
+        /// <summary>How much the <see cref="Item"/> is worth</summary>
         public int Value
         {
             get => _value;
@@ -64,7 +69,39 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>Can the Item be sold to a shop?</summary>
+        /// <summary>The current durability of an <see cref="Item"/>.</summary>
+        public int CurrentDurability
+        {
+            get => _currentDurability; set
+            {
+                _currentDurability = value;
+                OnPropertyChanged("CurrentDurability");
+            }
+        }
+
+        /// <summary>The maximum durability of an <see cref="Item"/>.</summary>
+        public int MaximumDurability
+        {
+            get => _maximumDurability;
+            set
+            {
+                _maximumDurability = value;
+                OnPropertyChanged("MaximumDurability");
+            }
+        }
+
+        /// <summary>The minimum level a <see cref="Hero"/> is required to be to use the <see cref="Item"/>.</summary>
+        public int MinimumLevel
+        {
+            get => _minimumLevel;
+            set
+            {
+                _minimumLevel = value;
+                OnPropertyChanged("MinimumLevel");
+            }
+        }
+
+        /// <summary>Can the <see cref="Item"/> be sold to a shop?</summary>
         public bool CanSell
         {
             get => _canSell;
@@ -75,7 +112,7 @@ namespace Sulimn.Classes.Items
             }
         }
 
-        /// <summary>Can the Item be sold in a shop?</summary>
+        /// <summary>Can the <see cref="Item"/> be sold in a shop?</summary>
         public bool IsSold
         {
             get => _isSold;
@@ -86,27 +123,49 @@ namespace Sulimn.Classes.Items
             }
         }
 
+        /// <summary>Classes permitted to use this <see cref="Item"/>.</summary>
+        public List<HeroClass> AllowedClasses
+        {
+            get => _allowedClasses;
+            set
+            {
+                _allowedClasses = value;
+                OnPropertyChanged("AllowedClasses");
+            }
+        }
+
         #endregion Modifying Properties
 
         #region Helper Properties
 
-        /// <summary>The value of the Item with thousands separators</summary>
+        /// <summary>The current durability of an <see cref="Item"/>, with thousands separators.</summary>
+        public string CurrentDurabilityToString => CurrentDurability.ToString("N0");
+
+        /// <summary>The maximum durability of an <see cref="Item"/>, with thousands separators.</summary>
+        public string MaximumDurabilityToString => MaximumDurability.ToString("N0");
+
+        /// <summary>The durability of an <see cref="Item"/>, formatted.</summary>
+        public string Durability => $"{CurrentDurabilityToString} / {MaximumDurabilityToString}";
+
+        /// <summary>The value of the <see cref="Item"/> with thousands separators.</summary>
         public string ValueToString => Value.ToString("N0");
 
-        /// <summary>The value of the Item with thousands separators and preceding text</summary>
+        /// <summary>The value of the <see cref="Item"/> with thousands separators and preceding text.</summary>
         public string ValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Value: {ValueToString}" : "";
 
-        /// <summary>The value of the Item</summary>
+        /// <summary>The value of the Item.</summary>
         public int SellValue => Value / 2;
 
-        /// <summary>The value of the Item with thousands separators</summary>
+        /// <summary>The sell value of the <see cref="Item"/> with thousands separators.</summary>
         public string SellValueToString => SellValue.ToString("N0");
 
-        /// <summary>The value of the Item with thousands separators with preceding text</summary>
+        /// <summary>The sell value of the <see cref="Item"/> with thousands separators with preceding text.</summary>
         public string SellValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Sell Value: {SellValueToString}" : "";
 
-        /// <summary>Returns text relating to the sellability of the Item</summary>
+        /// <summary>Returns text relating to the sellability of the <see cref="Item"/>.</summary>
         public string CanSellToString => !string.IsNullOrWhiteSpace(Name) ? (CanSell ? "Sellable" : "Not Sellable") : "";
+
+        public string AllowedClassesToString => String.Join(",", AllowedClasses);
 
         #endregion Helper Properties
 
@@ -114,8 +173,8 @@ namespace Sulimn.Classes.Items
 
         private static bool Equals(Item left, Item right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 

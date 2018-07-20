@@ -135,19 +135,19 @@ namespace Sulimn.Classes.HeroParts
 
         private static bool Equals(Spell left, Spell right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-                   left.Type == right.Type &&
-                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) &&
-                   string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase) &&
-                   left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost &&
-                   left.Amount == right.Amount;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
+                   && left.Type == right.Type
+                   && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase)
+                   && string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase)
+                   && left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost
+                   && left.Amount == right.Amount;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Spell);
 
-        public bool Equals(Spell otherSpell) => Equals(this, otherSpell);
+        public bool Equals(Spell other) => Equals(this, other);
 
         public static bool operator ==(Spell left, Spell right) => Equals(left, right);
 

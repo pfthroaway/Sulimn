@@ -166,15 +166,15 @@ namespace Sulimn.Classes.HeroParts
 
         private static bool Equals(HeroClass left, HeroClass right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-                   string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.SkillPoints == right.SkillPoints && left.Strength == right.Strength && left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom && left.CurrentHealth == right.CurrentHealth && left.MaximumHealth == right.MaximumHealth && left.CurrentMagic == right.CurrentMagic && left.MaximumMagic == right.MaximumMagic;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
+                   && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.SkillPoints == right.SkillPoints && left.Strength == right.Strength && left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom && left.CurrentHealth == right.CurrentHealth && left.MaximumHealth == right.MaximumHealth && left.CurrentMagic == right.CurrentMagic && left.MaximumMagic == right.MaximumMagic;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as HeroClass);
 
-        public bool Equals(HeroClass otherHeroClass) => Equals(this, otherHeroClass);
+        public bool Equals(HeroClass other) => Equals(this, other);
 
         public static bool operator ==(HeroClass left, HeroClass right) => Equals(left, right);
 

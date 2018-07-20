@@ -4,7 +4,7 @@ using System;
 namespace Sulimn.Classes.Items
 {
     /// <summary>Represents a Potion which can be consumed by a Hero.</summary>
-    internal class Potion : Item, IEquatable<Potion>
+    internal class Potion : Consumable, IEquatable<Potion>
     {
         #region Properties
 
@@ -43,8 +43,8 @@ namespace Sulimn.Classes.Items
 
         private static bool Equals(Potion left, Potion right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 
@@ -52,15 +52,9 @@ namespace Sulimn.Classes.Items
 
         public bool Equals(Potion other) => Equals(this, other);
 
-        public static bool operator ==(Potion left, Potion right)
-        {
-            return Equals(left, right);
-        }
+        public static bool operator ==(Potion left, Potion right) => Equals(left, right);
 
-        public static bool operator !=(Potion left, Potion right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator !=(Potion left, Potion right) => !Equals(left, right);
 
         public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
 

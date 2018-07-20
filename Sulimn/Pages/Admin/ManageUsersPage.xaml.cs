@@ -24,6 +24,7 @@ namespace Sulimn.Pages.Admin
         #region Button Manipulation
 
         /// <summary>Toggles certain buttons.</summary>
+        /// <param name="enabled"></param>
         private void ToggleButtons(bool enabled)
         {
             BtnManageUser.IsEnabled = enabled;

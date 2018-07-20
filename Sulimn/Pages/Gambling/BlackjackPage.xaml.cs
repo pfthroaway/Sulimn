@@ -145,15 +145,15 @@ namespace Sulimn.Pages.Gambling
         /// <param name="checkHand">Hand to be checked</param>
         /// <param name="checkSplit">Hand the Hand could be split into</param>
         /// <returns>Returns true if Hand can Double Down.</returns>
-        private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
-            (checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11);
+        private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0
+            && (checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11);
 
         /// <summary>Checks whether the Player can split a specific Hand.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <param name="checkSplit">Hand it could be spilt into</param>
         /// <returns>Returns true if Hand can be Split.</returns>
-        private bool CheckCanHandSplit(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0 &&
-            checkHand.CardList[0].Value == checkHand.CardList[1].Value;
+        private bool CheckCanHandSplit(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0
+            && checkHand.CardList[0].Value == checkHand.CardList[1].Value;
 
         /// <summary>Checks whether a Hand has an Ace valued at eleven in it.</summary>
         /// <param name="checkHand">Hand to be checked</param>
@@ -445,7 +445,7 @@ namespace Sulimn.Pages.Gambling
                 DisplayHand();
             else
             {
-                if (_playerHand.TotalValue < 21 || CheckHasAceEleven(_playerHand) && _playerHand.TotalValue <= 31)
+                if (_playerHand.TotalValue < 21 || (CheckHasAceEleven(_playerHand) && _playerHand.TotalValue <= 31))
                 {
                     Functions.AddTextToTextBox(TxtBlackjack, "Five Card Charlie!");
                     DisplayPlayerHand();

@@ -36,8 +36,8 @@ namespace Sulimn.Classes.HeroParts
 
         private static bool Equals(Spellbook left, Spellbook right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
             return !left.Spells.Except(right.Spells).Any();
         }
 

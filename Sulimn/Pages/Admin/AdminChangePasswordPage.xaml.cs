@@ -12,8 +12,8 @@ namespace Sulimn.Pages.Admin
 
         private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
-            PswdConfirmPassword.Password.Length >= 1)
+            if (PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1
+            && PswdConfirmPassword.Password.Length >= 1)
             {
                 if (Argon2.ValidatePassword(GameState.AdminPassword, PswdCurrentPassword.Password))
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
@@ -61,8 +61,8 @@ namespace Sulimn.Pages.Admin
 
         private void AdminChangePasswordPage_OnLoaded(object sender, RoutedEventArgs e) => GameState.CalculateScale(Grid);
 
-        private void PswdChanged(object sender, RoutedEventArgs e) => BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1 &&
-            PswdConfirmPassword.Password.Length >= 1;
+        private void PswdChanged(object sender, RoutedEventArgs e) => BtnSubmit.IsEnabled = PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1
+            && PswdConfirmPassword.Password.Length >= 1;
 
         private void Pswd_GotFocus(object sender, RoutedEventArgs e) => Functions.PasswordBoxGotFocus(sender);
 

@@ -119,15 +119,15 @@ namespace Sulimn.Classes.HeroParts
         #region Helper Properties
 
         /// <summary>Weight of all the Equipment currently equipped.</summary>
-        public int TotalWeight => Weapon.Weight + Body.Weight + Head.Weight + Body.Weight + Hands.Weight + Legs.Weight +
-                                  Feet.Weight;
+        public int TotalWeight => Weapon.Weight + Body.Weight + Head.Weight + Body.Weight + Hands.Weight + Legs.Weight
+                                  + Feet.Weight;
 
         /// <summary>Returns the total damage produced by the current set of equipment.</summary>
         public int TotalDamage => Weapon.Damage + LeftRing.Damage + RightRing.Damage;
 
         /// <summary>Returns the total defense produced by the current set of equipment.</summary>
-        public int TotalDefense => Head.Defense + Body.Defense + Hands.Defense + Legs.Defense + Feet.Defense + LeftRing.Defense +
-        RightRing.Defense;
+        public int TotalDefense => Head.Defense + Body.Defense + Hands.Defense + Legs.Defense + Feet.Defense + LeftRing.Defense
+        + RightRing.Defense;
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators.</summary>
         public string TotalDefenseToString => TotalDefense.ToString("N0");

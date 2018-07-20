@@ -54,8 +54,8 @@ namespace Sulimn.Classes.Items
 
         private static bool Equals(Weapon left, Weapon right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.WeaponType == right.WeaponType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Damage == right.Damage && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
         }
 

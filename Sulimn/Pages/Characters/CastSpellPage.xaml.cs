@@ -39,6 +39,7 @@ namespace Sulimn.Pages.Characters
         }
 
         /// <summary>Loads the Page.</summary>
+        /// <param name="prevPage">Previous Page</param>
         internal void LoadPage(string prevPage)
         {
             _previousPage = prevPage;

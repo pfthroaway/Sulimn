@@ -87,8 +87,8 @@ namespace Sulimn.Pages.Characters
             else if (LstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints == 0)
             {
                 TogglePlus(false);
-                BtnCreate.IsEnabled = TxtHeroName.Text.Length > 0 && PswdPassword.Password.Length > 0 &&
-                PswdConfirm.Password.Length > 0;
+                BtnCreate.IsEnabled = TxtHeroName.Text.Length > 0 && PswdPassword.Password.Length > 0
+                && PswdConfirm.Password.Length > 0;
             }
             else if (LstClasses.SelectedIndex >= 0 && _selectedClass.SkillPoints < 0)
             {

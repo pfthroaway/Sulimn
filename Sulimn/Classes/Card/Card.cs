@@ -76,16 +76,16 @@ namespace Sulimn.Classes.Card
 
         private static bool Equals(Card left, Card right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right)) return true;
-            if (ReferenceEquals(null, left) ^ ReferenceEquals(null, right)) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) &&
-                   left.Suit == right.Suit &&
-                   left.Value == right.Value && left.Hidden == right.Hidden;
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
+                   && left.Suit == right.Suit
+                   && left.Value == right.Value && left.Hidden == right.Hidden;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Card);
 
-        public bool Equals(Card otherCard) => Equals(this, otherCard);
+        public bool Equals(Card other) => Equals(this, other);
 
         public static bool operator ==(Card left, Card right) => Equals(left, right);
 

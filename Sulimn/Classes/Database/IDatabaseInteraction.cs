@@ -15,6 +15,7 @@ namespace Sulimn.Classes.Database
         #region Load
 
         /// <summary>Loads the initial Bank state and Hero's Bank information.</summary>
+        /// <param name="bankHero">Hero whose Bank will be loaded</param>
         Task<Bank> LoadBank(Hero bankHero);
 
         /// <summary>Loads all Classes from the database.</summary>

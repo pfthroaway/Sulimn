@@ -30,7 +30,7 @@ namespace Sulimn.Classes.Database
         /// <summary>This method fills a DataSet with data from a table.</summary>
         /// <param name="sql">SQL query to be executed</param>
         /// <returns>Returns DataSet with queried results</returns>
-        internal async Task<DataSet> FillDataSet(string sql) => await SQLite.FillDataSet(_con, new SQLiteCommand { CommandText = sql });
+        internal Task<DataSet> FillDataSet(string sql) => SQLite.FillDataSet(_con, new SQLiteCommand { CommandText = sql });
 
         #endregion Database Interaction
 
@@ -40,31 +40,31 @@ namespace Sulimn.Classes.Database
         /// <param name="oldHero">Hero whose details need to be modified</param>
         /// <param name="newHero">Hero with new details</param>
         /// <returns>True if successful</returns>
-        public async Task<bool> ChangeHeroDetails(Hero oldHero, Hero newHero)
+        public Task<bool> ChangeHeroDetails(Hero oldHero, Hero newHero)
         {
             SQLiteCommand cmd = new SQLiteCommand { CommandText = "UPDATE Players Set [Name] = @name, [Password] = @password WHERE [Name] = @oldName" };
             cmd.Parameters.AddWithValue("name", newHero.Name);
             cmd.Parameters.AddWithValue("password", newHero.Password);
             cmd.Parameters.AddWithValue("oldName", oldHero.Name);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Deletes a Hero from the game and database.</summary>
         /// <param name="deleteHero">Hero to be deleted</param>
         /// <returns>Whether deletion was successful</returns>
-        public async Task<bool> DeleteHero(Hero deleteHero)
+        public Task<bool> DeleteHero(Hero deleteHero)
         {
             SQLiteCommand cmd = new SQLiteCommand { CommandText = "DELETE FROM Players WHERE [Name] = @name;" };
             cmd.Parameters.AddWithValue("@name", deleteHero.Name);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Creates a new Hero and adds it to the database.</summary>
         /// <param name="newHero">New Hero</param>
         /// <returns>Returns true if successfully created</returns>
-        public async Task<bool> NewHero(Hero newHero)
+        public Task<bool> NewHero(Hero newHero)
         {
             SQLiteCommand cmd = new SQLiteCommand
             {
@@ -109,13 +109,13 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@spire", newHero.Progression.Spire);
             cmd.Parameters.AddWithValue("@throneRoom", newHero.Progression.ThroneRoom);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Saves Hero to database.</summary>
         /// <param name="saveHero">Hero to be saved</param>
         /// <returns>Returns true if successfully saved</returns>
-        public async Task<bool> SaveHero(Hero saveHero)
+        public Task<bool> SaveHero(Hero saveHero)
         {
             SQLiteCommand cmd = new SQLiteCommand()
             {
@@ -159,14 +159,14 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@spire", saveHero.Progression.Spire);
             cmd.Parameters.AddWithValue("@throneRoom", saveHero.Progression.ThroneRoom);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Saves the Hero's bank information.</summary>
         /// <param name="saveHero">Hero whose Bank needs to be saved</param>
         /// <param name="goldInBank">Gold in the bank</param>
         /// <param name="loanTaken">Loan taken out</param>
-        public async Task<bool> SaveHeroBank(Hero saveHero, int goldInBank, int loanTaken)
+        public Task<bool> SaveHeroBank(Hero saveHero, int goldInBank, int loanTaken)
         {
             SQLiteCommand cmd = new SQLiteCommand
             {
@@ -176,12 +176,12 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@loanTaken", loanTaken);
             cmd.Parameters.AddWithValue("@name", saveHero.Name);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Saves the Hero's password to the database.</summary>
         /// <param name="saveHero">Hero whose password needs to be saved</param>
-        public async Task<bool> SaveHeroPassword(Hero saveHero)
+        public Task<bool> SaveHeroPassword(Hero saveHero)
         {
             SQLiteCommand cmd = new SQLiteCommand
             {
@@ -190,7 +190,7 @@ namespace Sulimn.Classes.Database
             cmd.Parameters.AddWithValue("@password", saveHero.Password);
             cmd.Parameters.AddWithValue("@name", saveHero.Name);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         #endregion Hero Management
@@ -200,7 +200,7 @@ namespace Sulimn.Classes.Database
         /// <summary>Changes the administrator password in the database.</summary>
         /// <param name="newPassword">New administrator password</param>
         /// <returns>Returns true if password successfully updated</returns>
-        public async Task<bool> ChangeAdminPassword(string newPassword)
+        public Task<bool> ChangeAdminPassword(string newPassword)
         {
             SQLiteCommand cmd = new SQLiteCommand
             {
@@ -208,7 +208,7 @@ namespace Sulimn.Classes.Database
             };
             cmd.Parameters.AddWithValue("@password", newPassword);
 
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Loads the Admin password from the database.</summary>
@@ -736,11 +736,11 @@ namespace Sulimn.Classes.Database
         /// <summary>Changes the current theme in the database.</summary>
         /// <param name="theme">Current theme</param>
         /// <returns>True if successful</returns>
-        public async Task<bool> ChangeTheme(string theme)
+        public Task<bool> ChangeTheme(string theme)
         {
             SQLiteCommand cmd = new SQLiteCommand { CommandText = "UPDATE Settings SET [Theme] = @theme" };
             cmd.Parameters.AddWithValue("@theme", theme);
-            return await SQLite.ExecuteCommand(_con, cmd);
+            return SQLite.ExecuteCommand(_con, cmd);
         }
 
         /// <summary>Loads the current theme from the database.</summary>
