@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllRings>
+    <Ring>
+        <Name>Furious Ring</Name>
+        <Description>A ring which boosts its wearer's damage by 5 and Strength by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>5</Damage>
+        <Defense>0</Defense>
+        <Strength>1</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Rainbow Ring</Name>
+        <Description>A ring which boosts all the wearer's primary attributes by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>16,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>1</Strength>
+        <Vitality>1</Vitality>
+        <Dexterity>1</Dexterity>
+        <Wisdom>1</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Destruction +1</Name>
+        <Description>A ring which boosts its wearer's damage by 5.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>5</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Destruction +2</Name>
+        <Description>A ring which boosts its wearer's damage by 10.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>10</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Dexterity +1</Name>
+        <Description>A ring which boosts its wearer's Dexterity by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>1</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Dexterity +2</Name>
+        <Description>A ring which boosts its wearer's Dexterity by 2.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>2</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Heartiness</Name>
+        <Description>A ring which boosts its wearer's Strength and Vitality by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>1</Strength>
+        <Vitality>1</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Protection +1</Name>
+        <Description>A ring which boosts its wearer's defense by 5.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>5</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Protection +2</Name>
+        <Description>A ring which boosts its wearer's defense by 10.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>10</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Strength +1</Name>
+        <Description>A ring which boosts its wearer's Strength by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>1</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Strength +2</Name>
+        <Description>A ring which boosts its wearer's Strength by 2.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>2</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Vitality +1</Name>
+        <Description>A ring which boosts its wearer's Vitality by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>1</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Vitality +2</Name>
+        <Description>A ring which boosts its wearer's Vitality by 2.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>2</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>0</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Wisdom +1</Name>
+        <Description>A ring which boosts its wearer's Wisdom by 1.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>1</Wisdom>
+    </Ring>
+    <Ring>
+        <Name>Ring of Wisdom +2</Name>
+        <Description>A ring which boosts its wearer's Wisdom by 2.</Description>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+        <Damage>0</Damage>
+        <Defense>0</Defense>
+        <Strength>0</Strength>
+        <Vitality>0</Vitality>
+        <Dexterity>0</Dexterity>
+        <Wisdom>2</Wisdom>
+    </Ring>
+</AllRings>

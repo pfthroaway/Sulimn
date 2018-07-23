@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllSpells>
+    <Spell>
+        <Name>Cure</Name>
+        <Description>This spell cures any diseases you may encounter.</Description>
+        <RequiredLevel>5</RequiredLevel>
+        <MagicCost>10</MagicCost>
+        <Amount>25</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Energy Barrier</Name>
+        <Description>This spell creates a strong magical shield around your character, protecting them from a large amount of incoming damage.</Description>
+        <RequiredLevel>15</RequiredLevel>
+        <MagicCost>30</MagicCost>
+        <Amount>125</Amount>
+        <Type>Shield</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Energy Blast</Name>
+        <Description>This spell launches a blast of pure magical energy at your opponent.</Description>
+        <RequiredLevel>8</RequiredLevel>
+        <MagicCost>15</MagicCost>
+        <Amount>75</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Fire Bolt</Name>
+        <Description>This spell launches magical fire at your opponent.</Description>
+        <RequiredLevel>1</RequiredLevel>
+        <MagicCost>5</MagicCost>
+        <Amount>30</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Fireball</Name>
+        <Description>This spell launches a large ball of magical fire at your opponent.</Description>
+        <RequiredLevel>15</RequiredLevel>
+        <MagicCost>30</MagicCost>
+        <Amount>125</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses>Wizard</AllowedClasses>
+    </Spell>
+    <Spell>
+        <Name>Heal Major Wounds</Name>
+        <Description>This spell restores a large amount of health to your character.</Description>
+        <RequiredLevel>20</RequiredLevel>
+        <MagicCost>40</MagicCost>
+        <Amount>150</Amount>
+        <Type>Healing</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Heal Medium Wounds</Name>
+        <Description>This spell restores a medium amount of health to your character.</Description>
+        <RequiredLevel>10</RequiredLevel>
+        <MagicCost>20</MagicCost>
+        <Amount>75</Amount>
+        <Type>Healing</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Heal Self</Name>
+        <Description>This spell heals your character.</Description>
+        <RequiredLevel>1</RequiredLevel>
+        <MagicCost>5</MagicCost>
+        <Amount>30</Amount>
+        <Type>Healing</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Ice Bolt</Name>
+        <Description>This spell launches magical ice at your opponent.</Description>
+        <RequiredLevel>3</RequiredLevel>
+        <MagicCost>10</MagicCost>
+        <Amount>60</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses>Wizard</AllowedClasses>
+    </Spell>
+    <Spell>
+        <Name>Lightning Bolt</Name>
+        <Description>This spell blasts a bolt of lightning at your opponent.</Description>
+        <RequiredLevel>12</RequiredLevel>
+        <MagicCost>20</MagicCost>
+        <Amount>90</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses>Wizard</AllowedClasses>
+    </Spell>
+    <Spell>
+        <Name>Shield</Name>
+        <Description>This spell creates a magical shield around your character, protecting them from some incoming damage.</Description>
+        <RequiredLevel>5</RequiredLevel>
+        <MagicCost>15</MagicCost>
+        <Amount>50</Amount>
+        <Type>Shield</Type>
+        <AllowedClasses />
+    </Spell>
+    <Spell>
+        <Name>Smite</Name>
+        <Description>This spell deals holy magic damage against your opponent.</Description>
+        <RequiredLevel>5</RequiredLevel>
+        <MagicCost>10</MagicCost>
+        <Amount>60</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses>Cleric</AllowedClasses>
+    </Spell>
+    <Spell>
+        <Name>Triple Arrow</Name>
+        <Description>This spell creates 3 magical arrows which fly at your target.</Description>
+        <RequiredLevel>5</RequiredLevel>
+        <MagicCost>10</MagicCost>
+        <Amount>60</Amount>
+        <Type>Damage</Type>
+        <AllowedClasses>Rogue</AllowedClasses>
+    </Spell>
+</AllSpells>

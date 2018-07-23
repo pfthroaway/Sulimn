@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllClasses>
+    <Class>
+        <Name>Cleric</Name>
+        <Description>The Cleric is a magic-using healer who descends from an ancient line of religious healers.</Description>
+        <SkillPoints>5</SkillPoints>
+        <Strength>12</Strength>
+        <Vitality>12</Vitality>
+        <Dexterity>12</Dexterity>
+        <Wisdom>14</Wisdom>
+    </Class>
+    <Class>
+        <Name>Custom</Name>
+        <Description>Your Hero doesn't need any backstory other than what you create in your own head.</Description>
+        <SkillPoints>35</SkillPoints>
+        <Strength>5</Strength>
+        <Vitality>5</Vitality>
+        <Dexterity>5</Dexterity>
+        <Wisdom>5</Wisdom>
+    </Class>
+    <Class>
+        <Name>Rogue</Name>
+        <Description>The Rogue is a trained archer who left their village to seek out adventure.</Description>
+        <SkillPoints>5</SkillPoints>
+        <Strength>13</Strength>
+        <Vitality>12</Vitality>
+        <Dexterity>18</Dexterity>
+        <Wisdom>7</Wisdom>
+    </Class>
+    <Class>
+        <Name>Warrior</Name>
+        <Description>The Warrior is a skilled fighter with weapons and in hand-to-hand combat.</Description>
+        <SkillPoints>5</SkillPoints>
+        <Strength>18</Strength>
+        <Vitality>15</Vitality>
+        <Dexterity>12</Dexterity>
+        <Wisdom>5</Wisdom>
+    </Class>
+    <Class>
+        <Name>Wizard</Name>
+        <Description>The Wizard is an enigmatic magic-user, versatile in various forms of magic. A Wizard reigns destruction upon his foes from afar.</Description>
+        <SkillPoints>5</SkillPoints>
+        <Strength>10</Strength>
+        <Vitality>10</Vitality>
+        <Dexterity>10</Dexterity>
+        <Wisdom>20</Wisdom>
+    </Class>
+</AllClasses>

@@ -41,7 +41,7 @@
                                 <GroupBox Grid.Column="1" Header="Selected Food" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="LblFoodNamePurchase" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblFoodTypeAmountPurchase" Text="{Binding Path=TypeAmount}"
+                                        <TextBlock x:Name="LblFoodTypeAmountPurchase" Text="{Binding Path=RestoreHealthToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblFoodValuePurchase"
                                                    Text="{Binding Path=ValueToStringWithText}" Margin="5" />
@@ -68,7 +68,7 @@
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="LblFoodNameSell" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblFoodTypeAmountSell" Text="{Binding Path=TypeAmount}"
+                                        <TextBlock x:Name="LblFoodTypeAmountSell" Text="{Binding Path=RestoreHealthToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblFoodValueSell"
                                                    Text="{Binding Path=SellValueToStringWithText}" Margin="5" />
@@ -108,7 +108,7 @@
                                 <GroupBox Grid.Column="1" Header="Selected Drink" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="LblDrinkNamePurchase" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblDrinkTypeAmountPurchase" Text="{Binding Path=TypeAmount}"
+                                        <TextBlock x:Name="LblDrinkTypeAmountPurchase" Text="{Binding Path=RestoreMagicToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblDrinkValuePurchase"
                                                    Text="{Binding Path=ValueToStringWithText}" Margin="5" />
@@ -135,7 +135,7 @@
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
                                         <TextBlock x:Name="LblDrinkNameSell" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblDrinkTypeAmountSell" Text="{Binding Path=TypeAmount}"
+                                        <TextBlock x:Name="LblDrinkTypeAmountSell" Text="{Binding Path=RestoreMagicToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblDrinkValueSell"
                                                    Text="{Binding Path=SellValueToStringWithText}" Margin="5" />

@@ -663,9 +663,11 @@ namespace Sulimn.Classes.Database
                 {
                     Potion newPotion = new Potion(
                     dr["Name"].ToString(),
-                    EnumHelper.Parse<PotionTypes>(dr["Type"].ToString()),
                     dr["Description"].ToString(),
-                    Int32Helper.Parse(dr["Amount"]),
+                    Int32Helper.Parse(dr["RestoreHealth"]),
+                    Int32Helper.Parse(dr["RestoreMagic"]),
+                    BoolHelper.Parse(dr["Cures"]),
+                    Int32Helper.Parse(dr["Weight"]),
                     Int32Helper.Parse(dr["Value"]),
                     BoolHelper.Parse(dr["CanSell"]),
                     BoolHelper.Parse(dr["IsSold"]));
@@ -676,21 +678,49 @@ namespace Sulimn.Classes.Database
             return allPotions;
         }
 
+        /// <summary>Loads all Drink from the database.</summary>
+        /// <returns>List of Drink</returns>
+        public async Task<List<Drink>> LoadDrinks()
+        {
+            List<Drink> allDrinks = new List<Drink>();
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Food WHERE [Type] = 'Drink'");
+
+            if (ds.Tables[0].Rows.Count > 0)
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    Drink newDrink = new Drink(
+                    dr["Name"].ToString(),
+                    dr["Description"].ToString(),
+                    0,
+                    Int32Helper.Parse(dr["Amount"]),
+                    false,
+                    Int32Helper.Parse(dr["Weight"]),
+                    Int32Helper.Parse(dr["Value"]),
+                    BoolHelper.Parse(dr["CanSell"]),
+                    BoolHelper.Parse(dr["IsSold"]));
+
+                    allDrinks.Add(newDrink);
+                }
+
+            return allDrinks;
+        }
+
         /// <summary>Loads all Food from the database.</summary>
         /// <returns>List of Food</returns>
         public async Task<List<Food>> LoadFood()
         {
             List<Food> allFood = new List<Food>();
-            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Food");
+            DataSet ds = await SQLite.FillDataSet(_con, "SELECT * FROM Food WHERE [Type] = 'Food'");
 
             if (ds.Tables[0].Rows.Count > 0)
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     Food newFood = new Food(
                     dr["Name"].ToString(),
-                    EnumHelper.Parse<FoodTypes>(dr["Type"].ToString()),
                     dr["Description"].ToString(),
                     Int32Helper.Parse(dr["Amount"]),
+                    0,
+                    false,
                     Int32Helper.Parse(dr["Weight"]),
                     Int32Helper.Parse(dr["Value"]),
                     BoolHelper.Parse(dr["CanSell"]),
@@ -716,7 +746,7 @@ namespace Sulimn.Classes.Database
                     dr["Name"].ToString(),
                     EnumHelper.Parse<SpellTypes>(dr["Type"].ToString()),
                     dr["Description"].ToString(),
-                    dr["RequiredClass"].ToString(),
+                    GameState.SetAllowedClasses(dr["RequiredClass"].ToString()),
                     Int32Helper.Parse(dr["RequiredLevel"]),
                     Int32Helper.Parse(dr["MagicCost"]),
                     Int32Helper.Parse(dr["Amount"]));

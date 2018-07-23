@@ -1,0 +1,933 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllEnemies>
+    <Enemy>
+        <Information>
+            <Name>Adventurer</Name>
+            <Level>16</Level>
+            <Experience>400</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>400</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>20</Strength>
+            <Vitality>20</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>100</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Studded Leather Helmet</HeadArmor>
+            <BodyArmor>Studded Leather Doublet</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Long Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Bear</Name>
+            <Level>10</Level>
+            <Experience>250</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>18</Strength>
+            <Vitality>18</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>90</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Sharp Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Beggar</Name>
+            <Level>1</Level>
+            <Experience>25</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>75</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>10</Strength>
+            <Vitality>10</Vitality>
+            <Dexterity>10</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>50</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor>Cloth Pants</LegArmor>
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Club</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Butcher</Name>
+            <Level>6</Level>
+            <Experience>150</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>225</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>16</Strength>
+            <Vitality>12</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>60</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Cloth Helmet</HeadArmor>
+            <BodyArmor>Leather Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Cloth Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Cleaver</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Chicken</Name>
+            <Level>2</Level>
+            <Experience>50</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>10</Strength>
+            <Vitality>10</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>50</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Beak</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Crazed Miner</Name>
+            <Level>15</Level>
+            <Experience>375</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>375</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>22</Strength>
+            <Vitality>18</Vitality>
+            <Dexterity>18</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>90</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Miner's Helmet</HeadArmor>
+            <BodyArmor>Leather Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Leather Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Pickaxe</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Dark Priest</Name>
+            <Level>20</Level>
+            <Experience>600</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>600</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>23</Strength>
+            <Vitality>26</Vitality>
+            <Dexterity>24</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>130</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Studded Leather Helmet</HeadArmor>
+            <BodyArmor>Chain Mail Chestplate</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Chain Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Pike</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Dion the Necromancer</Name>
+            <Level>25</Level>
+            <Experience>1100</Experience>
+            <Type>Boss</Type>
+        </Information>
+        <Inventory>
+            <Gold>1,100</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>35</Strength>
+            <Vitality>35</Vitality>
+            <Dexterity>33</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>175</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Necromancer Robe Hood</HeadArmor>
+            <BodyArmor>Necromancer Robes</BodyArmor>
+            <HandArmor />
+            <LegArmor>Necromancer Robe Leggings</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Necromancer Staff</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Evil Knight</Name>
+            <Level>22</Level>
+            <Experience>800</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>800</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>30</Strength>
+            <Vitality>30</Vitality>
+            <Dexterity>25</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>150</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Chain Helmet</HeadArmor>
+            <BodyArmor>Chain Mail Chestplate</BodyArmor>
+            <HandArmor />
+            <LegArmor>Chain Leggings</LegArmor>
+            <FeetArmor>Chain Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Pike</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Giant Bat</Name>
+            <Level>10</Level>
+            <Experience>250</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>14</Strength>
+            <Vitality>14</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>70</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Giant Spider</Name>
+            <Level>12</Level>
+            <Experience>275</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>16</Strength>
+            <Vitality>16</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>80</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Spider Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Gladiator</Name>
+            <Level>13</Level>
+            <Experience>325</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>325</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>22</Strength>
+            <Vitality>20</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>100</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor>Studded Leather Doublet</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Long Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>John the Priest</Name>
+            <Level>15</Level>
+            <Experience>375</Experience>
+            <Type>Boss</Type>
+        </Information>
+        <Inventory>
+            <Gold>375</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>22</Strength>
+            <Vitality>18</Vitality>
+            <Dexterity>18</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>90</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Studded Leather Helmet</HeadArmor>
+            <BodyArmor>Studded Leather Doublet</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Long Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Knave</Name>
+            <Level>5</Level>
+            <Experience>125</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>200</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>13</Strength>
+            <Vitality>13</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>65</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor>Leather Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Cloth Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Short Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Knight</Name>
+            <Level>16</Level>
+            <Experience>400</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>400</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>20</Strength>
+            <Vitality>22</Vitality>
+            <Dexterity>18</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>110</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Leather Helmet</HeadArmor>
+            <BodyArmor>Studded Leather Doublet</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Great Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Leon the Knave</Name>
+            <Level>5</Level>
+            <Experience>125</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>200</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>13</Strength>
+            <Vitality>13</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>65</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor>Leather Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Cloth Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Short Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Lion</Name>
+            <Level>14</Level>
+            <Experience>350</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>18</Strength>
+            <Vitality>18</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>90</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Sharp Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Mangy Dog</Name>
+            <Level>3</Level>
+            <Experience>75</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>12</Strength>
+            <Vitality>10</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>50</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Minotaur</Name>
+            <Level>20</Level>
+            <Experience>600</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>600</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>25</Strength>
+            <Vitality>28</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>140</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor>Chain Mail Chestplate</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Minotaur Horns</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Monk</Name>
+            <Level>14</Level>
+            <Experience>350</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>350</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>20</Strength>
+            <Vitality>16</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>80</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Robe Hood</HeadArmor>
+            <BodyArmor>Robe</BodyArmor>
+            <HandArmor />
+            <LegArmor>Robe Leggings</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Bo Staff</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Necromancer</Name>
+            <Level>22</Level>
+            <Experience>800</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>800</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>25</Strength>
+            <Vitality>40</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>200</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Necromancer Robe Hood</HeadArmor>
+            <BodyArmor>Necromancer Robes</BodyArmor>
+            <HandArmor />
+            <LegArmor>Necromancer Robe Leggings</LegArmor>
+            <FeetArmor>Studded Leather Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Necromancer Staff</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Priest</Name>
+            <Level>12</Level>
+            <Experience>300</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>300</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>18</Strength>
+            <Vitality>18</Vitality>
+            <Dexterity>16</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>90</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Cloth Helmet</HeadArmor>
+            <BodyArmor>Studded Leather Doublet</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Leather Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Long Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Rabbit</Name>
+            <Level>1</Level>
+            <Experience>25</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>11</Strength>
+            <Vitality>6</Vitality>
+            <Dexterity>13</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>30</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Teeth</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Snake</Name>
+            <Level>3</Level>
+            <Experience>75</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>10</Strength>
+            <Vitality>10</Vitality>
+            <Dexterity>14</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>50</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Squire</Name>
+            <Level>8</Level>
+            <Experience>200</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>250</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>16</Strength>
+            <Vitality>15</Vitality>
+            <Dexterity>13</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>75</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Cloth Helmet</HeadArmor>
+            <BodyArmor>Leather Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Leather Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Short Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Tennyson the Dark Priest</Name>
+            <Level>20</Level>
+            <Experience>600</Experience>
+            <Type>Boss</Type>
+        </Information>
+        <Inventory>
+            <Gold>600</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>23</Strength>
+            <Vitality>26</Vitality>
+            <Dexterity>24</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>130</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>Studded Leather Helmet</HeadArmor>
+            <BodyArmor>Chain Mail Chestplate</BodyArmor>
+            <HandArmor />
+            <LegArmor>Studded Leather Pants</LegArmor>
+            <FeetArmor>Chain Boots</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Pike</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Theon the Squire</Name>
+            <Level>10</Level>
+            <Experience>250</Experience>
+            <Type>Boss</Type>
+        </Information>
+        <Inventory>
+            <Gold>275</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>18</Strength>
+            <Vitality>16</Vitality>
+            <Dexterity>14</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>80</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor>Leather Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Leather Pants</LegArmor>
+            <FeetArmor>Leather Shoes</FeetArmor>
+            <LeftRing />
+            <RightRing />
+            <Weapon>Long Sword</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Thief</Name>
+            <Level>2</Level>
+            <Experience>50</Experience>
+            <Type>Human</Type>
+        </Information>
+        <Inventory>
+            <Gold>150</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>8</Strength>
+            <Vitality>10</Vitality>
+            <Dexterity>14</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>50</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor>Cloth Shirt</BodyArmor>
+            <HandArmor />
+            <LegArmor>Cloth Pants</LegArmor>
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Stone Dagger</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Wild Boar</Name>
+            <Level>4</Level>
+            <Experience>100</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>12</Strength>
+            <Vitality>12</Vitality>
+            <Dexterity>12</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>60</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Tusks</Weapon>
+        </Equipment>
+    </Enemy>
+    <Enemy>
+        <Information>
+            <Name>Wolf</Name>
+            <Level>5</Level>
+            <Experience>125</Experience>
+            <Type>Animal</Type>
+        </Information>
+        <Inventory>
+            <Gold>0</Gold>
+        </Inventory>
+        <Attributes>
+            <Strength>10</Strength>
+            <Vitality>13</Vitality>
+            <Dexterity>15</Dexterity>
+            <Wisdom>0</Wisdom>
+        </Attributes>
+        <Statistics>
+            <Health>65</Health>
+            <Magic>0</Magic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor />
+            <BodyArmor />
+            <HandArmor />
+            <LegArmor />
+            <FeetArmor />
+            <LeftRing />
+            <RightRing />
+            <Weapon>Fangs</Weapon>
+        </Equipment>
+    </Enemy>
+</AllEnemies>

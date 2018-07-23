@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the Class of a Hero.</summary>
-    internal class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
+    public class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
     {
         private string _name, _description;
 

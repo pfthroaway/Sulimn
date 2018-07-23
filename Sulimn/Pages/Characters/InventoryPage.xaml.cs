@@ -16,6 +16,7 @@ namespace Sulimn.Pages.Characters
         private List<BodyArmor> _inventoryBody = new List<BodyArmor>();
         private List<FeetArmor> _inventoryFeet = new List<FeetArmor>();
         private List<Food> _inventoryFood = new List<Food>();
+        private List<Drink> _inventoryDrinks = new List<Drink>();
         private List<HandArmor> _inventoryHands = new List<HandArmor>();
         private List<HeadArmor> _inventoryHead = new List<HeadArmor>();
         private List<LegArmor> _inventoryLegs = new List<LegArmor>();
@@ -25,6 +26,7 @@ namespace Sulimn.Pages.Characters
         private BodyArmor _selectedBody = new BodyArmor();
         private FeetArmor _selectedFeet = new FeetArmor();
         private Food _selectedFood = new Food();
+        private Drink _selectedDrink = new Drink();
         private HandArmor _selectedHands = new HandArmor();
         private HeadArmor _selectedHead = new HeadArmor();
         private LegArmor _selectedLegs = new LegArmor();
@@ -273,6 +275,25 @@ namespace Sulimn.Pages.Characters
             LblSelectedFoodDescription.DataContext = _selectedFood;
         }
 
+        private void BindDrink(bool reload = true)
+        {
+            if (reload)
+            {
+                _inventoryDrinks.Clear();
+                _inventoryDrinks.AddRange(GameState.CurrentHero.GetItemsOfType<Drink>());
+                _inventoryDrinks = _inventoryDrinks.OrderBy(drink => drink.Value).ToList();
+                LstDrinkInventory.UnselectAll();
+                LstDrinkInventory.ItemsSource = _inventoryDrinks;
+                LstDrinkInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
+                LstDrinkInventory.Items.Refresh();
+            }
+            LblSelectedDrink.DataContext = _selectedDrink;
+            LblSelectedDrinkTypeAmount.DataContext = _selectedDrink;
+            LblSelectedDrinkValue.DataContext = _selectedDrink;
+            LblSelectedDrinkSellable.DataContext = _selectedDrink;
+            LblSelectedDrinkDescription.DataContext = _selectedDrink;
+        }
+
         private void BindLabels()
         {
             BindWeapon();
@@ -284,6 +305,7 @@ namespace Sulimn.Pages.Characters
             BindRing();
             BindPotion();
             BindFood();
+            BindDrink();
 
             DataContext = GameState.CurrentHero;
             LblHealth.DataContext = GameState.CurrentHero.Statistics;
@@ -549,25 +571,26 @@ namespace Sulimn.Pages.Characters
 
         #region Potion-Click
 
+        private void Consume(Consumable selectedConsumable)
+        {
+            Functions.AddTextToTextBox(TxtInventory, $"You consume the {selectedConsumable.Name}.");
+
+            if (selectedConsumable.RestoreHealth > 0)
+                Functions.AddTextToTextBox(TxtInventory, GameState.CurrentHero.Heal(selectedConsumable.RestoreHealth));
+
+            if (selectedConsumable.RestoreHealth > 0)
+                Functions.AddTextToTextBox(TxtInventory, GameState.CurrentHero.Statistics.RestoreMagic(selectedConsumable.RestoreMagic));
+
+            if (selectedConsumable.Cures)
+                Functions.AddTextToTextBox(TxtInventory, "You are now free of any ailments.");
+            //TODO Implement Curing
+
+            GameState.CurrentHero.RemoveItem(selectedConsumable);
+        }
+
         private void BtnConsumeSelectedPotion_Click(object sender, RoutedEventArgs e)
         {
-            Functions.AddTextToTextBox(TxtInventory, $"You consume the {_selectedPotion.Name}.");
-            switch (_selectedPotion.PotionType)
-            {
-                case PotionTypes.Healing:
-                    Functions.AddTextToTextBox(TxtInventory, GameState.CurrentHero.Heal(_selectedPotion.Amount));
-                    break;
-
-                case PotionTypes.Magic:
-                    Functions.AddTextToTextBox(TxtInventory, GameState.CurrentHero.Statistics.RestoreMagic(_selectedPotion.Amount));
-                    break;
-
-                case PotionTypes.Curing:
-                    Functions.AddTextToTextBox(TxtInventory, "You are now free of any ailments.");
-                    break;
-            }
-
-            GameState.CurrentHero.RemoveItem(_selectedPotion);
+            Consume(_selectedPotion);
             BindPotion();
         }
 
@@ -592,18 +615,7 @@ namespace Sulimn.Pages.Characters
 
         private void BtnConsumeSelectedFood_Click(object sender, RoutedEventArgs e)
         {
-            switch (_selectedFood.FoodType)
-            {
-                case FoodTypes.Food:
-                    Functions.AddTextToTextBox(TxtInventory, $"You eat the {_selectedFood.Name}.\n{GameState.CurrentHero.Heal(_selectedFood.Amount)}");
-                    break;
-
-                case FoodTypes.Drink:
-                    Functions.AddTextToTextBox(TxtInventory, $"You drink the {_selectedFood.Name}.\n{GameState.CurrentHero.Statistics.RestoreMagic(_selectedFood.Amount)}");
-                    break;
-            }
-
-            GameState.CurrentHero.RemoveItem(_selectedFood);
+            Consume(_selectedFood);
             BindFood();
         }
 
@@ -623,6 +635,31 @@ namespace Sulimn.Pages.Characters
         }
 
         #endregion Food-Click
+
+        #region Drink-Click
+
+        private void BtnConsumeSelectedDrink_Click(object sender, RoutedEventArgs e)
+        {
+            Consume(_selectedDrink);
+            BindDrink();
+        }
+
+        private void BtnDropSelectedDrink_Click(object sender, RoutedEventArgs e)
+        {
+            if (DropItem(_selectedDrink))
+                BindDrink();
+        }
+
+        private void LstDrinkInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedDrink = LstDrinkInventory.SelectedIndex >= 0 ? new Drink((Drink)LstDrinkInventory.SelectedValue) : new Drink();
+            BtnConsumeSelectedDrink.IsEnabled = LstDrinkInventory.SelectedIndex >= 0;
+            BtnDropSelectedDrink.IsEnabled = LstDrinkInventory.SelectedIndex >= 0;
+
+            BindDrink(false);
+        }
+
+        #endregion Drink-Click
 
         #region Page-Manipulation Methods
 

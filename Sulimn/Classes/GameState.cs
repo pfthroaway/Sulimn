@@ -33,6 +33,7 @@ namespace Sulimn.Classes
         internal static List<Ring> AllRings = new List<Ring>();
         internal static List<Weapon> AllWeapons = new List<Weapon>();
         internal static List<Food> AllFood = new List<Food>();
+        internal static List<Drink> AllDrinks = new List<Drink>();
         internal static List<Potion> AllPotions = new List<Potion>();
         internal static List<Spell> AllSpells = new List<Spell>();
         internal static List<Hero> AllHeroes = new List<Hero>();
@@ -129,18 +130,19 @@ namespace Sulimn.Classes
             DatabaseInteraction.VerifyDatabaseIntegrity();
 
             AdminPassword = await DatabaseInteraction.LoadAdminPassword();
-            AllClasses = await DatabaseInteraction.LoadClasses();
-            AllHeadArmor = await DatabaseInteraction.LoadHeadArmor();
-            AllBodyArmor = await DatabaseInteraction.LoadBodyArmor();
-            AllHandArmor = await DatabaseInteraction.LoadHandArmor();
-            AllLegArmor = await DatabaseInteraction.LoadLegArmor();
-            AllFeetArmor = await DatabaseInteraction.LoadFeetArmor();
-            AllRings = await DatabaseInteraction.LoadRings();
-            AllFood = await DatabaseInteraction.LoadFood();
-            AllPotions = await DatabaseInteraction.LoadPotions();
-            AllSpells = await DatabaseInteraction.LoadSpells();
-            AllWeapons = await DatabaseInteraction.LoadWeapons();
-            AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllPotions, AllWeapons);
+            AllClasses = XMLInteraction.LoadClasses();
+            AllHeadArmor = XMLInteraction.LoadHeadArmor();
+            AllBodyArmor = XMLInteraction.LoadBodyArmor();
+            AllHandArmor = XMLInteraction.LoadHandArmor();
+            AllLegArmor = XMLInteraction.LoadLegArmor();
+            AllFeetArmor = XMLInteraction.LoadFeetArmor();
+            AllRings = XMLInteraction.LoadRings();
+            AllDrinks = XMLInteraction.LoadDrinks();
+            AllFood = XMLInteraction.LoadFood();
+            AllPotions = XMLInteraction.LoadPotions();
+            AllSpells = XMLInteraction.LoadSpells();
+            AllWeapons = XMLInteraction.LoadWeapons();
+            AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllDrinks, AllPotions, AllWeapons);
             AllEnemies = await DatabaseInteraction.LoadEnemies();
             AllHeroes = await DatabaseInteraction.LoadHeroes();
             MaximumStatsHero = await DatabaseInteraction.LoadMaxHeroStats();
@@ -238,6 +240,21 @@ namespace Sulimn.Classes
         /// <typeparam name="T">Type</typeparam>
         /// <returns>List of specified Type.</returns>
         public static List<T> GetItemsOfType<T>() => AllItems.OfType<T>().ToList();
+
+        /// <summary>Sets allowed <see cref="HeroClass"/>es based on a string.</summary>
+        /// <param name="classes">AllowedClasses to be converted</param>
+        /// <returns>List of allowed <see cref="HeroClass"/>es</returns>
+        internal static List<HeroClass> SetAllowedClasses(string classes)
+        {
+            List<HeroClass> newAllowedClasses = new List<HeroClass>();
+
+            if (classes.Length > 0)
+            {
+                string[] arrAllowedClasses = classes.Split(',');
+                newAllowedClasses.AddRange(arrAllowedClasses.Select(str => AllClasses.Find(x => x.Name == str.Trim())));
+            }
+            return newAllowedClasses;
+        }
 
         /// <summary>Sets the Hero's inventory.</summary>
         /// <param name="inventory">Inventory to be converted</param>

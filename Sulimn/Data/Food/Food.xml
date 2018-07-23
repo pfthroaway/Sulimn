@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllFood>
+    <Food>
+        <Name>Beef</Name>
+        <Description>A prime cut of beef.</Description>
+        <RestoreHealth>40</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>200</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Food>
+    <Food>
+        <Name>Bread</Name>
+        <Description>A slice of bread.</Description>
+        <RestoreHealth>10</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>50</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Food>
+    <Food>
+        <Name>Chicken</Name>
+        <Description>A piece of grilled chicken.</Description>
+        <RestoreHealth>30</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>150</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Food>
+    <Food>
+        <Name>Cracker</Name>
+        <Description>A cracker.</Description>
+        <RestoreHealth>5</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>25</Value>
+        <Weight>0</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Food>
+    <Food>
+        <Name>Soup</Name>
+        <Description>A small container of soup.</Description>
+        <RestoreHealth>15</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>75</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Food>
+</AllFood>

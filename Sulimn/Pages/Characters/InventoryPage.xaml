@@ -585,6 +585,47 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            <TabItem Header="Drinks" Padding="10,5">
+                <Grid HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Inventory" Margin="5">
+                        <ListBox x:Name="LstDrinkInventory" Width="265" Height="300" ItemsSource="{Binding}"
+                                 SelectionChanged="LstDrinkInventory_SelectionChanged"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5" />
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                              Width="270" Height="340" Header="Selected Drink" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="LblSelectedDrink" Grid.Row="0" Width="250" Text="{Binding Path=Name}"
+                                       Margin="5" />
+                            <TextBlock x:Name="LblSelectedDrinkTypeAmount" Grid.Row="1" Width="250"
+                                       Text="{Binding Path=TypeAmount}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedDrinkValue" Grid.Row="2"
+                                       Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedDrinkSellable" Grid.Row="3"
+                                       Text="{Binding Path=CanSellToString}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedDrinkDescription" Grid.Row="4"
+                                       Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                            <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Center">
+                                <Button x:Name="BtnConsumeSelectedDrink" Width="100" Content="_Consume" Click="BtnConsumeSelectedDrink_Click" IsEnabled="False" Margin="5" />
+                                <Button x:Name="BtnDropSelectedDrink" Width="100" Content="_Drop" Click="BtnDropSelectedDrink_Click" IsEnabled="False" Margin="5" />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
         </TabControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"
                     Margin="0,0,0,10">

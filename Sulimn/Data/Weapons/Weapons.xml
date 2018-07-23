@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllWeapons>
+    <Weapon>
+        <Name>Beak</Name>
+        <Description>A chicken's beak.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>5</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Fangs</Name>
+        <Description>An animal's sharp fangs.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>10</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Fists</Name>
+        <Description>Your bare hands.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>5</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Minotaur Horns</Name>
+        <Description>A minotaur's horns.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>40</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Necromancer Staff</Name>
+        <Description>A staff wielded by Necromancers.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>60</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>10</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Sharp Fangs</Name>
+        <Description>Sharp animal fangs.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>15</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Spider Fangs</Name>
+        <Description>The sharp fangs of a giant spider.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>25</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Starter Bow</Name>
+        <Description>An old, withered bow.</Description>
+        <WeaponType>Ranged</WeaponType>
+        <Damage>8</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>6</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Starter Staff</Name>
+        <Description>An old, gnarled piece of wood fashioned as a magical weapon.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>8</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>6</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Stone Dagger</Name>
+        <Description>A crumbling dagger made of stone.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>10</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>6</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Teeth</Name>
+        <Description>An animal's teeth.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>3</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Tusks</Name>
+        <Description>An animal's tusks.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>10</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>0</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Club</Name>
+        <Description>A blunt tool for beating an opponent's skull.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>12</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>360</Value>
+        <Weight>10</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Light Bow</Name>
+        <Description>A basic ranged weapon.</Description>
+        <WeaponType>Ranged</WeaponType>
+        <Damage>12</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>360</Value>
+        <Weight>8</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Light Staff</Name>
+        <Description>A light staff.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>12</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>360</Value>
+        <Weight>8</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Dagger</Name>
+        <Description>A short, sharp, iron weapon for close encounters.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>15</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>450</Value>
+        <Weight>3</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Light Axe</Name>
+        <Description>A light axe, capable of quickly chopping up foes.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>20</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>600</Value>
+        <Weight>15</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Steel Dagger</Name>
+        <Description>A sharp, short, steel dagger.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>24</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>720</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Mace</Name>
+        <Description>A club with a spiked metal ball at the tip.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>25</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>750</Value>
+        <Weight>20</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Cleaver</Name>
+        <Description>A sharp cleaver.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>26</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>780</Value>
+        <Weight>8</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Heavy Bow</Name>
+        <Description>A heavy bow, capable of shooting long distances.</Description>
+        <WeaponType>Ranged</WeaponType>
+        <Damage>30</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>1,500</Value>
+        <Weight>16</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Short Sword</Name>
+        <Description>A short, sharp sword.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>30</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>1,500</Value>
+        <Weight>12</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Heavy Axe</Name>
+        <Description>A heavy axe, capable of chopping up strong foes.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>40</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>25</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Long Sword</Name>
+        <Description>A long, sharp sword.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>40</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>20</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Pickaxe</Name>
+        <Description>A tool used for mining.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>40</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>25</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Spear</Name>
+        <Description>A long spear capable of stabbing a foe while staying out of reach of their melee attacks.</Description>
+        <WeaponType>Ranged</WeaponType>
+        <Damage>40</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>15</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Bo Staff</Name>
+        <Description>A long staff wielded with both hands, capable of striking foes near and far.</Description>
+        <WeaponType>Ranged</WeaponType>
+        <Damage>48</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,400</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Composite Bow</Name>
+        <Description>A bow with a special design, capable of shooting far and quickly.</Description>
+        <WeaponType>Ranged</WeaponType>
+        <Damage>60</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>3,000</Value>
+        <Weight>20</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Great Sword</Name>
+        <Description>A giant sword capable of inflicting massive damage.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>60</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>3,000</Value>
+        <Weight>30</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Pike</Name>
+        <Description>A lengthy spear with a barbed tip.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>60</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>3,000</Value>
+        <Weight>20</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Berserker Axe</Name>
+        <Description>An axe wielded by the most dangerous of foes.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>80</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>4,000</Value>
+        <Weight>35</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Super Sword</Name>
+        <Description>A sword of untold power, capable of slicing most foes in two in a single blow.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>100</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>10,000</Value>
+        <Weight>30</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </Weapon>
+    <Weapon>
+        <Name>Sword of Souls</Name>
+        <Description>A sword enchanted by the gods themselves, this weapon was thought lost for centuries.</Description>
+        <WeaponType>Melee</WeaponType>
+        <Damage>150</Damage>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>15,000</Value>
+        <Weight>30</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </Weapon>
+</AllWeapons>

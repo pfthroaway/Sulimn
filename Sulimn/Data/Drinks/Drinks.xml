@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllDrinks>
+    <Drink>
+        <Name>Ale</Name>
+        <Description>A small cup of ale.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>20</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>100</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Drink>
+    <Drink>
+        <Name>Beer</Name>
+        <Description>A small cup of beer</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>5</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>25</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Drink>
+    <Drink>
+        <Name>Grog</Name>
+        <Description>A small cup of grog.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>10</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>50</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Drink>
+    <Drink>
+        <Name>Tea</Name>
+        <Description>A small cup of tea.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>40</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>200</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Drink>
+    <Drink>
+        <Name>Water</Name>
+        <Description>A small cup of water.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>30</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>150</Value>
+        <Weight>2</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Drink>
+</AllDrinks>

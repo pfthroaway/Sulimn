@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllPotions>
+    <Potion>
+        <Name>Curing Potion</Name>
+        <Description>A potion which can cure many ailments.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>True</Cures>
+        <Value>250</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Greater Healing Potion</Name>
+        <Description>A strong healing potion.</Description>
+        <RestoreHealth>200</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>800</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Greater Magic Potion</Name>
+        <Description>A strong magical potion.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>200</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>800</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Healing Potion</Name>
+        <Description>A healing potion.</Description>
+        <RestoreHealth>100</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>400</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Light Healing Potion</Name>
+        <Description>A weak healing potion.</Description>
+        <RestoreHealth>50</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>100</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Light Magic Potion</Name>
+        <Description>A weak magic potion.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>50</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>100</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Magic Potion</Name>
+        <Description>A magic potion.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>100</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>400</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Minor Healing Potion</Name>
+        <Description>A very weak healing potion.</Description>
+        <RestoreHealth>25</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>50</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Minor Magic Potion</Name>
+        <Description>A very weak magic potion.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>25</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>50</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Super Healing Potion</Name>
+        <Description>A very strong healing potion.</Description>
+        <RestoreHealth>400</RestoreHealth>
+        <RestoreMagic>0</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>1,600</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+    <Potion>
+        <Name>Super Magic Potion</Name>
+        <Description>A very strong magic potion.</Description>
+        <RestoreHealth>0</RestoreHealth>
+        <RestoreMagic>400</RestoreMagic>
+        <Cures>False</Cures>
+        <Value>1,600</Value>
+        <Weight>5</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+    </Potion>
+</AllPotions>

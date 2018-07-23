@@ -1,5 +1,4 @@
-﻿using Sulimn.Classes.Entities;
-using Sulimn.Classes.HeroParts;
+﻿using Sulimn.Classes.HeroParts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

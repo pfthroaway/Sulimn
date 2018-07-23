@@ -1,107 +1,43 @@
-﻿using Sulimn.Classes.Enums;
-using System;
-
-namespace Sulimn.Classes.Items
+﻿namespace Sulimn.Classes.Items
 {
-    /// <summary>Represents a Potion which can be consumed by a Hero.</summary>
-    internal class Potion : Consumable, IEquatable<Potion>
+    /// <summary>Represents a <see cref="Potion"/> which the <see cref="Hero"/> can consume.</summary>
+    internal class Potion : Consumable
     {
-        #region Properties
-
-        public PotionTypes PotionType { get; }
-
-        public int Amount { get; }
-
-        #endregion Properties
-
-        #region Helper Properties
-
-        /// <summary>Returns text relating to the type and amount of the Potion</summary>
-        public string TypeAmount
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Name))
-                    switch (PotionType)
-                    {
-                        case PotionTypes.Healing:
-                            return $"Restores {Amount:N0} Health.";
-
-                        case PotionTypes.Magic:
-                            return $"Restores {Amount:N0} Magic.";
-
-                        case PotionTypes.Curing:
-                            return "Cures any ailments.";
-                    }
-                return "";
-            }
-        }
-
-        #endregion Helper Properties
-
-        #region Override Operators
-
-        private static bool Equals(Potion left, Potion right)
-        {
-            if (left is null && right is null) return true;
-            if (left is null ^ right is null) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.PotionType == right.PotionType && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.Amount == right.Amount && left.Weight == right.Weight && left.Value == right.Value && left.CanSell == right.CanSell && left.IsSold == right.IsSold;
-        }
-
-        public sealed override bool Equals(object obj) => Equals(this, obj as Potion);
-
-        public bool Equals(Potion other) => Equals(this, other);
-
-        public static bool operator ==(Potion left, Potion right) => Equals(left, right);
-
-        public static bool operator !=(Potion left, Potion right) => !Equals(left, right);
-
-        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
-
-        public sealed override string ToString() => Name;
-
-        #endregion Override Operators
-
         #region Constructors
 
-        /// <summary>Initializes a default instance of Potion.</summary>
+        /// <summary>/// Initializes a default instance of <see cref="Potion"/>./// </summary>
         internal Potion()
         {
         }
 
-        /// <summary>Initializes an instance of Potion by assigning Properties.</summary>
-        /// <param name="name">Name of Potion</param>
-        /// <param name="potionType">Type of Potion</param>
-        /// <param name="description">Description of Potion</param>
-        /// <param name="amount">Amount of Potion</param>
-        /// <param name="value">Value of Potion</param>
-        /// <param name="canSell">Can Potion be sold?</param>
-        /// <param name="isSold">Is Potion sold?</param>
-        internal Potion(string name, PotionTypes potionType, string description, int amount, int value, bool canSell,
-        bool isSold)
+        /// <summary>Initializes an instance of <see cref="Potion"/> by assigning Properties.</summary>
+        /// <param name="name">Name of <see cref="Potion"/></param>
+        /// <param name="description">Description of <see cref="Potion"/></param>
+        /// <param name="restoreHealth">Amount of Health restored</param>
+        /// <param name="restoreMagic">Amount of Magic restored</param>
+        /// <param name="cures">Cures?</param>
+        /// <param name="weight">Weight of <see cref="Potion"/></param>
+        /// <param name="value">Value of <see cref="Potion"/></param>
+        /// <param name="canSell">Can <see cref="Potion"/> be sold?</param>
+        /// <param name="isSold">Is <see cref="Potion"/> sold?</param>
+        internal Potion(string name, string description, int restoreHealth, int restoreMagic, bool cures, int weight, int value,
+        bool canSell, bool isSold)
         {
             Name = name;
-            PotionType = potionType;
             Description = description;
-            Weight = 0;
+            RestoreHealth = restoreHealth;
+            RestoreMagic = restoreMagic;
+            Cures = cures;
+            Weight = weight;
             Value = value;
-            Amount = amount;
             CanSell = canSell;
             IsSold = isSold;
         }
 
-        /// <summary>Replaces this instance of Potion with another instance.</summary>
-        /// <param name="otherPotion">Instance of Potion to replace this instance</param>
-        internal Potion(Potion otherPotion)
+        /// <summary>Replaces this instance of <see cref="Potion"/> with another instance.</summary>
+        /// <param name="other">Instance of <see cref="Potion"/> to replace this instance</param>
+        internal Potion(Potion other) : this(other.Name, other.Description, other.RestoreHealth, other.RestoreMagic, other.Cures, other.Weight, other.Value, other.CanSell, other.IsSold)
         {
-            Name = otherPotion.Name;
-            PotionType = otherPotion.PotionType;
-            Description = otherPotion.Description;
-            Weight = 0;
-            Value = otherPotion.Value;
-            Amount = otherPotion.Amount;
-            CanSell = otherPotion.CanSell;
-            IsSold = otherPotion.IsSold;
         }
 
         #endregion Constructors

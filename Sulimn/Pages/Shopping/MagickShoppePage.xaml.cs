@@ -28,9 +28,9 @@ namespace Sulimn.Pages.Shopping
             {
                 if (!GameState.CurrentHero.Spellbook.Spells.Contains(spell))
                 {
-                    if (spell.RequiredClass.Length == 0)
+                    if (spell.AllowedClasses.Count == 0)
                         learnSpells.Add(spell);
-                    else if (GameState.CurrentHero.Class.Name == spell.RequiredClass)
+                    else if (spell.AllowedClasses.Contains(GameState.CurrentHero.Class))
                         learnSpells.Add(spell);
                 }
             }

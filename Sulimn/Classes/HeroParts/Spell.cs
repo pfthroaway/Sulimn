@@ -1,15 +1,18 @@
 ﻿using Sulimn.Classes.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents a Spell a Hero can cast.</summary>
     public class Spell : INotifyPropertyChanged, IEquatable<Spell>
     {
-        private string _name, _description, _requiredClass;
+        private string _name, _description;
         private int _requiredLevel, _magicCost, _amount;
         private SpellTypes _type;
+        private List<HeroClass> _allowedClasses = new List<HeroClass>();
 
         #region Data-Binding
 
@@ -56,13 +59,13 @@ namespace Sulimn.Classes.HeroParts
             }
         }
 
-        /// <summary>Required Class of the Spell.</summary>
-        public string RequiredClass
+        /// <summary><see cref="HeroClass"/>es allowed to use the Spell.</summary>
+        public List<HeroClass> AllowedClasses
         {
-            get => _requiredClass;
+            get => _allowedClasses;
             private set
             {
-                _requiredClass = value;
+                _allowedClasses = value;
                 OnPropertyChanged("RequiredClass");
             }
         }
@@ -105,8 +108,11 @@ namespace Sulimn.Classes.HeroParts
 
         #region Helper Properties
 
-        /// <summary>Required Class of the Spell, with preceding text.</summary>
-        public string RequiredClassToString => !string.IsNullOrWhiteSpace(Name) ? $"Required Class: {RequiredClass}" : "";
+        /// <summary><see cref="HeroClass"/>es allowed to use the Spell, formatted.</summary>
+        public string AllowedClassesToString => AllowedClasses.Count > 0 ? string.Join(",", AllowedClasses) : "";
+
+        /// <summary><see cref="HeroClass"/>es allowed to use the Spell, formatted, with preceding text.</summary>
+        public string AllowedClassesToStringWithText => AllowedClasses.Count > 0 ? $"Allowed Classes: {string.Join(",", AllowedClasses)}" : "";
 
         /// <summary>Type of the Spell, in string format.</summary>
         public string TypeToString => !string.IsNullOrWhiteSpace(Name) ? Type.ToString() : "";
@@ -140,7 +146,8 @@ namespace Sulimn.Classes.HeroParts
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
                    && left.Type == right.Type
                    && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase)
-                   && string.Equals(left.RequiredClass, right.RequiredClass, StringComparison.OrdinalIgnoreCase)
+                   && left.AllowedClasses == right.AllowedClasses
+                   && !left.AllowedClasses.Except(right.AllowedClasses).Any()
                    && left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost
                    && left.Amount == right.Amount;
         }
@@ -166,21 +173,21 @@ namespace Sulimn.Classes.HeroParts
         {
         }
 
-        /// <summary>Initializes an instance of Spell by assigning Properties.</summary>
-        /// <param name="name">Name of Spell</param>
-        /// <param name="spellType">Type of Spell</param>
-        /// <param name="description">Description of Spell</param>
-        /// <param name="requiredClass">Required HeroClass of Spell</param>
-        /// <param name="requiredLevel">Required Level to learn Spell</param>
-        /// <param name="magicCost">Magic cost of Spell</param>
-        /// <param name="amount">Amount of Spell</param>
-        internal Spell(string name, SpellTypes spellType, string description, string requiredClass, int requiredLevel,
+        /// <summary>Initializes an instance of <see cref="Spell"/> by assigning Properties.</summary>
+        /// <param name="name">Name of <see cref="Spell"/></param>
+        /// <param name="spellType">Type of <see cref="Spell"/></param>
+        /// <param name="description">Description of <see cref="Spell"/></param>
+        /// <param name="allowedClasses"><see cref="HeroClass"/>es allowed to learn the <see cref="<see cref="Spell"/>"/></param>
+        /// <param name="requiredLevel">Required Level to learn <see cref="Spell"/></param>
+        /// <param name="magicCost">Magic cost of <see cref="Spell"/></param>
+        /// <param name="amount">Amount of <see cref="Spell"/></param>
+        internal Spell(string name, SpellTypes spellType, string description, List<HeroClass> allowedClasses, int requiredLevel,
         int magicCost, int amount)
         {
             Name = name;
             Type = spellType;
             Description = description;
-            RequiredClass = requiredClass;
+            AllowedClasses = allowedClasses;
             RequiredLevel = requiredLevel;
             MagicCost = magicCost;
             Amount = amount;

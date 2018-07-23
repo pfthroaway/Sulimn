@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AllBodyArmor>
+    <BodyArmor>
+        <Name>Cloth Shirt</Name>
+        <Description>A plain shirt made of cloth.</Description>
+        <Defense>5</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>8</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Robe</Name>
+        <Description>A robe, made of a strong fabric.</Description>
+        <Defense>16</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>10</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Necromancer Robes</Name>
+        <Description>Robes of a Necromancer.</Description>
+        <Defense>25</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>0</Value>
+        <Weight>20</Weight>
+        <CanSell>False</CanSell>
+        <IsSold>False</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Leather Shirt</Name>
+        <Description>An unadorned shirt made of leather.</Description>
+        <Defense>12</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>360</Value>
+        <Weight>21</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Studded Leather Doublet</Name>
+        <Description>A studded leather chest armor.</Description>
+        <Defense>18</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>540</Value>
+        <Weight>15</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Chain Mail Chestplate</Name>
+        <Description>A breastplate made of chainmail.</Description>
+        <Defense>27</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>810</Value>
+        <Weight>35</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Silk Chestplate</Name>
+        <Description>A breastplate made of silk of strong tensile strength.</Description>
+        <Defense>34</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>1,700</Value>
+        <Weight>10</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Plate Mail Chestplate</Name>
+        <Description>A superiorly crafted breastplate made of sturdy steel.</Description>
+        <Defense>40</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>2,000</Value>
+        <Weight>14</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+    <BodyArmor>
+        <Name>Diamond Chestplate</Name>
+        <Description>An extraordinarily strong chestplate made of interlocking pieces of diamond.</Description>
+        <Defense>60</Defense>
+        <Durability>0</Durability>
+        <MinimumLevel>0</MinimumLevel>
+        <Value>3,000</Value>
+        <Weight>20</Weight>
+        <CanSell>True</CanSell>
+        <IsSold>True</IsSold>
+        <AllowedClasses />
+    </BodyArmor>
+</AllBodyArmor>

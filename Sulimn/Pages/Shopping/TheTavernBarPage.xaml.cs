@@ -1,6 +1,5 @@
 ﻿using Extensions;
 using Sulimn.Classes;
-using Sulimn.Classes.Enums;
 using Sulimn.Classes.Items;
 using Sulimn.Pages.Characters;
 using System.Collections.Generic;
@@ -14,13 +13,13 @@ namespace Sulimn.Pages.Shopping
     /// <summary>Interaction logic for TheTavernBarPage.xaml</summary>
     public partial class TheTavernBarPage : INotifyPropertyChanged
     {
-        private List<Food> _purchaseDrink = new List<Food>();
+        private List<Drink> _purchaseDrink = new List<Drink>();
         private List<Food> _purchaseFood = new List<Food>();
-        private Food _selectedDrinkPurchase = new Food();
-        private Food _selectedDrinkSell = new Food();
+        private Drink _selectedDrinkPurchase = new Drink();
+        private Drink _selectedDrinkSell = new Drink();
         private Food _selectedFoodPurchase = new Food();
         private Food _selectedFoodSell = new Food();
-        private List<Food> _sellDrink = new List<Food>();
+        private List<Drink> _sellDrink = new List<Drink>();
         private List<Food> _sellFood = new List<Food>();
 
         #region Data-Binding
@@ -33,7 +32,7 @@ namespace Sulimn.Pages.Shopping
             {
                 _purchaseFood.Clear();
                 _purchaseFood.AddRange(
-                GameState.GetItemsOfType<Food>().Where(food => food.IsSold && food.FoodType == FoodTypes.Food));
+                GameState.GetItemsOfType<Food>().Where(food => food.IsSold));
                 _purchaseFood = _purchaseFood.OrderBy(food => food.Value).ToList();
                 LstFoodPurchase.ItemsSource = _purchaseFood;
                 LstFoodPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -52,8 +51,7 @@ namespace Sulimn.Pages.Shopping
             {
                 _sellFood.Clear();
                 _sellFood.AddRange(
-                GameState.CurrentHero.GetItemsOfType<Food>()
-                .Where(food => food.FoodType == FoodTypes.Food));
+                GameState.CurrentHero.GetItemsOfType<Food>());
                 _sellFood = _sellFood.OrderBy(food => food.Value).ToList();
                 LstFoodSell.ItemsSource = _sellFood;
                 LstFoodSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -72,7 +70,7 @@ namespace Sulimn.Pages.Shopping
             {
                 _purchaseDrink.Clear();
                 _purchaseDrink.AddRange(
-                GameState.GetItemsOfType<Food>().Where(drink => drink.IsSold && drink.FoodType == FoodTypes.Drink));
+                GameState.GetItemsOfType<Drink>().Where(drink => drink.IsSold));
                 _purchaseDrink = _purchaseDrink.OrderBy(food => food.Value).ToList();
                 LstDrinkPurchase.ItemsSource = _purchaseDrink;
                 LstDrinkPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -91,8 +89,7 @@ namespace Sulimn.Pages.Shopping
             {
                 _sellDrink.Clear();
                 _sellDrink.AddRange(
-                GameState.CurrentHero.GetItemsOfType<Food>()
-                .Where(drink => drink.FoodType == FoodTypes.Drink));
+                GameState.CurrentHero.GetItemsOfType<Drink>());
                 _sellDrink = _sellDrink.OrderBy(drink => drink.Value).ToList();
                 LstDrinkSell.ItemsSource = _sellDrink;
                 LstDrinkSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -212,8 +209,8 @@ namespace Sulimn.Pages.Shopping
         private void LstDrinkPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedDrinkPurchase = LstDrinkPurchase.SelectedIndex >= 0
-            ? (Food)LstDrinkPurchase.SelectedValue
-            : new Food();
+            ? (Drink)LstDrinkPurchase.SelectedValue
+            : new Drink();
 
             BtnDrinkPurchase.IsEnabled = _selectedDrinkPurchase.Value > 0 && _selectedDrinkPurchase.Value <= GameState.CurrentHero.Gold;
             BindDrinkPurchase(false);
@@ -221,7 +218,7 @@ namespace Sulimn.Pages.Shopping
 
         private void LstDrinkSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedDrinkSell = LstDrinkSell.SelectedIndex >= 0 ? (Food)LstDrinkSell.SelectedValue : new Food();
+            _selectedDrinkSell = LstDrinkSell.SelectedIndex >= 0 ? (Drink)LstDrinkSell.SelectedValue : new Drink();
 
             BtnDrinkSell.IsEnabled = _selectedDrinkSell.CanSell;
             BindDrinkSell(false);
