@@ -143,8 +143,8 @@ namespace Sulimn.Classes
             AllSpells = XMLInteraction.LoadSpells();
             AllWeapons = XMLInteraction.LoadWeapons();
             AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllDrinks, AllPotions, AllWeapons);
-            AllEnemies = await DatabaseInteraction.LoadEnemies();
-            AllHeroes = await DatabaseInteraction.LoadHeroes();
+            AllEnemies = XMLInteraction.LoadEnemies();
+            AllHeroes = XMLInteraction.LoadHeroes();
             MaximumStatsHero = await DatabaseInteraction.LoadMaxHeroStats();
 
             AllItems = AllItems.OrderBy(item => item.Name).ToList();

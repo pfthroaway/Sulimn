@@ -33,13 +33,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllClasses/Class"))
                     {
                         HeroClass newClass = new HeroClass(
-                        name: xn["Name"].InnerText,
-                        description: xn["Description"].InnerText,
-                        skillPoints: Int32Helper.Parse(xn["SkillPoints"].InnerText),
-                        strength: Int32Helper.Parse(xn["Strength"].InnerText),
-                        vitality: Int32Helper.Parse(xn["Vitality"].InnerText),
-                        dexterity: Int32Helper.Parse(xn["Dexterity"].InnerText),
-                        wisdom: Int32Helper.Parse(xn["Wisdom"].InnerText));
+                        name: xn["Name"]?.InnerText,
+                        description: xn["Description"]?.InnerText,
+                        skillPoints: Int32Helper.Parse(xn["SkillPoints"]?.InnerText),
+                        strength: Int32Helper.Parse(xn["Strength"]?.InnerText),
+                        vitality: Int32Helper.Parse(xn["Vitality"]?.InnerText),
+                        dexterity: Int32Helper.Parse(xn["Dexterity"]?.InnerText),
+                        wisdom: Int32Helper.Parse(xn["Wisdom"]?.InnerText));
 
                         allClasses.Add(newClass);
                     }
@@ -62,79 +62,60 @@ namespace Sulimn.Classes.Database
             List<Enemy> allEnemies = new List<Enemy>();
             XmlDocument xmlDoc = new XmlDocument();
 
-            if (File.Exists("Data/Classes/Classes.xml"))
+            if (File.Exists("Data/Enemies/Enemies.xml"))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Classes/Classes.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllClasses"))
+                    xmlDoc.Load("Data/Enemies/Enemies.xml");
+                    foreach (XmlNode node in xmlDoc.SelectNodes("/AllEnemies/Enemy"))
                     {
-                        Weapon weapon = new Weapon();
-                        if (!string.IsNullOrWhiteSpace(xn["Weapon"].ToString()))
-                            weapon =
-                            new Weapon(
-                            GameState.AllWeapons.Find(wpn => wpn.Name == xn["Weapon"].ToString()));
-                        HeadArmor head = new HeadArmor();
-                        if (!string.IsNullOrWhiteSpace(xn["Head"].ToString()))
-                            head =
-                            new HeadArmor(
-                            GameState.AllHeadArmor.Find(armr => armr.Name == xn["Head"].ToString()));
-                        BodyArmor body = new BodyArmor();
-                        if (!string.IsNullOrWhiteSpace(xn["Body"].ToString()))
-                            body =
-                            new BodyArmor(
-                            GameState.AllBodyArmor.Find(armr => armr.Name == xn["Body"].ToString()));
-                        HandArmor hands = new HandArmor();
-                        if (!string.IsNullOrWhiteSpace(xn["Hands"].ToString()))
-                            hands =
-                            new HandArmor(
-                            GameState.AllHandArmor.Find(armr => armr.Name == xn["Hands"].ToString()));
-                        LegArmor legs = new LegArmor();
-                        if (!string.IsNullOrWhiteSpace(xn["Legs"].ToString()))
-                            legs =
-                            new LegArmor(
-                            GameState.AllLegArmor.Find(armr => armr.Name == xn["Legs"].ToString()));
-                        FeetArmor feet = new FeetArmor();
-                        if (!string.IsNullOrWhiteSpace(xn["Feet"].ToString()))
-                            feet =
-                            new FeetArmor(
-                            GameState.AllFeetArmor.Find(armr => armr.Name == xn["Feet"].ToString()));
-                        Ring leftRing = new Ring();
-                        if (!string.IsNullOrWhiteSpace(xn["LeftRing"].ToString()))
-                            leftRing =
-                            new Ring(
-                            GameState.AllRings.Find(ring => ring.Name == xn["LeftRing"].ToString()));
-                        Ring rightRing = new Ring();
-                        if (!string.IsNullOrWhiteSpace(xn["RightRing"].ToString()))
-                            rightRing =
-                            new Ring(
-                            GameState.AllRings.Find(ring => ring.Name == xn["RightRing"].ToString()));
+                        Enemy newEnemy = new Enemy();
 
-                        Enemy newEnemy = new Enemy(
-                        xn["Name"].ToString(),
-                        xn["Type"].ToString(),
-                        Int32Helper.Parse(xn["Level"]),
-                        Int32Helper.Parse(xn["Experience"]),
-                        Int32Helper.Parse(xn["Gold"]),
-                        new Attributes(
-                        Int32Helper.Parse(xn["Strength"]),
-                        Int32Helper.Parse(xn["Vitality"]),
-                        Int32Helper.Parse(xn["Dexterity"]),
-                        Int32Helper.Parse(xn["Wisdom"])),
-                        new Statistics(
-                        Int32Helper.Parse(xn["CurrentHealth"]),
-                        Int32Helper.Parse(xn["MaximumHealth"]),
-                        Int32Helper.Parse(xn["CurrentMagic"]),
-                        Int32Helper.Parse(xn["MaximumMagic"])),
-                        new Equipment(
-                        weapon,
-                        head,
-                        body,
-                        hands,
-                        legs,
-                        feet,
-                        leftRing,
-                        rightRing));
+                        XmlNode info = node.SelectSingleNode(".//Information");
+                        if (info != null)
+                        {
+                            newEnemy.Name = info["Name"]?.InnerText;
+                            newEnemy.Level = Int32Helper.Parse(info["Level"]?.InnerText);
+                            newEnemy.Experience = Int32Helper.Parse(info["Experience"]?.InnerText);
+                            newEnemy.Type = info["Type"]?.InnerText;
+                        }
+                        else
+                            GameState.DisplayNotification($"Information unavailable for Enemy.", "Sulimn");
+
+                        XmlNode inventory = node.SelectSingleNode(".//Inventory");
+                        if (inventory != null)
+                            newEnemy.Gold = Int32Helper.Parse(inventory["Gold"]?.InnerText);
+                        else
+                            GameState.DisplayNotification($"Gold unavailable for Enemy {newEnemy.Name}.", "Sulimn");
+
+                        XmlNode attributes = node.SelectSingleNode(".//Attributes");
+                        if (attributes != null)
+                            newEnemy.Attributes = new Attributes(Int32Helper.Parse(attributes["Strength"]?.InnerText), Int32Helper.Parse(attributes["Vitality"]?.InnerText), Int32Helper.Parse(attributes["Dexterity"]?.InnerText), Int32Helper.Parse(attributes["Wisdom"]?.InnerText));
+                        else
+                            GameState.DisplayNotification($"Attributes unavailable for Enemy {newEnemy.Name}.", "Sulimn");
+
+                        XmlNode statistics = node.SelectSingleNode(".//Statistics");
+                        if (statistics != null)
+                            newEnemy.Statistics = new Statistics(Int32Helper.Parse(statistics["Health"]?.InnerText), Int32Helper.Parse(statistics["Health"]?.InnerText), Int32Helper.Parse(statistics["Magic"]?.InnerText), Int32Helper.Parse(statistics["Magic"]?.InnerText));
+                        else
+                            GameState.DisplayNotification($"Statistics unavailable for Enemy {newEnemy.Name}.", "Sulimn");
+
+                        XmlNode equipment = node.SelectSingleNode(".//Equipment");
+                        if (equipment != null)
+                        {
+                            newEnemy.Equipment = new Equipment();
+
+                            newEnemy.Equipment.Head = !string.IsNullOrWhiteSpace(equipment["HeadArmor"]?.InnerText) ? new HeadArmor(GameState.AllHeadArmor.Find(armr => armr.Name == equipment["HeadArmor"]?.InnerText)) : new HeadArmor();
+                            newEnemy.Equipment.Body = !string.IsNullOrWhiteSpace(equipment["BodyArmor"]?.InnerText) ? new BodyArmor(GameState.AllBodyArmor.Find(armr => armr.Name == equipment["BodyArmor"]?.InnerText)) : new BodyArmor();
+                            newEnemy.Equipment.Hands = !string.IsNullOrWhiteSpace(equipment["HandArmor"]?.InnerText) ? new HandArmor(GameState.AllHandArmor.Find(armr => armr.Name == equipment["HandArmor"]?.InnerText)) : new HandArmor();
+                            newEnemy.Equipment.Legs = !string.IsNullOrWhiteSpace(equipment["LegArmor"]?.InnerText) ? new LegArmor(GameState.AllLegArmor.Find(armr => armr.Name == equipment["LegArmor"]?.InnerText)) : new LegArmor();
+                            newEnemy.Equipment.Feet = !string.IsNullOrWhiteSpace(equipment["FeetArmor"]?.InnerText) ? new FeetArmor(GameState.AllFeetArmor.Find(armr => armr.Name == equipment["FeetArmor"]?.InnerText)) : new FeetArmor();
+                            newEnemy.Equipment.LeftRing = !string.IsNullOrWhiteSpace(equipment["LeftRing"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == equipment["LeftRing"]?.InnerText)) : new Ring();
+                            newEnemy.Equipment.RightRing = !string.IsNullOrWhiteSpace(equipment["RightRing"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == equipment["RightRing"]?.InnerText)) : new Ring();
+                            newEnemy.Equipment.Weapon = !string.IsNullOrWhiteSpace(equipment["Weapon"]?.InnerText) ? new Weapon(GameState.AllWeapons.Find(wpn => wpn.Name == equipment["Weapon"]?.InnerText)) : new Weapon();
+                        }
+                        else
+                            GameState.DisplayNotification($"Equipment unavailable for Enemy {newEnemy.Name}.", "Sulimn");
 
                         allEnemies.Add(newEnemy);
                     }
@@ -152,62 +133,180 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Heroes</returns>
         public static List<Hero> LoadHeroes()
         {
+            //TODO Learn LINQ to XML
+            //TODO Make sure all nodes are verified as existing before trying to pull data
+
             List<Hero> allHeroes = new List<Hero>();
             XmlDocument xmlDoc = new XmlDocument();
 
-            if (File.Exists("Data/Classes/Classes.xml"))
+            if (File.Exists("Data/Heroes/Heroes.xml"))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Classes/Classes.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllClasses"))
+                    xmlDoc.Load("Data/Heroes/Heroes.xml");
+                    foreach (XmlNode node in xmlDoc.SelectNodes("/AllHeroes/Hero"))
                     {
-                        string name = xn["Name"].ToString();
-                        string leftRingText = xn["LeftRing"].ToString();
-                        string rightRingText = xn["RightRing"].ToString();
+                        Hero newHero = new Hero();
 
-                        Ring leftRing = new Ring();
-                        Ring rightRing = new Ring();
-                        if (!string.IsNullOrWhiteSpace(leftRingText))
-                            leftRing = GameState.AllRings.Find(x => x.Name == leftRingText);
-                        if (!string.IsNullOrWhiteSpace(rightRingText))
-                            rightRing = GameState.AllRings.Find(x => x.Name == rightRingText);
+                        XmlNode info = node.SelectSingleNode(".//Information");
+                        if (info != null)
+                        {
+                            newHero.Name = info["Name"]?.InnerText;
+                            newHero.Password = info["Password"]?.InnerText;
+                            newHero.Class = GameState.AllClasses.Find(cls => cls.Name == info["Class"]?.InnerText);
+                            newHero.Level = Int32Helper.Parse(info["Level"]?.InnerText);
+                            newHero.Experience = Int32Helper.Parse(info["Experience"]?.InnerText);
+                            newHero.SkillPoints = Int32Helper.Parse(info["SkillPoints"]?.InnerText);
+                            newHero.Hardcore = BoolHelper.Parse(info["SkillPoints"]?.InnerText);
+                        }
+                        else
+                            GameState.DisplayNotification($"Information unavailable for Hero.", "Sulimn");
 
-                        string className = xn["Class"].ToString();
-                        Hero newHero = new Hero(
-                        name,
-                        xn["Password"].ToString(),
-                        new HeroClass(
-                        GameState.AllClasses.Find(
-                        heroClass => heroClass.Name == className)),
-                        Int32Helper.Parse(xn["Level"]),
-                        Int32Helper.Parse(xn["Experience"]),
-                        Int32Helper.Parse(xn["SkillPoints"]),
-                        Int32Helper.Parse(xn["Gold"]),
-                        new Attributes(
-                        Int32Helper.Parse(xn["Strength"]),
-                        Int32Helper.Parse(xn["Vitality"]),
-                        Int32Helper.Parse(xn["Dexterity"]),
-                        Int32Helper.Parse(xn["Wisdom"])),
-                        new Statistics(
-                        Int32Helper.Parse(xn["CurrentHealth"]),
-                        Int32Helper.Parse(xn["MaximumHealth"]),
-                        Int32Helper.Parse(xn["CurrentMagic"]),
-                        Int32Helper.Parse(xn["MaximumMagic"])),
-                        new Equipment(
-                        GameState.AllWeapons.Find(x => x.Name == xn["Weapon"].ToString()),
-                        GameState.AllHeadArmor.Find(x => x.Name == xn["Head"].ToString()),
-                        GameState.AllBodyArmor.Find(x => x.Name == xn["Body"].ToString()),
-                        GameState.AllHandArmor.Find(x => x.Name == xn["Hands"].ToString()),
-                        GameState.AllLegArmor.Find(x => x.Name == xn["Legs"].ToString()),
-                        GameState.AllFeetArmor.Find(x => x.Name == xn["Feet"].ToString()),
-                        leftRing,
-                        rightRing),
-                        GameState.SetSpellbook(xn["KnownSpells"].ToString()),
-                        GameState.SetInventory(xn["Inventory"].ToString()),
-                        new Progression(BoolHelper.Parse(xn["Fields"]), BoolHelper.Parse(xn["Forest"]), BoolHelper.Parse(xn["Cathedral"]), BoolHelper.Parse(xn["Mines"]), BoolHelper.Parse(xn["Catacombs"]), BoolHelper.Parse(xn["Courtyard"]), BoolHelper.Parse(xn["Battlements"]), BoolHelper.Parse(xn["Armoury"]), BoolHelper.Parse(xn["Spire"]), BoolHelper.Parse(xn["ThroneRoom"])),
-                        BoolHelper.Parse(xn["Hardcore"]));
+                        XmlNode inventory = node.SelectSingleNode(".//Inventory");
+                        if (inventory != null)
+                        {
+                            newHero.Gold = Int32Helper.Parse(inventory["Gold"]?.InnerText);
+                            if (inventory.SelectSingleNode("Item") != null)
+                            {
+                                foreach (XmlNode item in inventory.SelectNodes(".//Item"))
+                                {
+                                    List<Item> items = new List<Item>();
+                                    items.Add(GameState.AllItems.Find(itm => itm.Name == item["Name"]?.InnerText));
 
+                                    if (items[0].GetType() == typeof(HeadArmor))
+                                    {
+                                        HeadArmor itm = new HeadArmor((HeadArmor)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(BodyArmor))
+                                    {
+                                        BodyArmor itm = new BodyArmor((BodyArmor)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(HandArmor))
+                                    {
+                                        HandArmor itm = new HandArmor((HandArmor)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(LegArmor))
+                                    {
+                                        LegArmor itm = new LegArmor((LegArmor)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(FeetArmor))
+                                    {
+                                        FeetArmor itm = new FeetArmor((FeetArmor)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(Ring))
+                                    {
+                                        Ring itm = new Ring((Ring)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(Weapon))
+                                    {
+                                        Weapon itm = new Weapon((Weapon)items[0]);
+                                        itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                                        newHero.AddItem(itm);
+                                    }
+                                    else if (items[0].GetType() == typeof(Potion))
+                                    {
+                                        newHero.AddItem(items[0]);
+                                    }
+                                    else if (items[0].GetType() == typeof(Drink))
+                                    {
+                                        newHero.AddItem(items[0]);
+                                    }
+                                    else if (items[0].GetType() == typeof(Food))
+                                    {
+                                        newHero.AddItem(items[0]);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            GameState.DisplayNotification($"Inventory unavailable for Hero {newHero.Name}.", "Sulimn");
+
+                        XmlNode attributes = node.SelectSingleNode(".//Attributes");
+                        if (attributes != null)
+                            newHero.Attributes = new Attributes(Int32Helper.Parse(attributes["Strength"]?.InnerText), Int32Helper.Parse(attributes["Vitality"]?.InnerText), Int32Helper.Parse(attributes["Dexterity"]?.InnerText), Int32Helper.Parse(attributes["Wisdom"]?.InnerText));
+                        else
+                            GameState.DisplayNotification($"Attributes unavailable for Hero {newHero.Name}.", "Sulimn");
+
+                        XmlNode statistics = node.SelectSingleNode(".//Statistics");
+                        if (statistics != null)
+                            newHero.Statistics = new Statistics(Int32Helper.Parse(statistics["CurrentHealth"]?.InnerText), Int32Helper.Parse(statistics["MaximumHealth"]?.InnerText), Int32Helper.Parse(statistics["CurrentMagic"]?.InnerText), Int32Helper.Parse(statistics["MaximumMagic"]?.InnerText));
+                        else
+                            GameState.DisplayNotification($"Statistics unavailable for Hero {newHero.Name}.", "Sulimn");
+
+                        XmlNode equipment = node.SelectSingleNode(".//Equipment");
+                        if (equipment != null)
+                        {
+                            newHero.Equipment = new Equipment();
+
+                            XmlNode head = equipment.SelectSingleNode(".//HeadArmor");
+                            newHero.Equipment.Head = head != null && !string.IsNullOrWhiteSpace(head["Name"]?.InnerText) ? new HeadArmor(GameState.AllHeadArmor.Find(armr => armr.Name == head["Name"]?.InnerText)) : new HeadArmor();
+                            newHero.Equipment.Head.CurrentDurability = Int32Helper.Parse(head["Durability"]);
+
+                            XmlNode body = equipment.SelectSingleNode(".//BodyArmor");
+                            newHero.Equipment.Body = body != null && !string.IsNullOrWhiteSpace(body["Name"]?.InnerText) ? new BodyArmor(GameState.AllBodyArmor.Find(armr => armr.Name == body["Name"]?.InnerText)) : new BodyArmor();
+                            newHero.Equipment.Body.CurrentDurability = Int32Helper.Parse(body["Durability"]);
+
+                            XmlNode hands = equipment.SelectSingleNode(".//HandArmor");
+                            newHero.Equipment.Hands = hands != null && !string.IsNullOrWhiteSpace(hands["Name"]?.InnerText) ? new HandArmor(GameState.AllHandArmor.Find(armr => armr.Name == hands["Name"]?.InnerText)) : new HandArmor();
+                            newHero.Equipment.Hands.CurrentDurability = Int32Helper.Parse(hands["Durability"]);
+
+                            XmlNode legs = equipment.SelectSingleNode(".//LegArmor");
+                            newHero.Equipment.Legs = legs != null && !string.IsNullOrWhiteSpace(legs["Name"]?.InnerText) ? new LegArmor(GameState.AllLegArmor.Find(armr => armr.Name == legs["Name"]?.InnerText)) : new LegArmor();
+                            newHero.Equipment.Legs.CurrentDurability = Int32Helper.Parse(legs["Durability"]);
+
+                            XmlNode feet = equipment.SelectSingleNode(".//FeetArmor");
+                            newHero.Equipment.Feet = feet != null && !string.IsNullOrWhiteSpace(feet["Name"]?.InnerText) ? new FeetArmor(GameState.AllFeetArmor.Find(armr => armr.Name == feet["Name"]?.InnerText)) : new FeetArmor();
+                            newHero.Equipment.Feet.CurrentDurability = Int32Helper.Parse(feet["Durability"]);
+
+                            XmlNode leftRing = equipment.SelectSingleNode(".//LeftRing");
+                            newHero.Equipment.LeftRing = leftRing != null && !string.IsNullOrWhiteSpace(leftRing["Name"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == leftRing["Name"]?.InnerText)) : new Ring();
+                            newHero.Equipment.LeftRing.CurrentDurability = Int32Helper.Parse(leftRing["Durability"]);
+
+                            XmlNode rightRing = equipment.SelectSingleNode(".//RightRing");
+                            newHero.Equipment.RightRing = rightRing != null && !string.IsNullOrWhiteSpace(rightRing["Name"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == rightRing["Name"]?.InnerText)) : new Ring();
+                            newHero.Equipment.RightRing.CurrentDurability = Int32Helper.Parse(rightRing["Durability"]);
+
+                            XmlNode weapon = equipment.SelectSingleNode(".//Weapon");
+                            newHero.Equipment.Weapon = weapon != null && !string.IsNullOrWhiteSpace(weapon["Name"]?.InnerText) ? new Weapon(GameState.AllWeapons.Find(wpn => wpn.Name == weapon["Name"]?.InnerText)) : new Weapon();
+                            newHero.Equipment.Weapon.CurrentDurability = Int32Helper.Parse(weapon["Durability"]);
+                        }
+                        else
+                            GameState.DisplayNotification($"Equipment unavailable for Hero {newHero.Name}.", "Sulimn");
+
+                        XmlNode spellbook = node.SelectSingleNode(".//Spellbook");
+                        if (spellbook != null)
+                        {
+                            foreach (XmlNode spell in spellbook)
+                                newHero.Spellbook.LearnSpell(GameState.AllSpells.Find(spl => spl.Name == spell?.InnerText));
+                        }
+
+                        newHero.Progression = new Progression();
+                        XmlNode progression = node.SelectSingleNode(".//Progression");
+                        if (progression != null)
+                        {
+                            newHero.Progression.Fields = BoolHelper.Parse(progression["Fields"]?.InnerText);
+                            newHero.Progression.Forest = BoolHelper.Parse(progression["Forest"]?.InnerText);
+                            newHero.Progression.Cathedral = BoolHelper.Parse(progression["Cathedral"]?.InnerText);
+                            newHero.Progression.Mines = BoolHelper.Parse(progression["Mines"]?.InnerText);
+                            newHero.Progression.Catacombs = BoolHelper.Parse(progression["Catacombs"]?.InnerText);
+                            newHero.Progression.Courtyard = BoolHelper.Parse(progression["Courtyard"]?.InnerText);
+                            newHero.Progression.Battlements = BoolHelper.Parse(progression["Battlements"]?.InnerText);
+                            newHero.Progression.Armoury = BoolHelper.Parse(progression["Armoury"]?.InnerText);
+                            newHero.Progression.Spire = BoolHelper.Parse(progression["Spire"]?.InnerText);
+                            newHero.Progression.ThroneRoom = BoolHelper.Parse(progression["ThroneRoom"]?.InnerText);
+                        }
                         allHeroes.Add(newHero);
                     }
                 }
@@ -243,13 +342,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHeadArmor/HeadArmor"))
                     {
                         HeadArmor newHeadArmor = new HeadArmor(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Defense"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allHeadArmor.Add(newHeadArmor);
                     }
@@ -278,13 +377,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllBodyArmor/BodyArmor"))
                     {
                         BodyArmor newBodyArmor = new BodyArmor(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Defense"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allBodyArmor.Add(newBodyArmor);
                     }
@@ -313,13 +412,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHandArmor/HandArmor"))
                     {
                         HandArmor newHandArmor = new HandArmor(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Defense"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allHandArmor.Add(newHandArmor);
                     }
@@ -348,13 +447,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllLegArmor/LegArmor"))
                     {
                         LegArmor newLegArmor = new LegArmor(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Defense"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allLegArmor.Add(newLegArmor);
                     }
@@ -383,13 +482,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFeetArmor/FeetArmor"))
                     {
                         FeetArmor newFeetArmor = new FeetArmor(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Defense"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allFeetArmor.Add(newFeetArmor);
                     }
@@ -420,18 +519,18 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllRings/Ring"))
                     {
                         Ring newRing = new Ring(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Damage"].InnerText),
-                        Int32Helper.Parse(xn["Defense"].InnerText),
-                        Int32Helper.Parse(xn["Strength"].InnerText),
-                        Int32Helper.Parse(xn["Vitality"].InnerText),
-                        Int32Helper.Parse(xn["Dexterity"].InnerText),
-                        Int32Helper.Parse(xn["Wisdom"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Damage"]?.InnerText),
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Strength"]?.InnerText),
+                        Int32Helper.Parse(xn["Vitality"]?.InnerText),
+                        Int32Helper.Parse(xn["Dexterity"]?.InnerText),
+                        Int32Helper.Parse(xn["Wisdom"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allRings.Add(newRing);
                     }
@@ -460,14 +559,14 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllWeapons/Weapon"))
                     {
                         Weapon newWeapon = new Weapon(
-                        xn["Name"].InnerText,
-                        EnumHelper.Parse<WeaponTypes>(xn["WeaponType"].InnerText),
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["Damage"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        EnumHelper.Parse<WeaponTypes>(xn["WeaponType"]?.InnerText),
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Damage"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allWeapons.Add(newWeapon);
                     }
@@ -498,15 +597,15 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllPotions/Potion"))
                     {
                         Potion newPotion = new Potion(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["RestoreHealth"].InnerText),
-                        Int32Helper.Parse(xn["RestoreMagic"].InnerText),
-                        BoolHelper.Parse(xn["Cures"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
+                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
+                        BoolHelper.Parse(xn["Cures"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allPotions.Add(newPotion);
                     }
@@ -535,15 +634,15 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllDrinks/Drink"))
                     {
                         Drink newDrink = new Drink(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["RestoreHealth"].InnerText),
-                        Int32Helper.Parse(xn["RestoreMagic"].InnerText),
-                        BoolHelper.Parse(xn["Cures"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
+                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
+                        BoolHelper.Parse(xn["Cures"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allDrinks.Add(newDrink);
                     }
@@ -572,15 +671,15 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFood/Food"))
                     {
                         Food newFood = new Food(
-                        xn["Name"].InnerText,
-                        xn["Description"].InnerText,
-                        Int32Helper.Parse(xn["RestoreHealth"].InnerText),
-                        Int32Helper.Parse(xn["RestoreMagic"].InnerText),
-                        BoolHelper.Parse(xn["Cures"].InnerText),
-                        Int32Helper.Parse(xn["Weight"].InnerText),
-                        Int32Helper.Parse(xn["Value"].InnerText),
-                        BoolHelper.Parse(xn["CanSell"].InnerText),
-                        BoolHelper.Parse(xn["IsSold"].InnerText));
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
+                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
+                        BoolHelper.Parse(xn["Cures"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
 
                         allFood.Add(newFood);
                     }
@@ -609,13 +708,13 @@ namespace Sulimn.Classes.Database
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllSpells/Spell"))
                     {
                         Spell newSpell = new Spell(
-                        xn["Name"].InnerText,
-                        EnumHelper.Parse<SpellTypes>(xn["Type"].InnerText),
-                        xn["Description"].InnerText,
-                        GameState.SetAllowedClasses(xn["AllowedClasses"].InnerText),
-                        Int32Helper.Parse(xn["RequiredLevel"].InnerText),
-                        Int32Helper.Parse(xn["MagicCost"].InnerText),
-                        Int32Helper.Parse(xn["Amount"].InnerText));
+                        xn["Name"]?.InnerText,
+                        EnumHelper.Parse<SpellTypes>(xn["Type"]?.InnerText),
+                        xn["Description"]?.InnerText,
+                        GameState.SetAllowedClasses(xn["AllowedClasses"]?.InnerText),
+                        Int32Helper.Parse(xn["RequiredLevel"]?.InnerText),
+                        Int32Helper.Parse(xn["MagicCost"]?.InnerText),
+                        Int32Helper.Parse(xn["Amount"]?.InnerText));
 
                         allSpells.Add(newSpell);
                     }
@@ -649,10 +748,10 @@ namespace Sulimn.Classes.Database
             //WriteAllLegArmor();
             //WriteAllFeetArmor();
             //WriteAllWeapons();
-            WriteAllClasses();
+            //WriteAllClasses();
             //WriteAllRings();
             //WriteAllEnemies();
-            //WriteAllHeroes();
+            WriteAllHeroes();
             //WriteAllDrinks();
             //WriteAllFood();
             //WriteAllPotions();
@@ -1081,6 +1180,7 @@ namespace Sulimn.Classes.Database
 
                     writer.WriteStartElement("Information");
                     writer.WriteElementString("Name", hero.Name);
+                    writer.WriteElementString("Password", hero.Password);
                     writer.WriteElementString("Class", hero.Class.Name);
                     writer.WriteElementString("Level", hero.Level.ToString());
                     writer.WriteElementString("Experience", hero.Experience.ToString());
@@ -1162,7 +1262,20 @@ namespace Sulimn.Classes.Database
                     {
                         writer.WriteElementString("Name", spell.Name);
                     }
-                    writer.WriteEndElement();
+                    writer.WriteEndElement(); //finish Spellbook
+
+                    writer.WriteStartElement("Progression");
+                    writer.WriteElementString("Fields", hero.Progression.Fields.ToString());
+                    writer.WriteElementString("Forest", hero.Progression.Forest.ToString());
+                    writer.WriteElementString("Cathedral", hero.Progression.Cathedral.ToString());
+                    writer.WriteElementString("Mines", hero.Progression.Mines.ToString());
+                    writer.WriteElementString("Catacombs", hero.Progression.Catacombs.ToString());
+                    writer.WriteElementString("Courtyard", hero.Progression.Courtyard.ToString());
+                    writer.WriteElementString("Battlements", hero.Progression.Battlements.ToString());
+                    writer.WriteElementString("Armoury", hero.Progression.Armoury.ToString());
+                    writer.WriteElementString("Spire", hero.Progression.Spire.ToString());
+                    writer.WriteElementString("ThroneRoom", hero.Progression.ThroneRoom.ToString());
+                    writer.WriteEndElement(); //finish Progression
 
                     writer.WriteEndElement(); //finish Hero
                 }

@@ -527,8 +527,8 @@
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedPotion" Grid.Row="0" Width="250" Text="{Binding Path=Name}"
                                        Margin="5" />
-                            <TextBlock x:Name="LblSelectedPotionTypeAmount" Grid.Row="1" Width="250"
-                                       Text="{Binding Path=TypeAmount}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedPotionEffects" Grid.Row="1" Width="250"
+                                       Text="{Binding Path=EffectsToString}" Margin="5" />
                             <TextBlock x:Name="LblSelectedPotionValue" Grid.Row="2"
                                        Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedPotionSellable" Grid.Row="3"
@@ -568,8 +568,8 @@
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedFood" Grid.Row="0" Width="250" Text="{Binding Path=Name}"
                                        Margin="5" />
-                            <TextBlock x:Name="LblSelectedFoodTypeAmount" Grid.Row="1" Width="250"
-                                       Text="{Binding Path=TypeAmount}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedFoodEffects" Grid.Row="1" Width="250"
+                                       Text="{Binding Path=EffectsToString}" Margin="5" />
                             <TextBlock x:Name="LblSelectedFoodValue" Grid.Row="2"
                                        Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedFoodSellable" Grid.Row="3"
@@ -609,8 +609,8 @@
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="LblSelectedDrink" Grid.Row="0" Width="250" Text="{Binding Path=Name}"
                                        Margin="5" />
-                            <TextBlock x:Name="LblSelectedDrinkTypeAmount" Grid.Row="1" Width="250"
-                                       Text="{Binding Path=TypeAmount}" Margin="5" />
+                            <TextBlock x:Name="LblSelectedDrinkEffects" Grid.Row="1" Width="250"
+                                       Text="{Binding Path=EffectsToString}" Margin="5" />
                             <TextBlock x:Name="LblSelectedDrinkValue" Grid.Row="2"
                                        Text="{Binding Path=ValueToStringWithText}" Margin="5" />
                             <TextBlock x:Name="LblSelectedDrinkSellable" Grid.Row="3"

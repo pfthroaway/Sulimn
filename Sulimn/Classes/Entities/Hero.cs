@@ -15,7 +15,7 @@ namespace Sulimn.Classes.Entities
         private HeroClass _class;
         private int _skillPoints;
         private Spellbook _spellbook = new Spellbook();
-        private List<Item> _inventory;
+        private List<Item> _inventory = new List<Item>();
         private bool _hardcore;
 
         /// <summary>Updates the Hero's Statistics.</summary>
@@ -52,7 +52,7 @@ namespace Sulimn.Classes.Entities
         public HeroClass Class
         {
             get => _class;
-            private set
+            set
             {
                 _class = value;
                 OnPropertyChanged("Class");

@@ -55,6 +55,33 @@ namespace Sulimn.Classes.Items
         /// <summary>Returns text regarding if the <see cref="Consumable"/> can heal the user.</summary>
         public string CuresToString => Cures ? $"Cures ailments." : "";
 
+        /// <summary>Returns text regarding all effects this <see cref="Consumable"/> will induce.</summary>
+        public string EffectsToString
+        {
+            get
+            {
+                string effects = "";
+                if (RestoreHealth > 0)
+                {
+                    effects += RestoreHealthToString;
+                }
+                if (RestoreMagic > 0)
+                {
+                    if (effects.Length > 0)
+                        effects += "\n";
+                    effects += RestoreMagicToString;
+                }
+                if (Cures)
+                {
+                    if (effects.Length > 0)
+                        effects += "\n";
+                    effects += CuresToString;
+                }
+
+                return effects;
+            }
+        }
+
         #endregion Helper Properties
 
         #region Override Operators

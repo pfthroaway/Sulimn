@@ -250,7 +250,7 @@ namespace Sulimn.Pages.Characters
                 LstPotionInventory.Items.Refresh();
             }
             LblSelectedPotion.DataContext = _selectedPotion;
-            LblSelectedPotionTypeAmount.DataContext = _selectedPotion;
+            LblSelectedPotionEffects.DataContext = _selectedPotion;
             LblSelectedPotionValue.DataContext = _selectedPotion;
             LblSelectedPotionSellable.DataContext = _selectedPotion;
             LblSelectedPotionDescription.DataContext = _selectedPotion;
@@ -269,7 +269,7 @@ namespace Sulimn.Pages.Characters
                 LstFoodInventory.Items.Refresh();
             }
             LblSelectedFood.DataContext = _selectedFood;
-            LblSelectedFoodTypeAmount.DataContext = _selectedFood;
+            LblSelectedFoodEffects.DataContext = _selectedFood;
             LblSelectedFoodValue.DataContext = _selectedFood;
             LblSelectedFoodSellable.DataContext = _selectedFood;
             LblSelectedFoodDescription.DataContext = _selectedFood;
@@ -288,7 +288,7 @@ namespace Sulimn.Pages.Characters
                 LstDrinkInventory.Items.Refresh();
             }
             LblSelectedDrink.DataContext = _selectedDrink;
-            LblSelectedDrinkTypeAmount.DataContext = _selectedDrink;
+            LblSelectedDrinkEffects.DataContext = _selectedDrink;
             LblSelectedDrinkValue.DataContext = _selectedDrink;
             LblSelectedDrinkSellable.DataContext = _selectedDrink;
             LblSelectedDrinkDescription.DataContext = _selectedDrink;
@@ -583,7 +583,7 @@ namespace Sulimn.Pages.Characters
 
             if (selectedConsumable.Cures)
                 Functions.AddTextToTextBox(TxtInventory, "You are now free of any ailments.");
-            //TODO Implement Curing
+            //TODO Implement Curing, Status Effects
 
             GameState.CurrentHero.RemoveItem(selectedConsumable);
         }
