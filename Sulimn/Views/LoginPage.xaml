@@ -1,0 +1,28 @@
+﻿<Page x:Class="Sulimn.Views.LoginPage" x:Name="PageLogin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Style="{StaticResource PageStyle}"
+      Title="LoginPage">
+    <Grid Margin="50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Hero Name:" TextAlignment="Center" Margin="0,0,0,5" />
+        <TextBox x:Name="TxtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="300" TextChanged="TxtHeroName_TextChanged" PreviewKeyDown="TxtHeroName_PreviewKeyDown" GotFocus="TxtHeroName_GotFocus" Margin="0,0,0,10" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="Password:" TextAlignment="Center" Margin="0,0,0,5" />
+        <PasswordBox x:Name="PswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="300" PasswordChanged="PswdPassword_TextChanged" GotFocus="PswdPassword_GotFocus" Margin="0,0,0,20" />
+        <Button x:Name="BtnLogin" Grid.Column="0" Grid.Row="4" Width="145" Content="_Login" Click="BtnLogin_Click" IsDefault="True" IsEnabled="False" Margin="0,0,10,0" />
+        <Button x:Name="BtnNewHero" Grid.Column="1" Grid.Row="4" Width="145" Content="_New Hero" Click="BtnNewHero_Click" />
+    </Grid>
+</Page>

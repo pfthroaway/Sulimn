@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Hero>
+    <Information>
+        <Name>Aragon</Name>
+        <Password>$argon2i$v=19$m=32768,t=4,p=1$MbgXM6W7v9LAMIxNStbZWQ$xCyMOClTgZavZ4Grx0NSCH+G2n+81SzIjRRM8Spn7TA</Password>
+        <Class>Wizard</Class>
+        <Level>26</Level>
+        <Experience>635</Experience>
+        <SkillPoints>15</SkillPoints>
+        <Hardcore>False</Hardcore>
+    </Information>
+    <Inventory>
+        <Gold>757</Gold>
+        <Item>
+            <Name>Beer</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Cracker</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Curing Potion</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Light Healing Potion</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Light Healing Potion</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Light Magic Potion</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Ring of Strength +2</Name>
+            <Durability>0</Durability>
+        </Item>
+        <Item>
+            <Name>Ring of Vitality +1</Name>
+            <Durability>0</Durability>
+        </Item>
+    </Inventory>
+    <Bank>
+        <GoldInBank>50</GoldInBank>
+        <LoanTaken>0</LoanTaken>
+        <LoanAvailable>0</LoanAvailable>
+    </Bank>
+    <Attributes>
+        <Strength>35</Strength>
+        <Vitality>45</Vitality>
+        <Dexterity>65</Dexterity>
+        <Wisdom>20</Wisdom>
+    </Attributes>
+    <Statistics>
+        <CurrentHealth>313</CurrentHealth>
+        <MaximumHealth>360</MaximumHealth>
+        <CurrentMagic>135</CurrentMagic>
+        <MaximumMagic>235</MaximumMagic>
+    </Statistics>
+    <Equipment>
+        <HeadArmor>
+            <Name>Diamond Helmet</Name>
+            <Durability>0</Durability>
+        </HeadArmor>
+        <BodyArmor>
+            <Name>Diamond Chestplate</Name>
+            <Durability>0</Durability>
+        </BodyArmor>
+        <HandArmor>
+            <Name>Diamond Gauntlets</Name>
+            <Durability>0</Durability>
+        </HandArmor>
+        <LegArmor>
+            <Name>Diamond Leggings</Name>
+            <Durability>0</Durability>
+        </LegArmor>
+        <FeetArmor>
+            <Name>Diamond Boots</Name>
+            <Durability>0</Durability>
+        </FeetArmor>
+        <LeftRing>
+            <Name>Rainbow Ring</Name>
+            <Durability>0</Durability>
+        </LeftRing>
+        <RightRing>
+            <Name>Rainbow Ring</Name>
+            <Durability>0</Durability>
+        </RightRing>
+        <Weapon>
+            <Name>Super Sword</Name>
+            <Durability>0</Durability>
+        </Weapon>
+    </Equipment>
+    <Spellbook>
+        <Name>Fire Bolt</Name>
+        <Name>Heal Self</Name>
+        <Name>Ice Bolt</Name>
+        <Name>Shield</Name>
+        <Name>Fireball</Name>
+        <Name>Heal Major Wounds</Name>
+        <Name>Energy Barrier</Name>
+        <Name>Lightning Bolt</Name>
+        <Name>Heal Medium Wounds</Name>
+        <Name>Energy Blast</Name>
+    </Spellbook>
+    <Progression>
+        <Fields>True</Fields>
+        <Forest>True</Forest>
+        <Cathedral>True</Cathedral>
+        <Mines>True</Mines>
+        <Catacombs>True</Catacombs>
+        <Courtyard>False</Courtyard>
+        <Battlements>False</Battlements>
+        <Armoury>False</Armoury>
+        <Spire>False</Spire>
+        <ThroneRoom>False</ThroneRoom>
+    </Progression>
+</Hero>

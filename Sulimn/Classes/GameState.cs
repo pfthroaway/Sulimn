@@ -5,7 +5,7 @@ using Sulimn.Classes.Database;
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
-using Sulimn.Pages;
+using Sulimn.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,25 +51,6 @@ namespace Sulimn.Classes
 
         /// <summary>Instance of MainWindow currently loaded</summary>
         internal static MainWindow MainWindow { get; set; }
-
-        /// <summary>Width of the Page currently being displayed in the MainWindow</summary>
-        internal static double CurrentPageWidth { get; set; }
-
-        /// <summary>Height of the Page currently being displayed in the MainWindow</summary>
-        internal static double CurrentPageHeight { get; set; }
-
-        /// <summary>Calculates the scale needed for the MainWindow.</summary>
-        /// <param name="grid">Grid of current Page</param>
-        internal static void CalculateScale(Grid grid)
-        {
-            CurrentPageHeight = grid.ActualHeight;
-            CurrentPageWidth = grid.ActualWidth;
-            MainWindow.CalculateScale();
-
-            Page newPage = MainWindow.MainFrame.Content as Page;
-            if (newPage != null)
-                newPage.Style = (Style)MainWindow.FindResource("PageStyle");
-        }
 
         /// <summary>Navigates to selected Page.</summary>
         /// <param name="newPage">Page to navigate to.</param>
@@ -393,16 +374,14 @@ namespace Sulimn.Classes
         /// <summary>Saves Hero to database.</summary>
         /// <param name="saveHero">Hero to be saved</param>
         /// <returns>Returns true if successfully saved</returns>
-        internal static async Task<bool> SaveHero(Hero saveHero)
+        internal static bool SaveHero(Hero saveHero)
         {
-            bool success = false;
-            if (await DatabaseInteraction.SaveHero(saveHero))
-            {
-                int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
-                AllHeroes[index] = saveHero;
-                success = true;
-            }
-            return success;
+            XMLInteraction.SaveHero(saveHero);
+
+            int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
+            AllHeroes[index] = saveHero;
+
+            return true;
         }
 
         /// <summary>Saves the Hero's bank information.</summary>
@@ -433,11 +412,11 @@ namespace Sulimn.Classes
         /// <param name="minGold">Minimum amount of gold to be found</param>
         /// <param name="maxGold">Maximum amount of gold to be found</param>
         /// <returns>Returns text regarding gold found</returns>
-        internal static async Task<string> EventFindGold(int minGold, int maxGold)
+        internal static string EventFindGold(int minGold, int maxGold)
         {
             int foundGold = minGold == maxGold ? minGold : Functions.GenerateRandomNumber(minGold, maxGold);
             CurrentHero.Gold += foundGold;
-            await SaveHero(CurrentHero);
+            SaveHero(CurrentHero);
             return $"You find {foundGold:N0} gold!";
         }
 
@@ -446,20 +425,20 @@ namespace Sulimn.Classes
         /// <param name="maxValue">Maximum value of Item</param>
         /// <param name="canSell">Can the item be sold?</param>
         /// <returns>Returns text about found Item</returns>
-        internal static async Task<string> EventFindItem(int minValue, int maxValue, bool canSell = true)
+        internal static string EventFindItem(int minValue, int maxValue, bool canSell = true)
         {
             List<Item> availableItems = AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
             CurrentHero.AddItem(availableItems[item]);
-            await SaveHero(CurrentHero);
+            SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
         }
 
         /// <summary>Event where the Hero finds an item.</summary>
         /// <param name="names">List of names of available Items</param>
         /// <returns>Returns text about found Item</returns>
-        internal static async Task<string> EventFindItem(params string[] names)
+        internal static string EventFindItem(params string[] names)
         {
             List<Item> availableItems = new List<Item>();
             foreach (string name in names)
@@ -468,7 +447,7 @@ namespace Sulimn.Classes
 
             CurrentHero.AddItem(availableItems[item]);
 
-            await SaveHero(CurrentHero);
+            SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
         }
 
@@ -478,13 +457,13 @@ namespace Sulimn.Classes
         /// <param name="maxValue">Maximum value of Item</param>
         /// <param name="canSell">Can the item be sold?</param>
         /// <returns>Returns text about found Item</returns>
-        internal static async Task<string> EventFindItem<T>(int minValue, int maxValue, bool canSell = true) where T : Item
+        internal static string EventFindItem<T>(int minValue, int maxValue, bool canSell = true) where T : Item
         {
             List<T> availableItems = new List<T>(GetItemsOfType<T>());
             availableItems = availableItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
             CurrentHero.AddItem(availableItems[item]);
-            await SaveHero(CurrentHero);
+            SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
         }
 

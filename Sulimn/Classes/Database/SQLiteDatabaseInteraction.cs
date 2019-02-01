@@ -418,6 +418,7 @@ namespace Sulimn.Classes.Database
                     rightRing),
                     GameState.SetSpellbook(dr["KnownSpells"].ToString()),
                     GameState.SetInventory(dr["Inventory"].ToString()),
+                    new Bank(), //TODO BANK
                     new Progression(BoolHelper.Parse(dr["Fields"]), BoolHelper.Parse(dr["Forest"]), BoolHelper.Parse(dr["Cathedral"]), BoolHelper.Parse(dr["Mines"]), BoolHelper.Parse(dr["Catacombs"]), BoolHelper.Parse(dr["Courtyard"]), BoolHelper.Parse(dr["Battlements"]), BoolHelper.Parse(dr["Armoury"]), BoolHelper.Parse(dr["Spire"]), BoolHelper.Parse(dr["ThroneRoom"])),
                     BoolHelper.Parse(dr["Hardcore"]));
 

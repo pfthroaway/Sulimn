@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Pages\S.ico</ApplicationIcon>
+    <ApplicationIcon>Views\S.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -124,220 +124,220 @@
     <Compile Include="EncounterPage.xaml.cs">
       <DependentUpon>EncounterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Characters\InventoryPage.xaml.cs">
+    <Compile Include="Views\Characters\InventoryPage.xaml.cs">
       <DependentUpon>InventoryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\CastlePage.xaml.cs">
+    <Compile Include="Views\Exploration\CastlePage.xaml.cs">
       <DependentUpon>CastlePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LoginPage.xaml.cs">
+    <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Shopping\SilverEmpirePage.xaml.cs">
+    <Compile Include="Views\Shopping\SilverEmpirePage.xaml.cs">
       <DependentUpon>SilverEmpirePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Shopping\TheGeneralStorePage.xaml.cs">
+    <Compile Include="Views\Shopping\TheGeneralStorePage.xaml.cs">
       <DependentUpon>TheGeneralStorePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Shopping\TheTavernBarPage.xaml.cs">
+    <Compile Include="Views\Shopping\TheTavernBarPage.xaml.cs">
       <DependentUpon>TheTavernBarPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Shopping\WeaponsRUsPage.xaml.cs">
+    <Compile Include="Views\Shopping\WeaponsRUsPage.xaml.cs">
       <DependentUpon>WeaponsRUsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\AdminNewUserPage.xaml.cs">
+    <Compile Include="Views\Admin\AdminNewUserPage.xaml.cs">
       <DependentUpon>AdminNewUserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Shopping\TheArmouryPage.xaml.cs">
+    <Compile Include="Views\Shopping\TheArmouryPage.xaml.cs">
       <DependentUpon>TheArmouryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\AdminChangePasswordPage.xaml.cs">
+    <Compile Include="Views\Admin\AdminChangePasswordPage.xaml.cs">
       <DependentUpon>AdminChangePasswordPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\AdminPasswordPage.xaml.cs">
+    <Compile Include="Views\Admin\AdminPasswordPage.xaml.cs">
       <DependentUpon>AdminPasswordPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\AdminPage.xaml.cs">
+    <Compile Include="Views\Admin\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BankPages\BankDialogPage.xaml.cs">
+    <Compile Include="Views\BankPages\BankDialogPage.xaml.cs">
       <DependentUpon>BankDialogPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BankPages\BankPage.xaml.cs">
+    <Compile Include="Views\BankPages\BankPage.xaml.cs">
       <DependentUpon>BankPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Battle\BattlePage.xaml.cs">
+    <Compile Include="Views\Battle\BattlePage.xaml.cs">
       <DependentUpon>BattlePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Gambling\BlackjackPage.xaml.cs">
+    <Compile Include="Views\Gambling\BlackjackPage.xaml.cs">
       <DependentUpon>BlackjackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Characters\CastSpellPage.xaml.cs">
+    <Compile Include="Views\Characters\CastSpellPage.xaml.cs">
       <DependentUpon>CastSpellPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\CatacombsPage.xaml.cs">
+    <Compile Include="Views\Exploration\CatacombsPage.xaml.cs">
       <DependentUpon>CatacombsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\CathedralPage.xaml.cs">
+    <Compile Include="Views\Exploration\CathedralPage.xaml.cs">
       <DependentUpon>CathedralPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Characters\CharacterPage.xaml.cs">
+    <Compile Include="Views\Characters\CharacterPage.xaml.cs">
       <DependentUpon>CharacterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\CityPage.xaml.cs">
+    <Compile Include="Views\Exploration\CityPage.xaml.cs">
       <DependentUpon>CityPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Battle\EnemyDetailsPage.xaml.cs">
+    <Compile Include="Views\Battle\EnemyDetailsPage.xaml.cs">
       <DependentUpon>EnemyDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\ExplorePage.xaml.cs">
+    <Compile Include="Views\Exploration\ExplorePage.xaml.cs">
       <DependentUpon>ExplorePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\FieldsPage.xaml.cs">
+    <Compile Include="Views\Exploration\FieldsPage.xaml.cs">
       <DependentUpon>FieldsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\ForestPage.xaml.cs">
+    <Compile Include="Views\Exploration\ForestPage.xaml.cs">
       <DependentUpon>ForestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Options\HeroChangePasswordPage.xaml.cs">
+    <Compile Include="Views\Options\HeroChangePasswordPage.xaml.cs">
       <DependentUpon>HeroChangePasswordPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\ManageUsersPage.xaml.cs">
+    <Compile Include="Views\Admin\ManageUsersPage.xaml.cs">
       <DependentUpon>ManageUsersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\ManageUserPage.xaml.cs">
+    <Compile Include="Views\Admin\ManageUserPage.xaml.cs">
       <DependentUpon>ManageUserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Shopping\MarketPage.xaml.cs">
+    <Compile Include="Views\Shopping\MarketPage.xaml.cs">
       <DependentUpon>MarketPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\MinesPage.xaml.cs">
+    <Compile Include="Views\Exploration\MinesPage.xaml.cs">
       <DependentUpon>MinesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Characters\NewHeroPage.xaml.cs">
+    <Compile Include="Views\Characters\NewHeroPage.xaml.cs">
       <DependentUpon>NewHeroPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Exploration\SpecialEncounterPage.xaml.cs">
+    <Compile Include="Views\Exploration\SpecialEncounterPage.xaml.cs">
       <DependentUpon>SpecialEncounterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\HeroParts\Spell.cs" />
     <Compile Include="Classes\HeroParts\Spellbook.cs" />
-    <Compile Include="Pages\Exploration\TavernPage.xaml.cs">
+    <Compile Include="Views\Exploration\TavernPage.xaml.cs">
       <DependentUpon>TavernPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Items\Weapon.cs" />
-    <Compile Include="Pages\Shopping\MagickShoppePage.xaml.cs">
+    <Compile Include="Views\Shopping\MagickShoppePage.xaml.cs">
       <DependentUpon>MagickShoppePage.xaml</DependentUpon>
     </Compile>
     <Page Include="EncounterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Characters\InventoryPage.xaml">
+    <Page Include="Views\Characters\InventoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\CastlePage.xaml">
+    <Page Include="Views\Exploration\CastlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LoginPage.xaml">
+    <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\SilverEmpirePage.xaml">
+    <Page Include="Views\Shopping\SilverEmpirePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\TheGeneralStorePage.xaml">
+    <Page Include="Views\Shopping\TheGeneralStorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\TheTavernBarPage.xaml">
+    <Page Include="Views\Shopping\TheTavernBarPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\WeaponsRUsPage.xaml">
+    <Page Include="Views\Shopping\WeaponsRUsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Admin\AdminNewUserPage.xaml">
+    <Page Include="Views\Admin\AdminNewUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\TheArmouryPage.xaml">
+    <Page Include="Views\Shopping\TheArmouryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Admin\AdminChangePasswordPage.xaml">
+    <Page Include="Views\Admin\AdminChangePasswordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Admin\AdminPasswordPage.xaml">
+    <Page Include="Views\Admin\AdminPasswordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Admin\AdminPage.xaml">
+    <Page Include="Views\Admin\AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\BankPages\BankDialogPage.xaml">
+    <Page Include="Views\BankPages\BankDialogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\BankPages\BankPage.xaml">
+    <Page Include="Views\BankPages\BankPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Battle\BattlePage.xaml">
+    <Page Include="Views\Battle\BattlePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Gambling\BlackjackPage.xaml">
+    <Page Include="Views\Gambling\BlackjackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Characters\CastSpellPage.xaml">
+    <Page Include="Views\Characters\CastSpellPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\CatacombsPage.xaml">
+    <Page Include="Views\Exploration\CatacombsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\CathedralPage.xaml">
+    <Page Include="Views\Exploration\CathedralPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Characters\CharacterPage.xaml">
+    <Page Include="Views\Characters\CharacterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\CityPage.xaml">
+    <Page Include="Views\Exploration\CityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Battle\EnemyDetailsPage.xaml">
+    <Page Include="Views\Battle\EnemyDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\ExplorePage.xaml">
+    <Page Include="Views\Exploration\ExplorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\FieldsPage.xaml">
+    <Page Include="Views\Exploration\FieldsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\ForestPage.xaml">
+    <Page Include="Views\Exploration\ForestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Options\HeroChangePasswordPage.xaml">
+    <Page Include="Views\Options\HeroChangePasswordPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -354,39 +354,39 @@
     <Compile Include="Classes\Entities\Hero.cs" />
     <Compile Include="Classes\HeroParts\HeroClass.cs" />
     <Compile Include="Classes\Items\Item.cs" />
-    <Compile Include="Pages\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Admin\ManageUsersPage.xaml">
+    <Page Include="Views\Admin\ManageUsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Admin\ManageUserPage.xaml">
+    <Page Include="Views\Admin\ManageUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\MarketPage.xaml">
+    <Page Include="Views\Shopping\MarketPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\MinesPage.xaml">
+    <Page Include="Views\Exploration\MinesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Characters\NewHeroPage.xaml">
+    <Page Include="Views\Characters\NewHeroPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\SpecialEncounterPage.xaml">
+    <Page Include="Views\Exploration\SpecialEncounterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exploration\TavernPage.xaml">
+    <Page Include="Views\Exploration\TavernPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Shopping\MagickShoppePage.xaml">
+    <Page Include="Views\Shopping\MagickShoppePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -422,7 +422,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pages\S.ico" />
+    <Resource Include="Views\S.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

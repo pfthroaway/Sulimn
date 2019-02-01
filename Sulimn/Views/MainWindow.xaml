@@ -1,0 +1,36 @@
+﻿<Window x:Name="WindowMain"
+        x:Class="Sulimn.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Style="{StaticResource WindowStyle}"
+        Title="{Binding Path=Content.Title, ElementName=MainFrame}"
+        WindowState="Maximized"
+        Loaded="WindowMain_Loaded">
+    <DockPanel>
+        <Menu x:Name="Menu" DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <Separator />
+                <MenuItem x:Name="MnuFileExit" Header="_Exit" Click="MnuFileExit_Click" />
+            </MenuItem>
+            <MenuItem x:Name="MnuAdmin" Header="_Admin" Click="MnuAdmin_Click" />
+            <MenuItem x:Name="MnuOptions" Header="_Options">
+                <MenuItem x:Name="MnuOptionsChangeTheme" Header="_Change Theme">
+                    <MenuItem x:Name="MnuOptionsChangeThemeDark" Header="_Dark" IsCheckable="True" IsChecked="True" Click="MnuOptionsChangeThemeDark_Click" />
+                    <MenuItem x:Name="MnuOptionsChangeThemeGrey" Header="_Grey" Click="MnuOptionsChangeThemeGrey_Click" />
+                    <MenuItem x:Name="MnuOptionsChangeThemeDefault" Header="_Default" Click="MnuOptionsChangeThemeDefault_Click" />
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Viewbox Stretch="Uniform">
+            <Frame x:Name="MainFrame"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.CanContentScroll="True"
+            NavigationUIVisibility="Hidden"
+            Source="LoginPage.xaml" />
+        </Viewbox>
+    </DockPanel>
+</Window>

@@ -16,6 +16,7 @@ namespace Sulimn.Classes.Entities
         private int _skillPoints;
         private Spellbook _spellbook = new Spellbook();
         private List<Item> _inventory = new List<Item>();
+        private Bank _bank = new Bank();
         private bool _hardcore;
 
         /// <summary>Updates the Hero's Statistics.</summary>
@@ -82,6 +83,17 @@ namespace Sulimn.Classes.Entities
             {
                 _spellbook = value;
                 OnPropertyChanged("Spellbook");
+            }
+        }
+
+        /// <summary>The <see cref="Hero"/>'s <see cref="HeroParts.Bank"/>. </summary>
+        public Bank Bank
+        {
+            get => _bank;
+            set
+            {
+                _bank = value;
+                OnPropertyChanged("Bank");
             }
         }
 
@@ -394,10 +406,11 @@ namespace Sulimn.Classes.Entities
         /// <param name="equipment">Equipment of Hero</param>
         /// <param name="spellbook">Spellbook of Hero</param>
         /// <param name="inventory">Inventory of Hero</param>
+        /// <param name="bank">Bank of the Hero</param>
         /// <param name="progression">The progress the Hero has made</param>
         /// <param name="hardcore">Will the character be deleted on death?</param>
         internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints, int gold,
-        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, IEnumerable<Item> inventory, Progression progression, bool hardcore)
+        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, IEnumerable<Item> inventory, Bank bank, Progression progression, bool hardcore)
         {
             Name = name;
             Password = password;
@@ -413,13 +426,14 @@ namespace Sulimn.Classes.Entities
             List<Item> items = new List<Item>();
             items.AddRange(inventory);
             _inventory = items;
+            Bank = bank;
             Progression = progression;
             Hardcore = hardcore;
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
         /// <param name="other">Instance of Hero to replace this one</param>
-        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, other.Gold, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), other.Inventory, other.Progression, other.Hardcore)
+        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, other.Gold, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), other.Inventory, other.Bank, other.Progression, other.Hardcore)
         {
         }
 

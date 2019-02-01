@@ -3,14 +3,23 @@
     <Hero>
         <Information>
             <Name>Aragon</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$MbgXM6W7v9LAMIxNStbZWQ$xCyMOClTgZavZ4Grx0NSCH+G2n+81SzIjRRM8Spn7TA</Password>
             <Class>Wizard</Class>
             <Level>26</Level>
-            <Experience>285</Experience>
+            <Experience>635</Experience>
             <SkillPoints>15</SkillPoints>
             <Hardcore>False</Hardcore>
         </Information>
         <Inventory>
-            <Gold>527</Gold>
+            <Gold>757</Gold>
+            <Item>
+                <Name>Beer</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Cracker</Name>
+                <Durability>0</Durability>
+            </Item>
             <Item>
                 <Name>Curing Potion</Name>
                 <Durability>0</Durability>
@@ -35,15 +44,12 @@
                 <Name>Ring of Vitality +1</Name>
                 <Durability>0</Durability>
             </Item>
-            <Item>
-                <Name>Tea</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Water</Name>
-                <Durability>0</Durability>
-            </Item>
         </Inventory>
+        <Bank>
+            <GoldInBank>50</GoldInBank>
+            <LoanTaken>0</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
         <Attributes>
             <Strength>35</Strength>
             <Vitality>45</Vitality>
@@ -102,10 +108,23 @@
             <Name>Heal Medium Wounds</Name>
             <Name>Energy Blast</Name>
         </Spellbook>
+        <Progression>
+            <Fields>True</Fields>
+            <Forest>True</Forest>
+            <Cathedral>True</Cathedral>
+            <Mines>True</Mines>
+            <Catacombs>True</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
     </Hero>
     <Hero>
         <Information>
             <Name>Tidal</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$fCvQMRTlOAcmuQ0EZJswhQ$QhlKAJnwfaPTuyXCYs51ifycKls/IgMCWka7iUf/TXI</Password>
             <Class>Cleric</Class>
             <Level>2</Level>
             <Experience>100</Experience>
@@ -127,6 +146,11 @@
                 <Durability>0</Durability>
             </Item>
         </Inventory>
+        <Bank>
+            <GoldInBank>0</GoldInBank>
+            <LoanTaken>262</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
         <Attributes>
             <Strength>17</Strength>
             <Vitality>12</Vitality>
@@ -176,10 +200,23 @@
         <Spellbook>
             <Name>Heal Self</Name>
         </Spellbook>
+        <Progression>
+            <Fields>False</Fields>
+            <Forest>False</Forest>
+            <Cathedral>False</Cathedral>
+            <Mines>False</Mines>
+            <Catacombs>False</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
     </Hero>
     <Hero>
         <Information>
             <Name>Quincy</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$DUqnqav+muOf7D0By3H9vg$mE+RxLO21dlCJXI7eQ10WRJupWVgv2NY25zznswmHPk</Password>
             <Class>Wizard</Class>
             <Level>4</Level>
             <Experience>300</Experience>
@@ -189,14 +226,6 @@
         <Inventory>
             <Gold>97</Gold>
             <Item>
-                <Name>Minor Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Minor Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
                 <Name>Light Healing Potion</Name>
                 <Durability>0</Durability>
             </Item>
@@ -204,7 +233,20 @@
                 <Name>Light Magic Potion</Name>
                 <Durability>0</Durability>
             </Item>
+            <Item>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
         </Inventory>
+        <Bank>
+            <GoldInBank>0</GoldInBank>
+            <LoanTaken>0</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
         <Attributes>
             <Strength>10</Strength>
             <Vitality>15</Vitality>
@@ -254,10 +296,23 @@
         <Spellbook>
             <Name>Fire Bolt</Name>
         </Spellbook>
+        <Progression>
+            <Fields>False</Fields>
+            <Forest>False</Forest>
+            <Cathedral>False</Cathedral>
+            <Mines>False</Mines>
+            <Catacombs>False</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
     </Hero>
     <Hero>
         <Information>
             <Name>LadyWarrior</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$cZ7XG5vPDbkdKO3tDQ2bsw$H/GUu9BATw4bKc9Bl5AkIhMvWDIGqMdj6/3Essh8SP8</Password>
             <Class>Wizard</Class>
             <Level>38</Level>
             <Experience>25</Experience>
@@ -271,39 +326,11 @@
                 <Durability>0</Durability>
             </Item>
             <Item>
-                <Name>Minor Magic Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Light Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Light Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Water</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Tea</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Greater Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
                 <Name>Ale</Name>
                 <Durability>0</Durability>
             </Item>
             <Item>
-                <Name>Steel Dagger</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Greater Magic Potion</Name>
+                <Name>Chain Mail Chestplate</Name>
                 <Durability>0</Durability>
             </Item>
             <Item>
@@ -311,10 +338,43 @@
                 <Durability>0</Durability>
             </Item>
             <Item>
-                <Name>Chain Mail Chestplate</Name>
+                <Name>Greater Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Greater Magic Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Light Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Light Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Minor Magic Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Steel Dagger</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Tea</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Water</Name>
                 <Durability>0</Durability>
             </Item>
         </Inventory>
+        <Bank>
+            <GoldInBank>0</GoldInBank>
+            <LoanTaken>0</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
         <Attributes>
             <Strength>58</Strength>
             <Vitality>66</Vitality>
@@ -365,10 +425,23 @@
             <Name>Fire Bolt</Name>
             <Name>Energy Blast</Name>
         </Spellbook>
+        <Progression>
+            <Fields>False</Fields>
+            <Forest>False</Forest>
+            <Cathedral>False</Cathedral>
+            <Mines>False</Mines>
+            <Catacombs>False</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
     </Hero>
     <Hero>
         <Information>
             <Name>Cheater</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$m+yPOGc/rM/XcL/dIIEcTg$j4JlrQ6ns4F5GdULmIaWSDDrgnJ6pf1t/vtqzZ7qsa4</Password>
             <Class>Wizard</Class>
             <Level>30</Level>
             <Experience>0</Experience>
@@ -378,27 +451,11 @@
         <Inventory>
             <Gold>20,000</Gold>
             <Item>
-                <Name>Minor Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Minor Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Water</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
-                <Name>Minor Healing Potion</Name>
-                <Durability>0</Durability>
-            </Item>
-            <Item>
                 <Name>Light Healing Potion</Name>
                 <Durability>0</Durability>
             </Item>
             <Item>
-                <Name>Tea</Name>
+                <Name>Light Healing Potion</Name>
                 <Durability>0</Durability>
             </Item>
             <Item>
@@ -406,7 +463,19 @@
                 <Durability>0</Durability>
             </Item>
             <Item>
-                <Name>Light Healing Potion</Name>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Ring of Dexterity +1</Name>
                 <Durability>0</Durability>
             </Item>
             <Item>
@@ -414,10 +483,19 @@
                 <Durability>0</Durability>
             </Item>
             <Item>
-                <Name>Ring of Dexterity +1</Name>
+                <Name>Tea</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Water</Name>
                 <Durability>0</Durability>
             </Item>
         </Inventory>
+        <Bank>
+            <GoldInBank>0</GoldInBank>
+            <LoanTaken>0</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
         <Attributes>
             <Strength>50</Strength>
             <Vitality>50</Vitality>
@@ -476,10 +554,23 @@
             <Name>Heal Medium Wounds</Name>
             <Name>Energy Blast</Name>
         </Spellbook>
+        <Progression>
+            <Fields>False</Fields>
+            <Forest>False</Forest>
+            <Cathedral>False</Cathedral>
+            <Mines>False</Mines>
+            <Catacombs>False</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
     </Hero>
     <Hero>
         <Information>
             <Name>Test</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$1Vv1uOxhgGxwsL+QE43s5A$wIfefyTyUmI6eCWdaHx6/xW0QoXj9GgpzqnQAoi6VE8</Password>
             <Class>Wizard</Class>
             <Level>2</Level>
             <Experience>125</Experience>
@@ -505,6 +596,11 @@
                 <Durability>0</Durability>
             </Item>
         </Inventory>
+        <Bank>
+            <GoldInBank>0</GoldInBank>
+            <LoanTaken>0</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
         <Attributes>
             <Strength>10</Strength>
             <Vitality>10</Vitality>
@@ -554,5 +650,111 @@
         <Spellbook>
             <Name>Fire Bolt</Name>
         </Spellbook>
+        <Progression>
+            <Fields>False</Fields>
+            <Forest>False</Forest>
+            <Cathedral>False</Cathedral>
+            <Mines>False</Mines>
+            <Catacombs>False</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
+    </Hero>
+    <Hero>
+        <Information>
+            <Name>Monkey</Name>
+            <Password>$argon2i$v=19$m=32768,t=4,p=1$OYZK1xa4kS7AZXI6Q0fKmg$BncMyJDW/h35elSNImMgWDFQRbk4Ng9rdx5J10v8a4E</Password>
+            <Class>Custom</Class>
+            <Level>2</Level>
+            <Experience>75</Experience>
+            <SkillPoints>5</SkillPoints>
+            <Hardcore>False</Hardcore>
+        </Information>
+        <Inventory>
+            <Gold>400</Gold>
+            <Item>
+                <Name>Light Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Minor Healing Potion</Name>
+                <Durability>0</Durability>
+            </Item>
+            <Item>
+                <Name>Tea</Name>
+                <Durability>0</Durability>
+            </Item>
+        </Inventory>
+        <Bank>
+            <GoldInBank>0</GoldInBank>
+            <LoanTaken>0</LoanTaken>
+            <LoanAvailable>0</LoanAvailable>
+        </Bank>
+        <Attributes>
+            <Strength>15</Strength>
+            <Vitality>10</Vitality>
+            <Dexterity>20</Dexterity>
+            <Wisdom>10</Wisdom>
+        </Attributes>
+        <Statistics>
+            <CurrentHealth>14</CurrentHealth>
+            <MaximumHealth>55</MaximumHealth>
+            <CurrentMagic>55</CurrentMagic>
+            <MaximumMagic>55</MaximumMagic>
+        </Statistics>
+        <Equipment>
+            <HeadArmor>
+                <Name>Cloth Helmet</Name>
+                <Durability>0</Durability>
+            </HeadArmor>
+            <BodyArmor>
+                <Name>Cloth Shirt</Name>
+                <Durability>0</Durability>
+            </BodyArmor>
+            <HandArmor>
+                <Name>Cloth Gloves</Name>
+                <Durability>0</Durability>
+            </HandArmor>
+            <LegArmor>
+                <Name>Cloth Pants</Name>
+                <Durability>0</Durability>
+            </LegArmor>
+            <FeetArmor>
+                <Name>Cloth Shoes</Name>
+                <Durability>0</Durability>
+            </FeetArmor>
+            <LeftRing>
+                <Name />
+                <Durability>0</Durability>
+            </LeftRing>
+            <RightRing>
+                <Name />
+                <Durability>0</Durability>
+            </RightRing>
+            <Weapon>
+                <Name>Stone Dagger</Name>
+                <Durability>0</Durability>
+            </Weapon>
+        </Equipment>
+        <Spellbook />
+        <Progression>
+            <Fields>False</Fields>
+            <Forest>False</Forest>
+            <Cathedral>False</Cathedral>
+            <Mines>False</Mines>
+            <Catacombs>False</Catacombs>
+            <Courtyard>False</Courtyard>
+            <Battlements>False</Battlements>
+            <Armoury>False</Armoury>
+            <Spire>False</Spire>
+            <ThroneRoom>False</ThroneRoom>
+        </Progression>
     </Hero>
 </AllHeroes>
