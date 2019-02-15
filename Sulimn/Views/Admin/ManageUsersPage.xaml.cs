@@ -2,6 +2,7 @@
 using Sulimn.Classes.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,8 +11,6 @@ namespace Sulimn.Views.Admin
     /// <summary>Interaction logic for ManageUsersPage.xaml</summary>
     public partial class ManageUsersPage : INotifyPropertyChanged
     {
-        private readonly List<Hero> _allHeroes = new List<Hero>(GameState.AllHeroes);
-
         #region Data Binding
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,7 +35,7 @@ namespace Sulimn.Views.Admin
         /// <summary>Refreshed the LstUsers ItemSource.</summary>
         internal void RefreshItemsSource()
         {
-            LstUsers.ItemsSource = _allHeroes;
+            LstUsers.ItemsSource = new List<Hero>(GameState.AllHeroes).OrderBy(hero => hero.Name);
             LstUsers.Items.Refresh();
         }
 
@@ -44,13 +43,15 @@ namespace Sulimn.Views.Admin
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new AdminNewUserPage());
 
-        private async void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             Hero selectedHero = (Hero)LstUsers.SelectedItem;
             if (GameState.YesNoNotification(
                 $"Are you sure you want to delete {selectedHero.Name}? This action cannot be undone.", "Sulimn"))
-                if (await GameState.DeleteHero(selectedHero))
-                    RefreshItemsSource();
+            {
+                GameState.DeleteHero(selectedHero);
+                RefreshItemsSource();
+            }
         }
 
         private void BtnManageUser_Click(object sender, RoutedEventArgs e)
@@ -73,7 +74,6 @@ namespace Sulimn.Views.Admin
 
         private void ManageUsersPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             RefreshItemsSource();
         }
 

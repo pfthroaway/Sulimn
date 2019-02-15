@@ -142,7 +142,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" Text="Weapon:" Margin="10"
                                VerticalAlignment="Center" />
-                    <ComboBox x:Name="CmbWeapon" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding}"
+                    <ComboBox x:Name="CmbWeapon" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding}" SelectionChanged="Cmb_SelectionChanged"
                               VerticalContentAlignment="Center" Margin="10" Width="200" />
                     <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" Text="Head:" Margin="10"
                                VerticalAlignment="Center" />

@@ -277,34 +277,15 @@ namespace Sulimn.Classes
         /// <param name="oldHero">Hero whose details need to be modified</param>
         /// <param name="newHero">Hero with new details</param>
         /// <returns>True if successful</returns>
-        internal static async Task<bool> ChangeHeroDetails(Hero oldHero, Hero newHero)
-        {
-            bool success = false;
-            if (await DatabaseInteraction.ChangeHeroDetails(oldHero, newHero))
-            {
-                Hero currentHero = AllHeroes.Find(hero => hero.Name == oldHero.Name);
-                currentHero.Name = newHero.Name;
-                currentHero.Password = newHero.Password;
-                //AllHeroes.Replace(oldHero, currentHero);
-                success = true;
-            }
-            return success;
-        }
+        internal static bool ChangeHeroDetails(Hero oldHero, Hero newHero) => XMLInteraction.ChangeHeroDetails(oldHero, newHero);
 
         /// <summary>Deletes a Hero from the game and database.</summary>
         /// <param name="deleteHero">Hero to be deleted</param>
         /// <returns>Whether deletion was successful</returns>
-        internal static async Task<bool> DeleteHero(Hero deleteHero)
+        internal static void DeleteHero(Hero deleteHero)
         {
-            bool success = false;
-            if (await DatabaseInteraction.DeleteHero(deleteHero))
-            {
-                AllHeroes.Remove(deleteHero);
-                if (CurrentHero == deleteHero)
-                    CurrentHero = new Hero();
-                success = true;
-            }
-            return success;
+            XMLInteraction.DeleteHero(deleteHero);
+            AllHeroes.Remove(deleteHero);
         }
 
         /// <summary>Loads a Hero's Bank.</summary>
@@ -314,10 +295,8 @@ namespace Sulimn.Classes
 
         /// <summary>Creates a new Hero and adds it to the database.</summary>
         /// <param name="newHero">New Hero</param>
-        /// <returns>Returns true if successfully created</returns>
-        internal static async Task<bool> NewHero(Hero newHero)
+        internal static void NewHero(Hero newHero)
         {
-            bool success = false;
             if (newHero.Equipment.Head == null || newHero.Equipment.Head == new HeadArmor())
                 newHero.Equipment.Head = AllHeadArmor.Find(armor => armor.Name == DefaultHead.Name);
             if (newHero.Equipment.Body == null || newHero.Equipment.Body == new BodyArmor())
@@ -362,13 +341,8 @@ namespace Sulimn.Classes
             for (int i = 0; i < 3; i++)
                 newHero.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
 
-            if (await DatabaseInteraction.NewHero(newHero))
-            {
-                AllHeroes.Add(newHero);
-                success = true;
-            }
-
-            return success;
+            XMLInteraction.SaveHero(newHero);
+            AllHeroes.Add(newHero);
         }
 
         /// <summary>Saves Hero to database.</summary>

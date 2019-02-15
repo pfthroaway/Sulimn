@@ -60,12 +60,13 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Width="125" VerticalAlignment="Center" TextAlignment="Center" Text="Strength" />
@@ -92,13 +93,14 @@
             <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button x:Name="BtnWisdomMinus" Width="40" Content="-" Click="BtnWisdomMinus_Click" IsEnabled="False" Margin="5" />
                 <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=Wisdom, Mode=TwoWay}" />
-                <Button x:Name="BtnWisdomPlus" Width="40" Content="-" Click="BtnWisdomPlus_Click" IsEnabled="False" Margin="5" />
+                <Button x:Name="BtnWisdomPlus" Width="40" Content="+" Click="BtnWisdomPlus_Click" IsEnabled="False" Margin="5" />
             </StackPanel>
-            <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Health" Margin="7" />
-            <TextBlock Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=HealthToString, Mode=OneWay}" />
-            <TextBlock Grid.Column="0" Grid.Row="5" Text="Magic" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="7" />
-            <TextBlock Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=MagicToString, Mode=OneWay}" />
-            <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=SkillPointsToString, Mode=OneWay}" Margin="7" />
+            <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="Hold Shift to change by up to 5." FontSize="12" HorizontalAlignment="Right" Margin="0,0,0,5" />
+            <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Health" Margin="7" />
+            <TextBlock Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=HealthToString, Mode=OneWay}" />
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Magic" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="7" />
+            <TextBlock Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=MagicToString, Mode=OneWay}" />
+            <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=SkillPointsToString, Mode=OneWay}" Margin="7" />
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="BtnCreate" Width="140" Content="_Create" Click="BtnCreate_Click" IsDefault="True" IsEnabled="False" Margin="0,0,10,0" />

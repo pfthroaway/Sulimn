@@ -387,6 +387,8 @@ namespace Sulimn.Views.Battle
 
         #region Button Management
 
+        //TODO Shawn found a bug where the Cast Spell button is enabled when it shouldn't be. Hardcore mode also breaks terribly when dying. I think he found a spelling error, too.
+
         /// <summary>Checks whether to enable/disable battle buttons.</summary>
         private void CheckButtons() => ToggleButtons(!_battleEnded);
 
@@ -504,7 +506,6 @@ namespace Sulimn.Views.Battle
 
         private void BattlePage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             BindLabels();
         }
 

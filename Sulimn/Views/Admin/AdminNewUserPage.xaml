@@ -122,7 +122,7 @@
                              Width="75" MaxLength="6" TextChanged="Integers_TextChanged" PreviewKeyDown="TxtNumbers_PreviewKeyDown" GotFocus="Txt_GotFocus" Margin="10" />
                     <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" Text="Inventory:" VerticalAlignment="Center" Margin="10" />
                     <TextBox x:Name="TxtInventory" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" TextAlignment="Left"
-                             Width="575" Height="300" TextWrapping="Wrap" TextChanged="TxtInventory_TextChanged" PreviewKeyDown="TxtInventory_PreviewKeyDown" GotFocus="Txt_GotFocus" Margin="10" />
+                             Width="575" Height="300" TextWrapping="Wrap" TextChanged="Txt_TextChanged" PreviewKeyDown="TxtInventory_PreviewKeyDown" GotFocus="Txt_GotFocus" Margin="10" />
                 </Grid>
             </TabItem>
             <TabItem Header="Equipment">

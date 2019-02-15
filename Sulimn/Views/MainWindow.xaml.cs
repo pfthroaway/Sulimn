@@ -1,4 +1,5 @@
 ﻿using Sulimn.Classes;
+using Sulimn.Classes.Database;
 using Sulimn.Views.Admin;
 using System;
 using System.Windows;
@@ -81,8 +82,8 @@ namespace Sulimn.Views
         {
             GameState.MainWindow = this;
             GameState.VerifyFolders();
-            await GameState.LoadAll();
-            Classes.Database.XMLInteraction.WriteAll();
+            //await GameState.LoadAll();
+            //XMLInteraction.WriteAll();
             UpdateTheme(await GameState.LoadTheme(), false);
         }
 

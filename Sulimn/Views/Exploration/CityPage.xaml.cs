@@ -14,9 +14,9 @@ namespace Sulimn.Views.Exploration
         internal bool NewHero { get; set; }
 
         /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
-        internal async void HardcoreDeath()
+        internal void HardcoreDeath()
         {
-            await GameState.DeleteHero(GameState.CurrentHero);
+            GameState.DeleteHero(GameState.CurrentHero);
             ClosePage();
         }
 
@@ -59,7 +59,7 @@ namespace Sulimn.Views.Exploration
                 ClosePage();
         }
 
-        private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ExplorePage());
+        private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ExplorePage { RefToCityPage = this });
 
         private void BtnMarket_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new MarketPage());
 
@@ -83,7 +83,6 @@ namespace Sulimn.Views.Exploration
 
         private void CityPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             if (NewHero)
             {
                 GameState.MainWindow.MainFrame.RemoveBackEntry();

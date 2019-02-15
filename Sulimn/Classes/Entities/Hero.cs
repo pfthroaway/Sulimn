@@ -167,6 +167,7 @@ namespace Sulimn.Classes.Entities
             Statistics.MaximumHealth += 5;
             Statistics.CurrentMagic += 5;
             Statistics.MaximumMagic += 5;
+            Bank.LoanAvailable += 250;
             return "\n\nYou gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
         }
 

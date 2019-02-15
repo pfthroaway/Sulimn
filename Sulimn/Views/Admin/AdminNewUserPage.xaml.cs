@@ -119,17 +119,11 @@ namespace Sulimn.Views.Admin
         private void TxtInventory_PreviewKeyDown(object sender, KeyEventArgs e) => Functions.PreviewKeyDown(e,
             KeyType.LettersSpaceComma);
 
-        private void TxtInventory_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Functions.TextBoxTextChanged(sender, KeyType.LettersSpaceComma);
-            CheckInput();
-        }
-
         #endregion Input Manipulation
 
         #region Button-Click Methods
 
-        private async void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (TxtHeroName.Text.Length >= 4 && PswdPassword.Password.Length >= 4 && PswdConfirm.Password.Length >= 4
                  && PswdPassword.Password == PswdConfirm.Password)
@@ -137,7 +131,7 @@ namespace Sulimn.Views.Admin
                 Hero checkHero = GameState.AllHeroes.Find(hero => hero.Name == TxtHeroName.Text);
                 if (checkHero == null || checkHero == new Hero())
                 {
-                    await GameState.NewHero(new Hero(TxtHeroName.Text, Argon2.HashPassword(PswdPassword.Password),
+                    GameState.NewHero(new Hero(TxtHeroName.Text, Argon2.HashPassword(PswdPassword.Password),
                         (HeroClass)CmbClass.SelectedItem,
                         Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
                         Int32Helper.Parse(TxtSkillPoints.Text),
@@ -199,7 +193,6 @@ namespace Sulimn.Views.Admin
 
         private void AdminNewUserPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             Reset();
         }
 

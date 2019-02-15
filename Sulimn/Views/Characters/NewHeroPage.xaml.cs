@@ -55,19 +55,56 @@ namespace Sulimn.Views.Characters
         /// <returns>Increased attribute</returns>
         private int IncreaseAttribute(int attribute)
         {
-            _selectedClass.SkillPoints--;
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (_selectedClass.SkillPoints >= 5)
+                {
+                    attribute += 5;
+                    _selectedClass.SkillPoints -= 5;
+                }
+                else
+                {
+                    attribute += _selectedClass.SkillPoints;
+                    _selectedClass.SkillPoints = 0;
+                }
+            }
+            else
+            {
+                attribute++;
+                _selectedClass.SkillPoints--;
+            }
+
             CheckSkillPoints();
-            return ++attribute;
+            return attribute;
         }
 
         /// <summary>Decreases specified Attribute.</summary>
         /// <param name="attribute">Attribute to be decreased.</param>
+        /// <param name="original">Original value of the attribute for the selected class.</param>
         /// <returns>Decreased attribute</returns>
-        private int DecreaseAttribute(int attribute)
+        private int DecreaseAttribute(int attribute, int original)
         {
-            _selectedClass.SkillPoints++;
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (attribute - original >= 5)
+                {
+                    attribute -= 5;
+                    _selectedClass.SkillPoints += 5;
+                }
+                else
+                {
+                    _selectedClass.SkillPoints += attribute - original;
+                    attribute -= attribute - original;
+                }
+            }
+            else
+            {
+                attribute--;
+                _selectedClass.SkillPoints++;
+            }
+
             CheckSkillPoints();
-            return --attribute;
+            return attribute;
         }
 
         #endregion Attribute Modification
@@ -127,7 +164,7 @@ namespace Sulimn.Views.Characters
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
 
-        private async void BtnCreate_Click(object sender, RoutedEventArgs e)
+        private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
             Hero createHero = new Hero();
 
@@ -177,16 +214,15 @@ namespace Sulimn.Views.Characters
                         new Ring()),
                         new Spellbook(),
                         new List<Item>(),
-                        new Bank(), //TODO BANK
+                        new Bank(0, 0, 250),
                         new Progression(),
                         ChkHardcore.IsChecked ?? false);
 
-                        if (await GameState.NewHero(newHero))
-                        {
-                            _startGame = true;
-                            GameState.CurrentHero = GameState.AllHeroes.Find(hero => hero.Name == newHero.Name);
-                            ClosePage();
-                        }
+                        GameState.NewHero(newHero);
+
+                        _startGame = true;
+                        GameState.CurrentHero = GameState.AllHeroes.Find(hero => hero.Name == newHero.Name);
+                        ClosePage();
                     }
                     else
                         GameState.DisplayNotification("Please ensure that the passwords match.", "Sulimn");
@@ -203,7 +239,7 @@ namespace Sulimn.Views.Characters
 
         private void BtnStrengthMinus_Click(object sender, RoutedEventArgs e)
         {
-            _selectedClass.Strength = DecreaseAttribute(_selectedClass.Strength);
+            _selectedClass.Strength = DecreaseAttribute(_selectedClass.Strength, _compareClass.Strength);
             BtnStrengthMinus.IsEnabled = _selectedClass.Strength != _compareClass.Strength;
         }
 
@@ -215,7 +251,7 @@ namespace Sulimn.Views.Characters
 
         private void BtnVitalityMinus_Click(object sender, RoutedEventArgs e)
         {
-            _selectedClass.Vitality = DecreaseAttribute(_selectedClass.Vitality);
+            _selectedClass.Vitality = DecreaseAttribute(_selectedClass.Vitality, _compareClass.Vitality);
             BtnVitalityMinus.IsEnabled = _selectedClass.Vitality != _compareClass.Vitality;
         }
 
@@ -227,7 +263,7 @@ namespace Sulimn.Views.Characters
 
         private void BtnDexterityMinus_Click(object sender, RoutedEventArgs e)
         {
-            _selectedClass.Dexterity = DecreaseAttribute(_selectedClass.Dexterity);
+            _selectedClass.Dexterity = DecreaseAttribute(_selectedClass.Dexterity, _compareClass.Dexterity);
             BtnDexterityMinus.IsEnabled = _selectedClass.Dexterity != _compareClass.Dexterity;
         }
 
@@ -239,7 +275,7 @@ namespace Sulimn.Views.Characters
 
         private void BtnWisdomMinus_Click(object sender, RoutedEventArgs e)
         {
-            _selectedClass.Wisdom = DecreaseAttribute(_selectedClass.Wisdom);
+            _selectedClass.Wisdom = DecreaseAttribute(_selectedClass.Wisdom, _compareClass.Wisdom);
             BtnWisdomMinus.IsEnabled = _selectedClass.Wisdom != _compareClass.Wisdom;
         }
 

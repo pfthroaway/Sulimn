@@ -146,9 +146,9 @@ namespace Sulimn.Classes.HeroParts
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
                    && left.Type == right.Type
                    && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase)
-                   && left.AllowedClasses == right.AllowedClasses
                    && !left.AllowedClasses.Except(right.AllowedClasses).Any()
-                   && left.RequiredLevel == right.RequiredLevel && left.MagicCost == right.MagicCost
+                   && left.RequiredLevel == right.RequiredLevel
+                   && left.MagicCost == right.MagicCost
                    && left.Amount == right.Amount;
         }
 

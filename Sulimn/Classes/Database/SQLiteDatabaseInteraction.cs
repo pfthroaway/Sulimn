@@ -16,6 +16,7 @@ namespace Sulimn.Classes.Database
     /// <summary>Represents database interaction covered by SQLite.</summary>
     internal class SqLiteDatabaseInteraction : IDatabaseInteraction
     {
+        //TODO Wipe out SQLite File.
         // ReSharper disable once InconsistentNaming
         private const string _DATABASENAME = "Sulimn.sqlite";
 

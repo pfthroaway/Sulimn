@@ -139,9 +139,13 @@ namespace Sulimn.Views.Admin
 
         #endregion Input Manipulation
 
+        private void Cmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
         #region Button-Click Methods
 
-        private async void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (TxtHeroName.Text.Length >= 4
                 && ((PswdPassword.Password.Length == 0 && PswdConfirm.Password.Length == 0)
@@ -152,22 +156,22 @@ namespace Sulimn.Views.Admin
                     ? Argon2.HashPassword(PswdPassword.Password)
                     : _originalHero.Password;
 
-                if (TxtHeroName.Text != _originalHero.Name || PswdPassword.Password.Length >= 4)
-                    await GameState.ChangeHeroDetails(_originalHero,
-                        new Hero { Name = TxtHeroName.Text, Password = password });
                 Hero newHero = new Hero(TxtHeroName.Text, password, (HeroClass)CmbClass.SelectedItem,
-                    Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
-                    Int32Helper.Parse(TxtSkillPoints.Text), Int32Helper.Parse(TxtGold.Text),
-                    new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text),
-                        Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
-                    new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text),
-                        Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem, (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem, (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(), CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
-                    new Spellbook(_originalHero.Spellbook), GameState.SetInventory(TxtInventory.Text),
-                        new Bank(), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
+                        Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
+                        Int32Helper.Parse(TxtSkillPoints.Text), Int32Helper.Parse(TxtGold.Text),
+                        new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text),
+                            Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
+                        new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text),
+                            Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem, (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem, (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(), CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
+                        new Spellbook(_originalHero.Spellbook), GameState.SetInventory(TxtInventory.Text),
+                            new Bank(), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
                 //TODO BANK
 
-                if (GameState.SaveHero(newHero))
-                    ClosePage();
+                if (TxtHeroName.Text != _originalHero.Name)
+                    GameState.ChangeHeroDetails(_originalHero, newHero);
+                else
+                    GameState.SaveHero(newHero);
+                ClosePage();
             }
             else if (PswdPassword.Password.Length != 0 && PswdConfirm.Password.Length != 0
                      && PswdPassword.Password.Length < 4 && PswdConfirm.Password.Length < 4)

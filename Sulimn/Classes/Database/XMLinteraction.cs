@@ -17,6 +17,7 @@ namespace Sulimn.Classes.Database
         #region Load
 
         //TODO Change all Items to implement durability, allowed classes, and minimum level
+        //TODO Figure out a way to always display current health and magic along the bottom of the screen.
 
         /// <summary>Loads all Classes from the database.</summary>
         /// <returns>List of Classes</returns>
@@ -139,19 +140,22 @@ namespace Sulimn.Classes.Database
             List<Hero> allHeroes = new List<Hero>();
             XmlDocument xmlDoc = new XmlDocument();
 
-            if (File.Exists("Data/Heroes/Heroes.xml"))
+            if (Directory.Exists("Data/Heroes"))
             {
-                try
+                foreach (string file in Directory.GetFiles("Data/Heroes"))
                 {
-                    xmlDoc.Load("Data/Heroes/Heroes.xml");
-                    foreach (XmlNode node in xmlDoc.SelectNodes("/AllHeroes/Hero"))
+                    try
                     {
-                        allHeroes.Add(LoadHero(node));
+                        xmlDoc.Load(file);
+                        foreach (XmlNode node in xmlDoc.SelectNodes("/Hero"))
+                        {
+                            allHeroes.Add(LoadHero(node));
+                        }
                     }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading heroes: {e.Message}.", "Sulimn");
+                    catch (Exception e)
+                    {
+                        GameState.DisplayNotification($"Error loading heroes: {e.Message}.", "Sulimn");
+                    }
                 }
             }
 
@@ -174,7 +178,7 @@ namespace Sulimn.Classes.Database
                 newHero.Level = Int32Helper.Parse(info["Level"]?.InnerText);
                 newHero.Experience = Int32Helper.Parse(info["Experience"]?.InnerText);
                 newHero.SkillPoints = Int32Helper.Parse(info["SkillPoints"]?.InnerText);
-                newHero.Hardcore = BoolHelper.Parse(info["SkillPoints"]?.InnerText);
+                newHero.Hardcore = BoolHelper.Parse(info["Hardcore"]?.InnerText);
             }
             else
                 GameState.DisplayNotification($"Information unavailable for Hero.", "Sulimn");
@@ -745,13 +749,13 @@ namespace Sulimn.Classes.Database
 
         #endregion Items
 
-        #endregion Load
-
-        internal static Hero LoadHero(string filename)
+        internal static bool DeleteHero(Hero hero)
         {
-            Hero loadHero = new Hero();
-            return loadHero;
+            File.Delete($"Data/Heroes/{hero.Name}.xml");
+            return !File.Exists($"Data/Heroes/{hero.Name}.xml");
         }
+
+        #endregion Load
 
         #region Write
 
@@ -1179,6 +1183,25 @@ namespace Sulimn.Classes.Database
             }
         }
 
+        /// <summary>Modifies a Hero's details in the database.</summary>
+        /// <param name="oldHero">Hero whose details need to be modified</param>
+        /// <param name="newHero">Hero with new details</param>
+        /// <returns>True if successful</returns>
+        internal static bool ChangeHeroDetails(Hero oldHero, Hero newHero)
+        {
+            bool success = false;
+            if (!File.Exists($"Data/Heroes/{newHero.Name}.xml"))
+            {
+                SaveHero(newHero);
+                DeleteHero(oldHero);
+                success = true;
+            }
+            else
+                GameState.DisplayNotification("This username is already taken. Unable to change hero details.", "Sulimn");
+
+            return success;
+        }
+
         internal static void SaveHero(Hero saveHero)
         {
             using (XmlTextWriter writer = new XmlTextWriter($"Data/Heroes/{saveHero.Name}.xml", Encoding.UTF8))
@@ -1399,10 +1422,6 @@ namespace Sulimn.Classes.Database
         //        Console.WriteLine($"{newCharacter.Name}: {newCharacter.Level}");
         //    Console.ReadKey();
         //}
-
-        private static void ReadMultipleTest()
-        {
-        }
 
         //#endregion Read
 

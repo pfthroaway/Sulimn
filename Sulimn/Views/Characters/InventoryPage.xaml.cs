@@ -569,6 +569,9 @@ namespace Sulimn.Views.Characters
 
         #endregion Rings-Click
 
+        //TODO Make it to where selling an item will automatically re-check purchase buttons being enabled.
+        //TODO Make it to where attacking with a weapon chooses a random body part, then deducts damage from that spot's defense.
+
         #region Potion-Click
 
         private void Consume(Consumable selectedConsumable)
@@ -578,7 +581,7 @@ namespace Sulimn.Views.Characters
             if (selectedConsumable.RestoreHealth > 0)
                 Functions.AddTextToTextBox(TxtInventory, GameState.CurrentHero.Heal(selectedConsumable.RestoreHealth));
 
-            if (selectedConsumable.RestoreHealth > 0)
+            if (selectedConsumable.RestoreMagic > 0)
                 Functions.AddTextToTextBox(TxtInventory, GameState.CurrentHero.Statistics.RestoreMagic(selectedConsumable.RestoreMagic));
 
             if (selectedConsumable.Cures)
