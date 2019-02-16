@@ -82,7 +82,7 @@ namespace Sulimn.Views
         {
             GameState.MainWindow = this;
             GameState.VerifyFolders();
-            //await GameState.LoadAll();
+            await GameState.LoadAll();
             //XMLInteraction.WriteAll();
             UpdateTheme(await GameState.LoadTheme(), false);
         }
