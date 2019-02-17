@@ -235,7 +235,12 @@ namespace Sulimn.Classes
         /// <param name="oldHero">Hero whose details need to be modified</param>
         /// <param name="newHero">Hero with new details</param>
         /// <returns>True if successful</returns>
-        internal static bool ChangeHeroDetails(Hero oldHero, Hero newHero) => XMLInteraction.ChangeHeroDetails(oldHero, newHero);
+        internal static void ChangeHeroDetails(Hero oldHero, Hero newHero)
+        {
+            XMLInteraction.ChangeHeroDetails(oldHero, newHero);
+            AllHeroes.Replace(oldHero, newHero);
+            //TODO Find out why it's not updating the Hero list correctly on returning. The file is being saved correctly, but it's not loading into memory correctly.
+        }
 
         /// <summary>Deletes a Hero from the game and database.</summary>
         /// <param name="deleteHero">Hero to be deleted</param>

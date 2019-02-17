@@ -1290,10 +1290,13 @@ namespace Sulimn.Classes.Database
             writer.WriteElementString("Gold", hero.GoldToString);
             foreach (Item item in hero.Inventory)
             {
-                writer.WriteStartElement("Item");
-                writer.WriteElementString("Name", item.Name);
-                writer.WriteElementString("Durability", item.CurrentDurabilityToString);
-                writer.WriteEndElement();
+                if (item != null)
+                {
+                    writer.WriteStartElement("Item");
+                    writer.WriteElementString("Name", item.Name);
+                    writer.WriteElementString("Durability", item.CurrentDurabilityToString);
+                    writer.WriteEndElement();
+                }
             }
             writer.WriteEndElement();
 

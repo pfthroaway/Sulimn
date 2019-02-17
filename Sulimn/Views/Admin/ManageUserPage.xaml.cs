@@ -171,6 +171,7 @@ namespace Sulimn.Views.Admin
                     GameState.ChangeHeroDetails(_originalHero, newHero);
                 else
                     GameState.SaveHero(newHero);
+
                 ClosePage();
             }
             else if (PswdPassword.Password.Length != 0 && PswdConfirm.Password.Length != 0

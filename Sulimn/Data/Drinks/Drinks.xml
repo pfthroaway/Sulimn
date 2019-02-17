@@ -13,7 +13,7 @@
     </Drink>
     <Drink>
         <Name>Beer</Name>
-        <Description>A small cup of beer</Description>
+        <Description>A small cup of beer.</Description>
         <RestoreHealth>0</RestoreHealth>
         <RestoreMagic>5</RestoreMagic>
         <Cures>False</Cures>

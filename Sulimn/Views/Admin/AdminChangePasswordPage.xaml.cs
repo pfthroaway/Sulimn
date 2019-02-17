@@ -20,6 +20,8 @@ namespace Sulimn.Views.Admin
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
                             GameState.CurrentSettings.AdminPassword = Argon2.HashPassword(PswdNewPassword.Password);
+                            GameState.ChangeSettings();
+                            GameState.GoBack();
                         }
                         else
                         {
