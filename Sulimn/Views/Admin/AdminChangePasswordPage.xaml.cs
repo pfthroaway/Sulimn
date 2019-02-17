@@ -10,25 +10,16 @@ namespace Sulimn.Views.Admin
     {
         #region Button-Click Methods
 
-        private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (PswdCurrentPassword.Password.Length >= 1 && PswdNewPassword.Password.Length >= 1
             && PswdConfirmPassword.Password.Length >= 1)
             {
-                if (Argon2.ValidatePassword(GameState.AdminPassword, PswdCurrentPassword.Password))
+                if (Argon2.ValidatePassword(GameState.CurrentSettings.AdminPassword, PswdCurrentPassword.Password))
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
-                            string newPassword = Argon2.HashPassword(PswdNewPassword.Password);
-
-                            if (await GameState.ChangeAdminPassword(newPassword))
-                            {
-                                GameState.AdminPassword = newPassword;
-                                GameState.DisplayNotification("Successfully changed administrator password.", "Sulimn");
-                                ClosePage();
-                            }
-                            else
-                                GameState.DisplayNotification("Unable to change administrator password.", "Sulimn");
+                            GameState.CurrentSettings.AdminPassword = Argon2.HashPassword(PswdNewPassword.Password);
                         }
                         else
                         {

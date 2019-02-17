@@ -1,0 +1,4 @@
+<Settings>
+    <AdminPassword>$argon2i$v=19$m=32768,t=4,p=1$Ew2iR9VH1JgWwXEYpoGmOw$CK0mpg+7QkVi8vi6qi5XafDMFfCOgTi1dVCxkmBPWBE</AdminPassword>
+    <Theme>Dark</Theme>
+</Settings>

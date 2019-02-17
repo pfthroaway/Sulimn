@@ -13,7 +13,7 @@ namespace Sulimn.Views.Admin
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (Argon2.ValidatePassword(GameState.AdminPassword, PswdAdmin.Password))
+            if (Argon2.ValidatePassword(GameState.CurrentSettings.AdminPassword, PswdAdmin.Password))
             {
                 _admin = true;
                 ClosePage();

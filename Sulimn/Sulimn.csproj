@@ -96,8 +96,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Database\IDatabaseInteraction.cs" />
-    <Compile Include="Classes\Database\SQLiteDatabaseInteraction.cs" />
     <Compile Include="Classes\Database\XMLInteraction.cs" />
     <Compile Include="Classes\Entities\ICharacter.cs" />
     <Compile Include="Classes\Enums\BankAction.cs" />
@@ -121,6 +119,7 @@
     <Compile Include="Classes\Items\Ring.cs" />
     <Compile Include="Classes\HeroParts\Statistics.cs" />
     <Compile Include="Classes\Items\HandArmor.cs" />
+    <Compile Include="Classes\Settings.cs" />
     <Compile Include="EncounterPage.xaml.cs">
       <DependentUpon>EncounterPage.xaml</DependentUpon>
     </Compile>
@@ -470,7 +469,6 @@
     <Resource Include="Data\Food\Food.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Data\Heroes\Heroes.xml" />
     <Resource Include="Data\Potions\Potions.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -485,7 +483,11 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\Heroes\" />
     <Folder Include="Data\StatusEffects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.2.4.3\build\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.4.3\build\Baseclass.Contrib.Nuget.Output.targets')" />

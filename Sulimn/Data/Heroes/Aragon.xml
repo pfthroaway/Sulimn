@@ -10,7 +10,7 @@
         <Hardcore>False</Hardcore>
     </Information>
     <Inventory>
-        <Gold>757</Gold>
+        <Gold>758</Gold>
         <Item>
             <Name>Beer</Name>
             <Durability>0</Durability>
@@ -46,8 +46,8 @@
     </Inventory>
     <Bank>
         <GoldInBank>50</GoldInBank>
-        <LoanTaken>0</LoanTaken>
-        <LoanAvailable>0</LoanAvailable>
+        <LoanTaken>1</LoanTaken>
+        <LoanAvailable>6,499</LoanAvailable>
     </Bank>
     <Attributes>
         <Strength>35</Strength>

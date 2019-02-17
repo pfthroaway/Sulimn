@@ -1,5 +1,4 @@
 ﻿using Sulimn.Classes;
-using Sulimn.Classes.Database;
 using Sulimn.Views.Admin;
 using System;
 using System.Windows;
@@ -13,7 +12,7 @@ namespace Sulimn.Views
         /// <summary>Updates the current theme.</summary>
         /// <param name="theme">Theme name</param>
         /// <param name="update">Write to database?</param>
-        private async void UpdateTheme(string theme, bool update = true)
+        private void UpdateTheme(string theme, bool update = true)
         {
             Application.Current.Resources.Source =
                 new Uri($"pack://application:,,,/Extensions;component/Dictionaries/{theme}.xaml",
@@ -53,7 +52,7 @@ namespace Sulimn.Views
             }
 
             if (update)
-                await GameState.ChangeTheme(theme);
+                GameState.ChangeTheme(theme);
         }
 
         #region Menu Click
@@ -78,13 +77,12 @@ namespace Sulimn.Views
 
         public MainWindow() => InitializeComponent();
 
-        private async void WindowMain_Loaded(object sender, RoutedEventArgs e)
+        private void WindowMain_Loaded(object sender, RoutedEventArgs e)
         {
             GameState.MainWindow = this;
             GameState.VerifyFolders();
-            await GameState.LoadAll();
-            //XMLInteraction.WriteAll();
-            UpdateTheme(await GameState.LoadTheme(), false);
+            GameState.LoadAll();
+            UpdateTheme(GameState.CurrentSettings.Theme, false);
         }
 
         #endregion Window-Manipulation Methods

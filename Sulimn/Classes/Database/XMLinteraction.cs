@@ -7,21 +7,47 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Sulimn.Classes.Database
 {
+    /// <summary>Represents XML file interactions.</summary>
     internal static class XMLInteraction
     {
         #region Load
+
+        /// <summary>Loads the game's settings from disk.</summary>
+        /// <returns></returns>
+        internal static Settings LoadSettings()
+        {
+            Settings newSettings = new Settings("", "");
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Settings.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Settings.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/Settings"))
+                    {
+                        newSettings.AdminPassword = xn["AdminPassword"]?.InnerText;
+                        newSettings.Theme = xn["Theme"]?.InnerText;
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading settings: {e.Message}.", "Sulimn");
+                }
+            }
+            return newSettings;
+        }
 
         //TODO Change all Items to implement durability, allowed classes, and minimum level
         //TODO Figure out a way to always display current health and magic along the bottom of the screen.
 
         /// <summary>Loads all Classes from the database.</summary>
         /// <returns>List of Classes</returns>
-        public static List<HeroClass> LoadClasses()
+        internal static List<HeroClass> LoadClasses()
         {
             List<HeroClass> allClasses = new List<HeroClass>();
             XmlDocument xmlDoc = new XmlDocument();
@@ -58,7 +84,7 @@ namespace Sulimn.Classes.Database
 
         /// <summary>Loads all Enemies from the database.</summary>
         /// <returns>List of Enemies</returns>
-        public static List<Enemy> LoadEnemies()
+        internal static List<Enemy> LoadEnemies()
         {
             List<Enemy> allEnemies = new List<Enemy>();
             XmlDocument xmlDoc = new XmlDocument();
@@ -130,9 +156,433 @@ namespace Sulimn.Classes.Database
             return allEnemies;
         }
 
+        #endregion Entities
+
+        #region Items
+
+        #region Equipment
+
+        #region Armor
+
+        /// <summary>Loads all Head Armor from the database.</summary>
+        /// <returns>List of Head Armor</returns>
+        internal static List<HeadArmor> LoadHeadArmor()
+        {
+            List<HeadArmor> allHeadArmor = new List<HeadArmor>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Armor/HeadArmor.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Armor/HeadArmor.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHeadArmor/HeadArmor"))
+                    {
+                        HeadArmor newHeadArmor = new HeadArmor(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allHeadArmor.Add(newHeadArmor);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Head Armor: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allHeadArmor;
+        }
+
+        /// <summary>Loads all Body Armor from the database.</summary>
+        /// <returns>List of Body Armor</returns>
+        internal static List<BodyArmor> LoadBodyArmor()
+        {
+            List<BodyArmor> allBodyArmor = new List<BodyArmor>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Armor/BodyArmor.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Armor/BodyArmor.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllBodyArmor/BodyArmor"))
+                    {
+                        BodyArmor newBodyArmor = new BodyArmor(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allBodyArmor.Add(newBodyArmor);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Body Armor: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allBodyArmor;
+        }
+
+        /// <summary>Loads all Hand Armor from the database.</summary>
+        /// <returns>List of Hand Armor</returns>
+        internal static List<HandArmor> LoadHandArmor()
+        {
+            List<HandArmor> allHandArmor = new List<HandArmor>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Armor/HandArmor.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Armor/HandArmor.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHandArmor/HandArmor"))
+                    {
+                        HandArmor newHandArmor = new HandArmor(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allHandArmor.Add(newHandArmor);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Hand Armor: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allHandArmor;
+        }
+
+        /// <summary>Loads all Leg Armor from the database.</summary>
+        /// <returns>List of Leg Armor</returns>
+        internal static List<LegArmor> LoadLegArmor()
+        {
+            List<LegArmor> allLegArmor = new List<LegArmor>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Armor/LegArmor.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Armor/LegArmor.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllLegArmor/LegArmor"))
+                    {
+                        LegArmor newLegArmor = new LegArmor(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allLegArmor.Add(newLegArmor);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Leg Armor: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allLegArmor;
+        }
+
+        /// <summary>Loads all Feet Armor from the database.</summary>
+        /// <returns>List of Feet Armor</returns>
+        internal static List<FeetArmor> LoadFeetArmor()
+        {
+            List<FeetArmor> allFeetArmor = new List<FeetArmor>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Armor/FeetArmor.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Armor/FeetArmor.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFeetArmor/FeetArmor"))
+                    {
+                        FeetArmor newFeetArmor = new FeetArmor(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allFeetArmor.Add(newFeetArmor);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Feet Armor: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allFeetArmor;
+        }
+
+        #endregion Armor
+
+        /// <summary>Loads all Rings from the database.</summary>
+        /// <returns>List of Rings</returns>
+        internal static List<Ring> LoadRings()
+        {
+            List<Ring> allRings = new List<Ring>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Rings/Rings.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Rings/Rings.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllRings/Ring"))
+                    {
+                        Ring newRing = new Ring(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Damage"]?.InnerText),
+                        Int32Helper.Parse(xn["Defense"]?.InnerText),
+                        Int32Helper.Parse(xn["Strength"]?.InnerText),
+                        Int32Helper.Parse(xn["Vitality"]?.InnerText),
+                        Int32Helper.Parse(xn["Dexterity"]?.InnerText),
+                        Int32Helper.Parse(xn["Wisdom"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allRings.Add(newRing);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Rings: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allRings;
+        }
+
+        /// <summary>Loads all Weapons from the database.</summary>
+        /// <returns>List of Weapons</returns>
+        internal static List<Weapon> LoadWeapons()
+        {
+            List<Weapon> allWeapons = new List<Weapon>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Weapons/Weapons.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Weapons/Weapons.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllWeapons/Weapon"))
+                    {
+                        Weapon newWeapon = new Weapon(
+                        xn["Name"]?.InnerText,
+                        EnumHelper.Parse<WeaponTypes>(xn["WeaponType"]?.InnerText),
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["Damage"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allWeapons.Add(newWeapon);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Weapons: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allWeapons;
+        }
+
+        #endregion Equipment
+
+        /// <summary>Loads all Potions from the database.</summary>
+        /// <returns>List of Potions</returns>
+        internal static List<Potion> LoadPotions()
+        {
+            List<Potion> allPotions = new List<Potion>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Potions/Potions.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Potions/Potions.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllPotions/Potion"))
+                    {
+                        Potion newPotion = new Potion(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
+                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
+                        BoolHelper.Parse(xn["Cures"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allPotions.Add(newPotion);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Potions: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allPotions;
+        }
+
+        /// <summary>Loads all Drink from the database.</summary>
+        /// <returns>List of Drink</returns>
+        internal static List<Drink> LoadDrinks()
+        {
+            List<Drink> allDrinks = new List<Drink>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Drinks/Drinks.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Drinks/Drinks.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllDrinks/Drink"))
+                    {
+                        Drink newDrink = new Drink(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
+                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
+                        BoolHelper.Parse(xn["Cures"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allDrinks.Add(newDrink);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Drinks: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allDrinks;
+        }
+
+        /// <summary>Loads all Food from the database.</summary>
+        /// <returns>List of Food</returns>
+        internal static List<Food> LoadFood()
+        {
+            List<Food> allFood = new List<Food>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Food/Food.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Food/Food.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFood/Food"))
+                    {
+                        Food newFood = new Food(
+                        xn["Name"]?.InnerText,
+                        xn["Description"]?.InnerText,
+                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
+                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
+                        BoolHelper.Parse(xn["Cures"]?.InnerText),
+                        Int32Helper.Parse(xn["Weight"]?.InnerText),
+                        Int32Helper.Parse(xn["Value"]?.InnerText),
+                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
+                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+
+                        allFood.Add(newFood);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Food: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allFood;
+        }
+
+        /// <summary>Loads all Spells from the database.</summary>
+        /// <returns>List of Spells</returns>
+        internal static List<Spell> LoadSpells()
+        {
+            List<Spell> allSpells = new List<Spell>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (File.Exists("Data/Spells/Spells.xml"))
+            {
+                try
+                {
+                    xmlDoc.Load("Data/Spells/Spells.xml");
+                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllSpells/Spell"))
+                    {
+                        Spell newSpell = new Spell(
+                        xn["Name"]?.InnerText,
+                        EnumHelper.Parse<SpellTypes>(xn["Type"]?.InnerText),
+                        xn["Description"]?.InnerText,
+                        GameState.SetAllowedClasses(xn["AllowedClasses"]?.InnerText),
+                        Int32Helper.Parse(xn["RequiredLevel"]?.InnerText),
+                        Int32Helper.Parse(xn["MagicCost"]?.InnerText),
+                        Int32Helper.Parse(xn["Amount"]?.InnerText));
+
+                        allSpells.Add(newSpell);
+                    }
+                }
+                catch (Exception e)
+                {
+                    GameState.DisplayNotification($"Error loading Spells: {e.Message}.", "Sulimn");
+                }
+            }
+
+            return allSpells;
+        }
+
+        #endregion Items
+
+        #endregion Load
+
+        #region Heroes
+
+        /// <summary>Deletes a <see cref="Hero"/> from disk.</summary>
+        /// <param name="deleteHero"><see cref="Hero"/> to be deleted</param>
+        /// <returns>Returns true if the file is deleted.</returns>
+        internal static bool DeleteHero(Hero deleteHero)
+        {
+            File.Delete($"Data/Heroes/{deleteHero.Name}.xml");
+            return !File.Exists($"Data/Heroes/{deleteHero.Name}.xml");
+        }
+
         /// <summary>Loads all Heroes from the database.</summary>
         /// <returns>List of Heroes</returns>
-        public static List<Hero> LoadHeroes()
+        internal static List<Hero> LoadHeroes()
         {
             //TODO Learn LINQ to XML
             //TODO Make sure all nodes are verified as existing before trying to pull data
@@ -338,443 +788,59 @@ namespace Sulimn.Classes.Database
             return newHero;
         }
 
-        #endregion Entities
-
-        #region Items
-
-        #region Equipment
-
-        #region Armor
-
-        /// <summary>Loads all Head Armor from the database.</summary>
-        /// <returns>List of Head Armor</returns>
-        public static List<HeadArmor> LoadHeadArmor()
+        /// <summary>Saves a <see cref="Hero"/> to file.</summary>
+        /// <param name="saveHero"><see cref="Hero"/> to be saved.</param>
+        internal static void SaveHero(Hero saveHero)
         {
-            List<HeadArmor> allHeadArmor = new List<HeadArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Armor/HeadArmor.xml"))
+            using (XmlTextWriter writer = new XmlTextWriter($"Data/Heroes/{saveHero.Name}.xml", Encoding.UTF8))
             {
-                try
-                {
-                    xmlDoc.Load("Data/Armor/HeadArmor.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHeadArmor/HeadArmor"))
-                    {
-                        HeadArmor newHeadArmor = new HeadArmor(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Defense"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
+                writer.Formatting = Formatting.Indented;
+                writer.Indentation = 4;
 
-                        allHeadArmor.Add(newHeadArmor);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Head Armor: {e.Message}.", "Sulimn");
-                }
+                writer.WriteStartDocument();
+                WriteHero(writer, saveHero);
+                writer.WriteEndDocument();
             }
-
-            return allHeadArmor;
         }
 
-        /// <summary>Loads all Body Armor from the database.</summary>
-        /// <returns>List of Body Armor</returns>
-        public static List<BodyArmor> LoadBodyArmor()
-        {
-            List<BodyArmor> allBodyArmor = new List<BodyArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Armor/BodyArmor.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Armor/BodyArmor.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllBodyArmor/BodyArmor"))
-                    {
-                        BodyArmor newBodyArmor = new BodyArmor(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Defense"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allBodyArmor.Add(newBodyArmor);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Body Armor: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allBodyArmor;
-        }
-
-        /// <summary>Loads all Hand Armor from the database.</summary>
-        /// <returns>List of Hand Armor</returns>
-        public static List<HandArmor> LoadHandArmor()
-        {
-            List<HandArmor> allHandArmor = new List<HandArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Armor/HandArmor.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Armor/HandArmor.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHandArmor/HandArmor"))
-                    {
-                        HandArmor newHandArmor = new HandArmor(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Defense"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allHandArmor.Add(newHandArmor);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Hand Armor: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allHandArmor;
-        }
-
-        /// <summary>Loads all Leg Armor from the database.</summary>
-        /// <returns>List of Leg Armor</returns>
-        public static List<LegArmor> LoadLegArmor()
-        {
-            List<LegArmor> allLegArmor = new List<LegArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Armor/LegArmor.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Armor/LegArmor.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllLegArmor/LegArmor"))
-                    {
-                        LegArmor newLegArmor = new LegArmor(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Defense"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allLegArmor.Add(newLegArmor);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Leg Armor: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allLegArmor;
-        }
-
-        /// <summary>Loads all Feet Armor from the database.</summary>
-        /// <returns>List of Feet Armor</returns>
-        public static List<FeetArmor> LoadFeetArmor()
-        {
-            List<FeetArmor> allFeetArmor = new List<FeetArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Armor/FeetArmor.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Armor/FeetArmor.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFeetArmor/FeetArmor"))
-                    {
-                        FeetArmor newFeetArmor = new FeetArmor(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Defense"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allFeetArmor.Add(newFeetArmor);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Feet Armor: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allFeetArmor;
-        }
-
-        #endregion Armor
-
-        /// <summary>Loads all Rings from the database.</summary>
-        /// <returns>List of Rings</returns>
-        public static List<Ring> LoadRings()
-        {
-            List<Ring> allRings = new List<Ring>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Rings/Rings.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Rings/Rings.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllRings/Ring"))
-                    {
-                        Ring newRing = new Ring(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Damage"]?.InnerText),
-                        Int32Helper.Parse(xn["Defense"]?.InnerText),
-                        Int32Helper.Parse(xn["Strength"]?.InnerText),
-                        Int32Helper.Parse(xn["Vitality"]?.InnerText),
-                        Int32Helper.Parse(xn["Dexterity"]?.InnerText),
-                        Int32Helper.Parse(xn["Wisdom"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allRings.Add(newRing);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Rings: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allRings;
-        }
-
-        /// <summary>Loads all Weapons from the database.</summary>
-        /// <returns>List of Weapons</returns>
-        public static List<Weapon> LoadWeapons()
-        {
-            List<Weapon> allWeapons = new List<Weapon>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Weapons/Weapons.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Weapons/Weapons.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllWeapons/Weapon"))
-                    {
-                        Weapon newWeapon = new Weapon(
-                        xn["Name"]?.InnerText,
-                        EnumHelper.Parse<WeaponTypes>(xn["WeaponType"]?.InnerText),
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["Damage"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allWeapons.Add(newWeapon);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Weapons: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allWeapons;
-        }
-
-        #endregion Equipment
-
-        /// <summary>Loads all Potions from the database.</summary>
-        /// <returns>List of Potions</returns>
-        public static List<Potion> LoadPotions()
-        {
-            List<Potion> allPotions = new List<Potion>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Potions/Potions.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Potions/Potions.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllPotions/Potion"))
-                    {
-                        Potion newPotion = new Potion(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
-                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
-                        BoolHelper.Parse(xn["Cures"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allPotions.Add(newPotion);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Potions: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allPotions;
-        }
-
-        /// <summary>Loads all Drink from the database.</summary>
-        /// <returns>List of Drink</returns>
-        public static List<Drink> LoadDrinks()
-        {
-            List<Drink> allDrinks = new List<Drink>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Drinks/Drinks.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Drinks/Drinks.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllDrinks/Drink"))
-                    {
-                        Drink newDrink = new Drink(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
-                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
-                        BoolHelper.Parse(xn["Cures"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allDrinks.Add(newDrink);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Drinks: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allDrinks;
-        }
-
-        /// <summary>Loads all Food from the database.</summary>
-        /// <returns>List of Food</returns>
-        public static List<Food> LoadFood()
-        {
-            List<Food> allFood = new List<Food>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Food/Food.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Food/Food.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFood/Food"))
-                    {
-                        Food newFood = new Food(
-                        xn["Name"]?.InnerText,
-                        xn["Description"]?.InnerText,
-                        Int32Helper.Parse(xn["RestoreHealth"]?.InnerText),
-                        Int32Helper.Parse(xn["RestoreMagic"]?.InnerText),
-                        BoolHelper.Parse(xn["Cures"]?.InnerText),
-                        Int32Helper.Parse(xn["Weight"]?.InnerText),
-                        Int32Helper.Parse(xn["Value"]?.InnerText),
-                        BoolHelper.Parse(xn["CanSell"]?.InnerText),
-                        BoolHelper.Parse(xn["IsSold"]?.InnerText));
-
-                        allFood.Add(newFood);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Food: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allFood;
-        }
-
-        /// <summary>Loads all Spells from the database.</summary>
-        /// <returns>List of Spells</returns>
-        public static List<Spell> LoadSpells()
-        {
-            List<Spell> allSpells = new List<Spell>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (File.Exists("Data/Spells/Spells.xml"))
-            {
-                try
-                {
-                    xmlDoc.Load("Data/Spells/Spells.xml");
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/AllSpells/Spell"))
-                    {
-                        Spell newSpell = new Spell(
-                        xn["Name"]?.InnerText,
-                        EnumHelper.Parse<SpellTypes>(xn["Type"]?.InnerText),
-                        xn["Description"]?.InnerText,
-                        GameState.SetAllowedClasses(xn["AllowedClasses"]?.InnerText),
-                        Int32Helper.Parse(xn["RequiredLevel"]?.InnerText),
-                        Int32Helper.Parse(xn["MagicCost"]?.InnerText),
-                        Int32Helper.Parse(xn["Amount"]?.InnerText));
-
-                        allSpells.Add(newSpell);
-                    }
-                }
-                catch (Exception e)
-                {
-                    GameState.DisplayNotification($"Error loading Spells: {e.Message}.", "Sulimn");
-                }
-            }
-
-            return allSpells;
-        }
-
-        #endregion Items
-
-        internal static bool DeleteHero(Hero hero)
-        {
-            File.Delete($"Data/Heroes/{hero.Name}.xml");
-            return !File.Exists($"Data/Heroes/{hero.Name}.xml");
-        }
-
-        #endregion Load
+        #endregion Heroes
 
         #region Write
 
+        /// <summary>Writes the current <see cref="Settings"/> to file.</summary>
+        /// <param name="settings">Current <see cref="Settings"/></param>
+        internal static void WriteSettings(Settings settings)
+        {
+            using (XmlTextWriter writer = new XmlTextWriter("Data/Settings.xml", Encoding.UTF8))
+            {
+                writer.Formatting = Formatting.Indented;
+                writer.Indentation = 4;
+
+                writer.WriteStartDocument();
+
+                writer.WriteStartElement("Settings");
+                writer.WriteElementString("AdminPassword", settings.AdminPassword);
+                writer.WriteElementString("Theme", settings.Theme);
+                writer.WriteEndDocument();
+            }
+        }
+
         internal static void WriteAll()
         {
-            //WriteAllHeadArmor();
-            //WriteAllBodyArmor();
-            //WriteAllHandArmor();
-            //WriteAllLegArmor();
-            //WriteAllFeetArmor();
-            //WriteAllWeapons();
-            //WriteAllClasses();
-            //WriteAllRings();
-            //WriteAllEnemies();
+            WriteAllHeadArmor();
+            WriteAllBodyArmor();
+            WriteAllHandArmor();
+            WriteAllLegArmor();
+            WriteAllFeetArmor();
+            WriteAllWeapons();
+            WriteAllClasses();
+            WriteAllRings();
+            WriteAllEnemies();
             WriteAllHeroes();
-            //WriteAllDrinks();
-            //WriteAllFood();
-            //WriteAllPotions();
-            //WriteAllSpells();
+            WriteAllDrinks();
+            WriteAllFood();
+            WriteAllPotions();
+            WriteAllSpells();
         }
 
         #region Write Consumables
@@ -1202,19 +1268,10 @@ namespace Sulimn.Classes.Database
             return success;
         }
 
-        internal static void SaveHero(Hero saveHero)
-        {
-            using (XmlTextWriter writer = new XmlTextWriter($"Data/Heroes/{saveHero.Name}.xml", Encoding.UTF8))
-            {
-                writer.Formatting = Formatting.Indented;
-                writer.Indentation = 4;
-
-                writer.WriteStartDocument();
-                WriteHero(writer, saveHero);
-                writer.WriteEndDocument();
-            }
-        }
-
+        /// <summary>Writes a <see cref="Hero"/> to file.</summary>
+        /// <param name="writer">Settings for the file to be written</param>
+        /// <param name="hero"><see cref="Hero"/> to be saved.</param>
+        /// <returns>Properly formatted XML file</returns>
         internal static XmlTextWriter WriteHero(XmlTextWriter writer, Hero hero)
         {
             writer.WriteStartElement("Hero");

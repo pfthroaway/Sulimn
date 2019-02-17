@@ -10,7 +10,7 @@ namespace Sulimn.Views.Options
     {
         #region Button-Click Methods
 
-        private async void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (Argon2.ValidatePassword(GameState.CurrentHero.Password, PswdCurrentPassword.Password))
                 if (PswdNewPassword.Password.Length >= 4 && PswdConfirmPassword.Password.Length >= 4)
@@ -18,7 +18,7 @@ namespace Sulimn.Views.Options
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
                             GameState.CurrentHero.Password = Argon2.HashPassword(PswdNewPassword.Password);
-                            await GameState.SaveHeroPassword(GameState.CurrentHero);
+                            GameState.SaveHero(GameState.CurrentHero);
                             GameState.DisplayNotification("Successfully changed password.", "Sulimn");
                             ClosePage();
                         }
