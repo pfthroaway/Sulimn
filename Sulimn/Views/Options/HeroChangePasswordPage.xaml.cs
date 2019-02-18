@@ -13,33 +13,38 @@ namespace Sulimn.Views.Options
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (Argon2.ValidatePassword(GameState.CurrentHero.Password, PswdCurrentPassword.Password))
+            {
                 if (PswdNewPassword.Password.Length >= 4 && PswdConfirmPassword.Password.Length >= 4)
+                {
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
+                    {
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
                             GameState.CurrentHero.Password = Argon2.HashPassword(PswdNewPassword.Password);
                             GameState.SaveHero(GameState.CurrentHero);
                             GameState.DisplayNotification("Successfully changed password.", "Sulimn");
-                            ClosePage();
+                            GameState.GoBack();
                         }
                         else
                             GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn");
+                    }
                     else
                         GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn");
+                }
                 else
                     GameState.DisplayNotification("Your password must be at least 4 characters.", "Sulimn");
+            }
             else
                 GameState.DisplayNotification("Invalid current password.", "Sulimn");
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         public HeroChangePasswordPage()
         {

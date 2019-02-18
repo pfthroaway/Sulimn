@@ -17,7 +17,7 @@ namespace Sulimn.Views.Exploration
         internal void HardcoreDeath()
         {
             GameState.DeleteHero(GameState.CurrentHero);
-            ClosePage();
+            GameState.GoBack();
         }
 
         #region Button-Click Methods
@@ -56,7 +56,7 @@ namespace Sulimn.Views.Exploration
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.YesNoNotification("Are you sure you want to exit?", "Sulimn"))
-                ClosePage();
+                GameState.GoBack();
         }
 
         private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ExplorePage { RefToCityPage = this });
@@ -72,7 +72,6 @@ namespace Sulimn.Views.Exploration
         #region Page-Generated Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         public CityPage()
         {

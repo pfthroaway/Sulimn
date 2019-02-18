@@ -169,7 +169,6 @@ namespace Sulimn.Views.Exploration
 
         private void MinesPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             if (Progress)
             {
                 Progress = false;

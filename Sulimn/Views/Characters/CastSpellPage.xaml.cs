@@ -24,7 +24,7 @@ namespace Sulimn.Views.Characters
         /// <param name="spell">Spell to be cast</param>
         private void CastSpell(Spell spell)
         {
-            ClosePage();
+            GameState.GoBack();
 
             switch (_previousPage)
             {
@@ -89,14 +89,13 @@ namespace Sulimn.Views.Characters
 
         private void BtnCastSpell_Click(object sender, RoutedEventArgs e) => CastSpell(_selectedSpell);
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         private void LstSpells_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

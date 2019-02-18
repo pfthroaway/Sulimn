@@ -81,9 +81,9 @@ namespace Sulimn.Views.BankPages
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private async void ClosePage()
+        private void ClosePage()
         {
-            await Task.Run(() => GameState.SaveHero(GameState.CurrentHero));
+            GameState.SaveHero(GameState.CurrentHero);
             GameState.GoBack();
         }
 

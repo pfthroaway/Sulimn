@@ -210,7 +210,6 @@ namespace Sulimn.Views.Characters
 
         private void CharacterPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             SetupChar();
             BindLabels();
         }

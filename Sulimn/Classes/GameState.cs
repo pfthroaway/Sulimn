@@ -73,11 +73,14 @@ namespace Sulimn.Classes
             {
                 Hero checkHero = AllHeroes.Find(hero => hero.Name == username);
                 if (checkHero != null && checkHero != new Hero())
+                {
                     if (Argon2.ValidatePassword(checkHero.Password, password))
                     {
                         CurrentHero = checkHero;
                         return true;
                     }
+                }
+
                 DisplayNotification("Invalid login.", "Sulimn");
                 return false;
             }

@@ -165,7 +165,6 @@ namespace Sulimn.Views.Exploration
 
         private void FieldsPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             if (Progress)
             {
                 Progress = false;

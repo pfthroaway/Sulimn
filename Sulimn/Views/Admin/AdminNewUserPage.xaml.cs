@@ -149,7 +149,7 @@ namespace Sulimn.Views.Admin
                         new Spellbook(), GameState.SetInventory(TxtInventory.Text),
                         new Bank(0, 0, 250), new Progression(), //TODO BANK
                         ChkHardcore.IsChecked ?? false));
-                    ClosePage();
+                    GameState.GoBack();
                 }
                 else
                 {
@@ -176,14 +176,13 @@ namespace Sulimn.Views.Admin
 
         private void BtnReset_Click(object sender, RoutedEventArgs e) => Reset();
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         public AdminNewUserPage()
         {

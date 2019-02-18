@@ -7,7 +7,7 @@ namespace Sulimn.Views.Battle
     /// <summary>Interaction logic for EnemyDetailsPage.xaml</summary>
     public partial class EnemyDetailsPage : INotifyPropertyChanged
     {
-        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #region Data-Binding
 
@@ -41,7 +41,6 @@ namespace Sulimn.Views.Battle
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         public EnemyDetailsPage()
         {

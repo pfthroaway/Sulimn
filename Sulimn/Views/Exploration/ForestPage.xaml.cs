@@ -164,7 +164,6 @@ namespace Sulimn.Views.Exploration
 
         private void ForestPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             if (Progress)
             {
                 Progress = false;

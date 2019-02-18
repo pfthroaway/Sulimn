@@ -154,7 +154,6 @@ namespace Sulimn.Views.Exploration
 
         private void CatacombsPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             if (Progress)
             {
                 Progress = false;

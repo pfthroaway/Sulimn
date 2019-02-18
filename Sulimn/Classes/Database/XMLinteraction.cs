@@ -130,16 +130,17 @@ namespace Sulimn.Classes.Database
                         XmlNode equipment = node.SelectSingleNode(".//Equipment");
                         if (equipment != null)
                         {
-                            newEnemy.Equipment = new Equipment();
-
-                            newEnemy.Equipment.Head = !string.IsNullOrWhiteSpace(equipment["HeadArmor"]?.InnerText) ? new HeadArmor(GameState.AllHeadArmor.Find(armr => armr.Name == equipment["HeadArmor"]?.InnerText)) : new HeadArmor();
-                            newEnemy.Equipment.Body = !string.IsNullOrWhiteSpace(equipment["BodyArmor"]?.InnerText) ? new BodyArmor(GameState.AllBodyArmor.Find(armr => armr.Name == equipment["BodyArmor"]?.InnerText)) : new BodyArmor();
-                            newEnemy.Equipment.Hands = !string.IsNullOrWhiteSpace(equipment["HandArmor"]?.InnerText) ? new HandArmor(GameState.AllHandArmor.Find(armr => armr.Name == equipment["HandArmor"]?.InnerText)) : new HandArmor();
-                            newEnemy.Equipment.Legs = !string.IsNullOrWhiteSpace(equipment["LegArmor"]?.InnerText) ? new LegArmor(GameState.AllLegArmor.Find(armr => armr.Name == equipment["LegArmor"]?.InnerText)) : new LegArmor();
-                            newEnemy.Equipment.Feet = !string.IsNullOrWhiteSpace(equipment["FeetArmor"]?.InnerText) ? new FeetArmor(GameState.AllFeetArmor.Find(armr => armr.Name == equipment["FeetArmor"]?.InnerText)) : new FeetArmor();
-                            newEnemy.Equipment.LeftRing = !string.IsNullOrWhiteSpace(equipment["LeftRing"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == equipment["LeftRing"]?.InnerText)) : new Ring();
-                            newEnemy.Equipment.RightRing = !string.IsNullOrWhiteSpace(equipment["RightRing"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == equipment["RightRing"]?.InnerText)) : new Ring();
-                            newEnemy.Equipment.Weapon = !string.IsNullOrWhiteSpace(equipment["Weapon"]?.InnerText) ? new Weapon(GameState.AllWeapons.Find(wpn => wpn.Name == equipment["Weapon"]?.InnerText)) : new Weapon();
+                            newEnemy.Equipment = new Equipment
+                            {
+                                Head = !string.IsNullOrWhiteSpace(equipment["HeadArmor"]?.InnerText) ? new HeadArmor(GameState.AllHeadArmor.Find(armr => armr.Name == equipment["HeadArmor"]?.InnerText)) : new HeadArmor(),
+                                Body = !string.IsNullOrWhiteSpace(equipment["BodyArmor"]?.InnerText) ? new BodyArmor(GameState.AllBodyArmor.Find(armr => armr.Name == equipment["BodyArmor"]?.InnerText)) : new BodyArmor(),
+                                Hands = !string.IsNullOrWhiteSpace(equipment["HandArmor"]?.InnerText) ? new HandArmor(GameState.AllHandArmor.Find(armr => armr.Name == equipment["HandArmor"]?.InnerText)) : new HandArmor(),
+                                Legs = !string.IsNullOrWhiteSpace(equipment["LegArmor"]?.InnerText) ? new LegArmor(GameState.AllLegArmor.Find(armr => armr.Name == equipment["LegArmor"]?.InnerText)) : new LegArmor(),
+                                Feet = !string.IsNullOrWhiteSpace(equipment["FeetArmor"]?.InnerText) ? new FeetArmor(GameState.AllFeetArmor.Find(armr => armr.Name == equipment["FeetArmor"]?.InnerText)) : new FeetArmor(),
+                                LeftRing = !string.IsNullOrWhiteSpace(equipment["LeftRing"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == equipment["LeftRing"]?.InnerText)) : new Ring(),
+                                RightRing = !string.IsNullOrWhiteSpace(equipment["RightRing"]?.InnerText) ? new Ring(GameState.AllRings.Find(ring => ring.Name == equipment["RightRing"]?.InnerText)) : new Ring(),
+                                Weapon = !string.IsNullOrWhiteSpace(equipment["Weapon"]?.InnerText) ? new Weapon(GameState.AllWeapons.Find(wpn => wpn.Name == equipment["Weapon"]?.InnerText)) : new Weapon()
+                            };
                         }
                         else
                             GameState.DisplayNotification($"Equipment unavailable for Enemy {newEnemy.Name}.", "Sulimn");
@@ -641,49 +642,65 @@ namespace Sulimn.Classes.Database
                 {
                     foreach (XmlNode item in inventory.SelectNodes(".//Item"))
                     {
-                        List<Item> items = new List<Item>();
-                        items.Add(GameState.AllItems.Find(itm => itm.Name == item["Name"]?.InnerText));
+                        List<Item> items = new List<Item>
+                        {
+                            GameState.AllItems.Find(itm => itm.Name == item["Name"]?.InnerText)
+                        };
 
                         if (items[0].GetType() == typeof(HeadArmor))
                         {
-                            HeadArmor itm = new HeadArmor((HeadArmor)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            HeadArmor itm = new HeadArmor((HeadArmor)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(BodyArmor))
                         {
-                            BodyArmor itm = new BodyArmor((BodyArmor)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            BodyArmor itm = new BodyArmor((BodyArmor)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(HandArmor))
                         {
-                            HandArmor itm = new HandArmor((HandArmor)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            HandArmor itm = new HandArmor((HandArmor)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(LegArmor))
                         {
-                            LegArmor itm = new LegArmor((LegArmor)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            LegArmor itm = new LegArmor((LegArmor)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(FeetArmor))
                         {
-                            FeetArmor itm = new FeetArmor((FeetArmor)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            FeetArmor itm = new FeetArmor((FeetArmor)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(Ring))
                         {
-                            Ring itm = new Ring((Ring)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            Ring itm = new Ring((Ring)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(Weapon))
                         {
-                            Weapon itm = new Weapon((Weapon)items[0]);
-                            itm.CurrentDurability = Int32Helper.Parse(item["Durability"]);
+                            Weapon itm = new Weapon((Weapon)items[0])
+                            {
+                                CurrentDurability = Int32Helper.Parse(item["Durability"])
+                            };
                             newHero.AddItem(itm);
                         }
                         else if (items[0].GetType() == typeof(Potion))

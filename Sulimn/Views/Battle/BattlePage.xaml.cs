@@ -22,6 +22,7 @@ namespace Sulimn.Views.Battle
         private bool _blnHardcoreDeath;
         private bool _progress;
 
+        /// <summary>Represents an action taken in a battle.</summary>
         private enum BattleAction
         {
             Attack,
@@ -502,10 +503,7 @@ namespace Sulimn.Views.Battle
 
         public BattlePage() => InitializeComponent();
 
-        private void BattlePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            BindLabels();
-        }
+        private void BattlePage_OnLoaded(object sender, RoutedEventArgs e) => BindLabels();
 
         #endregion Page-Manipulation Methods
     }

@@ -16,7 +16,9 @@ namespace Sulimn.Views.Admin
             && PswdConfirmPassword.Password.Length >= 1)
             {
                 if (Argon2.ValidatePassword(GameState.CurrentSettings.AdminPassword, PswdCurrentPassword.Password))
+                {
                     if (PswdNewPassword.Password == PswdConfirmPassword.Password)
+                    {
                         if (PswdCurrentPassword.Password != PswdNewPassword.Password)
                         {
                             GameState.CurrentSettings.AdminPassword = Argon2.HashPassword(PswdNewPassword.Password);
@@ -27,8 +29,10 @@ namespace Sulimn.Views.Admin
                         {
                             GameState.DisplayNotification("The new password can't be the same as the current password.", "Sulimn");
                         }
+                    }
                     else
                         GameState.DisplayNotification("Please ensure the new passwords match.", "Sulimn");
+                }
                 else
                     GameState.DisplayNotification("Invalid current administrator password.", "Sulimn")
                     ;
@@ -37,14 +41,13 @@ namespace Sulimn.Views.Admin
                 GameState.DisplayNotification("The old and new passwords must be at least 4 characters in length.", "Sulimn");
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         public AdminChangePasswordPage()
         {

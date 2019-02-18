@@ -187,7 +187,6 @@ namespace Sulimn.Views.Exploration
 
         private void CathedralPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
             if (Progress)
             {
                 Progress = false;

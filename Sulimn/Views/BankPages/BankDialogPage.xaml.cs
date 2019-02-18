@@ -20,6 +20,7 @@ namespace Sulimn.Views.BankPages
         private string _dialogText = "";
         internal BankPage RefToBankPage { private get; set; }
 
+        /// <summary>Text to be displayed in the Dialog box.</summary>
         public string DialogText
         {
             get => _dialogText;

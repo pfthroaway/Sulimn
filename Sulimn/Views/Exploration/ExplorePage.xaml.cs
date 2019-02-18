@@ -21,7 +21,7 @@ namespace Sulimn.Views.Exploration
             BtnCathedral.IsEnabled = GameState.CurrentHero.Level >= 10 && GameState.CurrentHero.Progression.Forest;
             BtnMines.IsEnabled = GameState.CurrentHero.Level >= 15 && GameState.CurrentHero.Progression.Cathedral;
             BtnCatacombs.IsEnabled = GameState.CurrentHero.Level >= 20 && GameState.CurrentHero.Progression.Mines;
-            BtnCastle.IsEnabled = false; //GameState.CurrentHero.Level >= 25 && GameState.CurrentHero.Progression.Catacombs;
+            BtnCastle.IsEnabled = GameState.CurrentHero.Level >= 25 && GameState.CurrentHero.Progression.Catacombs;
         }
 
         /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
@@ -104,11 +104,7 @@ namespace Sulimn.Views.Exploration
             "You have also heard stories of catacombs running beneath the city. The entrance will reveal itself after you have explored more of Sulimn.";
         }
 
-        private void ExplorePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            CheckButtons();
-        }
+        private void ExplorePage_OnLoaded(object sender, RoutedEventArgs e) => CheckButtons();
 
         #endregion Page-Generated Methods
     }

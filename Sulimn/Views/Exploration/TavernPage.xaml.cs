@@ -12,7 +12,7 @@ namespace Sulimn.Views.Exploration
 
         private void BtnBlackjack_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new BlackjackPage());
 
-        private void BtnExit_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnExit_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         private void BtnFood_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new TheTavernBarPage());
 
@@ -21,7 +21,6 @@ namespace Sulimn.Views.Exploration
         #region Page-Manipulation Methods
 
         /// <summary>Closes the Page.</summary>
-        private void ClosePage() => GameState.GoBack();
 
         public TavernPage() => InitializeComponent();
 

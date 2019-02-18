@@ -95,11 +95,7 @@ namespace Sulimn.Views.Shopping
             $"\"Would you like to learn some spells, {GameState.CurrentHero.Name}?\" she asks. How she knows your name is beyond you.";
         }
 
-        private void MagickShoppePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            LoadAll();
-        }
+        private void MagickShoppePage_OnLoaded(object sender, RoutedEventArgs e) => LoadAll();
 
         #endregion Page-Manipulation Methods
     }
