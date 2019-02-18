@@ -142,6 +142,7 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
+            CheckPurchaseButtons();
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
@@ -153,12 +154,20 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.Gold += itmSell.SellValue;
             GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
+            CheckPurchaseButtons();
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
         #endregion Transaction Methods
 
         #region Purchase/Sell Button-Click Methods
+
+        /// <summary>Checks whether an item type's Purchase button should be enabled after a transaction has occurred.</summary>
+        private void CheckPurchaseButtons()
+        {
+            BtnFoodPurchase.IsEnabled = LstFoodPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedFoodPurchase.Value;
+            BtnDrinkPurchase.IsEnabled = LstDrinkPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedDrinkPurchase.Value;
+        }
 
         private void BtnFoodPurchase_Click(object sender, RoutedEventArgs e)
         {
@@ -250,11 +259,7 @@ namespace Sulimn.Views.Shopping
             "You approach the bar at The Tavern. The barkeeper asks you if you'd like a drink or a bite to eat.";
         }
 
-        private void TheTavernBarPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            LoadAll();
-        }
+        private void TheTavernBarPage_OnLoaded(object sender, RoutedEventArgs e) => LoadAll();
 
         #endregion Page-Manipulation
     }

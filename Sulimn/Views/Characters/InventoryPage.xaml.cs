@@ -569,7 +569,6 @@ namespace Sulimn.Views.Characters
 
         #endregion Rings-Click
 
-        //TODO Make it to where selling an item will automatically re-check purchase buttons being enabled.
         //TODO Make it to where attacking with a weapon chooses a random body part, then deducts damage from that spot's defense.
 
         #region Potion-Click

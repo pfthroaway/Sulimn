@@ -90,6 +90,7 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllPurchase();
             LoadAllSell();
+            BtnRingPurchase.IsEnabled = LstRingPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedRingPurchase.Value;
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
@@ -101,6 +102,7 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.Gold += itmSell.SellValue;
             GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
+            BtnRingPurchase.IsEnabled = LstRingPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedRingPurchase.Value;
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
@@ -168,11 +170,7 @@ namespace Sulimn.Views.Shopping
             "You enter the impressive establishment named 'Silver Empire'. You are immediately astounded by the glass display cases unlike any other shop in Sulimn. A tough-looking old man sitting behind the counter greets you.";
         }
 
-        private void SilverEmpirePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            LoadAll();
-        }
+        private void SilverEmpirePage_OnLoaded(object sender, RoutedEventArgs e) => LoadAll();
 
         #endregion Page-Manipulation
     }

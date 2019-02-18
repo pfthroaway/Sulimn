@@ -118,6 +118,7 @@ namespace Sulimn.Views.Shopping
         {
             Functions.AddTextToTextBox(TxtTheGeneralStore, Sell(_selectedPotionSell));
             LstPotionSell.UnselectAll();
+            BtnPotionPurchase.IsEnabled = LstPotionPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedPotionPurchase.Value;
         }
 
         #endregion Purchase/Sell Button-Click Methods
@@ -168,11 +169,7 @@ namespace Sulimn.Views.Shopping
             "You enter The General Store, a solid wooden building near the center of the market. A beautiful young woman is standing behind a counter, smiling at you. You approach her and examine her wares.";
         }
 
-        private void TheGeneralStorePage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            LoadAll();
-        }
+        private void TheGeneralStorePage_OnLoaded(object sender, RoutedEventArgs e) => LoadAll();
 
         #endregion Page-Manipulation
     }

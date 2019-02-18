@@ -201,6 +201,16 @@ namespace Sulimn.Views.Shopping
 
         #region Transaction Methods
 
+        /// <summary>Checks whether an item type's Purchase button should be enabled after a transaction has occurred.</summary>
+        private void CheckPurchaseButtons()
+        {
+            BtnHeadPurchase.IsEnabled = LstHeadPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedHeadPurchase.Value;
+            BtnBodyPurchase.IsEnabled = LstBodyPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedBodyPurchase.Value;
+            BtnHandsPurchase.IsEnabled = LstHandsPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedHandsPurchase.Value;
+            BtnLegsPurchase.IsEnabled = LstLegsPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedLegsPurchase.Value;
+            BtnFeetPurchase.IsEnabled = LstFeetPurchase.SelectedIndex >= 0 && GameState.CurrentHero.Gold >= _selectedFeetPurchase.Value;
+        }
+
         /// <summary>Purchases selected Item.</summary>
         /// <param name="itmPurchase">Item to be purchased</param>
         /// <returns></returns>
@@ -209,6 +219,7 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.Gold -= itmPurchase.Value;
             GameState.CurrentHero.AddItem(itmPurchase);
             LoadAllSell();
+            CheckPurchaseButtons();
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
@@ -220,6 +231,7 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.Gold += itmSell.SellValue;
             GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
+            CheckPurchaseButtons();
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
@@ -419,11 +431,7 @@ namespace Sulimn.Views.Shopping
             "You enter The Armoury, an old, solid brick building filled with armor pieces of various shapes, sizes, and materials. The shopkeeper beckons you over to examine his wares.";
         }
 
-        private void TheArmouryPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            LoadAll();
-        }
+        private void TheArmouryPage_OnLoaded(object sender, RoutedEventArgs e) => LoadAll();
 
         #endregion Page-Manipulation Methods
     }

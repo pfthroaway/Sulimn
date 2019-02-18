@@ -90,8 +90,10 @@ namespace Sulimn.Views.Shopping
         {
             GameState.CurrentHero.Gold -= itmPurchase.Value;
             GameState.CurrentHero.AddItem(itmPurchase);
+            //TODO Try to remember why I loaded all possible purchases every single time I made a purchase. It doesn't make sense.
             LoadAllPurchase();
             LoadAllSell();
+            BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Gold;
             return $"You have purchased {itmPurchase.Name} for {itmPurchase.ValueToString} gold.";
         }
 
@@ -103,6 +105,7 @@ namespace Sulimn.Views.Shopping
             GameState.CurrentHero.Gold += itmSell.SellValue;
             GameState.CurrentHero.RemoveItem(itmSell);
             LoadAllSell();
+            BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Gold;
             return $"You have sold your {itmSell.Name} for {itmSell.SellValueToString} gold.";
         }
 
@@ -132,7 +135,6 @@ namespace Sulimn.Views.Shopping
             ? (Weapon)LstWeaponPurchase.SelectedValue
             : new Weapon();
 
-            BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Gold;
             BindWeaponPurchase(false);
         }
 
@@ -170,11 +172,7 @@ namespace Sulimn.Views.Shopping
             "You enter Weapons 'R' Us, the finest weaponsmith shop in the city of Sulimn. You approach the shopkeeper and he shows you his wares.";
         }
 
-        private void WeaponsRUsPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            
-            LoadAll();
-        }
+        private void WeaponsRUsPage_OnLoaded(object sender, RoutedEventArgs e) => LoadAll();
 
         #endregion Page-Manipulation
     }
