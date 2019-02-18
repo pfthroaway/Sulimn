@@ -149,6 +149,34 @@ namespace Sulimn.Classes.HeroParts
 
         #endregion Helper Properties
 
+        #region Override Operators
+
+        private static bool Equals(Equipment left, Equipment right)
+        {
+            if (left is null && right is null) return true;
+            if (left is null ^ right is null) return false;
+            return left.Head == right.Head
+                && left.Body == right.Body
+                && left.Hands == right.Hands
+                && left.Legs == right.Legs
+                && left.Feet == right.Feet
+                && left.LeftRing == right.LeftRing
+                && left.RightRing == right.RightRing
+                && left.Weapon == right.Weapon;
+        }
+
+        public sealed override bool Equals(object obj) => Equals(this, obj as Equipment);
+
+        public bool Equals(Equipment otherEquipment) => Equals(this, otherEquipment);
+
+        public static bool operator ==(Equipment left, Equipment right) => Equals(left, right);
+
+        public static bool operator !=(Equipment left, Equipment right) => !Equals(left, right);
+
+        public sealed override int GetHashCode() => base.GetHashCode() ^ 17;
+
+        #endregion Override Operators
+
         #region Constructors
 
         /// <summary>Initializes a default instance of Equipment.</summary>

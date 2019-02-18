@@ -116,7 +116,7 @@ namespace Sulimn.Classes.Entities
         public ReadOnlyCollection<Item> Inventory => new ReadOnlyCollection<Item>(_inventory);
 
         /// <summary>Combined weight of all Items in a Hero's Inventory.</summary>
-        public int CarryingWeight => Inventory.Sum(itm => itm.Weight);
+        public int CarryingWeight => Inventory.Count > 0 ? Inventory.Sum(itm => itm.Weight) : 0;
 
         /// <summary>Combined weight of all Items in a Hero's Inventory and all the Equipment currently equipped.</summary>
         public int TotalWeight => CarryingWeight + Equipment.TotalWeight;
@@ -370,7 +370,19 @@ namespace Sulimn.Classes.Entities
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;
-            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) && left.Level == right.Level && left.Experience == right.Experience && left.SkillPoints == right.SkillPoints && left.Hardcore == right.Hardcore && left.Spellbook == right.Spellbook && left.Class == right.Class && left.Attributes == right.Attributes && left.Equipment == right.Equipment && left.Gold == right.Gold && left.Statistics == right.Statistics && left.Progression == right.Progression && !left.Inventory.Except(right.Inventory).Any();
+            return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
+                && left.Level == right.Level
+                && left.Experience == right.Experience
+                && left.SkillPoints == right.SkillPoints
+                && left.Hardcore == right.Hardcore
+                && left.Spellbook == right.Spellbook
+                && left.Class == right.Class
+                && left.Attributes == right.Attributes
+                && left.Equipment == right.Equipment
+                && left.Gold == right.Gold
+                && left.Statistics == right.Statistics
+                && left.Progression == right.Progression
+                && !left.Inventory.Except(right.Inventory).Any();
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as Hero);

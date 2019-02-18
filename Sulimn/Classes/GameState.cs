@@ -242,7 +242,6 @@ namespace Sulimn.Classes
         {
             XMLInteraction.ChangeHeroDetails(oldHero, newHero);
             AllHeroes.Replace(oldHero, newHero);
-            //TODO Find out why it's not updating the Hero list correctly on returning. The file is being saved correctly, but it's not loading into memory correctly.
         }
 
         /// <summary>Deletes a Hero from the game and database.</summary>

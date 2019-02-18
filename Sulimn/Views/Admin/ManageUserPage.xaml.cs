@@ -168,7 +168,13 @@ namespace Sulimn.Views.Admin
                 //TODO BANK
 
                 if (TxtHeroName.Text != _originalHero.Name)
-                    GameState.ChangeHeroDetails(_originalHero, newHero);
+                {
+                    Hero checkHero = GameState.AllHeroes.Find(hero => hero.Name == TxtHeroName.Text);
+                    if (checkHero == null || checkHero == new Hero())
+                        GameState.ChangeHeroDetails(_originalHero, newHero);
+                    else
+                        GameState.DisplayNotification("The username you are attempting to change to has already been taken. Please choose another.", "Sulimn");
+                }
                 else
                     GameState.SaveHero(newHero);
 

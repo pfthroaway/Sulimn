@@ -169,7 +169,16 @@ namespace Sulimn.Classes.HeroParts
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;
             return string.Equals(left.Name, right.Name, StringComparison.OrdinalIgnoreCase)
-                   && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase) && left.SkillPoints == right.SkillPoints && left.Strength == right.Strength && left.Vitality == right.Vitality && left.Dexterity == right.Dexterity && left.Wisdom == right.Wisdom && left.CurrentHealth == right.CurrentHealth && left.MaximumHealth == right.MaximumHealth && left.CurrentMagic == right.CurrentMagic && left.MaximumMagic == right.MaximumMagic;
+                   && string.Equals(left.Description, right.Description, StringComparison.OrdinalIgnoreCase)
+                   && left.SkillPoints == right.SkillPoints
+                   && left.Strength == right.Strength
+                   && left.Vitality == right.Vitality
+                   && left.Dexterity == right.Dexterity
+                   && left.Wisdom == right.Wisdom
+                   && left.CurrentHealth == right.CurrentHealth
+                   && left.MaximumHealth == right.MaximumHealth
+                   && left.CurrentMagic == right.CurrentMagic
+                   && left.MaximumMagic == right.MaximumMagic;
         }
 
         public sealed override bool Equals(object obj) => Equals(this, obj as HeroClass);

@@ -71,10 +71,7 @@ namespace Sulimn.Views.Admin
 
         public ManageUsersPage() => InitializeComponent();
 
-        private void ManageUsersPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            RefreshItemsSource();
-        }
+        private void ManageUsersPage_OnLoaded(object sender, RoutedEventArgs e) => RefreshItemsSource();
 
         private void LstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e) => ToggleButtons(
             LstUsers.SelectedIndex >= 0);
