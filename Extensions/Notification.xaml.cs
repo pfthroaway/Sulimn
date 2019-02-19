@@ -38,7 +38,7 @@ namespace Extensions
         #region Window-Manipulation Methods
 
         /// <summary>Closes the Window.</summary>
-        /// <param name="result">Result of Notification</param>
+        /// <param name="result">Result</param>
         private void CloseWindow(bool result)
         {
             DialogResult = result;

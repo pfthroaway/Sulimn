@@ -45,14 +45,6 @@ namespace Extensions
             }
         }
 
-        /// <summary>Creates a directory if the directory does not exist.</summary>
-        /// <param name="directoryName">Name of directory to create if it doesn't exist</param>
-        public static void CreateDirectoryIfNotExists(string directoryName)
-        {
-            if (!Directory.Exists(directoryName))
-                Directory.CreateDirectory(directoryName);
-        }
-
         /// <summary>Turns several Keyboard.Keys into a list of Keys which can be tested using List.Any.</summary>
         /// <param name="keys">Array of Keys</param>
         /// <returns>Returns list of Keys' IsKeyDown state</returns>
