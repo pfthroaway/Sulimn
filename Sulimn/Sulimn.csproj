@@ -442,42 +442,42 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\Armor\BodyArmor.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Armor\FeetArmor.xml">
+    <None Include="Data\Armor\BodyArmor.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Armor\HandArmor.xml">
+    </None>
+    <None Include="Data\Armor\FeetArmor.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Armor\HeadArmor.xml">
+    </None>
+    <None Include="Data\Armor\HandArmor.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Armor\LegArmor.xml">
+    </None>
+    <None Include="Data\Armor\HeadArmor.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Classes\Classes.xml">
+    </None>
+    <None Include="Data\Armor\LegArmor.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Drinks\Drinks.xml">
+    </None>
+    <None Include="Data\Classes\Classes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Enemies\Enemies.xml">
+    </None>
+    <None Include="Data\Drinks\Drinks.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Food\Food.xml">
+    </None>
+    <None Include="Data\Enemies\Enemies.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Potions\Potions.xml">
+    </None>
+    <None Include="Data\Food\Food.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Rings\Rings.xml">
+    </None>
+    <None Include="Data\Potions\Potions.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Spells\Spells.xml">
+    </None>
+    <None Include="Data\Rings\Rings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
+    <None Include="Data\Spells\Spells.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="Data\Weapons\Weapons.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -487,7 +487,9 @@
     <Folder Include="Data\StatusEffects\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\Settings.xml" />
+    <None Include="Data\Settings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.2.4.3\build\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.4.3\build\Baseclass.Contrib.Nuget.Output.targets')" />

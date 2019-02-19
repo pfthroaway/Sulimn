@@ -135,6 +135,7 @@ namespace Sulimn.Views.Shopping
             ? (Weapon)LstWeaponPurchase.SelectedValue
             : new Weapon();
 
+            BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Gold;
             BindWeaponPurchase(false);
         }
 

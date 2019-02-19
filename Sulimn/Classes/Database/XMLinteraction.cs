@@ -16,8 +16,8 @@ namespace Sulimn.Classes.Database
     {
         #region Load
 
-        /// <summary>Loads the game's settings from disk.</summary>
-        /// <returns></returns>
+        /// <summary>Loads the game's <see cref="Settings"/> from disk.</summary>
+        /// <returns>Game Settings</returns>
         internal static Settings LoadSettings()
         {
             Settings newSettings = new Settings("", "");

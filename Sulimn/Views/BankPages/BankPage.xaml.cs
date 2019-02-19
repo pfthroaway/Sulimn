@@ -1,9 +1,7 @@
 ﻿using Extensions;
 using Sulimn.Classes;
 using Sulimn.Classes.Enums;
-using Sulimn.Classes.HeroParts;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Sulimn.Views.BankPages
