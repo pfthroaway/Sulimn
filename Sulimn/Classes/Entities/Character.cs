@@ -106,7 +106,7 @@ namespace Sulimn.Classes.Entities
         public string ExperienceToStringWithText => $"Experience: {ExperienceToString}";
 
         /// <summary>Amount of Gold in the inventory, with thousands separator.</summary>
-        public string GoldToString => Gold.ToString("N0");
+        public string GoldToString => Gold.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>Amount of Gold in the inventory, with thousands separator and preceding text.</summary>
         public string GoldToStringWithText => $"Gold: {GoldToString}";

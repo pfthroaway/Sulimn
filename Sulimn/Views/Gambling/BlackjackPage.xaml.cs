@@ -139,7 +139,7 @@ namespace Sulimn.Views.Gambling
         /// <summary>Checks whether the current Hand has gone Bust.</summary>
         /// <param name="checkHand">Hand to be checked</param>
         /// <returns>Returns true if Hand has gone Bust.</returns>
-        private bool CheckBust(Hand checkHand) => !CheckHasAceEleven(checkHand) && checkHand.TotalValue > 21;
+        private static bool CheckBust(Hand checkHand) => !CheckHasAceEleven(checkHand) && checkHand.TotalValue > 21;
 
         /// <summary>Checks whether the Player can Double Down with Window Hand.</summary>
         /// <param name="checkHand">Hand to be checked</param>
@@ -231,7 +231,7 @@ namespace Sulimn.Views.Gambling
                                 break;
 
                             default:
-                                name = i.ToString();
+                                name = i.ToString(GameState.CurrentCulture);
                                 value = i;
                                 break;
                         }

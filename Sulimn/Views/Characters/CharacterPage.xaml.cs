@@ -18,7 +18,7 @@ namespace Sulimn.Views.Characters
         /// <param name="spell">Spell to be cast</param>
         internal void CastSpell(Spell spell)
         {
-            if (spell.Type == SpellTypes.Healing)
+            if (spell.Type == SpellType.Healing)
                 GameState.CurrentHero.Heal(spell.Amount);
             GameState.CurrentHero.Statistics.CurrentMagic -= spell.MagicCost;
             //FUTURE SPELL TYPES

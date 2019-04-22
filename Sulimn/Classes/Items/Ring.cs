@@ -83,13 +83,13 @@ namespace Sulimn.Classes.Items
         #region Helper Properties
 
         /// <summary>Returns the damage with a comma separating thousands.</summary>
-        public string DamageToString => Damage.ToString("N0");
+        public string DamageToString => Damage.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>Returns the damage with a comma separating thousands and preceding text.</summary>
         public string DamageToStringWithText => Damage > 0 ? $"Damage: {DamageToString}" : "";
 
         /// <summary>Returns the defense with a comma separating thousands.</summary>
-        public string DefenseToString => Defense.ToString("N0");
+        public string DefenseToString => Defense.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>Returns the defense with a comma separating thousands and preceding text.</summary>
         public string DefenseToStringWithText => Defense > 0 ? $"Defense: {DefenseToString}" : "";

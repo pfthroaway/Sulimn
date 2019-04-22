@@ -130,7 +130,7 @@ namespace Sulimn.Classes.HeroParts
         + RightRing.Defense;
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators.</summary>
-        public string TotalDefenseToString => TotalDefense.ToString("N0");
+        public string TotalDefenseToString => TotalDefense.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>Returns the total damage produced by the current set of equipment with thousand separators and preceding text.</summary>
         public string TotalDefenseToStringWithText => $"Defense: {TotalDefense:N0}";

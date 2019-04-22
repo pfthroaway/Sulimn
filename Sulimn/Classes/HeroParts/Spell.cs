@@ -11,7 +11,7 @@ namespace Sulimn.Classes.HeroParts
     {
         private string _name, _description;
         private int _requiredLevel, _magicCost, _amount;
-        private SpellTypes _type;
+        private SpellType _type;
         private List<HeroClass> _allowedClasses = new List<HeroClass>();
 
         #region Data-Binding
@@ -48,7 +48,7 @@ namespace Sulimn.Classes.HeroParts
         }
 
         /// <summary>Type of the Spell.</summary>
-        public SpellTypes Type
+        public SpellType Type
         {
             get => _type;
             private set
@@ -130,7 +130,7 @@ namespace Sulimn.Classes.HeroParts
         public int Value => RequiredLevel * 200;
 
         /// <summary>Value of the Spell, with preceding text.</summary>
-        public string ValueToString => Value.ToString("N0");
+        public string ValueToString => Value.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>Value of the Spell, with thousands separator and preceding text.</summary>
         public string ValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Value: {ValueToString}" : "";
@@ -181,7 +181,7 @@ namespace Sulimn.Classes.HeroParts
         /// <param name="requiredLevel">Required Level to learn <see cref="Spell"/></param>
         /// <param name="magicCost">Magic cost of <see cref="Spell"/></param>
         /// <param name="amount">Amount of <see cref="Spell"/></param>
-        internal Spell(string name, SpellTypes spellType, string description, List<HeroClass> allowedClasses, int requiredLevel,
+        internal Spell(string name, SpellType spellType, string description, List<HeroClass> allowedClasses, int requiredLevel,
         int magicCost, int amount)
         {
             Name = name;

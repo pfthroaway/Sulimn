@@ -8,6 +8,7 @@ using Sulimn.Classes.Items;
 using Sulimn.Views;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace Sulimn.Classes
     /// <summary>Represents the current state of the game.</summary>
     internal static class GameState
     {
+        internal static CultureInfo CurrentCulture = new CultureInfo("en-US");
         internal static Settings CurrentSettings;
         internal static Hero CurrentHero = new Hero();
         internal static Enemy CurrentEnemy = new Enemy();
@@ -68,26 +70,18 @@ namespace Sulimn.Classes
         /// <returns>Returns true if valid login</returns>
         internal static bool CheckLogin(string username, string password)
         {
-            try
+            Hero checkHero = AllHeroes.Find(hero => hero.Name == username);
+            if (checkHero != null && checkHero != new Hero())
             {
-                Hero checkHero = AllHeroes.Find(hero => hero.Name == username);
-                if (checkHero != null && checkHero != new Hero())
+                if (Argon2.ValidatePassword(checkHero.Password, password))
                 {
-                    if (Argon2.ValidatePassword(checkHero.Password, password))
-                    {
-                        CurrentHero = checkHero;
-                        return true;
-                    }
+                    CurrentHero = checkHero;
+                    return true;
                 }
+            }
 
-                DisplayNotification("Invalid login.", "Sulimn");
-                return false;
-            }
-            catch (Exception ex)
-            {
-                DisplayNotification(ex.Message, "Sulimn");
-                return false;
-            }
+            DisplayNotification("Invalid login.", "Sulimn");
+            return false;
         }
 
         /// <summary>Changes the current theme in the database.</summary>
@@ -336,11 +330,11 @@ namespace Sulimn.Classes
         /// <summary>Event where the Hero finds an item.</summary>
         /// <param name="minValue">Minimum value of Item</param>
         /// <param name="maxValue">Maximum value of Item</param>
-        /// <param name="canSell">Can the item be sold?</param>
+        /// <param name="isSold">Is the item sold?</param>
         /// <returns>Returns text about found Item</returns>
-        internal static string EventFindItem(int minValue, int maxValue, bool canSell = true)
+        internal static string EventFindItem(int minValue, int maxValue, bool isSold = true)
         {
-            List<Item> availableItems = AllItems.Where(x => x.Value >= minValue && x.Value <= maxValue && x.IsSold).ToList();
+            List<Item> availableItems = AllItems.Where(itm => itm.Value >= minValue && itm.Value <= maxValue && itm.IsSold == isSold).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
 
             CurrentHero.AddItem(availableItems[item]);
@@ -368,12 +362,12 @@ namespace Sulimn.Classes
         /// <typeparam name="T">Type of Item to be found</typeparam>
         /// <param name="minValue">Minimum value of Item</param>
         /// <param name="maxValue">Maximum value of Item</param>
-        /// <param name="canSell">Can the item be sold?</param>
+        /// <param name="isSold">Is the item sold?</param>
         /// <returns>Returns text about found Item</returns>
-        internal static string EventFindItem<T>(int minValue, int maxValue, bool canSell = true) where T : Item
+        internal static string EventFindItem<T>(int minValue, int maxValue, bool isSold = true) where T : Item
         {
             List<T> availableItems = new List<T>(GetItemsOfType<T>());
-            availableItems = availableItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue).ToList();
+            availableItems = availableItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue && itm.IsSold == isSold).ToList();
             int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
             CurrentHero.AddItem(availableItems[item]);
             SaveHero(CurrentHero);
@@ -421,13 +415,13 @@ namespace Sulimn.Classes
         /// <summary>Displays a new Notification in a thread-safe way.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
-        internal static void DisplayNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => new Notification(message, title, NotificationButtons.OK, MainWindow).ShowDialog());
+        internal static void DisplayNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => new Notification(message, title, NotificationButton.OK, MainWindow).ShowDialog());
 
         /// <summary>Displays a new Notification in a thread-safe way and retrieves a boolean result upon its closing.</summary>
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
         /// <returns>Returns value of clicked button on Notification.</returns>
-        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => (new Notification(message, title, NotificationButtons.YesNo, MainWindow).ShowDialog() == true));
+        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => (new Notification(message, title, NotificationButton.YesNo, MainWindow).ShowDialog() == true));
 
         #endregion Notification Management
     }

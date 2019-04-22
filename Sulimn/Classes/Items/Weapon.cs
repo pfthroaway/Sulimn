@@ -40,7 +40,7 @@ namespace Sulimn.Classes.Items
         #region Helper Properties
 
         /// <summary>Damage the weapon inflicts, formatted.</summary>
-        public string DamageToString => Damage.ToString("N0");
+        public string DamageToString => Damage.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>Damage the weapon inflicts, formatted, with preceding text.</summary>
         public string DamageToStringWithText => Damage > 0 ? $"Damage: {DamageToString}" : "";

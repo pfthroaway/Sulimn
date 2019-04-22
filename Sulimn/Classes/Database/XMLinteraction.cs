@@ -21,7 +21,7 @@ namespace Sulimn.Classes.Database
         internal static Settings LoadSettings()
         {
             Settings newSettings = new Settings("", "");
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Settings.xml"))
             {
@@ -34,7 +34,7 @@ namespace Sulimn.Classes.Database
                         newSettings.Theme = xn["Theme"]?.InnerText;
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading settings: {e.Message}.", "Sulimn");
                 }
@@ -50,7 +50,7 @@ namespace Sulimn.Classes.Database
         internal static List<HeroClass> LoadClasses()
         {
             List<HeroClass> allClasses = new List<HeroClass>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Classes/Classes.xml"))
             {
@@ -71,7 +71,7 @@ namespace Sulimn.Classes.Database
                         allClasses.Add(newClass);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading classes: {e.Message}.", "Sulimn");
                 }
@@ -87,7 +87,7 @@ namespace Sulimn.Classes.Database
         internal static List<Enemy> LoadEnemies()
         {
             List<Enemy> allEnemies = new List<Enemy>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Enemies/Enemies.xml"))
             {
@@ -148,7 +148,7 @@ namespace Sulimn.Classes.Database
                         allEnemies.Add(newEnemy);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading enemies: {e.Message}.", "Sulimn");
                 }
@@ -170,7 +170,7 @@ namespace Sulimn.Classes.Database
         internal static List<HeadArmor> LoadHeadArmor()
         {
             List<HeadArmor> allHeadArmor = new List<HeadArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Armor/HeadArmor.xml"))
             {
@@ -191,7 +191,7 @@ namespace Sulimn.Classes.Database
                         allHeadArmor.Add(newHeadArmor);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Head Armor: {e.Message}.", "Sulimn");
                 }
@@ -205,7 +205,7 @@ namespace Sulimn.Classes.Database
         internal static List<BodyArmor> LoadBodyArmor()
         {
             List<BodyArmor> allBodyArmor = new List<BodyArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Armor/BodyArmor.xml"))
             {
@@ -226,7 +226,7 @@ namespace Sulimn.Classes.Database
                         allBodyArmor.Add(newBodyArmor);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Body Armor: {e.Message}.", "Sulimn");
                 }
@@ -240,7 +240,7 @@ namespace Sulimn.Classes.Database
         internal static List<HandArmor> LoadHandArmor()
         {
             List<HandArmor> allHandArmor = new List<HandArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Armor/HandArmor.xml"))
             {
@@ -261,7 +261,7 @@ namespace Sulimn.Classes.Database
                         allHandArmor.Add(newHandArmor);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Hand Armor: {e.Message}.", "Sulimn");
                 }
@@ -275,7 +275,7 @@ namespace Sulimn.Classes.Database
         internal static List<LegArmor> LoadLegArmor()
         {
             List<LegArmor> allLegArmor = new List<LegArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Armor/LegArmor.xml"))
             {
@@ -296,7 +296,7 @@ namespace Sulimn.Classes.Database
                         allLegArmor.Add(newLegArmor);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Leg Armor: {e.Message}.", "Sulimn");
                 }
@@ -310,7 +310,7 @@ namespace Sulimn.Classes.Database
         internal static List<FeetArmor> LoadFeetArmor()
         {
             List<FeetArmor> allFeetArmor = new List<FeetArmor>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Armor/FeetArmor.xml"))
             {
@@ -331,7 +331,7 @@ namespace Sulimn.Classes.Database
                         allFeetArmor.Add(newFeetArmor);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Feet Armor: {e.Message}.", "Sulimn");
                 }
@@ -347,7 +347,7 @@ namespace Sulimn.Classes.Database
         internal static List<Ring> LoadRings()
         {
             List<Ring> allRings = new List<Ring>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Rings/Rings.xml"))
             {
@@ -373,7 +373,7 @@ namespace Sulimn.Classes.Database
                         allRings.Add(newRing);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Rings: {e.Message}.", "Sulimn");
                 }
@@ -387,7 +387,7 @@ namespace Sulimn.Classes.Database
         internal static List<Weapon> LoadWeapons()
         {
             List<Weapon> allWeapons = new List<Weapon>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Weapons/Weapons.xml"))
             {
@@ -409,7 +409,7 @@ namespace Sulimn.Classes.Database
                         allWeapons.Add(newWeapon);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Weapons: {e.Message}.", "Sulimn");
                 }
@@ -425,7 +425,7 @@ namespace Sulimn.Classes.Database
         internal static List<Potion> LoadPotions()
         {
             List<Potion> allPotions = new List<Potion>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Potions/Potions.xml"))
             {
@@ -448,7 +448,7 @@ namespace Sulimn.Classes.Database
                         allPotions.Add(newPotion);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Potions: {e.Message}.", "Sulimn");
                 }
@@ -462,7 +462,7 @@ namespace Sulimn.Classes.Database
         internal static List<Drink> LoadDrinks()
         {
             List<Drink> allDrinks = new List<Drink>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Drinks/Drinks.xml"))
             {
@@ -485,7 +485,7 @@ namespace Sulimn.Classes.Database
                         allDrinks.Add(newDrink);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Drinks: {e.Message}.", "Sulimn");
                 }
@@ -499,7 +499,7 @@ namespace Sulimn.Classes.Database
         internal static List<Food> LoadFood()
         {
             List<Food> allFood = new List<Food>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Food/Food.xml"))
             {
@@ -522,7 +522,7 @@ namespace Sulimn.Classes.Database
                         allFood.Add(newFood);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Food: {e.Message}.", "Sulimn");
                 }
@@ -536,7 +536,7 @@ namespace Sulimn.Classes.Database
         internal static List<Spell> LoadSpells()
         {
             List<Spell> allSpells = new List<Spell>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (File.Exists("Data/Spells/Spells.xml"))
             {
@@ -547,7 +547,7 @@ namespace Sulimn.Classes.Database
                     {
                         Spell newSpell = new Spell(
                         xn["Name"]?.InnerText,
-                        EnumHelper.Parse<SpellTypes>(xn["Type"]?.InnerText),
+                        EnumHelper.Parse<SpellType>(xn["Type"]?.InnerText),
                         xn["Description"]?.InnerText,
                         GameState.SetAllowedClasses(xn["AllowedClasses"]?.InnerText),
                         Int32Helper.Parse(xn["RequiredLevel"]?.InnerText),
@@ -557,7 +557,7 @@ namespace Sulimn.Classes.Database
                         allSpells.Add(newSpell);
                     }
                 }
-                catch (Exception e)
+                catch (XmlException e)
                 {
                     GameState.DisplayNotification($"Error loading Spells: {e.Message}.", "Sulimn");
                 }
@@ -589,7 +589,7 @@ namespace Sulimn.Classes.Database
             //TODO Make sure all nodes are verified as existing before trying to pull data
 
             List<Hero> allHeroes = new List<Hero>();
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
             if (Directory.Exists("Data/Heroes"))
             {
@@ -603,7 +603,7 @@ namespace Sulimn.Classes.Database
                             allHeroes.Add(LoadHero(node));
                         }
                     }
-                    catch (Exception e)
+                    catch (XmlException e)
                     {
                         GameState.DisplayNotification($"Error loading heroes: {e.Message}.", "Sulimn");
                     }
@@ -877,13 +877,13 @@ namespace Sulimn.Classes.Database
                     writer.WriteStartElement("Drink");
                     writer.WriteElementString("Name", drink.Name);
                     writer.WriteElementString("Description", drink.Description);
-                    writer.WriteElementString("RestoreHealth", drink.RestoreHealth.ToString());
-                    writer.WriteElementString("RestoreMagic", drink.RestoreMagic.ToString());
-                    writer.WriteElementString("Cures", drink.Cures.ToString());
+                    writer.WriteElementString("RestoreHealth", drink.RestoreHealth.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("RestoreMagic", drink.RestoreMagic.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Cures", drink.Cures.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", drink.ValueToString);
-                    writer.WriteElementString("Weight", drink.Weight.ToString());
-                    writer.WriteElementString("CanSell", drink.CanSell.ToString());
-                    writer.WriteElementString("IsSold", drink.IsSold.ToString());
+                    writer.WriteElementString("Weight", drink.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", drink.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", drink.IsSold.ToString(GameState.CurrentCulture));
 
                     writer.WriteEndElement();
                 }
@@ -907,13 +907,13 @@ namespace Sulimn.Classes.Database
                     writer.WriteStartElement("Food");
                     writer.WriteElementString("Name", food.Name);
                     writer.WriteElementString("Description", food.Description);
-                    writer.WriteElementString("RestoreHealth", food.RestoreHealth.ToString());
-                    writer.WriteElementString("RestoreMagic", food.RestoreMagic.ToString());
-                    writer.WriteElementString("Cures", food.Cures.ToString());
+                    writer.WriteElementString("RestoreHealth", food.RestoreHealth.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("RestoreMagic", food.RestoreMagic.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Cures", food.Cures.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", food.ValueToString);
-                    writer.WriteElementString("Weight", food.Weight.ToString());
-                    writer.WriteElementString("CanSell", food.CanSell.ToString());
-                    writer.WriteElementString("IsSold", food.IsSold.ToString());
+                    writer.WriteElementString("Weight", food.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", food.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", food.IsSold.ToString(GameState.CurrentCulture));
 
                     writer.WriteEndElement();
                 }
@@ -937,13 +937,13 @@ namespace Sulimn.Classes.Database
                     writer.WriteStartElement("Potion");
                     writer.WriteElementString("Name", potion.Name);
                     writer.WriteElementString("Description", potion.Description);
-                    writer.WriteElementString("RestoreHealth", potion.RestoreHealth.ToString());
-                    writer.WriteElementString("RestoreMagic", potion.RestoreMagic.ToString());
-                    writer.WriteElementString("Cures", potion.Cures.ToString());
+                    writer.WriteElementString("RestoreHealth", potion.RestoreHealth.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("RestoreMagic", potion.RestoreMagic.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Cures", potion.Cures.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", potion.ValueToString);
-                    writer.WriteElementString("Weight", potion.Weight.ToString());
-                    writer.WriteElementString("CanSell", potion.CanSell.ToString());
-                    writer.WriteElementString("IsSold", potion.IsSold.ToString());
+                    writer.WriteElementString("Weight", potion.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", potion.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", potion.IsSold.ToString(GameState.CurrentCulture));
 
                     writer.WriteEndElement();
                 }
@@ -973,11 +973,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("Description", head.Description);
                     writer.WriteElementString("Defense", head.DefenseToString);
                     writer.WriteElementString("Durability", head.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", head.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", head.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", head.ValueToString);
-                    writer.WriteElementString("Weight", head.Weight.ToString());
-                    writer.WriteElementString("CanSell", head.CanSell.ToString());
-                    writer.WriteElementString("IsSold", head.IsSold.ToString());
+                    writer.WriteElementString("Weight", head.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", head.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", head.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", head.AllowedClassesToString);
 
                     writer.WriteEndElement();
@@ -1004,11 +1004,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("Description", body.Description);
                     writer.WriteElementString("Defense", body.DefenseToString);
                     writer.WriteElementString("Durability", body.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", body.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", body.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", body.ValueToString);
-                    writer.WriteElementString("Weight", body.Weight.ToString());
-                    writer.WriteElementString("CanSell", body.CanSell.ToString());
-                    writer.WriteElementString("IsSold", body.IsSold.ToString());
+                    writer.WriteElementString("Weight", body.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", body.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", body.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", body.AllowedClassesToString);
 
                     writer.WriteEndElement();
@@ -1035,11 +1035,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("Description", hand.Description);
                     writer.WriteElementString("Defense", hand.DefenseToString);
                     writer.WriteElementString("Durability", hand.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", hand.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", hand.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", hand.ValueToString);
-                    writer.WriteElementString("Weight", hand.Weight.ToString());
-                    writer.WriteElementString("CanSell", hand.CanSell.ToString());
-                    writer.WriteElementString("IsSold", hand.IsSold.ToString());
+                    writer.WriteElementString("Weight", hand.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", hand.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", hand.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", hand.AllowedClassesToString);
 
                     writer.WriteEndElement();
@@ -1066,11 +1066,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("Description", legs.Description);
                     writer.WriteElementString("Defense", legs.DefenseToString);
                     writer.WriteElementString("Durability", legs.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", legs.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", legs.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", legs.ValueToString);
-                    writer.WriteElementString("Weight", legs.Weight.ToString());
-                    writer.WriteElementString("CanSell", legs.CanSell.ToString());
-                    writer.WriteElementString("IsSold", legs.IsSold.ToString());
+                    writer.WriteElementString("Weight", legs.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", legs.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", legs.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", legs.AllowedClassesToString);
 
                     writer.WriteEndElement();
@@ -1097,11 +1097,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("Description", feet.Description);
                     writer.WriteElementString("Defense", feet.DefenseToString);
                     writer.WriteElementString("Durability", feet.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", feet.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", feet.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", feet.ValueToString);
-                    writer.WriteElementString("Weight", feet.Weight.ToString());
-                    writer.WriteElementString("CanSell", feet.CanSell.ToString());
-                    writer.WriteElementString("IsSold", feet.IsSold.ToString());
+                    writer.WriteElementString("Weight", feet.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", feet.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", feet.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", feet.AllowedClassesToString);
 
                     writer.WriteEndElement();
@@ -1127,18 +1127,18 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("Name", ring.Name);
                     writer.WriteElementString("Description", ring.Description);
                     writer.WriteElementString("Durability", ring.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", ring.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", ring.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", ring.ValueToString);
-                    writer.WriteElementString("Weight", ring.Weight.ToString());
-                    writer.WriteElementString("CanSell", ring.CanSell.ToString());
-                    writer.WriteElementString("IsSold", ring.IsSold.ToString());
+                    writer.WriteElementString("Weight", ring.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", ring.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", ring.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", ring.AllowedClassesToString);
                     writer.WriteElementString("Damage", ring.DamageToString);
                     writer.WriteElementString("Defense", ring.DefenseToString);
-                    writer.WriteElementString("Strength", ring.Strength.ToString());
-                    writer.WriteElementString("Vitality", ring.Vitality.ToString());
-                    writer.WriteElementString("Dexterity", ring.Dexterity.ToString());
-                    writer.WriteElementString("Wisdom", ring.Wisdom.ToString());
+                    writer.WriteElementString("Strength", ring.Strength.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Vitality", ring.Vitality.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Dexterity", ring.Dexterity.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Wisdom", ring.Wisdom.ToString(GameState.CurrentCulture));
 
                     writer.WriteEndElement();
                 }
@@ -1167,11 +1167,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteElementString("WeaponType", weapon.WeaponTypeToString);
                     writer.WriteElementString("Damage", weapon.DamageToString);
                     writer.WriteElementString("Durability", weapon.MaximumDurabilityToString);
-                    writer.WriteElementString("MinimumLevel", weapon.MinimumLevel.ToString());
+                    writer.WriteElementString("MinimumLevel", weapon.MinimumLevel.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Value", weapon.ValueToString);
-                    writer.WriteElementString("Weight", weapon.Weight.ToString());
-                    writer.WriteElementString("CanSell", weapon.CanSell.ToString());
-                    writer.WriteElementString("IsSold", weapon.IsSold.ToString());
+                    writer.WriteElementString("Weight", weapon.Weight.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("CanSell", weapon.CanSell.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("IsSold", weapon.IsSold.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("AllowedClasses", weapon.AllowedClassesToString);
 
                     writer.WriteEndElement();
@@ -1196,11 +1196,11 @@ namespace Sulimn.Classes.Database
                     writer.WriteStartElement("Class");
                     writer.WriteElementString("Name", heroClass.Name);
                     writer.WriteElementString("Description", heroClass.Description);
-                    writer.WriteElementString("SkillPoints", heroClass.SkillPoints.ToString());
-                    writer.WriteElementString("Strength", heroClass.Strength.ToString());
-                    writer.WriteElementString("Vitality", heroClass.Vitality.ToString());
-                    writer.WriteElementString("Dexterity", heroClass.Dexterity.ToString());
-                    writer.WriteElementString("Wisdom", heroClass.Wisdom.ToString());
+                    writer.WriteElementString("SkillPoints", heroClass.SkillPoints.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Strength", heroClass.Strength.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Vitality", heroClass.Vitality.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Dexterity", heroClass.Dexterity.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Wisdom", heroClass.Wisdom.ToString(GameState.CurrentCulture));
 
                     writer.WriteEndElement();
                 }
@@ -1225,8 +1225,8 @@ namespace Sulimn.Classes.Database
 
                     writer.WriteStartElement("Information");
                     writer.WriteElementString("Name", enemy.Name);
-                    writer.WriteElementString("Level", enemy.Level.ToString());
-                    writer.WriteElementString("Experience", enemy.Experience.ToString());
+                    writer.WriteElementString("Level", enemy.Level.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Experience", enemy.Experience.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Type", enemy.Type);
 
                     writer.WriteEndElement();
@@ -1236,15 +1236,15 @@ namespace Sulimn.Classes.Database
                     writer.WriteEndElement();
 
                     writer.WriteStartElement("Attributes");
-                    writer.WriteElementString("Strength", enemy.Attributes.Strength.ToString());
-                    writer.WriteElementString("Vitality", enemy.Attributes.Vitality.ToString());
-                    writer.WriteElementString("Dexterity", enemy.Attributes.Dexterity.ToString());
-                    writer.WriteElementString("Wisdom", enemy.Attributes.Wisdom.ToString());
+                    writer.WriteElementString("Strength", enemy.Attributes.Strength.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Vitality", enemy.Attributes.Vitality.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Dexterity", enemy.Attributes.Dexterity.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Wisdom", enemy.Attributes.Wisdom.ToString(GameState.CurrentCulture));
                     writer.WriteEndElement();
 
                     writer.WriteStartElement("Statistics");
-                    writer.WriteElementString("Health", enemy.Statistics.MaximumHealth.ToString());
-                    writer.WriteElementString("Magic", enemy.Statistics.MaximumMagic.ToString());
+                    writer.WriteElementString("Health", enemy.Statistics.MaximumHealth.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Magic", enemy.Statistics.MaximumMagic.ToString(GameState.CurrentCulture));
                     writer.WriteEndElement();
 
                     writer.WriteStartElement("Equipment");
@@ -1297,10 +1297,10 @@ namespace Sulimn.Classes.Database
             writer.WriteElementString("Name", hero.Name);
             writer.WriteElementString("Password", hero.Password);
             writer.WriteElementString("Class", hero.Class.Name);
-            writer.WriteElementString("Level", hero.Level.ToString());
-            writer.WriteElementString("Experience", hero.Experience.ToString());
-            writer.WriteElementString("SkillPoints", hero.SkillPoints.ToString());
-            writer.WriteElementString("Hardcore", hero.Hardcore.ToString());
+            writer.WriteElementString("Level", hero.Level.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Experience", hero.Experience.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("SkillPoints", hero.SkillPoints.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Hardcore", hero.Hardcore.ToString(GameState.CurrentCulture));
             writer.WriteEndElement();
 
             writer.WriteStartElement("Inventory");
@@ -1324,17 +1324,17 @@ namespace Sulimn.Classes.Database
             writer.WriteEndElement();
 
             writer.WriteStartElement("Attributes");
-            writer.WriteElementString("Strength", hero.Attributes.Strength.ToString());
-            writer.WriteElementString("Vitality", hero.Attributes.Vitality.ToString());
-            writer.WriteElementString("Dexterity", hero.Attributes.Dexterity.ToString());
-            writer.WriteElementString("Wisdom", hero.Attributes.Wisdom.ToString());
+            writer.WriteElementString("Strength", hero.Attributes.Strength.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Vitality", hero.Attributes.Vitality.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Dexterity", hero.Attributes.Dexterity.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Wisdom", hero.Attributes.Wisdom.ToString(GameState.CurrentCulture));
             writer.WriteEndElement();
 
             writer.WriteStartElement("Statistics");
-            writer.WriteElementString("CurrentHealth", hero.Statistics.CurrentHealth.ToString());
-            writer.WriteElementString("MaximumHealth", hero.Statistics.MaximumHealth.ToString());
-            writer.WriteElementString("CurrentMagic", hero.Statistics.CurrentMagic.ToString());
-            writer.WriteElementString("MaximumMagic", hero.Statistics.MaximumMagic.ToString());
+            writer.WriteElementString("CurrentHealth", hero.Statistics.CurrentHealth.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("MaximumHealth", hero.Statistics.MaximumHealth.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("CurrentMagic", hero.Statistics.CurrentMagic.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("MaximumMagic", hero.Statistics.MaximumMagic.ToString(GameState.CurrentCulture));
             writer.WriteEndElement();
 
             writer.WriteStartElement("Equipment");
@@ -1389,16 +1389,16 @@ namespace Sulimn.Classes.Database
             writer.WriteEndElement(); //finish Spellbook
 
             writer.WriteStartElement("Progression");
-            writer.WriteElementString("Fields", hero.Progression.Fields.ToString());
-            writer.WriteElementString("Forest", hero.Progression.Forest.ToString());
-            writer.WriteElementString("Cathedral", hero.Progression.Cathedral.ToString());
-            writer.WriteElementString("Mines", hero.Progression.Mines.ToString());
-            writer.WriteElementString("Catacombs", hero.Progression.Catacombs.ToString());
-            writer.WriteElementString("Courtyard", hero.Progression.Courtyard.ToString());
-            writer.WriteElementString("Battlements", hero.Progression.Battlements.ToString());
-            writer.WriteElementString("Armoury", hero.Progression.Armoury.ToString());
-            writer.WriteElementString("Spire", hero.Progression.Spire.ToString());
-            writer.WriteElementString("ThroneRoom", hero.Progression.ThroneRoom.ToString());
+            writer.WriteElementString("Fields", hero.Progression.Fields.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Forest", hero.Progression.Forest.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Cathedral", hero.Progression.Cathedral.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Mines", hero.Progression.Mines.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Catacombs", hero.Progression.Catacombs.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Courtyard", hero.Progression.Courtyard.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Battlements", hero.Progression.Battlements.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Armoury", hero.Progression.Armoury.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("Spire", hero.Progression.Spire.ToString(GameState.CurrentCulture));
+            writer.WriteElementString("ThroneRoom", hero.Progression.ThroneRoom.ToString(GameState.CurrentCulture));
             writer.WriteEndElement(); //finish Progression
 
             writer.WriteEndElement(); //finish Hero
@@ -1440,9 +1440,9 @@ namespace Sulimn.Classes.Database
                     writer.WriteStartElement("Spell");
                     writer.WriteElementString("Name", spell.Name);
                     writer.WriteElementString("Description", spell.Description);
-                    writer.WriteElementString("RequiredLevel", spell.RequiredLevel.ToString());
-                    writer.WriteElementString("MagicCost", spell.MagicCost.ToString());
-                    writer.WriteElementString("Amount", spell.Amount.ToString());
+                    writer.WriteElementString("RequiredLevel", spell.RequiredLevel.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("MagicCost", spell.MagicCost.ToString(GameState.CurrentCulture));
+                    writer.WriteElementString("Amount", spell.Amount.ToString(GameState.CurrentCulture));
                     writer.WriteElementString("Type", spell.TypeToString);
                     writer.WriteElementString("AllowedClasses", spell.AllowedClassesToString);
 
@@ -1460,7 +1460,7 @@ namespace Sulimn.Classes.Database
         //private static void ReadSingleTest()
         //{
         //    Character newCharacter = new Character();
-        //    XmlDocument xmlDoc = new XmlDocument();
+        //    XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
         //    if (File.Exists("Aragon.xml"))
         //    {
         //        xmlDoc.Load("Aragon.xml");
@@ -1523,16 +1523,16 @@ namespace Sulimn.Classes.Database
         //        writer.WriteStartElement("Character");
         //        writer.WriteStartElement("Information");
         //        writer.WriteElementString("Name", newCharacter.Name);
-        //        writer.WriteElementString("Level", newCharacter.Level.ToString());
-        //        writer.WriteElementString("Experience", newCharacter.Experience.ToString());
-        //        writer.WriteElementString("Gold", newCharacter.Gold.ToString());
+        //        writer.WriteElementString("Level", newCharacter.Level.ToString(GameState.CurrentCulture));
+        //        writer.WriteElementString("Experience", newCharacter.Experience.ToString(GameState.CurrentCulture));
+        //        writer.WriteElementString("Gold", newCharacter.Gold.ToString(GameState.CurrentCulture));
         //        writer.WriteEndElement();
 
         //        writer.WriteStartElement("Attributes");
-        //        writer.WriteElementString("Strength", newCharacter.Strength.ToString());
-        //        writer.WriteElementString("Vitality", newCharacter.Vitality.ToString());
-        //        writer.WriteElementString("Dexterity", newCharacter.Dexterity.ToString());
-        //        writer.WriteElementString("Wisdom", newCharacter.Wisdom.ToString());
+        //        writer.WriteElementString("Strength", newCharacter.Strength.ToString(GameState.CurrentCulture));
+        //        writer.WriteElementString("Vitality", newCharacter.Vitality.ToString(GameState.CurrentCulture));
+        //        writer.WriteElementString("Dexterity", newCharacter.Dexterity.ToString(GameState.CurrentCulture));
+        //        writer.WriteElementString("Wisdom", newCharacter.Wisdom.ToString(GameState.CurrentCulture));
         //        writer.WriteEndElement();
 
         //        if (newCharacter.Inventory.Count > 0)
@@ -1542,7 +1542,7 @@ namespace Sulimn.Classes.Database
         //            {
         //                writer.WriteStartElement("Item");
         //                writer.WriteElementString("Name", item.Name);
-        //                writer.WriteElementString("Durability", item.Durability.ToString());
+        //                writer.WriteElementString("Durability", item.Durability.ToString(GameState.CurrentCulture));
         //                writer.WriteEndElement();
         //            }
         //            writer.WriteEndElement();
@@ -1568,11 +1568,11 @@ namespace Sulimn.Classes.Database
 
         //            writer.WriteStartElement("Character");
         //            writer.WriteElementString("Name", character.Name);
-        //            writer.WriteElementString("Level", character.Level.ToString());
-        //            writer.WriteElementString("Strength", character.Strength.ToString());
-        //            writer.WriteElementString("Vitality", character.Vitality.ToString());
-        //            writer.WriteElementString("Dexterity", character.Dexterity.ToString());
-        //            writer.WriteElementString("Wisdom", character.Wisdom.ToString());
+        //            writer.WriteElementString("Level", character.Level.ToString(GameState.CurrentCulture));
+        //            writer.WriteElementString("Strength", character.Strength.ToString(GameState.CurrentCulture));
+        //            writer.WriteElementString("Vitality", character.Vitality.ToString(GameState.CurrentCulture));
+        //            writer.WriteElementString("Dexterity", character.Dexterity.ToString(GameState.CurrentCulture));
+        //            writer.WriteElementString("Wisdom", character.Wisdom.ToString(GameState.CurrentCulture));
 
         //            writer.WriteEndElement();
         //            writer.WriteEndDocument();

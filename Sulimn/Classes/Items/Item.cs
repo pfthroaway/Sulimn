@@ -138,16 +138,16 @@ namespace Sulimn.Classes.Items
         #region Helper Properties
 
         /// <summary>The current durability of an <see cref="Item"/>, with thousands separators.</summary>
-        public string CurrentDurabilityToString => CurrentDurability.ToString("N0");
+        public string CurrentDurabilityToString => CurrentDurability.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>The maximum durability of an <see cref="Item"/>, with thousands separators.</summary>
-        public string MaximumDurabilityToString => MaximumDurability.ToString("N0");
+        public string MaximumDurabilityToString => MaximumDurability.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>The durability of an <see cref="Item"/>, formatted.</summary>
         public string Durability => $"{CurrentDurabilityToString} / {MaximumDurabilityToString}";
 
         /// <summary>The value of the <see cref="Item"/> with thousands separators.</summary>
-        public string ValueToString => Value.ToString("N0");
+        public string ValueToString => Value.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>The value of the <see cref="Item"/> with thousands separators and preceding text.</summary>
         public string ValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Value: {ValueToString}" : "";
@@ -156,7 +156,7 @@ namespace Sulimn.Classes.Items
         public int SellValue => Value / 2;
 
         /// <summary>The sell value of the <see cref="Item"/> with thousands separators.</summary>
-        public string SellValueToString => SellValue.ToString("N0");
+        public string SellValueToString => SellValue.ToString("N0", GameState.CurrentCulture);
 
         /// <summary>The sell value of the <see cref="Item"/> with thousands separators with preceding text.</summary>
         public string SellValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Sell Value: {SellValueToString}" : "";

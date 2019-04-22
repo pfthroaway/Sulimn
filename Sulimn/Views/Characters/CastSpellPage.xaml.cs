@@ -78,7 +78,7 @@ namespace Sulimn.Views.Characters
                 case "Character":
                     _availableSpells =
                         new BindingList<Spell>(
-                            GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellTypes.Healing).ToList());
+                            GameState.CurrentHero.Spellbook.Spells.Where(spl => spl.Type == SpellType.Healing).ToList());
                     break;
             }
         }

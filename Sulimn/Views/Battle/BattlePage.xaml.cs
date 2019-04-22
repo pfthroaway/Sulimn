@@ -164,15 +164,15 @@ namespace Sulimn.Views.Battle
 
                     switch (_currentSpell.Type)
                     {
-                        case SpellTypes.Damage:
+                        case SpellType.Damage:
                             HeroAttack(GameState.CurrentHero.TotalWisdom, _currentSpell.Amount);
                             break;
 
-                        case SpellTypes.Healing:
+                        case SpellType.Healing:
                             Functions.AddTextToTextBox(TxtBattle, GameState.CurrentHero.Heal(_currentSpell.Amount));
                             break;
 
-                        case SpellTypes.Shield:
+                        case SpellType.Shield:
                             HeroShield += _currentSpell.Amount;
                             Functions.AddTextToTextBox(TxtBattle, $"You now have a magical shield which will help protect you from {HeroShield} damage.");
                             break;
@@ -350,7 +350,7 @@ namespace Sulimn.Views.Battle
                 else
                 {
                     if (actualShieldAbsorb > 0 && actualArmorAbsorb > 0)
-                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage}, but {shield.ToLower()}{absorb.ToLower()}");
+                        Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage}, but {shield.ToLower(GameState.CurrentCulture)}{absorb.ToLower(GameState.CurrentCulture)}");
                     else if (actualDamage == actualShieldAbsorb)
                         Functions.AddTextToTextBox(TxtBattle, $"The {GameState.CurrentEnemy.Name} attacks you for {actualDamage}, but your shield absorbed all of it.");
                     else
