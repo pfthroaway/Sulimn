@@ -9,7 +9,7 @@
         Title="{Binding Path=Content.Title, ElementName=MainFrame}"
         WindowState="Maximized"
         Loaded="WindowMain_Loaded">
-    <DockPanel>
+    <DockPanel LastChildFill="True">
         <Menu x:Name="Menu" DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <Separator />
@@ -24,6 +24,14 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
+        <Viewbox Stretch="Uniform" DockPanel.Dock="Bottom">
+            <Frame x:Name="StatsFrame"
+                   Visibility="Collapsed"
+               ScrollViewer.VerticalScrollBarVisibility="Auto"
+               ScrollViewer.HorizontalScrollBarVisibility="Auto"
+               ScrollViewer.CanContentScroll="True"
+               NavigationUIVisibility="Hidden" />
+        </Viewbox>
         <Viewbox Stretch="Uniform">
             <Frame x:Name="MainFrame"
             ScrollViewer.VerticalScrollBarVisibility="Auto"

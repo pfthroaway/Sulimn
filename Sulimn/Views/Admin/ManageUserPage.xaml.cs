@@ -166,6 +166,7 @@ namespace Sulimn.Views.Admin
                         new Spellbook(_originalHero.Spellbook), GameState.SetInventory(TxtInventory.Text),
                             new Bank(), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
                 //TODO BANK
+                //TODO Class isn't selected properly and won't save properly.
 
                 if (TxtHeroName.Text != _originalHero.Name)
                 {

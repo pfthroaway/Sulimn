@@ -1,0 +1,27 @@
+﻿<Page x:Class="Sulimn.Views.StatsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Background="#2F3136"
+      Style="{StaticResource PageStyle}"
+      Loaded="Page_Loaded"
+      Title="Sulimn - Stats">
+    <Grid Margin="25,3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,40,0" />
+        <TextBlock x:Name="LblHealth" Grid.Column="1" Text="{Binding HealthToStringWithText}" Margin="0,0,40,0" />
+        <TextBlock x:Name="LblMagic" Grid.Column="2" Text="{Binding MagicToStringWithText}" Margin="0,0,40,0" />
+        <TextBlock Grid.Column="3" Text="{Binding LevelAndClassToString}" Margin="0,0,40,0" />
+        <TextBlock Grid.Column="4" Text="{Binding ExperienceToStringWithText}" Margin="0,0,40,0" />
+        <TextBlock Grid.Column="5" Text="{Binding GoldToStringWithText}" />
+    </Grid>
+</Page>

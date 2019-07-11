@@ -421,14 +421,10 @@ namespace Sulimn.Views.Battle
                 switch (_previousPage)
                 {
                     case "Explore":
-                        if (_blnHardcoreDeath)
-                            RefToExplorePage.HardcoreDeath();
                         break;
 
                     case "Fields":
-                        if (_blnHardcoreDeath)
-                            RefToFieldsPage.HardcoreDeath();
-                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Fields = true;
                             GameState.EventFindGold(250, 250);
@@ -437,9 +433,7 @@ namespace Sulimn.Views.Battle
                         break;
 
                     case "Forest":
-                        if (_blnHardcoreDeath)
-                            RefToForestPage.HardcoreDeath();
-                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Forest = true;
                             GameState.EventFindGold(1000, 1000);
@@ -448,9 +442,7 @@ namespace Sulimn.Views.Battle
                         break;
 
                     case "Cathedral":
-                        if (_blnHardcoreDeath)
-                            RefToCathedralPage.HardcoreDeath();
-                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Cathedral = true;
                             GameState.EventFindItem<Ring>(1, 5000);
@@ -459,9 +451,7 @@ namespace Sulimn.Views.Battle
                         break;
 
                     case "Mines":
-                        if (_blnHardcoreDeath)
-                            RefToMinesPage.HardcoreDeath();
-                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Mines = true;
                             GameState.EventFindGold(5000, 5000);
@@ -470,9 +460,7 @@ namespace Sulimn.Views.Battle
                         break;
 
                     case "Catacombs":
-                        if (_blnHardcoreDeath)
-                            RefToCatacombsPage.HardcoreDeath();
-                        else if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
+                        if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Catacombs = true;
                             GameState.EventFindItem<Ring>(15000, 20000);
@@ -482,6 +470,8 @@ namespace Sulimn.Views.Battle
                 }
                 if (!_blnHardcoreDeath)
                     GameState.SaveHero(GameState.CurrentHero);
+                else
+                    GameState.HardcoreDeath();
             }
             GameState.GoBack();
         }

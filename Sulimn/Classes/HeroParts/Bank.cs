@@ -71,6 +71,9 @@ namespace Sulimn.Classes.HeroParts
         /// <summary>Initializes a default instance of Bank.</summary>
         public Bank()
         {
+            GoldInBank = 0;
+            LoanAvailable = 0;
+            LoanTaken = 0;
         }
 
         /// <summary>Initializes an instance of Bank by assigning Properties.</summary>

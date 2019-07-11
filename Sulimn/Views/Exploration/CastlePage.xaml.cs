@@ -5,8 +5,6 @@ namespace Sulimn.Views.Exploration
     /// <summary>Interaction logic for CastlePage.xaml</summary>
     public partial class CastlePage
     {
-        internal ExplorePage RefToExplorePage { get; set; }
-
         #region Click Methods
 
         private void BtnCourtyard_Click(object sender, RoutedEventArgs e)

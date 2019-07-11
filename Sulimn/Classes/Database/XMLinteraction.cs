@@ -43,7 +43,6 @@ namespace Sulimn.Classes.Database
         }
 
         //TODO Change all Items to implement durability, allowed classes, and minimum level
-        //TODO Figure out a way to always display current health and magic along the bottom of the screen.
 
         /// <summary>Loads all Classes from the database.</summary>
         /// <returns>List of Classes</returns>

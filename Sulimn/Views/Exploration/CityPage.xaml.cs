@@ -13,13 +13,6 @@ namespace Sulimn.Views.Exploration
     {
         internal bool NewHero { get; set; }
 
-        /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
-        internal void HardcoreDeath()
-        {
-            GameState.DeleteHero(GameState.CurrentHero);
-            GameState.GoBack();
-        }
-
         #region Button-Click Methods
 
         private void BtnBank_Click(object sender, RoutedEventArgs e)
@@ -56,10 +49,15 @@ namespace Sulimn.Views.Exploration
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             if (GameState.YesNoNotification("Are you sure you want to exit?", "Sulimn"))
+            {
                 GameState.GoBack();
+                GameState.MainWindow.StatsFrame.Visibility = Visibility.Collapsed;
+                GameState.MainWindow.StatsFrame.Content = null;
+                while (GameState.MainWindow.StatsFrame.NavigationService.RemoveBackEntry() != null) ;
+            }
         }
 
-        private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ExplorePage { RefToCityPage = this });
+        private void BtnExplore_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new ExplorePage());
 
         private void BtnMarket_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new MarketPage());
 
@@ -87,6 +85,8 @@ namespace Sulimn.Views.Exploration
                 GameState.MainWindow.MainFrame.RemoveBackEntry();
                 NewHero = false;
             }
+            GameState.MainWindow.StatsFrame.Navigate(new StatsPage());
+            GameState.MainWindow.StatsFrame.Visibility = Visibility.Visible;
         }
 
         #endregion Page-Generated Methods

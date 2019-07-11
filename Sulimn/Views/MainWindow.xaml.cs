@@ -80,7 +80,6 @@ namespace Sulimn.Views
         private void WindowMain_Loaded(object sender, RoutedEventArgs e)
         {
             GameState.MainWindow = this;
-            GameState.VerifyFolders();
             GameState.LoadAll();
             UpdateTheme(GameState.CurrentSettings.Theme, false);
         }

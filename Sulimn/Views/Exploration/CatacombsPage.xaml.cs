@@ -10,10 +10,6 @@ namespace Sulimn.Views.Exploration
         /// <summary>Has the Hero just completed a progession battle?</summary>
         internal bool Progress { get; set; }
 
-        internal ExplorePage RefToExplorePage { private get; set; }
-
-        private bool _hardcoreDeath;
-
         /// <summary>Does the Hero have more than zero health?</summary>
         /// <returns>Whether the Hero has more than zero health</returns>
         private bool Healthy()
@@ -30,13 +26,6 @@ namespace Sulimn.Views.Exploration
             Battle.BattlePage battlePage = new Battle.BattlePage { RefToCatacombsPage = this, };
             battlePage.PrepareBattle("Catacombs", progress);
             GameState.Navigate(battlePage);
-        }
-
-        /// <summary>Handles closing the Page when a Hardcore character has died.</summary>
-        internal void HardcoreDeath()
-        {
-            _hardcoreDeath = true;
-            ClosePage();
         }
 
         #region Button-Click Methods
@@ -130,20 +119,11 @@ namespace Sulimn.Views.Exploration
             }
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e) => ClosePage();
+        private void BtnBack_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #endregion Button-Click Methods
 
         #region Page-Manipulation Methods
-
-        /// <summary>Closes the Page.</summary>
-        private void ClosePage()
-        {
-            if (_hardcoreDeath)
-                RefToExplorePage.HardcoreDeath();
-
-            GameState.GoBack();
-        }
 
         public CatacombsPage()
         {

@@ -28,13 +28,19 @@ namespace Extensions
         /// <summary>Extracts an embedded resource from a Stream.</summary>
         /// <param name="resourceStream">Resource Stream from Assembly.GetExecutingAssembly().GetManifestResourceStream()</param>
         /// <param name="resourceName">Resource name</param>
-        public static void ExtractEmbeddedResource(Stream resourceStream, string resourceName)
+        public static void ExtractEmbeddedResource(Stream resourceStream, string resourceName) => ExtractEmbeddedResource(resourceStream, resourceName, Directory.GetCurrentDirectory());
+
+        /// <summary>Extracts an embedded resource from a Stream.</summary>
+        /// <param name="resourceStream">Resource Stream from Assembly.GetExecutingAssembly().GetManifestResourceStream()</param>
+        /// <param name="resourceName">Resource name</param>
+        /// <param name="directory">Directory to be extracted to</param>
+        public static void ExtractEmbeddedResource(Stream resourceStream, string resourceName, string directory)
         {
             if (resourceStream != null)
             {
                 using (BinaryReader r = new BinaryReader(resourceStream))
                 {
-                    using (FileStream fs = new FileStream(Directory.GetCurrentDirectory() + "\\" + resourceName, FileMode.OpenOrCreate))
+                    using (FileStream fs = new FileStream(directory + "\\" + resourceName, FileMode.OpenOrCreate))
                     {
                         using (BinaryWriter w = new BinaryWriter(fs))
                         {

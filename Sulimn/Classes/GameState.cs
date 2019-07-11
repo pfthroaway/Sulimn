@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,7 +25,6 @@ namespace Sulimn.Classes
         internal static Settings CurrentSettings;
         internal static Hero CurrentHero = new Hero();
         internal static Enemy CurrentEnemy = new Enemy();
-        internal static Hero MaximumStatsHero = new Hero();
         internal static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
         internal static List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
@@ -62,6 +63,18 @@ namespace Sulimn.Classes
                 MainWindow.MainFrame.GoBack();
         }
 
+        /// <summary>Handles a Hardcore <see cref="Hero"/>'s death.</summary>
+        internal static void HardcoreDeath()
+        {
+            while (MainWindow.MainFrame.CanGoBack)
+                MainWindow.MainFrame.GoBack();
+            if (CurrentHero != new Hero())
+            {
+                DeleteHero(CurrentHero);
+                CurrentHero = new Hero();
+            }
+        }
+
         #endregion Navigation
 
         /// <summary>Determines whether a Hero's credentials are authentic.</summary>
@@ -70,7 +83,7 @@ namespace Sulimn.Classes
         /// <returns>Returns true if valid login</returns>
         internal static bool CheckLogin(string username, string password)
         {
-            Hero checkHero = AllHeroes.Find(hero => hero.Name == username);
+            Hero checkHero = AllHeroes.Find(hero => string.Equals(hero.Name, username, StringComparison.InvariantCultureIgnoreCase));
             if (checkHero != null && checkHero != new Hero())
             {
                 if (Argon2.ValidatePassword(checkHero.Password, password))
@@ -96,9 +109,19 @@ namespace Sulimn.Classes
         /// <summary>Writes the current <see cref="Settings"/> to file.</summary>
         internal static void ChangeSettings() => XMLInteraction.WriteSettings(CurrentSettings);
 
+        internal static void FileManagement()
+        {
+            if (!Directory.Exists(AppData.Location))
+                Directory.CreateDirectory(AppData.Location);
+
+            File.WriteAllBytes(Path.Combine(AppData.Location, "Data.zip"), Properties.Resources.Data);
+            ZipFile.ExtractToDirectory(Path.Combine(AppData.Location, "Data.zip"), AppData.Location);
+        }
+
         /// <summary>Loads almost everything from the database.</summary>
         internal static void LoadAll()
         {
+            FileManagement();
             CurrentSettings = XMLInteraction.LoadSettings();
             AllClasses = XMLInteraction.LoadClasses();
             AllHeadArmor = XMLInteraction.LoadHeadArmor();
@@ -131,45 +154,17 @@ namespace Sulimn.Classes
             DefaultFeet = AllFeetArmor.Find(armor => armor.Name == "Cloth Shoes");
         }
 
-        /// <summary>Ensures all necessary folders are created.</summary>
-        internal static void VerifyFolders()
-        {
-            Directory.CreateDirectory("Data");
-            Directory.CreateDirectory("Data/Armor");
-            Directory.CreateDirectory("Data/Classes");
-            Directory.CreateDirectory("Data/Drinks");
-            Directory.CreateDirectory("Data/Enemies");
-            Directory.CreateDirectory("Data/Food");
-            Directory.CreateDirectory("Data/Heroes");
-            Directory.CreateDirectory("Data/Potions");
-            Directory.CreateDirectory("Data/Rings");
-            Directory.CreateDirectory("Data/Spells");
-            Directory.CreateDirectory("Data/StatusEffects");
-            Directory.CreateDirectory("Data/Weapons");
-            Directory.CreateDirectory("Mods");
-            Directory.CreateDirectory("Mods/Armor");
-            Directory.CreateDirectory("Mods/Classes");
-            Directory.CreateDirectory("Mods/Drinks");
-            Directory.CreateDirectory("Mods/Enemies");
-            Directory.CreateDirectory("Mods/Food");
-            Directory.CreateDirectory("Mods/Potions");
-            Directory.CreateDirectory("Mods/Rings");
-            Directory.CreateDirectory("Mods/Spells");
-            Directory.CreateDirectory("Mods/StatusEffects");
-            Directory.CreateDirectory("Mods/Weapons");
-        }
-
         /// <summary>Gets a specific Enemy based on its name.</summary>
         /// <param name="name">Name of Enemy</param>
         /// <returns>Enemy</returns>
         private static Enemy GetEnemy(string name) => new Enemy(AllEnemies.Find(enemy => enemy.Name == name));
 
+        #region Item Management
+
         /// <summary>Gets a specific Item based on its name.</summary>
         /// <param name="name">Item name</param>
         /// <returns>Item</returns>
         private static Item GetItem(string name) => AllItems.Find(itm => itm.Name == name);
-
-        #region Item Management
 
         /// <summary>Retrieves a List of all Items of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
