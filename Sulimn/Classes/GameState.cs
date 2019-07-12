@@ -12,7 +12,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -113,9 +112,14 @@ namespace Sulimn.Classes
         {
             if (!Directory.Exists(AppData.Location))
                 Directory.CreateDirectory(AppData.Location);
-
-            File.WriteAllBytes(Path.Combine(AppData.Location, "Data.zip"), Properties.Resources.Data);
-            ZipFile.ExtractToDirectory(Path.Combine(AppData.Location, "Data.zip"), AppData.Location);
+            string zipLocation = Path.Combine(AppData.Location, "Data.zip");
+            if (!Directory.Exists(Path.Combine(AppData.Location, "Data")))
+            {
+                File.WriteAllBytes(zipLocation, Properties.Resources.Data);
+                using (ZipArchive archive = new ZipArchive(File.Open(zipLocation, FileMode.Open)))
+                    archive.ExtractToDirectory(AppData.Location, true);
+                File.Delete(zipLocation);
+            }
         }
 
         /// <summary>Loads almost everything from the database.</summary>

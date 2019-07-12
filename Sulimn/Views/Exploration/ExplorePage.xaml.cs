@@ -45,7 +45,9 @@ namespace Sulimn.Views.Exploration
 
         private void BtnCatacombs_Click(object sender, RoutedEventArgs e) => Navigate(new CatacombsPage());
 
-        private void BtnCastle_Click(object sender, RoutedEventArgs e) => Navigate(new CastlePage());
+        private void BtnCastle_Click(object sender, RoutedEventArgs e)
+        {//Navigate(new CastlePage());
+        }
 
         private void BtnCathedral_Click(object sender, RoutedEventArgs e) => Navigate(new CathedralPage());
 

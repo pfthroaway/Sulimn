@@ -528,7 +528,7 @@ namespace Sulimn.Views.Characters
         private void BtnUnequipRightRing_Click(object sender, RoutedEventArgs e)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You unequip your {GameState.CurrentHero.Equipment.RightRing.Name}.");
-            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.LeftRing, RingHand.Left);
+            GameState.CurrentHero.Unequip(GameState.CurrentHero.Equipment.RightRing, RingHand.Right);
             GameState.CurrentHero.UpdateStatistics();
             BindRing();
         }

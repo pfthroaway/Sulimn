@@ -21,7 +21,7 @@
         <TextBox x:Name="TxtCatacombs" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Height="350" Width="440" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
         <Button x:Name="BtnCrypts" Grid.Column="0" Grid.Row="1" Width="140" Content="_Crypts" Click="BtnCrypts_Click" Margin="0,0,10,10" />
         <Button x:Name="BtnShantytown" Grid.Column="1" Grid.Row="1" Width="140" Content="_Shantytown" Click="BtnShantytown_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnRavine" Grid.Column="2" Grid.Row="1" Width="140" Content="_Ravine" Click="BtnRavine_Click" Margin="0,0,10,10" />
+        <Button x:Name="BtnRavine" Grid.Column="2" Grid.Row="1" Width="140" Content="_Ravine" Click="BtnRavine_Click" Margin="0,0,0,10" />
         <Button x:Name="BtnAqueduct" Grid.Column="0" Grid.Row="2" Width="140" Content="_Aqueduct" Click="BtnAqueduct_Click" Margin="0,0,10,0" />
         <Button x:Name="BtnProgress" Grid.Column="1" Grid.Row="2" Width="140" Content="_Progress" Click="BtnProgress_Click" IsEnabled="False" Margin="0,0,10,0" />
         <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="2" Width="140" Content="_Back" Click="BtnBack_Click" IsCancel="True" />

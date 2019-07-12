@@ -3,7 +3,6 @@ using Sulimn.Classes.Entities;
 using Sulimn.Classes.Enums;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -14,20 +13,23 @@ namespace Sulimn.Classes.Database
     /// <summary>Represents XML file interactions.</summary>
     internal static class XMLInteraction
     {
+        private static readonly string DataFolderLocation = Path.Combine(AppData.Location, "Data");
+
         #region Load
 
         /// <summary>Loads the game's <see cref="Settings"/> from disk.</summary>
         /// <returns>Game Settings</returns>
         internal static Settings LoadSettings()
         {
+            string settingsLocation = Path.Combine(DataFolderLocation, "Settings.xml");
             Settings newSettings = new Settings("", "");
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Settings.xml"))
+            if (File.Exists(settingsLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Settings.xml");
+                    xmlDoc.Load(settingsLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/Settings"))
                     {
                         newSettings.AdminPassword = xn["AdminPassword"]?.InnerText;
@@ -48,14 +50,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Classes</returns>
         internal static List<HeroClass> LoadClasses()
         {
+            string classesLocation = Path.Combine(DataFolderLocation, "Classes", "Classes.xml");
             List<HeroClass> allClasses = new List<HeroClass>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Classes/Classes.xml"))
+            if (File.Exists(classesLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Classes/Classes.xml");
+                    xmlDoc.Load(classesLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllClasses/Class"))
                     {
                         HeroClass newClass = new HeroClass(
@@ -85,14 +88,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Enemies</returns>
         internal static List<Enemy> LoadEnemies()
         {
+            string enemiesLocation = Path.Combine(DataFolderLocation, "Enemies", "Enemies.xml");
             List<Enemy> allEnemies = new List<Enemy>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Enemies/Enemies.xml"))
+            if (File.Exists(enemiesLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Enemies/Enemies.xml");
+                    xmlDoc.Load(enemiesLocation);
                     foreach (XmlNode node in xmlDoc.SelectNodes("/AllEnemies/Enemy"))
                     {
                         Enemy newEnemy = new Enemy();
@@ -168,14 +172,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Head Armor</returns>
         internal static List<HeadArmor> LoadHeadArmor()
         {
+            string armorLocation = Path.Combine(DataFolderLocation, "Armor", "HeadArmor.xml");
             List<HeadArmor> allHeadArmor = new List<HeadArmor>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Armor/HeadArmor.xml"))
+            if (File.Exists(armorLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Armor/HeadArmor.xml");
+                    xmlDoc.Load(armorLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHeadArmor/HeadArmor"))
                     {
                         HeadArmor newHeadArmor = new HeadArmor(
@@ -203,14 +208,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Body Armor</returns>
         internal static List<BodyArmor> LoadBodyArmor()
         {
+            string armorLocation = Path.Combine(DataFolderLocation, "Armor", "BodyArmor.xml");
             List<BodyArmor> allBodyArmor = new List<BodyArmor>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Armor/BodyArmor.xml"))
+            if (File.Exists(armorLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Armor/BodyArmor.xml");
+                    xmlDoc.Load(armorLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllBodyArmor/BodyArmor"))
                     {
                         BodyArmor newBodyArmor = new BodyArmor(
@@ -238,14 +244,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Hand Armor</returns>
         internal static List<HandArmor> LoadHandArmor()
         {
+            string armorLocation = Path.Combine(DataFolderLocation, "Armor", "HandArmor.xml");
             List<HandArmor> allHandArmor = new List<HandArmor>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Armor/HandArmor.xml"))
+            if (File.Exists(armorLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Armor/HandArmor.xml");
+                    xmlDoc.Load(armorLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllHandArmor/HandArmor"))
                     {
                         HandArmor newHandArmor = new HandArmor(
@@ -273,14 +280,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Leg Armor</returns>
         internal static List<LegArmor> LoadLegArmor()
         {
+            string armorLocation = Path.Combine(DataFolderLocation, "Armor", "LegArmor.xml");
             List<LegArmor> allLegArmor = new List<LegArmor>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Armor/LegArmor.xml"))
+            if (File.Exists(armorLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Armor/LegArmor.xml");
+                    xmlDoc.Load(armorLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllLegArmor/LegArmor"))
                     {
                         LegArmor newLegArmor = new LegArmor(
@@ -308,14 +316,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Feet Armor</returns>
         internal static List<FeetArmor> LoadFeetArmor()
         {
+            string armorLocation = Path.Combine(DataFolderLocation, "Armor", "FeetArmor.xml");
             List<FeetArmor> allFeetArmor = new List<FeetArmor>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Armor/FeetArmor.xml"))
+            if (File.Exists(armorLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Armor/FeetArmor.xml");
+                    xmlDoc.Load(armorLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFeetArmor/FeetArmor"))
                     {
                         FeetArmor newFeetArmor = new FeetArmor(
@@ -345,14 +354,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Rings</returns>
         internal static List<Ring> LoadRings()
         {
+            string ringsLocation = Path.Combine(DataFolderLocation, "Rings", "Rings.xml");
             List<Ring> allRings = new List<Ring>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Rings/Rings.xml"))
+            if (File.Exists(ringsLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Rings/Rings.xml");
+                    xmlDoc.Load(ringsLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllRings/Ring"))
                     {
                         Ring newRing = new Ring(
@@ -385,14 +395,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Weapons</returns>
         internal static List<Weapon> LoadWeapons()
         {
+            string weaponsLocation = Path.Combine(DataFolderLocation, "Weapons", "Weapons.xml");
             List<Weapon> allWeapons = new List<Weapon>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Weapons/Weapons.xml"))
+            if (File.Exists(weaponsLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Weapons/Weapons.xml");
+                    xmlDoc.Load(weaponsLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllWeapons/Weapon"))
                     {
                         Weapon newWeapon = new Weapon(
@@ -423,14 +434,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Potions</returns>
         internal static List<Potion> LoadPotions()
         {
+            string potionsLocation = Path.Combine(DataFolderLocation, "Potions", "Potions.xml");
             List<Potion> allPotions = new List<Potion>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Potions/Potions.xml"))
+            if (File.Exists(potionsLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Potions/Potions.xml");
+                    xmlDoc.Load(potionsLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllPotions/Potion"))
                     {
                         Potion newPotion = new Potion(
@@ -460,14 +472,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Drink</returns>
         internal static List<Drink> LoadDrinks()
         {
+            string drinksLocation = Path.Combine(DataFolderLocation, "Drinks", "Drinks.xml");
             List<Drink> allDrinks = new List<Drink>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Drinks/Drinks.xml"))
+            if (File.Exists(drinksLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Drinks/Drinks.xml");
+                    xmlDoc.Load(drinksLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllDrinks/Drink"))
                     {
                         Drink newDrink = new Drink(
@@ -497,14 +510,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Food</returns>
         internal static List<Food> LoadFood()
         {
+            string foodLocation = Path.Combine(DataFolderLocation, "Food", "Food.xml");
             List<Food> allFood = new List<Food>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Food/Food.xml"))
+            if (File.Exists(foodLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Food/Food.xml");
+                    xmlDoc.Load(foodLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllFood/Food"))
                     {
                         Food newFood = new Food(
@@ -534,14 +548,15 @@ namespace Sulimn.Classes.Database
         /// <returns>List of Spells</returns>
         internal static List<Spell> LoadSpells()
         {
+            string spellsLocation = Path.Combine(DataFolderLocation, "Spells", "Spells.xml");
             List<Spell> allSpells = new List<Spell>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (File.Exists("Data/Spells/Spells.xml"))
+            if (File.Exists(spellsLocation))
             {
                 try
                 {
-                    xmlDoc.Load("Data/Spells/Spells.xml");
+                    xmlDoc.Load(spellsLocation);
                     foreach (XmlNode xn in xmlDoc.SelectNodes("/AllSpells/Spell"))
                     {
                         Spell newSpell = new Spell(
@@ -576,8 +591,9 @@ namespace Sulimn.Classes.Database
         /// <returns>Returns true if the file is deleted.</returns>
         internal static bool DeleteHero(Hero deleteHero)
         {
-            File.Delete($"Data/Heroes/{deleteHero.Name}.xml");
-            return !File.Exists($"Data/Heroes/{deleteHero.Name}.xml");
+            string location = Path.Combine(DataFolderLocation, "Heroes", $"{deleteHero.Name}.xml");
+            File.Delete(location);
+            return !File.Exists(location);
         }
 
         /// <summary>Loads all Heroes from the database.</summary>
@@ -587,12 +603,13 @@ namespace Sulimn.Classes.Database
             //TODO Learn LINQ to XML
             //TODO Make sure all nodes are verified as existing before trying to pull data
 
+            string location = Path.Combine(DataFolderLocation, "Heroes");
             List<Hero> allHeroes = new List<Hero>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (Directory.Exists("Data/Heroes"))
+            if (Directory.Exists(location))
             {
-                foreach (string file in Directory.GetFiles("Data/Heroes"))
+                foreach (string file in Directory.GetFiles(location))
                 {
                     try
                     {
@@ -808,7 +825,8 @@ namespace Sulimn.Classes.Database
         /// <param name="saveHero"><see cref="Hero"/> to be saved.</param>
         internal static void SaveHero(Hero saveHero)
         {
-            using (XmlTextWriter writer = new XmlTextWriter($"Data/Heroes/{saveHero.Name}.xml", Encoding.UTF8))
+            string location = Path.Combine(DataFolderLocation, "Heroes", $"{saveHero.Name}.xml");
+            using (XmlTextWriter writer = new XmlTextWriter(location, Encoding.UTF8))
             {
                 writer.Formatting = Formatting.Indented;
                 writer.Indentation = 4;
@@ -827,7 +845,8 @@ namespace Sulimn.Classes.Database
         /// <param name="settings">Current <see cref="Settings"/></param>
         internal static void WriteSettings(Settings settings)
         {
-            using (XmlTextWriter writer = new XmlTextWriter("Data/Settings.xml", Encoding.UTF8))
+            string location = Path.Combine(DataFolderLocation, "Settings.xml");
+            using (XmlTextWriter writer = new XmlTextWriter(location, Encoding.UTF8))
             {
                 writer.Formatting = Formatting.Indented;
                 writer.Indentation = 4;
