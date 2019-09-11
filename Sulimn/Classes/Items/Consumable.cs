@@ -86,7 +86,7 @@ namespace Sulimn.Classes.Items
 
         #region Override Operators
 
-        private static bool Equals(Consumable left, Consumable right)
+        public static bool Equals(Consumable left, Consumable right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

@@ -74,7 +74,7 @@ namespace Sulimn.Classes.Card
 
         #region Override Operators
 
-        private static bool Equals(Card left, Card right)
+        public static bool Equals(Card left, Card right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

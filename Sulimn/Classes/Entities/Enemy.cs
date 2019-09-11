@@ -46,7 +46,7 @@ namespace Sulimn.Classes.Entities
 
         #region Override Operators
 
-        private static bool Equals(Enemy left, Enemy right)
+        public static bool Equals(Enemy left, Enemy right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

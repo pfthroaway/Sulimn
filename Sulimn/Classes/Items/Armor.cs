@@ -35,7 +35,7 @@ namespace Sulimn.Classes.Items
 
         #region Override Operators
 
-        private static bool Equals(Armor left, Armor right)
+        public static bool Equals(Armor left, Armor right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

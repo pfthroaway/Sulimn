@@ -52,7 +52,7 @@ namespace Sulimn.Classes.Items
 
         #region Override Operators
 
-        private static bool Equals(Weapon left, Weapon right)
+        public static bool Equals(Weapon left, Weapon right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

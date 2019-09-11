@@ -170,7 +170,7 @@ namespace Sulimn.Classes.Items
 
         #region Override Operators
 
-        private static bool Equals(Item left, Item right)
+        public static bool Equals(Item left, Item right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

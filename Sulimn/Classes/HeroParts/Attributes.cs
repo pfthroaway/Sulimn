@@ -66,7 +66,7 @@ namespace Sulimn.Classes.HeroParts
 
         #region Override Operators
 
-        private static bool Equals(Attributes left, Attributes right)
+        public static bool Equals(Attributes left, Attributes right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

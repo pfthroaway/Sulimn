@@ -151,7 +151,7 @@ namespace Sulimn.Classes.HeroParts
 
         #region Override Operators
 
-        private static bool Equals(Equipment left, Equipment right)
+        public static bool Equals(Equipment left, Equipment right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;

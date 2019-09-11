@@ -39,7 +39,7 @@
 
         #region Override Operators
 
-        private static bool Equals(Progression left, Progression right)
+        public static bool Equals(Progression left, Progression right)
         {
             if (left is null && right is null) return true;
             if (left is null ^ right is null) return false;
