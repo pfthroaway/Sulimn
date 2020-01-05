@@ -51,7 +51,7 @@ namespace Sulimn.Views.Shopping
             LblGold.DataContext = GameState.CurrentHero;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 

@@ -13,14 +13,14 @@ namespace Sulimn.Views.Shopping
     /// <summary>Interaction logic for TheTavernBarPage.xaml</summary>
     public partial class TheTavernBarPage : INotifyPropertyChanged
     {
-        private List<Drink> _purchaseDrink = new List<Drink>();
-        private List<Food> _purchaseFood = new List<Food>();
-        private Drink _selectedDrinkPurchase = new Drink();
-        private Drink _selectedDrinkSell = new Drink();
-        private Food _selectedFoodPurchase = new Food();
-        private Food _selectedFoodSell = new Food();
-        private List<Drink> _sellDrink = new List<Drink>();
-        private List<Food> _sellFood = new List<Food>();
+        private List<Item> _purchaseDrink = new List<Item>();
+        private List<Item> _purchaseFood = new List<Item>();
+        private Item _selectedDrinkPurchase = new Item();
+        private Item _selectedDrinkSell = new Item();
+        private Item _selectedFoodPurchase = new Item();
+        private Item _selectedFoodSell = new Item();
+        private List<Item> _sellDrink = new List<Item>();
+        private List<Item> _sellFood = new List<Item>();
 
         #region Data-Binding
 
@@ -32,7 +32,7 @@ namespace Sulimn.Views.Shopping
             {
                 _purchaseFood.Clear();
                 _purchaseFood.AddRange(
-                GameState.GetItemsOfType<Food>().Where(food => food.IsSold));
+                GameState.GetItemsOfType(ItemType.Food).Where(food => food.IsSold));
                 _purchaseFood = _purchaseFood.OrderBy(food => food.Value).ToList();
                 LstFoodPurchase.ItemsSource = _purchaseFood;
                 LstFoodPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -51,7 +51,7 @@ namespace Sulimn.Views.Shopping
             {
                 _sellFood.Clear();
                 _sellFood.AddRange(
-                GameState.CurrentHero.GetItemsOfType<Food>());
+                GameState.CurrentHero.GetItemsOfType(ItemType.Food));
                 _sellFood = _sellFood.OrderBy(food => food.Value).ToList();
                 LstFoodSell.ItemsSource = _sellFood;
                 LstFoodSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -70,7 +70,7 @@ namespace Sulimn.Views.Shopping
             {
                 _purchaseDrink.Clear();
                 _purchaseDrink.AddRange(
-                GameState.GetItemsOfType<Drink>().Where(drink => drink.IsSold));
+                GameState.GetItemsOfType(ItemType.Drink).Where(drink => drink.IsSold));
                 _purchaseDrink = _purchaseDrink.OrderBy(food => food.Value).ToList();
                 LstDrinkPurchase.ItemsSource = _purchaseDrink;
                 LstDrinkPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -89,7 +89,7 @@ namespace Sulimn.Views.Shopping
             {
                 _sellDrink.Clear();
                 _sellDrink.AddRange(
-                GameState.CurrentHero.GetItemsOfType<Drink>());
+                GameState.CurrentHero.GetItemsOfType(ItemType.Drink));
                 _sellDrink = _sellDrink.OrderBy(drink => drink.Value).ToList();
                 LstDrinkSell.ItemsSource = _sellDrink;
                 LstDrinkSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -102,7 +102,7 @@ namespace Sulimn.Views.Shopping
             LblDrinkValueSell.DataContext = _selectedDrinkSell;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -200,8 +200,8 @@ namespace Sulimn.Views.Shopping
         private void LstFoodPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedFoodPurchase = LstFoodPurchase.SelectedIndex >= 0
-            ? (Food)LstFoodPurchase.SelectedValue
-            : new Food();
+            ? (Item)LstFoodPurchase.SelectedValue
+            : new Item();
 
             BtnFoodPurchase.IsEnabled = _selectedFoodPurchase.Value > 0 && _selectedFoodPurchase.Value <= GameState.CurrentHero.Gold;
             BindFoodPurchase(false);
@@ -209,7 +209,7 @@ namespace Sulimn.Views.Shopping
 
         private void LstFoodSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedFoodSell = LstFoodSell.SelectedIndex >= 0 ? (Food)LstFoodSell.SelectedValue : new Food();
+            _selectedFoodSell = LstFoodSell.SelectedIndex >= 0 ? (Item)LstFoodSell.SelectedValue : new Item();
 
             BtnFoodSell.IsEnabled = _selectedFoodSell.CanSell;
             BindFoodSell(false);
@@ -218,8 +218,8 @@ namespace Sulimn.Views.Shopping
         private void LstDrinkPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedDrinkPurchase = LstDrinkPurchase.SelectedIndex >= 0
-            ? (Drink)LstDrinkPurchase.SelectedValue
-            : new Drink();
+            ? (Item)LstDrinkPurchase.SelectedValue
+            : new Item();
 
             BtnDrinkPurchase.IsEnabled = _selectedDrinkPurchase.Value > 0 && _selectedDrinkPurchase.Value <= GameState.CurrentHero.Gold;
             BindDrinkPurchase(false);
@@ -227,7 +227,7 @@ namespace Sulimn.Views.Shopping
 
         private void LstDrinkSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedDrinkSell = LstDrinkSell.SelectedIndex >= 0 ? (Drink)LstDrinkSell.SelectedValue : new Drink();
+            _selectedDrinkSell = LstDrinkSell.SelectedIndex >= 0 ? (Item)LstDrinkSell.SelectedValue : new Item();
 
             BtnDrinkSell.IsEnabled = _selectedDrinkSell.CanSell;
             BindDrinkSell(false);

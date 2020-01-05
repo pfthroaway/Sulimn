@@ -1,0 +1,47 @@
+[
+  {
+    "Name": "Cleric",
+    "Description": "The Cleric is a magic-using healer who descends from an ancient line of religious healers.",
+    "SkillPoints": 5,
+    "Strength": 12,
+    "Vitality": 12,
+    "Dexterity": 12,
+    "Wisdom": 14
+  },
+  {
+    "Name": "Custom",
+    "Description": "Your Hero doesn't need any backstory other than what you create in your own head.",
+    "SkillPoints": 35,
+    "Strength": 5,
+    "Vitality": 5,
+    "Dexterity": 5,
+    "Wisdom": 5
+  },
+  {
+    "Name": "Rogue",
+    "Description": "The Rogue is a trained archer who left their village to seek out adventure.",
+    "SkillPoints": 5,
+    "Strength": 13,
+    "Vitality": 12,
+    "Dexterity": 18,
+    "Wisdom": 7
+  },
+  {
+    "Name": "Warrior",
+    "Description": "The Warrior is a skilled fighter with weapons and in hand-to-hand combat.",
+    "SkillPoints": 5,
+    "Strength": 18,
+    "Vitality": 15,
+    "Dexterity": 12,
+    "Wisdom": 5
+  },
+  {
+    "Name": "Wizard",
+    "Description": "The Wizard is an enigmatic magic-user, versatile in various forms of magic. A Wizard reigns destruction upon his foes from afar.",
+    "SkillPoints": 5,
+    "Strength": 10,
+    "Vitality": 10,
+    "Dexterity": 10,
+    "Wisdom": 20
+  }
+]

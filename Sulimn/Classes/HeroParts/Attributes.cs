@@ -1,20 +1,9 @@
-﻿using System.ComponentModel;
-
-namespace Sulimn.Classes.HeroParts
+﻿namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the attributes an entity has.</summary>
-    internal class Attributes : INotifyPropertyChanged
+    internal class Attributes : BaseINPC
     {
         private int _strength, _vitality, _dexterity, _wisdom;
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         #region Modifying Properties
 
@@ -25,7 +14,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _strength = value;
-                OnPropertyChanged("Strength");
+                NotifyPropertyChanged(nameof(Strength));
             }
         }
 
@@ -36,7 +25,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _vitality = value;
-                OnPropertyChanged("Vitality");
+                NotifyPropertyChanged(nameof(Vitality));
             }
         }
 
@@ -47,7 +36,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _dexterity = value;
-                OnPropertyChanged("Dexterity");
+                NotifyPropertyChanged(nameof(Dexterity));
             }
         }
 
@@ -58,7 +47,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _wisdom = value;
-                OnPropertyChanged("Wisdom");
+                NotifyPropertyChanged(nameof(Wisdom));
             }
         }
 

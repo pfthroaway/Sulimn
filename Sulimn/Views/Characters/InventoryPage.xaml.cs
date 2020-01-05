@@ -13,26 +13,26 @@ namespace Sulimn.Views.Characters
     /// <summary>Interaction logic for NewInventoryPage.xaml</summary>
     public partial class InventoryPage : INotifyPropertyChanged
     {
-        private List<BodyArmor> _inventoryBody = new List<BodyArmor>();
-        private List<FeetArmor> _inventoryFeet = new List<FeetArmor>();
-        private List<Food> _inventoryFood = new List<Food>();
-        private List<Drink> _inventoryDrinks = new List<Drink>();
-        private List<HandArmor> _inventoryHands = new List<HandArmor>();
-        private List<HeadArmor> _inventoryHead = new List<HeadArmor>();
-        private List<LegArmor> _inventoryLegs = new List<LegArmor>();
-        private List<Potion> _inventoryPotion = new List<Potion>();
-        private List<Ring> _inventoryRing = new List<Ring>();
-        private List<Weapon> _inventoryWeapon = new List<Weapon>();
-        private BodyArmor _selectedBody = new BodyArmor();
-        private FeetArmor _selectedFeet = new FeetArmor();
-        private Food _selectedFood = new Food();
-        private Drink _selectedDrink = new Drink();
-        private HandArmor _selectedHands = new HandArmor();
-        private HeadArmor _selectedHead = new HeadArmor();
-        private LegArmor _selectedLegs = new LegArmor();
-        private Potion _selectedPotion = new Potion();
-        private Ring _selectedRing = new Ring();
-        private Weapon _selectedWeapon = new Weapon();
+        private List<Item> _inventoryBody = new List<Item>();
+        private List<Item> _inventoryFeet = new List<Item>();
+        private List<Item> _inventoryFood = new List<Item>();
+        private List<Item> _inventoryDrinks = new List<Item>();
+        private List<Item> _inventoryHands = new List<Item>();
+        private List<Item> _inventoryHead = new List<Item>();
+        private List<Item> _inventoryLegs = new List<Item>();
+        private List<Item> _inventoryPotion = new List<Item>();
+        private List<Item> _inventoryRing = new List<Item>();
+        private List<Item> _inventoryWeapon = new List<Item>();
+        private Item _selectedBody = new Item();
+        private Item _selectedFeet = new Item();
+        private Item _selectedFood = new Item();
+        private Item _selectedDrink = new Item();
+        private Item _selectedHands = new Item();
+        private Item _selectedHead = new Item();
+        private Item _selectedLegs = new Item();
+        private Item _selectedPotion = new Item();
+        private Item _selectedRing = new Item();
+        private Item _selectedWeapon = new Item();
 
         /// <summary>Determines if the Hero really wants to drop an Item.</summary>
         /// <param name="dropItem">Item to be dropped</param>
@@ -63,7 +63,8 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryWeapon.Clear();
-                _inventoryWeapon.AddRange(GameState.CurrentHero.GetItemsOfType<Weapon>());
+                _inventoryWeapon.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.MeleeWeapon));
+                _inventoryWeapon.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.RangedWeapon));
                 _inventoryWeapon = _inventoryWeapon.OrderBy(weapon => weapon.Value).ToList();
                 LstWeaponInventory.UnselectAll();
                 LstWeaponInventory.ItemsSource = _inventoryWeapon;
@@ -90,7 +91,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryHead.Clear();
-                _inventoryHead.AddRange(GameState.CurrentHero.GetItemsOfType<HeadArmor>());
+                _inventoryHead.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.HeadArmor));
                 _inventoryHead = _inventoryHead.OrderBy(armor => armor.Value).ToList();
                 LstHeadInventory.UnselectAll();
                 LstHeadInventory.ItemsSource = _inventoryHead;
@@ -115,7 +116,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryBody.Clear();
-                _inventoryBody.AddRange(GameState.CurrentHero.GetItemsOfType<BodyArmor>());
+                _inventoryBody.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.BodyArmor));
                 _inventoryBody = _inventoryBody.OrderBy(armor => armor.Value).ToList();
                 LstBodyInventory.UnselectAll();
                 LstBodyInventory.ItemsSource = _inventoryBody;
@@ -140,7 +141,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryHands.Clear();
-                _inventoryHands.AddRange(GameState.CurrentHero.GetItemsOfType<HandArmor>());
+                _inventoryHands.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.HandArmor));
                 _inventoryHands = _inventoryHands.OrderBy(armor => armor.Value).ToList();
                 LstHandsInventory.UnselectAll();
                 LstHandsInventory.ItemsSource = _inventoryHands;
@@ -165,7 +166,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryLegs.Clear();
-                _inventoryLegs.AddRange(GameState.CurrentHero.GetItemsOfType<LegArmor>());
+                _inventoryLegs.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.LegArmor));
                 _inventoryLegs = _inventoryLegs.OrderBy(armor => armor.Value).ToList();
                 LstLegsInventory.UnselectAll();
                 LstLegsInventory.ItemsSource = _inventoryLegs;
@@ -190,7 +191,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryFeet.Clear();
-                _inventoryFeet.AddRange(GameState.CurrentHero.GetItemsOfType<FeetArmor>());
+                _inventoryFeet.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.FeetArmor));
                 _inventoryFeet = _inventoryFeet.OrderBy(armor => armor.Value).ToList();
                 LstFeetInventory.UnselectAll();
                 LstFeetInventory.ItemsSource = _inventoryFeet;
@@ -215,14 +216,14 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryRing.Clear();
-                _inventoryRing.AddRange(GameState.CurrentHero.GetItemsOfType<Ring>());
+                _inventoryRing.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.Ring));
                 _inventoryRing = _inventoryRing.OrderBy(ring => ring.Value).ToList();
                 LstRingInventory.UnselectAll();
                 LstRingInventory.ItemsSource = _inventoryRing;
                 LstRingInventory.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
                 LstRingInventory.Items.Refresh();
-                BtnUnequipLeftRing.IsEnabled = GameState.CurrentHero.Equipment.LeftRing != new Ring();
-                BtnUnequipRightRing.IsEnabled = GameState.CurrentHero.Equipment.RightRing != new Ring();
+                BtnUnequipLeftRing.IsEnabled = GameState.CurrentHero.Equipment.LeftRing != new Item();
+                BtnUnequipRightRing.IsEnabled = GameState.CurrentHero.Equipment.RightRing != new Item();
             }
             LblEquippedLeftRing.DataContext = GameState.CurrentHero.Equipment.LeftRing;
             LblEquippedLeftRingBonus.DataContext = GameState.CurrentHero.Equipment.LeftRing;
@@ -242,7 +243,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryPotion.Clear();
-                _inventoryPotion.AddRange(GameState.CurrentHero.GetItemsOfType<Potion>());
+                _inventoryPotion.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.Potion));
                 _inventoryPotion = _inventoryPotion.OrderBy(potion => potion.Value).ToList();
                 LstPotionInventory.UnselectAll();
                 LstPotionInventory.ItemsSource = _inventoryPotion;
@@ -261,7 +262,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryFood.Clear();
-                _inventoryFood.AddRange(GameState.CurrentHero.GetItemsOfType<Food>());
+                _inventoryFood.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.Food));
                 _inventoryFood = _inventoryFood.OrderBy(food => food.Value).ToList();
                 LstFoodInventory.UnselectAll();
                 LstFoodInventory.ItemsSource = _inventoryFood;
@@ -280,7 +281,7 @@ namespace Sulimn.Views.Characters
             if (reload)
             {
                 _inventoryDrinks.Clear();
-                _inventoryDrinks.AddRange(GameState.CurrentHero.GetItemsOfType<Drink>());
+                _inventoryDrinks.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.Drink));
                 _inventoryDrinks = _inventoryDrinks.OrderBy(drink => drink.Value).ToList();
                 LstDrinkInventory.UnselectAll();
                 LstDrinkInventory.ItemsSource = _inventoryDrinks;
@@ -312,7 +313,7 @@ namespace Sulimn.Views.Characters
             LblMagic.DataContext = GameState.CurrentHero.Statistics;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -340,7 +341,7 @@ namespace Sulimn.Views.Characters
 
         private void LstWeaponInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedWeapon = LstWeaponInventory.SelectedIndex >= 0 ? new Weapon((Weapon)LstWeaponInventory.SelectedValue) : new Weapon();
+            _selectedWeapon = LstWeaponInventory.SelectedIndex >= 0 ? new Item((Item)LstWeaponInventory.SelectedValue) : new Item();
             BtnEquipSelectedWeapon.IsEnabled = LstWeaponInventory.SelectedIndex >= 0;
             BtnDropSelectedWeapon.IsEnabled = LstWeaponInventory.SelectedIndex >= 0;
 
@@ -373,7 +374,7 @@ namespace Sulimn.Views.Characters
 
         private void LstHeadInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedHead = LstHeadInventory.SelectedIndex >= 0 ? new HeadArmor((HeadArmor)LstHeadInventory.SelectedValue) : new HeadArmor();
+            _selectedHead = LstHeadInventory.SelectedIndex >= 0 ? new Item((Item)LstHeadInventory.SelectedValue) : new Item();
             BtnEquipSelectedHead.IsEnabled = LstHeadInventory.SelectedIndex >= 0;
             BtnDropSelectedHead.IsEnabled = LstHeadInventory.SelectedIndex >= 0;
 
@@ -407,7 +408,7 @@ namespace Sulimn.Views.Characters
 
         private void LstBodyInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedBody = LstBodyInventory.SelectedIndex >= 0 ? new BodyArmor((BodyArmor)LstBodyInventory.SelectedValue) : new BodyArmor();
+            _selectedBody = LstBodyInventory.SelectedIndex >= 0 ? new Item((Item)LstBodyInventory.SelectedValue) : new Item();
             BtnEquipSelectedBody.IsEnabled = LstBodyInventory.SelectedIndex >= 0;
             BtnDropSelectedBody.IsEnabled = LstBodyInventory.SelectedIndex >= 0;
 
@@ -440,7 +441,7 @@ namespace Sulimn.Views.Characters
 
         private void LstHandsInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedHands = LstHandsInventory.SelectedIndex >= 0 ? new HandArmor((HandArmor)LstHandsInventory.SelectedValue) : new HandArmor();
+            _selectedHands = LstHandsInventory.SelectedIndex >= 0 ? new Item((Item)LstHandsInventory.SelectedValue) : new Item();
             BtnEquipSelectedHands.IsEnabled = LstHandsInventory.SelectedIndex >= 0;
             BtnDropSelectedHands.IsEnabled = LstHandsInventory.SelectedIndex >= 0;
 
@@ -473,7 +474,7 @@ namespace Sulimn.Views.Characters
 
         private void LstLegsInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedLegs = LstLegsInventory.SelectedIndex >= 0 ? new LegArmor((LegArmor)LstLegsInventory.SelectedValue) : new LegArmor();
+            _selectedLegs = LstLegsInventory.SelectedIndex >= 0 ? new Item((Item)LstLegsInventory.SelectedValue) : new Item();
             BtnEquipSelectedLegs.IsEnabled = LstLegsInventory.SelectedIndex >= 0;
             BtnDropSelectedLegs.IsEnabled = LstLegsInventory.SelectedIndex >= 0;
 
@@ -506,7 +507,7 @@ namespace Sulimn.Views.Characters
 
         private void LstFeetInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedFeet = LstFeetInventory.SelectedIndex >= 0 ? new FeetArmor((FeetArmor)LstFeetInventory.SelectedValue) : new FeetArmor();
+            _selectedFeet = LstFeetInventory.SelectedIndex >= 0 ? new Item((Item)LstFeetInventory.SelectedValue) : new Item();
             BtnEquipSelectedFeet.IsEnabled = LstFeetInventory.SelectedIndex >= 0;
             BtnDropSelectedFeet.IsEnabled = LstFeetInventory.SelectedIndex >= 0;
 
@@ -559,7 +560,7 @@ namespace Sulimn.Views.Characters
 
         private void LstRingInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedRing = LstRingInventory.SelectedIndex >= 0 ? new Ring((Ring)LstRingInventory.SelectedValue) : new Ring();
+            _selectedRing = LstRingInventory.SelectedIndex >= 0 ? new Item((Item)LstRingInventory.SelectedValue) : new Item();
             BtnEquipSelectedRingLeft.IsEnabled = LstRingInventory.SelectedIndex >= 0;
             BtnEquipSelectedRingRight.IsEnabled = LstRingInventory.SelectedIndex >= 0;
             BtnDropSelectedRing.IsEnabled = LstRingInventory.SelectedIndex >= 0;
@@ -573,7 +574,7 @@ namespace Sulimn.Views.Characters
 
         #region Potion-Click
 
-        private void Consume(Consumable selectedConsumable)
+        private void Consume(Item selectedConsumable)
         {
             Functions.AddTextToTextBox(TxtInventory, $"You consume the {selectedConsumable.Name}.");
 
@@ -604,7 +605,7 @@ namespace Sulimn.Views.Characters
 
         private void LstPotionInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedPotion = LstPotionInventory.SelectedIndex >= 0 ? new Potion((Potion)LstPotionInventory.SelectedValue) : new Potion();
+            _selectedPotion = LstPotionInventory.SelectedIndex >= 0 ? new Item((Item)LstPotionInventory.SelectedValue) : new Item();
             BtnConsumeSelectedPotion.IsEnabled = LstPotionInventory.SelectedIndex >= 0;
             BtnDropSelectedPotion.IsEnabled = LstPotionInventory.SelectedIndex >= 0;
 
@@ -629,7 +630,7 @@ namespace Sulimn.Views.Characters
 
         private void LstFoodInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedFood = LstFoodInventory.SelectedIndex >= 0 ? new Food((Food)LstFoodInventory.SelectedValue) : new Food();
+            _selectedFood = LstFoodInventory.SelectedIndex >= 0 ? new Item((Item)LstFoodInventory.SelectedValue) : new Item();
             BtnConsumeSelectedFood.IsEnabled = LstFoodInventory.SelectedIndex >= 0;
             BtnDropSelectedFood.IsEnabled = LstFoodInventory.SelectedIndex >= 0;
 
@@ -654,7 +655,7 @@ namespace Sulimn.Views.Characters
 
         private void LstDrinkInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedDrink = LstDrinkInventory.SelectedIndex >= 0 ? new Drink((Drink)LstDrinkInventory.SelectedValue) : new Drink();
+            _selectedDrink = LstDrinkInventory.SelectedIndex >= 0 ? new Item((Item)LstDrinkInventory.SelectedValue) : new Item();
             BtnConsumeSelectedDrink.IsEnabled = LstDrinkInventory.SelectedIndex >= 0;
             BtnDropSelectedDrink.IsEnabled = LstDrinkInventory.SelectedIndex >= 0;
 

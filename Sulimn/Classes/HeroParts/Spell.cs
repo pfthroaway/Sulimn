@@ -1,27 +1,17 @@
 ﻿using Sulimn.Classes.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents a Spell a Hero can cast.</summary>
-    public class Spell : INotifyPropertyChanged, IEquatable<Spell>
+    public class Spell : BaseINPC, IEquatable<Spell>
     {
         private string _name, _description;
         private int _requiredLevel, _magicCost, _amount;
         private SpellType _type;
         private List<HeroClass> _allowedClasses = new List<HeroClass>();
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         #region Modifying Properties
 
@@ -32,7 +22,7 @@ namespace Sulimn.Classes.HeroParts
             private set
             {
                 _name = value;
-                OnPropertyChanged("Name");
+                NotifyPropertyChanged(nameof(Name));
             }
         }
 
@@ -43,7 +33,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _description = value;
-                OnPropertyChanged("Description");
+                NotifyPropertyChanged(nameof(Description));
             }
         }
 
@@ -54,8 +44,8 @@ namespace Sulimn.Classes.HeroParts
             private set
             {
                 _type = value;
-                OnPropertyChanged("Type");
-                OnPropertyChanged("TypeAmount");
+                NotifyPropertyChanged(nameof(Type));
+                NotifyPropertyChanged(nameof(TypeAmount));
             }
         }
 
@@ -66,7 +56,7 @@ namespace Sulimn.Classes.HeroParts
             private set
             {
                 _allowedClasses = value;
-                OnPropertyChanged("RequiredClass");
+                NotifyPropertyChanged(nameof(AllowedClasses));
             }
         }
 
@@ -77,7 +67,7 @@ namespace Sulimn.Classes.HeroParts
             private set
             {
                 _requiredLevel = value;
-                OnPropertyChanged("RequiredLevel");
+                NotifyPropertyChanged(nameof(RequiredLevel));
             }
         }
 
@@ -88,7 +78,7 @@ namespace Sulimn.Classes.HeroParts
             private set
             {
                 _magicCost = value;
-                OnPropertyChanged("MagicCost");
+                NotifyPropertyChanged(nameof(MagicCost));
             }
         }
 
@@ -99,8 +89,8 @@ namespace Sulimn.Classes.HeroParts
             private set
             {
                 _amount = value;
-                OnPropertyChanged("Amount");
-                OnPropertyChanged("TypeAmount");
+                NotifyPropertyChanged(nameof(Amount));
+                NotifyPropertyChanged(nameof(TypeAmount));
             }
         }
 

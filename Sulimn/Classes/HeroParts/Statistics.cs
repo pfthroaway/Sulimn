@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-
-namespace Sulimn.Classes.HeroParts
+﻿namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the statistics of an entity.</summary>
-    internal class Statistics : INotifyPropertyChanged
+    internal class Statistics : BaseINPC
     {
         private int _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
 
@@ -21,15 +19,6 @@ namespace Sulimn.Classes.HeroParts
             return $"You restore {restoreAmount:N0} magic.";
         }
 
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
-
         #region Modifying Properties
 
         /// <summary>Amount of current health the Class has.</summary>
@@ -39,8 +28,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _currentHealth = value;
-                OnPropertyChanged("HealthToString");
-                OnPropertyChanged("HealthToStringWithText");
+                NotifyPropertyChanged(nameof(HealthToString), nameof(HealthToStringWithText));
             }
         }
 
@@ -51,8 +39,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _maximumHealth = value;
-                OnPropertyChanged("HealthToString");
-                OnPropertyChanged("HealthToStringWithText");
+                NotifyPropertyChanged(nameof(HealthToString), nameof(HealthToStringWithText));
             }
         }
 
@@ -63,8 +50,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _currentMagic = value;
-                OnPropertyChanged("MagicToString");
-                OnPropertyChanged("MagicToStringWithText");
+                NotifyPropertyChanged(nameof(MagicToString), nameof(MagicToStringWithText));
             }
         }
 
@@ -75,8 +61,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _maximumMagic = value;
-                OnPropertyChanged("MagicToString");
-                OnPropertyChanged("MagicToStringWithText");
+                NotifyPropertyChanged(nameof(MagicToString), nameof(MagicToStringWithText));
             }
         }
 

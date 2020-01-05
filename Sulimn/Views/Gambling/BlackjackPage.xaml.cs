@@ -49,7 +49,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalWins = value;
-                OnPropertyChanged("Statistics");
+                NotifyPropertyChanged("Statistics");
             }
         }
 
@@ -60,7 +60,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalLosses = value;
-                OnPropertyChanged("Statistics");
+                NotifyPropertyChanged("Statistics");
             }
         }
 
@@ -71,7 +71,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalDraws = value;
-                OnPropertyChanged("Statistics");
+                NotifyPropertyChanged("Statistics");
             }
         }
 
@@ -82,7 +82,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalBetWinnings = value;
-                OnPropertyChanged("Statistics");
+                NotifyPropertyChanged("Statistics");
             }
         }
 
@@ -93,7 +93,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalBetLosses = value;
-                OnPropertyChanged("Statistics");
+                NotifyPropertyChanged("Statistics");
             }
         }
 
@@ -125,7 +125,7 @@ namespace Sulimn.Views.Gambling
             LblGold.DataContext = GameState.CurrentHero;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -146,7 +146,7 @@ namespace Sulimn.Views.Gambling
         /// <param name="checkSplit">Hand the Hand could be split into</param>
         /// <returns>Returns true if Hand can Double Down.</returns>
         private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0
-            && (checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11);
+            && checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11;
 
         /// <summary>Checks whether the Player can split a specific Hand.</summary>
         /// <param name="checkHand">Hand to be checked</param>

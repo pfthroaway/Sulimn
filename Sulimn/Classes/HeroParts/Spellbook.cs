@@ -1,26 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents a collection of Spells a Hero can cast.</summary>
-    internal class Spellbook : INotifyPropertyChanged
+    internal class Spellbook : BaseINPC
     {
         private readonly List<Spell> _spells = new List<Spell>();
 
         /// <summary>List of known Spells.</summary>
         internal ReadOnlyCollection<Spell> Spells => new ReadOnlyCollection<Spell>(_spells);
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         /// <summary>Teaches a Hero a Spell.</summary>
         /// <param name="newSpell">Spell to be learned</param>
@@ -28,7 +18,7 @@ namespace Sulimn.Classes.HeroParts
         internal string LearnSpell(Spell newSpell)
         {
             _spells.Add(newSpell);
-            OnPropertyChanged("Spells");
+            NotifyPropertyChanged("Spells");
             return $"You learn {newSpell.Name}.";
         }
 

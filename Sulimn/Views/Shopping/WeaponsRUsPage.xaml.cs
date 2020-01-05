@@ -13,10 +13,10 @@ namespace Sulimn.Views.Shopping
     /// <summary>Interaction logic for WeaponsRUsPage.xaml</summary>
     public partial class WeaponsRUsPage : INotifyPropertyChanged
     {
-        private List<Weapon> _purchaseWeapon = new List<Weapon>();
-        private Weapon _selectedWeaponPurchase = new Weapon();
-        private Weapon _selectedWeaponSell = new Weapon();
-        private List<Weapon> _sellWeapon = new List<Weapon>();
+        private List<Item> _purchaseWeapon = new List<Item>();
+        private Item _selectedWeaponPurchase = new Item();
+        private Item _selectedWeaponSell = new Item();
+        private List<Item> _sellWeapon = new List<Item>();
 
         #region Data-Binding
 
@@ -27,7 +27,8 @@ namespace Sulimn.Views.Shopping
             if (reload)
             {
                 _purchaseWeapon.Clear();
-                _purchaseWeapon.AddRange(GameState.GetItemsOfType<Weapon>().Where(weapon => weapon.IsSold));
+                _purchaseWeapon.AddRange(GameState.GetItemsOfType(ItemType.MeleeWeapon).Where(weapon => weapon.IsSold));
+                _purchaseWeapon.AddRange(GameState.GetItemsOfType(ItemType.RangedWeapon).Where(weapon => weapon.IsSold));
                 _purchaseWeapon = _purchaseWeapon.OrderBy(weapon => weapon.Value).ToList();
                 LstWeaponPurchase.ItemsSource = _purchaseWeapon;
                 LstWeaponPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -46,7 +47,8 @@ namespace Sulimn.Views.Shopping
             if (reload)
             {
                 _sellWeapon.Clear();
-                _sellWeapon.AddRange(GameState.CurrentHero.GetItemsOfType<Weapon>());
+                _sellWeapon.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.MeleeWeapon));
+                _sellWeapon.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.RangedWeapon));
                 _sellWeapon = _sellWeapon.OrderBy(weapon => weapon.Value).ToList();
                 LstWeaponSell.ItemsSource = _sellWeapon;
                 LstWeaponSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -60,7 +62,7 @@ namespace Sulimn.Views.Shopping
             LblWeaponValueSell.DataContext = _selectedWeaponSell;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -132,8 +134,8 @@ namespace Sulimn.Views.Shopping
         private void LstWeaponPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedWeaponPurchase = LstWeaponPurchase.SelectedIndex >= 0
-            ? (Weapon)LstWeaponPurchase.SelectedValue
-            : new Weapon();
+            ? (Item)LstWeaponPurchase.SelectedValue
+            : new Item();
 
             BtnWeaponPurchase.IsEnabled = _selectedWeaponPurchase.Value > 0 && _selectedWeaponPurchase.Value <= GameState.CurrentHero.Gold;
             BindWeaponPurchase(false);
@@ -141,7 +143,7 @@ namespace Sulimn.Views.Shopping
 
         private void LstWeaponSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedWeaponSell = LstWeaponSell.SelectedIndex >= 0 ? (Weapon)LstWeaponSell.SelectedValue : new Weapon();
+            _selectedWeaponSell = LstWeaponSell.SelectedIndex >= 0 ? (Item)LstWeaponSell.SelectedValue : new Item();
 
             BtnWeaponSell.IsEnabled = _selectedWeaponSell.CanSell;
             BindWeaponSell(false);

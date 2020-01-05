@@ -1,11 +1,10 @@
 ﻿using Sulimn.Classes.Enums;
 using System;
-using System.ComponentModel;
 
 namespace Sulimn.Classes.Card
 {
     /// <summary>Represents a playing card.</summary>
-    internal class Card : INotifyPropertyChanged, IEquatable<Card>
+    internal class Card : BaseINPC, IEquatable<Card>
     {
         private string _name;
         private CardSuit _suit;
@@ -21,7 +20,7 @@ namespace Sulimn.Classes.Card
             set
             {
                 _name = value;
-                OnPropertyChanged("Name");
+                NotifyPropertyChanged(nameof(Name));
             }
         }
 
@@ -32,7 +31,7 @@ namespace Sulimn.Classes.Card
             set
             {
                 _suit = value;
-                OnPropertyChanged("Suit");
+                NotifyPropertyChanged(nameof(Suit));
             }
         }
 
@@ -43,7 +42,7 @@ namespace Sulimn.Classes.Card
             set
             {
                 _value = value;
-                OnPropertyChanged("Value");
+                NotifyPropertyChanged(nameof(Value));
             }
         }
 
@@ -54,7 +53,7 @@ namespace Sulimn.Classes.Card
             set
             {
                 _hidden = value;
-                OnPropertyChanged("Hidden");
+                NotifyPropertyChanged(nameof(Hidden));
             }
         }
 
@@ -62,15 +61,6 @@ namespace Sulimn.Classes.Card
         public string CardToString => Hidden ? "?? of ??" : $"{Name} of {Suit}";
 
         #endregion Properties
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         #region Override Operators
 

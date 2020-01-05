@@ -1,0 +1,119 @@
+[
+  {
+    "Name": "Cure",
+    "Description": "This spell cures any diseases you may encounter.",
+    "Type": 0,
+    "MagicCost": 10,
+    "Amount": 25,
+    "MinimumLevel": 5,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Energy Barrier",
+    "Description": "This spell creates a strong magical shield around your character, protecting them from a large amount of incoming damage.",
+    "Type": 3,
+    "MagicCost": 30,
+    "Amount": 125,
+    "MinimumLevel": 15,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Energy Blast",
+    "Description": "This spell launches a blast of pure magical energy at your opponent.",
+    "Type": 0,
+    "MagicCost": 15,
+    "Amount": 75,
+    "MinimumLevel": 8,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Fire Bolt",
+    "Description": "This spell launches magical fire at your opponent.",
+    "Type": 0,
+    "MagicCost": 5,
+    "Amount": 30,
+    "MinimumLevel": 1,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Fireball",
+    "Description": "This spell launches a large ball of magical fire at your opponent.",
+    "Type": 0,
+    "MagicCost": 30,
+    "Amount": 125,
+    "MinimumLevel": 15,
+    "AllowedClassesJson": "Wizard"
+  },
+  {
+    "Name": "Heal Major Wounds",
+    "Description": "This spell restores a large amount of health to your character.",
+    "Type": 1,
+    "MagicCost": 40,
+    "Amount": 150,
+    "MinimumLevel": 20,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Heal Medium Wounds",
+    "Description": "This spell restores a medium amount of health to your character.",
+    "Type": 1,
+    "MagicCost": 20,
+    "Amount": 75,
+    "MinimumLevel": 10,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Heal Self",
+    "Description": "This spell heals your character.",
+    "Type": 1,
+    "MagicCost": 5,
+    "Amount": 30,
+    "MinimumLevel": 1,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Ice Bolt",
+    "Description": "This spell launches magical ice at your opponent.",
+    "Type": 0,
+    "MagicCost": 10,
+    "Amount": 60,
+    "MinimumLevel": 3,
+    "AllowedClassesJson": "Wizard"
+  },
+  {
+    "Name": "Lightning Bolt",
+    "Description": "This spell blasts a bolt of lightning at your opponent.",
+    "Type": 0,
+    "MagicCost": 20,
+    "Amount": 90,
+    "MinimumLevel": 12,
+    "AllowedClassesJson": "Wizard"
+  },
+  {
+    "Name": "Shield",
+    "Description": "This spell creates a magical shield around your character, protecting them from some incoming damage.",
+    "Type": 3,
+    "MagicCost": 15,
+    "Amount": 50,
+    "MinimumLevel": 5,
+    "AllowedClassesJson": ""
+  },
+  {
+    "Name": "Smite",
+    "Description": "This spell deals holy magic damage against your opponent.",
+    "Type": 0,
+    "MagicCost": 10,
+    "Amount": 60,
+    "MinimumLevel": 5,
+    "AllowedClassesJson": "Cleric"
+  },
+  {
+    "Name": "Triple Arrow",
+    "Description": "This spell creates 3 magical arrows which fly at your target.",
+    "Type": 0,
+    "MagicCost": 10,
+    "Amount": 60,
+    "MinimumLevel": 5,
+    "AllowedClassesJson": "Rogue"
+  }
+]

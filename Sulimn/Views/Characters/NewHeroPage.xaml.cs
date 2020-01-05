@@ -16,9 +16,9 @@ using System.Windows.Input;
 namespace Sulimn.Views.Characters
 {
     /// <summary>Interaction logic for NewHeroPage.xaml</summary>
-    public partial class NewHeroPage
+    public partial class NewHeroPage : INotifyPropertyChanged
     {
-        private readonly List<HeroClass> _classes = new List<HeroClass>();
+        public readonly List<HeroClass> _classes = new List<HeroClass>();
         private HeroClass _compareClass = new HeroClass();
         private HeroClass _selectedClass = new HeroClass();
         private bool _startGame;
@@ -44,7 +44,7 @@ namespace Sulimn.Views.Characters
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -204,19 +204,20 @@ namespace Sulimn.Views.Characters
                         _selectedClass.CurrentMagic,
                         _selectedClass.MaximumMagic),
                         new Equipment(
-                        new Weapon(),
-                        new HeadArmor(),
-                        new BodyArmor(),
-                        new HandArmor(),
-                        new LegArmor(),
-                        new FeetArmor(),
-                        new Ring(),
-                        new Ring()),
+                        new Item(),
+                        new Item(),
+                        new Item(),
+                        new Item(),
+                        new Item(),
+                        new Item(),
+                        new Item(),
+                        new Item()),
                         new Spellbook(),
                         new List<Item>(),
                         new Bank(0, 0, 250),
                         new Progression(),
-                        ChkHardcore.IsChecked ?? false);
+                        ChkHardcore.IsChecked ?? false,
+                        new List<Quest>());
 
                         GameState.NewHero(newHero);
 

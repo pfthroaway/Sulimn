@@ -26,25 +26,25 @@ namespace Sulimn.Classes
         internal static Enemy CurrentEnemy = new Enemy();
         internal static List<Enemy> AllEnemies = new List<Enemy>();
         internal static List<Item> AllItems = new List<Item>();
-        internal static List<HeadArmor> AllHeadArmor = new List<HeadArmor>();
-        internal static List<BodyArmor> AllBodyArmor = new List<BodyArmor>();
-        internal static List<HandArmor> AllHandArmor = new List<HandArmor>();
-        internal static List<LegArmor> AllLegArmor = new List<LegArmor>();
-        internal static List<FeetArmor> AllFeetArmor = new List<FeetArmor>();
-        internal static List<Ring> AllRings = new List<Ring>();
-        internal static List<Weapon> AllWeapons = new List<Weapon>();
-        internal static List<Food> AllFood = new List<Food>();
-        internal static List<Drink> AllDrinks = new List<Drink>();
-        internal static List<Potion> AllPotions = new List<Potion>();
+        internal static List<Item> AllHeadArmor = new List<Item>();
+        internal static List<Item> AllBodyArmor = new List<Item>();
+        internal static List<Item> AllHandArmor = new List<Item>();
+        internal static List<Item> AllLegArmor = new List<Item>();
+        internal static List<Item> AllFeetArmor = new List<Item>();
+        internal static List<Item> AllRings = new List<Item>();
+        internal static List<Item> AllWeapons = new List<Item>();
+        internal static List<Item> AllFood = new List<Item>();
+        internal static List<Item> AllDrinks = new List<Item>();
+        internal static List<Item> AllPotions = new List<Item>();
         internal static List<Spell> AllSpells = new List<Spell>();
         internal static List<Hero> AllHeroes = new List<Hero>();
         internal static List<HeroClass> AllClasses = new List<HeroClass>();
-        internal static Weapon DefaultWeapon = new Weapon();
-        internal static HeadArmor DefaultHead = new HeadArmor();
-        internal static BodyArmor DefaultBody = new BodyArmor();
-        internal static HandArmor DefaultHands = new HandArmor();
-        internal static LegArmor DefaultLegs = new LegArmor();
-        internal static FeetArmor DefaultFeet = new FeetArmor();
+        internal static Item DefaultWeapon = new Item();
+        internal static Item DefaultHead = new Item();
+        internal static Item DefaultBody = new Item();
+        internal static Item DefaultHands = new Item();
+        internal static Item DefaultLegs = new Item();
+        internal static Item DefaultFeet = new Item();
 
         #region Navigation
 
@@ -106,7 +106,7 @@ namespace Sulimn.Classes
         }
 
         /// <summary>Writes the current <see cref="Settings"/> to file.</summary>
-        internal static void ChangeSettings() => XMLInteraction.WriteSettings(CurrentSettings);
+        internal static void ChangeSettings() => JSONInteraction.WriteSettings(CurrentSettings);
 
         internal static void FileManagement()
         {
@@ -126,22 +126,22 @@ namespace Sulimn.Classes
         internal static void LoadAll()
         {
             FileManagement();
-            CurrentSettings = XMLInteraction.LoadSettings();
-            AllClasses = XMLInteraction.LoadClasses();
-            AllHeadArmor = XMLInteraction.LoadHeadArmor();
-            AllBodyArmor = XMLInteraction.LoadBodyArmor();
-            AllHandArmor = XMLInteraction.LoadHandArmor();
-            AllLegArmor = XMLInteraction.LoadLegArmor();
-            AllFeetArmor = XMLInteraction.LoadFeetArmor();
-            AllRings = XMLInteraction.LoadRings();
-            AllDrinks = XMLInteraction.LoadDrinks();
-            AllFood = XMLInteraction.LoadFood();
-            AllPotions = XMLInteraction.LoadPotions();
-            AllSpells = XMLInteraction.LoadSpells();
-            AllWeapons = XMLInteraction.LoadWeapons();
+            CurrentSettings = JSONInteraction.LoadSettings();
+            AllClasses = JSONInteraction.LoadClasses();
+            AllHeadArmor = JSONInteraction.LoadArmor<Item>("head").OrderBy(o => o.Value).ToList();
+            AllBodyArmor = JSONInteraction.LoadArmor<Item>("body").OrderBy(o => o.Value).ToList();
+            AllHandArmor = JSONInteraction.LoadArmor<Item>("hand").OrderBy(o => o.Value).ToList();
+            AllLegArmor = JSONInteraction.LoadArmor<Item>("leg").OrderBy(o => o.Value).ToList();
+            AllFeetArmor = JSONInteraction.LoadArmor<Item>("feet").OrderBy(o => o.Value).ToList();
+            AllRings = JSONInteraction.LoadRings();
+            AllDrinks = JSONInteraction.LoadDrinks();
+            AllFood = JSONInteraction.LoadFood();
+            AllPotions = JSONInteraction.LoadPotions();
+            AllSpells = JSONInteraction.LoadSpells();
+            AllWeapons = JSONInteraction.LoadWeapons();
             AllItems.AddRanges(AllHeadArmor, AllBodyArmor, AllHandArmor, AllLegArmor, AllFeetArmor, AllRings, AllFood, AllDrinks, AllPotions, AllWeapons);
-            AllEnemies = XMLInteraction.LoadEnemies();
-            AllHeroes = XMLInteraction.LoadHeroes();
+            AllEnemies = JSONInteraction.LoadEnemies();
+            AllHeroes = JSONInteraction.LoadHeroes();
             //MaximumStatsHero = await DatabaseInteraction.LoadMaxHeroStats();
 
             AllItems = AllItems.OrderBy(item => item.Name).ToList();
@@ -174,6 +174,11 @@ namespace Sulimn.Classes
         /// <typeparam name="T">Type</typeparam>
         /// <returns>List of specified Type.</returns>
         public static List<T> GetItemsOfType<T>() => AllItems.OfType<T>().ToList();
+
+        /// <summary>Gets all Items of specified Type.</summary>
+        /// <param name="type">Type</param>
+        /// <returns>Items of specified Type</returns>
+        internal static List<Item> GetItemsOfType(ItemType type) => AllItems.Where(itm => itm.Type == type).ToList();
 
         /// <summary>Sets allowed <see cref="HeroClass"/>es based on a string.</summary>
         /// <param name="classes">AllowedClasses to be converted</param>
@@ -232,8 +237,8 @@ namespace Sulimn.Classes
         /// <returns>True if successful</returns>
         internal static void ChangeHeroDetails(Hero oldHero, Hero newHero)
         {
-            XMLInteraction.ChangeHeroDetails(oldHero, newHero);
-            AllHeroes.Replace(oldHero, newHero);
+            DeleteHero(oldHero);
+            SaveHero(newHero);
         }
 
         /// <summary>Deletes a Hero from the game and database.</summary>
@@ -241,7 +246,7 @@ namespace Sulimn.Classes
         /// <returns>Whether deletion was successful</returns>
         internal static void DeleteHero(Hero deleteHero)
         {
-            XMLInteraction.DeleteHero(deleteHero);
+            JSONInteraction.DeleteHero(deleteHero);
             AllHeroes.Remove(deleteHero);
         }
 
@@ -249,17 +254,17 @@ namespace Sulimn.Classes
         /// <param name="newHero">New Hero</param>
         internal static void NewHero(Hero newHero)
         {
-            if (newHero.Equipment.Head == null || newHero.Equipment.Head == new HeadArmor())
+            if (newHero.Equipment.Head == null || newHero.Equipment.Head == new Item())
                 newHero.Equipment.Head = AllHeadArmor.Find(armor => armor.Name == DefaultHead.Name);
-            if (newHero.Equipment.Body == null || newHero.Equipment.Body == new BodyArmor())
+            if (newHero.Equipment.Body == null || newHero.Equipment.Body == new Item())
                 newHero.Equipment.Body = AllBodyArmor.Find(armor => armor.Name == DefaultBody.Name);
-            if (newHero.Equipment.Hands == null || newHero.Equipment.Hands == new HandArmor())
+            if (newHero.Equipment.Hands == null || newHero.Equipment.Hands == new Item())
                 newHero.Equipment.Hands = AllHandArmor.Find(armor => armor.Name == DefaultHands.Name);
-            if (newHero.Equipment.Legs == null || newHero.Equipment.Legs == new LegArmor())
+            if (newHero.Equipment.Legs == null || newHero.Equipment.Legs == new Item())
                 newHero.Equipment.Legs = AllLegArmor.Find(armor => armor.Name == DefaultLegs.Name);
-            if (newHero.Equipment.Feet == null || newHero.Equipment.Feet == new FeetArmor())
+            if (newHero.Equipment.Feet == null || newHero.Equipment.Feet == new Item())
                 newHero.Equipment.Feet = AllFeetArmor.Find(armor => armor.Name == DefaultFeet.Name);
-            if (newHero.Equipment.Weapon == null || newHero.Equipment.Weapon == new Weapon())
+            if (newHero.Equipment.Weapon == null || newHero.Equipment.Weapon == new Item())
             {
                 switch (newHero.Class.Name)
                 {
@@ -293,7 +298,7 @@ namespace Sulimn.Classes
             for (int i = 0; i < 3; i++)
                 newHero.AddItem(AllPotions.Find(itm => itm.Name == "Minor Healing Potion"));
 
-            XMLInteraction.SaveHero(newHero);
+            JSONInteraction.SaveHero(newHero);
             AllHeroes.Add(newHero);
         }
 
@@ -302,7 +307,7 @@ namespace Sulimn.Classes
         /// <returns>Returns true if successfully saved</returns>
         internal static bool SaveHero(Hero saveHero)
         {
-            XMLInteraction.SaveHero(saveHero);
+            JSONInteraction.SaveHero(saveHero);
 
             int index = AllHeroes.FindIndex(hero => hero.Name == saveHero.Name);
             AllHeroes[index] = saveHero;
@@ -326,24 +331,67 @@ namespace Sulimn.Classes
             return $"You find {foundGold:N0} gold!";
         }
 
-        /// <summary>Event where the Hero finds an item.</summary>
-        /// <param name="minValue">Minimum value of Item</param>
-        /// <param name="maxValue">Maximum value of Item</param>
-        /// <param name="isSold">Is the item sold?</param>
-        /// <returns>Returns text about found Item</returns>
+        /// <summary>Event where the <see cref="Hero"/> finds an <see cref="Item"/>.</summary>
+        /// <param name="minValue">Minimum value of <see cref="Item"/></param>
+        /// <param name="maxValue">Maximum value of <see cref="Item"/></param>
+        /// <param name="isSold">Is the <see cref="Item"/> sold?</param>
+        /// <returns>Returns text about found <see cref="Item"/></returns>
         internal static string EventFindItem(int minValue, int maxValue, bool isSold = true)
         {
-            List<Item> availableItems = AllItems.Where(itm => itm.Value >= minValue && itm.Value <= maxValue && itm.IsSold == isSold).ToList();
-            int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
-
-            CurrentHero.AddItem(availableItems[item]);
-            SaveHero(CurrentHero);
-            return $"You find a {availableItems[item].Name}!";
+            Item item = GetRandomItem(minValue, maxValue, isSold);
+            if (CurrentHero.Inventory.Count < 40)
+            {
+                CurrentHero.AddItem(item);
+                SaveHero(CurrentHero);
+                return $"You find a {item.Name}!";
+            }
+            return $"You find a {item.Name},\nbut your inventory is full.";
         }
 
-        /// <summary>Event where the Hero finds an item.</summary>
-        /// <param name="names">List of names of available Items</param>
-        /// <returns>Returns text about found Item</returns>
+        /// <summary>Event where the <see cref="Hero"/> finds an <see cref="Item"/>.</summary>
+        /// <param name="minValue">Minimum value of <see cref="Item"/></param>
+        /// <param name="maxValue">Maximum value of <see cref="Item"/></param>
+        /// <param name="type">Type of <see cref="Item"/></param>
+        /// <param name="isSold">Is the <see cref="Item"/> sold?</param>
+        /// <returns>Returns text about found <see cref="Item"/></returns>
+        internal static string EventFindItem(int minValue, int maxValue, ItemType type, bool isSold = true)
+        {
+            Item item = GetRandomItem(minValue, maxValue, type, isSold);
+            if (CurrentHero.Inventory.Count < 40)
+            {
+                CurrentHero.AddItem(item);
+                SaveHero(CurrentHero);
+                return $"You find a {item.Name}!";
+            }
+            return $"You find a {item.Name},\nbut your inventory is full.";
+        }
+
+        /// <summary>Gets a random <see cref="Item"/>.</summary>
+        /// <param name="minValue">Minimum value of <see cref="Item"/></param>
+        /// <param name="maxValue">Maximum value of <see cref="Item"/></param>
+        /// <param name="isSold">Is the <see cref="Item"/> sold?</param>
+        /// <returns>Random <see cref="Item"/></returns>
+        private static Item GetRandomItem(int minValue, int maxValue, bool isSold = true)
+        {
+            List<Item> availableItems = new List<Item>(AllItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue && itm.IsSold == isSold));
+            return availableItems[Functions.GenerateRandomNumber(0, availableItems.Count - 1)];
+        }
+
+        /// <summary>Gets a random <see cref="Item"/> of a given <see cref="ItemType"/>.</summary>
+        /// <param name="minValue">Minimum value of <see cref="Item"/></param>
+        /// <param name="maxValue">Maximum value of It<see cref="Item"/>em</param>
+        /// <param name="type">Type of <see cref="Item"/></param>
+        /// <param name="isSold">Is the <see cref="Item"/> sold?</param>
+        /// <returns>Random <see cref="Item"/></returns>
+        private static Item GetRandomItem(int minValue, int maxValue, ItemType type, bool isSold = true)
+        {
+            List<Item> availableItems = new List<Item>(AllItems.FindAll(itm => itm.Type == type && itm.Value >= minValue && itm.Value <= maxValue && itm.IsSold == isSold));
+            return availableItems[Functions.GenerateRandomNumber(0, availableItems.Count - 1)];
+        }
+
+        /// <summary>Event where the <see cref="Hero"/> finds an <see cref="Item"/>.</summary>
+        /// <param name="names">List of names of available <see cref="Item"/>s</param>
+        /// <returns>Returns text about found <see cref="Item"/></returns>
         internal static string EventFindItem(params string[] names)
         {
             List<Item> availableItems = new List<Item>();
@@ -353,22 +401,6 @@ namespace Sulimn.Classes
 
             CurrentHero.AddItem(availableItems[item]);
 
-            SaveHero(CurrentHero);
-            return $"You find a {availableItems[item].Name}!";
-        }
-
-        /// <summary>Event where the Hero finds an item.</summary>
-        /// <typeparam name="T">Type of Item to be found</typeparam>
-        /// <param name="minValue">Minimum value of Item</param>
-        /// <param name="maxValue">Maximum value of Item</param>
-        /// <param name="isSold">Is the item sold?</param>
-        /// <returns>Returns text about found Item</returns>
-        internal static string EventFindItem<T>(int minValue, int maxValue, bool isSold = true) where T : Item
-        {
-            List<T> availableItems = new List<T>(GetItemsOfType<T>());
-            availableItems = availableItems.FindAll(itm => itm.Value >= minValue && itm.Value <= maxValue && itm.IsSold == isSold).ToList();
-            int item = Functions.GenerateRandomNumber(0, availableItems.Count - 1);
-            CurrentHero.AddItem(availableItems[item]);
             SaveHero(CurrentHero);
             return $"You find a {availableItems[item].Name}!";
         }
@@ -394,6 +426,15 @@ namespace Sulimn.Classes
             CurrentEnemy = new Enemy(availableEnemies[enemyNum]);
             if (CurrentEnemy.Gold > 0)
                 CurrentEnemy.Gold = Functions.GenerateRandomNumber(CurrentEnemy.Gold / 2, CurrentEnemy.Gold);
+            if (CurrentEnemy.Type == "Human" || CurrentEnemy.Type == "Boss")
+            {
+                if (Functions.GenerateRandomNumber(1, 100) <= 20)
+                    CurrentEnemy.AddItem(GetRandomItem(1, CurrentEnemy.Level * 50));
+                if (Functions.GenerateRandomNumber(1, 100) <= 10)
+                    CurrentEnemy.AddItem(GetRandomItem(1, CurrentEnemy.Level * 100));
+                if (CurrentEnemy.Type == "Boss" && Functions.GenerateRandomNumber(1, 100) <= 10)
+                    CurrentEnemy.AddItem(GetRandomItem(1, CurrentEnemy.Level * 200));
+            }
         }
 
         /// <summary>Event where the Hero encounters a water stream and restores health and magic.</summary>
@@ -404,7 +445,7 @@ namespace Sulimn.Classes
             CurrentHero.Statistics.CurrentMagic = CurrentHero.Statistics.MaximumMagic;
 
             return
-            "You stumble across a stream. You stop to drink some of the water and rest a while. You feel recharged!";
+            "You stumble across a stream.\nYou stop to drink some of\nthe water and rest a while.\nYou feel recharged!";
         }
 
         #endregion Exploration Events
@@ -420,7 +461,7 @@ namespace Sulimn.Classes
         /// <param name="message">Message to be displayed</param>
         /// <param name="title">Title of the Notification window</param>
         /// <returns>Returns value of clicked button on Notification.</returns>
-        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => (new Notification(message, title, NotificationButton.YesNo, MainWindow).ShowDialog() == true));
+        internal static bool YesNoNotification(string message, string title) => Application.Current.Dispatcher.Invoke(() => new Notification(message, title, NotificationButton.YesNo, MainWindow).ShowDialog() == true);
 
         #endregion Notification Management
     }
