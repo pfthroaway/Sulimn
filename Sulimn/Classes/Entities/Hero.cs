@@ -3,14 +3,13 @@ using Sulimn.Classes.Enums;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents a Hero from Sulimn.</summary>
-    internal class Hero : Character, IEnumerable<Item>
+    internal class Hero : Character
     {
         private HeroClass _class;
         private int _skillPoints;
@@ -342,14 +341,6 @@ namespace Sulimn.Classes.Entities
         internal List<Item> GetItemsOfType(ItemType type) => Inventory.Where(itm => itm.Type == type).ToList();
 
         #endregion Inventory Management
-
-        #region Enumerator
-
-        public IEnumerator<Item> GetEnumerator() => Inventory.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        #endregion Enumerator
 
         #region Override Operators
 

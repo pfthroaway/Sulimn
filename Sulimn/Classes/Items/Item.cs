@@ -301,11 +301,11 @@ namespace Sulimn.Classes.Items
 
         /// <summary>The value of the <see cref="Item"/> with thousands separators and preceding text.</summary>
         [JsonIgnore]
-        public string ValueToStringWithText => $"Value: {ValueToString}";
+        public string ValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Value: {ValueToString}" : "";
 
         /// <summary>The value of the Item.</summary>
         [JsonIgnore]
-        public int SellValue => Value / 2 * CurrentDurability / MaximumDurability;
+        public int SellValue => MaximumDurability > 0 ? Value / 2 * CurrentDurability / MaximumDurability : 0;
 
         /// <summary>The sell value of the <see cref="Item"/> with thousands separators.</summary>
         [JsonIgnore]
@@ -313,7 +313,7 @@ namespace Sulimn.Classes.Items
 
         /// <summary>The sell value of the <see cref="Item"/> with thousands separators with preceding text.</summary>
         [JsonIgnore]
-        public string SellValueToStringWithText => $"Sell Value: {SellValueToString}";
+        public string SellValueToStringWithText => !string.IsNullOrWhiteSpace(Name) ? $"Sell Value: {SellValueToString}" : "";
 
         /// <summary>The amount of gold it would cost to repair this <see cref="Item"/>.</summary>
         [JsonIgnore]
@@ -329,7 +329,7 @@ namespace Sulimn.Classes.Items
 
         /// <summary>Returns text relating to the sellability of the <see cref="Item"/>.</summary>
         [JsonIgnore]
-        public string CanSellToString => CanSell ? "Sellable" : "Not Sellable";
+        public string CanSellToString => !string.IsNullOrWhiteSpace(Name) ? (CanSell ? "Sellable" : "Not Sellable") : "";
 
         /// <summary>Returns the Strength and preceding text.</summary>
         [JsonIgnore]

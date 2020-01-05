@@ -7,10 +7,26 @@ namespace Sulimn.Classes.HeroParts
     /// <summary>Represents a collection of Spells a Hero can cast.</summary>
     internal class Spellbook : BaseINPC
     {
-        private readonly List<Spell> _spells = new List<Spell>();
+        private List<Spell> _spells = new List<Spell>();
 
         /// <summary>List of known Spells.</summary>
         internal ReadOnlyCollection<Spell> Spells => new ReadOnlyCollection<Spell>(_spells);
+
+        /// <summary>List of known <see cref="Spell"/>s, set up to import from JSON.</summary>
+        public string SpellsString
+        {
+            get => string.Join(",", Spells);
+            set
+            {
+                _spells = new List<Spell>();
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    foreach (string spell in value.Split(','))
+                        LearnSpell(GameState.AllSpells.Find(spl => spl.Name == spell.Trim()));
+                    NotifyPropertyChanged(nameof(Spells));
+                }
+            }
+        }
 
         /// <summary>Teaches a Hero a Spell.</summary>
         /// <param name="newSpell">Spell to be learned</param>
@@ -18,7 +34,7 @@ namespace Sulimn.Classes.HeroParts
         internal string LearnSpell(Spell newSpell)
         {
             _spells.Add(newSpell);
-            NotifyPropertyChanged("Spells");
+            NotifyPropertyChanged(nameof(Spells));
             return $"You learn {newSpell.Name}.";
         }
 

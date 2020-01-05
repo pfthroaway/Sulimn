@@ -1,13 +1,15 @@
-﻿namespace Sulimn.Classes.HeroParts
+﻿using Newtonsoft.Json;
+
+namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the statistics of an entity.</summary>
     internal class Statistics : BaseINPC
     {
         private int _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
 
-        /// <summary>Restores magic to the Hero.</summary>
-        /// <param name="restoreAmount">Amount of Magic to be restored.</param>
-        /// <returns>String saying magic was restored</returns>
+        /// <summary>Restores Magic to the entity.</summary>
+        /// <param name="restoreAmount">Amount of Magic to be restored</param>
+        /// <returns>String saying Magic was restored</returns>
         internal string RestoreMagic(int restoreAmount)
         {
             CurrentMagic += restoreAmount;
@@ -21,47 +23,51 @@
 
         #region Modifying Properties
 
-        /// <summary>Amount of current health the Class has.</summary>
+        /// <summary>Amount of current health the entity has.</summary>
+        [JsonProperty(Order = 1)]
         public int CurrentHealth
         {
             get => _currentHealth;
             set
             {
                 _currentHealth = value;
-                NotifyPropertyChanged(nameof(HealthToString), nameof(HealthToStringWithText));
+                NotifyPropertyChanged(nameof(CurrentHealth), nameof(HealthToString), nameof(HealthToStringWithText), nameof(HealthRatio));
             }
         }
 
-        /// <summary>Amount of maximum health the Class has.</summary>
+        /// <summary>Amount of maximum health the entity has.</summary>
+        [JsonProperty(Order = 2)]
         public int MaximumHealth
         {
             get => _maximumHealth;
             set
             {
                 _maximumHealth = value;
-                NotifyPropertyChanged(nameof(HealthToString), nameof(HealthToStringWithText));
+                NotifyPropertyChanged(nameof(MaximumHealth), nameof(HealthToString), nameof(HealthToStringWithText), nameof(HealthRatio));
             }
         }
 
-        /// <summary>Amount of current magic the Class has.</summary>
+        /// <summary>Amount of current magic the entity has.</summary>
+        [JsonProperty(Order = 3)]
         public int CurrentMagic
         {
             get => _currentMagic;
             set
             {
                 _currentMagic = value;
-                NotifyPropertyChanged(nameof(MagicToString), nameof(MagicToStringWithText));
+                NotifyPropertyChanged(nameof(CurrentMagic), nameof(MagicToString), nameof(MagicToStringWithText), nameof(MagicRatio));
             }
         }
 
-        /// <summary>Amount of maximum magic the Class has.</summary>
+        /// <summary>Amount of maximum magic the entity has.</summary>
+        [JsonProperty(Order = 4)]
         public int MaximumMagic
         {
             get => _maximumMagic;
             set
             {
                 _maximumMagic = value;
-                NotifyPropertyChanged(nameof(MagicToString), nameof(MagicToStringWithText));
+                NotifyPropertyChanged(nameof(MaximumMagic), nameof(MagicToString), nameof(MagicToStringWithText), nameof(MagicRatio));
             }
         }
 
@@ -70,16 +76,28 @@
         #region Helper Properties
 
         /// <summary>Amount of health the Class has, formatted.</summary>
+        [JsonIgnore]
         public string HealthToString => $"{CurrentHealth:N0} / {MaximumHealth:N0}";
 
         /// <summary>Amount of health the Class has, formatted.</summary>
+        [JsonIgnore]
         public string HealthToStringWithText => $"Health: {HealthToString}";
 
+        /// <summary>The amount of current Health in relation to the maximum Health.</summary>
+        [JsonIgnore]
+        public decimal HealthRatio => CurrentHealth * 1m / MaximumHealth;
+
         /// <summary>Amount of magic the Class has, formatted with preceding text.</summary>
+        [JsonIgnore]
         public string MagicToString => $"{CurrentMagic:N0} / {MaximumMagic:N0}";
 
         /// <summary>Amount of magic the Class has, formatted with preceding text.</summary>
+        [JsonIgnore]
         public string MagicToStringWithText => $"Magic: {MagicToString}";
+
+        /// <summary>The amount of current Magic in relation to the maximum Magic.</summary>
+        [JsonIgnore]
+        public decimal MagicRatio => CurrentMagic * 1m / MaximumMagic;
 
         #endregion Helper Properties
 

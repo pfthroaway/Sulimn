@@ -3,7 +3,7 @@
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the Class of a Hero.</summary>
-    public class HeroClass : BaseINPC, IEquatable<HeroClass>
+    public class HeroClass : BaseINPC
     {
         private string _name, _description;
         private int _skillPoints, _strength, _vitality, _dexterity, _wisdom, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
@@ -14,7 +14,7 @@ namespace Sulimn.Classes.HeroParts
         public string Name
         {
             get => _name;
-            private set
+            set
             {
                 _name = value;
                 NotifyPropertyChanged(nameof(Name));
@@ -95,7 +95,7 @@ namespace Sulimn.Classes.HeroParts
         public int CurrentHealth
         {
             get => _currentHealth;
-            private set
+            set
             {
                 _currentHealth = value;
                 NotifyPropertyChanged(nameof(CurrentHealth), nameof(HealthToString));
@@ -106,7 +106,7 @@ namespace Sulimn.Classes.HeroParts
         public int MaximumHealth
         {
             get => _maximumHealth;
-            private set
+            set
             {
                 _maximumHealth = value;
                 NotifyPropertyChanged(nameof(MaximumHealth), nameof(HealthToString));
@@ -117,7 +117,7 @@ namespace Sulimn.Classes.HeroParts
         public int CurrentMagic
         {
             get => _currentMagic;
-            private set
+            set
             {
                 _currentMagic = value;
                 NotifyPropertyChanged(nameof(CurrentMagic), nameof(MagicToString));
@@ -128,7 +128,7 @@ namespace Sulimn.Classes.HeroParts
         public int MaximumMagic
         {
             get => _maximumMagic;
-            private set
+            set
             {
                 _maximumMagic = value;
                 NotifyPropertyChanged(nameof(MaximumMagic), nameof(MagicToString));

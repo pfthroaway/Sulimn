@@ -22,7 +22,7 @@ namespace Sulimn.Classes.Card
         public List<Card> CardList
         {
             get => _cardList;
-            private set
+            set
             {
                 _cardList = value;
                 UpdateProperties();

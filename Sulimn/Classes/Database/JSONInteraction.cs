@@ -181,8 +181,8 @@ namespace Sulimn.Classes.Database
             string[] files = Directory.GetFiles(SaveFolderLocation);
             if (files.Length > 0)
             {
-                foreach (string contents in files)
-                    heroes.Add(JsonConvert.DeserializeObject<Hero>(contents));
+                foreach (string file in files)
+                    heroes.Add(JsonConvert.DeserializeObject<Hero>(File.ReadAllText(file)));
             }
 
             return heroes;
