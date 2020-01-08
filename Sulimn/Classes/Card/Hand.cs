@@ -67,9 +67,9 @@ namespace Sulimn.Classes.Card
         /// <summary>Updates the 3 important Properties of the Hand.</summary>
         private void UpdateProperties()
         {
-            NotifyPropertyChanged("CardList");
-            NotifyPropertyChanged("TotalValue");
-            NotifyPropertyChanged("Value");
+            NotifyPropertyChanged(nameof(CardList));
+            NotifyPropertyChanged(nameof(TotalValue));
+            NotifyPropertyChanged(nameof(Value));
         }
 
         #endregion Hand Management

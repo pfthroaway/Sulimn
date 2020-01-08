@@ -211,6 +211,7 @@ namespace Sulimn.Classes.Entities
         /// <param name="side">If <see cref="Item"/> is a Ring, which side is it?</param>
         internal void Equip(Item item, RingHand side = RingHand.Left)
         {
+            //TODO I think that the equipping/unequipping issue has something to do with default weapon. Maybe it doesn't exist now?
             switch (item.Type)
             {
                 case ItemType.MeleeWeapon:
@@ -268,7 +269,7 @@ namespace Sulimn.Classes.Entities
                     break;
 
                 default:
-                    //GameState.DisplayNotification("You have attempted to equip an Item which doesn't fit a current type of item to be equipped.", "Sulimn");
+                    GameState.DisplayNotification("You have attempted to equip an Item which doesn't fit a current type of item to be equipped.", "Sulimn");
                     break;
             }
 

@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Sulimn.Views.Characters
 {
-    /// <summary>Interaction logic for NewInventoryPage.xaml</summary>
+    /// <summary>Interaction logic for InventoryPage.xaml</summary>
     public partial class InventoryPage : INotifyPropertyChanged
     {
         private List<Item> _inventoryBody = new List<Item>();

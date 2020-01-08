@@ -10,7 +10,7 @@ namespace Sulimn.Classes.HeroParts
     public class Spell : BaseINPC
     {
         private string _name, _description;
-        private int _requiredLevel, _magicCost, _amount;
+        private int _magicCost, _amount;
         private SpellType _type;
         private List<HeroClass> _allowedClasses = new List<HeroClass>();
         private int minimumLevel;
