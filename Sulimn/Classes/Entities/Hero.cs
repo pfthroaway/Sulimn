@@ -170,6 +170,7 @@ namespace Sulimn.Classes.Entities
             Statistics.CurrentMagic += 5;
             Statistics.MaximumMagic += 5;
             Bank.LoanAvailable += 250;
+            NotifyPropertyChanged(nameof(LevelAndClassToString));
             return "\n\nYou gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
         }
 
@@ -211,7 +212,6 @@ namespace Sulimn.Classes.Entities
         /// <param name="side">If <see cref="Item"/> is a Ring, which side is it?</param>
         internal void Equip(Item item, RingHand side = RingHand.Left)
         {
-            //TODO I think that the equipping/unequipping issue has something to do with default weapon. Maybe it doesn't exist now?
             switch (item.Type)
             {
                 case ItemType.MeleeWeapon:
@@ -287,31 +287,37 @@ namespace Sulimn.Classes.Entities
                 case ItemType.RangedWeapon:
                     if (item != GameState.DefaultWeapon)
                         AddItem(item);
+                    Equipment.Weapon = new Item(GameState.DefaultWeapon);
                     break;
 
                 case ItemType.HeadArmor:
                     if (item != GameState.DefaultHead)
                         AddItem(item);
+                    Equipment.Head = new Item(GameState.DefaultHead);
                     break;
 
                 case ItemType.BodyArmor:
                     if (item != GameState.DefaultBody)
                         AddItem(item);
+                    Equipment.Body = new Item(GameState.DefaultBody);
                     break;
 
                 case ItemType.HandArmor:
                     if (item != GameState.DefaultHands)
                         AddItem(item);
+                    Equipment.Hands = new Item(GameState.DefaultHands);
                     break;
 
                 case ItemType.LegArmor:
                     if (item != GameState.DefaultLegs)
                         AddItem(item);
+                    Equipment.Legs = new Item(GameState.DefaultLegs);
                     break;
 
                 case ItemType.FeetArmor:
                     if (item != GameState.DefaultFeet)
                         AddItem(item);
+                    Equipment.Feet = new Item(GameState.DefaultFeet);
                     break;
 
                 case ItemType.Ring:

@@ -41,7 +41,7 @@ namespace Sulimn.Classes.Entities
         public int Experience
         {
             get => experience;
-            set { experience = value; NotifyPropertyChanged(nameof(Experience), nameof(ExperienceToString), nameof(ExperienceToStringWithText)); }
+            set { experience = value; NotifyPropertyChanged(nameof(Experience), nameof(ExperienceToString), nameof(ExperienceToStringWithText), nameof(Level), nameof(LevelToString)); }
         }
 
         /// <summary>Amount of Gold in the <see cref="Character"/>'s inventory.</summary>

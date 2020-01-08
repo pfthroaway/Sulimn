@@ -182,7 +182,10 @@ namespace Sulimn.Classes.Database
             if (files.Length > 0)
             {
                 foreach (string file in files)
-                    heroes.Add(JsonConvert.DeserializeObject<Hero>(File.ReadAllText(file)));
+                {
+                    if (file.EndsWith(".json"))
+                        heroes.Add(JsonConvert.DeserializeObject<Hero>(File.ReadAllText(file)));
+                }
             }
 
             return heroes;
