@@ -14,6 +14,7 @@ namespace Sulimn.Classes.Database
     internal static class XMLInteraction
     {
         private static readonly string DataFolderLocation = Path.Combine(AppData.Location, "Data");
+        private static readonly string SaveFolderLocation = Path.Combine(AppData.Location, "Save");
 
         #region Load
 
@@ -591,7 +592,7 @@ namespace Sulimn.Classes.Database
         /// <returns>Returns true if the file is deleted.</returns>
         internal static bool DeleteHero(Hero deleteHero)
         {
-            string location = Path.Combine(DataFolderLocation, "Heroes", $"{deleteHero.Name}.xml");
+            string location = Path.Combine(SaveFolderLocation, $"{deleteHero.Name}.xml");
             File.Delete(location);
             return !File.Exists(location);
         }
@@ -603,25 +604,27 @@ namespace Sulimn.Classes.Database
             //TODO Learn LINQ to XML
             //TODO Make sure all nodes are verified as existing before trying to pull data
 
-            string location = Path.Combine(DataFolderLocation, "Heroes");
             List<Hero> allHeroes = new List<Hero>();
             XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
 
-            if (Directory.Exists(location))
+            if (Directory.Exists(SaveFolderLocation) && Directory.GetFiles(SaveFolderLocation).Length > 0)
             {
-                foreach (string file in Directory.GetFiles(location))
+                foreach (string file in Directory.GetFiles(SaveFolderLocation))
                 {
-                    try
+                    if (file.EndsWith(".xml"))
                     {
-                        xmlDoc.Load(file);
-                        foreach (XmlNode node in xmlDoc.SelectNodes("/Hero"))
+                        try
                         {
-                            allHeroes.Add(LoadHero(node));
+                            xmlDoc.Load(file);
+                            foreach (XmlNode node in xmlDoc.SelectNodes("/Hero"))
+                            {
+                                allHeroes.Add(LoadHero(node));
+                            }
                         }
-                    }
-                    catch (XmlException e)
-                    {
-                        GameState.DisplayNotification($"Error loading heroes: {e.Message}.", "Sulimn");
+                        catch (XmlException e)
+                        {
+                            GameState.DisplayNotification($"Error loading heroes: {e.Message}.", "Sulimn");
+                        }
                     }
                 }
             }
@@ -825,7 +828,7 @@ namespace Sulimn.Classes.Database
         /// <param name="saveHero"><see cref="Hero"/> to be saved.</param>
         internal static void SaveHero(Hero saveHero)
         {
-            string location = Path.Combine(DataFolderLocation, "Heroes", $"{saveHero.Name}.xml");
+            string location = Path.Combine(SaveFolderLocation, $"{saveHero.Name}.xml");
             using (XmlTextWriter writer = new XmlTextWriter(location, Encoding.UTF8))
             {
                 writer.Formatting = Formatting.Indented;
