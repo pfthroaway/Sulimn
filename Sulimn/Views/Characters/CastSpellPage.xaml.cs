@@ -29,7 +29,10 @@ namespace Sulimn.Views.Characters
             switch (_previousPage)
             {
                 case "Battle":
-                    RefToBattlePage.SetSpell(spell);
+                    GameState.CurrentHero.CurrentSpell = spell;
+                    RefToBattlePage.LblSpell.DataContext = GameState.CurrentHero.CurrentSpell;
+                    if (spell != null && spell != new Spell() && GameState.CurrentHero.Statistics.CurrentMagic >= spell.MagicCost)
+                        RefToBattlePage.BtnCastSpell.IsEnabled = true;
                     break;
 
                 case "Character":
