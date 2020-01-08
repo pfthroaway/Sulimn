@@ -13,10 +13,10 @@ namespace Sulimn.Views.Shopping
     /// <summary>Interaction logic for SilverEmpirePage.xaml</summary>
     public partial class SilverEmpirePage : INotifyPropertyChanged
     {
-        private List<Ring> _purchaseRing = new List<Ring>();
-        private Ring _selectedRingPurchase = new Ring();
-        private Ring _selectedRingSell = new Ring();
-        private List<Ring> _sellRing = new List<Ring>();
+        private List<Item> _purchaseRing = new List<Item>();
+        private Item _selectedRingPurchase = new Item();
+        private Item _selectedRingSell = new Item();
+        private List<Item> _sellRing = new List<Item>();
 
         #region Data-Binding
 
@@ -27,7 +27,7 @@ namespace Sulimn.Views.Shopping
             if (reload)
             {
                 _purchaseRing.Clear();
-                _purchaseRing.AddRange(GameState.GetItemsOfType<Ring>().Where(ring => ring.IsSold));
+                _purchaseRing.AddRange(GameState.GetItemsOfType(ItemType.Ring).Where(ring => ring.IsSold));
                 _purchaseRing = _purchaseRing.OrderBy(ring => ring.Value).ToList();
                 LstRingPurchase.ItemsSource = _purchaseRing;
                 LstRingPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -45,7 +45,7 @@ namespace Sulimn.Views.Shopping
             if (reload)
             {
                 _sellRing.Clear();
-                _sellRing.AddRange(GameState.CurrentHero.GetItemsOfType<Ring>());
+                _sellRing.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.Ring));
                 _sellRing = _sellRing.OrderBy(ring => ring.Value).ToList();
                 LstRingSell.ItemsSource = _sellRing;
                 LstRingSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -58,7 +58,7 @@ namespace Sulimn.Views.Shopping
             LblRingValueSell.DataContext = _selectedRingSell;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -129,8 +129,8 @@ namespace Sulimn.Views.Shopping
         private void LstRingPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedRingPurchase = LstRingPurchase.SelectedIndex >= 0
-            ? (Ring)LstRingPurchase.SelectedValue
-            : new Ring();
+            ? (Item)LstRingPurchase.SelectedValue
+            : new Item();
 
             BtnRingPurchase.IsEnabled = _selectedRingPurchase.Value > 0 && _selectedRingPurchase.Value <= GameState.CurrentHero.Gold;
             BindRingPurchase(false);
@@ -138,7 +138,7 @@ namespace Sulimn.Views.Shopping
 
         private void LstRingSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedRingSell = LstRingSell.SelectedIndex >= 0 ? (Ring)LstRingSell.SelectedValue : new Ring();
+            _selectedRingSell = LstRingSell.SelectedIndex >= 0 ? (Item)LstRingSell.SelectedValue : new Item();
 
             BtnRingSell.IsEnabled = _selectedRingSell.CanSell;
             BindRingSell(false);

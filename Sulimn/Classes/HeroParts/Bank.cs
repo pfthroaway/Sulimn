@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-
-namespace Sulimn.Classes.HeroParts
+﻿namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents an account at the Bank.</summary>
-    public class Bank : INotifyPropertyChanged
+    public class Bank : BaseINPC
     {
         private int _goldInBank, _loanAvailable, _loanTaken;
 
@@ -16,7 +14,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _goldInBank = value;
-                OnPropertyChanged("GoldInBankToString");
+                NotifyPropertyChanged(nameof(GoldInBank), nameof(GoldInBankToString));
             }
         }
 
@@ -27,7 +25,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _loanAvailable = value;
-                OnPropertyChanged("LoanAvailableToString");
+                NotifyPropertyChanged(nameof(LoanAvailable), nameof(LoanAvailableToString));
             }
         }
 
@@ -38,7 +36,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _loanTaken = value;
-                OnPropertyChanged("LoanTakenToString");
+                NotifyPropertyChanged(nameof(LoanTaken), nameof(LoanTakenToString));
             }
         }
 
@@ -56,15 +54,6 @@ namespace Sulimn.Classes.HeroParts
         public string LoanTakenToString => LoanTaken.ToString("N0", GameState.CurrentCulture);
 
         #endregion Helper Properties
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         #region Constructors
 

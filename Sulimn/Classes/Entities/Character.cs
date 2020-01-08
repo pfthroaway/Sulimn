@@ -1,137 +1,213 @@
-﻿using Sulimn.Classes.HeroParts;
-using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using Sulimn.Classes.HeroParts;
+using Sulimn.Classes.Items;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents living entities in Sulimn.</summary>
-    internal abstract class Character : ICharacter, INotifyPropertyChanged
+    internal abstract class Character : BaseINPC
     {
-        private Attributes _attributes = new Attributes();
-        private Equipment _equipment = new Equipment();
-        private int _level, _experience, _gold;
-        private string _name;
-        private Statistics _statistics = new Statistics();
+        private string name;
+        private int level, experience, gold;
+        private Attributes attributes = new Attributes();
+        private Statistics statistics = new Statistics();
+        private Equipment equipment = new Equipment();
+        private Spellbook spellbook = new Spellbook();
+        private Spell currentSpell = new Spell();
+        private List<Item> inventory = new List<Item>();
 
         #region Modifying Properties
 
-        /// <summary>Name of character</summary>
+        /// <summary>Name of the <see cref="Character"/>.</summary>
+        [JsonProperty(Order = -5)]
         public string Name
         {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged("Name");
-            }
+            get => name;
+            set { name = value; NotifyPropertyChanged(nameof(Name)); }
         }
 
-        /// <summary>Level of character</summary>
+        /// <summary>Level of the <see cref="Character"/>.</summary>
+        [JsonProperty(Order = 1)]
         public int Level
         {
-            get => _level;
-            set
-            {
-                _level = value;
-                OnPropertyChanged("Level");
-                OnPropertyChanged("LevelAndClassToString");
-            }
+            get => level;
+            set { level = value; NotifyPropertyChanged(nameof(Level), nameof(LevelToString)); }
         }
 
-        /// <summary>Name of character</summary>
+        /// <summary>Name of the <see cref="Character"/>.</summary>
+        [JsonProperty(Order = 2)]
         public int Experience
         {
-            get => _experience;
-            set
-            {
-                _experience = value;
-                OnPropertyChanged("ExperienceToString");
-                OnPropertyChanged("ExperienceToStringWithText");
-            }
+            get => experience;
+            set { experience = value; NotifyPropertyChanged(nameof(Experience), nameof(ExperienceToString), nameof(ExperienceToStringWithText), nameof(Level), nameof(LevelToString)); }
         }
 
-        /// <summary>Amount of Gold in the inventory.</summary>
+        /// <summary>Amount of Gold in the <see cref="Character"/>'s inventory.</summary>
+        [JsonProperty(Order = 3)]
         public int Gold
         {
-            get => _gold;
-            set
-            {
-                _gold = value;
-                OnPropertyChanged("Gold");
-                OnPropertyChanged("GoldToString");
-                OnPropertyChanged("GoldToStringWithText");
-            }
+            get => gold;
+            set { gold = value; NotifyPropertyChanged(nameof(Gold), nameof(GoldToString), nameof(GoldToStringWithText)); }
         }
 
-        /// <summary>Attributes of character</summary>
+        /// <summary>Attributes of the <see cref="Character"/>.</summary>
+        [JsonProperty(Order = 4)]
         public Attributes Attributes
         {
-            get => _attributes;
-            set
-            {
-                _attributes = value;
-                OnPropertyChanged("Attributes");
-            }
+            get => attributes;
+            set { attributes = value; NotifyPropertyChanged(nameof(Attributes)); }
         }
 
-        /// <summary>Statistics of character</summary>
+        /// <summary>Statistics of the <see cref="Character"/>.</summary>
+        [JsonProperty(Order = 5)]
         public Statistics Statistics
         {
-            get => _statistics;
+            get => statistics;
+            set { statistics = value; NotifyPropertyChanged(nameof(Statistics)); }
+        }
+
+        /// <summary>Equipment of the <see cref="Character"/>.</summary>
+        [JsonProperty(Order = 6)]
+        public Equipment Equipment
+        {
+            get => equipment;
+            set { equipment = value; NotifyPropertyChanged(nameof(Equipment)); }
+        }
+
+        /// <summary>The list of <see cref="Spell"/>s the <see cref="Character"/> currently knows.</summary>
+        [JsonProperty(Order = 8)]
+        public Spellbook Spellbook
+        {
+            get => spellbook;
+            set { spellbook = value; NotifyPropertyChanged(nameof(Spellbook)); }
+        }
+
+        /// <summary>Currently prepared <see cref="Spell"/>.</summary>
+        [JsonIgnore]
+        public Spell CurrentSpell
+        {
+            get => currentSpell;
+            set { currentSpell = value; NotifyPropertyChanged(nameof(CurrentSpell), nameof(CurrentSpellString)); }
+        }
+
+        /// <summary>Currently prepared <see cref="Spell"/>, to string.</summary>
+        [JsonProperty(Order = 10)]
+        public string CurrentSpellString
+        {
+            get => CurrentSpell.Name;
             set
             {
-                _statistics = value;
-                OnPropertyChanged("Statistics");
+                if (!string.IsNullOrWhiteSpace(value))
+                    CurrentSpell = GameState.AllSpells.Find(spl => spl.Name == value.Trim());
             }
         }
 
-        /// <summary>Equipment of character</summary>
-        public Equipment Equipment
+        /// <summary>List of <see cref="Item"/>s in the <see cref="Character"/>'s inventory.</summary>
+        [JsonProperty(Order = 11)]
+        public List<Item> Inventory
         {
-            get => _equipment;
-            set
-            {
-                _equipment = value;
-                OnPropertyChanged("Equipment");
-            }
+            get => inventory;
+            set { inventory = value; NotifyPropertyChanged(nameof(Inventory), nameof(InventoryToString)); }
         }
 
         #endregion Modifying Properties
 
         #region Helper Properties
 
-        /// <summary>The experience the Hero has gained this level alongside how much is needed to level up</summary>
-        public string ExperienceToString => $"{Experience:N0} / {_level * 100:N0}";
+        /// <summary>Returns the <see cref="Character"/>'s level with preceding text.</summary>
+        [JsonIgnore]
+        public string LevelToString => $"Level {Level}";
 
-        /// <summary>The experience the Hero has gained this level alongside how much is needed to level up with preceding text</summary>
+        /// <summary>The experience the <see cref="Character"/> has gained this level alongside how much is needed to level up.</summary>
+        [JsonIgnore]
+        public string ExperienceToString => $"{Experience:N0} / {Level * 100:N0}";
+
+        /// <summary>The experience the <see cref="Character"/> has gained this level alongside how much is needed to level up with preceding text.</summary>
+        [JsonIgnore]
         public string ExperienceToStringWithText => $"Experience: {ExperienceToString}";
 
-        /// <summary>Amount of Gold in the inventory, with thousands separator.</summary>
-        public string GoldToString => Gold.ToString("N0", GameState.CurrentCulture);
+        /// <summary>Amount of Gold in the <see cref="Character"/>'s inventory, with thousands separator.</summary>
+        [JsonIgnore]
+        public string GoldToString => Gold.ToString("N0");
 
-        /// <summary>Amount of Gold in the inventory, with thousands separator and preceding text.</summary>
+        /// <summary>Amount of Gold in the <see cref="Character"/>'s inventory, with thousands separator and preceding text.</summary>
+        [JsonIgnore]
         public string GoldToStringWithText => $"Gold: {GoldToString}";
 
-        /// <summary>Returns the total Strength attribute and bonus produced by the current set of equipment.</summary>
+        /// <summary>List of <see cref="Item"/>s in the <see cref="Character"/>'s inventory, formatted.</summary>
+        [JsonIgnore]
+        public string InventoryToString => string.Join(",", Inventory);
+
+        /// <summary>Combined weight of all <see cref="Item"/>s in a <see cref="Character"/>'s inventory.</summary>
+        [JsonIgnore]
+        public int CarryingWeight => Inventory.Count > 0 ? Inventory.Sum(itm => itm.Weight) : 0;
+
+        /// <summary>Combined weight of all <see cref="Item"/>s in a <see cref="Character"/>'s inventory and all the Equipment currently equipped.</summary>
+        [JsonIgnore]
+        public int TotalWeight => CarryingWeight + Equipment.TotalWeight;
+
+        /// <summary>Combined weight of all <see cref="Items"/>s in a <see cref="Character"/>'s inventory and all the Equipment currently equipped, formatted.</summary>
+        [JsonIgnore]
+        public string TotalWeightToString => TotalWeight.ToString("N0");
+
+        /// <summary>Maximum weight a <see cref="Character"/> can carry.</summary>
+        [JsonIgnore]
+        public int MaximumWeight => TotalStrength * 10;
+
+        /// <summary>Maximum weight a <see cref="Character"/> can carry, formatted.</summary>
+        [JsonIgnore]
+        public string MaximumWeightToString => MaximumWeight.ToString("N0");
+
+        /// <summary>Displays the <see cref="Character"/>'s currently held weight alongside the maximum weight.</summary>
+        [JsonIgnore]
+        public string WeightToString => $"Weight Carrying: {TotalWeightToString} / {MaximumWeightToString}";
+
+        /// <summary>Is the <see cref="Character"/> carrying more than they should be able to?</summary>
+        [JsonIgnore]
+        public bool Overweight => TotalWeight > MaximumWeight;
+
+        /// <summary>Displays text regarding the <see cref="Character"/> carrying more than they should be able to carry.</summary>
+        [JsonIgnore]
+        public string OverweightToString => Overweight ? "Overweight" : "Not Overweight";
+
+        /// <summary>Ratio of Total Strength to Total Weight.</summary>
+        [JsonIgnore]
+        public decimal StrengthWeightRatio => TotalStrength * 10m / TotalWeight;
+
+        /// <summary>Total Strength value including from Attributes and Equipment.</summary>
+        [JsonIgnore]
         public int TotalStrength => Attributes.Strength + Equipment.BonusStrength;
 
-        /// <summary>Returns the total Vitality attribute and bonus produced by the current set of equipment.</summary>
+        /// <summary>Total Vitality value including from Attributes and Equipment.</summary>
+        [JsonIgnore]
         public int TotalVitality => Attributes.Vitality + Equipment.BonusVitality;
 
-        /// <summary>Returns the total Dexterity attribute and bonus produced by the current set of equipment.</summary>
+        /// <summary>Total Dexterity value including from Attributes and Equipment.</summary>
+        [JsonIgnore]
         public int TotalDexterity => Attributes.Dexterity + Equipment.BonusDexterity;
 
-        /// <summary>Returns the total Wisdom attribute and bonus produced by the current set of equipment.</summary>
+        /// <summary>Total Wisdom value including from Attributes and Equipment.</summary>
+        [JsonIgnore]
         public int TotalWisdom => Attributes.Wisdom + Equipment.BonusWisdom;
 
         #endregion Helper Properties
 
-        #region Data-Binding
+        #region Inventory Management
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>Adds an <see cref="Item"/> to the inventory.</summary>
+        /// <param name="item"><see cref="Item"/> to be removed</param>
+        public void AddItem(Item item)
+        {
+            Inventory.Add(item);
+            Inventory = Inventory.OrderBy(itm => itm.Name).ToList();
+        }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
+        /// <summary>Removes an <see cref="Item"/> from the inventory.</summary>
+        /// <param name="item"><see cref="Item"/> to be removed</param>
+        public void RemoveItem(Item item) => Inventory.Remove(item);
 
-        #endregion Data-Binding
+        #endregion Inventory Management
     }
 }

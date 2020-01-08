@@ -27,7 +27,7 @@ namespace Sulimn.Views.BankPages
             set
             {
                 _dialogText = value;
-                OnPropertyChanged("DialogText");
+                NotifyPropertyChanged("DialogText");
             }
         }
 
@@ -35,7 +35,7 @@ namespace Sulimn.Views.BankPages
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 

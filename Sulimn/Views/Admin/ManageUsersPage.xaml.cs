@@ -15,7 +15,7 @@ namespace Sulimn.Views.Admin
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this,
             new PropertyChangedEventArgs(property));
 
         #endregion Data Binding

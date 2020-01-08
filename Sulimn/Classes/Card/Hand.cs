@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Sulimn.Classes.Card
 {
     /// <summary>Represents a hand of playing cards.</summary>
-    internal class Hand : INotifyPropertyChanged
+    internal class Hand : BaseINPC
     {
         private List<Card> _cardList = new List<Card>();
 
@@ -23,7 +22,7 @@ namespace Sulimn.Classes.Card
         public List<Card> CardList
         {
             get => _cardList;
-            private set
+            set
             {
                 _cardList = value;
                 UpdateProperties();
@@ -34,15 +33,6 @@ namespace Sulimn.Classes.Card
         public string Value => $"Total: {TotalValue}";
 
         #endregion Properties
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         #region Hand Management
 
@@ -77,9 +67,9 @@ namespace Sulimn.Classes.Card
         /// <summary>Updates the 3 important Properties of the Hand.</summary>
         private void UpdateProperties()
         {
-            OnPropertyChanged("CardList");
-            OnPropertyChanged("TotalValue");
-            OnPropertyChanged("Value");
+            NotifyPropertyChanged(nameof(CardList));
+            NotifyPropertyChanged(nameof(TotalValue));
+            NotifyPropertyChanged(nameof(Value));
         }
 
         #endregion Hand Management

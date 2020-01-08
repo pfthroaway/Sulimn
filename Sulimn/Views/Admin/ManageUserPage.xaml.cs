@@ -6,6 +6,7 @@ using Sulimn.Classes;
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -114,7 +115,7 @@ namespace Sulimn.Views.Admin
             Reset();
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this,
             new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
@@ -156,15 +157,7 @@ namespace Sulimn.Views.Admin
                     ? Argon2.HashPassword(PswdPassword.Password)
                     : _originalHero.Password;
 
-                Hero newHero = new Hero(TxtHeroName.Text, password, (HeroClass)CmbClass.SelectedItem,
-                        Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text),
-                        Int32Helper.Parse(TxtSkillPoints.Text), Int32Helper.Parse(TxtGold.Text),
-                        new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text),
-                            Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)),
-                        new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text),
-                            Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem, (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem, (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(), CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
-                        new Spellbook(_originalHero.Spellbook), GameState.SetInventory(TxtInventory.Text),
-                            new Bank(), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false);
+                Hero newHero = new Hero(TxtHeroName.Text, password, (HeroClass)CmbClass.SelectedItem, Int32Helper.Parse(TxtLevel.Text), Int32Helper.Parse(TxtExperience.Text), Int32Helper.Parse(TxtSkillPoints.Text), Int32Helper.Parse(TxtGold.Text), new Attributes(Int32Helper.Parse(TxtStrength.Text), Int32Helper.Parse(TxtVitality.Text), Int32Helper.Parse(TxtDexterity.Text), Int32Helper.Parse(TxtWisdom.Text)), new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text), Int32Helper.Parse(TxtMaximumHealth.Text), Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)), new Equipment((Item)CmbWeapon.SelectedItem, (Item)CmbHead.SelectedItem, (Item)CmbBody.SelectedItem, (Item)CmbHands.SelectedItem, (Item)CmbLegs.SelectedItem, (Item)CmbFeet.SelectedItem, CmbLeftRing.SelectedIndex >= 0 ? (Item)CmbLeftRing.SelectedItem : new Item(), CmbRightRing.SelectedIndex >= 0 ? (Item)CmbRightRing.SelectedItem : new Item()), new Spellbook(_originalHero.Spellbook), GameState.SetInventory(TxtInventory.Text), new Bank(), new Progression(_originalHero.Progression), ChkHardcore.IsChecked ?? false, new List<Quest>());
                 //TODO BANK
                 //TODO Class isn't selected properly and won't save properly.
 

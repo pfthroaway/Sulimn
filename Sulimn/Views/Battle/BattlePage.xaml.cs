@@ -45,7 +45,7 @@ namespace Sulimn.Views.Battle
             set
             {
                 _heroShield = value;
-                OnPropertyChanged("HeroShieldToString");
+                NotifyPropertyChanged("HeroShieldToString");
             }
         }
 
@@ -58,7 +58,7 @@ namespace Sulimn.Views.Battle
             set
             {
                 _currentSpell = value;
-                OnPropertyChanged("CurrentSpell");
+                NotifyPropertyChanged("CurrentSpell");
                 LblSpell.DataContext = CurrentSpell;
             }
         }
@@ -81,7 +81,7 @@ namespace Sulimn.Views.Battle
             LblWeapon.DataContext = GameState.CurrentHero.Equipment.Weapon;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -152,9 +152,9 @@ namespace Sulimn.Views.Battle
             switch (_heroAction)
             {
                 case BattleAction.Attack:
-                    if (GameState.CurrentHero.Equipment.Weapon.WeaponType == WeaponTypes.Melee)
+                    if (GameState.CurrentHero.Equipment.Weapon.Type == ItemType.MeleeWeapon)
                         HeroAttack(GameState.CurrentHero.TotalStrength, GameState.CurrentHero.Equipment.TotalDamage);
-                    else if (GameState.CurrentHero.Equipment.Weapon.WeaponType == WeaponTypes.Ranged)
+                    else if (GameState.CurrentHero.Equipment.Weapon.Type == ItemType.RangedWeapon)
                         HeroAttack(GameState.CurrentHero.TotalDexterity, GameState.CurrentHero.Equipment.TotalDamage);
                     break;
 
@@ -283,9 +283,9 @@ namespace Sulimn.Views.Battle
             switch (_enemyAction)
             {
                 case BattleAction.Attack:
-                    if (GameState.CurrentEnemy.Equipment.Weapon.WeaponType == WeaponTypes.Melee)
+                    if (GameState.CurrentEnemy.Equipment.Weapon.Type == ItemType.MeleeWeapon)
                         EnemyAttack(GameState.CurrentEnemy.TotalStrength, GameState.CurrentEnemy.Equipment.TotalDamage);
-                    else if (GameState.CurrentEnemy.Equipment.Weapon.WeaponType == WeaponTypes.Ranged)
+                    else if (GameState.CurrentEnemy.Equipment.Weapon.Type == ItemType.RangedWeapon)
                         EnemyAttack(GameState.CurrentEnemy.TotalDexterity, GameState.CurrentEnemy.Equipment.TotalDamage);
                     break;
 
@@ -445,7 +445,7 @@ namespace Sulimn.Views.Battle
                         if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Cathedral = true;
-                            GameState.EventFindItem<Ring>(1, 5000);
+                            GameState.EventFindItem(1, 5000, ItemType.Ring);
                             RefToCathedralPage.Progress = true;
                         }
                         break;
@@ -463,7 +463,7 @@ namespace Sulimn.Views.Battle
                         if (_progress && GameState.CurrentEnemy.Statistics.CurrentHealth <= 0)
                         {
                             GameState.CurrentHero.Progression.Catacombs = true;
-                            GameState.EventFindItem<Ring>(15000, 20000);
+                            GameState.EventFindItem(15000, 20000, ItemType.Ring);
                             RefToCatacombsPage.Progress = true;
                         }
                         break;

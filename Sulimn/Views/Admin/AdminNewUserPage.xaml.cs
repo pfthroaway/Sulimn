@@ -6,6 +6,7 @@ using Sulimn.Classes;
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -88,7 +89,7 @@ namespace Sulimn.Views.Admin
             DisplayOriginalHero();
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this,
             new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
@@ -141,14 +142,15 @@ namespace Sulimn.Views.Admin
                         new Statistics(Int32Helper.Parse(TxtCurrentHealth.Text),
                             Int32Helper.Parse(TxtMaximumHealth.Text),
                             Int32Helper.Parse(TxtCurrentMagic.Text), Int32Helper.Parse(TxtMaximumMagic.Text)),
-                        new Equipment((Weapon)CmbWeapon.SelectedItem, (HeadArmor)CmbHead.SelectedItem,
-                            (BodyArmor)CmbBody.SelectedItem, (HandArmor)CmbHands.SelectedItem,
-                            (LegArmor)CmbLegs.SelectedItem, (FeetArmor)CmbFeet.SelectedItem,
-                            CmbLeftRing.SelectedIndex >= 0 ? (Ring)CmbLeftRing.SelectedItem : new Ring(),
-                            CmbRightRing.SelectedIndex >= 0 ? (Ring)CmbRightRing.SelectedItem : new Ring()),
+                        new Equipment((Item)CmbWeapon.SelectedItem, (Item)CmbHead.SelectedItem,
+                            (Item)CmbBody.SelectedItem, (Item)CmbHands.SelectedItem,
+                            (Item)CmbLegs.SelectedItem, (Item)CmbFeet.SelectedItem,
+                            CmbLeftRing.SelectedIndex >= 0 ? (Item)CmbLeftRing.SelectedItem : new Item(),
+                            CmbRightRing.SelectedIndex >= 0 ? (Item)CmbRightRing.SelectedItem : new Item()),
                         new Spellbook(), GameState.SetInventory(TxtInventory.Text),
                         new Bank(0, 0, 250), new Progression(), //TODO BANK
-                        ChkHardcore.IsChecked ?? false));
+                        ChkHardcore.IsChecked ?? false,
+                        new List<Quest>()));
                     GameState.GoBack();
                 }
                 else

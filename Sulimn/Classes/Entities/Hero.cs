@@ -1,23 +1,21 @@
-﻿using Sulimn.Classes.Enums;
+﻿using Newtonsoft.Json;
+using Sulimn.Classes.Enums;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Sulimn.Classes.Entities
 {
     /// <summary>Represents a Hero from Sulimn.</summary>
-    internal class Hero : Character, IEnumerable<Item>
+    internal class Hero : Character
     {
         private HeroClass _class;
         private int _skillPoints;
-        private Spellbook _spellbook = new Spellbook();
-        private List<Item> _inventory = new List<Item>();
         private Bank _bank = new Bank();
         private bool _hardcore;
+        private string _password;
 
         /// <summary>Updates the Hero's Statistics.</summary>
         internal void UpdateStatistics()
@@ -38,126 +36,130 @@ namespace Sulimn.Classes.Entities
                 Statistics.MaximumMagic += diff;
             }
 
-            OnPropertyChanged("TotalStrength");
-            OnPropertyChanged("TotalVitality");
-            OnPropertyChanged("TotalDexterity");
-            OnPropertyChanged("TotalWisdom");
+            NotifyPropertyChanged(nameof(TotalStrength), nameof(TotalVitality), nameof(TotalDexterity), nameof(TotalWisdom));
         }
 
         #region Modifying Properties
 
-        /// <summary>The hashed password of the Hero</summary>
-        public string Password { get; set; }
+        /// <summary>The hashed password of the <see cref="Hero"/>.</summary>
+        [JsonProperty(Order = -4)]
+        public string Password
+        {
+            get => _password;
+            set { _password = value; NotifyPropertyChanged(nameof(Password)); }
+        }
 
-        /// <summary>The HeroClass of the Hero</summary>
+        /// <summary>The <see cref="HeroClass"/> of the <see cref="Hero"/>.</summary>
+        [JsonIgnore]
         public HeroClass Class
         {
             get => _class;
-            set
-            {
-                _class = value;
-                OnPropertyChanged("Class");
-            }
+            set { _class = value; NotifyPropertyChanged(nameof(Class), nameof(LevelAndClassToString)); }
         }
 
-        /// <summary>The amount of available skill points the Hero has</summary>
-        public int SkillPoints
+        /// <summary>The <see cref="HeroClass"/> of the <see cref="Hero"/>, set up to import from JSON.</summary>
+        [JsonProperty(Order = -3)]
+        public string ClassString
         {
-            get => _skillPoints;
+            get => Class.Name;
             set
             {
-                _skillPoints = value;
-                OnPropertyChanged("SkillPoints");
-                OnPropertyChanged("SkillPointsToString");
-            }
-        }
-
-        /// <summary>The progress the Hero has made.</summary>
-        public Progression Progression { get; set; }
-
-        /// <summary>The list of Spells the Hero currently knows</summary>
-        public Spellbook Spellbook
-        {
-            get => _spellbook;
-            private set
-            {
-                _spellbook = value;
-                OnPropertyChanged("Spellbook");
-            }
-        }
-
-        /// <summary>The <see cref="Hero"/>'s <see cref="HeroParts.Bank"/>. </summary>
-        public Bank Bank
-        {
-            get => _bank;
-            set
-            {
-                _bank = value;
-                OnPropertyChanged("Bank");
+                if (!string.IsNullOrWhiteSpace(value))
+                    Class = GameState.AllClasses.Find(o => o.Name == value);
             }
         }
 
         /// <summary>Will the player be deleted on death?</summary>
+        [JsonProperty(Order = -2)]
         public bool Hardcore
         {
-            get => _hardcore; set
-            {
-                _hardcore = value;
-                OnPropertyChanged("Hardcore");
-                OnPropertyChanged("HardcoreToString");
-            }
+            get => _hardcore;
+            set { _hardcore = value; NotifyPropertyChanged(nameof(Hardcore), nameof(HardcoreToString)); }
         }
+
+        /// <summary>The amount of available skill points the <see cref="Hero"/> has</summary>
+        [JsonProperty(Order = -1)]
+        public int SkillPoints
+        {
+            get => _skillPoints;
+            set { _skillPoints = value; NotifyPropertyChanged(nameof(SkillPoints), nameof(SkillPointsToString)); }
+        }
+
+        /// <summary>The progress the <see cref="Hero"/> has made.</summary>
+        [JsonProperty(Order = 7)]
+        public Progression Progression { get; set; }
+
+        /// <summary>The <see cref="Hero"/>'s <see cref="HeroParts.Bank"/>.</summary>
+        [JsonProperty(Order = 9)]
+        public Bank Bank
+        {
+            get => _bank;
+            set { _bank = value; NotifyPropertyChanged(nameof(Bank)); }
+        }
+
+        /// <summary>The <see cref="Hero"/>'s current <see cref="Quest"/>s.</summary>
+        [JsonProperty(Order = 12)]
+        public List<Quest> Quests { get; set; } = new List<Quest>();
 
         #endregion Modifying Properties
 
         #region Helper Properties
 
-        /// <summary>List of Items in the inventory.</summary>
-        public ReadOnlyCollection<Item> Inventory => new ReadOnlyCollection<Item>(_inventory);
+        /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory.</summary>
+        [JsonIgnore]
+        public int InventoryRepairCost => Inventory.Sum(itm => itm.RepairCost);
 
-        /// <summary>Combined weight of all Items in a Hero's Inventory.</summary>
-        public int CarryingWeight => Inventory.Count > 0 ? Inventory.Sum(itm => itm.Weight) : 0;
+        /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory, formatted.</summary>
+        [JsonIgnore]
+        public string InventoryRepairCostToString => InventoryRepairCost.ToString("N0");
 
-        /// <summary>Combined weight of all Items in a Hero's Inventory and all the Equipment currently equipped.</summary>
-        public int TotalWeight => CarryingWeight + Equipment.TotalWeight;
+        /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory, formatted with preceding text.</summary>
+        [JsonIgnore]
+        public string InventoryRepairCostToStringWithText => $"Repair Cost: {InventoryRepairCostToString}";
 
-        /// <summary>Maximum weight a Hero can carry.</summary>
-        public int MaximumWeight => TotalStrength * 10;
+        /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory and <see cref="Equipment"/>.</summary>
+        [JsonIgnore]
+        public int TotalRepairCost => InventoryRepairCost + Equipment.RepairCost;
 
-        /// <summary>Is the Hero carrying more than they should be able to?</summary>
-        public bool Overweight => TotalWeight > MaximumWeight;
+        /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory and <see cref="Equipment"/>, formatted.</summary>
+        [JsonIgnore]
+        public string TotalRepairCostToString => TotalRepairCost.ToString("N0");
 
-        /// <summary>List of Items in the inventory, formatted.</summary>
-        public string InventoryToString => string.Join(",", Inventory);
+        /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory and <see cref="Equipment"/>, formatted with preceding text.</summary>
+        [JsonIgnore]
+        public string TotalRepairCostToStringWithText => $"Total Repair Cost: {TotalRepairCostToString}";
 
         /// <summary>Will the player be deleted on death?</summary>
+        [JsonIgnore]
         public string HardcoreToString => Hardcore ? "Hardcore" : "Softcore";
 
-        /// <summary>The level and class of the Hero</summary>
+        /// <summary>The level and class of the <see cref="Hero"/>.</summary>
+        [JsonIgnore]
         public string LevelAndClassToString => $"Level {Level} {Class.Name}";
 
-        /// <summary>The amount of skill points the Hero has available to spend</summary>
+        /// <summary>The amount of skill points the <see cref="Hero"/> has available to spend, formatted.</summary>
+        [JsonIgnore]
         public string SkillPointsToString => SkillPoints != 1 ? $"{SkillPoints:N0} Skill Points Available" : $"{SkillPoints:N0} Skill Point Available";
 
         #endregion Helper Properties
 
         #region Experience Manipulation
 
-        /// <summary>Gains experience for Hero.</summary>
+        /// <summary>Gains experience for <see cref="Hero"/>.</summary>
         /// <param name="exp">Experience</param>
-        /// <returns>Returns text about the Hero gaining experience</returns>
+        /// <returns>Returns text about the <see cref="Hero"/> gaining experience</returns>
         internal string GainExperience(int exp)
         {
             Experience += exp;
             return $"You gained {exp} experience!{CheckLevelUp()}";
         }
 
-        /// <summary>Checks where a Hero has leveled up.</summary>
-        /// <returns>Returns null if Hero doesn't level up</returns>
+        /// <summary>Checks where a <see cref="Hero"/> has leveled up.</summary>
+        /// <returns>Returns null if <see cref="Hero"/> doesn't level up</returns>
         private string CheckLevelUp() => Experience >= Level * 100 ? LevelUp() : null;
 
-        /// <summary>Levels up a Hero.</summary>
-        /// <returns>Returns text about the Hero leveling up</returns>
+        /// <summary>Levels up a <see cref="Hero"/>.</summary>
+        /// <returns>Returns text about the <see cref="Hero"/> leveling up</returns>
         private string LevelUp()
         {
             Experience -= Level * 100;
@@ -168,6 +170,7 @@ namespace Sulimn.Classes.Entities
             Statistics.CurrentMagic += 5;
             Statistics.MaximumMagic += 5;
             Bank.LoanAvailable += 250;
+            NotifyPropertyChanged(nameof(LevelAndClassToString));
             return "\n\nYou gained a level! You also gained 5 health, 5 magic, and 5 skill points!";
         }
 
@@ -175,9 +178,9 @@ namespace Sulimn.Classes.Entities
 
         #region Health Manipulation
 
-        /// <summary>The Hero takes damage.</summary>
+        /// <summary>The <see cref="Hero"/> takes damage.</summary>
         /// <param name="damage">Damage amount</param>
-        /// <returns>Returns text about the Hero leveling up.</returns>
+        /// <returns>Returns text about the <see cref="Hero"/> leveling up.</returns>
         internal string TakeDamage(int damage)
         {
             Statistics.CurrentHealth -= damage;
@@ -186,9 +189,9 @@ namespace Sulimn.Classes.Entities
             : $"You have taken {damage} damage.";
         }
 
-        /// <summary>Heals the Hero for a specified amount.</summary>
+        /// <summary>Heals the <see cref="Hero"/> for a specified amount.</summary>
         /// <param name="healAmount">Amount to be healed</param>
-        /// <returns>Returns text saying the Hero was healed</returns>
+        /// <returns>Returns text saying the <see cref="Hero"/> was healed</returns>
         internal string Heal(int healAmount)
         {
             Statistics.CurrentHealth += healAmount;
@@ -204,79 +207,63 @@ namespace Sulimn.Classes.Entities
 
         #region Inventory Management
 
-        /// <summary>Adds an Item to the inventory.</summary>
-        /// <param name="item">Item to be removed</param>
-        internal void AddItem(Item item)
-        {
-            _inventory.Add(item);
-            _inventory = Inventory.OrderBy(itm => itm.Name).ToList();
-            OnPropertyChanged("Inventory");
-        }
-
-        /// <summary>Removes an Item from the inventory.</summary>
-        /// <param name="item">Item to be removed</param>
-        internal void RemoveItem(Item item)
-        {
-            _inventory.Remove(item);
-            OnPropertyChanged("Inventory");
-        }
-
-        /// <summary>Equips an Item into a Hero's Equipment.</summary>
-        /// <param name="item">Item to be equipped</param>
-        /// <param name="side">If Item is a Ring, which side is it?</param>
+        /// <summary>Equips an <see cref="Item"/> into a <see cref="Hero"/>'s Equipment.</summary>
+        /// <param name="item"><see cref="Item"/> to be equipped</param>
+        /// <param name="side">If <see cref="Item"/> is a Ring, which side is it?</param>
         internal void Equip(Item item, RingHand side = RingHand.Left)
         {
-            switch (item)
+            switch (item.Type)
             {
-                case Weapon weapon:
+                case ItemType.MeleeWeapon:
+                case ItemType.RangedWeapon:
                     if (Equipment.Weapon != GameState.DefaultWeapon)
                         AddItem(Equipment.Weapon);
-                    Equipment.Weapon = new Weapon(weapon);
+                    Equipment.Weapon = new Item(item);
                     break;
 
-                case HeadArmor headArmor:
+                case ItemType.HeadArmor:
                     if (Equipment.Head != GameState.DefaultHead)
                         AddItem(Equipment.Head);
-                    Equipment.Head = new HeadArmor(headArmor);
+                    Equipment.Head = new Item(item);
                     break;
 
-                case BodyArmor bodyArmor:
+                case ItemType.BodyArmor:
                     if (Equipment.Body != GameState.DefaultBody)
                         AddItem(Equipment.Body);
-                    Equipment.Body = new BodyArmor(bodyArmor);
+                    Equipment.Body = new Item(item);
                     break;
 
-                case HandArmor handArmor:
+                case ItemType.HandArmor:
                     if (Equipment.Hands != GameState.DefaultHands)
                         AddItem(Equipment.Hands);
-                    Equipment.Hands = new HandArmor(handArmor);
+                    Equipment.Hands = new Item(item);
                     break;
 
-                case LegArmor legArmor:
+                case ItemType.LegArmor:
                     if (Equipment.Legs != GameState.DefaultLegs)
                         AddItem(Equipment.Legs);
-                    Equipment.Legs = new LegArmor(legArmor);
+                    Equipment.Legs = new Item(item);
                     break;
 
-                case FeetArmor feetArmor:
+                case ItemType.FeetArmor:
                     if (Equipment.Feet != GameState.DefaultFeet)
                         AddItem(Equipment.Feet);
-                    Equipment.Feet = new FeetArmor(feetArmor);
+                    Equipment.Feet = new Item(item);
                     break;
 
-                case Ring ring:
+                case ItemType.Ring:
                     switch (side)
                     {
                         case RingHand.Left:
-                            if (Equipment.LeftRing != new Ring())
+                            if (Equipment.LeftRing != new Item())
                                 AddItem(Equipment.LeftRing);
-                            Equipment.LeftRing = new Ring(ring);
+                            Equipment.LeftRing = new Item(item);
                             break;
 
                         case RingHand.Right:
-                            if (Equipment.RightRing != new Ring())
+                            if (Equipment.RightRing != new Item())
                                 AddItem(Equipment.RightRing);
-                            Equipment.RightRing = new Ring(ring);
+                            Equipment.RightRing = new Item(item);
                             break;
                     }
                     break;
@@ -289,80 +276,78 @@ namespace Sulimn.Classes.Entities
             RemoveItem(item);
         }
 
-        /// <summary>Unequips an Item from a Hero's Equipment.</summary>
-        /// <param name="item">Item to be unequipped</param>
-        /// <param name="side">If Item is a Ring, which side is it?</param>
+        /// <summary>Unequips an <see cref="Item"/> from a <see cref="Hero"/>'s Equipment.</summary>
+        /// <param name="item"><see cref="Item"/> to be unequipped</param>
+        /// <param name="side">If <see cref="Item"/> is a Ring, which side is it?</param>
         internal void Unequip(Item item, RingHand side = RingHand.Left)
         {
-            switch (item)
+            switch (item.Type)
             {
-                case Weapon weapon:
-                    if (weapon != GameState.DefaultWeapon)
-                        AddItem(weapon);
-                    Equipment.Weapon = new Weapon(GameState.DefaultWeapon);
+                case ItemType.MeleeWeapon:
+                case ItemType.RangedWeapon:
+                    if (item != GameState.DefaultWeapon)
+                        AddItem(item);
+                    Equipment.Weapon = new Item(GameState.DefaultWeapon);
                     break;
 
-                case HeadArmor headArmor:
-                    if (headArmor != GameState.DefaultHead)
-                        AddItem(headArmor);
-                    Equipment.Head = new HeadArmor(GameState.DefaultHead);
+                case ItemType.HeadArmor:
+                    if (item != GameState.DefaultHead)
+                        AddItem(item);
+                    Equipment.Head = new Item(GameState.DefaultHead);
                     break;
 
-                case BodyArmor bodyArmor:
-                    if (bodyArmor != GameState.DefaultBody)
-                        AddItem(bodyArmor);
-                    Equipment.Body = new BodyArmor(GameState.DefaultBody);
+                case ItemType.BodyArmor:
+                    if (item != GameState.DefaultBody)
+                        AddItem(item);
+                    Equipment.Body = new Item(GameState.DefaultBody);
                     break;
 
-                case HandArmor handArmor:
-                    if (handArmor != GameState.DefaultHands)
-                        AddItem(handArmor);
-                    Equipment.Hands = new HandArmor(GameState.DefaultHands);
+                case ItemType.HandArmor:
+                    if (item != GameState.DefaultHands)
+                        AddItem(item);
+                    Equipment.Hands = new Item(GameState.DefaultHands);
                     break;
 
-                case LegArmor legArmor:
-                    if (legArmor != GameState.DefaultLegs)
-                        AddItem(legArmor);
-                    Equipment.Legs = new LegArmor(GameState.DefaultLegs);
+                case ItemType.LegArmor:
+                    if (item != GameState.DefaultLegs)
+                        AddItem(item);
+                    Equipment.Legs = new Item(GameState.DefaultLegs);
                     break;
 
-                case FeetArmor feetArmor:
-                    if (feetArmor != GameState.DefaultFeet)
-                        AddItem(feetArmor);
-                    Equipment.Feet = new FeetArmor(GameState.DefaultFeet);
+                case ItemType.FeetArmor:
+                    if (item != GameState.DefaultFeet)
+                        AddItem(item);
+                    Equipment.Feet = new Item(GameState.DefaultFeet);
                     break;
 
-                case Ring ring:
-                    if (ring != new Ring())
-                        AddItem(ring);
+                case ItemType.Ring:
+                    if (item != new Item())
+                        AddItem(item);
                     switch (side)
                     {
                         case RingHand.Left:
-                            Equipment.LeftRing = new Ring();
+                            Equipment.LeftRing = new Item();
                             break;
 
                         case RingHand.Right:
-                            Equipment.RightRing = new Ring();
+                            Equipment.RightRing = new Item();
                             break;
                     }
                     break;
             }
         }
 
-        /// <summary>Gets all Items of specified Type.</summary>
+        /// <summary>Gets all <see cref="Item"/>s of specified Type.</summary>
         /// <typeparam name="T">Type</typeparam>
-        /// <returns>Items of specified Type</returns>
+        /// <returns><see cref="Item"/>s of specified Type</returns>
         internal List<T> GetItemsOfType<T>() => Inventory.OfType<T>().ToList();
 
+        /// <summary>Gets all <see cref="Item"/>s of specified Type.</summary>
+        /// <param name="type">Type</param>
+        /// <returns><see cref="Item"/>s of specified Type</returns>
+        internal List<Item> GetItemsOfType(ItemType type) => Inventory.Where(itm => itm.Type == type).ToList();
+
         #endregion Inventory Management
-
-        #region Enumerator
-
-        public IEnumerator<Item> GetEnumerator() => Inventory.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        #endregion Enumerator
 
         #region Override Operators
 
@@ -423,7 +408,7 @@ namespace Sulimn.Classes.Entities
         /// <param name="progression">The progress the Hero has made</param>
         /// <param name="hardcore">Will the character be deleted on death?</param>
         internal Hero(string name, string password, HeroClass heroClass, int level, int experience, int skillPoints, int gold,
-        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, IEnumerable<Item> inventory, Bank bank, Progression progression, bool hardcore)
+        Attributes attributes, Statistics statistics, Equipment equipment, Spellbook spellbook, List<Item> inventory, Bank bank, Progression progression, bool hardcore, List<Quest> quests)
         {
             Name = name;
             Password = password;
@@ -436,17 +421,16 @@ namespace Sulimn.Classes.Entities
             Statistics = statistics;
             Equipment = equipment;
             Spellbook = spellbook;
-            List<Item> items = new List<Item>();
-            items.AddRange(inventory);
-            _inventory = items;
+            Inventory = inventory;
             Bank = bank;
             Progression = progression;
             Hardcore = hardcore;
+            Quests = quests;
         }
 
         /// <summary>Replaces this instance of Hero with another instance.</summary>
         /// <param name="other">Instance of Hero to replace this one</param>
-        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, other.Gold, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), other.Inventory, other.Bank, other.Progression, other.Hardcore)
+        internal Hero(Hero other) : this(other.Name, other.Password, other.Class, other.Level, other.Experience, other.SkillPoints, other.Gold, new Attributes(other.Attributes), new Statistics(other.Statistics), new Equipment(other.Equipment), new Spellbook(other.Spellbook), new List<Item>(other.Inventory), other.Bank, other.Progression, other.Hardcore, other.Quests)
         {
         }
 

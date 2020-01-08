@@ -1,23 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace Sulimn.Classes.HeroParts
 {
     /// <summary>Represents the Class of a Hero.</summary>
-    public class HeroClass : IEquatable<HeroClass>, INotifyPropertyChanged
+    public class HeroClass : BaseINPC
     {
         private string _name, _description;
-
         private int _skillPoints, _strength, _vitality, _dexterity, _wisdom, _currentHealth, _maximumHealth, _currentMagic, _maximumMagic;
-
-        #region Data-Binding
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
 
         #region Modifying Properties
 
@@ -25,10 +14,10 @@ namespace Sulimn.Classes.HeroParts
         public string Name
         {
             get => _name;
-            private set
+            set
             {
                 _name = value;
-                OnPropertyChanged("Name");
+                NotifyPropertyChanged(nameof(Name));
             }
         }
 
@@ -39,7 +28,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _description = value;
-                OnPropertyChanged("Description");
+                NotifyPropertyChanged(nameof(Description));
             }
         }
 
@@ -50,7 +39,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _skillPoints = value;
-                OnPropertyChanged("SkillPointsToString");
+                NotifyPropertyChanged(nameof(SkillPoints), nameof(SkillPointsToString));
             }
         }
 
@@ -61,7 +50,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _strength = value;
-                OnPropertyChanged("Strength");
+                NotifyPropertyChanged(nameof(Strength));
             }
         }
 
@@ -74,7 +63,7 @@ namespace Sulimn.Classes.HeroParts
                 _vitality = value;
                 CurrentHealth = Vitality * 5;
                 MaximumHealth = Vitality * 5;
-                OnPropertyChanged("Vitality");
+                NotifyPropertyChanged(nameof(Vitality));
             }
         }
 
@@ -85,7 +74,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _dexterity = value;
-                OnPropertyChanged("Dexterity");
+                NotifyPropertyChanged(nameof(Dexterity));
             }
         }
 
@@ -98,7 +87,7 @@ namespace Sulimn.Classes.HeroParts
                 _wisdom = value;
                 CurrentMagic = Wisdom * 5;
                 MaximumMagic = Wisdom * 5;
-                OnPropertyChanged("Wisdom");
+                NotifyPropertyChanged(nameof(Wisdom));
             }
         }
 
@@ -106,10 +95,10 @@ namespace Sulimn.Classes.HeroParts
         public int CurrentHealth
         {
             get => _currentHealth;
-            private set
+            set
             {
                 _currentHealth = value;
-                OnPropertyChanged("HealthToString");
+                NotifyPropertyChanged(nameof(CurrentHealth), nameof(HealthToString));
             }
         }
 
@@ -117,10 +106,10 @@ namespace Sulimn.Classes.HeroParts
         public int MaximumHealth
         {
             get => _maximumHealth;
-            private set
+            set
             {
                 _maximumHealth = value;
-                OnPropertyChanged("HealthToString");
+                NotifyPropertyChanged(nameof(MaximumHealth), nameof(HealthToString));
             }
         }
 
@@ -128,10 +117,10 @@ namespace Sulimn.Classes.HeroParts
         public int CurrentMagic
         {
             get => _currentMagic;
-            private set
+            set
             {
                 _currentMagic = value;
-                OnPropertyChanged("MagicToString");
+                NotifyPropertyChanged(nameof(CurrentMagic), nameof(MagicToString));
             }
         }
 
@@ -139,10 +128,10 @@ namespace Sulimn.Classes.HeroParts
         public int MaximumMagic
         {
             get => _maximumMagic;
-            private set
+            set
             {
                 _maximumMagic = value;
-                OnPropertyChanged("MagicToString");
+                NotifyPropertyChanged(nameof(MaximumMagic), nameof(MagicToString));
             }
         }
 

@@ -51,7 +51,7 @@ namespace Sulimn.Views.Shopping
             LblGold.DataContext = GameState.CurrentHero;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -72,7 +72,7 @@ namespace Sulimn.Views.Shopping
         {
             _selectedSpell = LstSpells.SelectedIndex >= 0 ? (Spell)LstSpells.SelectedValue : new Spell();
 
-            BtnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Gold && _selectedSpell.RequiredLevel <= GameState.CurrentHero.Level;
+            BtnPurchase.IsEnabled = _selectedSpell.Value > 0 && _selectedSpell.Value <= GameState.CurrentHero.Gold && _selectedSpell.MinimumLevel <= GameState.CurrentHero.Level;
             BindLabels();
         }
 

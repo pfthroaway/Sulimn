@@ -6,34 +6,34 @@
         #region Modifying Properties
 
         /// <summary>Has the Hero completed Fields?</summary>
-        internal bool Fields { get; set; }
+        public bool Fields { get; set; }
 
         /// <summary>Has the Hero completed Forest?</summary>
-        internal bool Forest { get; set; }
+        public bool Forest { get; set; }
 
         /// <summary>Has the Hero completed Cathedral?</summary>
-        internal bool Cathedral { get; set; }
+        public bool Cathedral { get; set; }
 
         /// <summary>Has the Hero completed Mines?</summary>
-        internal bool Mines { get; set; }
+        public bool Mines { get; set; }
 
         /// <summary>Has the Hero completed Catacombs?</summary>
-        internal bool Catacombs { get; set; }
+        public bool Catacombs { get; set; }
 
         /// <summary>Has the Hero completed Courtyard?</summary>
-        internal bool Courtyard { get; set; }
+        public bool Courtyard { get; set; }
 
         /// <summary>Has the Hero completed Battlements?</summary>
-        internal bool Battlements { get; set; }
+        public bool Battlements { get; set; }
 
         /// <summary>Has the Hero completed Armoury?</summary>
-        internal bool Armoury { get; set; }
+        public bool Armoury { get; set; }
 
         /// <summary>Has the Hero completed Spire?</summary>
-        internal bool Spire { get; set; }
+        public bool Spire { get; set; }
 
         /// <summary>Has the Hero completed ThroneRoom?</summary>
-        internal bool ThroneRoom { get; set; }
+        public bool ThroneRoom { get; set; }
 
         #endregion Modifying Properties
 

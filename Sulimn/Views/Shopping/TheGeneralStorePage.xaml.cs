@@ -13,10 +13,10 @@ namespace Sulimn.Views.Shopping
     /// <summary>Interaction logic for TheGeneralStorePage.xaml</summary>
     public partial class TheGeneralStorePage : INotifyPropertyChanged
     {
-        private List<Potion> _purchasePotion = new List<Potion>();
-        private Potion _selectedPotionPurchase = new Potion();
-        private Potion _selectedPotionSell = new Potion();
-        private List<Potion> _sellPotion = new List<Potion>();
+        private List<Item> _purchasePotion = new List<Item>();
+        private Item _selectedPotionPurchase = new Item();
+        private Item _selectedPotionSell = new Item();
+        private List<Item> _sellPotion = new List<Item>();
 
         #region Data-Binding
 
@@ -27,7 +27,7 @@ namespace Sulimn.Views.Shopping
             if (reload)
             {
                 _purchasePotion.Clear();
-                _purchasePotion.AddRange(GameState.GetItemsOfType<Potion>().Where(potion => potion.IsSold));
+                _purchasePotion.AddRange(GameState.GetItemsOfType(ItemType.Potion).Where(potion => potion.IsSold));
                 _purchasePotion = _purchasePotion.OrderBy(potion => potion.Value).ToList();
                 LstPotionPurchase.ItemsSource = _purchasePotion;
                 LstPotionPurchase.Items.SortDescriptions.Add(new SortDescription("Value", ListSortDirection.Ascending));
@@ -45,7 +45,7 @@ namespace Sulimn.Views.Shopping
             if (reload)
             {
                 _sellPotion.Clear();
-                _sellPotion.AddRange(GameState.CurrentHero.GetItemsOfType<Potion>());
+                _sellPotion.AddRange(GameState.CurrentHero.GetItemsOfType(ItemType.Potion));
                 _sellPotion = _sellPotion.OrderBy(potion => potion.Value).ToList();
                 LstPotionSell.ItemsSource = _sellPotion;
                 LstPotionSell.Items.SortDescriptions.Add(new SortDescription("SellValue", ListSortDirection.Ascending));
@@ -58,7 +58,7 @@ namespace Sulimn.Views.Shopping
             LblPotionValueSell.DataContext = _selectedPotionSell;
         }
 
-        public void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
 
@@ -128,8 +128,8 @@ namespace Sulimn.Views.Shopping
         private void LstPotionPurchase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedPotionPurchase = LstPotionPurchase.SelectedIndex >= 0
-            ? (Potion)LstPotionPurchase.SelectedValue
-            : new Potion();
+            ? (Item)LstPotionPurchase.SelectedValue
+            : new Item();
 
             BtnPotionPurchase.IsEnabled = _selectedPotionPurchase.Value > 0 && _selectedPotionPurchase.Value <= GameState.CurrentHero.Gold;
             BindPotionPurchase(false);
@@ -137,7 +137,7 @@ namespace Sulimn.Views.Shopping
 
         private void LstPotionSell_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedPotionSell = LstPotionSell.SelectedIndex >= 0 ? (Potion)LstPotionSell.SelectedValue : new Potion();
+            _selectedPotionSell = LstPotionSell.SelectedIndex >= 0 ? (Item)LstPotionSell.SelectedValue : new Item();
 
             BtnPotionSell.IsEnabled = _selectedPotionSell.CanSell;
             BindPotionSell(false);
