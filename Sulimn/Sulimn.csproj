@@ -91,7 +91,6 @@
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -418,27 +417,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Data.zip" />
-    <None Include="Data\body_armor.json" />
-    <None Include="Data\classes.json" />
-    <None Include="Data\drinks.json" />
-    <None Include="Data\enemies.json" />
-    <None Include="Data\feet_armor.json" />
-    <None Include="Data\food.json" />
-    <None Include="Data\hand_armor.json" />
-    <None Include="Data\head_armor.json" />
-    <None Include="Data\leg_armor.json" />
-    <None Include="Data\potions.json" />
-    <None Include="Data\rings.json" />
-    <None Include="Data\spells.json" />
-    <None Include="Data\weapons.json" />
+    <None Include="Data.zip" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <EmbeddedResource Include="Sulimn.sqlite" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -465,11 +450,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="Data\Settings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.4\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.4\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />

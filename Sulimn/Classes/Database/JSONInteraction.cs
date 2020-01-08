@@ -1,11 +1,10 @@
+using Extensions.Encryption;
 using Newtonsoft.Json;
 using Sulimn.Classes.Entities;
 using Sulimn.Classes.HeroParts;
 using Sulimn.Classes.Items;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Xml;
 
 namespace Sulimn.Classes.Database
 {
@@ -50,49 +49,46 @@ namespace Sulimn.Classes.Database
         #region Settings
 
         /// <summary>Loads the game's <see cref="Settings"/> from disk.</summary>
-        /// <returns>Game Settings</returns>
+        /// <returns>Game <see cref="Settings"/></returns>
         internal static Settings LoadSettings()
         {
-            string settingsLocation = Path.Combine(DataFolderLocation, "Settings.xml");
+            string settingsLocation = Path.Combine(AppData.Location, "settings.json");
             Settings newSettings = new Settings("", "");
-            XmlDocument xmlDoc = new XmlDocument { XmlResolver = null };
-
             if (File.Exists(settingsLocation))
             {
                 try
                 {
-                    xmlDoc.Load(settingsLocation);
-                    foreach (XmlNode xn in xmlDoc.SelectNodes("/Settings"))
-                    {
-                        newSettings.AdminPassword = xn["AdminPassword"]?.InnerText;
-                        newSettings.Theme = xn["Theme"]?.InnerText;
-                    }
+                    newSettings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsLocation));
                 }
-                catch (XmlException e)
+                catch (JsonException ex)
                 {
-                    GameState.DisplayNotification($"Error loading settings: {e.Message}.", "Sulimn");
+                    GameState.DisplayNotification($"Error loading settings: {ex.Message}. Reverting to default.", "Sulimn");
+                    SetDefaultSettings(ref newSettings);
                 }
             }
+            else
+                SetDefaultSettings(ref newSettings);
+
             return newSettings;
+        }
+
+        /// <summary>If no <see cref="Settings"/> found, sets the default and writes to disk .</summary>
+        /// <param name="settings">Reference to <see cref="Settings"/> to be set and written to disk</param>
+        private static void SetDefaultSettings(ref Settings settings)
+        {
+            settings.AdminPassword = Argon2.HashPassword("admin");
+            settings.Theme = "Grey";
+            WriteSettings(settings);
         }
 
         /// <summary>Writes the current <see cref="Settings"/> to file.</summary>
         /// <param name="settings">Current <see cref="Settings"/></param>
         internal static void WriteSettings(Settings settings)
         {
-            string location = Path.Combine(DataFolderLocation, "Settings.xml");
-            using (XmlTextWriter writer = new XmlTextWriter(location, Encoding.UTF8))
-            {
-                writer.Formatting = System.Xml.Formatting.Indented;
-                writer.Indentation = 4;
-
-                writer.WriteStartDocument();
-
-                writer.WriteStartElement("Settings");
-                writer.WriteElementString("AdminPassword", settings.AdminPassword);
-                writer.WriteElementString("Theme", settings.Theme);
-                writer.WriteEndDocument();
-            }
+            string settingsLocation = Path.Combine(AppData.Location, "settings.json");
+            if (!Directory.Exists(AppData.Location))
+                Directory.CreateDirectory(AppData.Location);
+            File.WriteAllText(settingsLocation, JsonConvert.SerializeObject(settings, Newtonsoft.Json.Formatting.Indented));
         }
 
         #endregion Settings

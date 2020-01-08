@@ -112,9 +112,11 @@ namespace Sulimn.Classes
         {
             if (!Directory.Exists(AppData.Location))
                 Directory.CreateDirectory(AppData.Location);
-            string zipLocation = Path.Combine(AppData.Location, "Data.zip");
-            if (!Directory.Exists(Path.Combine(AppData.Location, "Data")))
+
+            string DataFolderLocation = Path.Combine(AppData.Location, "Data");
+            if (!Directory.Exists(DataFolderLocation) || Directory.GetFiles(DataFolderLocation).Length == 0)
             {
+                string zipLocation = Path.Combine(AppData.Location, "Data.zip");
                 File.WriteAllBytes(zipLocation, Properties.Resources.Data);
                 using (ZipArchive archive = new ZipArchive(File.Open(zipLocation, FileMode.Open)))
                     archive.ExtractToDirectory(AppData.Location, true);
