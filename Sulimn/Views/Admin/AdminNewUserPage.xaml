@@ -7,14 +7,14 @@
       Style="{StaticResource PageStyle}"
       Loaded="AdminNewUserPage_OnLoaded"
       Title="NewUserPage">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TabControl Height="500" Width="750">
             <TabItem Header="Details">
-                <Grid Margin="10">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -38,7 +38,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Character">
-                <Grid Margin="10">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -67,7 +67,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Attributes">
-                <Grid Margin="10">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -108,7 +108,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Inventory">
-                <Grid Margin="10">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -126,7 +126,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Equipment">
-                <Grid Margin="10">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />

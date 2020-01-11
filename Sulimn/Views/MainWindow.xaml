@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Style="{StaticResource WindowStyle}"
-        Title="{Binding Path=Content.Title, ElementName=MainFrame}"
+        Title="{Binding Content.Title, ElementName=MainFrame}"
         WindowState="Maximized"
         Loaded="WindowMain_Loaded">
     <DockPanel LastChildFill="True">

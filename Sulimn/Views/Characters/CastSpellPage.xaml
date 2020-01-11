@@ -6,7 +6,7 @@
       mc:Ignorable="d"
       Style="{StaticResource PageStyle}"
       Title="Cast Spell">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -18,16 +18,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListBox x:Name="LstSpells" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="290" Height="200" ItemsSource="{Binding}" SelectionChanged="LstSpells_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,10,10" />
-        <TextBlock x:Name="LblHealth" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,10" />
-        <TextBlock x:Name="LblMagic" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,10" />
-        <Button x:Name="BtnCastSpell" Grid.Column="0" Grid.Row="3" Width="140" Content="_Cast Spell" Click="BtnCastSpell_Click" IsEnabled="False" IsDefault="True" Margin="0,0,10,0" />
-        <Button x:Name="BtnBack" Grid.Column="1" Grid.Row="3" Width="140" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="0,0,10,0" />
-        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Width="275" Margin="5">
-            <TextBlock Width="260" Height="110" TextWrapping="Wrap" Text="{Binding Path=Description, Mode=TwoWay}" Margin="0,0,0,10" />
-            <TextBlock Text="{Binding Path=MagicCostToString, Mode=OneWay}" Margin="0,0,0,10" />
-            <TextBlock Text="{Binding Path=TypeToString, Mode=OneWay}" Margin="0,0,0,10" />
-            <TextBlock Text="{Binding Path=TypeAmount, Mode=OneWay}" />
+        <ListBox x:Name="LstSpells" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="410" Height="300" ItemsSource="{Binding}" SelectionChanged="LstSpells_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,10,10" />
+        <TextBlock x:Name="LblHealth" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding HealthToStringWithText}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,10" />
+        <TextBlock x:Name="LblMagic" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding MagicToStringWithText}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,10" />
+        <Button x:Name="BtnCastSpell" Grid.Column="0" Grid.Row="3" Width="200" Content="_Cast Spell" Click="BtnCastSpell_Click" IsEnabled="False" IsDefault="True" Margin="0,0,10,0" />
+        <Button x:Name="BtnBack" Grid.Column="1" Grid.Row="3" Width="200" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="0,0,10,0" />
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Width="400" Margin="5">
+            <TextBlock Width="260" Height="110" TextWrapping="Wrap" Text="{Binding Description}" Margin="0,0,0,10" />
+            <TextBlock Text="{Binding MagicCostToString}" Margin="0,0,0,10" />
+            <TextBlock Text="{Binding TypeToString}" Margin="0,0,0,10" />
+            <TextBlock Text="{Binding TypeAmount}" />
         </StackPanel>
     </Grid>
 </Page>

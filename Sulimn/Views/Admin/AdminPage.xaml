@@ -6,7 +6,7 @@
       mc:Ignorable="d"
       Style="{StaticResource PageStyle}"
       Title="Admin">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />

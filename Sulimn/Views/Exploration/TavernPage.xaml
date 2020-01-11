@@ -6,7 +6,7 @@
       mc:Ignorable="d"
       Style="{StaticResource PageStyle}"
       Title="Tavern">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -16,10 +16,10 @@
             <RowDefinition Height="210" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtTavern" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="440"
+        <TextBox x:Name="TxtTavern" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Width="620"
                  Text="You enter a local tavern. Several patrons are in the tavern, enjoying a drink. There is a bar at the north end of the room, and an open doorway beside it leads to a backroom gambling venue." Margin="0,0,0,10" IsReadOnly="True" TextWrapping="Wrap" />
-        <Button x:Name="BtnBlackjack" Grid.Column="0" Grid.Row="1" Width="140" Content="_Blackjack" Click="BtnBlackjack_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnDrink" Grid.Column="1" Grid.Row="1" Width="140" Content="Buy _Drink" Click="BtnFood_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnExit" Grid.Column="2" Grid.Row="1" Width="140" Content="_Exit" Click="BtnExit_Click" IsCancel="True" />
+        <Button x:Name="BtnBlackjack" Grid.Column="0" Grid.Row="1" Width="200" Content="_Blackjack" Click="BtnBlackjack_Click" Margin="0,0,10,0" />
+        <Button x:Name="BtnDrink" Grid.Column="1" Grid.Row="1" Width="200" Content="Buy _Drink" Click="BtnFood_Click" Margin="0,0,10,0" />
+        <Button x:Name="BtnExit" Grid.Column="2" Grid.Row="1" Width="200" Content="_Exit" Click="BtnExit_Click" IsCancel="True" />
     </Grid>
 </Page>

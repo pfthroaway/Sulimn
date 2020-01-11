@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="ManageUsersPage_OnLoaded"
       Title="Manage Users">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />

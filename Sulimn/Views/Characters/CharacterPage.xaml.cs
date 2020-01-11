@@ -5,6 +5,7 @@ using Sulimn.Classes.HeroParts;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Sulimn.Views.Characters
 {
@@ -64,12 +65,9 @@ namespace Sulimn.Views.Characters
         internal void BindLabels()
         {
             DataContext = GameState.CurrentHero;
-            LblStrength.DataContext = GameState.CurrentHero;
-            LblVitality.DataContext = GameState.CurrentHero;
-            LblDexterity.DataContext = GameState.CurrentHero;
-            LblWisdom.DataContext = GameState.CurrentHero;
             LblHealth.DataContext = GameState.CurrentHero.Statistics;
             LblMagic.DataContext = GameState.CurrentHero.Statistics;
+            LblWeight.Foreground = GameState.CurrentHero.Overweight ? Brushes.Red : new SolidColorBrush(Color.FromRgb(204, 204, 204));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

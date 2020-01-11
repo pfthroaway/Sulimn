@@ -18,6 +18,10 @@ namespace Sulimn.Views.Shopping
 
         private void BtnSilverEmpire_Click(object sender, RoutedEventArgs e) => GameState.Navigate(new SilverEmpirePage());
 
+        private void BtnSmithy_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
         private void BtnBack_Click(object sender, RoutedEventArgs e) => GameState.GoBack();
 
         #endregion Button-Click Methods

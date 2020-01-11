@@ -6,7 +6,7 @@
       mc:Ignorable="d"
       Style="{StaticResource PageStyle}"
       Title="Sulimn - Login">
-    <Grid Margin="50">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -19,10 +19,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Hero Name:" TextAlignment="Center" Margin="0,0,0,5" />
-        <TextBox x:Name="TxtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="300" TextChanged="TxtHeroName_TextChanged" PreviewKeyDown="TxtHeroName_PreviewKeyDown" GotFocus="TxtHeroName_GotFocus" Margin="0,0,0,10" />
+        <TextBox x:Name="TxtHeroName" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="410" TextChanged="TxtHeroName_TextChanged" PreviewKeyDown="TxtHeroName_PreviewKeyDown" GotFocus="TxtHeroName_GotFocus" Margin="0,0,0,10" />
         <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="Password:" TextAlignment="Center" Margin="0,0,0,5" />
-        <PasswordBox x:Name="PswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="300" PasswordChanged="PswdPassword_TextChanged" GotFocus="PswdPassword_GotFocus" Margin="0,0,0,20" />
-        <Button x:Name="BtnLogin" Grid.Column="0" Grid.Row="4" Width="145" Content="_Login" Click="BtnLogin_Click" IsDefault="True" IsEnabled="False" Margin="0,0,10,0" />
-        <Button x:Name="BtnNewHero" Grid.Column="1" Grid.Row="4" Width="145" Content="_New Hero" Click="BtnNewHero_Click" />
+        <PasswordBox x:Name="PswdPassword" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="410" PasswordChanged="PswdPassword_TextChanged" GotFocus="PswdPassword_GotFocus" Margin="0,0,0,20" />
+        <Button x:Name="BtnLogin" Grid.Column="0" Grid.Row="4" Width="200" Content="_Login" Click="BtnLogin_Click" IsDefault="True" IsEnabled="False" Margin="0,0,10,0" />
+        <Button x:Name="BtnNewHero" Grid.Column="1" Grid.Row="4" Width="200" Content="_New Hero" Click="BtnNewHero_Click" />
     </Grid>
 </Page>

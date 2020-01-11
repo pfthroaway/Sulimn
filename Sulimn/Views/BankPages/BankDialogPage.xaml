@@ -6,7 +6,7 @@
       mc:Ignorable="d"
       Style="{StaticResource PageStyle}"
       Title="Bank">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -16,9 +16,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="350" Height="100" Text="{Binding DialogText}" TextWrapping="Wrap" Margin="0,0,0,10" />
-        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="TxtBank" Width="140" MaxLength="6" TextAlignment="Center" PreviewKeyDown="TxtBank_PreviewKeyDown" GotFocus="TxtBank_GotFocus" TextChanged="TxtBank_TextChanged" Margin="0,0,0,20" />
-        <Button x:Name="BtnAction" Grid.Column="0" Grid.Row="2" Width="140" Click="BtnAction_Click" IsDefault="True" IsEnabled="False" />
-        <Button x:Name="BtnCancel" Grid.Column="1" Grid.Row="2" Width="140" IsCancel="True" Content="_Cancel" Click="BtnCancel_Click" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="500" Height="200" Text="{Binding DialogText}" TextWrapping="Wrap" Margin="0,0,0,10" />
+        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="TxtBank" Width="200" MaxLength="6" TextAlignment="Center" PreviewKeyDown="TxtBank_PreviewKeyDown" GotFocus="TxtBank_GotFocus" TextChanged="TxtBank_TextChanged" Margin="0,0,0,20" />
+        <Button x:Name="BtnAction" Grid.Column="0" Grid.Row="2" Width="200" Click="BtnAction_Click" IsDefault="True" IsEnabled="False" />
+        <Button x:Name="BtnCancel" Grid.Column="1" Grid.Row="2" Width="200" IsCancel="True" Content="_Cancel" Click="BtnCancel_Click" />
     </Grid>
 </Page>

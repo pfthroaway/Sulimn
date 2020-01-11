@@ -6,49 +6,49 @@
       mc:Ignorable="d"
       Style="{StaticResource PageStyle}"
       Title="Bank">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="145" />
-            <ColumnDefinition Width="145" />
-            <ColumnDefinition Width="145" />
-            <ColumnDefinition Width="145" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="65" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtBank" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Height="190" IsReadOnly="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
-        <Button x:Name="BtnDeposit" Grid.Column="2" Grid.Row="1" Width="135" Content="_Deposit" Click="BtnDeposit_Click" />
-        <Button x:Name="BtnTakeLoan" Grid.Column="3" Grid.Row="1" Width="135" Content="_Take Out Loan" Click="BtnTakeLoan_Click" />
-        <Button x:Name="BtnWithdraw" Grid.Column="2" Width="135" Grid.Row="2" Content="_Withdraw" Click="BtnWithdraw_Click" />
-        <Button x:Name="BtnRepayLoan" Grid.Column="3" Width="135" Grid.Row="2" Content="_Repay Loan" Click="BtnRepayLoan_Click" />
-        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Width="135" Content="_Back" Click="BtnBack_Click" IsCancel="True" />
+        <TextBox x:Name="TxtBank" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Height="275" Width="853" IsReadOnly="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,0,10" />
+        <Button x:Name="BtnDeposit" Grid.Column="2" Grid.Row="1" Width="200" Content="_Deposit" Click="BtnDeposit_Click" Margin="0,0,20,0" />
+        <Button x:Name="BtnTakeLoan" Grid.Column="3" Grid.Row="1" Width="200" Content="_Take Out Loan" Click="BtnTakeLoan_Click" />
+        <Button x:Name="BtnWithdraw" Grid.Column="2" Width="200" Grid.Row="2" Content="_Withdraw" Click="BtnWithdraw_Click" Margin="0,0,20,0" />
+        <Button x:Name="BtnRepayLoan" Grid.Column="3" Width="200" Grid.Row="2" Content="_Repay Loan" Click="BtnRepayLoan_Click" />
+        <Button x:Name="BtnBack" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Content="_Back" Click="BtnBack_Click" IsCancel="True" />
         <Border Grid.Column="0" Grid.Row="1" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
-            <TextBlock Text="Gold On Hand" VerticalAlignment="Center" TextAlignment="Center" />
+            <TextBlock Text="Gold On Hand" Width="250" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
-        <Border Grid.Column="1" Grid.Row="1" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
-            <TextBlock x:Name="LblGoldOnHand" Text="{Binding Path=GoldToString, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" />
+        <Border Grid.Column="1" Grid.Row="1" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,20,0">
+            <TextBlock x:Name="LblGoldOnHand" Width="150" Text="{Binding GoldToString}" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="0" Grid.Row="2" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
             <TextBlock Text="Gold In Bank" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
-        <Border Grid.Column="1" Grid.Row="2" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
-            <TextBlock x:Name="GoldBank" Text="{Binding Path=GoldInBankToString, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" />
+        <Border Grid.Column="1" Grid.Row="2" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,20,0">
+            <TextBlock x:Name="GoldBank" Text="{Binding GoldInBankToString}" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="0" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,0,0" Margin="10,0,0,0">
             <TextBlock Text="Available Loan" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
-        <Border Grid.Column="1" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,5,0">
-            <TextBlock x:Name="LblAvailable" Text="{Binding Path=LoanAvailableToString, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" />
+        <Border Grid.Column="1" Grid.Row="3" BorderBrush="#BDC7C1" BorderThickness="1,1,1,0" Margin="0,0,20,0">
+            <TextBlock x:Name="LblAvailable" Text="{Binding LoanAvailableToString}" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
         <Border Grid.Column="0" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,0,1" Margin="10,0,0,0">
             <TextBlock Text="Loan Owed" VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
-        <Border Grid.Column="1" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,1,1" Margin="0,0,5,0">
-            <TextBlock x:Name="LblLoanOwed" Text="{Binding Path=LoanTakenToString, Mode=OneWay}"
+        <Border Grid.Column="1" Grid.Row="4" BorderBrush="#BDC7C1" BorderThickness="1,1,1,1" Margin="0,0,20,0">
+            <TextBlock x:Name="LblLoanOwed" Text="{Binding LoanTakenToString}"
                        VerticalAlignment="Center" TextAlignment="Center" />
         </Border>
     </Grid>

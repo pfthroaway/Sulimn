@@ -6,7 +6,7 @@
  mc:Ignorable="d"
 Style="{StaticResource PageStyle}"
  Title="Encounter">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>

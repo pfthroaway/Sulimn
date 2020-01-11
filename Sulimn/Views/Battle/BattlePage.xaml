@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="BattlePage_OnLoaded"
       Title="Battle">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -24,32 +24,32 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border BorderThickness="1,1,1,0" Grid.Column="0" Grid.Row="0">
-            <TextBlock x:Name="LblCharName" Margin="5" TextAlignment="Center" Text="{Binding Path=Name, Mode=TwoWay}"
+            <TextBlock x:Name="LblCharName" Margin="5" TextAlignment="Center" Text="{Binding Name}"
                        Width="225" />
         </Border>
         <Border BorderThickness="1,1,1,0" Grid.Column="0" Grid.Row="1">
             <TextBlock x:Name="LblCharHealth" Margin="5" TextAlignment="Center"
-                       Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" Width="225" />
+                       Text="{Binding HealthToStringWithText}" Width="225" />
         </Border>
         <Border BorderThickness="1,1,1,0" Grid.Column="0" Grid.Row="2">
             <TextBlock x:Name="LblCharMagic" Margin="5" TextAlignment="Center"
-                       Text="{Binding Path=MagicToStringWithText, Mode=OneWay}" Width="225" />
+                       Text="{Binding MagicToStringWithText}" Width="225" />
         </Border>
         <Border Grid.Column="0" Grid.Row="3" BorderThickness="1">
             <TextBlock x:Name="LblShield" Margin="5" TextAlignment="Center"
-                       Text="{Binding Path=HeroShieldToString, Mode=OneWay}" Width="225" />
+                       Text="{Binding HeroShieldToString}" Width="225" />
         </Border>
         <Border BorderThickness="1,1,1,0" Grid.Column="2" Grid.Row="0">
-            <TextBlock x:Name="LblEnemyName" Margin="5" TextAlignment="Center" Text="{Binding Path=Name, Mode=TwoWay}"
+            <TextBlock x:Name="LblEnemyName" Margin="5" TextAlignment="Center" Text="{Binding Name}"
                        Width="225" />
         </Border>
         <Border Grid.Column="2" Grid.Row="1" BorderThickness="1">
             <TextBlock x:Name="LblEnemyHealth" Margin="5" TextAlignment="Center"
-                       Text="{Binding Path=HealthToStringWithText, Mode=OneWay}" Width="225" />
+                       Text="{Binding HealthToStringWithText}" Width="225" />
         </Border>
-        <Button x:Name="BtnCharacter" Grid.Column="0" Grid.Row="4" Width="150" Content="C_haracter" Click="BtnCharDetails_Click" Margin="0,0,0,10" />
-        <Button x:Name="BtnEnemyDetails" Grid.Column="2" Grid.Row="4" Content="_Enemy Details" Width="150" Click="BtnEnemyDetails_Click" Margin="0,0,0,10" />
-        <TextBox x:Name="TxtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="750" Height="190" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
+        <Button x:Name="BtnCharacter" Grid.Column="0" Grid.Row="4" Width="225" Content="C_haracter" Click="BtnCharDetails_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnEnemyDetails" Grid.Column="2" Grid.Row="4" Content="_Enemy Details" Width="225" Click="BtnEnemyDetails_Click" Margin="0,0,0,10" />
+        <TextBox x:Name="TxtBattle" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Width="1000" Height="300" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
         <GroupBox Grid.Column="0" Grid.Row="6" Header="Battle Actions" Margin="0,0,0,10" Padding="10">
             <Grid>
                 <Grid.RowDefinitions>
@@ -58,9 +58,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="LblWeapon" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"
-                           Text="{Binding Path=Name, Mode=OneWay}" Margin="0,0,0,10" />
-                <Button x:Name="BtnAttack" Grid.Row="1" Width="150" Content="_Attack" Click="BtnAttack_Click" IsDefault="True" Margin="0,0,0,10" />
-                <Button x:Name="BtnFlee" Grid.Row="2" Width="150" Content="_Flee" Click="BtnFlee_Click" />
+                           Text="{Binding Name}" Margin="0,0,0,10" />
+                <Button x:Name="BtnAttack" Grid.Row="1" Width="225" Content="_Attack" Click="BtnAttack_Click" IsDefault="True" Margin="0,0,0,10" />
+                <Button x:Name="BtnFlee" Grid.Row="2" Width="225" Content="_Flee" Click="BtnFlee_Click" />
             </Grid>
         </GroupBox>
         <GroupBox Grid.Column="2" Grid.Row="6" Header="Magic" Margin="0,0,0,10" Padding="10">
@@ -71,11 +71,11 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="LblSpell" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"
-                       Text="{Binding Path=Name, Mode=OneWay}" Margin="0,0,0,10" />
-                <Button x:Name="BtnCastSpell" Grid.Row="1" Width="150" Content="_Cast Spell" Click="BtnCastSpell_Click" IsEnabled="False" Margin="0,0,0,10" />
-                <Button x:Name="BtnChooseSpell" Grid.Row="2" Width="150" Content="Choose _Spell" Click="BtnChooseSpell_Click" />
+                       Text="{Binding Name}" Margin="0,0,0,10" />
+                <Button x:Name="BtnCastSpell" Grid.Row="1" Width="225" Content="_Cast Spell" Click="BtnCastSpell_Click" IsEnabled="False" Margin="0,0,0,10" />
+                <Button x:Name="BtnChooseSpell" Grid.Row="2" Width="225" Content="Choose _Spell" Click="BtnChooseSpell_Click" />
             </Grid>
         </GroupBox>
-        <Button x:Name="BtnReturn" Grid.Column="1" Grid.Row="7" Width="125" Content="_Return" Click="BtnReturn_Click" IsEnabled="False" IsCancel="True" />
+        <Button x:Name="BtnReturn" Grid.Column="1" Grid.Row="7" Width="225" Content="_Return" Click="BtnReturn_Click" IsEnabled="False" IsCancel="True" />
     </Grid>
 </Page>

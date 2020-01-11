@@ -7,21 +7,23 @@
       Background="#2F3136"
       Style="{StaticResource PageStyle}"
       Loaded="Page_Loaded"
+      Width="1900"
+      Height="50"
       Title="Sulimn - Stats">
     <Grid Margin="25,3">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,40,0" />
-        <TextBlock x:Name="LblHealth" Grid.Column="1" Text="{Binding HealthToStringWithText}" Margin="0,0,40,0" />
-        <TextBlock x:Name="LblMagic" Grid.Column="2" Text="{Binding MagicToStringWithText}" Margin="0,0,40,0" />
-        <TextBlock Grid.Column="3" Text="{Binding LevelAndClassToString}" Margin="0,0,40,0" />
-        <TextBlock Grid.Column="4" Text="{Binding ExperienceToStringWithText}" Margin="0,0,40,0" />
-        <TextBlock Grid.Column="5" Text="{Binding GoldToStringWithText}" />
+        <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Center" />
+        <TextBlock x:Name="LblHealth" Grid.Column="1" Text="{Binding HealthToStringWithText}" HorizontalAlignment="Center" />
+        <TextBlock x:Name="LblMagic" Grid.Column="2" Text="{Binding MagicToStringWithText}" HorizontalAlignment="Center" />
+        <TextBlock Grid.Column="3" Text="{Binding LevelAndClassToString}" HorizontalAlignment="Center" />
+        <TextBlock Grid.Column="4" Text="{Binding ExperienceToStringWithText}" HorizontalAlignment="Center" />
+        <TextBlock Grid.Column="5" Text="{Binding GoldToStringWithText}" HorizontalAlignment="Center" />
     </Grid>
 </Page>

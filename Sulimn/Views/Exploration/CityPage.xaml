@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="CityPage_OnLoaded"
       Title="City of Sulimn">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -15,18 +15,18 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="370" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="TxtCity" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="350" Width="590" TextWrapping="Wrap" TextAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,10" />
-        <Button x:Name="BtnExplore" Grid.Column="0" Grid.Row="1" Width="140" Content="_Explore" Click="BtnExplore_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnCharacter" Grid.Column="1" Grid.Row="1" Width="140" Content="_Character" Click="BtnCharacter_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnTavern" Grid.Column="2" Grid.Row="1" Width="140" Content="_Tavern" Click="BtnTavern_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnMarket" Grid.Column="3" Grid.Row="1" Width="140" Content="_Market" Click="BtnMarket_Click" Margin="0,0,0,10" />
-        <Button x:Name="BtnBank" Grid.Column="0" Grid.Row="2" Width="140" Content="_Bank" Click="BtnBank_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnChapel" Grid.Column="1" Grid.Row="2" Width="140" Content="C_hapel" Click="BtnChapel_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnOptions" Grid.Column="2" Grid.Row="2" Width="140" Content="_Options" Click="BtnOptions_Click" Margin="0,0,10,0" />
-        <Button x:Name="BtnExit" Grid.Column="3" Grid.Row="2" Width="140" Content="E_xit" Click="BtnExit_Click" IsCancel="True" />
+        <TextBox x:Name="TxtCity" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Height="500" Width="830" TextWrapping="Wrap" TextAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0,0,0,20" />
+        <Button x:Name="BtnExplore" Grid.Column="0" Grid.Row="1" Width="200" Content="_Explore" Click="BtnExplore_Click" Margin="0,0,10,10" />
+        <Button x:Name="BtnCharacter" Grid.Column="1" Grid.Row="1" Width="200" Content="_Character" Click="BtnCharacter_Click" Margin="0,0,10,10" />
+        <Button x:Name="BtnTavern" Grid.Column="2" Grid.Row="1" Width="200" Content="_Tavern" Click="BtnTavern_Click" Margin="0,0,10,10" />
+        <Button x:Name="BtnMarket" Grid.Column="3" Grid.Row="1" Width="200" Content="_Market" Click="BtnMarket_Click" Margin="0,0,0,10" />
+        <Button x:Name="BtnBank" Grid.Column="0" Grid.Row="2" Width="200" Content="_Bank" Click="BtnBank_Click" Margin="0,0,10,0" />
+        <Button x:Name="BtnChapel" Grid.Column="1" Grid.Row="2" Width="200" Content="C_hapel" Click="BtnChapel_Click" Margin="0,0,10,0" />
+        <Button x:Name="BtnOptions" Grid.Column="2" Grid.Row="2" Width="200" Content="_Options" Click="BtnOptions_Click" Margin="0,0,10,0" />
+        <Button x:Name="BtnExit" Grid.Column="3" Grid.Row="2" Width="200" Content="E_xit" Click="BtnExit_Click" IsCancel="True" />
     </Grid>
 </Page>

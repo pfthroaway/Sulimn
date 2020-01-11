@@ -7,7 +7,7 @@
       Style="{StaticResource PageStyle}"
       Loaded="TheTavernBarPage_OnLoaded"
       Title="The Tavern Bar">
-    <Grid Margin="10">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -22,7 +22,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TabControl Grid.Row="0" x:Name="TabControl" HorizontalAlignment="Left" Width="736" Margin="10"
+                    <TabControl Grid.Row="0" x:Name="TabControl" HorizontalAlignment="Left" Width="900" Margin="10"
                                 VerticalAlignment="Top">
                         <TabItem Header="Purchase" Padding="6,2">
                             <Grid>
@@ -32,23 +32,23 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <ListBox x:Name="LstFoodPurchase" VerticalAlignment="Top"
-                                             HorizontalAlignment="Left" Width="277" Height="277"
+                                             HorizontalAlignment="Left" Width="400" Height="400"
                                              ItemsSource="{Binding}"
                                              Margin="10" SelectionChanged="LstFoodPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnFoodPurchase" Width="125" Content="_Purchase" Click="BtnFoodPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
+                                    <Button x:Name="BtnFoodPurchase" Width="200" Content="_Purchase" Click="BtnFoodPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Food" Margin="0,0,10,10">
                                     <StackPanel>
-                                        <TextBlock x:Name="LblFoodNamePurchase" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblFoodTypeAmountPurchase" Text="{Binding Path=RestoreHealthToString}"
+                                        <TextBlock x:Name="LblFoodNamePurchase" Text="{Binding Name}" Margin="5" />
+                                        <TextBlock x:Name="LblFoodTypeAmountPurchase" Text="{Binding RestoreHealthToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblFoodValuePurchase"
-                                                   Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                                   Text="{Binding ValueToStringWithText}" Margin="5" />
                                         <TextBlock x:Name="LblFoodSellablePurchase"
-                                                   Text="{Binding Path=CanSellToString}" Margin="5" />
+                                                   Text="{Binding CanSellToString}" Margin="5" />
                                         <TextBlock x:Name="LblFoodDescriptionPurchase" Height="67"
-                                                   Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                                   Text="{Binding Description}" TextWrapping="Wrap" Margin="5" />
                                     </StackPanel>
                                 </GroupBox>
                             </Grid>
@@ -56,25 +56,25 @@
                         <TabItem Header="Sell" Padding="6,2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="297" />
+                                    <ColumnDefinition Width="350" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <ListBox x:Name="LstFoodSell" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                             Width="277" Height="277" SelectionChanged="LstFoodSell_SelectionChanged"
+                                             Width="400" Height="400" SelectionChanged="LstFoodSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnFoodSell" Width="125" Content="_Sell" Click="BtnFoodSell_Click" IsEnabled="False" Margin="0,0,0,10" />
+                                    <Button x:Name="BtnFoodSell" Width="200" Content="_Sell" Click="BtnFoodSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
-                                        <TextBlock x:Name="LblFoodNameSell" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblFoodTypeAmountSell" Text="{Binding Path=RestoreHealthToString}"
+                                        <TextBlock x:Name="LblFoodNameSell" Text="{Binding Name}" Margin="5" />
+                                        <TextBlock x:Name="LblFoodTypeAmountSell" Text="{Binding RestoreHealthToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblFoodValueSell"
-                                                   Text="{Binding Path=SellValueToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="LblFoodSellableSell" Text="{Binding Path=CanSellToString}"
+                                                   Text="{Binding SellValueToStringWithText}" Margin="5" />
+                                        <TextBlock x:Name="LblFoodSellableSell" Text="{Binding CanSellToString}"
                                                    Margin="5" />
-                                        <TextBlock x:Name="LblFoodDescriptionSell" Text="{Binding Path=Description}"
+                                        <TextBlock x:Name="LblFoodDescriptionSell" Text="{Binding Description}"
                                                    Height="67" TextWrapping="Wrap" Margin="5" />
                                     </StackPanel>
                                 </GroupBox>
@@ -90,7 +90,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TabControl Grid.Row="0" HorizontalAlignment="Left" Width="736" Margin="10" VerticalAlignment="Top">
+                    <TabControl Grid.Row="0" HorizontalAlignment="Left" Width="900" Margin="10" VerticalAlignment="Top">
                         <TabItem Header="Purchase" Padding="6,2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -99,23 +99,23 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <ListBox x:Name="LstDrinkPurchase" VerticalAlignment="Top"
-                                             HorizontalAlignment="Left" Width="277" Height="277"
+                                             HorizontalAlignment="Left" Width="400" Height="400"
                                              ItemsSource="{Binding}"
                                              Margin="10" SelectionChanged="LstDrinkPurchase_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" />
-                                    <Button x:Name="BtnDrinkPurchase" Width="125" Content="_Purchase" Click="BtnDrinkPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
+                                    <Button x:Name="BtnDrinkPurchase" Width="200" Content="_Purchase" Click="BtnDrinkPurchase_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Drink" Margin="0,0,10,10">
                                     <StackPanel>
-                                        <TextBlock x:Name="LblDrinkNamePurchase" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblDrinkTypeAmountPurchase" Text="{Binding Path=RestoreMagicToString}"
+                                        <TextBlock x:Name="LblDrinkNamePurchase" Text="{Binding Name}" Margin="5" />
+                                        <TextBlock x:Name="LblDrinkTypeAmountPurchase" Text="{Binding RestoreMagicToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblDrinkValuePurchase"
-                                                   Text="{Binding Path=ValueToStringWithText}" Margin="5" />
+                                                   Text="{Binding ValueToStringWithText}" Margin="5" />
                                         <TextBlock x:Name="LblDrinkSellablePurchase"
-                                                   Text="{Binding Path=CanSellToString}" Margin="5" />
+                                                   Text="{Binding CanSellToString}" Margin="5" />
                                         <TextBlock x:Name="LblDrinkDescriptionPurchase" Height="67"
-                                                   Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" />
+                                                   Text="{Binding Description}" TextWrapping="Wrap" Margin="5" />
                                     </StackPanel>
                                 </GroupBox>
                             </Grid>
@@ -123,25 +123,25 @@
                         <TabItem Header="Sell" Padding="6,2">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="297" />
+                                    <ColumnDefinition Width="350" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <ListBox x:Name="LstDrinkSell" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                             Width="277" Height="277" SelectionChanged="LstDrinkSell_SelectionChanged"
+                                             Width="400" Height="400" SelectionChanged="LstDrinkSell_SelectionChanged"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
-                                    <Button x:Name="BtnDrinkSell" Width="125" Content="_Sell" Click="BtnDrinkSell_Click" IsEnabled="False" Margin="0,0,0,10" />
+                                    <Button x:Name="BtnDrinkSell" Width="200" Content="_Sell" Click="BtnDrinkSell_Click" IsEnabled="False" Margin="0,0,0,10" />
                                 </StackPanel>
                                 <GroupBox Grid.Column="1" Header="Selected Item" Margin="0,0,10,10">
                                     <StackPanel>
-                                        <TextBlock x:Name="LblDrinkNameSell" Text="{Binding Path=Name}" Margin="5" />
-                                        <TextBlock x:Name="LblDrinkTypeAmountSell" Text="{Binding Path=RestoreMagicToString}"
+                                        <TextBlock x:Name="LblDrinkNameSell" Text="{Binding Name}" Margin="5" />
+                                        <TextBlock x:Name="LblDrinkTypeAmountSell" Text="{Binding RestoreMagicToString}"
                                                    Margin="5" />
                                         <TextBlock x:Name="LblDrinkValueSell"
-                                                   Text="{Binding Path=SellValueToStringWithText}" Margin="5" />
-                                        <TextBlock x:Name="LblDrinkSellableSell" Text="{Binding Path=CanSellToString}"
+                                                   Text="{Binding SellValueToStringWithText}" Margin="5" />
+                                        <TextBlock x:Name="LblDrinkSellableSell" Text="{Binding CanSellToString}"
                                                    Margin="5" />
-                                        <TextBlock x:Name="LblDrinkDescriptionSell" Text="{Binding Path=Description}"
+                                        <TextBlock x:Name="LblDrinkDescriptionSell" Text="{Binding Description}"
                                                    Height="67" TextWrapping="Wrap" Margin="5" />
                                     </StackPanel>
                                 </GroupBox>
@@ -151,13 +151,13 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TextBlock x:Name="LblGold" Grid.Column="0" Grid.Row="1" Text="{Binding Path=GoldToStringWithText}"
+        <TextBlock x:Name="LblGold" Grid.Column="0" Grid.Row="1" Text="{Binding GoldToStringWithText}"
                    TextAlignment="Center" Margin="5" />
-        <TextBox x:Name="TxtTheTavernBar" Grid.Row="2" Height="176" Width="736" IsReadOnly="True" TextWrapping="Wrap"
+        <TextBox x:Name="TxtTheTavernBar" Grid.Row="2" Height="176" Width="900" IsReadOnly="True" TextWrapping="Wrap"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="10" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="BtnCharacter" Width="125" Content="_Character" Click="BtnCharacter_Click" Margin="0,0,10,0" />
-            <Button x:Name="BtnBack" Width="125" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="10,0,0,0" />
+            <Button x:Name="BtnCharacter" Width="200" Content="_Character" Click="BtnCharacter_Click" Margin="0,0,10,0" />
+            <Button x:Name="BtnBack" Width="200" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="10,0,0,0" />
         </StackPanel>
     </Grid>
 </Page>
