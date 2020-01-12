@@ -37,7 +37,7 @@ namespace Sulimn.Classes.Card
         internal int Count => CardList.Count;
 
         /// <summary>Current total value of the <see cref="Hand"/>, with preceding text.</summary>
-        public string Value => $"Total: {TotalValue}";
+        public string Value => TotalValue > 0 ? $"Total: {TotalValue}" : "";
 
         #endregion Helper Properties
 

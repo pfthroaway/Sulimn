@@ -24,7 +24,7 @@
         <Button x:Name="BtnGeneralStore" Grid.Column="2" Grid.Row="1" Width="340" Content="_General Store" Click="BtnGeneralStore_Click" Margin="0,0,0,10" />
         <Button x:Name="BtnMagicShop" Grid.Column="0" Grid.Row="2" Width="340" Content="_Ye Olde Magick Shoppe" Click="BtnMagicShop_Click" Margin="0,0,10,10" />
         <Button x:Name="BtnSilverEmpire" Grid.Column="1" Grid.Row="2" Width="340" Content="_Silver Empire" Click="BtnSilverEmpire_Click" Margin="0,0,10,10" />
-        <Button x:Name="BtnSmithy" Grid.Column="1" Grid.Row="3" Width="340" Content="_Back" Click="BtnSmithy_Click" IsCancel="True" Margin="0,0,0,10" />
+        <Button x:Name="BtnSmithy" Grid.Column="2" Grid.Row="2" Width="340" Content="The S_mithy" Click="BtnSmithy_Click" Margin="0,0,0,10" />
         <Button x:Name="BtnBack" Grid.Column="1" Grid.Row="3" Width="340" Content="_Back" Click="BtnBack_Click" IsCancel="True" Margin="0,0,10,0" />
     </Grid>
 </Page>

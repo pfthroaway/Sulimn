@@ -636,7 +636,7 @@
         </StackPanel>
         <TextBox x:Name="TxtInventory" Grid.Row="2" Height="250" Width="1200" IsReadOnly="True"
                  TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible"   Margin="0,0,0,10" />
-        <Button x:Name="BtnBack" Grid.Row="3" Width="140" Content="_Back" Click="BtnBack_Click"
+        <Button x:Name="BtnBack" Grid.Row="3" Width="200" Content="_Back" Click="BtnBack_Click"
                 IsCancel="True" />
     </Grid>
 </Page>

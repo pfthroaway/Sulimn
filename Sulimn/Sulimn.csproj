@@ -139,6 +139,9 @@
     <Compile Include="Views\Shopping\TheGeneralStorePage.xaml.cs">
       <DependentUpon>TheGeneralStorePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shopping\TheSmithyPage.xaml.cs">
+      <DependentUpon>TheSmithyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shopping\TheTavernBarPage.xaml.cs">
       <DependentUpon>TheTavernBarPage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shopping\TheGeneralStorePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shopping\TheSmithyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

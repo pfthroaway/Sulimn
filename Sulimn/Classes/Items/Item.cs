@@ -325,7 +325,7 @@ namespace Sulimn.Classes.Items
 
         /// <summary>The amount of gold it would cost to repair this <see cref="Item"/>, formatted with preceding text.</summary>
         [JsonIgnore]
-        public string RepairCostToStringWithText => $"Repair Cost: {RepairCostToString}";
+        public string RepairCostToStringWithText => RepairCost > 0 ? $"Repair Cost: {RepairCostToString}" : "";
 
         /// <summary>Returns text relating to the sellability of the <see cref="Item"/>.</summary>
         [JsonIgnore]

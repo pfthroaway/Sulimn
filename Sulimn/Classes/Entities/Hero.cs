@@ -115,7 +115,7 @@ namespace Sulimn.Classes.Entities
 
         /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory, formatted with preceding text.</summary>
         [JsonIgnore]
-        public string InventoryRepairCostToStringWithText => $"Repair Cost: {InventoryRepairCostToString}";
+        public string InventoryRepairCostToStringWithText => InventoryRepairCost > 0 ? $"Repair Cost: {InventoryRepairCostToString}" : "";
 
         /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory and <see cref="Equipment"/>.</summary>
         [JsonIgnore]
@@ -127,7 +127,7 @@ namespace Sulimn.Classes.Entities
 
         /// <summary>The amount of gold it would cost to repair all <see cref="Item"/>s in the inventory and <see cref="Equipment"/>, formatted with preceding text.</summary>
         [JsonIgnore]
-        public string TotalRepairCostToStringWithText => $"Total Repair Cost: {TotalRepairCostToString}";
+        public string TotalRepairCostToStringWithText => TotalRepairCost > 0 ? $"Total Repair Cost: {TotalRepairCostToString}" : "";
 
         /// <summary>Will the player be deleted on death?</summary>
         [JsonIgnore]
