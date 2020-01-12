@@ -16,7 +16,7 @@ namespace Sulimn.Views.Gambling
     /// <summary>Interaction logic for BlackjackPage.xaml</summary>
     public partial class BlackjackPage : INotifyPropertyChanged
     {
-        private Hand MainHand, SplitHand, DealerHand;
+        private Hand MainHand = new Hand(), SplitHand = new Hand(), DealerHand = new Hand();
         private bool _handOver = true;
         private int _index, _mainBet, _splitBet, _sidePot, _totalWins, _totalLosses, _totalDraws, _totalBetWinnings, _totalBetLosses;
 
@@ -156,17 +156,18 @@ namespace Sulimn.Views.Gambling
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Binds information to controls.
-        /// </summary>
+        /// <summary>Binds information to controls.</summary>
         private void BindLabels()
         {
             DataContext = this;
-            LstPlayer.ItemsSource = MainHand.CardList;
-            LstPlayer.Items.Refresh();
+            LstMain.ItemsSource = MainHand.CardList;
+            LstMain.Items.Refresh();
+            LstSplit.ItemsSource = SplitHand.CardList;
+            LstSplit.Items.Refresh();
             LstDealer.ItemsSource = DealerHand.CardList;
             LstDealer.Items.Refresh();
             LblMainTotal.DataContext = MainHand;
+            LblSplitTotal.DataContext = SplitHand;
             LblDealerTotal.DataContext = DealerHand;
             LblGold.DataContext = GameState.CurrentHero;
         }
@@ -174,104 +175,6 @@ namespace Sulimn.Views.Gambling
         protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         #endregion Data-Binding
-
-        #region Check Logic
-
-        /// <summary>Checks whether a Hand has reached Blackjack.</summary>
-        /// <param name="checkHand">Hand to be checked</param>
-        /// <returns>Returns true if the Hand's value is 21.</returns>
-        private static bool CheckBlackjack(Hand checkHand) => checkHand.TotalValue == 21;
-
-        /// <summary>Checks whether the current Hand has gone Bust.</summary>
-        /// <param name="checkHand">Hand to be checked</param>
-        /// <returns>Returns true if Hand has gone Bust.</returns>
-        private static bool CheckBust(Hand checkHand) => !CheckHasAceEleven(checkHand) && checkHand.TotalValue > 21;
-
-        /// <summary>Checks whether the Player can Double Down with Window Hand.</summary>
-        /// <param name="checkHand">Hand to be checked</param>
-        /// <param name="checkSplit">Hand the Hand could be split into</param>
-        /// <returns>Returns true if Hand can Double Down.</returns>
-        private bool CheckCanHandDoubleDown(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0
-            && checkHand.TotalValue >= 9 && checkHand.TotalValue <= 11;
-
-        /// <summary>Checks whether the Player can split a specific Hand.</summary>
-        /// <param name="checkHand">Hand to be checked</param>
-        /// <param name="checkSplit">Hand it could be spilt into</param>
-        /// <returns>Returns true if Hand can be Split.</returns>
-        private bool CheckCanHandSplit(Hand checkHand, Hand checkSplit) => checkHand.CardList.Count == 2 && checkSplit.CardList.Count == 0
-            && checkHand.CardList[0].Value == checkHand.CardList[1].Value;
-
-        /// <summary>Checks whether a Hand has an Ace valued at eleven in it.</summary>
-        /// <param name="checkHand">Hand to be checked</param>
-        /// <returns>Returns true if Hand has an Ace valued at eleven in it.</returns>
-        private static bool CheckHasAceEleven(Hand checkHand) => checkHand.CardList.Any(card => card.Value == 11);
-
-        #endregion Check Logic
-
-        #region Card Management
-
-        /// <summary>Creates a new Hand for both the Player and the Dealer.</summary>
-        private void NewHand()
-        {
-            // make all hands empty.
-            // reset handOver and DoubledDown
-            // make the bet LineEdit uneditable.
-            // Check insurance
-            // disable exit buttons
-            // if current spot in deck is at 20% of total cards, reshuffle
-            // deal cards
-            // check can split
-            // display cards, enable play buttons
-
-            MainHand = new Hand();
-            SplitHand = new Hand();
-            DealerHand = new Hand();
-
-            SplitBet = 0;
-            SidePot = 0;
-
-            MainHandOver = false;
-            SplitHandOver = true;
-
-            TxtBet.IsEnabled = false;
-            TxtInsurance.Text = "";
-            ToggleNewGameExitButtons(true);
-            if (_index >= CardList.Count * 0.8)
-            {
-                _index = 0;
-                CardList.Shuffle();
-            }
-
-            DealCard(MainHand);
-            DealCard(DealerHand);
-            DealCard(MainHand);
-            DealCard(DealerHand, true);
-            if (MainHand.CanSplit())
-                BtnSplit.IsEnabled = true;
-            DisplayHands();
-            CheckWinConditions();
-            ToggleInsurance(!CheckInsurance());
-
-            MainHand = new Hand();
-            DealerHand = new Hand();
-
-            _handOver = false;
-            TxtBet.IsEnabled = false;
-            ToggleNewGameExitButtons(false);
-            if (_index >= CardList.Count * 0.8)
-            {
-                _index = 0;
-                CardList.Shuffle();
-            }
-
-            DealCard(MainHand);
-            DealCard(DealerHand);
-            DealCard(MainHand);
-            DealCard(DealerHand, true);
-            DisplayMainHand();
-        }
-
-        #endregion Card Management
 
         #region Check Logic
 
@@ -285,28 +188,8 @@ namespace Sulimn.Views.Gambling
 
         private void DisplayHands()
         {
-            DisplayMainHand();
-            DisplaySplitHand();
             DisplayDealerHand();
             BindLabels();
-        }
-
-        private void DisplayMainHand()
-        {
-            LblMainTotal.Text = MainHand.TotalValue > 0 ? MainHand.Value : "";
-        }
-
-        private void DisplaySplitHand()
-        {
-            //SplitContainer.Visible = SplitHand.Count > 0;
-            //if (SplitHand.Count > 0)
-            //{
-            //    while (splitHandContainer.GetChildren().Count > 0)
-            //        splitHandContainer.RemoveChild(splitHandContainer.GetChild(0));
-            //    foreach (Card card in SplitHand.CardList)
-            //        splitHandContainer.AddChild(card);
-            //}
-            //LblSplitTotal.Text = SplitHand.TotalValue > 0 ? SplitHand.Value : "";
         }
 
         private void DisplayDealerHand()
@@ -314,7 +197,6 @@ namespace Sulimn.Views.Gambling
             if (MainHandOver && SplitHandOver)
                 DealerHand.ClearHidden();
 
-            BindLabels();
             LblDealerTotal.Text = DealerHand.TotalValue > 0 ? DealerHand.Value : "";
         }
 
@@ -325,43 +207,43 @@ namespace Sulimn.Views.Gambling
         /// <summary>Checks which Buttons should be enabled.</summary>
         private void CheckButtons()
         {
-            ToggleMainHandButtons(MainHand.TotalValue >= 21 || MainHandOver);
+            ToggleMainHandButtons(MainHand.ActualValue < 21 && !MainHandOver);
             BtnConvertAce.IsEnabled = MainHand.HasAceEleven();
-            ToggleSplitHandButtons(SplitHand.TotalValue >= 21 || SplitHandOver);
+            ToggleSplitHandButtons(SplitHand.ActualValue < 21 && !SplitHandOver);
             BtnConvertAceSplit.IsEnabled = SplitHand.HasAceEleven();
         }
 
         /// <summary>Disables all the buttons on the Page except for BtnDealHand.</summary>
         private void DisablePlayButtons()
         {
-            ToggleNewGameExitButtons(false);
-            ToggleMainHandButtons(true);
-            ToggleSplitHandButtons(true);
+            ToggleNewGameExitButtons(true);
+            ToggleMainHandButtons(false);
+            ToggleSplitHandButtons(false);
             BtnConvertAce.IsEnabled = false;
             BtnConvertAceSplit.IsEnabled = false;
         }
 
-        private void ToggleNewGameExitButtons(bool disabled)
+        private void ToggleNewGameExitButtons(bool enabled)
         {
-            BtnDealHand.IsEnabled = disabled;
-            BtnReturn.IsEnabled = disabled;
+            BtnDealHand.IsEnabled = enabled;
+            BtnReturn.IsEnabled = enabled;
         }
 
-        /// <summary>Toggles the Hit and Stay Buttons' Disabled property.</summary>
-        /// <param name="disabled">Should the Buttons be disabled?</param>
-        private void ToggleMainHandButtons(bool disabled)
+        /// <summary>Toggles the Hit and Stay Buttons' IsEnabled property.</summary>
+        /// <param name="enabled">Should the Buttons be enabled?</param>
+        private void ToggleMainHandButtons(bool enabled)
         {
-            BtnHit.IsEnabled = disabled;
-            BtnStay.IsEnabled = disabled;
+            BtnHit.IsEnabled = enabled;
+            BtnStay.IsEnabled = enabled;
             BtnDoubleDown.IsEnabled = MainHand.CanDoubleDown();
         }
 
-        /// <summary>Toggles the Split Hand's Hit and Stay Buttons' Disabled property.</summary>
-        /// <param name="disabled">Should the Buttons be disabled?</param>
-        private void ToggleSplitHandButtons(bool disabled)
+        /// <summary>Toggles the Split Hand's Hit and Stay Buttons' Enabled property.</summary>
+        /// <param name="enabled">Should the Buttons be enabled?</param>
+        private void ToggleSplitHandButtons(bool enabled)
         {
-            BtnHitSplit.IsEnabled = disabled;
-            BtnStaySplit.IsEnabled = disabled;
+            BtnHitSplit.IsEnabled = enabled;
+            BtnStaySplit.IsEnabled = enabled;
             BtnDoubleDownSplit.IsEnabled = SplitHand.CanDoubleDown();
         }
 
@@ -475,10 +357,11 @@ namespace Sulimn.Views.Gambling
 
             MainHandOver = false;
             SplitHandOver = true;
+            PnlSplit.Visibility = Visibility.Hidden;
 
             TxtBet.IsEnabled = false;
             TxtInsurance.Text = "";
-            ToggleNewGameExitButtons(true);
+            ToggleNewGameExitButtons(false);
             if (_index >= CardList.Count * 0.8)
             {
                 _index = 0;
@@ -490,18 +373,18 @@ namespace Sulimn.Views.Gambling
             DealCard(MainHand);
             DealCard(DealerHand, true);
             if (MainHand.CanSplit())
-                BtnSplit.IsEnabled = false;
+                BtnSplit.IsEnabled = true;
             DisplayHands();
             CheckWinConditions();
-            ToggleInsurance(!CheckInsurance());
+            ToggleInsurance(CheckInsurance());
         }
 
         /// <summary>Toggles the Insurance controls.</summary>
-        /// <param name="disabled">Should the controls be disabled?</param>
-        private void ToggleInsurance(bool disabled)
+        /// <param name="enabled">Should the controls be enabled?</param>
+        private void ToggleInsurance(bool enabled)
         {
-            TxtInsurance.IsEnabled = !disabled;
-            BtnInsurance.IsEnabled = disabled;
+            TxtInsurance.IsEnabled = enabled;
+            BtnInsurance.IsEnabled = TxtInsurance.IsEnabled && TxtInsurance.Text.Length > 0;
         }
 
         #endregion Card Management
@@ -557,9 +440,9 @@ namespace Sulimn.Views.Gambling
         {
             if (MainHandOver && SplitHandOver)
             {
-                ToggleMainHandButtons(true);
-                ToggleSplitHandButtons(true);
-                ToggleInsurance(true);
+                ToggleMainHandButtons(false);
+                ToggleSplitHandButtons(false);
+                ToggleInsurance(false);
                 // check whether or not the dealer needs to take any action
                 // I do not recognize the dealer winning with Five Card Charlie, as it's a house rule, anyway. Only the player can win with it.
                 // when I try to merge or invert these if statements, it doesn't work right. VS must not have the right operator precendence.
@@ -575,13 +458,12 @@ namespace Sulimn.Views.Gambling
                 { }
                 else
                     DealerAction();
-                DisplayDealerHand();
 
                 if (MainHand.IsBust())
                     Functions.AddTextToTextBox(TxtBlackjack, "Your main hand busts!" + LoseBlackjack(MainBet));
                 else if (MainHand.HasBlackjack() && MainHand.Count == 2)
                 {
-                    if (DealerHand.TotalValue != 21)
+                    if (DealerHand.ActualValue != 21)
                         Functions.AddTextToTextBox(TxtBlackjack, "Your main hand is a natural blackjack!" + WinBlackjack(Int32Helper.Parse(MainBet * 1.5)));
                     else
                     {
@@ -590,7 +472,7 @@ namespace Sulimn.Views.Gambling
                 }
                 else if (DealerHand.IsBust())
                     Functions.AddTextToTextBox(TxtBlackjack, "Dealer busts!" + WinBlackjack(MainBet));
-                else if (MainHand.HasBlackjack() && (DealerHand.IsBust() || DealerHand.TotalValue < 21))
+                else if (MainHand.HasBlackjack() && (DealerHand.IsBust() || DealerHand.ActualValue < 21))
                     Functions.AddTextToTextBox(TxtBlackjack, "Your main hand is 21!" + WinBlackjack(MainBet));
                 else if (MainHand.HasFiveCardCharlie())
                 {
@@ -601,11 +483,11 @@ namespace Sulimn.Views.Gambling
                     else
                         Functions.AddTextToTextBox(TxtBlackjack, "Your main hand is a Five Card Charlie, but the dealer had a natural blackjack." + DrawBlackjack());
                 }
-                else if (MainHand.TotalValue > DealerHand.TotalValue && !DealerHand.IsBust())
+                else if (MainHand.ActualValue > DealerHand.ActualValue && !DealerHand.IsBust())
                     Functions.AddTextToTextBox(TxtBlackjack, "Your main hand's cards are worth more than the dealer's!" + WinBlackjack(MainBet));
-                else if (MainHand.TotalValue == DealerHand.TotalValue)
+                else if (MainHand.ActualValue == DealerHand.ActualValue)
                     Functions.AddTextToTextBox(TxtBlackjack, "Your main hand's cards are worth the same as the dealer's." + DrawBlackjack());
-                else if (MainHand.TotalValue < DealerHand.TotalValue)
+                else if (MainHand.ActualValue < DealerHand.ActualValue)
                     Functions.AddTextToTextBox(TxtBlackjack, "Your main hand's cards are worth less than the dealer's." + LoseBlackjack(MainBet));
 
                 //check split hand
@@ -615,7 +497,7 @@ namespace Sulimn.Views.Gambling
                         Functions.AddTextToTextBox(TxtBlackjack, "Your split hand busts!" + LoseBlackjack(SplitBet));
                     else if (SplitHand.HasBlackjack() && SplitHand.Count == 2)
                     {
-                        if (DealerHand.TotalValue != 21)
+                        if (DealerHand.ActualValue != 21)
                             Functions.AddTextToTextBox(TxtBlackjack, "Your split hand is a natural blackjack!" + WinBlackjack(Int32Helper.Parse(SplitBet * 1.5)));
                         else
                         {
@@ -624,7 +506,7 @@ namespace Sulimn.Views.Gambling
                     }
                     else if (DealerHand.IsBust())
                         Functions.AddTextToTextBox(TxtBlackjack, "Dealer busts!" + WinBlackjack(SplitBet));
-                    else if (SplitHand.HasBlackjack() && (DealerHand.IsBust() || DealerHand.TotalValue < 21))
+                    else if (SplitHand.HasBlackjack() && (DealerHand.IsBust() || DealerHand.ActualValue < 21))
                         Functions.AddTextToTextBox(TxtBlackjack, "Your split hand is 21!" + WinBlackjack(SplitBet));
                     else if (SplitHand.HasFiveCardCharlie())
                     {
@@ -635,11 +517,11 @@ namespace Sulimn.Views.Gambling
                         else
                             Functions.AddTextToTextBox(TxtBlackjack, "Your split hand is a Five Card Charlie, but the dealer had a natural blackjack." + DrawBlackjack());
                     }
-                    else if (SplitHand.TotalValue > DealerHand.TotalValue && !DealerHand.IsBust())
+                    else if (SplitHand.ActualValue > DealerHand.ActualValue && !DealerHand.IsBust())
                         Functions.AddTextToTextBox(TxtBlackjack, "Your split hand's cards are worth more than the dealer's!" + WinBlackjack(SplitBet));
-                    else if (SplitHand.TotalValue == DealerHand.TotalValue)
+                    else if (SplitHand.ActualValue == DealerHand.ActualValue)
                         Functions.AddTextToTextBox(TxtBlackjack, "Your split hand's cards are worth the same as the dealer's." + DrawBlackjack());
-                    else if (SplitHand.TotalValue < DealerHand.TotalValue)
+                    else if (SplitHand.ActualValue < DealerHand.ActualValue)
                         Functions.AddTextToTextBox(TxtBlackjack, "Your split hand's cards are worth less than the dealer's." + LoseBlackjack(SplitBet));
                 }
 
@@ -651,7 +533,7 @@ namespace Sulimn.Views.Gambling
             }
             else if (!MainHandOver)
             {
-                if (MainHand.HasBlackjack() || MainHand.IsBust() || (MainHand.Count == 5 && (MainHand.TotalValue < 21 || (MainHand.HasAceEleven() && MainHand.TotalValue <= 31))))
+                if (MainHand.HasBlackjack() || MainHand.IsBust() || (MainHand.Count == 5 && (MainHand.ActualValue < 21 || (MainHand.HasAceEleven() && MainHand.ActualValue <= 31))))
                 {
                     MainHandOver = true;
                     CheckWinConditions();
@@ -661,7 +543,7 @@ namespace Sulimn.Views.Gambling
             }
             else if (!SplitHandOver)
             {
-                if (SplitHand.HasBlackjack() || SplitHand.IsBust() || (SplitHand.Count == 5 && (SplitHand.TotalValue < 21 || (SplitHand.HasAceEleven() && SplitHand.TotalValue <= 31))))
+                if (SplitHand.HasBlackjack() || SplitHand.IsBust() || (SplitHand.Count == 5 && (SplitHand.ActualValue < 21 || (SplitHand.HasAceEleven() && SplitHand.ActualValue <= 31))))
                 {
                     SplitHandOver = true;
                     CheckWinConditions();
@@ -673,55 +555,12 @@ namespace Sulimn.Views.Gambling
             DisplayHands();
         }
 
-        #region Display Manipulation
-
-        /// <summary>Displays the Player's Hand.</summary>
-        private void DisplayPlayerHand() => BindLabels();
-
-        private void BtnSplit_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void BtnDoubleDown_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void TxtInsurance_TextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
-
-        private void TxtInsurance_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void TxtInsurance_GotFocus(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void BtnConvertAceSplit_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void BtnDoubleDownSplit_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void BtnStaySplit_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void BtnHitSplit_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        #endregion Display Manipulation
-
         #region Button-Click Methods
 
         private void BtnConvertAce_Click(object sender, RoutedEventArgs e)
         {
             ConvertAce(MainHand);
-            DisplayMainHand();
+            BindLabels();
         }
 
         private void BtnReturn_Click(object sender, RoutedEventArgs e) => ClosePage();
@@ -729,27 +568,17 @@ namespace Sulimn.Views.Gambling
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             DealCard(MainHand);
-            _index++;
-            if (MainHand.CardList.Count < 5)
-                DisplayMainHand();
-            else
-            {
-                if (MainHand.TotalValue < 21 || (CheckHasAceEleven(MainHand) && MainHand.TotalValue <= 31))
-                {
-                    Functions.AddTextToTextBox(TxtBlackjack, "Five Card Charlie!");
-                    DisplayPlayerHand();
-                    WinBlackjack(MainBet);
-                }
-                else
-                    DisplayMainHand();
-            }
+            BtnSplit.IsEnabled = false;
+            TxtInsurance.IsEnabled = false;
+            BtnInsurance.IsEnabled = false;
+            CheckWinConditions();
         }
 
         private void BtnDealHand_Click(object sender, RoutedEventArgs e)
         {
             MainBet = Int32Helper.Parse(TxtBet.Text);
             if (MainBet > 0 && MainBet <= GameState.CurrentHero.Gold)
-                NewHand();
+                DealHand();
             else if (MainBet > GameState.CurrentHero.Gold)
                 GameState.DisplayNotification("You can't bet more gold than you have!", "Sulimn");
             else
@@ -759,7 +588,71 @@ namespace Sulimn.Views.Gambling
         private void BtnStay_Click(object sender, RoutedEventArgs e)
         {
             MainHandOver = true;
-            ToggleMainHandButtons(true);
+            ToggleMainHandButtons(false);
+            CheckWinConditions();
+        }
+
+        private void BtnSplit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameState.CurrentHero.Gold >= (MainBet * 2))
+            {
+                Functions.AddTextToTextBox(TxtBlackjack, "You split your hand.");
+                SplitBet = MainBet;
+                Card moveCard = new Card(MainHand.CardList[1]);
+                MainHand.CardList.RemoveAt(1);
+                SplitHand.AddCard(moveCard);
+                BtnSplit.IsEnabled = false;
+                PnlSplit.Visibility = Visibility.Visible;
+                SplitHandOver = false;
+                DealCard(MainHand);
+                DealCard(SplitHand);
+                CheckWinConditions();
+            }
+            else
+                Functions.AddTextToTextBox(TxtBlackjack, "You cannot afford to double your wager to split your hands.");
+        }
+
+        private void BtnDoubleDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameState.CurrentHero.Gold >= (MainBet * 2) + SplitBet + SidePot)
+            {
+                Functions.AddTextToTextBox(TxtBlackjack, "You double down on your main hand.");
+                MainBet *= 2;
+                DealCard(MainHand);
+                MainHandOver = true;
+                CheckWinConditions();
+            }
+            else
+                Functions.AddTextToTextBox(TxtBlackjack, "You cannot afford to double down this hand.");
+        }
+
+        private void BtnConvertAceSplit_Click(object sender, RoutedEventArgs e) => ConvertAce(SplitHand);
+
+        private void BtnDoubleDownSplit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameState.CurrentHero.Gold >= MainBet + (SplitBet * 2) + SidePot)
+            {
+                Functions.AddTextToTextBox(TxtBlackjack, "You double down on your split hand.");
+                SplitBet *= 2;
+                DealCard(SplitHand);
+                SplitHandOver = true;
+                ToggleSplitHandButtons(true);
+                CheckWinConditions();
+            }
+            else
+                Functions.AddTextToTextBox(TxtBlackjack, "You cannot afford to double down this hand.");
+        }
+
+        private void BtnStaySplit_Click(object sender, RoutedEventArgs e)
+        {
+            SplitHandOver = true;
+            ToggleSplitHandButtons(true);
+            CheckWinConditions();
+        }
+
+        private void BtnHitSplit_Click(object sender, RoutedEventArgs e)
+        {
+            DealCard(SplitHand);
             CheckWinConditions();
         }
 
@@ -797,6 +690,12 @@ namespace Sulimn.Views.Gambling
         {
             Functions.TextBoxTextChanged(sender, KeyType.Integers);
             BtnDealHand.IsEnabled = TxtBet.Text.Length > 0;
+        }
+
+        private void TxtInsurance_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Functions.TextBoxTextChanged(sender, KeyType.Integers);
+            BtnInsurance.IsEnabled = TxtInsurance.Text.Length > 0;
         }
 
         #endregion Page-Manipulation Methods

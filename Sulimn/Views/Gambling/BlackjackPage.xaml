@@ -15,58 +15,52 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Width="300">
-                <TextBlock Text="Main Hand" TextAlignment="Center" Margin="5" />
-                <ListBox x:Name="LstPlayer" ItemsSource="{Binding}" Margin="5" Height="200" />
-                <TextBlock x:Name="LblMainTotal" Text="{Binding Value}" TextAlignment="Center" Margin="5" />
-            </StackPanel>
-            <StackPanel Grid.Column="2" Width="300">
-                <TextBlock Text="Dealer's Cards" TextAlignment="Center" Margin="5" />
-                <ListBox x:Name="LstDealer" ItemsSource="{Binding}" Margin="5" Height="200" />
-                <TextBlock x:Name="LblDealerTotal" Text="{Binding Value}" TextAlignment="Center" Margin="5" />
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Margin="0,0,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" VerticalAlignment="Center" Width="200" Margin="27,0,0,0">
-                <Button x:Name="BtnHitSplit" Content="_Hit" Click="BtnHitSplit_Click"  IsEnabled="False" Margin="0,0,0,10" />
-                <Button x:Name="BtnStaySplit" Content="_Stay" Click="BtnStaySplit_Click"  IsEnabled="False" Margin="0,0,0,10" />
-                <Button x:Name="BtnConvertAceSplit" Content="_Convert Ace" Click="BtnConvertAceSplit_Click"  IsEnabled="False" Margin="0,0,0,10" />
+            <StackPanel x:Name="PnlSplit" Grid.Column="0" Width="300" Visibility="Hidden" Margin="0,0,100,10">
+                <TextBlock Text="Split Hand" TextAlignment="Center" Margin="0,0,0,10" />
+                <ListBox x:Name="LstSplit" ItemsSource="{Binding}" Margin="0,0,0,10" Height="225" />
+                <TextBlock x:Name="LblSplitTotal" Text="{Binding Value}" TextAlignment="Center" Margin="0,0,0,10" />
+                <Button x:Name="BtnHitSplit" Content="_Hit" Click="BtnHitSplit_Click" IsEnabled="False" Margin="0,0,0,10" />
+                <Button x:Name="BtnStaySplit" Content="_Stay" Click="BtnStaySplit_Click" IsEnabled="False" Margin="0,0,0,10" />
+                <Button x:Name="BtnConvertAceSplit" Content="_Convert Ace" Click="BtnConvertAceSplit_Click" IsEnabled="False" Margin="0,0,0,10" />
                 <Button x:Name="BtnDoubleDownSplit" Content="_Double Down" Click="BtnDoubleDownSplit_Click" IsEnabled="False" Margin="0,0,0,10" />
             </StackPanel>
-            <StackPanel Grid.Column="2" VerticalAlignment="Center" Width="200" Margin="27,0,0,0">
+            <StackPanel Grid.Column="1" Width="300" Margin="0,0,100,10">
+                <TextBlock Text="Main Hand" TextAlignment="Center" Margin="0,0,0,10" />
+                <ListBox x:Name="LstMain" ItemsSource="{Binding}" Margin="0,0,0,10" Height="225" />
+                <TextBlock x:Name="LblMainTotal" Text="{Binding Value}" TextAlignment="Center" Margin="0,0,0,10" />
                 <Button x:Name="BtnHit" Content="_Hit" Click="BtnHit_Click" IsEnabled="False" Margin="0,0,0,10" />
                 <Button x:Name="BtnStay" Content="_Stay" Click="BtnStay_Click" IsEnabled="False" Margin="0,0,0,10" />
                 <Button x:Name="BtnConvertAce" Content="_Convert Ace" Click="BtnConvertAce_Click" IsEnabled="False" Margin="0,0,0,10" />
                 <Button x:Name="BtnSplit" Content="S_plit" Click="BtnSplit_Click" IsEnabled="False" Margin="0,0,0,10" />
                 <Button x:Name="BtnDoubleDown" Content="_Double Down" Click="BtnDoubleDown_Click" IsEnabled="False" Margin="0,0,0,10" />
             </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
-                <TextBlock Text="Bet:" TextAlignment="Center" Margin="5" />
-                <TextBox x:Name="TxtBet" TextAlignment="Center" Margin="5" Width="200"                         PreviewKeyDown="TxtBet_PreviewKeyDown" TextChanged="TxtBet_TextChanged" MaxLength="6"                         GotFocus="TxtBet_GotFocus" />
-                <Button x:Name="BtnDealHand" Width="200" Content="_Deal Hand" Click="BtnDealHand_Click" Margin="5" IsEnabled="False" />
-                <TextBlock x:Name="LblGold" Text="{Binding GoldToStringWithText}" TextAlignment="Center" Margin="5" />
-            </StackPanel>
-            <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
-                <TextBlock Text="Insurance:" TextAlignment="Center" Margin="5" />
-                <TextBox x:Name="TxtInsurance" TextAlignment="Center" Margin="5" Width="200"                         PreviewKeyDown="TxtInsurance_PreviewKeyDown"  TextChanged="TxtInsurance_TextChanged"  MaxLength="6"                         GotFocus="TxtInsurance_GotFocus" />
-                <Button x:Name="BtnInsurance" Width="200" Content="_Insurance" Click="BtnDealHand_Click" Margin="5" IsEnabled="False" />
-                <TextBlock Margin="5" />
-            </StackPanel>
-            <StackPanel Grid.Column="3" HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBox x:Name="LblStatistics" Width="240" HorizontalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" Margin="0,0,0,10" />
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Dealer's Cards" Width="300" TextAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ListBox x:Name="LstDealer" Width="300" Height="225" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <TextBlock x:Name="LblDealerTotal" Text="{Binding Value}" Width="300" TextAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock Text="Bet:" TextAlignment="Center" Margin="0,0,0,10" />
+                        <TextBox x:Name="TxtBet" TextAlignment="Center" Margin="0,0,0,10" Width="200"       PreviewKeyDown="TxtBet_PreviewKeyDown" TextChanged="TxtBet_TextChanged" MaxLength="6"       GotFocus="TxtBet_GotFocus" />
+                        <Button x:Name="BtnDealHand" Width="200" Content="_Deal Hand" Click="BtnDealHand_Click" Margin="0,0,0,10" IsEnabled="False" />
+                        <TextBlock x:Name="LblGold" Text="{Binding GoldToStringWithText}" TextAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock Text="Insurance:" TextAlignment="Center" Margin="0,0,0,10" />
+                        <TextBox x:Name="TxtInsurance" TextAlignment="Center" Margin="0,0,0,10" Width="200" IsEnabled="False" PreviewKeyDown="TxtBet_PreviewKeyDown" TextChanged="TxtInsurance_TextChanged" MaxLength="6"       GotFocus="TxtBet_GotFocus" />
+                        <Button x:Name="BtnInsurance" Width="200" Content="_Insurance" Click="BtnDealHand_Click" Margin="0,0,0,10" IsEnabled="False" />
+                        <TextBlock />
+                    </StackPanel>
+                    <TextBox x:Name="LblStatistics" Width="240" HorizontalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" />
+                </StackPanel>
             </StackPanel>
         </Grid>
-        <TextBox Grid.Row="2" x:Name="TxtBlackjack" Width="800" Height="250" IsReadOnly="True"                      ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Margin="0,0,0,10" />
-        <Button x:Name="BtnReturn" Grid.Row="3" Width="200" Content="_Return" Click="BtnReturn_Click" Margin="5" IsCancel="True" />
+
+        <TextBox Grid.Row="2" x:Name="TxtBlackjack" Width="800" Height="250" IsReadOnly="True"    ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Margin="0,0,0,10" />
+        <Button x:Name="BtnReturn" Grid.Row="3" Width="200" Content="_Return" Click="BtnReturn_Click" Margin="0,0,0,10" IsCancel="True" />
     </Grid>
 </Page>

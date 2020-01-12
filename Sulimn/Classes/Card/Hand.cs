@@ -29,7 +29,7 @@ namespace Sulimn.Classes.Card
         /// <returns>Actual value</returns>
         internal int ActualValue => _cardList.Sum(card => card.Value);
 
-        /// <summary>Total value of <see cref="Card"/>s in <see cref="Hand"/>, exluding Hidden <see cref="Card"/>s.</summary>
+        /// <summary>Total value of <see cref="Card"/>s in <see cref="Hand"/>, excluding Hidden <see cref="Card"/>s.</summary>
         /// <returns>Total value</returns>
         internal int TotalValue => _cardList.Where(card => !card.Hidden).Sum(card => card.Value);
 
@@ -93,7 +93,7 @@ namespace Sulimn.Classes.Card
 
         /// <summary>Checks whether the current <see cref="Hand"/> has gone Bust.</summary>
         /// <returns>Returns true if <see cref="Hand"/> has gone Bust</returns>
-        internal bool IsBust() => !HasAceEleven() && TotalValue > 21;
+        internal bool IsBust() => !HasAceEleven() && ActualValue > 21;
 
         /// <summary>Updates the 3 important Properties of the Hand.</summary>
         private void UpdateProperties()
