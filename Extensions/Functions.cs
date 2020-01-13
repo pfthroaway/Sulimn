@@ -18,11 +18,17 @@ namespace Extensions
         /// <summary>Verifies that the requested file exists and that its file size is greater than zero. If not, it extracts the embedded file to the local output folder.</summary>
         /// <param name="resourceStream">Resource Stream from Assembly.GetExecutingAssembly().GetManifestResourceStream()</param>
         /// <param name="resourceName">Resource name</param>
-        public static void VerifyFileIntegrity(Stream resourceStream, string resourceName)
+        public static void VerifyFileIntegrity(Stream resourceStream, string resourceName) => VerifyFileIntegrity(resourceStream, resourceName, Directory.GetCurrentDirectory());
+
+        /// <summary>Verifies that the requested file exists and that its file size is greater than zero. If not, it extracts the embedded file to the local output folder.</summary>
+        /// <param name="resourceStream">Resource Stream from Assembly.GetExecutingAssembly().GetManifestResourceStream()</param>
+        /// <param name="resourceName">Resource name</param>
+        /// <param name="directory">Directory to be extracted to</param>
+        public static void VerifyFileIntegrity(Stream resourceStream, string resourceName, string directory)
         {
-            FileInfo fileInfo = new FileInfo(resourceName);
-            if (!File.Exists(resourceName) || fileInfo.Length == 0)
-                ExtractEmbeddedResource(resourceStream, resourceName);
+            FileInfo fileInfo = new FileInfo(Path.Combine(directory, resourceName));
+            if (!File.Exists(Path.Combine(directory, resourceName)) || fileInfo.Length == 0)
+                ExtractEmbeddedResource(resourceStream, resourceName, directory);
         }
 
         /// <summary>Extracts an embedded resource from a Stream.</summary>
