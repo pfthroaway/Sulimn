@@ -6,7 +6,7 @@ using Sulimn.Classes.Card;
 using Sulimn.Classes.Enums;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -71,8 +71,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalWins = value;
-                NotifyPropertyChanged(nameof(TotalWins));
-                NotifyPropertyChanged(nameof(Statistics));
+                NotifyPropertyChanged(nameof(TotalWins), nameof(Statistics));
             }
         }
 
@@ -83,8 +82,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalLosses = value;
-                NotifyPropertyChanged(nameof(TotalLosses));
-                NotifyPropertyChanged(nameof(Statistics));
+                NotifyPropertyChanged(nameof(TotalLosses), nameof(Statistics));
             }
         }
 
@@ -95,8 +93,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalDraws = value;
-                NotifyPropertyChanged(nameof(TotalDraws));
-                NotifyPropertyChanged(nameof(Statistics));
+                NotifyPropertyChanged(nameof(TotalDraws), nameof(Statistics));
             }
         }
 
@@ -107,8 +104,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalBetWinnings = value;
-                NotifyPropertyChanged(nameof(TotalBetWinnings));
-                NotifyPropertyChanged(nameof(Statistics));
+                NotifyPropertyChanged(nameof(TotalBetWinnings), nameof(Statistics));
             }
         }
 
@@ -119,8 +115,7 @@ namespace Sulimn.Views.Gambling
             set
             {
                 _totalBetLosses = value;
-                NotifyPropertyChanged(nameof(TotalBetLosses));
-                NotifyPropertyChanged(nameof(Statistics));
+                NotifyPropertyChanged(nameof(TotalBetLosses), nameof(Statistics));
             }
         }
 
@@ -152,9 +147,30 @@ namespace Sulimn.Views.Gambling
                     DealCard(DealerHand);
         }
 
-        #region Data-Binding
+        #region INotifyPropertyChanged Members
 
+        /// <summary>The event that is raised when a property that calls the NotifyPropertyChanged method is changed.</summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>Raises the PropertyChanged event alerting the WPF Framework to update the UI.</summary>
+        /// <param name="propertyNames">The names of the properties to update in the UI.</param>
+        protected void NotifyPropertyChanged(params string[] propertyNames)
+        {
+            if (PropertyChanged != null)
+            {
+                foreach (string propertyName in propertyNames)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+        }
+
+        /// <summary>Raises the PropertyChanged event alerting the WPF Framework to update the UI.</summary>
+        /// <param name="propertyName">The optional name of the property to update in the UI. If this is left blank, the name will be taken from the calling member via the CallerMemberName attribute.</param>
+        protected virtual void NotifyPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         /// <summary>Binds information to controls.</summary>
         private void BindLabels()
@@ -172,9 +188,7 @@ namespace Sulimn.Views.Gambling
             LblGold.DataContext = GameState.CurrentHero;
         }
 
-        protected void NotifyPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
-        #endregion Data-Binding
+        #endregion INotifyPropertyChanged Members
 
         #region Check Logic
 

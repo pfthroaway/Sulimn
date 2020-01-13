@@ -49,8 +49,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _type = value;
-                NotifyPropertyChanged(nameof(Type));
-                NotifyPropertyChanged(nameof(TypeAmount));
+                NotifyPropertyChanged(nameof(Type), nameof(TypeAmount));
             }
         }
 
@@ -74,8 +73,7 @@ namespace Sulimn.Classes.HeroParts
             set
             {
                 _amount = value;
-                NotifyPropertyChanged(nameof(Amount));
-                NotifyPropertyChanged(nameof(TypeAmount));
+                NotifyPropertyChanged(nameof(Amount), nameof(TypeAmount));
             }
         }
 

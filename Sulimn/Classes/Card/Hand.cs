@@ -96,14 +96,7 @@ namespace Sulimn.Classes.Card
         internal bool IsBust() => !HasAceEleven() && ActualValue > 21;
 
         /// <summary>Updates the 3 important Properties of the Hand.</summary>
-        private void UpdateProperties()
-        {
-            NotifyPropertyChanged(nameof(ActualValue));
-            NotifyPropertyChanged(nameof(CardList));
-            NotifyPropertyChanged(nameof(Count));
-            NotifyPropertyChanged(nameof(TotalValue));
-            NotifyPropertyChanged(nameof(Value));
-        }
+        private void UpdateProperties() => NotifyPropertyChanged(nameof(ActualValue), nameof(CardList), nameof(Count), nameof(TotalValue), nameof(Value));
 
         #endregion Hand Management
 
