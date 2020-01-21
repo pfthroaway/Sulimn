@@ -11,6 +11,7 @@ namespace Sulimn.Views.Exploration
     /// <summary>Interaction logic for CityPage.xaml</summary>
     public partial class CityPage
     {
+        /// <summary>Is a newly created <see cref="Hero"/> logging in for the first time?</summary>
         internal bool NewHero { get; set; }
 
         #region Button-Click Methods
