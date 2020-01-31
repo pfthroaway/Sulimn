@@ -6,7 +6,7 @@ namespace ExtensionsCore.DataTypeHelpers
     public static class ULongHelper
     {
         /// <summary>Utilizes ulong.TryParse to easily parse an Integer.</summary>
-        /// <param name="obj">Object to be parsed</param>
+        /// <param name="value">Object to be parsed</param>
         /// <returns>Parsed integer</returns>
         public static ulong Parse(object value) => Parse(value.ToString());
 

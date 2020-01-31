@@ -13,7 +13,7 @@ namespace Extensions.DataTypeHelpers
         public static bool Parse(int num) => num != 0;
 
         /// <summary>Utilizes Convert.ToBoolean to easily parse a Boolean.</summary>
-        /// <param name="obj">Object to be parsed</param>
+        /// <param name="value">Object to be parsed</param>
         /// <returns>Parsed Boolean</returns>
         public static bool Parse(object value)
         {

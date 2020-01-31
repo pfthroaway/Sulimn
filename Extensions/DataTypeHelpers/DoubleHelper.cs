@@ -6,7 +6,7 @@ namespace Extensions.DataTypeHelpers
     public static class DoubleHelper
     {
         /// <summary>Utilizes double.TryParse to easily parse a Double.</summary>
-        /// <param name="obj">Object to be parsed</param>
+        /// <param name="value">Object to be parsed</param>
         /// <returns>Parsed Double</returns>
         public static double Parse(object value) => Parse(value.ToString());
 

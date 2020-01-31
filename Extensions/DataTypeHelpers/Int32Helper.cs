@@ -69,7 +69,7 @@ namespace Extensions.DataTypeHelpers
         }
 
         /// <summary>Utilizes int.TryParse to easily parse an Integer.</summary>
-        /// <param name="obj">Object to be parsed</param>
+        /// <param name="value">Object to be parsed</param>
         /// <returns>Parsed integer</returns>
         public static int Parse(object value) => Parse(value.ToString());
 
