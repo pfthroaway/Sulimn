@@ -57,7 +57,7 @@ namespace Sulimn.Classes.Card
 
         /// <summary>Checks whether the <see cref="Hand"/> can be Doubled Down.</summary>
         /// <returns>Returns true if <see cref="Hand"/> can be Doubled Down</returns>
-        internal bool CanDoubleDown() => CardList.Count == 2 && TotalValue >= 9 && TotalValue <= 11;
+        internal bool CanDoubleDown() => CardList.Count == 2 && ActualValue >= 9 && ActualValue <= 11;
 
         /// <summary>Clears the Hidden state of all <see cref="Card"/>s in the <see cref="Hand"/>.</summary>
         internal void ClearHidden()
@@ -85,11 +85,11 @@ namespace Sulimn.Classes.Card
 
         /// <summary>Checks whether a <see cref="Hand"/> has reached Blackjack.</summary>
         /// <returns>Returns true if the <see cref="Hand"/>'s value is 21</returns>
-        internal bool HasBlackjack() => TotalValue == 21;
+        internal bool HasBlackjack() => ActualValue == 21;
 
         /// <summary>Checks whether the <see cref="Hand"/> has a Five Card Charlie.</summary>
         /// <returns>Returns true if the <see cref="Hand"/> has a Five Card Charlie</returns>
-        internal bool HasFiveCardCharlie() => Count == 5 && (TotalValue < 21 || (HasAceEleven() && TotalValue <= 31));
+        internal bool HasFiveCardCharlie() => Count == 5 && (ActualValue < 21 || (HasAceEleven() && ActualValue <= 31));
 
         /// <summary>Checks whether the current <see cref="Hand"/> has gone Bust.</summary>
         /// <returns>Returns true if <see cref="Hand"/> has gone Bust</returns>

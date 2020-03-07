@@ -145,6 +145,7 @@ namespace Sulimn.Views.Gambling
                 }
                 else
                     DealCard(DealerHand);
+            DealerHand.ClearHidden();
         }
 
         #region INotifyPropertyChanged Members
@@ -224,7 +225,7 @@ namespace Sulimn.Views.Gambling
             ToggleMainHandButtons(MainHand.ActualValue < 21 && !MainHandOver);
             BtnConvertAce.IsEnabled = MainHand.HasAceEleven();
             ToggleSplitHandButtons(SplitHand.ActualValue < 21 && !SplitHandOver);
-            BtnConvertAceSplit.IsEnabled = SplitHand.HasAceEleven();
+            BtnConvertAceSplit.IsEnabled = SplitHand.HasAceEleven() && !SplitHandOver;
         }
 
         /// <summary>Disables all the buttons on the Page except for BtnDealHand.</summary>
@@ -490,7 +491,7 @@ namespace Sulimn.Views.Gambling
                     Functions.AddTextToTextBox(TxtBlackjack, "Your main hand is 21!" + WinBlackjack(MainBet));
                 else if (MainHand.HasFiveCardCharlie())
                 {
-                    if (!DealerHand.HasBlackjack())
+                    if (!DealerHand.HasBlackjack() || DealerHand.Count != 2)
                     {
                         Functions.AddTextToTextBox(TxtBlackjack, "Your main hand is a Five Card Charlie!" + WinBlackjack(MainBet));
                     }
@@ -524,7 +525,7 @@ namespace Sulimn.Views.Gambling
                         Functions.AddTextToTextBox(TxtBlackjack, "Your split hand is 21!" + WinBlackjack(SplitBet));
                     else if (SplitHand.HasFiveCardCharlie())
                     {
-                        if (!DealerHand.HasBlackjack())
+                        if (!DealerHand.HasBlackjack() || DealerHand.Count != 2)
                         {
                             Functions.AddTextToTextBox(TxtBlackjack, "Your split hand is a Five Card Charlie!" + WinBlackjack(SplitBet));
                         }
@@ -545,7 +546,8 @@ namespace Sulimn.Views.Gambling
                 else if (SidePot > 0)
                     Functions.AddTextToTextBox(TxtBlackjack, "Your insurance didn't pay off." + LoseBlackjack(SidePot));
             }
-            else if (!MainHandOver)
+
+            if (!MainHandOver)
             {
                 if (MainHand.HasBlackjack() || MainHand.IsBust() || (MainHand.Count == 5 && (MainHand.ActualValue < 21 || (MainHand.HasAceEleven() && MainHand.ActualValue <= 31))))
                 {
@@ -555,7 +557,8 @@ namespace Sulimn.Views.Gambling
                 else
                     CheckButtons();
             }
-            else if (!SplitHandOver)
+
+            if (!SplitHandOver)
             {
                 if (SplitHand.HasBlackjack() || SplitHand.IsBust() || (SplitHand.Count == 5 && (SplitHand.ActualValue < 21 || (SplitHand.HasAceEleven() && SplitHand.ActualValue <= 31))))
                 {
