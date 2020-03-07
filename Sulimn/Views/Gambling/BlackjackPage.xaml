@@ -52,14 +52,13 @@
                     <StackPanel Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
                         <TextBlock Text="Insurance:" TextAlignment="Center" Margin="0,0,0,10" />
                         <TextBox x:Name="TxtInsurance" TextAlignment="Center" Margin="0,0,0,10" Width="200" IsEnabled="False" PreviewKeyDown="TxtBet_PreviewKeyDown" TextChanged="TxtInsurance_TextChanged" MaxLength="6"       GotFocus="TxtBet_GotFocus" />
-                        <Button x:Name="BtnInsurance" Width="200" Content="_Insurance" Click="BtnDealHand_Click" Margin="0,0,0,10" IsEnabled="False" />
+                        <Button x:Name="BtnInsurance" Width="200" Content="_Insurance" Click="BtnInsurance_Click" Margin="0,0,0,10" IsEnabled="False" />
                         <TextBlock />
                     </StackPanel>
                     <TextBox x:Name="LblStatistics" Width="240" HorizontalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" />
                 </StackPanel>
             </StackPanel>
         </Grid>
-
         <TextBox Grid.Row="2" x:Name="TxtBlackjack" Width="800" Height="250" IsReadOnly="True"    ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Margin="0,0,0,10" />
         <Button x:Name="BtnReturn" Grid.Row="3" Width="200" Content="_Return" Click="BtnReturn_Click" Margin="0,0,0,10" IsCancel="True" />
     </Grid>

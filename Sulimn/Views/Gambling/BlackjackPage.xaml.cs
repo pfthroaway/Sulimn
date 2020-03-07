@@ -640,6 +640,19 @@ namespace Sulimn.Views.Gambling
                 Functions.AddTextToTextBox(TxtBlackjack, "You cannot afford to double down this hand.");
         }
 
+        private void BtnInsurance_Click(object sender, RoutedEventArgs e)
+        {
+            int sidePot = Int32Helper.Parse(TxtInsurance.Text);
+
+            if (sidePot <= MainBet / 2 && GameState.CurrentHero.Gold >= MainBet + SplitBet + sidePot)
+            {
+                SidePot = sidePot;
+                ToggleInsurance(false);
+            }
+            else
+                GameState.DisplayNotification("Your insurance bet must be less than or equal to half your main bet.", "Blackjack");
+        }
+
         private void BtnConvertAceSplit_Click(object sender, RoutedEventArgs e) => ConvertAce(SplitHand);
 
         private void BtnDoubleDownSplit_Click(object sender, RoutedEventArgs e)
