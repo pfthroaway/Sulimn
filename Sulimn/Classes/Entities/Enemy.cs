@@ -28,7 +28,7 @@ namespace Sulimn.Classes.Entities
             if (Statistics.CurrentHealth > Statistics.MaximumHealth)
             {
                 Statistics.CurrentHealth = Statistics.MaximumHealth;
-                return "The {Name} to its maximum health.";
+                return $"The {Name} to its maximum health.";
             }
             return $"The {Name} heals for {healAmount:N0} health.";
         }
